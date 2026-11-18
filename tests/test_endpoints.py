@@ -21,7 +21,9 @@ def test_uuid_replaced():
 
 def test_short_hex_kept():
     # 7 hex chars is below the 8+ threshold: it is a name, not an id
-    assert endpoint(s("GET", "/rest/deadbeef")) == "GET /rest/deadbeef"
+    assert endpoint(s("GET", "/rest/deadbee")) == "GET /rest/deadbee"
+    # exactly 8 hex chars IS replaced
+    assert endpoint(s("GET", "/rest/deadbeef")) == "GET /rest/{id}"
 
 
 def test_query_excluded():
