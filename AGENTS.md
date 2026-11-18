@@ -72,3 +72,11 @@
 24. Relabel. A rule that fires on most requests because the corpus
     exercises something the config forbids is a CONFIG-MISMATCH signal,
     not a harness artifact. Use that label in rule 18 reports from now on.
+25. External data. Record licence and source commit/URL before use; commit
+    only what the licence allows (otherwise commit a fetch script plus a
+    SHA-256 of each source file). Never commit credentials, tokens or
+    personal data found in external traffic; report any you find (type and
+    count only).
+26. Label audit. For any dataset labelled by someone else, manually read a
+    seeded random sample of 100 requests per label and report how many look
+    mislabelled (with ids). Label the result an audit of 100, not a proof.
