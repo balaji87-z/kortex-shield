@@ -62,7 +62,8 @@ def send_one(
     block_marker: re.Pattern[str] | None,
 ) -> dict:
     """Send one sample verbatim. Returns a responses.jsonl row."""
-    row = {"id": sample.id, "status": None, "elapsed_ms": None, "blocked": False, "error": None}
+    row = {"id": sample.id, "status": None, "elapsed_ms": None, "blocked": False,
+           "body_marker": False, "error": None}
     start = time.monotonic()
     conn: http.client.HTTPConnection | None = None
     try:
@@ -84,7 +85,9 @@ def send_one(
         body = resp.read()
         row["status"] = resp.status
         row["elapsed_ms"] = round((time.monotonic() - start) * 1000, 1)
-        if resp.status == block_status and (block_marker is None or block_marker.search(body.decode("utf-8", "replace"))):
+        marker_hit = bool(block_marker and block_marker.search(body.decode("utf-8", "replace")))
+        row["body_marker"] = marker_hit
+        if resp.status == block_status and (block_marker is None or marker_hit):
             row["blocked"] = True
     except (socket.timeout, TimeoutError):
         row["error"] = "timeout"
