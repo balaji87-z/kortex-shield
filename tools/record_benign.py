@@ -32,6 +32,10 @@ exactly as it did for v0):
                     Always writes <out-dir>/sessions.jsonl mapping each
                     sample id to the sorted session indices that produced
                     it (dedupe must not erase the session dimension).
+  --log PATH        per-session step report + raw captured count are
+                    written here (default: docs/logs/record_benign.log,
+                    appended with a run header; AGENTS rule 23: recording
+                    evidence must live in a committed path, never /tmp).
 """
 from __future__ import annotations
 
@@ -400,6 +404,23 @@ def build_session_map(captured: list[dict], samples: list[dict]) -> list[dict]:
             for sid in sorted(sessions)]
 
 
+def write_run_log(log_path, header: str, reports: list[dict], raw_count: int) -> None:
+    """Append the per-session step report and raw captured count to log_path.
+
+    Rule 23: recording evidence lives in a committed path (docs/logs/),
+    never /tmp.
+    """
+    p = Path(log_path)
+    p.parent.mkdir(parents=True, exist_ok=True)
+    failed = [r for r in reports if any("FAILED" in s for s in r["steps"])]
+    with open(p, "a", encoding="utf-8") as fh:
+        fh.write(f"==== {header} ===\n")
+        fh.write(f"sessions: {len(reports)}, sessions with failed steps: {len(failed)}\n")
+        for r in reports:
+            fh.write(f"  session {r['session']}: {', '.join(r['steps'])}\n")
+        fh.write(f"raw captured requests: {raw_count}\n")
+
+
 def main() -> int:
     ap = argparse.ArgumentParser(description="Record benign browsing sessions via Playwright.")
     ap.add_argument("--base-url", default="http://localhost:13000")
@@ -410,6 +431,9 @@ def main() -> int:
                     help="enable v1 flows (review edit, basket qty/remove, language, logout+login) "
                          "and dismiss the cookie banner; also writes sessions.jsonl")
     ap.add_argument("--out", default="data/benign-browse-v0/candidates.jsonl")
+    ap.add_argument("--log", default="docs/logs/record_benign.log",
+                    help="per-session step report + raw captured count "
+                         "(rule 23: committed path, never /tmp)")
     ap.add_argument("--headless", default="true")
     args = ap.parse_args()
 
@@ -443,9 +467,15 @@ def main() -> int:
         browser.close()
 
     failed = [r for r in reports if any("FAILED" in s for s in r["steps"])]
-    print(f"sessions: {len(reports)}, sessions with failed steps: {len(failed)}", file=sys.stderr)
+    summary = f"sessions: {len(reports)}, sessions with failed steps: {len(failed)}"
+    print(summary, file=sys.stderr)
     for r in reports:
         print(f"  session {r['session']}: {', '.join(r['steps'])}", file=sys.stderr)
+    # rule 23: the step report and raw count go to a committed path
+    header = (f"record_benign run {__import__('datetime').datetime.utcnow().isoformat()}Z "
+              f"base_url={args.base_url} sessions={args.sessions} "
+              f"start_index={args.start_index} extra_flows={args.extra_flows}")
+    write_run_log(args.log, header, reports, len(recorder.captured))
 
     # convert to samples; dedupe by content hash; report counts
     before = len(recorder.captured)
