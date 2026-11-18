@@ -184,3 +184,15 @@ blocked by 920420 when they occur. This is a limitation of the CRS config
 mechanism, not a tuning choice. Lists: docs/logs/wcp-heldout-policy.json
 (includes the full excluded-type list with counts) and
 docs/logs/wcp-heldout-policy.txt.
+
+### Second revision (still before any wcp-train run): single-token types only
+
+A second start attempt with comma-free but semicolon-containing tokens
+(`application/json;charset=UTF-8`) also failed: nginx emerg at the same
+rule, break point immediately after `charset` — seclang terminates the
+`setvar:'...'` value at `;` as well as `,`. Final definition:
+`crs-policy-wcp-train` = default UNION the 13 single-token TRAIN-observed
+content types (no whitespace, comma or semicolon) + method PATCH.
+94 recorded multi-part types (1,578 TRAIN requests) are not representable
+in the CRS mechanism; they stay NOT-allowed and are blocked by 920420.
+Full excluded list with counts: docs/logs/wcp-heldout-policy.json.
