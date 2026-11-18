@@ -44,3 +44,11 @@
 15. Scenario counts: always report distinct requests AND distinct payloads (for
     attacks) or distinct endpoints (for benign). A payload sent at two injection
     points is two requests but one payload.
+16. Unchanged-result check. If a result is identical under two conditions that
+    should differ (for example paranoia levels), treat the condition as unproven
+    until it is shown to take effect, with raw evidence from the running
+    container.
+17. Config changes are documented BEFORE they are run: what, why, and the
+    documentation URL, in docs/baseline-config.md. Never change a frozen dataset
+    in response to a result. No rule-specific exclusions (SecRuleRemoveById,
+    ctl:ruleRemove*) unless a step explicitly allows them.
