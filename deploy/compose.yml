@@ -15,22 +15,25 @@
 
 services:
   target:
-    image: bkimminich/juice-shop          # VERIFY: image name and tag
+    image: bkimminich/juice-shop:v20.4.0  # https://hub.docker.com/r/bkimminich/juice-shop/tags (tag v20.4.0)
     expose:
       - "3000"
     ports:
       - "3000:3000"                       # direct access, for the "no WAF" control run
 
   baseline-crs:
-    image: owasp/modsecurity-crs:nginx    # VERIFY: image name, tag and the variables below
+    image: owasp/modsecurity-crs:4.25.2-nginx-lts  # https://hub.docker.com/r/owasp/modsecurity-crs/tags (tag 4.25.2-nginx-lts)
     depends_on:
       - target
     environment:
-      BACKEND: "http://target:3000"       # VERIFY variable name
+      # Env var names verified against:
+      #   https://github.com/coreruleset/modsecurity-crs-docker#common-env-variables (BACKEND, PARANOIA, MODSEC_RULE_ENGINE, PORT)
+      #   https://github.com/coreruleset/modsecurity-crs-docker/blob/main/src/etc/modsecurity.d/modsecurity.conf (SecRuleEngine ${MODSEC_RULE_ENGINE})
+      BACKEND: "http://target:3000"       # backend URL (README: "Partial URL for the remote server")
       PARANOIA: "1"                       # run 1, then 2, as separate labelled runs
-      MODSEC_RULE_ENGINE: "DetectionOnly" # VERIFY; DetectionOnly logs without blocking
+      MODSEC_RULE_ENGINE: "DetectionOnly" # DetectionOnly logs without blocking
     ports:
-      - "8081:8080"                       # VERIFY the container's listen port
+      - "8081:8080"                       # container listens on PORT, default 8080 (README: Server and Port Configuration)
 
   # Added in a later phase, once the harness has recorded baseline numbers:
   # kortex-proxy:  Coraza-based engine, same CRS version, same target.
