@@ -50,12 +50,19 @@ probe on Juice Shop v20.4.0):
     again with the same seeded credentials (drives logout + a second login
     POST in the same session).
 
-Not drivable, listed with reason:
+Not drivable, listed with reason (deviation recorded 2026-11-18, after the
+first recording attempt):
 
 - **theme switch** — Juice Shop v20.4.0 ships no theme toggle in its UI;
   the step-07 probe enumerated all `button[aria-label]` controls on the
   home page and found no theme control. No synthetic API calls are made to
   substitute for it (the recorder only keeps what the real UI sends).
+- **language switch** — the plan originally listed this as drivable, but
+  two recording-probe attempts found that the `Language selection menu`
+  button, while clickable, never renders its menu items into the overlay
+  under Playwright in this environment (`.cdk-overlay-container` stays
+  empty; `mat-menu-item` count 0). The flow was therefore removed from the
+  driver before the final recording; no v1 session performs it.
 
 ## Dedupe and the session dimension
 

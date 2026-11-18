@@ -174,8 +174,8 @@ def _open_product_dialog(page, index):
 def _edit_review(page, sentence, report):
     """Edit the just-posted review via its Edit Review button."""
     try:
-        page.get_by_role("button", name="Edit Review").first.click(timeout=4000)
-        page.wait_for_timeout(800)
+        page.locator("button[aria-label='Edit Review']").first.click(timeout=8000)
+        page.wait_for_timeout(1000)
         ta = page.query_selector("mat-dialog-container textarea") or page.query_selector("textarea")
         if not (ta and ta.is_visible()):
             report["steps"].append("review-edit FAILED: textarea not visible")
@@ -219,43 +219,21 @@ def _basket_item_removal(page, report):
 
 
 def _language_switch(page, base_url, report):
-    """Switch language away from English and back (GET /assets/i18n/*)."""
-    try:
-        page.goto(base_url + "/", wait_until="domcontentloaded", timeout=30000)
-        page.wait_for_timeout(800)
-        page.get_by_role("button", name="Language selection menu").click(timeout=4000)
-        page.wait_for_timeout(600)
-        items = page.query_selector_all("button[role='menuitem'], .mat-menu-content button")
-        target = None
-        for it in items:
-            if it.text_content().strip() not in ("English", "", None) and "English" not in it.text_content():
-                target = it
-                break
-        if not target:
-            report["steps"].append("language FAILED: no non-English menu item")
-            return
-        target.click()
-        page.wait_for_timeout(1200)
-        # switch back to English
-        page.get_by_role("button", name="Language selection menu").click(timeout=4000)
-        page.wait_for_timeout(600)
-        for it in page.query_selector_all("button[role='menuitem'], .mat-menu-content button"):
-            if "English" in (it.text_content() or ""):
-                it.click()
-                break
-        page.wait_for_timeout(1000)
-        report["steps"].append("language-switch")
-    except Exception as exc:
-        report["steps"].append(f"language FAILED: {exc.__class__.__name__}")
+    """UNREACHABLE in practice: kept for reference only, never called.
+
+    Two step-07 probe attempts found the language menu button but its menu
+    items never rendered into the overlay under Playwright, so this flow is
+    NOT part of v1 (documented as not drivable in docs/plan-benign-v1.md).
+    """
 
 
 def _logout_and_login(page, base_url, email, password, report):
     """Log out via the account menu, then log in again with the same user."""
     try:
         page.get_by_role("button", name="Show/hide account menu").click(timeout=4000)
-        page.wait_for_timeout(600)
-        page.get_by_role("button", name="Log out").first.click(timeout=4000)
-        page.wait_for_timeout(1200)
+        page.wait_for_timeout(800)
+        page.get_by_role("button", name="Logout").first.click(timeout=6000)
+        page.wait_for_timeout(1500)
         report["steps"].append("logout")
     except Exception as exc:
         report["steps"].append(f"logout FAILED: {exc.__class__.__name__}")
@@ -395,7 +373,6 @@ def run_session(page, recorder: Recorder, index: int, base_url: str,
         _edit_review(page, sentence, report)
         _basket_quantity_change(page, report)
         _basket_item_removal(page, report)
-        _language_switch(page, base_url, report)
         _logout_and_login(page, base_url, email, password, report)
 
     return report
