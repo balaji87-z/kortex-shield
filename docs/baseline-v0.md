@@ -1,5 +1,9 @@
 # CRS baseline v0 — first full false-positive baseline
 
+> see v0.1: docs/baseline-v0.1.md (paranoia verified, policy/detection split,
+> policy-aligned config; the numbers below are unchanged and still valid for
+> the crs-default config at effective blocking PL1).
+
 Engine **On** (blocking), OWASP CRS 4.25.2-nginx-lts (`owasp/modsecurity-crs:4.25.2-nginx-lts`),
 Juice Shop v20.4.0 target. Rule 13 hygiene on every run: container force-recreated,
 runner `--workers 1`, one run per log capture. Frozen dataset SHA-256s recorded in
