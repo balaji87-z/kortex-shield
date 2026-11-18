@@ -117,6 +117,38 @@ slowly (new endpoints stopped after session 5).
 - The attack corpus still exercises no PUT/DELETE or text/plain, so
   unchanged attack recall under aligned config remains by construction.
 
+## Corrections and relabels (2026-11-18, step-08 T3)
+
+1. **911100 is a CONFIG-MISMATCH signal, not a harness artifact (rule
+   24).** In the rule-18 section above, 911100 (35–36% of audit entries in
+   the crs-default runs) was labelled a harness artifact of the v1 flows.
+   Under rule 24 the correct label is CONFIG-MISMATCH: the corpus
+   legitimately exercises PUT and DELETE (normal user actions), and the
+   crs-default method policy forbids them. The rule fires on most requests
+   because the config forbids what benign users do. crs-policy-aligned-v2
+   (docs/baseline-config.md) is the config-side response.
+2. **950100 frequency is a stateful-replay artifact, and the earlier
+   description of it was wrong.** The step-07 text said 950100 (28% of
+   audit entries, aligned PL2) was "the outbound-threshold rule firing on
+   3 review-edit PUTs". Verified in the image:
+   `RESPONSE-950-DATA-LEAKAGES.conf` line 152, id 950100 = "The Application
+   Returned a 500-Level Status Code" (phase 3, PL2+). It fires on any 5xx
+   response. In the v1 runs, 84–90 basket requests (PUT /api/BasketItems,
+   POST /api/BasketItems) receive 5xx from Juice Shop because the recorded
+   basket-item ids and auth tokens do not exist in the freshly created
+   container — a replay artifact of stateful requests, not a WAF or config
+   effect. All of them are `waf_pass` (the 5xx passes; no outbound cut),
+   so no FP rate is affected. DELETE /api/BasketItems replays as 404 (28)
+   or 200 (2) for the same reason.
+3. **60/60 sessions with ≥1 blocked request reflects shared flows, not
+   user-level failure.** Every session shares the same app-generated
+   background requests (e.g. `/rest/user/whoami` polling, socket.io), so a
+   single blocked endpoint that the app requests from every session makes
+   the per-session fraction 100% even when the blocked user actions are
+   few. The per-session rate therefore measures corpus construction, not
+   how many users would be blocked; read it alongside the per-endpoint
+   table.
+
 ## Limitations
 
 1. The final recording's raw captured-request count was lost with the
