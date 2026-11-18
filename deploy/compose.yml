@@ -52,6 +52,9 @@ services:
       # Step-05 T4: policy-aligned config knobs; empty/undefined = image default.
       ALLOWED_METHODS: "${ALLOWED_METHODS:-}"
       ALLOWED_REQUEST_CONTENT_TYPE: "${ALLOWED_REQUEST_CONTENT_TYPE:-}"
+    volumes:
+      # Step-09: audit-log capture change (docs/baseline-config.md)
+      - ./modsecurity-override.conf:/etc/modsecurity.d/modsecurity-override.conf:ro
     ports:
       - "${BASELINE_PORT:-8081}:8080"     # container listens on PORT, default 8080 (README: Server and Port Configuration)
 
@@ -68,3 +71,7 @@ services:
 
   # Added in a later phase, once the harness has recorded baseline numbers:
   # kortex-proxy:  Coraza-based engine, same CRS version, same target.
+
+# Step-09: audit-log capture change — see docs/baseline-config.md. Mount an
+# override that routes the ModSecurity audit log to a file inside the
+# container so captures are not corrupted by interleaved stdout writes.

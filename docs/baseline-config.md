@@ -106,3 +106,28 @@ contains no DELETE); results on benign-browse-v1 are IN-SAMPLE for the
 DELETE decision (derived from v1). **No out-of-sample estimate exists for
 this config yet** — that will require a future recording (v2) the config
 has never seen.
+
+## Step-09: audit-log capture change (2026-11-18)
+
+**What:** Mount a `modsecurity-override.conf` setting `SecAuditLog` to a file
+inside the container (`/var/log/modsecurity/audit/audit.log`) instead of
+`/dev/stdout`, and copy that file out after each run instead of using
+`docker logs`.
+
+**Why:** With `SecAuditLog /dev/stdout` (Serial type), large audit entries
+(those containing request bodies) exceed pipe-atomic-write limits and
+interleave with nginx error-log lines (which also contain raw multi-line
+request bodies). This produced unparseable `{"transaction"` lines in
+`docker logs` captures (step-05/06/07 captures were smaller-bodied and
+unaffected; the WCP corpus with large bodies hit it repeatedly). Writing the
+audit log to a dedicated file inside the container eliminates interleaving;
+`docker cp` retrieves it cleanly after the run.
+
+**Reference:** https://github.com/coreruleset/modsecurity-crs-docker —
+custom configuration via mounting into `/etc/modsecurity.d/`
+(`modsecurity-override.conf` is included after `modsecurity.conf` via
+`setup.conf`). ModSecurity directive reference:
+https://github.com/owasp-modsecurity/ModSecurity/wiki/Reference-Manual-%28v2.x%29#secauditlog
+
+**Scope:** Capture mechanism only. No CRS rules, no paranoia levels, no
+engine settings are changed by this.
