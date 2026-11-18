@@ -1,0 +1,22 @@
+Audit-log experiment (step-02 T4, engine modes as noted, each request carried
+X-Kortex-Sample-Id so entries are attributable; full log captures in
+reports/step-02.md):
+
+| request                              | engine        | status | rules matched | audit entry? |
+|--------------------------------------|---------------|--------|---------------|--------------|
+| /ftp/definitely-not-real.md (clean)  | On            | 404    | none          | NO           |
+| XSS search                           | On            | 403    | yes (941xxx)  | YES          |
+| XSS search                           | DetectionOnly | 200    | yes (941xxx)  | YES          |
+| /ftp/definitely-not-real.md?q=<script> | DetectionOnly | 404  | yes (941xxx)  | YES          |
+| /rest/product/1/reviews (clean)      | DetectionOnly | 500    | none          | YES          |
+
+Actual rule for what gets audited (MODSEC_AUDIT_ENGINE=RelevantOnly):
+a transaction is audited iff it matched at least one CRS rule (regardless of
+the final status, even 200 in DetectionOnly) OR its response status matches
+SecAuditLogRelevantStatus (4xx except 404, and 5xx). A clean 404 with no rule
+match satisfies neither condition and is not audited. A clean 404 is the one
+relevant-status that is excluded; 500s are audited even with zero messages.
+
+Note: docker compose recreates the container on engine-mode changes and the
+new container starts with an empty log, so logs must be captured per mode
+before switching.
