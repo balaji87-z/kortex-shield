@@ -45,3 +45,31 @@ NOT blocked; a CRS 403 counts as blocked.
   unchanged and produces the genuine target-own 403 used here.
 - The marker is baseline-specific. For a different engine (e.g. our future
   Coraza proxy) the marker must be re-verified; the CLI exposes it as a flag.
+
+## Outcome `waf_block_outbound` (added step-06 T3, written BEFORE analysis)
+
+A distinct outcome for responses the WAF cut mid-stream while blocking the
+OUTBOUND side. Definition (all three must hold; checked only when the runner
+row would otherwise be classified `error`):
+
+1. the response errored with an incomplete read or connection reset
+   (error string starts with `http_error: IncompleteRead` or contains
+   `ConnectionReset` / `RemoteDisconnected`);
+2. the sample's audit entry contains rule `959100`
+   ("Outbound Anomaly Score Exceeded", RESPONSE-959-BLOCKING-EVALUATION.conf);
+3. the inbound score is below the threshold (`inbound_score_from_949110`
+   is None or < the run's `--threshold`).
+
+Rationale: in these cases the request reached the engine, the inbound side
+did NOT block (score below threshold), but the outbound evaluation blocked
+and truncated the response, so the runner could not read a complete response.
+This is a WAF block on the outbound side — it must not be counted as a pass,
+and it is also not a plain `error` (the cause is identified).
+
+Existing outcomes are unchanged: the check runs only on rows that would
+otherwise be `error`, and every other classification path is untouched.
+
+Rule 20 reporting for rates that include this outcome: the **inbound-only**
+rate counts `waf_block_outbound` as NOT flagged; the **including-outbound**
+rate counts it as flagged. Best case = errors not flagged; worst case =
+errors flagged (any remaining `error` rows).
