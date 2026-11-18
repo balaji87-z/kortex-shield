@@ -1,0 +1,36 @@
+# Baseline testbed: a vulnerable target behind the OWASP CRS container.
+#
+# STATUS: syntax-checked only. NOT yet run. Image names and environment variable
+# names below come from memory of the upstream projects and must be checked
+# against each image's documentation before the first run.
+#
+# Purpose: produce the ModSecurity + CRS baseline numbers that every later
+# result is compared against. This is a baseline, not the engine we will ship:
+# the CRS project documents ModSecurity v3 as failing 2-4% of CRS unit tests,
+# while Coraza passes the CRS v4 suite.
+#
+#   docker compose -f deploy/compose.yml up
+#   target directly:   http://localhost:3000
+#   through baseline:  http://localhost:8081
+
+services:
+  target:
+    image: bkimminich/juice-shop          # VERIFY: image name and tag
+    expose:
+      - "3000"
+    ports:
+      - "3000:3000"                       # direct access, for the "no WAF" control run
+
+  baseline-crs:
+    image: owasp/modsecurity-crs:nginx    # VERIFY: image name, tag and the variables below
+    depends_on:
+      - target
+    environment:
+      BACKEND: "http://target:3000"       # VERIFY variable name
+      PARANOIA: "1"                       # run 1, then 2, as separate labelled runs
+      MODSEC_RULE_ENGINE: "DetectionOnly" # VERIFY; DetectionOnly logs without blocking
+    ports:
+      - "8081:8080"                       # VERIFY the container's listen port
+
+  # Added in a later phase, once the harness has recorded baseline numbers:
+  # kortex-proxy:  Coraza-based engine, same CRS version, same target.

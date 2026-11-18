@@ -1,0 +1,13 @@
+[project]
+name = "kortex-waf"
+version = "0.0.1"
+description = "Evaluation harness and testbed for building an industry-standard WAF on Coraza + OWASP CRS"
+requires-python = ">=3.10"
+dependencies = []
+
+[project.optional-dependencies]
+dev = ["pytest"]
+
+[tool.pytest.ini_options]
+pythonpath = ["."]
+testpaths = ["tests"]
