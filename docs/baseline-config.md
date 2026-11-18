@@ -164,3 +164,23 @@ reloaded. Same effect, still capture-only.
   values and measure the result; no token is hand-edited.
 - Env vars used: `ALLOWED_METHODS`, `ALLOWED_REQUEST_CONTENT_TYPE` (same
   mechanism as the step-05 aligned configs).
+
+### Revision (still before any wcp-train run): whitespace/comma-free tokens only
+
+The first attempt to start the container with the full 112-token union
+failed: nginx exited with `Rules error ... Expecting an action, got:
+application/json application/json; charset=UTF-8 ...` — a recorded value
+containing a comma (`application/json, application/json`) terminates the
+seclang `setvar:'...'` value, and multi-word values cannot survive the
+space-separated list mechanism at all. Evidence: failed container log
+(reproduced in reports/step-10.md).
+
+Revised definition: `crs-policy-wcp-train` = default UNION **whitespace- and
+comma-free** TRAIN-observed content types (21 types) + method PATCH.
+86 multi-word recorded types (373 TRAIN requests, e.g.
+`application/json; charset=UTF-8`, `multipart/form-data; boundary=...`)
+are NOT representable in the CRS mechanism; they stay NOT-allowed and are
+blocked by 920420 when they occur. This is a limitation of the CRS config
+mechanism, not a tuning choice. Lists: docs/logs/wcp-heldout-policy.json
+(includes the full excluded-type list with counts) and
+docs/logs/wcp-heldout-policy.txt.
