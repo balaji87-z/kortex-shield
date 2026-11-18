@@ -106,6 +106,24 @@ contains the word `whoami`, so the rule matches the URL path as if it were a
 command string. This is a genuine CRS false positive on this application's
 route naming; per the step instructions no exclusion was made.
 
+## Correction (2026-11-18, step-07 T1) — per-family denominators
+
+The sqli PL2 recall in the family table above was printed as **148/152
+(97.37%)** with the note that the 2 `waf_block_outbound` samples were
+excluded from the denominator. That violated what is now AGENTS rule 21
+(never drop samples from a denominator). Corrected numbers, denominator =
+manifest sqli count 154:
+
+- sqli PL2 best case (outbound-cut not flagged): **148/154 = 96.10%**
+  (91.76–98.20)
+- sqli PL2 worst case (outbound-cut flagged): 150/154 = 97.40% (93.51–98.99)
+
+All other families are unchanged (no outbound-cut or error rows). PL1
+numbers were already on manifest denominators and are unchanged.
+`tools/attack_breakdown.py` now takes `--outcomes` and always uses manifest
+counts (tests in `tests/test_attack_breakdown.py`, including one where an
+outbound-cut sample stays in the denominator).
+
 ## Limitations
 
 1. Aligned-config results on browse are in-sample (above).

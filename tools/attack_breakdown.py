@@ -1,7 +1,13 @@
 """Breakdown of attack-corpus results: family x injection_point, family x
 fragment/complete, with counts, 95% Wilson intervals and distinct-payload counts.
 
-Inputs: frozen manifest, annotations file, and a predictions.jsonl from a run.
+Inputs: frozen manifest, annotations file, and an outcomes.jsonl from a run
+(--predictions still accepted for backward compatibility, but denominators
+always come from the manifest per AGENTS rule 21: samples are never dropped).
+With outcomes, recall is reported two ways (rule 21):
+  best case  = only inbound blocks count as recalled (outbound-cut and errors
+               stay in the denominator, NOT in the numerator);
+  worst case = outbound-cut and errors also count as recalled.
 Prints unstratified per-family recall FIRST, then the stratified views
 (rule: stratified numbers are shown alongside, never instead of, unstratified).
 """
@@ -35,38 +41,99 @@ def row(name: str, k: int, n: int) -> str:
     return f"| {name} | {k}/{n} | {pct(p)} | {pct(lo)} – {pct(hi)} |"
 
 
+def load_statuses(args) -> dict[str, str]:
+    """Map sample id -> outcome string from --outcomes, or --predictions."""
+    statuses: dict[str, str] = {}
+    if getattr(args, "outcomes", None):
+        for line in open(args.outcomes, encoding="utf-8"):
+            if line.strip():
+                obj = json.loads(line)
+                statuses[obj["id"]] = obj["outcome"]
+    else:
+        for line in open(args.predictions, encoding="utf-8"):
+            if line.strip():
+                obj = json.loads(line)
+                statuses[obj["id"]] = "waf_block" if obj["flagged"] else "waf_pass"
+    return statuses
+
+
+def family_recall(
+    manifest: list[dict], statuses: dict[str, str]
+) -> dict[str, dict[str, int]]:
+    """Per-family recall counts with manifest-count denominators (rule 21).
+
+    Returns family -> {denominator, best (inbound blocks only),
+    worst (outbound-cut and errors also counted as recalled)}.
+    Samples with no status row are treated as not recalled in both cases
+    but never removed from the denominator.
+    """
+    out: dict[str, dict[str, int]] = {}
+    for s in manifest:
+        fam = s["family"]
+        d = out.setdefault(fam, {"denominator": 0, "best": 0, "worst": 0})
+        d["denominator"] += 1
+        st = statuses.get(s["id"])
+        if st == "waf_block":
+            d["best"] += 1
+            d["worst"] += 1
+        elif st in ("waf_block_outbound", "error"):
+            d["worst"] += 1
+    return out
+
+
+def grouped_recall(
+    manifest: list[dict], statuses: dict[str, str], keyfn
+) -> dict[tuple, dict[str, int]]:
+    """Same counting as family_recall but grouped by an arbitrary key."""
+    out: dict[tuple, dict[str, int]] = {}
+    for s in manifest:
+        key = keyfn(s)
+        d = out.setdefault(key, {"denominator": 0, "best": 0, "worst": 0})
+        d["denominator"] += 1
+        st = statuses.get(s["id"])
+        if st == "waf_block":
+            d["best"] += 1
+            d["worst"] += 1
+        elif st in ("waf_block_outbound", "error"):
+            d["worst"] += 1
+    return out
+
+
 def main() -> int:
     ap = argparse.ArgumentParser(description="Break down attack-corpus predictions.")
     ap.add_argument("--manifest", required=True)
     ap.add_argument("--annotations", required=True)
-    ap.add_argument("--predictions", required=True)
+    ap.add_argument("--predictions", default=None)
+    ap.add_argument("--outcomes", default=None)
     args = ap.parse_args()
+    if not args.outcomes and not args.predictions:
+        ap.error("one of --outcomes or --predictions is required")
 
     manifest = [json.loads(l) for l in open(args.manifest, encoding="utf-8") if l.strip()]
     annotations = {a["id"]: a for a in
                    (json.loads(l) for l in open(args.annotations, encoding="utf-8") if l.strip())}
-    flagged: dict[str, bool] = {}
-    for line in open(args.predictions, encoding="utf-8"):
-        if line.strip():
-            obj = json.loads(line)
-            flagged[obj["id"]] = bool(obj["flagged"])
+    statuses = load_statuses(args)
 
-    missing = [s["id"] for s in manifest if s["id"] not in flagged]
+    missing = [s["id"] for s in manifest if s["id"] not in statuses]
     if missing:
-        print(f"attack_breakdown: {len(missing)} samples without a prediction, "
-              f"e.g. {missing[:5]}", file=sys.stderr)
-        return 2
+        print(f"attack_breakdown: {len(missing)} samples without a status row "
+              f"(kept in the denominator, rule 21), e.g. {missing[:5]}", file=sys.stderr)
 
     def recall_table(title: str, keyfn) -> list[str]:
-        groups: dict[tuple, list[dict]] = collections.defaultdict(list)
-        for s in manifest:
-            groups[keyfn(s)].append(s)
-        lines = [f"### {title}", "", "| Group | Recall | Rate | 95% interval |", "|---|---|---|---|"]
+        groups: dict[tuple, dict[str, int]] = grouped_recall(manifest, statuses, keyfn)
+        lines = [f"### {title}", "",
+                 "| Group | Recall best case (outbound-cut not flagged) | Recall worst case (outbound-cut + errors flagged) |",
+                 "|---|---|---|"]
         for key in sorted(groups, key=str):
-            ss = groups[key]
-            k = sum(1 for s in ss if flagged[s["id"]])
-            lines.append(row(str(key), k, len(ss)))
+            d = groups[key]
+            lines.append(
+                f"| {key} | {row_plain(d['best'], d['denominator'])} "
+                f"| {row_plain(d['worst'], d['denominator'])} |")
         return lines
+
+    def row_plain(k: int, n: int) -> str:
+        p, lo, hi = wilson(k, n)
+        return f"{k}/{n} = {pct(p)} ({pct(lo)}–{pct(hi)})"
 
     out: list[str] = []
 
