@@ -22,7 +22,9 @@ def test_real_sqli_sample_rules_and_score():
     e = entries[0]
     ids = [r["id"] for r in e["rules"]]
     assert ids == ["942100", "949110"]
-    assert e["anomaly_score"] == 5
+    assert e["inbound_score_from_949110"] == 5
+    assert e["inbound_score_from_severities"] == 5
+    assert e["score_mismatch"] is False
     assert e["status"] == 403
     assert e["rules"][0]["severity"] == "2"
     assert e["rules"][0]["message"] == "SQL Injection Attack Detected via libinjection"
@@ -35,8 +37,29 @@ def test_real_xss_sample_rules_and_score():
     e = entries[0]
     ids = [r["id"] for r in e["rules"]]
     assert ids == ["941100", "941110", "941160", "941390", "949110"]
-    assert e["anomaly_score"] == 20
+    assert e["inbound_score_from_949110"] == 20
+    assert e["inbound_score_from_severities"] == 20
+    assert e["score_mismatch"] is False
     assert e["status"] == 403
+
+
+def test_real_trav02_sample_shows_score_mismatch():
+    """The trav-02 entry: 5 logged critical rules sum to 25, engine total is 30.
+
+    The gap is rule 930100, which scored twice (matched REQUEST_URI_RAW and
+    ARGS:q) but logged one message - proven with the ModSecurity debug log;
+    see docs/samples/crs-log-trav02.txt.
+    """
+    entries = load_audit("crs-log-trav02.txt")
+    assert len(entries) == 1
+    e = entries[0]
+    ids = [r["id"] for r in e["rules"]]
+    assert ids == ["930100", "930110", "930110", "930120", "932160", "949110"]
+    # every logged scoring rule is severity 2 (CRITICAL, weight 5)
+    assert all(r["severity"] == "2" for r in e["rules"] if r["id"] != "949110")
+    assert e["inbound_score_from_severities"] == 25
+    assert e["inbound_score_from_949110"] == 30
+    assert e["score_mismatch"] is True
 
 
 def test_real_benign_sample_has_no_audit_entry():
@@ -75,7 +98,9 @@ def test_sample_id_header_is_correlated():
     }
     entry = crs_audit.parse_line(json.dumps(txn))
     assert entry["sample_id"] == "sqli-02"
-    assert entry["anomaly_score"] == 15
+    assert entry["inbound_score_from_949110"] == 15
+    assert entry["inbound_score_from_severities"] == 0  # 949110 itself has no weight
+    assert entry["score_mismatch"] is True
     assert entry["engine"] == "Enabled"
 
 
