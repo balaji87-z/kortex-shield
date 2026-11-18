@@ -1,4 +1,6 @@
 .venv/
+out/
+data/external/
 __pycache__/
-*.pyc
 .pytest_cache/
+*.pyc

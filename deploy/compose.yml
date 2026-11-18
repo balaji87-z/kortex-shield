@@ -10,8 +10,14 @@
 # while Coraza passes the CRS v4 suite.
 #
 #   docker compose -f deploy/compose.yml up
-#   target directly:   http://localhost:3000
-#   through baseline:  http://localhost:8081
+#   target directly:   http://localhost:${TARGET_PORT:-13000}
+#   through baseline:  http://localhost:${BASELINE_PORT:-8081}
+#
+# Overridable settings (all have defaults, see docker compose config):
+#   TARGET_PORT         host port for the direct target   (default 13000)
+#   BASELINE_PORT       host port for the CRS baseline    (default 8081)
+#   MODSEC_RULE_ENGINE  DetectionOnly | On                (default DetectionOnly)
+#   PARANOIA            1 | 2 | ...                       (default 1)
 
 services:
   target:
@@ -22,7 +28,7 @@ services:
       # DEVIATION step-01: host port 3000 was already occupied by an unrelated
       # process on this machine, so the target is published on 13000 instead.
       # Container-side port is unchanged (3000).
-      - "13000:3000"                      # direct access, for the "no WAF" control run
+      - "${TARGET_PORT:-13000}:3000"      # direct access, for the "no WAF" control run
 
   baseline-crs:
     image: owasp/modsecurity-crs:4.25.2-nginx-lts  # https://hub.docker.com/r/owasp/modsecurity-crs/tags (tag 4.25.2-nginx-lts)
@@ -33,10 +39,10 @@ services:
       #   https://github.com/coreruleset/modsecurity-crs-docker#common-env-variables (BACKEND, PARANOIA, MODSEC_RULE_ENGINE, PORT)
       #   https://github.com/coreruleset/modsecurity-crs-docker/blob/main/src/etc/modsecurity.d/modsecurity.conf (SecRuleEngine ${MODSEC_RULE_ENGINE})
       BACKEND: "http://target:3000"       # backend URL (README: "Partial URL for the remote server")
-      PARANOIA: "1"                       # run 1, then 2, as separate labelled runs
-      MODSEC_RULE_ENGINE: "DetectionOnly" # DetectionOnly logs without blocking
+      PARANOIA: "${PARANOIA:-1}"                       # run 1, then 2, as separate labelled runs
+      MODSEC_RULE_ENGINE: "${MODSEC_RULE_ENGINE:-DetectionOnly}" # DetectionOnly logs without blocking
     ports:
-      - "8081:8080"                       # container listens on PORT, default 8080 (README: Server and Port Configuration)
+      - "${BASELINE_PORT:-8081}:8080"     # container listens on PORT, default 8080 (README: Server and Port Configuration)
 
   # Added in a later phase, once the harness has recorded baseline numbers:
   # kortex-proxy:  Coraza-based engine, same CRS version, same target.
