@@ -92,6 +92,19 @@ them, CRS scored the response body (950100 "The Application Returned a
 500-Level Status Code", 959100 outbound threshold) and cut the response
 mid-stream. Classified `error` by the outcome tool (never "not flagged").
 
+> **CORRECTION (2026-11-18, step-06 T2):** the claim "920320 adds +5" above
+> is WRONG. The rule carries `severity:'NOTICE'` and
+> `tx.notice_anomaly_score=2` (REQUEST-901-INITIALIZATION.conf line 180), so
+> it adds **+2**. Verified by probe: a UA-less request to an unmatched path at
+> true PL2 logs 920320 (severity 5 = NOTICE) with NO 949110 message, status
+> 200 — it does not cross the threshold of 5 alone. Re-analysis of the +72:
+> 70 of them have inbound score ≥ 7 (blocked even without the +2 — real PL2
+> detection rules scoring once blocking_paranoia_level=2), and only 2 have
+> score exactly 5 (blocked only thanks to the +2). The corrected finding:
+> the +72 are mostly genuine PL2 detection-rule scoring, with 920320's +2
+> assisting 2 borderline crossings. The UA confound remains real (a harness
+> artifact present on every request) but is far smaller than first stated.
+
 **Content-Type check (T2):** audit entry for login sample `sqli-01f86083-login`
 (PL1 default run) records request headers `Host, Accept-Encoding,
 X-Kortex-Sample-Id, Content-Type: application/json, Content-Length: 33` —
