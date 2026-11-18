@@ -1,0 +1,6 @@
+total: 1040242 files: 692
+methods: {'GET': 741100, 'POST': 295304, 'PUT': 2014, 'PATCH': 56, 'DELETE': 457, 'HEAD': 1311}
+authorization-header requests: 35738 cookie-header requests: 715322
+with body: 240554 body bytes: 1661808469
+distinct hosts: 10455
+DONE
