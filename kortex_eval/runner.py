@@ -61,6 +61,7 @@ def send_one(
     timeout: float,
     block_status: int,
     block_marker: re.Pattern[str] | None,
+    default_user_agent: str | None = None,
 ) -> dict:
     """Send one sample verbatim. Returns a responses.jsonl row."""
     row = {"id": sample.id, "status": None, "elapsed_ms": None, "blocked": False,
@@ -76,6 +77,11 @@ def send_one(
             if name.lower() in ("host", "content-length", "x-kortex-sample-id"):
                 continue
             headers[name] = value
+        # Optional default User-Agent (step-06 T1): only when the sample has
+        # none (case-insensitive); never overrides a recorded one.
+        if default_user_agent and not any(
+                k.lower() == "user-agent" for k in headers):
+            headers["User-Agent"] = default_user_agent
         body_bytes = sample.body.encode("utf-8", "surrogatepass") if sample.body else None
         if body_bytes is not None:
             # Recorded headers may already carry content-type/content-length
@@ -121,6 +127,7 @@ def run(
     timeout: float = 10.0,
     manifest_sha256: str | None = None,
     labels: dict[str, str] | None = None,
+    default_user_agent: str | None = None,
 ) -> dict:
     """Run all samples; write responses.jsonl, predictions.jsonl, run.json.
 
@@ -140,7 +147,8 @@ def run(
 
     rows: list[dict] = []
     with concurrent.futures.ThreadPoolExecutor(max_workers=workers) as pool:
-        futures = [pool.submit(send_one, s, host, port, timeout, block_status, marker) for s in samples]
+        futures = [pool.submit(send_one, s, host, port, timeout, block_status, marker,
+                               default_user_agent) for s in samples]
         rows = [f.result() for f in futures]
 
     ended = datetime.datetime.now(datetime.timezone.utc)
@@ -171,6 +179,7 @@ def run(
         "ended_utc": ended.isoformat(timespec="seconds"),
         "git_commit": commit,
         "manifest_sha256": manifest_sha256,
+        "default_user_agent": default_user_agent,
         "labels": labels or {},
         "total_samples": len(rows),
         "responses_ok": len(predictions),
@@ -204,6 +213,9 @@ def main() -> int:
     ap.add_argument("--timeout", type=float, default=10.0)
     ap.add_argument("--label", action="append", default=[], metavar="KEY=VALUE",
                     help="provenance label recorded in run.json (repeatable)")
+    ap.add_argument("--default-user-agent", default=None,
+                    help="add this User-Agent to samples that have none "
+                         "(never overrides a recorded one); off by default")
     args = ap.parse_args()
 
     labels: dict[str, str] = {}
@@ -226,6 +238,7 @@ def main() -> int:
             timeout=args.timeout,
             manifest_sha256=file_sha256(args.manifest),
             labels=labels,
+            default_user_agent=args.default_user_agent,
         )
     except (manifest.ManifestError, RunnerError) as exc:
         print(f"runner: {exc}", file=sys.stderr)
