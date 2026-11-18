@@ -80,3 +80,10 @@
 26. Label audit. For any dataset labelled by someone else, manually read a
     seeded random sample of 100 requests per label and report how many look
     mislabelled (with ids). Label the result an audit of 100, not a proof.
+27. Held-out derivation: any config derived from data must be evaluated on data
+    not used in the derivation, split by host (or session) BEFORE looking at
+    results. State the split rule in the plan. Anything evaluated on its own
+    derivation data is labelled in-sample.
+28. Engine parity: when comparing engines, pin the same ruleset version on both
+    and prove it from inside each container (file path and version string).
+    Differences are reported per sample, never only as totals.
