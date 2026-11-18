@@ -9,6 +9,7 @@ import pytest
 from kortex_eval import crs_audit
 
 SAMPLES = Path(__file__).resolve().parent.parent / "docs" / "samples"
+ROOT = SAMPLES.parent.parent
 
 
 def load_audit(filename):
@@ -107,3 +108,33 @@ def test_sample_id_header_is_correlated():
 def test_malformed_audit_line_raises():
     with pytest.raises(crs_audit.AuditError):
         crs_audit.parse_line('{"transaction": {"request": "broken"')
+
+
+def test_truncated_capture_line_fails_the_whole_parse():
+    """Rule 13: a corrupt {"transaction" line must abort the parse, not be skipped."""
+    good = json.dumps({
+        "transaction": {
+            "time_stamp": "t", "request": {"method": "GET", "uri": "/x", "headers": {}},
+            "response": {"http_code": 200}, "producer": {"secrules_engine": "Enabled"},
+            "messages": [],
+        }
+    })
+    text = good + '\n' + '{"transaction":{"client_ip":"1.2.3.4" broken'
+    with pytest.raises(crs_audit.AuditError) as excinfo:
+        crs_audit.parse_logs(text)
+    msg = str(excinfo.value)
+    assert "1 unparseable audit line" in msg and "line(s) [2]" in msg
+
+
+def test_cli_exits_nonzero_on_corrupt_capture(tmp_path):
+    import subprocess
+    import sys
+    corrupt = tmp_path / "logs.txt"
+    corrupt.write_text('{"transaction": {"request": broken', encoding="utf-8")
+    proc = subprocess.run(
+        [sys.executable, "-m", "kortex_eval.crs_audit", "--logs", str(corrupt),
+         "--out", str(tmp_path / "out.jsonl")],
+        capture_output=True, text=True, cwd=ROOT,
+    )
+    assert proc.returncode != 0
+    assert "1 unparseable audit line" in proc.stderr
