@@ -19,7 +19,10 @@ services:
     expose:
       - "3000"
     ports:
-      - "3000:3000"                       # direct access, for the "no WAF" control run
+      # DEVIATION step-01: host port 3000 was already occupied by an unrelated
+      # process on this machine, so the target is published on 13000 instead.
+      # Container-side port is unchanged (3000).
+      - "13000:3000"                      # direct access, for the "no WAF" control run
 
   baseline-crs:
     image: owasp/modsecurity-crs:4.25.2-nginx-lts  # https://hub.docker.com/r/owasp/modsecurity-crs/tags (tag 4.25.2-nginx-lts)
