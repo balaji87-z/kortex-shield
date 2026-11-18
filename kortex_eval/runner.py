@@ -15,6 +15,7 @@ from __future__ import annotations
 import argparse
 import concurrent.futures
 import datetime
+import hashlib
 import http.client
 import json
 import re
@@ -112,6 +113,8 @@ def run(
     block_marker: str | None = DEFAULT_BLOCK_MARKER,
     workers: int = 8,
     timeout: float = 10.0,
+    manifest_sha256: str | None = None,
+    labels: dict[str, str] | None = None,
 ) -> dict:
     """Run all samples; write responses.jsonl, predictions.jsonl, run.json.
 
@@ -161,6 +164,8 @@ def run(
         "started_utc": started.isoformat(timespec="seconds"),
         "ended_utc": ended.isoformat(timespec="seconds"),
         "git_commit": commit,
+        "manifest_sha256": manifest_sha256,
+        "labels": labels or {},
         "total_samples": len(rows),
         "responses_ok": len(predictions),
         "blocked": sum(1 for row in rows if row["blocked"]),
@@ -176,6 +181,10 @@ def run(
     return summary
 
 
+def file_sha256(path: str | Path) -> str:
+    return hashlib.sha256(Path(path).read_bytes()).hexdigest()
+
+
 def main() -> int:
     ap = argparse.ArgumentParser(description="Replay manifest samples verbatim against a base URL.")
     ap.add_argument("--manifest", required=True)
@@ -187,7 +196,17 @@ def main() -> int:
                          "(empty string disables the marker check)")
     ap.add_argument("--workers", type=int, default=8)
     ap.add_argument("--timeout", type=float, default=10.0)
+    ap.add_argument("--label", action="append", default=[], metavar="KEY=VALUE",
+                    help="provenance label recorded in run.json (repeatable)")
     args = ap.parse_args()
+
+    labels: dict[str, str] = {}
+    for item in args.label:
+        if "=" not in item:
+            print(f"runner: --label expects KEY=VALUE, got {item!r}", file=sys.stderr)
+            return 2
+        key, value = item.split("=", 1)
+        labels[key] = value
 
     samples = manifest.load(args.manifest)
     try:
@@ -199,6 +218,8 @@ def main() -> int:
             block_marker=args.block_marker or None,
             workers=args.workers,
             timeout=args.timeout,
+            manifest_sha256=file_sha256(args.manifest),
+            labels=labels,
         )
     except (manifest.ManifestError, RunnerError) as exc:
         print(f"runner: {exc}", file=sys.stderr)
