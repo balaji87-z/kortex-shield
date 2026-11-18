@@ -1,0 +1,21 @@
+pass1: 100/692 files, g=176384, distinct=129082
+pass1: 200/692 files, g=346947, distinct=254383
+pass1: 300/692 files, g=502808, distinct=364253
+pass1: 400/692 files, g=665399, distinct=479774
+pass1: 500/692 files, g=833567, distinct=601786
+pass1: 600/692 files, g=936980, distinct=684745
+scanned 1040242; distinct 765231; duplicate tuples dropped 275011
+allocation done; max per site 258 (cap 400); sites used 690
+sampled 20000 global indices
+pass2: 100/692 files, emitted=3470
+pass2: 200/692 files, emitted=6758
+pass2: 300/692 files, emitted=9596
+pass2: 400/692 files, emitted=12583
+pass2: 500/692 files, emitted=15801
+pass2: 600/692 files, emitted=17928
+manifest sha256: c8ce11f26406df96d55e5a1cc6186bcbf648cb29bd628081dd834c6ccf1329d1
+credential scan: {'cookie header value dropped': 13266, 'authorization header value dropped': 528, 'email-like string in body': 162, 'API-key-like query parameter': 372, 'email-like string in a header value': 6}
+distinct hosts in sample: 3038
+top hosts: [('www.google.com', 440), ('www.facebook.com', 367), ('www.google-analytics.com', 327), ('www.forever21.com', 303), ('googleads.g.doubleclick.net', 231)]
+endpoint classes: {'static': 5807, 'api': 2523, 'page': 11670}
+BUILD OK
