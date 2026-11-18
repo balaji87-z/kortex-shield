@@ -163,6 +163,7 @@ def test_run_json_contents(tmp_path, fake_server):
         [sample(id="a-1", path="/blocked"), sample(id="b-1", path="/clean")],
         f"http://127.0.0.1:{fake_server.server_port}", tmp_path / "run",
         block_status=403, block_marker="<center>nginx</center>", workers=2, timeout=5.0,
+        manifest_sha256="abc123", labels={"engine_mode": "On", "paranoia": "1"},
     )
     data = json.load(open(tmp_path / "run" / "run.json", encoding="utf-8"))
     assert data["base_url"].startswith("http://127.0.0.1:")
@@ -171,7 +172,37 @@ def test_run_json_contents(tmp_path, fake_server):
     assert data["total_samples"] == 2 and data["responses_ok"] == 2
     assert data["blocked"] == 1 and data["error_count"] == 0
     assert data["block_rule"] == {"block_status": 403, "block_marker": "<center>nginx</center>"}
+    assert data["manifest_sha256"] == "abc123"
+    assert data["labels"] == {"engine_mode": "On", "paranoia": "1"}
     assert summary == data
+
+
+def test_cli_records_manifest_sha256_and_labels(tmp_path, fake_server):
+    m = make_manifest(tmp_path, [sample(id="prov-1", path="/clean")])
+    import subprocess, sys
+    proc = subprocess.run(
+        [sys.executable, "-m", "kortex_eval.runner", "--manifest", m,
+         "--base-url", f"http://127.0.0.1:{fake_server.server_port}",
+         "--out", str(tmp_path / "run"), "--label", "engine_mode=On", "--label", "paranoia=1"],
+        capture_output=True, text=True,
+    )
+    assert proc.returncode == 0, proc.stderr
+    data = json.load(open(tmp_path / "run" / "run.json", encoding="utf-8"))
+    import hashlib
+    assert data["manifest_sha256"] == hashlib.sha256(open(m, "rb").read()).hexdigest()
+    assert data["labels"] == {"engine_mode": "On", "paranoia": "1"}
+
+
+def test_cli_rejects_bad_label(tmp_path, fake_server):
+    m = make_manifest(tmp_path, [sample(id="lbl-1", path="/clean")])
+    import subprocess, sys
+    proc = subprocess.run(
+        [sys.executable, "-m", "kortex_eval.runner", "--manifest", m,
+         "--base-url", f"http://127.0.0.1:{fake_server.server_port}",
+         "--out", str(tmp_path / "run"), "--label", "noequalsign"],
+        capture_output=True, text=True,
+    )
+    assert proc.returncode == 2
 
 
 def test_post_body_and_content_type_sent_verbatim(tmp_path, fake_server):
