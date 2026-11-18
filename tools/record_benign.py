@@ -20,6 +20,18 @@ Sessions (default 20, each seeded by its index):
 Run:  LD_LIBRARY_PATH=<playwright libs> .venv/bin/python tools/record_benign.py \
           --base-url http://localhost:13000 --sessions 20 \
           --out data/benign-browse-v0/candidates.jsonl
+
+step-07 additions (all additive; without --extra-flows the tool behaves
+exactly as it did for v0):
+  --start-index N   first session index (default 0). Sessions are seeded by
+                    their index; benign-browse-v1 uses --start-index 1000.
+  --extra-flows     enable the v1 flows for registered sessions: review
+                    edit, basket quantity change, basket item removal,
+                    language switch, log out and back in; also dismiss the
+                    fruit-cookie banner (it intercepts clicks otherwise).
+                    Always writes <out-dir>/sessions.jsonl mapping each
+                    sample id to the sorted session indices that produced
+                    it (dedupe must not erase the session dimension).
 """
 from __future__ import annotations
 
@@ -69,6 +81,7 @@ def content_hash(method: str, path: str, query: str, content_type: str, body: st
 class Recorder:
     def __init__(self):
         self.captured: list[dict] = []
+        self.current_session: int | None = None  # set by main() per session
 
     def on_request(self, request):
         try:
@@ -86,6 +99,7 @@ class Recorder:
                 "headers": headers,
                 "body": body,
                 "content_type": headers.get("content-type", ""),
+                "session": self.current_session,
             })
         except Exception as exc:  # a failed capture must not kill the session
             print(f"record_benign: capture error: {exc}", file=sys.stderr)
@@ -97,6 +111,17 @@ def _dismiss_banner(page):
         page.wait_for_timeout(400)
     except Exception:
         pass
+
+
+def _dismiss_cookie_banner(page):
+    """v1 only: the fruit-cookie banner intercepts clicks until dismissed."""
+    for label in ("Me want it!", "Dismiss"):
+        try:
+            page.get_by_role("button", name=label).first.click(timeout=2000)
+            page.wait_for_timeout(300)
+            return
+        except Exception:
+            continue
 
 
 def _wait_products(page, timeout=15000):
@@ -144,7 +169,111 @@ def _open_product_dialog(page, index):
         page.wait_for_timeout(500)
 
 
-def run_session(page, recorder: Recorder, index: int, base_url: str) -> dict:
+# ---- v1-only flows (extra_flows=True); each is best-effort and reported ----
+
+def _edit_review(page, sentence, report):
+    """Edit the just-posted review via its Edit Review button."""
+    try:
+        page.get_by_role("button", name="Edit Review").first.click(timeout=4000)
+        page.wait_for_timeout(800)
+        ta = page.query_selector("mat-dialog-container textarea") or page.query_selector("textarea")
+        if not (ta and ta.is_visible()):
+            report["steps"].append("review-edit FAILED: textarea not visible")
+            return
+        ta.fill(sentence + " Edited after posting.")
+        page.get_by_role("button", name="Submit").first.click(timeout=4000)
+        page.wait_for_timeout(1200)
+        report["steps"].append("review-edit")
+    except Exception as exc:
+        report["steps"].append(f"review-edit FAILED: {exc.__class__.__name__}")
+
+
+def _basket_quantity_change(page, report):
+    """Click the first basket row's plus button once (PUT /api/BasketItems/:id)."""
+    try:
+        page.goto(page.url.split("#")[0] + "/#/basket", wait_until="domcontentloaded", timeout=30000)
+        page.wait_for_timeout(1500)
+        plus = page.query_selector("button:has(svg.fa-plus-square)")
+        if not plus:
+            report["steps"].append("basket-qty FAILED: plus button not found")
+            return
+        plus.click()
+        page.wait_for_timeout(1000)
+        report["steps"].append("basket-qty")
+    except Exception as exc:
+        report["steps"].append(f"basket-qty FAILED: {exc.__class__.__name__}")
+
+
+def _basket_item_removal(page, report):
+    """Click the first basket row's trash button (DELETE /api/BasketItems/:id)."""
+    try:
+        trash = page.query_selector("button:has(svg.fa-trash-alt)")
+        if not trash:
+            report["steps"].append("basket-remove FAILED: trash button not found")
+            return
+        trash.click()
+        page.wait_for_timeout(1000)
+        report["steps"].append("basket-remove")
+    except Exception as exc:
+        report["steps"].append(f"basket-remove FAILED: {exc.__class__.__name__}")
+
+
+def _language_switch(page, base_url, report):
+    """Switch language away from English and back (GET /assets/i18n/*)."""
+    try:
+        page.goto(base_url + "/", wait_until="domcontentloaded", timeout=30000)
+        page.wait_for_timeout(800)
+        page.get_by_role("button", name="Language selection menu").click(timeout=4000)
+        page.wait_for_timeout(600)
+        items = page.query_selector_all("button[role='menuitem'], .mat-menu-content button")
+        target = None
+        for it in items:
+            if it.text_content().strip() not in ("English", "", None) and "English" not in it.text_content():
+                target = it
+                break
+        if not target:
+            report["steps"].append("language FAILED: no non-English menu item")
+            return
+        target.click()
+        page.wait_for_timeout(1200)
+        # switch back to English
+        page.get_by_role("button", name="Language selection menu").click(timeout=4000)
+        page.wait_for_timeout(600)
+        for it in page.query_selector_all("button[role='menuitem'], .mat-menu-content button"):
+            if "English" in (it.text_content() or ""):
+                it.click()
+                break
+        page.wait_for_timeout(1000)
+        report["steps"].append("language-switch")
+    except Exception as exc:
+        report["steps"].append(f"language FAILED: {exc.__class__.__name__}")
+
+
+def _logout_and_login(page, base_url, email, password, report):
+    """Log out via the account menu, then log in again with the same user."""
+    try:
+        page.get_by_role("button", name="Show/hide account menu").click(timeout=4000)
+        page.wait_for_timeout(600)
+        page.get_by_role("button", name="Log out").first.click(timeout=4000)
+        page.wait_for_timeout(1200)
+        report["steps"].append("logout")
+    except Exception as exc:
+        report["steps"].append(f"logout FAILED: {exc.__class__.__name__}")
+        return
+    try:
+        page.goto(base_url + "/#/login", wait_until="domcontentloaded", timeout=30000)
+        page.wait_for_selector("#email", timeout=15000)
+        page.fill("#email", email)
+        page.fill("#password", password)
+        page.click("#loginButton")
+        page.wait_for_timeout(1500)
+        report["steps"].append("login-again")
+    except Exception as exc:
+        report["steps"].append(f"login-again FAILED: {exc.__class__.__name__}")
+
+
+def run_session(page, recorder: Recorder, index: int, base_url: str,
+                extra_flows: bool = False) -> dict:
     """Drive one session. Returns a report of which steps ran."""
     rng = random.Random(index)
     report = {"session": index, "steps": []}
@@ -261,13 +390,48 @@ def run_session(page, recorder: Recorder, index: int, base_url: str) -> dict:
     except Exception as exc:
         report["steps"].append(f"review FAILED: {exc.__class__.__name__}")
 
+    # ---- v1-only extra flows (registered sessions) ----
+    if extra_flows:
+        _edit_review(page, sentence, report)
+        _basket_quantity_change(page, report)
+        _basket_item_removal(page, report)
+        _language_switch(page, base_url, report)
+        _logout_and_login(page, base_url, email, password, report)
+
     return report
+
+
+def build_session_map(captured: list[dict], samples: list[dict]) -> list[dict]:
+    """Map each sample id to the sorted session indices that produced it.
+
+    The dedupe keeps only the first occurrence's request fields, but the
+    session dimension must survive: every captured request's session index
+    contributes to its content hash's row.
+    """
+    id_by_hash = {content_hash(s["method"], s["path"], s["query"],
+                               s["content_type"], s["body"]): s["id"]
+                  for s in samples}
+    sessions: dict[str, set[int]] = {}
+    for cap in captured:
+        ch = content_hash(cap["method"], cap["path"], cap["query"],
+                          cap["content_type"], cap["body"])
+        sid = id_by_hash.get(ch)
+        if sid is None or cap.get("session") is None:
+            continue
+        sessions.setdefault(sid, set()).add(cap["session"])
+    return [{"id": sid, "sessions": sorted(sessions[sid])}
+            for sid in sorted(sessions)]
 
 
 def main() -> int:
     ap = argparse.ArgumentParser(description="Record benign browsing sessions via Playwright.")
     ap.add_argument("--base-url", default="http://localhost:13000")
     ap.add_argument("--sessions", type=int, default=20)
+    ap.add_argument("--start-index", type=int, default=0,
+                    help="first session index; sessions are seeded by index (v1 uses 1000)")
+    ap.add_argument("--extra-flows", action="store_true",
+                    help="enable v1 flows (review edit, basket qty/remove, language, logout+login) "
+                         "and dismiss the cookie banner; also writes sessions.jsonl")
     ap.add_argument("--out", default="data/benign-browse-v0/candidates.jsonl")
     ap.add_argument("--headless", default="true")
     args = ap.parse_args()
@@ -288,11 +452,16 @@ def main() -> int:
     with sync_playwright() as p:
         browser = p.chromium.launch(headless=args.headless != "false")
         context = browser.new_context()
-        for index in range(args.sessions):
+        for index in range(args.start_index, args.start_index + args.sessions):
             # fresh page per session; cookies persist within a session only
+            recorder.current_session = index
             page = context.new_page()
+            if args.extra_flows:
+                page.goto(args.base_url + "/", wait_until="domcontentloaded", timeout=30000)
+                _dismiss_cookie_banner(page)
             page.on("request", recorder.on_request)
-            reports.append(run_session(page, recorder, index, args.base_url))
+            reports.append(run_session(page, recorder, index, args.base_url,
+                                       extra_flows=args.extra_flows))
             page.close()
         browser.close()
 
@@ -330,8 +499,13 @@ def main() -> int:
     with open(out, "w", encoding="utf-8") as fh:
         for s in samples:
             fh.write(json.dumps(s, ensure_ascii=False) + "\n")
-    print(f"captured {before} requests -> {len(samples)} samples after dedupe -> {out}",
-          file=sys.stderr)
+    # session map: sample id -> sorted session indices that produced it
+    session_rows = build_session_map(recorder.captured, samples)
+    with open(out.parent / "sessions.jsonl", "w", encoding="utf-8") as fh:
+        for row in session_rows:
+            fh.write(json.dumps(row, ensure_ascii=False) + "\n")
+    print(f"captured {before} requests -> {len(samples)} samples after dedupe "
+          f"({len(session_rows)} rows in sessions.jsonl) -> {out}", file=sys.stderr)
     return 0
 
 
