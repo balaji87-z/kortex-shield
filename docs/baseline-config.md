@@ -77,3 +77,32 @@ common desktop platform. Sources (checked 2026-11-18):
 https://www.clearcotelabs.com/chrome-user-agent and
 https://www.whatismybrowser.com/guides/the-latest-user-agent/chrome
 
+
+## Third config: crs-policy-aligned-v2 (step-08 T2, written BEFORE any run)
+
+What: identical to `crs-policy-aligned` except `DELETE` is added to the
+allowed methods:
+
+    ALLOWED_METHODS='GET HEAD POST OPTIONS PUT DELETE'
+    ALLOWED_REQUEST_CONTENT_TYPE='|application/x-www-form-urlencoded| |multipart/form-data| |text/xml| |application/xml| |application/soap+xml| |application/json| |text/plain|'
+
+Why: benign-browse-v1 (step-07) shows the real UI issues
+`DELETE /api/BasketItems/{id}` when a user removes a basket item (30/30
+such requests blocked under crs-policy-aligned at PL1 and PL2, rule 911100
+method policy + threshold 949110). Removing a basket item is a normal,
+expected user action, so blocking it is a config mismatch, not an attack
+signal (AGENTS rule 24 label). No other setting changes.
+
+Configuration documentation URL: the `ALLOWED_METHODS` variable is the CRS
+docker image's documented toggle
+(https://coreruleset.org/docs/initialize/#environment-variables-in-the-docker-image,
+checked 2026-11-18 in step-05 when the first aligned config was
+documented).
+
+Label plan (rule 19): results on benign-browse-v0 are IN-SAMPLE-ADJACENT
+(the config was derived from v0 traffic plus the v1 DELETE finding, so v0
+results test only the DELETE addition's effect on v0 traffic, which
+contains no DELETE); results on benign-browse-v1 are IN-SAMPLE for the
+DELETE decision (derived from v1). **No out-of-sample estimate exists for
+this config yet** — that will require a future recording (v2) the config
+has never seen.
