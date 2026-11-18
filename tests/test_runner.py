@@ -283,3 +283,29 @@ def test_default_user_agent_case_insensitive_recorded(tmp_path, fake_server):
     runner.run([s], f"http://127.0.0.1:{fake_server.server_port}", tmp_path / "run",
                default_user_agent="Chrome/158.0.0.0 test")
     assert FakeWaf.seen_headers[0]["user-agent"] == "lowercase-recorded/2.0"
+
+
+def test_send_one_encoding_error_is_per_sample_row():
+    """Step-10 T1: non-latin-1 header value -> per-sample 'encoding' error row."""
+    from kortex_eval.manifest import Sample
+    from kortex_eval.runner import send_one
+
+    s = Sample(id="enc-1", label="benign", family="benign", source="t",
+               method="GET", path="/", query="", body="", content_type="",
+               headers={"X-Bad": "ok\ufffd"})
+    row = send_one(s, "127.0.0.1", 1, timeout=2, block_status=403,
+                   block_marker=None)
+    assert row["error_class"] == "encoding"
+    assert row["error"] is not None and row["error"].startswith("encoding:")
+    assert row["status"] is None
+
+
+def test_send_one_nonlatin1_request_line_is_encoding_error():
+    from kortex_eval.manifest import Sample
+    from kortex_eval.runner import send_one
+
+    s = Sample(id="enc-2", label="benign", family="benign", source="t",
+               method="GET", path="/\ufffd", query="", body="", content_type="")
+    row = send_one(s, "127.0.0.1", 1, timeout=2, block_status=403,
+                   block_marker=None)
+    assert row["error_class"] == "encoding"
