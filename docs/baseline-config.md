@@ -139,3 +139,28 @@ container starts, `sed` rewrites `SecAuditLog /dev/stdout` to
 `SecAuditLog /var/log/modsecurity/audit/audit.log` in
 `/etc/modsecurity.d/modsecurity.conf` inside the container and nginx is
 reloaded. Same effect, still capture-only.
+
+## Step-10 T6: held-out-host policy config `crs-policy-wcp-train` (documented before running)
+
+- Plan: docs/plan-wcp-heldout.md (preregistered). Host split (seed 0, rule
+  fixed there): docs/logs/wcp-heldout-split.json — 1,488 TRAIN hosts
+  (9,949 requests) / 1,550 TEST hosts (10,051 requests) of the 19,994-request
+  baseline manifest.
+- Image defaults, read from inside the container
+  (`/etc/modsecurity.d/owasp-crs/crs-setup.conf`): methods
+  `GET HEAD POST OPTIONS PUT DELETE` (crs-setup.conf line 494); content types
+  `application/json application/x-www-form-urlencoded multipart/form-data
+  text/xml application/soap+xml` (line 583).
+- TRAIN-observed (frozen manifest, TRAIN hosts only): methods {GET, HEAD,
+  POST, PUT, DELETE, PATCH}; 107 distinct non-empty content types.
+- `crs-policy-wcp-train` = default UNION TRAIN-observed, never narrower than
+  the default: methods `GET HEAD POST OPTIONS PUT DELETE PATCH`; content
+  types = the 5 defaults + the 107 TRAIN types = 112 tokens, exactly as
+  committed in docs/logs/wcp-heldout-policy.txt (machine-readable:
+  docs/logs/wcp-heldout-policy.json).
+- Caveat recorded in advance: CRS matches this list as a regex; tokens
+  containing regex metacharacters (e.g. `+`, `,`, spaces inside one recorded
+  header value) may not behave as literal strings. We pass the raw recorded
+  values and measure the result; no token is hand-edited.
+- Env vars used: `ALLOWED_METHODS`, `ALLOWED_REQUEST_CONTENT_TYPE` (same
+  mechanism as the step-05 aligned configs).
