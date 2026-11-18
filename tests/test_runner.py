@@ -23,6 +23,7 @@ class FakeWaf(BaseHTTPRequestHandler):
     seen_request_lines: list[str] = []
     seen_sample_ids: list[str] = []
     seen_bodies: list[bytes] = []
+    seen_headers: list[dict] = []
     # path -> (status, body). Default for unknown paths.
     routes: dict[str, tuple[int, str]] = {}
 
@@ -36,6 +37,7 @@ class FakeWaf(BaseHTTPRequestHandler):
             self.seen_request_lines.append(self.requestline)
             self.seen_sample_ids.append(self.headers.get("X-Kortex-Sample-Id"))
             self.seen_bodies.append(body)
+            self.seen_headers.append({k.lower(): v for k, v in self.headers.items()})
 
     def _respond(self):
         status, body = self.routes.get(self.path, (200, '{"ok":true}'))
@@ -60,6 +62,7 @@ def fake_server():
     FakeWaf.seen_request_lines = []
     FakeWaf.seen_sample_ids = []
     FakeWaf.seen_bodies = []
+    FakeWaf.seen_headers = []
     FakeWaf.routes = {
         "/blocked": (403, "<html><head><title>403 Forbidden</title></head>"
                          "<body><center><h1>403 Forbidden</h1></center>"
@@ -226,3 +229,12 @@ def test_connection_error_is_error(tmp_path):
     rows = read_jsonl(tmp_path / "run" / "responses.jsonl")
     assert rows[0]["error"] and rows[0]["error"].startswith("connection_error")
     assert summary["error_count"] == 1
+
+
+def test_recorded_headers_sent_and_sample_id_wins(tmp_path, fake_server):
+    FakeWaf.routes["/hdrcheck"] = (200, "{}")
+    s = sample(id="hdr-win-1", path="/hdrcheck",
+               headers={"Accept": "text/html", "X-Kortex-Sample-Id": "RECORDED-OVERRIDE"})
+    runner.run([s], f"http://127.0.0.1:{fake_server.server_port}", tmp_path / "run")
+    assert FakeWaf.seen_sample_ids == ["hdr-win-1"]  # ours, not the recorded one
+    assert FakeWaf.seen_headers[0]["accept"] == "text/html"  # recorded header sent

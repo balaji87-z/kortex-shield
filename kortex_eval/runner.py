@@ -71,8 +71,10 @@ def send_one(
         conn = http.client.HTTPConnection(host, port, timeout=timeout)
         headers = {"Accept-Encoding": "identity", "X-Kortex-Sample-Id": sample.id}
         for name, value in sample.headers.items():
-            if name.lower() in ("host", "content-length"):
-                continue  # http.client sets Host; Content-Length comes from the body
+            # http.client sets Host; Content-Length comes from the body; our
+            # X-Kortex-Sample-Id must override any recorded header of that name.
+            if name.lower() in ("host", "content-length", "x-kortex-sample-id"):
+                continue
             headers[name] = value
         body_bytes = sample.body.encode("utf-8", "surrogatepass") if sample.body else None
         if body_bytes is not None:
