@@ -149,6 +149,30 @@ slowly (new endpoints stopped after session 5).
    how many users would be blocked; read it alongside the per-endpoint
    table.
 
+## Correction (2026-11-18, step-09 T1) — review-PUT block attribution
+
+The table in the "Blocked endpoints with rule IDs" section above lists the
+aligned-PL2 review-PUT blocks as "950100 + 949110". That attribution was
+**wrong**. The audit entries for the three blocked samples
+(`browse-b2ab9d80fd8a`, `browse-55bd9916b08b`, `browse-589725d2df33`, all
+`PUT /rest/products/1/reviews`, status 403) show, identically in the
+step-07 aligned run and the step-08 aligned-v2 run:
+
+- rule **932236** — "Remote Command Execution: Unix Command Injection
+  (command without evasion)", `REQUEST-932-APPLICATION-ATTACK-RCE.conf`
+  line 1679, severity CRITICAL, tag `paranoia-level/2`, matched variable
+  `ARGS:json.message`, matched data: `time and well ` found within
+  `Good value for the money, arrived on time and well packed.` — the
+  plain-English review sentence matches the Unix-command regex (the word
+  `time` is a shell command; the rule then requires command-argument
+  shapes that the following English words satisfy);
+- rule **949110** — inbound threshold (score 5).
+
+950100 ("The Application Returned a 500-Level Status Code", phase 3) does
+not block and is not part of these entries; the step-08 T3 correction of
+its description stands. The step-07 report's attribution was the error;
+the step-08 report's aligned-v2 table (932236 + 949110) is correct.
+
 ## Limitations
 
 1. The final recording's raw captured-request count was lost with the
