@@ -13,3 +13,9 @@ Audit log (JSON, one {"transaction":...} per line, sqli/xss samples):
 Access log (benign sample): client ip, timestamp, request line, status, bytes, User-Agent.
 The benign 200 request has NO audit-log entry: MODSEC_AUDIT_ENGINE=RelevantOnly only
 writes audit transactions for relevant (4xx/5xx) statuses.
+
+CORRECTED in step-02 (see audit-experiment.txt for the evidence): the audit rule is
+"rule match OR relevant status". A 200 in DetectionOnly IS audited when rules matched
+(rule match alone is sufficient), and a 500 is audited even with zero rule messages;
+a clean 404 with no rule match is NOT audited (fails both conditions: no match, and
+404 is excluded from SecAuditLogRelevantStatus).
