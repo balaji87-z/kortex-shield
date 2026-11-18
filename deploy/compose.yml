@@ -38,7 +38,10 @@ services:
       # Env var names verified against:
       #   https://github.com/coreruleset/modsecurity-crs-docker#common-env-variables (BACKEND, PARANOIA, MODSEC_RULE_ENGINE, PORT)
       #   https://github.com/coreruleset/modsecurity-crs-docker/blob/main/src/etc/modsecurity.d/modsecurity.conf (SecRuleEngine ${MODSEC_RULE_ENGINE})
-      BACKEND: "http://target:3000"       # backend URL (README: "Partial URL for the remote server")
+      # Step-09 T5: backend selectable. Default stays Juice Shop; set
+      # BACKEND=http://stub-backend:3000 (and start the stub-backend service)
+      # for runs against the neutral stub.
+      BACKEND: "${BACKEND:-http://target:3000}"       # backend URL (README: "Partial URL for the remote server")
       PARANOIA: "${PARANOIA:-1}"                       # run 1, then 2, as separate labelled runs
       # Step-05 finding: the image bakes BLOCKING_PARANOIA=1 into its ENV, so
       # PARANOIA alone only raised detection_paranoia_level (blocking stayed 1).
@@ -51,6 +54,17 @@ services:
       ALLOWED_REQUEST_CONTENT_TYPE: "${ALLOWED_REQUEST_CONTENT_TYPE:-}"
     ports:
       - "${BASELINE_PORT:-8081}:8080"     # container listens on PORT, default 8080 (README: Server and Port Configuration)
+
+  # Step-09 T5: neutral stub backend. Returns 200 + fixed HTML for any
+  # method/path; no state, no 4xx/5xx of its own. Used for the WCP benign
+  # baseline so every non-200 is attributable to the WAF.
+  stub-backend:
+    image: python:3.12-alpine
+    volumes:
+      - ../tools/stub_backend.py:/stub_backend.py:ro
+    command: ["python3", "/stub_backend.py", "3000"]
+    expose:
+      - "3000"
 
   # Added in a later phase, once the harness has recorded baseline numbers:
   # kortex-proxy:  Coraza-based engine, same CRS version, same target.
