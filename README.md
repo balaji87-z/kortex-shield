@@ -19,7 +19,7 @@ provenance and a baseline.
 | `tools/build_benign_hard.py` + `data/benign-hard-v0/` frozen HARD benign corpus (180 samples, 90 hand-written attack-adjacent values — overstates natural FP rate, never merge rates) | Frozen (MANIFEST.sha256) |
 | `kortex_eval/endpoints.py` endpoint templating (numeric/hex/UUID segments → `{id}`) | Written, 10 tests |
 | `tools/attack_breakdown.py`, `tools/benign_breakdown.py` stratified breakdowns with 95% Wilson intervals | Written, used for docs/baseline-v0.md |
-| `docs/baseline-v0.md` / `v0.1` / `v0.2` / `v0.3` CRS false-positive baseline (crs-default: 34/214 natural v0, 184/774 natural v1, 22/180 hard; crs-policy-aligned in-sample 2/214, out-of-sample 34/774 on v1; UA confound removed in v0.2) | Written from real runs |
+| `docs/baseline-v0.md` / `v0.1` / `v0.2` / `v0.3` CRS false-positive baseline (crs-default: 34/214 natural v0, 184/774 natural v1, 22/180 hard; crs-policy-aligned in-sample 2/214, out-of-sample 34/774 on v1; crs-policy-aligned-v2: 2/214 v0, 4/774 v1 at PL1; UA confound removed in v0.2) | Written from real runs |
 | `docs/acceptance.md` industry bars turned into tests | Written; no numeric targets until baseline is measured |
 | `docs/decisions/0001-build-on-coraza.md` | Proposed |
 | Dataset-scale expansion (1,600 attacks / 1,400 legitimate), engine | Not started — current: 1,054 attacks / 394 benign |
