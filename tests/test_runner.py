@@ -249,3 +249,37 @@ def test_recorded_content_type_not_duplicated(tmp_path, fake_server):
     ctypes = [v for k, v in FakeWaf.seen_headers[0].items()
               if k.lower() == "content-type"]
     assert ctypes == ["application/json"]  # exactly one
+
+
+def test_default_user_agent_absent_flag_unchanged(tmp_path, fake_server):
+    FakeWaf.routes["/ua"] = (200, "{}")
+    s = sample(id="ua-off-1", path="/ua")
+    summary = runner.run([s], f"http://127.0.0.1:{fake_server.server_port}", tmp_path / "run")
+    assert summary["default_user_agent"] is None
+    assert "user-agent" not in FakeWaf.seen_headers[0]
+
+
+def test_default_user_agent_added_when_sample_has_none(tmp_path, fake_server):
+    FakeWaf.routes["/ua"] = (200, "{}")
+    s = sample(id="ua-add-1", path="/ua")
+    runner.run([s], f"http://127.0.0.1:{fake_server.server_port}", tmp_path / "run",
+               default_user_agent="Chrome/158.0.0.0 test")
+    assert FakeWaf.seen_headers[0]["user-agent"] == "Chrome/158.0.0.0 test"
+
+
+def test_default_user_agent_never_overrides_recorded(tmp_path, fake_server):
+    FakeWaf.routes["/ua"] = (200, "{}")
+    s = sample(id="ua-keep-1", path="/ua",
+               headers={"User-Agent": "RecordedBrowser/1.0"})
+    runner.run([s], f"http://127.0.0.1:{fake_server.server_port}", tmp_path / "run",
+               default_user_agent="Chrome/158.0.0.0 test")
+    assert FakeWaf.seen_headers[0]["user-agent"] == "RecordedBrowser/1.0"
+
+
+def test_default_user_agent_case_insensitive_recorded(tmp_path, fake_server):
+    FakeWaf.routes["/ua"] = (200, "{}")
+    s = sample(id="ua-case-1", path="/ua",
+               headers={"user-agent": "lowercase-recorded/2.0"})
+    runner.run([s], f"http://127.0.0.1:{fake_server.server_port}", tmp_path / "run",
+               default_user_agent="Chrome/158.0.0.0 test")
+    assert FakeWaf.seen_headers[0]["user-agent"] == "lowercase-recorded/2.0"

@@ -58,3 +58,22 @@ The aligned runs set:
 
 Each run records `--label config=crs-default` or `--label config=crs-policy-aligned`
 in `run.json`.
+
+## Default User-Agent option (step-06 T1, added BEFORE any run)
+
+The runner gained `--default-user-agent STRING` (off by default; with the flag
+absent, request bytes are unchanged). When set, it adds a `User-Agent` header
+only to samples that have none (case-insensitive check); a recorded
+User-Agent is never overridden. `run.json` records `default_user_agent`
+(null when unset).
+
+Chosen string:
+
+    Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/158.0.0.0 Safari/537.36
+
+Rationale: Chrome 158 is the current stable Chrome (released 2026-11-17) and
+this is the exact reduced UA string Chrome 158 sends on Windows, the most
+common desktop platform. Sources (checked 2026-11-18):
+https://www.clearcotelabs.com/chrome-user-agent and
+https://www.whatismybrowser.com/guides/the-latest-user-agent/chrome
+
