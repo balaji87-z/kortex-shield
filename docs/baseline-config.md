@@ -131,3 +131,11 @@ https://github.com/owasp-modsecurity/ModSecurity/wiki/Reference-Manual-%28v2.x%2
 
 **Scope:** Capture mechanism only. No CRS rules, no paranoia levels, no
 engine settings are changed by this.
+
+**Implementation note (2026-11-18):** bind mounts from this machine's
+`/var/labsstorage` volume are read-only inside containers, so mounting the
+override file failed. Instead the change is applied at runtime: after the
+container starts, `sed` rewrites `SecAuditLog /dev/stdout` to
+`SecAuditLog /var/log/modsecurity/audit/audit.log` in
+`/etc/modsecurity.d/modsecurity.conf` inside the container and nginx is
+reloaded. Same effect, still capture-only.
