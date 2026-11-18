@@ -35,3 +35,12 @@
     dataset README.
 12. Never drop a sample silently. Anything excluded goes to a named file with a
     count and a reason.
+
+13. Capture hygiene. One run per log capture, container force-recreated before
+    each run, runner --workers 1. crs_audit must exit non-zero if any line that
+    starts with {"transaction" cannot be parsed, and print how many.
+14. Never merge natural benign traffic and hard benign inputs into one rate.
+    Report them separately every time.
+15. Scenario counts: always report distinct requests AND distinct payloads (for
+    attacks) or distinct endpoints (for benign). A payload sent at two injection
+    points is two requests but one payload.
