@@ -1,0 +1,12 @@
+{"id": "sqli-01", "label": "attack", "family": "sqli", "source": "hand-written-smoke", "method": "GET", "path": "/rest/products/search", "query": "q=%27%20OR%201%3d1--", "body": "", "content_type": ""}
+{"id": "sqli-02", "label": "attack", "family": "sqli", "source": "hand-written-smoke", "method": "GET", "path": "/rest/products/search", "query": "q=%27%20UNION%20SELECT%20NULL%2CNULL%2CNULL--", "body": "", "content_type": ""}
+{"id": "xss-01", "label": "attack", "family": "xss", "source": "hand-written-smoke", "method": "GET", "path": "/rest/products/search", "query": "q=%3Cscript%3Ealert%281%29%3C%2Fscript%3E", "body": "", "content_type": ""}
+{"id": "xss-02", "label": "attack", "family": "xss", "source": "hand-written-smoke", "method": "GET", "path": "/rest/products/search", "query": "q=%22%3E%3Cimg%20src%3Dx%20onerror%3Dalert%281%29%3E", "body": "", "content_type": ""}
+{"id": "trav-01", "label": "attack", "family": "path-traversal", "source": "hand-written-smoke", "method": "GET", "path": "/public/images/%2e%2e/%2e%2e/%2e%2e/etc%2fpasswd", "query": "", "body": "", "content_type": ""}
+{"id": "trav-02", "label": "attack", "family": "path-traversal", "source": "hand-written-smoke", "method": "GET", "path": "/rest/products/search", "query": "q=..%2F..%2F..%2Fetc%2Fpasswd", "body": "", "content_type": ""}
+{"id": "home-01", "label": "benign", "family": "benign", "source": "hand-written-smoke", "method": "GET", "path": "/", "query": "", "body": "", "content_type": ""}
+{"id": "search-01", "label": "benign", "family": "benign", "source": "hand-written-smoke", "method": "GET", "path": "/rest/products/search", "query": "q=apple", "body": "", "content_type": ""}
+{"id": "whoami-01", "label": "benign", "family": "benign", "source": "hand-written-smoke", "method": "GET", "path": "/rest/user/whoami", "query": "", "body": "", "content_type": ""}
+{"id": "js-01", "label": "benign", "family": "benign", "source": "hand-written-smoke", "method": "GET", "path": "/main.js", "query": "", "body": "", "content_type": ""}
+{"id": "img-01", "label": "benign", "family": "benign", "source": "hand-written-smoke", "method": "GET", "path": "/assets/public/favicon_pygmy.svg", "query": "", "body": "", "content_type": ""}
+{"id": "login-01", "label": "benign", "family": "benign", "source": "hand-written-smoke", "method": "POST", "path": "/rest/user/login", "query": "", "body": "email=test%40example.com&password=TestPassword!123", "content_type": "application/x-www-form-urlencoded"}
