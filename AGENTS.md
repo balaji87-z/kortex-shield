@@ -25,3 +25,13 @@
 - Deviations from instructions
 - UNVERIFIED items
 - Questions for instructor
+
+10. Frozen datasets. A dataset version is frozen when the SHA-256 of its
+    manifest is written next to it. After that no sample may be added, removed
+    or edited; a change creates a new version folder. Never change a dataset
+    after seeing blocking-mode results on it.
+11. Label meaning. For public payload lists, "attack" means "listed under this
+    family in this source", not "verified exploitable". State this in every
+    dataset README.
+12. Never drop a sample silently. Anything excluded goes to a named file with a
+    count and a reason.
