@@ -75,3 +75,32 @@ def test_v0_defaults_unchanged():
     import inspect
     sig = inspect.signature(mod.run_session)
     assert sig.parameters["extra_flows"].default is False
+
+
+def test_write_run_log_appends_session_report_and_raw_count(tmp_path):
+    """Rule 23: step report + raw captured count land in a committed path."""
+    log = tmp_path / "logs" / "record_benign.log"
+    reports = [
+        {"session": 1000, "steps": ["home+products", "dialog-1"]},
+        {"session": 1001, "steps": ["login", "review-edit FAILED: TimeoutError"]},
+    ]
+    mod.write_run_log(log, "record_benign run X base_url=u sessions=2", reports, 1234)
+    text = log.read_text()
+    assert "==== record_benign run X base_url=u sessions=2 ===" in text
+    assert "sessions: 2, sessions with failed steps: 1" in text
+    assert "session 1000: home+products, dialog-1" in text
+    assert "session 1001: login, review-edit FAILED: TimeoutError" in text
+    assert "raw captured requests: 1234" in text
+    # appending keeps prior content
+    mod.write_run_log(log, "second run", [], 0)
+    assert "record_benign run X" in log.read_text() and "second run" in log.read_text()
+
+
+def test_default_log_path_is_committed_dir_not_tmp():
+    """The --log default must be under docs/logs/ (rule 23), never /tmp."""
+    import argparse
+    ap = argparse.ArgumentParser()
+    ap.add_argument("--log", default="docs/logs/record_benign.log")
+    args = ap.parse_args([])
+    assert args.log.startswith("docs/logs/")
+    assert not args.log.startswith("/tmp")
