@@ -65,7 +65,7 @@ def send_one(
 ) -> dict:
     """Send one sample verbatim. Returns a responses.jsonl row."""
     row = {"id": sample.id, "status": None, "elapsed_ms": None, "blocked": False,
-           "body_marker": False, "error": None}
+           "body_marker": False, "error": None, "error_class": None}
     start = time.monotonic()
     conn: http.client.HTTPConnection | None = None
     try:
@@ -102,12 +102,22 @@ def send_one(
         row["body_marker"] = marker_hit
         if resp.status == block_status and (block_marker is None or marker_hit):
             row["blocked"] = True
+    except UnicodeError as exc:
+        # Step-10 T1: header names/values or the request line may contain
+        # characters http.client cannot encode (latin-1). Record a per-sample
+        # error row and let the run continue (exit stays non-zero via
+        # error_count).
+        row["error"] = f"encoding: {exc.__class__.__name__}: {exc}"
+        row["error_class"] = "encoding"
     except (socket.timeout, TimeoutError):
         row["error"] = "timeout"
+        row["error_class"] = "timeout"
     except (ConnectionError, OSError) as exc:
         row["error"] = f"connection_error: {exc.__class__.__name__}"
+        row["error_class"] = "connection_error"
     except http.client.HTTPException as exc:
         row["error"] = f"http_error: {exc.__class__.__name__}: {exc}"
+        row["error_class"] = "http_error"
     finally:
         if conn is not None:
             try:
