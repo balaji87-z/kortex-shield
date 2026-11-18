@@ -1,0 +1,125 @@
+ Network deploy_default Creating 
+ Network deploy_default Creating 
+ Network deploy_default Created 
+ Network deploy_default Created 
+ Container deploy-stub-backend-1 Creating 
+ Container deploy-target-1 Creating 
+ Container deploy-stub-backend-1 Created 
+ Container deploy-target-1 Created 
+ Container deploy-baseline-crs-1 Creating 
+ Container deploy-baseline-crs-1 Created 
+ Container deploy-target-1 Starting 
+ Container deploy-stub-backend-1 Starting 
+ Container deploy-target-1 Started 
+ Container deploy-baseline-crs-1 Starting 
+ Container deploy-stub-backend-1 Started 
+ Container deploy-baseline-crs-1 Started 
+2026/11/18 16:36:48 [warn] 689#689: "ssl_stapling" ignored, issuer certificate not found for certificate "/etc/nginx/conf/server.crt"
+nginx: [warn] "ssl_stapling" ignored, issuer certificate not found for certificate "/etc/nginx/conf/server.crt"
+2026/11/18 16:36:48 [notice] 689#689: ModSecurity-nginx v1.0.4 (rules loaded inline/local/remote: 0/853/0)
+2026/11/18 16:36:48 [notice] 689#689: libmodsecurity3 version 3.0.17
+2026/11/18 16:36:48 [notice] 689#689: signal process started
+B=1 D=1 P=1 E=On
+SecAuditLog /var/log/modsecurity/audit/audit.log
+pre-run probe: 200
+{"base_url": "http://localhost:8081", "started_utc": "2026-11-18T16:36:51+00:00", "ended_utc": "2026-11-18T16:40:03+00:00", "git_commit": "09282348855a5b147b311d0601d2e9c61ac87840", "manifest_sha256": "133e4012558fc5a100e1a14f6890d5577fd31e74d9b5dbc02d901ef22a843c8b", "default_user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/158.0.0.0 Safari/537.36", "labels": {"config": "default", "paranoia": "1"}, "total_samples": 19994, "responses_ok": 19994, "blocked": 3823, "error_count": 0, "block_rule": {"block_status": 403, "block_marker": "<center>nginx</center>"}}
+crs_audit: 3887 audit entr(ies) -> out/benign-wcp-v0-pl1-default-ua/audit.jsonl
+inconsistent samples: wcp-5088de054b65, wcp-c46909e19939, wcp-2c2c57c4dc8e, wcp-2e9670202042, wcp-384ae4521001, wcp-aec2a2311eb9, wcp-e43c5bc2a3ee, wcp-a4c72d6815ef, wcp-d28a3a47e730, wcp-2ec9a3436296, wcp-93fd2b577bc9, wcp-042d40f331b3, wcp-5110801b9d2b, wcp-223072029082, wcp-4de889209502, wcp-cb93414feb7b, wcp-4dd806812c27, wcp-1494e619e46e, wcp-6a389d9290e8, wcp-c1b01ba0a377, wcp-010955d86487, wcp-89887cfa3769, wcp-d10d34b0e80e, wcp-d3e3c0aed5a2, wcp-f1c826ba42c2, wcp-304ffebcb9d6, wcp-a384f906df77, wcp-f55a8ddcbb93, wcp-a82d4cec1730, wcp-f092a6419dfe, wcp-c3973d934a50, wcp-9958e07b65ec, wcp-aac2104afa17, wcp-bf3ad3695dc3, wcp-426d12f0813c, wcp-7798c2ae1ed3, wcp-29d6bd33af15, wcp-bd5f604b7742, wcp-d81e70375b1b, wcp-0f78cf9f6d9d, wcp-5778e2306e1c, wcp-1988b652263e, wcp-aa98de364e37, wcp-86ff61c9b59b, wcp-6cb4183a70df, wcp-96a594e2ae57, wcp-c7970d727861, wcp-672911deadaa, wcp-71461e371348, wcp-0553cf5e1bd7, wcp-2ff201663c0b, wcp-b5b4b927f898, wcp-376b3b37ef12, wcp-ef1d0324c278, wcp-5c5cf613f9e2, wcp-4be3821497ed, wcp-fb221d8d4540, wcp-f78d7afa532c, wcp-2895d7e869c5, wcp-2600366d4ecb, wcp-decac4aed757, wcp-a4a6f9fb8303, wcp-62b3375148b4, wcp-8dc97426f4b3
+inconsistent: 64
+waf_block: 3823
+waf_pass: 16107
+=== done default PL1
+ Network deploy_default Creating 
+ Network deploy_default Creating 
+ Network deploy_default Created 
+ Network deploy_default Created 
+ Container deploy-target-1 Creating 
+ Container deploy-stub-backend-1 Creating 
+ Container deploy-target-1 Created 
+ Container deploy-baseline-crs-1 Creating 
+ Container deploy-stub-backend-1 Created 
+ Container deploy-baseline-crs-1 Created 
+ Container deploy-stub-backend-1 Starting 
+ Container deploy-target-1 Starting 
+ Container deploy-stub-backend-1 Started 
+ Container deploy-target-1 Started 
+ Container deploy-baseline-crs-1 Starting 
+ Container deploy-baseline-crs-1 Started 
+2026/11/18 16:40:26 [warn] 688#688: "ssl_stapling" ignored, issuer certificate not found for certificate "/etc/nginx/conf/server.crt"
+nginx: [warn] "ssl_stapling" ignored, issuer certificate not found for certificate "/etc/nginx/conf/server.crt"
+2026/11/18 16:40:26 [notice] 688#688: ModSecurity-nginx v1.0.4 (rules loaded inline/local/remote: 0/853/0)
+2026/11/18 16:40:26 [notice] 688#688: libmodsecurity3 version 3.0.17
+2026/11/18 16:40:26 [notice] 688#688: signal process started
+B=2 D=2 P=2 E=On
+SecAuditLog /var/log/modsecurity/audit/audit.log
+pre-run probe: 200
+{"base_url": "http://localhost:8081", "started_utc": "2026-11-18T16:40:29+00:00", "ended_utc": "2026-11-18T16:44:36+00:00", "git_commit": "09282348855a5b147b311d0601d2e9c61ac87840", "manifest_sha256": "133e4012558fc5a100e1a14f6890d5577fd31e74d9b5dbc02d901ef22a843c8b", "default_user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/158.0.0.0 Safari/537.36", "labels": {"config": "default", "paranoia": "2"}, "total_samples": 19994, "responses_ok": 19994, "blocked": 8949, "error_count": 0, "block_rule": {"block_status": 403, "block_marker": "<center>nginx</center>"}}
+crs_audit: 9281 audit entr(ies) -> out/benign-wcp-v0-pl2-default-ua/audit.jsonl
+inconsistent samples: wcp-5088de054b65, wcp-c46909e19939, wcp-2c2c57c4dc8e, wcp-2e9670202042, wcp-384ae4521001, wcp-aec2a2311eb9, wcp-e43c5bc2a3ee, wcp-a4c72d6815ef, wcp-d28a3a47e730, wcp-2ec9a3436296, wcp-93fd2b577bc9, wcp-042d40f331b3, wcp-5110801b9d2b, wcp-223072029082, wcp-4de889209502, wcp-cb93414feb7b, wcp-4dd806812c27, wcp-1494e619e46e, wcp-6a389d9290e8, wcp-c1b01ba0a377, wcp-010955d86487, wcp-89887cfa3769, wcp-d10d34b0e80e, wcp-d3e3c0aed5a2, wcp-f1c826ba42c2, wcp-304ffebcb9d6, wcp-a384f906df77, wcp-f55a8ddcbb93, wcp-a82d4cec1730, wcp-f092a6419dfe, wcp-c3973d934a50, wcp-9958e07b65ec, wcp-aac2104afa17, wcp-bf3ad3695dc3, wcp-67cb71cd0c38, wcp-426d12f0813c, wcp-7798c2ae1ed3, wcp-29d6bd33af15, wcp-bd5f604b7742, wcp-d81e70375b1b, wcp-0f78cf9f6d9d, wcp-5778e2306e1c, wcp-1988b652263e, wcp-aa98de364e37, wcp-86ff61c9b59b, wcp-6cb4183a70df, wcp-96a594e2ae57, wcp-c7970d727861, wcp-672911deadaa, wcp-71461e371348, wcp-0553cf5e1bd7, wcp-2ff201663c0b, wcp-b5b4b927f898, wcp-376b3b37ef12, wcp-ef1d0324c278, wcp-5c5cf613f9e2, wcp-4be3821497ed, wcp-fb221d8d4540, wcp-f78d7afa532c, wcp-2895d7e869c5, wcp-2600366d4ecb, wcp-decac4aed757, wcp-a4a6f9fb8303, wcp-62b3375148b4, wcp-8dc97426f4b3
+inconsistent: 65
+waf_block: 8949
+waf_pass: 10980
+=== done default PL2
+ Network deploy_default Creating 
+ Network deploy_default Creating 
+ Network deploy_default Created 
+ Network deploy_default Created 
+ Container deploy-target-1 Creating 
+ Container deploy-stub-backend-1 Creating 
+ Container deploy-stub-backend-1 Created 
+ Container deploy-target-1 Created 
+ Container deploy-baseline-crs-1 Creating 
+ Container deploy-baseline-crs-1 Created 
+ Container deploy-target-1 Starting 
+ Container deploy-stub-backend-1 Starting 
+ Container deploy-target-1 Started 
+ Container deploy-baseline-crs-1 Starting 
+ Container deploy-stub-backend-1 Started 
+ Container deploy-baseline-crs-1 Started 
+2026/11/18 16:45:03 [warn] 699#699: "ssl_stapling" ignored, issuer certificate not found for certificate "/etc/nginx/conf/server.crt"
+nginx: [warn] "ssl_stapling" ignored, issuer certificate not found for certificate "/etc/nginx/conf/server.crt"
+2026/11/18 16:45:03 [notice] 699#699: ModSecurity-nginx v1.0.4 (rules loaded inline/local/remote: 0/855/0)
+2026/11/18 16:45:03 [notice] 699#699: libmodsecurity3 version 3.0.17
+2026/11/18 16:45:03 [notice] 699#699: signal process started
+B=1 D=1 P=1 E=On
+SecAuditLog /var/log/modsecurity/audit/audit.log
+pre-run probe: 200
+{"base_url": "http://localhost:8081", "started_utc": "2026-11-18T16:45:05+00:00", "ended_utc": "2026-11-18T16:48:11+00:00", "git_commit": "09282348855a5b147b311d0601d2e9c61ac87840", "manifest_sha256": "133e4012558fc5a100e1a14f6890d5577fd31e74d9b5dbc02d901ef22a843c8b", "default_user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/158.0.0.0 Safari/537.36", "labels": {"config": "aligned", "paranoia": "1"}, "total_samples": 19994, "responses_ok": 19994, "blocked": 6558, "error_count": 0, "block_rule": {"block_status": 403, "block_marker": "<center>nginx</center>"}}
+crs_audit: 6622 audit entr(ies) -> out/benign-wcp-v0-pl1-aligned-ua/audit.jsonl
+inconsistent samples: wcp-5088de054b65, wcp-c46909e19939, wcp-2c2c57c4dc8e, wcp-2e9670202042, wcp-384ae4521001, wcp-aec2a2311eb9, wcp-e43c5bc2a3ee, wcp-a4c72d6815ef, wcp-d28a3a47e730, wcp-2ec9a3436296, wcp-93fd2b577bc9, wcp-042d40f331b3, wcp-5110801b9d2b, wcp-223072029082, wcp-4de889209502, wcp-cb93414feb7b, wcp-4dd806812c27, wcp-1494e619e46e, wcp-6a389d9290e8, wcp-c1b01ba0a377, wcp-010955d86487, wcp-89887cfa3769, wcp-d10d34b0e80e, wcp-d3e3c0aed5a2, wcp-f1c826ba42c2, wcp-304ffebcb9d6, wcp-a384f906df77, wcp-f55a8ddcbb93, wcp-a82d4cec1730, wcp-f092a6419dfe, wcp-c3973d934a50, wcp-9958e07b65ec, wcp-aac2104afa17, wcp-bf3ad3695dc3, wcp-426d12f0813c, wcp-7798c2ae1ed3, wcp-29d6bd33af15, wcp-bd5f604b7742, wcp-d81e70375b1b, wcp-0f78cf9f6d9d, wcp-5778e2306e1c, wcp-1988b652263e, wcp-aa98de364e37, wcp-86ff61c9b59b, wcp-6cb4183a70df, wcp-96a594e2ae57, wcp-c7970d727861, wcp-672911deadaa, wcp-71461e371348, wcp-0553cf5e1bd7, wcp-2ff201663c0b, wcp-b5b4b927f898, wcp-376b3b37ef12, wcp-ef1d0324c278, wcp-5c5cf613f9e2, wcp-4be3821497ed, wcp-fb221d8d4540, wcp-f78d7afa532c, wcp-2895d7e869c5, wcp-2600366d4ecb, wcp-decac4aed757, wcp-a4a6f9fb8303, wcp-62b3375148b4, wcp-8dc97426f4b3
+inconsistent: 64
+waf_block: 6558
+waf_pass: 13372
+=== done aligned PL1
+ Network deploy_default Creating 
+ Network deploy_default Creating 
+ Network deploy_default Created 
+ Network deploy_default Created 
+ Container deploy-stub-backend-1 Creating 
+ Container deploy-target-1 Creating 
+ Container deploy-target-1 Created 
+ Container deploy-baseline-crs-1 Creating 
+ Container deploy-stub-backend-1 Created 
+ Container deploy-baseline-crs-1 Created 
+ Container deploy-target-1 Starting 
+ Container deploy-stub-backend-1 Starting 
+ Container deploy-target-1 Started 
+ Container deploy-baseline-crs-1 Starting 
+ Container deploy-baseline-crs-1 Started 
+ Container deploy-stub-backend-1 Started 
+2026/11/18 16:48:36 [warn] 700#700: "ssl_stapling" ignored, issuer certificate not found for certificate "/etc/nginx/conf/server.crt"
+nginx: [warn] "ssl_stapling" ignored, issuer certificate not found for certificate "/etc/nginx/conf/server.crt"
+2026/11/18 16:48:36 [notice] 700#700: ModSecurity-nginx v1.0.4 (rules loaded inline/local/remote: 0/855/0)
+2026/11/18 16:48:36 [notice] 700#700: libmodsecurity3 version 3.0.17
+2026/11/18 16:48:36 [notice] 700#700: signal process started
+B=2 D=2 P=2 E=On
+SecAuditLog /var/log/modsecurity/audit/audit.log
+pre-run probe: 200
+{"base_url": "http://localhost:8081", "started_utc": "2026-11-18T16:48:39+00:00", "ended_utc": "2026-11-18T16:52:57+00:00", "git_commit": "09282348855a5b147b311d0601d2e9c61ac87840", "manifest_sha256": "133e4012558fc5a100e1a14f6890d5577fd31e74d9b5dbc02d901ef22a843c8b", "default_user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/158.0.0.0 Safari/537.36", "labels": {"config": "aligned", "paranoia": "2"}, "total_samples": 19994, "responses_ok": 19994, "blocked": 10183, "error_count": 0, "block_rule": {"block_status": 403, "block_marker": "<center>nginx</center>"}}
+crs_audit: 10442 audit entr(ies) -> out/benign-wcp-v0-pl2-aligned-ua/audit.jsonl
+inconsistent samples: wcp-5088de054b65, wcp-c46909e19939, wcp-2c2c57c4dc8e, wcp-2e9670202042, wcp-384ae4521001, wcp-aec2a2311eb9, wcp-e43c5bc2a3ee, wcp-a4c72d6815ef, wcp-d28a3a47e730, wcp-2ec9a3436296, wcp-93fd2b577bc9, wcp-042d40f331b3, wcp-5110801b9d2b, wcp-223072029082, wcp-4de889209502, wcp-cb93414feb7b, wcp-4dd806812c27, wcp-1494e619e46e, wcp-6a389d9290e8, wcp-c1b01ba0a377, wcp-010955d86487, wcp-89887cfa3769, wcp-d10d34b0e80e, wcp-d3e3c0aed5a2, wcp-f1c826ba42c2, wcp-304ffebcb9d6, wcp-a384f906df77, wcp-f55a8ddcbb93, wcp-a82d4cec1730, wcp-f092a6419dfe, wcp-c3973d934a50, wcp-9958e07b65ec, wcp-aac2104afa17, wcp-bf3ad3695dc3, wcp-67cb71cd0c38, wcp-426d12f0813c, wcp-7798c2ae1ed3, wcp-29d6bd33af15, wcp-bd5f604b7742, wcp-d81e70375b1b, wcp-0f78cf9f6d9d, wcp-5778e2306e1c, wcp-1988b652263e, wcp-aa98de364e37, wcp-86ff61c9b59b, wcp-6cb4183a70df, wcp-96a594e2ae57, wcp-c7970d727861, wcp-672911deadaa, wcp-71461e371348, wcp-0553cf5e1bd7, wcp-2ff201663c0b, wcp-b5b4b927f898, wcp-376b3b37ef12, wcp-ef1d0324c278, wcp-5c5cf613f9e2, wcp-4be3821497ed, wcp-fb221d8d4540, wcp-f78d7afa532c, wcp-2895d7e869c5, wcp-2600366d4ecb, wcp-decac4aed757, wcp-a4a6f9fb8303, wcp-62b3375148b4, wcp-8dc97426f4b3
+inconsistent: 65
+waf_block: 10183
+waf_pass: 9746
+=== done aligned PL2
+ALL RUNS DONE
