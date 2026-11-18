@@ -14,10 +14,15 @@ provenance and a baseline.
 | `kortex_eval/outcome.py` per-sample outcome classifier (error / waf_block / waf_would_block / waf_pass / proxy_reject / inconsistent) | Written, tested on synthetic + real data |
 | `deploy/compose.yml` baseline testbed (target + OWASP CRS) | Running and verified: Juice Shop v20.4.0 behind owasp/modsecurity-crs 4.25.2-nginx-lts; ports/engine/paranoia are env vars with defaults |
 | `docs/block-discriminator.md` WAF-block vs target-error discrimination rule | Written from captured evidence |
-| `tools/build_attacks.py` + `data/attacks-v0/` first frozen ATTACK corpus (1054 samples, 4 families, attacks only) | Frozen (MANIFEST.sha256); benign traffic not built yet |
+| `tools/build_attacks.py` + `data/attacks-v0/` first frozen ATTACK corpus (1054 samples, 527 distinct payloads × 2 injection points, 4 families) | Frozen (MANIFEST.sha256) |
+| `tools/record_benign.py` + `data/benign-browse-v0/` frozen NATURAL benign browsing corpus (214 unique requests from 20 real UI sessions via Playwright) | Frozen (MANIFEST.sha256) |
+| `tools/build_benign_hard.py` + `data/benign-hard-v0/` frozen HARD benign corpus (180 samples, 90 hand-written attack-adjacent values — overstates natural FP rate, never merge rates) | Frozen (MANIFEST.sha256) |
+| `kortex_eval/endpoints.py` endpoint templating (numeric/hex/UUID segments → `{id}`) | Written, 10 tests |
+| `tools/attack_breakdown.py`, `tools/benign_breakdown.py` stratified breakdowns with 95% Wilson intervals | Written, used for docs/baseline-v0.md |
+| `docs/baseline-v0.md` first full CRS false-positive baseline (PL1 = PL2: 34/214 natural, 22/180 hard) | Written from real runs |
 | `docs/acceptance.md` industry bars turned into tests | Written; no numeric targets until baseline is measured |
 | `docs/decisions/0001-build-on-coraza.md` | Proposed |
-| Traffic generators, benign traffic, dataset-scale numbers, engine | Not started |
+| Dataset-scale expansion (1,600 attacks / 1,400 legitimate), engine | Not started — current: 1,054 attacks / 394 benign |
 
 ## Run the tests
 
@@ -65,7 +70,7 @@ error, never skipped.
 ## Next steps, in order
 
 1. ~~Check the VERIFY items in `deploy/compose.yml` and run the testbed on a machine with Docker.~~ Done in step-01.
-2. ~~Write traffic generators: attack tools through the baseline, and a recorded benign browsing script.~~ Attack corpus v0 frozen from public payload lists (step-03). Benign browsing script still to do.
+2. ~~Write traffic generators: attack tools through the baseline, and a recorded benign browsing script.~~ Done (step-03 attacks, step-04 benign browsing + hard benign).
 3. Build the dataset manifest; split with `kortex_eval.split`.
 4. Measure CRS at paranoia levels 1 and 2. Set the numeric targets in `docs/acceptance.md` from those results.
 5. Only then start the engine work (ADR 0001).
