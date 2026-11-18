@@ -60,3 +60,9 @@
     reported.
 20. Every rate states its denominator and how errors are treated. Report the
     best case (errors not flagged) and the worst case (errors flagged).
+21. Headline rule. Report the conservative number for each claim: false
+    positive rate = worst case (outbound-cut flagged); recall = best case
+    (outbound-cut not flagged). Always show both, and never drop samples from
+    a denominator.
+22. Preregistration. Any new dataset version needs a written plan (sources,
+    counts, procedure) committed BEFORE it is built or run.
