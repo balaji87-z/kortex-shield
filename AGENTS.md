@@ -52,3 +52,11 @@
     documentation URL, in docs/baseline-config.md. Never change a frozen dataset
     in response to a result. No rule-specific exclusions (SecRuleRemoveById,
     ctl:ruleRemove*) unless a step explicitly allows them.
+18. Confound check. For every run, list any rule ID present in 20% or more of
+    all audit entries for that dataset. A rule that fires on most requests is
+    a harness artifact until shown otherwise.
+19. In-sample label. Any configuration or threshold derived from a dataset
+    must be labelled "in-sample" wherever its result on that dataset is
+    reported.
+20. Every rate states its denominator and how errors are treated. Report the
+    best case (errors not flagged) and the worst case (errors flagged).
