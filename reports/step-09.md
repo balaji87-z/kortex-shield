@@ -260,6 +260,20 @@ docs/logs/wcp-baseline-breakdown.json; summary in docs/baseline-v0.4.md
 5. The 5 proxy_reject reach failures (414 URI-too-long) are quarantined per
    the plan; the quarantine file lives in gitignored out/, so its contents
    (5 ids) are reproduced verbatim in this report.
+6. GitHub push protection blocked the push: the third-party-derived dataset
+   contains credential-shaped strings (it flagged an "Amazon AWS Secret
+   Access Key" pattern in a reCAPTCHA site-key URL; the sample also carries
+   16 AWS-access-key-shaped, 234 Google-API-key-shaped and 121 JWT-shaped
+   strings — counts only, rule 25). Resolution: manifest.jsonl and
+   annotations.jsonl are NOT committed (gitignored); the committed artefacts
+   are the fetch script, the deterministic builder, sample-plan.json (every
+   chosen global index), MANIFEST.sha256, README and the build/census logs.
+   Reproducibility verified by rebuilding from the committed plan: the
+   rebuild produced manifest SHA-256 c8ce11f2... identical to the frozen
+   dataset (byte-for-byte). The WAF runs were executed against the identical
+   local dataset, so all numbers stand. docs/logs/wcp-baseline-breakdown.json
+   was regenerated with endpoint keys stripped of query strings for the same
+   reason (full endpoints reproducible from the dataset).
 
 ## UNVERIFIED items
 

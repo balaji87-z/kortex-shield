@@ -1,0 +1,30 @@
+ Network deploy_default Creating 
+ Network deploy_default Creating 
+ Network deploy_default Created 
+ Network deploy_default Created 
+ Container deploy-stub-backend-1 Creating 
+ Container deploy-target-1 Creating 
+ Container deploy-stub-backend-1 Created 
+ Container deploy-target-1 Created 
+ Container deploy-baseline-crs-1 Creating 
+ Container deploy-baseline-crs-1 Created 
+ Container deploy-target-1 Starting 
+ Container deploy-stub-backend-1 Starting 
+ Container deploy-target-1 Started 
+ Container deploy-baseline-crs-1 Starting 
+ Container deploy-stub-backend-1 Started 
+ Container deploy-baseline-crs-1 Started 
+2026/11/18 16:17:57 [warn] 688#688: "ssl_stapling" ignored, issuer certificate not found for certificate "/etc/nginx/conf/server.crt"
+nginx: [warn] "ssl_stapling" ignored, issuer certificate not found for certificate "/etc/nginx/conf/server.crt"
+2026/11/18 16:17:57 [notice] 688#688: ModSecurity-nginx v1.0.4 (rules loaded inline/local/remote: 0/853/0)
+2026/11/18 16:17:57 [notice] 688#688: libmodsecurity3 version 3.0.17
+2026/11/18 16:17:57 [notice] 688#688: signal process started
+B=1 D=1 P=1 E=DetectionOnly
+SecAuditLog /var/log/modsecurity/audit/audit.log
+probe: 200
+{"base_url": "http://localhost:8081", "started_utc": "2026-11-18T16:18:00+00:00", "ended_utc": "2026-11-18T16:21:18+00:00", "git_commit": "09282348855a5b147b311d0601d2e9c61ac87840", "manifest_sha256": "549f0f24f41f048e3469d4f701b34d4e69c44faa9688e9b4b91f4bbdd7b92089", "default_user_agent": null, "labels": {"engine": "DetectionOnly", "paranoia": "1"}, "total_samples": 19999, "responses_ok": 19999, "blocked": 0, "error_count": 0, "block_rule": {"block_status": 403, "block_marker": "<center>nginx</center>"}}
+crs_audit: 3887 audit entr(ies) -> out/benign-wcp-v0-reach/audit.jsonl
+proxy_reject: 5
+waf_pass: 16154
+waf_would_block: 3840
+REACH PIPELINE DONE

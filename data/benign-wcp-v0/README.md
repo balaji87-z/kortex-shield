@@ -70,3 +70,19 @@ against a neutral stub backend. Built per docs/plan-benign-wcp-v0.md
   `c8ce11f26406df96d55e5a1cc6186bcbf648cb29bd628081dd834c6ccf1329d1`.
 - Frozen 2026-11-18. After this, no sample may be added, removed or edited
   (rule 10); changes create a new version folder.
+
+## Why manifest.jsonl and annotations.jsonl are NOT committed
+
+The raw third-party-derived request data contains credential-like values that
+GitHub push protection blocks (it flagged an "Amazon AWS Secret Access Key"
+pattern in a reCAPTCHA site-key URL at annotations.jsonl:2793; the corpus
+also carries 16 AWS-access-key-shaped strings, 234 Google-API-key-shaped
+strings and 121 JWT-shaped strings in URLs/bodies — counts only, rule 25).
+Per rule 25 the committed artefacts are instead: this README, the fetch
+script (tools/fetch/fetch_wcp_legitimate.sh), the deterministic builder
+(tools/build_benign_wcp.py), the exact sample selection
+(sample-plan.json: seed, allocation, and every chosen global index), the
+frozen manifest SHA-256 (MANIFEST.sha256), and the census/build logs. The
+dataset is exactly reproducible: fetch the zip (SHA-256 checked), run the
+builder — it reads sample-plan.json and reproduces the identical manifest
+byte-for-byte.
