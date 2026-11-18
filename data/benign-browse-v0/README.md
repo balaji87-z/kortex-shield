@@ -11,7 +11,10 @@
   `Accept-Encoding`; the runner adds `X-Kortex-Sample-Id` (overrides any recorded
   header of the same name).
 - **Dedupe**: by content hash over (method, path, query, content-type, body).
-  Captured 1374 requests → **214 unique samples**.
+  Recorded headers are NOT part of the hash: two requests with identical
+  method/path/query/content-type/body but different headers collapse to one
+  sample, keeping the first-seen headers. Captured 1374 requests →
+  **214 unique samples**.
 - **Reach check** (rule 13: fresh container, DetectionOnly, PARANOIA=1, workers 1):
   214/214 reachable, 0 probes, 0 quarantine, 0 excluded.
 - **Frozen**: `manifest.jsonl` SHA-256 `20fe88df3152c43dd8312fe16e835a6de432e01f14dd5e191f0933ca1d4de8b1`.
