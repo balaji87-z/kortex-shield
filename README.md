@@ -8,15 +8,16 @@ provenance and a baseline.
 
 | Part | State |
 |---|---|
-| `kortex_eval/` manifest, leak-proof split, metrics with 95% intervals, report | Written, 35 unit tests pass |
-| `kortex_eval/runner.py` verbatim request runner (stdlib http.client, sample-id header, block discriminator) | Written, smoke-tested against the live baseline |
-| `kortex_eval/crs_audit.py` CRS audit-log parser and sample correlation via `X-Kortex-Sample-Id` | Written, tested on real audit samples |
+| `kortex_eval/` manifest, leak-proof split, metrics with 95% intervals, report | Written, 48 unit tests pass |
+| `kortex_eval/runner.py` verbatim request runner (stdlib http.client, sample-id header, block discriminator, manifest sha256 + labels in run.json) | Written, smoke-tested and used for the corpus runs |
+| `kortex_eval/crs_audit.py` CRS audit-log parser, sample correlation via `X-Kortex-Sample-Id`, dual score readings (949110 total vs severity sum) | Written, tested on real audit samples |
+| `kortex_eval/outcome.py` per-sample outcome classifier (error / waf_block / waf_would_block / waf_pass / proxy_reject / inconsistent) | Written, tested on synthetic + real data |
 | `deploy/compose.yml` baseline testbed (target + OWASP CRS) | Running and verified: Juice Shop v20.4.0 behind owasp/modsecurity-crs 4.25.2-nginx-lts; ports/engine/paranoia are env vars with defaults |
 | `docs/block-discriminator.md` WAF-block vs target-error discrimination rule | Written from captured evidence |
-| `data/smoke/` 12-sample plumbing-validation manifest | Written; plumbing validation only, not a dataset |
+| `tools/build_attacks.py` + `data/attacks-v0/` first frozen ATTACK corpus (1054 samples, 4 families, attacks only) | Frozen (MANIFEST.sha256); benign traffic not built yet |
 | `docs/acceptance.md` industry bars turned into tests | Written; no numeric targets until baseline is measured |
 | `docs/decisions/0001-build-on-coraza.md` | Proposed |
-| Traffic generators, dataset, baseline numbers, engine | Not started |
+| Traffic generators, benign traffic, dataset-scale numbers, engine | Not started |
 
 ## Run the tests
 
@@ -64,7 +65,7 @@ error, never skipped.
 ## Next steps, in order
 
 1. ~~Check the VERIFY items in `deploy/compose.yml` and run the testbed on a machine with Docker.~~ Done in step-01.
-2. Write traffic generators: attack tools through the baseline, and a recorded benign browsing script. Record every tool and version as the sample's `source`.
+2. ~~Write traffic generators: attack tools through the baseline, and a recorded benign browsing script.~~ Attack corpus v0 frozen from public payload lists (step-03). Benign browsing script still to do.
 3. Build the dataset manifest; split with `kortex_eval.split`.
 4. Measure CRS at paranoia levels 1 and 2. Set the numeric targets in `docs/acceptance.md` from those results.
 5. Only then start the engine work (ADR 0001).
