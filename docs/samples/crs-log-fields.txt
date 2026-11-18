@@ -1,0 +1,15 @@
+Fields actually visible in the saved samples (docs/samples/):
+
+Audit log (JSON, one {"transaction":...} per line, sqli/xss samples):
+1. transaction.time_stamp, client_ip, unique_id; request.method/http_version/hostname/uri/headers
+2. response.http_code, response headers, response.body (echoed in the audit entry)
+3. producer: modsecurity version, connector, secrules_engine, components (OWASP_CRS version)
+4. per message: message text and details.ruleId (rule ID)
+5. per message: details.match (operator/variable matched) and details.data (matched data)
+6. per message: details.severity ("2" = ERROR for 942xxx/941xxx, "0" = EMERGENCY for 949110)
+7. per message: details.file + lineNumber, details.ver, details.tags (incl. paranoia-level/N)
+8. nginx error log additionally emits a one-line "ModSecurity: Access denied ... [id "949110"]" summary on 403
+
+Access log (benign sample): client ip, timestamp, request line, status, bytes, User-Agent.
+The benign 200 request has NO audit-log entry: MODSEC_AUDIT_ENGINE=RelevantOnly only
+writes audit transactions for relevant (4xx/5xx) statuses.

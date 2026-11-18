@@ -1,0 +1,7 @@
+172.20.0.1 - - [18/Nov/2026:08:52:42 +0000] "GET / HTTP/1.1" 200 9984 "-" "curl/8.5.0" "-"
+
+NOTE: this is the nginx access-log line for the benign GET / (HTTP 200).
+The ModSecurity audit log (JSON, MODSEC_AUDIT_LOG=/dev/stdout) contains NO
+entry for this request: MODSEC_AUDIT_ENGINE=RelevantOnly only writes audit
+entries for requests with relevant (4xx/5xx) status, so a clean 200 has no
+audit transaction. Verified by counting {"transaction" entries in docker logs.
