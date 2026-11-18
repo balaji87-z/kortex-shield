@@ -17,7 +17,6 @@
   "application/csp-report",
   "application/json",
   "application/json+protobuf",
-  "application/json;charset=UTF-8",
   "application/octet-stream",
   "application/reports+json",
   "application/vnd.chrome.uma",
@@ -25,15 +24,8 @@
   "application/x-protobuf",
   "application/x-protobuffer",
   "application/x-www-form-urlencoded",
-  "application/x-www-form-urlencoded;charset=UTF-8",
-  "application/x-www-form-urlencoded;charset=utf-8",
-  "multipart/form-data;boundary=29cc8c83-4743-4cb3-ad04-a6ad5c4eada9",
-  "multipart/form-data;boundary=f15fc59f-6147-4e07-86c4-e1b7fa228be7",
   "text/ping",
   "text/plain",
-  "text/plain;charset=UTF-8",
-  "text/plain;charset=utf-8",
-  "text/plain;charset=utf8",
   "text/xml"
  ],
  "default_methods": [
@@ -51,11 +43,13 @@
   "text/xml",
   "application/soap+xml"
  ],
- "excluded_multiword_types": {
+ "excluded_types": {
+  "text/plain;charset=UTF-8": 1088,
   "application/x-www-form-urlencoded; charset=UTF-8": 34,
   "multipart/form-data; boundary=----WebKitFormBoundaryCjB4rH91tkB7Ehln": 1,
   "multipart/form-data; boundary=----WebKitFormBoundary4LX0MEyyNrlmJQfR": 1,
   "text/plain; charset=utf-8": 19,
+  "application/json;charset=UTF-8": 74,
   "application/json; charset=utf-8": 177,
   "application/json; charset=UTF-8": 42,
   "multipart/form-data; boundary=----WebKitFormBoundaryHWHNB2ciqKBkF4cS": 1,
@@ -63,6 +57,7 @@
   "application/json, application/json": 10,
   "multipart/form-data; boundary=----WebKitFormBoundaryzgXjgagOSYlLui71": 1,
   "multipart/form-data; boundary=----WebKitFormBoundaryVpnw0wc8dT2jUesP": 1,
+  "application/x-www-form-urlencoded;charset=UTF-8": 36,
   "text/plain; charset=UTF-8": 5,
   "multipart/form-data; boundary=----WebKitFormBoundaryRWDOCKoxOuAJA5XZ": 1,
   "multipart/form-data; boundary=----WebKitFormBoundary0Tx4ZYiVIMotUhal": 1,
@@ -82,6 +77,8 @@
   "multipart/form-data; boundary=----WebKitFormBoundaryt0fZS6mwQQBcIR6K": 1,
   "multipart/form-data; boundary=----WebKitFormBoundaryRYvr3XKZDlLboWhB": 1,
   "multipart/form-data; boundary=----WebKitFormBoundaryTRJupF8gEHBAIAjb": 1,
+  "multipart/form-data;boundary=f15fc59f-6147-4e07-86c4-e1b7fa228be7": 1,
+  "multipart/form-data;boundary=29cc8c83-4743-4cb3-ad04-a6ad5c4eada9": 1,
   "multipart/form-data; boundary=----WebKitFormBoundaryJt3vydosGAHbDnfK": 1,
   "multipart/form-data; boundary=----WebKitFormBoundary8oRnx0KTLpNJXJTS": 1,
   "multipart/form-data; boundary=----WebKitFormBoundaryHDUmiXZQVbmBWzRp": 1,
@@ -108,6 +105,7 @@
   "multipart/form-data; boundary=----WebKitFormBoundarydTMee1xp2LivS2RO": 1,
   "multipart/form-data; boundary=----WebKitFormBoundary3mvJheqlItKYLFeG": 1,
   "application/json; charset=utf8": 2,
+  "text/plain;charset=utf-8": 2,
   "multipart/form-data; boundary=----WebKitFormBoundaryBKJxQQtxW4QMqbtP": 1,
   "multipart/form-data; boundary=----WebKitFormBoundarymKwSPb4FwkyMl00C": 1,
   "multipart/form-data; boundary=----WebKitFormBoundaryr0FiAS85ySZBsVDj": 1,
@@ -137,8 +135,10 @@
   "multipart/form-data; boundary=----WebKitFormBoundaryb4lPMP8LnJCFlKQa": 1,
   "application/x-www-form-urlencoded; charset=utf-8": 2,
   "multipart/form-data; boundary=----WebKitFormBoundaryAemB6WJsX2KjzUxZ": 1,
+  "application/x-www-form-urlencoded;charset=utf-8": 1,
+  "text/plain;charset=utf8": 2,
   "multipart/form-data; boundary=----WebKitFormBoundaryhMuwmClPnWd9Vltk": 1
  },
- "excluded_request_count": 373,
- "note": "CRS tx.allowed_request_content_type is a space-separated regex list; recorded values containing spaces or commas cannot be represented (comma also breaks seclang setvar parsing - nginx emerg 'Expecting an action'). They stay NOT-allowed; 920420 blocks them."
+ "excluded_request_count": 1578,
+ "note": "CRS tx.allowed_request_content_type is a space-separated regex-alternation list; seclang setvar parsing breaks on values containing a comma or semicolon (nginx emerg evidence in reports/step-10.md), and spaces are the list separator. Only single-token types are representable. Excluded recorded types stay NOT-allowed; 920420 blocks them."
 }
