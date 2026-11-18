@@ -40,6 +40,11 @@ services:
       #   https://github.com/coreruleset/modsecurity-crs-docker/blob/main/src/etc/modsecurity.d/modsecurity.conf (SecRuleEngine ${MODSEC_RULE_ENGINE})
       BACKEND: "http://target:3000"       # backend URL (README: "Partial URL for the remote server")
       PARANOIA: "${PARANOIA:-1}"                       # run 1, then 2, as separate labelled runs
+      # Step-05 finding: the image bakes BLOCKING_PARANOIA=1 into its ENV, so
+      # PARANOIA alone only raised detection_paranoia_level (blocking stayed 1).
+      # Pin both levels explicitly to PARANOIA unless overridden.
+      BLOCKING_PARANOIA: "${BLOCKING_PARANOIA:-${PARANOIA:-1}}"
+      DETECTION_PARANOIA: "${DETECTION_PARANOIA:-${PARANOIA:-1}}"
       MODSEC_RULE_ENGINE: "${MODSEC_RULE_ENGINE:-DetectionOnly}" # DetectionOnly logs without blocking
     ports:
       - "${BASELINE_PORT:-8081}:8080"     # container listens on PORT, default 8080 (README: Server and Port Configuration)
