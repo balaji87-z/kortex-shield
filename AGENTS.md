@@ -66,3 +66,9 @@
     a denominator.
 22. Preregistration. Any new dataset version needs a written plan (sources,
     counts, procedure) committed BEFORE it is built or run.
+23. Recording logs. Every recording writes its raw log to a committed path
+    (docs/logs/ or out/ with the path stated in the report). Nothing needed
+    as evidence may live in /tmp.
+24. Relabel. A rule that fires on most requests because the corpus
+    exercises something the config forbids is a CONFIG-MISMATCH signal,
+    not a harness artifact. Use that label in rule 18 reports from now on.
