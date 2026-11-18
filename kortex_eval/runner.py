@@ -78,9 +78,13 @@ def send_one(
             headers[name] = value
         body_bytes = sample.body.encode("utf-8", "surrogatepass") if sample.body else None
         if body_bytes is not None:
-            if sample.content_type:
+            # Recorded headers may already carry content-type/content-length
+            # (any case); never send a duplicate — CRS 920620 blocks those.
+            if sample.content_type and not any(
+                    k.lower() == "content-type" for k in headers):
                 headers["Content-Type"] = sample.content_type
-            headers["Content-Length"] = str(len(body_bytes))
+            if not any(k.lower() == "content-length" for k in headers):
+                headers["Content-Length"] = str(len(body_bytes))
         # putrequest sends the target string verbatim on the request line
         # (no re-encoding); it only rejects control characters.
         conn.request(sample.method.upper(), _request_line(sample), body=body_bytes, headers=headers)

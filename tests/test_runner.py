@@ -238,3 +238,14 @@ def test_recorded_headers_sent_and_sample_id_wins(tmp_path, fake_server):
     runner.run([s], f"http://127.0.0.1:{fake_server.server_port}", tmp_path / "run")
     assert FakeWaf.seen_sample_ids == ["hdr-win-1"]  # ours, not the recorded one
     assert FakeWaf.seen_headers[0]["accept"] == "text/html"  # recorded header sent
+
+
+def test_recorded_content_type_not_duplicated(tmp_path, fake_server):
+    FakeWaf.routes["/dupct"] = (200, "{}")
+    s = sample(id="dupct-1", path="/dupct", method="POST", body='{"a":1}',
+               content_type="application/json",
+               headers={"content-type": "application/json"})
+    runner.run([s], f"http://127.0.0.1:{fake_server.server_port}", tmp_path / "run")
+    ctypes = [v for k, v in FakeWaf.seen_headers[0].items()
+              if k.lower() == "content-type"]
+    assert ctypes == ["application/json"]  # exactly one
