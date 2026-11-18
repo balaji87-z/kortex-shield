@@ -97,15 +97,30 @@ def parse_line(line: str) -> dict | None:
 
 
 def parse_logs(text: str) -> list[dict]:
-    """Parse a docker-logs capture into audit entries, in file order."""
+    """Parse a docker-logs capture into audit entries, in file order.
+
+    Rule 13 (capture hygiene): any line that starts with {"transaction" but
+    cannot be parsed is a capture defect, never silently skipped. Raises
+    AuditError listing how many such lines exist (and their line numbers).
+    """
     entries = []
+    bad: list[int] = []
     for lineno, line in enumerate(text.splitlines(), 1):
+        if not line.strip().startswith('{"transaction":'):
+            continue
         try:
             entry = parse_line(line)
-        except AuditError as exc:
-            raise AuditError(f"line {lineno}: {exc}") from exc
+        except AuditError:
+            bad.append(lineno)
+            continue
         if entry is not None:
             entries.append(entry)
+    if bad:
+        raise AuditError(
+            f"{len(bad)} unparseable audit line(s) starting with {{\"transaction\" "
+            f"at line(s) {bad[:10]}{'...' if len(bad) > 10 else ''} - capture is corrupt; "
+            "refusing to emit a partial result (rule 13)"
+        )
     return entries
 
 
