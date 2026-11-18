@@ -4,6 +4,11 @@ The verdict we measure is the WAF's decision, not the target app's status
 (instructor decision, step-03). Classification per sample:
 
     error            the request failed (timeout / connection error)
+    waf_block_outbound  (blocking mode) the response errored with an
+                     incomplete read / reset, the audit entry contains rule
+                     959100 (outbound threshold), and the inbound score is
+                     below the threshold — the WAF blocked the OUTBOUND side
+                     and cut the response (see docs/block-discriminator.md)
     waf_block        (blocking mode) runner says blocked AND audit score >= threshold
     waf_would_block  (detection mode) audit score >= threshold and nothing was blocked
     waf_pass         reached the engine, score below threshold or no rule match
@@ -24,6 +29,29 @@ import sys
 
 THRESHOLD_DEFAULT = 5
 
+_OUTBOUND_ERROR_MARKERS = (
+    "incompleteread", "connectionreset", "remotedisconnected", "badstatusline",
+)
+
+
+def _outbound_cut(response: dict, audit: dict | None, threshold: int) -> bool:
+    """True when an errored response is an outbound block that cut the stream.
+
+    Definition (docs/block-discriminator.md, step-06 T3): error is an
+    incomplete read / reset, audit contains rule 959100, inbound score below
+    the threshold.
+    """
+    err = (response.get("error") or "")
+    if not any(m in err.lower() for m in _OUTBOUND_ERROR_MARKERS):
+        return False
+    if not audit:
+        return False
+    rule_ids = {str(rule.get("id")) for rule in audit.get("rules", [])}
+    if "959100" not in rule_ids:
+        return False
+    score = audit.get("inbound_score_from_949110")
+    return score is None or score < threshold
+
 
 class OutcomeError(ValueError):
     pass
@@ -40,6 +68,8 @@ def classify(
         raise OutcomeError(f"engine-mode must be blocking|detection, got {engine_mode!r}")
 
     if response is not None and response.get("error") is not None:
+        if engine_mode == "blocking" and _outbound_cut(response, audit, threshold):
+            return "waf_block_outbound"
         return "error"
 
     score = audit.get("inbound_score_from_949110") if audit else None

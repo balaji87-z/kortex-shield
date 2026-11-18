@@ -106,3 +106,62 @@ def test_cli_on_real_smoke_data(tmp_path):
     for r in rows:
         counts[r["outcome"]] = counts.get(r["outcome"], 0) + 1
     assert counts == {"waf_block": 6, "waf_pass": 5, "proxy_reject": 1}
+
+
+def test_outbound_cut_real_step05_samples():
+    """The real step-05 error samples classify as waf_block_outbound."""
+    responses = [
+        {"id": "sqli-730d16ce-q", "status": None, "blocked": False,
+         "error": "http_error: IncompleteRead: IncompleteRead(994 bytes read)"},
+        {"id": "sqli-730d16ce-login", "status": None, "blocked": False,
+         "error": "http_error: IncompleteRead: IncompleteRead(1449 bytes read)"},
+    ]
+    rules = [
+        {"id": "920320", "message": "Missing User Agent Header", "severity": "2"},
+        {"id": "950100", "message": "The Application Returned a 500-Level Status Code", "severity": "2"},
+        {"id": "959100", "message": "Outbound Anomaly Score Exceeded (Total Score: 4)", "severity": "0"},
+    ]
+    audit_entries = [
+        {"sample_id": "sqli-730d16ce-q", "status": 403, "rules": rules,
+         "inbound_score_from_949110": 2, "inbound_score_from_severities": 2, "score_mismatch": False},
+        {"sample_id": "sqli-730d16ce-login", "status": 403, "rules": rules,
+         "inbound_score_from_949110": 2, "inbound_score_from_severities": 2, "score_mismatch": False},
+    ]
+    rows, _ = outcome.classify_all(responses, audit_entries, "blocking")
+    by_id = {r["id"]: r["outcome"] for r in rows}
+    assert by_id["sqli-730d16ce-q"] == "waf_block_outbound"
+    assert by_id["sqli-730d16ce-login"] == "waf_block_outbound"
+
+
+def test_outbound_cut_synthetic_edges():
+    # error without 959100 stays error
+    r = {"id": "x", "error": "http_error: IncompleteRead: IncompleteRead(1 bytes read)"}
+    a = {"sample_id": "x", "rules": [{"id": "920320"}], "inbound_score_from_949110": 2}
+    assert outcome.classify(r, a, "blocking") == "error"
+    # 959100 present but inbound score at/above threshold stays error
+    a2 = {"sample_id": "x", "rules": [{"id": "959100"}], "inbound_score_from_949110": 5}
+    assert outcome.classify(r, a2, "blocking") == "error"
+    # timeout (not an incomplete read) stays error
+    r2 = {"id": "y", "error": "timeout"}
+    a3 = {"sample_id": "y", "rules": [{"id": "959100"}], "inbound_score_from_949110": None}
+    assert outcome.classify(r2, a3, "blocking") == "error"
+    # detection mode never produces the new outcome
+    assert outcome.classify(r, a, "detection") == "error"
+    # non-error rows unaffected
+    ok = {"id": "z", "status": 200, "blocked": False, "error": None, "body_marker": False}
+    assert outcome.classify(ok, None, "blocking") == "waf_pass"
+
+
+def test_outbound_cut_hard_benign_step05_logs(tmp_path):
+    """The 18 hard-benign errors from step-05 PL2 runs, if their logs exist."""
+    base = Path("out/benign-hard-v0-pl2-on-v05")
+    if not (base / "responses.jsonl").exists():
+        pytest.skip("step-05 hard PL2 run output not present")
+    responses = [json.loads(l) for l in open(base / "responses.jsonl") if l.strip()]
+    audit_entries = [json.loads(l) for l in open(base / "audit.jsonl") if l.strip()]
+    rows, _ = outcome.classify_all(responses, audit_entries, "blocking")
+    errs = [r for r in rows if r["outcome"] == "error"]
+    outbound = [r for r in rows if r["outcome"] == "waf_block_outbound"]
+    # step-05 observed 18 errors, all with {920320, 950100, 959100}
+    assert len(outbound) == 18
+    assert len(errs) == 0
