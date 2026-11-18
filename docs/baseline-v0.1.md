@@ -5,6 +5,11 @@ All runs in this document follow rule 13 (container force-recreated, one run
 per log capture, `--workers 1`) and record `config` labels in `run.json`.
 No frozen dataset was edited. No rule-specific exclusions were used.
 
+> **NOTE (step-06):** all PL2 columns/rows in this document are **confounded
+> by 920320** (missing-User-Agent artifact; corrected analysis in the
+> correction note below) — see **docs/baseline-v0.2.md** for the UA-fixed
+> re-run. Numbers below are unchanged.
+
 ## 1. Paranoia level verified (T1)
 
 Raw evidence from the running container (`docker exec deploy-baseline-crs-1`):
