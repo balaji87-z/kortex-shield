@@ -196,3 +196,73 @@ content types (no whitespace, comma or semicolon) + method PATCH.
 94 recorded multi-part types (1,578 TRAIN requests) are not representable
 in the CRS mechanism; they stay NOT-allowed and are blocked by 920420.
 Full excluded list with counts: docs/logs/wcp-heldout-policy.json.
+
+## Step-11 T1: what "default" actually meant (effective-config audit, rule 29)
+
+### The true image default (no env, or empty env)
+
+With `ALLOWED_METHODS`/`ALLOWED_REQUEST_CONTENT_TYPE` unset or empty, the
+entrypoint (docker-entrypoint.d/95-configure-rules.sh, `should_set()` =
+non-empty test) leaves crs-setup.conf rules 900200/900220 **commented out**
+(lines 494/583 of /opt/owasp-crs/crs-setup.conf in the pristine image).
+CRS then applies its own fallback defaults from
+REQUEST-901-INITIALIZATION.conf (read inside the running container):
+
+- rule 901160 (line 183): `tx.allowed_methods=GET HEAD POST OPTIONS`
+  — PUT and DELETE are NOT allowed by the true default;
+- rule 901162 (line 193): `tx.allowed_request_content_type=|application/
+  x-www-form-urlencoded| |multipart/form-data| |text/xml|
+  |application/xml| |application/soap+xml| |application/json|`
+  — note the pipe-wrapping (required for the 920420 `@within` match) and
+  that `text/plain` is NOT allowed while `application/xml` IS.
+
+Verified live against the running container started with empty env:
+POST text/plain -> 403 (920420), POST application/json -> 200, PUT -> 403
+(911100). The Coraza image (coraza-crs 4.25.2-nginx-lts) has the identical
+structure: 900200/900220 commented (crs-setup.conf lines 494/583), the same
+901160/901162 fallbacks, and it DOES honour the two env vars via
+/opt/coraza/activate-rules.sh (the README does not list them).
+
+### Per-run conclusions
+
+- Every run labelled `crs-default` (step-05/06 attacks/browse/hard, step-07
+  browse-v1, step-09 WCP default, step-10 T6 default, T7 cookie, T8
+  Coraza) used the TRUE default policy: compose always passes
+  `ALLOWED_METHODS=""`/`ALLOWED_REQUEST_CONTENT_TYPE=""` (verified with
+  `env -i docker compose config`), the rules stay commented, and the 901
+  fallbacks are active. Evidence beyond config: in the default-run audits
+  920420 fires on text/plain but never on application/json, and 911100
+  only on PUT/DELETE/PATCH — exactly the fallback policy.
+- Rule 29 gap: the step-09 and step-10 run logs did NOT record the
+  in-container effective values (the prep scripts printed only
+  B/D/P/E). The conclusion above is reconstructed from the rendered
+  config of identically-started containers plus audit evidence. From
+  step-11 on, every run saves the effective values (rule 29).
+- Why step-10 read "PUT DELETE" as the image default: the grep for
+  crs-setup.conf lines 494/583 was executed against the container that
+  happened to be up at that moment — the last ALIGNED PL2 run
+  (ALLOWED_METHODS="GET HEAD POST OPTIONS PUT DELETE") — and its values
+  were misattributed to the image default. The v0.5 "image defaults"
+  paragraph is wrong and is corrected by a dated note.
+
+### Rendering bug found (affects two run families)
+
+The CRS content-type list must be PIPE-WRAPPED (`|type| |type| ...`):
+rule 920420 wraps the observed type as `|type|` and matches it with
+`@within` against the tx value (REQUEST-920-PROTOCOL-ENFORCEMENT.conf,
+rule 920420 chain). The step-09 `crs-policy-aligned`/`aligned-v2` runs on
+WCP and the step-10 `crs-policy-wcp-train` runs passed the list UNWRAPPED
+(tools/run_wcp_baselines.sh, tools/run_wcp_heldout.sh), so `@within`
+matched NOTHING and 920420 fired on 100% of content-type requests:
+
+- step-09 aligned PL1: 920420 on 2,510/2,510 application/json requests,
+  546/546 form-urlencoded, 2,783/2,783 text/plain;
+- step-10 wcp-train TEST PL1: 1,264/1,264 json, 338/338 form-urlencoded.
+
+Therefore the step-09 aligned-v2 WCP numbers (32.80%/50.93%) and the
+step-10 T6 wcp-train numbers (TEST 31.66%/47.97%, TRAIN 33.95%/53.92%)
+measured "block every request that has a Content-Type header", NOT the
+intended policies. Dated corrections are in docs/baseline-v0.4.md and
+docs/baseline-v0.5.md. The crs-default numbers are unaffected. The
+wcp-train runs are re-run in step-11 T2 with the corrected rendering
+(documented below before running).
