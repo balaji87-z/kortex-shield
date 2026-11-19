@@ -1,0 +1,43 @@
+samples compared: 774
+blocked modsec 184  coraza 184  both 184  only-modsec 0  only-coraza 0
+
+    rule   both  only-modsec  only-coraza
+  949110    184            0            0
+  911100    120            0            0
+  920420     60            0            0
+  932260      4            0            0
+=== benign-browse-v1-pl1-default-ua vs coraza-benign-browse-v1-pl1-default
+samples compared: 180
+blocked modsec 22  coraza 22  both 22  only-modsec 0  only-coraza 0
+
+    rule   both  only-modsec  only-coraza
+  949110     22            0            0
+  932260     10            0            0
+  942100      6            0            0
+  932235      6            0            0
+  934110      4            0            0
+  932140      2            0            0
+  932380      2            0            0
+  930120      2            0            0
+  932250      2            0            0
+  932160      2            0            0
+=== benign-hard-v0-pl1-default-ua vs coraza-benign-hard-v0-pl1-default
+samples compared: 12
+blocked modsec 6  coraza 6  both 6  only-modsec 0  only-coraza 0
+
+    rule   both  only-modsec  only-coraza
+  949110      6            0            0
+  941100      2            0            0
+  941160      2            0            0
+  942100      2            0            0
+  941390      2            0            0
+  930120      1            0            0
+  941110      1            0            0
+  932160      1            0            0
+  930110      1            0            0
+  932260      1            0            0
+  930100      1            0            0
+  942360      1            0            0
+  942190      1            0            0
+  941120      1            0            0
+=== smoke-pl1-on vs coraza-smoke-pl1-default

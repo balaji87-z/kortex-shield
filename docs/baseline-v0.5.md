@@ -225,3 +225,12 @@ rate. Denominators: 2,000 in all four runs; errors: 0 in all four.
 
 88 passed (`.venv/bin/python -m pytest -q`), including the 2 new T1
 encoding tests and the 5 T5 stub-backend tests from step-09.
+
+## Dated note (2026-11-19, step-11): WCP numbers in this baseline came from a leaky-stub harness
+
+Same correction as docs/baseline-v0.4.md: the benign-wcp-v0 and
+cookie-sensitivity numbers above were produced with the pre-2026-11-19 stub
+that never drained request bodies. The dataset and configs are unchanged.
+Corrected side-by-side numbers for default PL1 and PL2 are in
+docs/baseline-v0.6.md and reports/step-11.md. Text above is kept as
+originally written.

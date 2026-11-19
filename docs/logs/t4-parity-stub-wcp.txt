@@ -1,0 +1,24 @@
+##### benign-wcp-v0 PL1
+Traceback (most recent call last):
+  File "/var/labsstorage/home/Kavinharish/kortexshield/tools/coraza_parity_diff.py", line 74, in <module>
+    sys.exit(main())
+             ^^^^^^
+  File "/var/labsstorage/home/Kavinharish/kortexshield/tools/coraza_parity_diff.py", line 28, in main
+    mod, cor = load(mod_run, "outcomes.jsonl"), load(cor_run, "outcomes.jsonl")
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/var/labsstorage/home/Kavinharish/kortexshield/tools/coraza_parity_diff.py", line 23, in load
+    return {r["id"]: r for r in map(json.loads, open(f"{run}/{name}"))}
+                                                ^^^^^^^^^^^^^^^^^^^^^
+FileNotFoundError: [Errno 2] No such file or directory: 'out/modsec-benign-wcp-v0-pl1-stub/outcomes.jsonl'
+##### benign-wcp-v0 PL2
+Traceback (most recent call last):
+  File "/var/labsstorage/home/Kavinharish/kortexshield/tools/coraza_parity_diff.py", line 74, in <module>
+    sys.exit(main())
+             ^^^^^^
+  File "/var/labsstorage/home/Kavinharish/kortexshield/tools/coraza_parity_diff.py", line 28, in main
+    mod, cor = load(mod_run, "outcomes.jsonl"), load(cor_run, "outcomes.jsonl")
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/var/labsstorage/home/Kavinharish/kortexshield/tools/coraza_parity_diff.py", line 23, in load
+    return {r["id"]: r for r in map(json.loads, open(f"{run}/{name}"))}
+                                                ^^^^^^^^^^^^^^^^^^^^^
+FileNotFoundError: [Errno 2] No such file or directory: 'out/modsec-benign-wcp-v0-pl2-stub/outcomes.jsonl'

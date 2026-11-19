@@ -25,7 +25,30 @@ BODY = (
 class StubHandler(BaseHTTPRequestHandler):
     protocol_version = "HTTP/1.1"
 
+    def _drain_body(self):
+        # Step-11 (2026-11-19): with HTTP/1.1 keep-alive, an unread request
+        # body stays in the socket and BaseHTTPRequestHandler parses it as the
+        # NEXT request line (observed live: a POST body was read as the method
+        # '{"url":...}GET' -> 501 -> the 501 page echoed the body -> CRS
+        # 953110/959100 outbound-blocked it). Drain exactly Content-Length
+        # bytes so every request leaves the connection clean. Transfer-Encoding
+        # is not supported (the runner never sends it); if seen, close the
+        # connection instead of risking a desync.
+        if self.headers.get("Transfer-Encoding", "").strip().lower() == "chunked":
+            self.close_connection = True
+            return
+        try:
+            length = int(self.headers.get("Content-Length", 0) or 0)
+        except ValueError:
+            length = 0
+        while length > 0:
+            chunk = self.rfile.read(min(length, 65536))
+            if not chunk:
+                break
+            length -= len(chunk)
+
     def _reply(self):
+        self._drain_body()
         self.send_response(200)
         self.send_header("Content-Type", "text/html; charset=utf-8")
         self.send_header("Content-Length", str(len(BODY)))

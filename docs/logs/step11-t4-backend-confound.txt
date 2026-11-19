@@ -1,0 +1,75 @@
+# Step-11 T4: backend confound + replay-artifact desync (evidence, 2026-11-19)
+
+== 1. Backend confound: ModSecurity runs used Juice Shop, Coraza runs used stub-backend
+compose: BACKEND ${BACKEND:-http://target:3000} (baseline-crs); CORAZA_BACKEND=stub-backend:3000 (coraza-crs, tools/run_coraza_parity.sh)
+Status distributions, benign-wcp-v0 PL1:
+-- modsec (out/benign-wcp-v0-pl1-default-ua, run 2026-11-18, manifest sha 133e4012..., PRE-freeze):
+  16107 "status": 200
+     64 "status": 400
+   3823 "status": 403
+-- coraza (out/coraza-benign-wcp-v0-pl1-default, run 2026-11-19, frozen manifest sha c8ce11f2...):
+      6 "status": 
+  14465 "status": 200
+    443 "status": 400
+   3827 "status": 403
+     11 "status": 413
+      5 "status": 414
+   1081 "status": 501
+    162 "status": 502
+501 = stub-backend BaseHTTPRequestHandler 'Unsupported method' reply; absent on the Juice Shop run.
+
+== 2. Manifest version difference between the compared runs
+modsec run.json manifest_sha256: 133e4012558fc5a100e1a14f6890d5577fd31e74d9b5dbc02d901ef22a843c8b (19,994 samples)
+coraza run.json manifest_sha256: c8ce11f26406df96d55e5a1cc6186bcbf648cb29bd628081dd834c6ccf1329d1 (20,000 samples, frozen)
+sha256sum data/benign-wcp-v0/manifest.jsonl:
+c8ce11f26406df96d55e5a1cc6186bcbf648cb29bd628081dd834c6ccf1329d1  data/benign-wcp-v0/manifest.jsonl
+
+== 3. Replay-artifact desync chain (runner Content-Length mismatch)
+653/20000 manifest samples have recorded Content-Length != len(body.encode('utf-8','surrogatepass'))
+Examples (line: id recorded_CL sent_bytes): 19446 wcp-a6c33ec31d5f 496 508; 19714 wcp-1d0ce74e2dab 2036 2474
+Observed chain (coraza WCP PL1 audit, transaction IhMjSgbycdlKpmWDglO):
+  stub 501 page body echoes method '{"url":"https://www.topten-fashion.com/bags",..."session_start":1660633827110,...}GET'
+  -> the JSON is the exact body of sample wcp-55d176caa16b (manifest line 19440, POST /site, CL=421=sent)
+  -> the NEXT request (line 19441, wcp-e394a6c5b01a GET /bags) was read by the stub as one request line
+  -> 953110 'PHP source code leakage' matched "session_start" within RESPONSE_BODY (Total Score 4 = ERROR severity)
+  -> 959100 Outbound Anomaly Score Exceeded -> 403. outcome=inconsistent (audit_score null: 959100 has no severity)
+  3 such samples: wcp-e394a6c5b01a wcp-c696e23d27b4 wcp-2f6331edd8a3 (all ModSecurity-side status 200)
+
+== 4. Coraza WCP PL1 outcome classes (this run, recovered audit):
+      6 "outcome": "error"
+    176 "outcome": "inconsistent"
+      5 "outcome": "proxy_reject"
+   3824 "outcome": "waf_block"
+     60 "outcome": "waf_deny_status"
+  15929 "outcome": "waf_pass"
+inconsistent by status:
+      3 "status": 403
+     11 "status": 413
+    162 "status": 502
+  162x502 = upstream connection failures on the coraza->stub hop (nginx error log lost with the container,
+  see incident below); 11x413 = body > Coraza SecRequestBodyNoFilesLimit 524288 (ModSecurity limit 131072 -
+  documented difference, docs/logs/coraza-rule29-pl2.txt); 3x403 = the desync chain above.
+
+== 5. Incident: docker daemon restart killed the testbed (2026-11-19 ~10:53 UTC)
+All three compose containers Exited(255) at 2026-11-19T10:53:04Z; zaplabs-traefik auto-restarted.
+Stale container records then gave 'RWLayer ... unexpectedly nil' on docker cp/exec; fixed by
+docker rm -f of the 4 deploy-* containers and compose up -d (probe 200).
+The owasp/modsecurity-crs:4.25.2-nginx-lts local image tag had been lost and was re-pulled:
+digest sha256:6296ce685cb88ba4012998b935b25dabbd9e0ff326088c1149447102544de661 - IDENTICAL to the
+digest recorded in reports/step-01.md, so no version drift. The coraza-crs container's nginx
+access/error logs (502 forensics) were lost with its RW layer; the audit log had already been
+docker-cp'd at 08:39 and the 502s are recorded in responses.jsonl.
+
+== 6. Remediation running (documented in docs/baseline-config.md step-11 T4 entry)
+tools/run_modsec_parity.sh: ModSecurity against BACKEND=http://stub-backend:3000, frozen manifests,
+PL1+PL2 for smoke/attacks-v0/benign-browse-v1/benign-hard-v0/benign-wcp-v0 + cookie-restored (T6);
+tools/run_coraza_parity.sh: Coraza benign-wcp-v0 PL2. Same runner (kortex_eval) both sides.
+
+== CORRECTION (2026-11-19, later the same day): section 3 above is WRONG about the cause.
+The runner always sends len(encoded bytes) as Content-Length and drops recorded CL headers
+(kortex_eval/runner.py lines 75-93); the 653 recorded-CL mismatches never reach the wire.
+Reproduced root cause: tools/stub_backend.py never read request bodies, so on HTTP/1.1
+keep-alive the next request was parsed from the leftover body ('{"url":...}GET' -> 501 ->
+953110/959100 outbound block). Fixed in tools/stub_backend.py (_drain_body); verified
+200/200 live. See docs/baseline-config.md step-11 correction entry and
+docs/logs/step11-t4-stub-drain.txt for the raw experiment.
