@@ -6,6 +6,8 @@ import subprocess
 import sys
 from pathlib import Path
 
+from kortex_eval.outcome import classify
+
 import pytest
 
 from kortex_eval import outcome
@@ -165,3 +167,34 @@ def test_outbound_cut_hard_benign_step05_logs(tmp_path):
     # step-05 observed 18 errors, all with {920320, 950100, 959100}
     assert len(outbound) == 18
     assert len(errs) == 0
+
+
+def test_waf_deny_status_body_parser_400():
+    """Step-11 T3: 400 + 200002 deny rule -> waf_deny_status (blocking)."""
+    resp = {"id": "x", "status": 400, "blocked": False, "body_marker": False, "error": None}
+    audit = {"inbound_score_from_949110": None,
+             "rules": [{"id": "200002", "message": "Failed to parse request body."}]}
+    assert classify(resp, audit, "blocking") == "waf_deny_status"
+
+
+def test_waf_deny_status_not_in_detection_mode():
+    resp = {"id": "x", "status": 400, "blocked": False, "body_marker": False, "error": None}
+    audit = {"inbound_score_from_949110": None,
+             "rules": [{"id": "200002", "message": "Failed to parse request body."}]}
+    assert classify(resp, audit, "detection") != "waf_deny_status"
+
+
+def test_waf_deny_status_requires_deny_rule():
+    resp = {"id": "x", "status": 400, "blocked": False, "body_marker": False, "error": None}
+    audit = {"inbound_score_from_949110": None,
+             "rules": [{"id": "920420", "message": "content type"}]}
+    # additive change only: without a 2xxxxx deny rule the pre-existing
+    # classification (waf_pass) is unchanged
+    assert classify(resp, audit, "blocking") == "waf_pass"
+
+
+def test_waf_deny_status_does_not_override_block():
+    resp = {"id": "x", "status": 403, "blocked": True, "body_marker": True, "error": None}
+    audit = {"inbound_score_from_949110": 10,
+             "rules": [{"id": "200002", "message": "deny"}, {"id": "949110", "message": "t"}]}
+    assert classify(resp, audit, "blocking") == "waf_block"
