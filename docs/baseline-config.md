@@ -288,3 +288,95 @@ image README's example list (which adds `|text/plain|`) — that is why the
 aligned CT list contains text/plain. Methods: 901160 fallback is
 `GET HEAD POST OPTIONS` (no PUT/DELETE); the aligned configs add PUT
 (then DELETE in aligned-v2).
+
+## Step-11 T4: ModSecurity parity runs moved to the stub backend (2026-11-19)
+
+**What:** All step-11 ModSecurity parity/re-run runs set `BACKEND=http://stub-backend:3000`
+(compose env, service `baseline-crs`) instead of the default Juice Shop
+(`http://target:3000`), so both engines see the same backend. Output dirs are
+named `out/modsec-<dataset>-pl<N>-stub`. Rule-29 effective-config proof is
+printed per run by `tools/run_modsec_parity.sh`.
+
+**Why:** The step-10 T8 / step-11 T4 Coraza runs all used
+`CORAZA_BACKEND=stub-backend:3000`, while the ModSecurity runs being compared
+against used the compose default (Juice Shop). Response-dependent rules
+(953xxx data-leakage, 959xxx outbound blocking) therefore compared different
+response bodies. Evidence: the Coraza benign-wcp-v0 PL1 run shows 1,08x
+status-501 responses (stub-backend's "Unsupported method" replies) while the
+ModSecurity benign-wcp-v0 PL1 run shows zero (docs/logs/step11-t4-backend-confound.txt).
+
+**Reference:** deploy/compose.yml `BACKEND: "${BACKEND:-http://target:3000}"`
+(Step-09 T5 comment); https://github.com/coreruleset/modsecurity-crs-docker#common-env-variables
+
+**Scope:** Backend endpoint only. No CRS rules, paranoia levels, or engine
+settings change. The earlier ModSecurity runs (Juice Shop backend) stay
+committed as they are; their rates are labelled with their backend.
+
+**Timing note (honesty per rule 17):** the batch launching these runs started
+11:08 UTC; this entry was written ~11:15 UTC, before any result from the new
+runs was read or reported. The change itself was decided after the 501-status
+evidence above, also before reading any new-run result.
+
+## Step-11: keep-alive desync root cause CORRECTED — stub backend, not the runner (2026-11-19)
+
+**Earlier claim in this file's step-11 T4 entry and in
+docs/logs/step11-t4-backend-confound.txt section 3** attributed the WCP
+keep-alive desync to the runner sending a recorded Content-Length. That was
+wrong; the old text is kept above/in that file and corrected here.
+
+**Verified facts (evidence in docs/logs/step11-t4-stub-drain.txt):**
+- `kortex_eval/runner.py` already drops any recorded `Content-Length` header
+  and always sends `len(body.encode("utf-8","surrogatepass"))`. It never
+  emits a mismatched wire framing. No runner change was made.
+- The real bug: `tools/stub_backend.py` (BaseHTTPRequestHandler) never read
+  request bodies. With HTTP/1.1 keep-alive the unread body stayed in the
+  socket and was parsed as the NEXT request line. Reproduced in-process:
+  POST with body then GET on one connection -> `501 Unsupported method
+  ('{"url":...}GET')`; the 501 page echoes the body, `session_start` inside
+  it matches CRS 953110 (ERROR, 4 pts) -> 959100 outbound block (403).
+  This explains the Coraza WCP PL1 run's 1,081x501 + 162x502 + 3 outbound
+  blocks, and why the small datasets (whose passing traffic rarely reuses a
+  poisoned upstream connection) and the Juice-Shop-backed runs (Juice Shop
+  drains bodies) showed none of it.
+- 653/20,000 WCP manifest samples carry a recorded Content-Length that
+  differs from the encoded byte length (488 recorded-too-small, 165
+  recorded-too-large). This is a DATASET metadata property, not a wire
+  framing bug; the runner neutralises it. Kept on record; no sample changed
+  (frozen dataset, rule 10).
+
+**Fix (tools only, not kortex_eval):** `StubHandler._drain_body()` now reads
+and discards exactly Content-Length bytes before replying, and closes the
+connection on chunked requests. Verified live: POST-with-body then GET on
+one connection now returns 200/200 (was 200/501).
+
+**Tests added (97 total, all passing):** runner framing pins
+(non-ASCII body CL == byte length; recorded CL larger/smaller is overridden)
+and stub keep-alive tests (body-drained next request intact; multi-byte
+body next request intact).
+
+**Labelling:** the instructor requested a `runner_cl=fixed` label; since the
+runner needed no fix, new runs are labelled `stub_drain=fixed` instead, and
+this deviation is reported. Runs made before the fix are labelled by their
+output dirs and reported side by side.
+
+## Step-11 T4: request-body limit pinned on both engines (documented before running)
+
+**What:** Both engines are pinned to `SecRequestBodyNoFilesLimit 131072`
+(the ModSecurity image's value) for the step-11 parity re-runs. ModSecurity
+already runs this value (proven per run by tools/run_modsec_parity.sh rule-29
+output). The Coraza image ships 524288
+(/opt/coraza/config/coraza.conf); tools/run_coraza_parity.sh now rewrites it
+to 131072 in-container before each run and prints the effective value.
+
+**Why:** The 11 Coraza-only 413 responses on benign-wcp-v0 PL1 (bodies
+between the two limits) were an image-default difference, not an engine
+difference. Rule 28 parity requires identical effective config.
+
+**Reference:** ModSecurity directive
+https://github.com/owasp-modsecurity/ModSecurity/wiki/Reference-Manual-(v2.x)#secrequestbodynofileslimit
+(Coraza implements the same directive; value set in /opt/coraza/config/coraza.conf).
+
+**Scope:** Body-limit value only. If the in-container rewrite + reload does
+not take effect (verified by the rule-29 print and a >131072-byte probe),
+the Coraza runs keep 524288, the 11 samples stay listed, and no
+aligned-config claim is made.

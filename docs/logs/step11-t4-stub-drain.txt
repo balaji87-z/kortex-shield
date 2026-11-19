@@ -1,0 +1,30 @@
+# Step-11: stub-backend body-drain bug — raw experiment (2026-11-19)
+
+== BEFORE fix (old stub_backend.py, container deploy-stub-backend-1, 2026-11-19 ~12:45 UTC)
+$ docker compose exec stub-backend python3 - (two requests, one keep-alive connection)
+POST /site body='{"url":"https://x","session_start":123}' CL=36 -> first response: 200
+GET  /bags?a=1                            -> second response: 501
+501 page body: 'Message: Unsupported method ('{"url":"https://x","session_start":123}GET').'
+
+== Coraza WCP PL1 run impact (out/coraza-benign-wcp-v0-pl1-default, audit transaction IhMjSgbycdlKpmWDglO)
+stub 501 page body contains 'session_start' -> 953110 'PHP source code leakage'
+  [data "Matched Data: session_start found within RESPONSE_BODY"] severity error (4 pts)
+  -> 959100 'Outbound Anomaly Score Exceeded (Total Score: 4)' -> 403 (outcome inconsistent,
+     audit_score null because 959100 carries no severity points)
+3 such samples: wcp-e394a6c5b01a wcp-c696e23d27b4 wcp-2f6331edd8a3 (ModSecurity side: 200 waf_pass)
+browse-v1 PL2: 31 only-coraza blocks = 950100 'The Application Returned a 500-Level Status Code'
+  + 959100 on the same desync 502s (docs/logs/t4-parity-stub-all.txt)
+
+== AFTER fix (tools/stub_backend.py _drain_body, container restarted 2026-11-19 ~12:5x UTC)
+POST /site body='{"url":"https://x","session_start":123}' CL=36 -> first response: 200
+GET  /bags?a=1                            -> second response: 200 | ok-marker: True
+
+== Runner verdict (no change made)
+kortex_eval/runner.py drops recorded Content-Length (line ~77) and sets
+Content-Length = len(body.encode('utf-8','surrogatepass')) (lines ~92-93).
+Dataset metadata mismatch count (recorded CL vs encoded bytes), benign-wcp-v0:
+  653/20000 (488 recorded-too-small, 165 recorded-too-large) - never sent on the wire.
+Small datasets: attacks-v0 0, benign-browse-v1 0, benign-hard-v0 0, smoke 0 mismatched.
+Passing-with-body samples (coraza PL1): attacks 50, hard 79, browse 90, wcp 1939 -
+poisoning is timing-dependent (nginx upstream keep-alive reuse), hence 0 noise on small
+datasets and 1081x501+162x502 on WCP.

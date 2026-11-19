@@ -1,0 +1,3 @@
+tx.blocking_paranoia_level=2
+tx.detection_paranoia_level=1
+tx.crs_setup_version=4252

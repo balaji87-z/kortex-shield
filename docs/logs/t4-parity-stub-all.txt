@@ -1,0 +1,192 @@
+##### smoke PL1
+samples compared: 12
+blocked modsec 6  coraza 6  both 6  only-modsec 0  only-coraza 0
+outcome classes modsec: inconsistent=5  proxy_reject=1  waf_block=1  waf_pass=5
+outcome classes coraza: inconsistent=5  proxy_reject=1  waf_block=6
+
+    rule   both  only-modsec  only-coraza
+  949110      1            0            5
+  941160      0            0            2
+  942100      1            0            1
+  941100      0            0            2
+  941390      0            0            2
+  941110      0            0            1
+  941120      0            0            1
+  930120      0            0            1
+  930110      0            0            1
+  932160      0            0            1
+  942360      0            0            1
+  930100      0            0            1
+  932260      0            0            1
+  942190      0            0            1
+##### smoke PL2
+samples compared: 12
+blocked modsec 6  coraza 6  both 6  only-modsec 0  only-coraza 0
+outcome classes modsec: inconsistent=6  proxy_reject=1  waf_pass=5
+outcome classes coraza: proxy_reject=1  waf_block=6  waf_pass=5
+
+    rule   both  only-modsec  only-coraza
+  949110      0            0            6
+  941160      0            0            2
+  942100      0            0            2
+  941100      0            0            2
+  932236      0            0            2
+  941390      0            0            2
+  941320      0            0            2
+  942130      0            0            1
+  942330      0            0            1
+  942180      0            0            1
+  932260      0            0            1
+  942131      0            0            1
+  930120      0            0            1
+  932239      0            0            1
+  930110      0            0            1
+  942362      0            0            1
+  942390      0            0            1
+  941150      0            0            1
+  942480      0            0            1
+  942361      0            0            1
+##### attacks-v0 PL1
+samples compared: 1054
+blocked modsec 954  coraza 954  both 954  only-modsec 0  only-coraza 0
+outcome classes modsec: inconsistent=12  waf_block=942  waf_pass=100
+outcome classes coraza: waf_block=954  waf_pass=100
+
+    rule   both  only-modsec  only-coraza
+  949110    942            0           12
+  930120    318            0            0
+  941390    310            0            0
+  941120    302            0            0
+  941100    290            0            0
+  941160    250            0            0
+  930100    234            0            0
+  932160    182            0            0
+  930110    148            0            0
+  942100    128            0           12
+  932235     92            0            0
+  941190     60            0            0
+  932260     56            0            0
+  933160     52            0            0
+  932125     34            0            0
+  932250     34            0            0
+  932230     30            0            0
+  932380     30            0            0
+  920270     28            0            0
+  932370     24            0            0
+##### attacks-v0 PL2
+samples compared: 1054
+blocked modsec 1024  coraza 1024  both 1024  only-modsec 0  only-coraza 0
+outcome classes modsec: inconsistent=10  waf_block=1014  waf_pass=30
+outcome classes coraza: waf_block=1024  waf_pass=30
+
+    rule   both  only-modsec  only-coraza
+  949110   1014            0           10
+  930120    318            0            0
+  941390    310            0            0
+  941120    302            0            0
+  942370    290            0            4
+  941100    290            0            0
+  942520    268            0           10
+  941160    250            0            0
+  932236    248            0            0
+  941320    244            0            0
+  930100    234            0            0
+  942131    184            0            0
+  932160    182            0            0
+  942430    180            0            0
+  920230    173            1            0
+  930110    148            0            0
+  942100    130            0           10
+  942180    122            0            0
+  932240    120            0            0
+  932235     92            0            0
+##### benign-browse-v1 PL1
+samples compared: 774
+blocked modsec 184  coraza 184  both 184  only-modsec 0  only-coraza 0
+outcome classes modsec: waf_block=184  waf_pass=590
+outcome classes coraza: waf_block=184  waf_pass=590
+
+    rule   both  only-modsec  only-coraza
+  949110    184            0            0
+  911100    120            0            0
+  920420     60            0            0
+  932260      4            0            0
+##### benign-browse-v1 PL2
+samples compared: 774
+blocked modsec 184  coraza 215  both 184  only-modsec 0  only-coraza 31
+  only-coraza browse-04524c4e7259: modsec status=200 outcome=waf_pass
+  only-coraza browse-28077a94c2c9: modsec status=200 outcome=waf_pass
+  only-coraza browse-30f5949ff7d2: modsec status=200 outcome=waf_pass
+  only-coraza browse-375866e5ed88: modsec status=200 outcome=waf_pass
+  only-coraza browse-41635fb6d0df: modsec status=200 outcome=waf_pass
+  only-coraza browse-43a3738c3802: modsec status=200 outcome=waf_pass
+  only-coraza browse-46baea8e2725: modsec status=200 outcome=waf_pass
+  only-coraza browse-47c2b615cc72: modsec status=200 outcome=waf_pass
+  only-coraza browse-4ad796d2778b: modsec status=200 outcome=waf_pass
+  only-coraza browse-65011b9c4324: modsec status=200 outcome=waf_pass
+  only-coraza browse-6736b2359c81: modsec status=200 outcome=waf_pass
+  only-coraza browse-67733665cda0: modsec status=200 outcome=waf_pass
+  only-coraza browse-6eeec34be2a8: modsec status=200 outcome=waf_pass
+  only-coraza browse-82448e6465ce: modsec status=200 outcome=waf_pass
+  only-coraza browse-83ccbdc97ba3: modsec status=200 outcome=waf_pass
+  only-coraza browse-9133a472c1ec: modsec status=200 outcome=waf_pass
+  only-coraza browse-9b4f5fd24275: modsec status=200 outcome=waf_pass
+  only-coraza browse-a82dd2bb953e: modsec status=200 outcome=waf_pass
+  only-coraza browse-aabeceabe309: modsec status=200 outcome=waf_pass
+  only-coraza browse-aac32b266ce6: modsec status=200 outcome=waf_pass
+outcome classes modsec: waf_block=184  waf_pass=590
+outcome classes coraza: inconsistent=31  waf_block=184  waf_pass=559
+
+    rule   both  only-modsec  only-coraza
+  949110    184            0            0
+  911100    120            0            0
+  920420     60            0            0
+  959100      0            0           31
+  950100      0            0           31
+  932236      7            0            0
+  932260      4            0            0
+  932239      4            0            0
+##### benign-hard-v0 PL1
+samples compared: 180
+blocked modsec 22  coraza 22  both 22  only-modsec 0  only-coraza 0
+outcome classes modsec: inconsistent=2  waf_block=20  waf_pass=158
+outcome classes coraza: waf_block=22  waf_pass=158
+
+    rule   both  only-modsec  only-coraza
+  949110     20            0            2
+  932260      8            0            2
+  942100      6            0            0
+  932235      6            0            0
+  934110      4            0            0
+  932380      2            0            0
+  932160      2            0            0
+  932250      2            0            0
+  930120      2            0            0
+  932140      2            0            0
+##### benign-hard-v0 PL2
+samples compared: 180
+blocked modsec 78  coraza 78  both 78  only-modsec 0  only-coraza 0
+outcome classes modsec: inconsistent=6  waf_block=72  waf_pass=102
+outcome classes coraza: waf_block=78  waf_pass=102
+
+    rule   both  only-modsec  only-coraza
+  949110     72            0            6
+  932236     28            0            6
+  931130     16            0            0
+  942131     14            0            0
+  932260      8            0            2
+  942440      8            0            0
+  932240      8            0            0
+  932235      6            0            0
+  942100      6            0            0
+  934110      4            0            0
+  942410      4            0            0
+  942150      4            0            0
+  932200      4            0            0
+  942430      4            0            0
+  942120      4            0            0
+  942330      2            0            0
+  942260      2            0            0
+  932250      2            0            0
+  942130      2            0            0
+  932160      2            0            0

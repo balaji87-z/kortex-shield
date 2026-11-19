@@ -106,3 +106,14 @@ detection-only blocks are 661/19,994 = 3.31% (3.07–3.56) at PL1 and
 at PL2. These are bounds from rule presence, not counterfactuals. Details and
 the held-out-host policy experiment (which made rates WORSE, even in-sample)
 are in docs/baseline-v0.5.md. The old text above is kept unchanged.
+
+## Dated note (2026-11-19, step-11): WCP numbers in this baseline came from a leaky-stub harness
+
+The benign-wcp-v0 numbers above were produced with tools/stub_backend.py as
+it existed before 2026-11-19: the stub never read request bodies, so on
+HTTP/1.1 keep-alive connections a request body could be parsed as the next
+request (501 noise, 502s, and 3 outbound blocks on the Coraza side). The
+dataset, configs and WAF settings in this baseline are unchanged; only the
+harness backend was fixed. Corrected side-by-side numbers for default PL1
+and PL2 are in docs/baseline-v0.6.md and reports/step-11.md. Text above is
+kept as originally written.

@@ -309,3 +309,43 @@ def test_send_one_nonlatin1_request_line_is_encoding_error():
     row = send_one(s, "127.0.0.1", 1, timeout=2, block_status=403,
                    block_marker=None)
     assert row["error_class"] == "encoding"
+
+
+# --- Step-11 (2026-11-19): Content-Length framing guarantees ----------------
+# Instructor-authorized checks. Context: a keep-alive desync on the WCP runs
+# was first attributed to the runner sending a recorded Content-Length; the
+# runner in fact ALWAYS overrides any recorded Content-Length with
+# len(body.encode("utf-8", "surrogatepass")) (kortex_eval/runner.py), and the
+# real bug was the stub backend never draining bodies (tests/test_stub_backend.py).
+# These tests pin the runner's framing behaviour so it cannot regress.
+
+def test_content_length_is_encoded_byte_length_for_nonascii_body(tmp_path, fake_server):
+    FakeWaf.routes["/api"] = (200, "{}")
+    body = "naïve—✓—日本語"  # 12 chars, 24 utf-8 bytes
+    runner.run(
+        [sample(id="cl-nonascii", method="POST", path="/api", body=body,
+                content_type="application/json")],
+        f"http://127.0.0.1:{fake_server.server_port}", tmp_path / "run",
+    )
+    assert FakeWaf.seen_headers[0]["content-length"] == "24"
+    assert FakeWaf.seen_bodies[0] == body.encode("utf-8", "surrogatepass")
+
+
+def test_recorded_content_length_larger_is_overridden(tmp_path, fake_server):
+    FakeWaf.routes["/api"] = (200, "{}")
+    runner.run(
+        [sample(id="cl-big", method="POST", path="/api", body='{"a":1}',
+                headers={"Content-Length": "9999"})],
+        f"http://127.0.0.1:{fake_server.server_port}", tmp_path / "run",
+    )
+    assert FakeWaf.seen_headers[0]["content-length"] == "7"
+
+
+def test_recorded_content_length_smaller_is_overridden(tmp_path, fake_server):
+    FakeWaf.routes["/api"] = (200, "{}")
+    runner.run(
+        [sample(id="cl-small", method="POST", path="/api", body='{"aaaa":1}',
+                headers={"Content-Length": "1"})],
+        f"http://127.0.0.1:{fake_server.server_port}", tmp_path / "run",
+    )
+    assert FakeWaf.seen_headers[0]["content-length"] == "10"
