@@ -277,3 +277,14 @@ the way CRS requires: every content-type token pipe-wrapped,
 docs/logs/wcp-heldout-policy.txt / .json (`content_types_wrapped`).
 Re-runs: TEST and TRAIN, PL1 and PL2, wcp-train only, rule 13 hygiene,
 with rule 29 effective-config proof saved into each run's log.
+
+## Step-11 T2 (cont.): true CRS default content-type list
+
+The 901162 fallback (the policy every `crs-default` run actually ran) allows
+`application/x-www-form-urlencoded`, `multipart/form-data`, `text/xml`,
+`application/xml`, `application/soap+xml`, `application/json` (pipe-wrapped).
+`text/plain` is NOT in it. The step-05/08 aligned configs were built from the
+image README's example list (which adds `|text/plain|`) — that is why the
+aligned CT list contains text/plain. Methods: 901160 fallback is
+`GET HEAD POST OPTIONS` (no PUT/DELETE); the aligned configs add PUT
+(then DELETE in aligned-v2).
