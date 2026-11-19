@@ -82,6 +82,18 @@ def classify(
     if engine_mode == "blocking":
         if response.get("blocked"):
             return "waf_block" if scored else "inconsistent"
+        # Step-11 T3: engine deny with a non-403 status (e.g. the image's
+        # body-parser rules 200002/200007 deny with status 400). Definition:
+        # docs/block-discriminator.md. Not blocked by the 403 discriminator,
+        # status 4xx/5xx, audit entry with a deny rule (id starting '2').
+        status = response.get("status")
+        if (
+            status is not None and 400 <= status < 600
+            and audit is not None
+            and any(str(rule.get("id", "")).startswith("2")
+                    for rule in audit.get("rules", []))
+        ):
+            return "waf_deny_status"
         # not blocked
         if (
             not response.get("body_marker")
