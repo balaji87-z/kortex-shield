@@ -87,3 +87,9 @@
 28. Engine parity: when comparing engines, pin the same ruleset version on both
     and prove it from inside each container (file path and version string).
     Differences are reported per sample, never only as totals.
+29. Effective-config proof: for every run, print and save the effective values
+    from inside the running container (engine mode, blocking and detection
+    paranoia, allowed methods, allowed content types) into the run's log. A
+    config name is a claim until this proof exists for that run.
+30. Any request whose outcome is inconsistent or waf_deny_status must appear by
+    count in every rate table, and is included in the worst case.
