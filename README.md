@@ -8,7 +8,7 @@ provenance and a baseline.
 
 | Part | State |
 |---|---|
-| `kortex_eval/` manifest, leak-proof split, metrics with 95% intervals, report | Written, 88 unit tests pass |
+| `kortex_eval/` manifest, leak-proof split, metrics with 95% intervals, report | Written, 97 unit tests pass |
 | `kortex_eval/runner.py` verbatim request runner (stdlib http.client, sample-id header, block discriminator, manifest sha256 + labels in run.json) | Written, smoke-tested and used for the corpus runs |
 | `kortex_eval/crs_audit.py` CRS audit-log parser, sample correlation via `X-Kortex-Sample-Id`, dual score readings (949110 total vs severity sum) | Written, tested on real audit samples |
 | `kortex_eval/outcome.py` per-sample outcome classifier (error / waf_block / waf_would_block / waf_pass / proxy_reject / inconsistent) | Written, tested on synthetic + real data |
