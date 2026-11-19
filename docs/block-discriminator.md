@@ -101,3 +101,31 @@ rule IDs are verifiable, not UNVERIFIED. Rule IDs live in
 Real samples saved BEFORE any parser was written:
 docs/samples/coraza-log-benign.txt (200, no messages) and
 docs/samples/coraza-log-attack.txt (403, 942100).
+
+## `waf_deny_status` outcome (step-11 T3, defined BEFORE the code change)
+
+Additive outcome class for blocking mode (engine On). A request is
+`waf_deny_status` when ALL of:
+
+1. it is NOT blocked by the 403 discriminator (status != 403 or the nginx
+   marker is absent — i.e. the existing `waf_block` rule did not fire);
+2. its response status is 4xx or 5xx;
+3. it has an audit entry containing at least one DENY rule — a rule id
+   starting with `2` (200002 "Failed to parse request body", 200007
+   "Failed to fully parse request body due to large argument count",
+   200003 multipart strict validation, etc. — the image's
+   /etc/modsecurity.d/modsecurity.conf body-parser denies, all
+   `deny, status:400`);
+4. engine mode is blocking (in DetectionOnly these rules log without
+   denying, so the class does not apply).
+
+Existing outcomes are unchanged: a request that already classifies as
+`waf_block`, `waf_block_outbound`, `error`, `waf_would_block`,
+`proxy_reject` or `inconsistent` keeps that class unless it now matches
+`waf_deny_status` first (the check runs after the blocked checks and
+before the pass/proxy_reject/inconsistent fallthrough). Requests that were
+`inconsistent` solely because of a 4xx/5xx status plus a 2xxxxx deny rule
+become `waf_deny_status`; everything else stays.
+
+Rule 30: `waf_deny_status` and `inconsistent` counts appear in every rate
+table and are included in the worst case.
