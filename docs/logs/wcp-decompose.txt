@@ -1,0 +1,130 @@
+========================= PL1 (n=19994, blocked=3823)
+(a) sole-rule attribution top 15:
+    920420: 2931 (76.7% of blocks)
+    920340: 88 (2.3% of blocks)
+    943110: 86 (2.2% of blocks)
+    932235: 72 (1.9% of blocks)
+    932370: 71 (1.9% of blocks)
+    942290: 57 (1.5% of blocks)
+    942100: 55 (1.4% of blocks)
+    942550: 54 (1.4% of blocks)
+    920600: 49 (1.3% of blocks)
+    911100: 47 (1.2% of blocks)
+    931120: 45 (1.2% of blocks)
+    932130: 38 (1.0% of blocks)
+    930120: 32 (0.8% of blocks)
+    921130: 29 (0.8% of blocks)
+    942190: 20 (0.5% of blocks)
+(b) 'neither' requests: 20
+    wcp-196838c5ecd7: ['921130']
+    wcp-38cb04047235: ['921130']
+    wcp-ce5f92cc530e: ['921130']
+    wcp-6b97588fb4bf: ['921130']
+    wcp-bec820b54c92: ['921130']
+    wcp-beb7703f8520: ['921130']
+    wcp-ddc9d9304902: ['921130']
+    wcp-9d3cee7385bd: ['921130']
+    wcp-7437bb92bdf0: ['921130']
+    wcp-9c13f73bdd61: ['921130']
+    wcp-37e79a6a7b55: ['921130']
+    wcp-6ed4bc4bdea5: ['921130']
+    wcp-6b57620bd024: ['921130']
+    wcp-751844759d49: ['921130']
+    wcp-d9c2f4896de8: ['921130']
+    wcp-db4724a9ce16: ['921130']
+    wcp-ad9f84df2902: ['921130']
+    wcp-79f2f9dc2528: ['921130']
+    wcp-7c35f085ab55: ['921130']
+    wcp-8f55df7c32f6: ['921130']
+(c) 920420 blocks by request content type (top 15 by blocks):
+    'text/plain;charset=UTF-8': blocked 1943, type total 1943, share of type 100.0%
+    'text/plain': blocked 787, type total 787, share of type 100.0%
+    'application/csp-report': blocked 38, type total 38, share of type 100.0%
+    'message/ohttp-req': blocked 25, type total 25, share of type 100.0%
+    'application/vnd.chrome.uma': blocked 23, type total 23, share of type 100.0%
+    'text/plain; charset=utf-8': blocked 19, type total 19, share of type 100.0%
+    'application/x-protobuf': blocked 18, type total 18, share of type 100.0%
+    'text/plain; charset=UTF-8': blocked 17, type total 17, share of type 100.0%
+    'application/json, application/json': blocked 10, type total 10, share of type 100.0%
+    'application/json+protobuf': blocked 8, type total 8, share of type 100.0%
+    'text/PLAIN': blocked 8, type total 8, share of type 100.0%
+    'application/x-protobuffer': blocked 6, type total 6, share of type 100.0%
+    'application/octet-stream': blocked 5, type total 5, share of type 100.0%
+    'text/plain; charset=gzip+enc': blocked 5, type total 5, share of type 100.0%
+    'application/binary': blocked 3, type total 3, share of type 100.0%
+    911100 blocks by method:
+    DELETE: blocked 13, method total 13, share of method 100.0%
+    PATCH: blocked 1, method total 1, share of method 100.0%
+    PUT: blocked 33, method total 33, share of method 100.0%
+(d) hosts with >=1 block: 839/3038
+    macro-average rate over hosts with >=5 requests (912 hosts): 20.52%
+    micro rate: 3823/19994 = 19.12% (18.58-19.67%)
+    top 10 hosts by blocks:
+    www.google-analytics.com: 113/327 = 34.6%
+    analytics.tiktok.com: 94/106 = 88.7%
+    play.google.com: 53/61 = 86.9%
+    ingest.quantummetric.com: 49/49 = 100.0%
+    www.pinterest.com: 43/48 = 89.6%
+    www.google.com: 35/440 = 8.0%
+    www.orbitz.com: 35/66 = 53.0%
+    bam.nr-data.net: 33/36 = 91.7%
+    analytics.google.com: 31/106 = 29.2%
+    gql.twitch.tv: 30/30 = 100.0%
+(e) bounds from rule presence (NOT counterfactual):
+    detection-only blocks: 661/19994 = 3.31% (3.07-3.56%)
+    detection-involved blocks: 758/19994 = 3.79% (3.54-4.06%)
+========================= PL2 (n=19994, blocked=8949)
+(a) sole-rule attribution top 15:
+    931130: 3809 (42.6% of blocks)
+    920420: 2931 (32.8% of blocks)
+    942200: 630 (7.0% of blocks)
+    942120: 304 (3.4% of blocks)
+    931131: 195 (2.2% of blocks)
+    932236: 132 (1.5% of blocks)
+    932240: 107 (1.2% of blocks)
+    920340: 88 (1.0% of blocks)
+    932239: 64 (0.7% of blocks)
+    920600: 49 (0.5% of blocks)
+    911100: 47 (0.5% of blocks)
+    931120: 45 (0.5% of blocks)
+    920230: 43 (0.5% of blocks)
+    932271: 41 (0.5% of blocks)
+    932235: 40 (0.4% of blocks)
+(b) 'neither' requests: 0
+(c) 920420 blocks by request content type (top 15 by blocks):
+    'text/plain;charset=UTF-8': blocked 1943, type total 1943, share of type 100.0%
+    'text/plain': blocked 787, type total 787, share of type 100.0%
+    'application/csp-report': blocked 38, type total 38, share of type 100.0%
+    'message/ohttp-req': blocked 25, type total 25, share of type 100.0%
+    'application/vnd.chrome.uma': blocked 23, type total 23, share of type 100.0%
+    'text/plain; charset=utf-8': blocked 19, type total 19, share of type 100.0%
+    'application/x-protobuf': blocked 18, type total 18, share of type 100.0%
+    'text/plain; charset=UTF-8': blocked 17, type total 17, share of type 100.0%
+    'application/json, application/json': blocked 10, type total 10, share of type 100.0%
+    'application/json+protobuf': blocked 8, type total 8, share of type 100.0%
+    'text/PLAIN': blocked 8, type total 8, share of type 100.0%
+    'application/x-protobuffer': blocked 6, type total 6, share of type 100.0%
+    'application/octet-stream': blocked 5, type total 5, share of type 100.0%
+    'text/plain; charset=gzip+enc': blocked 5, type total 5, share of type 100.0%
+    'application/binary': blocked 3, type total 3, share of type 100.0%
+    911100 blocks by method:
+    DELETE: blocked 13, method total 13, share of method 100.0%
+    PATCH: blocked 1, method total 1, share of method 100.0%
+    PUT: blocked 33, method total 33, share of method 100.0%
+(d) hosts with >=1 block: 1563/3038
+    macro-average rate over hosts with >=5 requests (912 hosts): 41.08%
+    micro rate: 8949/19994 = 44.76% (44.07-45.45%)
+    top 10 hosts by blocks:
+    www.facebook.com: 334/366 = 91.3%
+    www.google-analytics.com: 326/327 = 99.7%
+    www.google.com: 266/440 = 60.5%
+    googleads.g.doubleclick.net: 214/231 = 92.6%
+    www.googleadservices.com: 158/163 = 96.9%
+    analytics.google.com: 106/106 = 100.0%
+    beacons.gcp.gvt2.com: 99/99 = 100.0%
+    analytics.tiktok.com: 96/106 = 90.6%
+    ad.doubleclick.net: 78/87 = 89.7%
+    td.doubleclick.net: 77/88 = 87.5%
+(e) bounds from rule presence (NOT counterfactual):
+    detection-only blocks: 4409/19994 = 22.05% (21.48-22.63%)
+    detection-involved blocks: 6623/19994 = 33.12% (32.48-33.78%)
