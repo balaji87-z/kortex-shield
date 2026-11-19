@@ -93,3 +93,16 @@ anywhere in this document.
 - The step-07/08 open question "does the aligned config generalize?" is now
   answered numerically: no (32.80% PL1 out-of-sample vs 0.52% in-sample on
   benign-browse-v1).
+
+## Dated note (2026-11-19, step-10) — headline FP rate is mostly policy rules
+
+The v0.4 headline false-positive rates (crs-default 19.12% PL1 / 44.76% PL2
+on benign-wcp-v0) are mostly **policy rules**, not detection rules. Sole-rule
+attribution (tools/wcp_decompose.py, definitions fixed before analysis):
+920420 (content-type policy) alone accounts for 76.7% of default PL1 blocks;
+detection-only blocks are 661/19,994 = 3.31% (3.07–3.56) at PL1 and
+4,409/19,994 = 22.05% (21.48–22.63) at PL2; detection-involved blocks are
+758/19,994 = 3.79% (3.54–4.06) at PL1 and 6,623/19,994 = 33.12% (32.48–33.78)
+at PL2. These are bounds from rule presence, not counterfactuals. Details and
+the held-out-host policy experiment (which made rates WORSE, even in-sample)
+are in docs/baseline-v0.5.md. The old text above is kept unchanged.
