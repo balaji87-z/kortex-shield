@@ -58,3 +58,13 @@ malformed_base64_body_labelled_json: 5  (body is base64 of JSON, content-type ap
 malformed_not_json_other: 4  (body is neither JSON nor base64)
 The step-10 17-sample subset maps into these classes (8 nonascii, 2 ndjson, 5 base64,
 2 control-bytes/other).
+
+=== Step-11 instructor question: 653 CL-mismatched samples vs the step-10 17 status-400 samples ===
+10 of the 17 step-10 status-400 samples (200002/200007 body-parser denies) are among the 653
+manifest samples whose recorded Content-Length differs from the encoded byte length:
+wcp-2895d7e869c5 wcp-376b3b37ef12 wcp-4be3821497ed wcp-62b3375148b4 wcp-672911deadaa
+wcp-71461e371348 wcp-96a594e2ae57 wcp-a4a6f9fb8303 wcp-c7970d727861 wcp-ef1d0324c278
+The other 7 are not. Note (2026-11-19 correction): the recorded-CL mismatch is a dataset
+metadata property only - the runner always sends len(encoded bytes) on the wire - so the
+mismatch does not cause the 400s; the 400s come from the body-parser rules. Whether the 17
+still return 400 under the fixed-stub re-run is checked in reports/step-11.md.
