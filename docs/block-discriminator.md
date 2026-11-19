@@ -73,3 +73,31 @@ Rule 20 reporting for rates that include this outcome: the **inbound-only**
 rate counts `waf_block_outbound` as NOT flagged; the **including-outbound**
 rate counts it as flagged. Best case = errors not flagged; worst case =
 errors flagged (any remaining `error` rows).
+
+## Coraza (step-10 T8)
+
+Distribution: `ghcr.io/coreruleset/coraza-crs:4.25.2-nginx-lts` (pinned by
+digest `sha256:ffefe71585b42daa5ead5653206b086b37090f498e4cde9ed6e4c52f05cc93e7`,
+amd64), the coreruleset/coraza-crs-docker nginx variant — chosen because it
+is built and shipped by the CRS project itself, bundles CRS 4.25.2 (the same
+version as the baseline image), uses the same reverse-proxy shape and the
+same env knobs (BACKEND, PARANOIA, BLOCKING_PARANOIA, CORAZA_RULE_ENGINE).
+Engine: libcoraza v1.8.0 (Coraza v3 via the nginx connector), from the image
+build definition at repo tag 20261011 (image created 2026-10-19).
+
+Block discriminator: **unchanged** — `status == 403` AND body contains
+`<center>nginx</center>`. Verified against the running Coraza container: a
+blocked request (`/?id=1 AND 1=1`) returns 403 with the standard nginx error
+page containing `<hr><center>nginx</center>` (same page as the ModSecurity
+baseline, both are the stock nginx 403 page).
+
+Audit log: JSON, one object per line, `{"transaction": {...}, "messages":
+[...]}` (messages at TOP level, unlike ModSecurity's nested layout). The
+transaction carries the full request headers, so the `X-Kortex-Sample-Id`
+header IS present (`transaction.request.headers["x-kortex-sample-id"]`) —
+rule IDs are verifiable, not UNVERIFIED. Rule IDs live in
+`messages[].error_message` as `[id "942100"]` (extractable by regex);
+`producer.rulesets` shows `OWASP_CRS/4.25.2` from inside the container.
+Real samples saved BEFORE any parser was written:
+docs/samples/coraza-log-benign.txt (200, no messages) and
+docs/samples/coraza-log-attack.txt (403, 942100).
