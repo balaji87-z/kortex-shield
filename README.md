@@ -8,7 +8,7 @@ provenance and a baseline.
 
 | Part | State |
 |---|---|
-| `kortex_eval/` manifest, leak-proof split, metrics with 95% intervals, report | Written, 48 unit tests pass |
+| `kortex_eval/` manifest, leak-proof split, metrics with 95% intervals, report | Written, 88 unit tests pass |
 | `kortex_eval/runner.py` verbatim request runner (stdlib http.client, sample-id header, block discriminator, manifest sha256 + labels in run.json) | Written, smoke-tested and used for the corpus runs |
 | `kortex_eval/crs_audit.py` CRS audit-log parser, sample correlation via `X-Kortex-Sample-Id`, dual score readings (949110 total vs severity sum) | Written, tested on real audit samples |
 | `kortex_eval/outcome.py` per-sample outcome classifier (error / waf_block / waf_would_block / waf_pass / proxy_reject / inconsistent) | Written, tested on synthetic + real data |
@@ -19,10 +19,10 @@ provenance and a baseline.
 | `tools/build_benign_hard.py` + `data/benign-hard-v0/` frozen HARD benign corpus (180 samples, 90 hand-written attack-adjacent values — overstates natural FP rate, never merge rates) | Frozen (MANIFEST.sha256) |
 | `kortex_eval/endpoints.py` endpoint templating (numeric/hex/UUID segments → `{id}`) | Written, 10 tests |
 | `tools/attack_breakdown.py`, `tools/benign_breakdown.py` stratified breakdowns with 95% Wilson intervals | Written, used for docs/baseline-v0.md |
-| `docs/baseline-v0.md` / `v0.1` / `v0.2` / `v0.3` CRS false-positive baseline (crs-default: 34/214 natural v0, 184/774 natural v1, 22/180 hard; crs-policy-aligned in-sample 2/214, out-of-sample 34/774 on v1; crs-policy-aligned-v2: 2/214 v0, 4/774 v1 at PL1; UA confound removed in v0.2; v0.4: external WCP benign-wcp-v0 out-of-sample — default 19.12% PL1 / 44.76% PL2, aligned-v2 32.80% PL1 / 50.93% PL2) | Written from real runs |
+| `docs/baseline-v0.md` / `v0.1` / `v0.2` / `v0.3` CRS false-positive baseline (crs-default: 34/214 natural v0, 184/774 natural v1, 22/180 hard; crs-policy-aligned in-sample 2/214, out-of-sample 34/774 on v1; crs-policy-aligned-v2: 2/214 v0, 4/774 v1 at PL1; UA confound removed in v0.2; v0.4: external WCP benign-wcp-v0 out-of-sample — default 19.12% PL1 / 44.76% PL2, aligned-v2 32.80% PL1 / 50.93% PL2; v0.5: WCP FPs decomposed (920420 = 76.7% of PL1 blocks, detection-involved bound 3.79% PL1), held-out-host policy widening made rates WORSE (31.66% vs 17.61% PL1 TEST), cookie restoration doubled the rate (48.05% vs 21.50% PL1), Coraza parity: blocked sets identical on all 4 datasets) | Written from real runs |
 | `docs/acceptance.md` industry bars turned into tests | Written; no numeric targets until baseline is measured |
 | `docs/decisions/0001-build-on-coraza.md` | Proposed |
-| Dataset-scale expansion (1,600 attacks / 1,400 legitimate), engine | In progress — current: 1,054 attacks / 1,168 Juice Shop benign (214 v0 natural + 180 hard + 774 v1) + 20,000 external WCP benign (benign-wcp-v0, out-of-sample) |
+| Dataset-scale expansion (1,600 attacks / 1,400 legitimate), engine | In progress — current: 1,054 attacks / 1,168 Juice Shop benign (214 v0 natural + 180 hard + 774 v1) + 19,994 external WCP benign (benign-wcp-v0, out-of-sample, replayed against a stub backend — not one app's traffic) |
 
 ## Run the tests
 
