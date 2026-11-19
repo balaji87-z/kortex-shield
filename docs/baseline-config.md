@@ -266,3 +266,14 @@ intended policies. Dated corrections are in docs/baseline-v0.4.md and
 docs/baseline-v0.5.md. The crs-default numbers are unaffected. The
 wcp-train runs are re-run in step-11 T2 with the corrected rendering
 (documented below before running).
+
+## Step-11 T2: corrected `crs-policy-wcp-train` rendering (documented BEFORE re-running)
+
+Same value set as step-10 (methods `GET HEAD POST OPTIONS PUT DELETE PATCH`;
+content types = the 5 defaults + the 13 single-token TRAIN types), rendered
+the way CRS requires: every content-type token pipe-wrapped,
+`|type| |type| ...` (matching the 901162 fallback format and the 920420
+`@within` match). Exact strings committed in
+docs/logs/wcp-heldout-policy.txt / .json (`content_types_wrapped`).
+Re-runs: TEST and TRAIN, PL1 and PL2, wcp-train only, rule 13 hygiene,
+with rule 29 effective-config proof saved into each run's log.

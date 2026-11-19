@@ -140,5 +140,25 @@
   "multipart/form-data; boundary=----WebKitFormBoundaryhMuwmClPnWd9Vltk": 1
  },
  "excluded_request_count": 1578,
- "note": "CRS tx.allowed_request_content_type is a space-separated regex-alternation list; seclang setvar parsing breaks on values containing a comma or semicolon (nginx emerg evidence in reports/step-10.md), and spaces are the list separator. Only single-token types are representable. Excluded recorded types stay NOT-allowed; 920420 blocks them."
+ "note": "CRS tx.allowed_request_content_type is a space-separated regex-alternation list; seclang setvar parsing breaks on values containing a comma or semicolon (nginx emerg evidence in reports/step-10.md), and spaces are the list separator. Only single-token types are representable. Excluded recorded types stay NOT-allowed; 920420 blocks them.",
+ "content_types_wrapped": [
+  "|application/json|",
+  "|application/x-www-form-urlencoded|",
+  "|multipart/form-data|",
+  "|text/xml|",
+  "|application/soap+xml|",
+  "|application/csp-report|",
+  "|application/json|",
+  "|application/json+protobuf|",
+  "|application/octet-stream|",
+  "|application/reports+json|",
+  "|application/vnd.chrome.uma|",
+  "|application/x-ndjson|",
+  "|application/x-protobuf|",
+  "|application/x-protobuffer|",
+  "|application/x-www-form-urlencoded|",
+  "|text/ping|",
+  "|text/plain|",
+  "|text/xml|"
+ ]
 }
