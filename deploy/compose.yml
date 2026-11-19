@@ -66,6 +66,29 @@ services:
     expose:
       - "3000"
 
+  # Step-10 T8: Coraza engine for the parity check. Distribution chosen:
+  # coreruleset/coraza-crs-docker (https://github.com/coreruleset/coraza-crs-docker),
+  # nginx variant - same reverse-proxy shape as the baseline image, same env
+  # knobs (BACKEND, PARANOIA, BLOCKING_PARANOIA, CORAZA_RULE_ENGINE), and it
+  # bundles CRS. Pinned by tag + digest; CRS version must equal the baseline's
+  # 4.25.2 (verified from inside both containers, rule 28).
+  # Started only with --profile coraza; never runs WCP traffic (task T8).
+  coraza-crs:
+    image: ghcr.io/coreruleset/coraza-crs:4.25.2-nginx-lts@sha256:ffefe71585b42daa5ead5653206b086b37090f498e4cde9ed6e4c52f05cc93e7
+    profiles:
+      - coraza
+    depends_on:
+      - target
+    environment:
+      BACKEND: "${CORAZA_BACKEND:-http://target:3000}"
+      PARANOIA: "${PARANOIA:-1}"
+      BLOCKING_PARANOIA: "${BLOCKING_PARANOIA:-${PARANOIA:-1}}"
+      CORAZA_RULE_ENGINE: "${CORAZA_RULE_ENGINE:-On}"
+      CORAZA_AUDIT_ENGINE: "${CORAZA_AUDIT_ENGINE:-RelevantOnly}"
+      CORAZA_AUDIT_LOG: "${CORAZA_AUDIT_LOG:-/var/log/coraza/audit/audit.log}"
+    ports:
+      - "8082:8080"
+
   # Added in a later phase, once the harness has recorded baseline numbers:
   # kortex-proxy:  Coraza-based engine, same CRS version, same target.
 
