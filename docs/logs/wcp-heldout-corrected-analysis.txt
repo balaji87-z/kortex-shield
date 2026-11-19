@@ -1,0 +1,64 @@
+
+=== test PL1 ===
+default    best 1769/10047 = 17.61% (16.89-18.38)  worst 1803/10047 = 17.95% (17.23-18.73)
+wcp-train  best 514/10047 = 5.12% (4.72-5.58)  worst 548/10047 = 5.45% (5.05-5.93)
+wcp-train blocked composition: {'detection-only': 384, 'policy-only': 121, 'detection+policy': 9}
+blocked under wcp-train but NOT under default: 0; opposite (default-only): 1255
+rule IDs behind policy-only (new) blocks: {}
+neither-class blocked ids: []
+
+=== test PL2 ===
+default    best 4206/10047 = 41.86% (40.92-42.85)  worst 4240/10047 = 42.20% (41.26-43.19)
+wcp-train  best 3229/10047 = 32.14% (31.25-33.08)  worst 3263/10047 = 32.48% (31.59-33.42)
+wcp-train blocked composition: {'detection-only': 2492, 'detection+policy': 647, 'policy-only': 90}
+blocked under wcp-train but NOT under default: 0; opposite (default-only): 977
+rule IDs behind policy-only (new) blocks: {}
+neither-class blocked ids: []
+
+=== train PL1 ===
+default    best 2054/9947 = 20.65% (19.88-21.48)  worst 2084/9947 = 20.95% (20.18-21.78)
+wcp-train  best 474/9947 = 4.77% (4.38-5.22)  worst 504/9947 = 5.07% (4.67-5.53)
+wcp-train blocked composition: {'detection-only': 375, 'detection+policy': 15, 'policy-only': 84}
+blocked under wcp-train but NOT under default: 0; opposite (default-only): 1580
+rule IDs behind policy-only (new) blocks: {}
+neither-class blocked ids: []
+
+=== train PL2 ===
+default    best 4743/9947 = 47.68% (46.72-48.68)  worst 4774/9947 = 47.99% (47.03-49.00)
+wcp-train  best 3554/9947 = 35.73% (34.81-36.70)  worst 3585/9947 = 36.04% (35.12-37.01)
+wcp-train blocked composition: {'detection-only': 2467, 'detection+policy': 1022, 'policy-only': 65}
+blocked under wcp-train but NOT under default: 0; opposite (default-only): 1189
+rule IDs behind policy-only (new) blocks: {}
+neither-class blocked ids: []
+
+=== T2 probe results (tools/probe_policy.sh, PL1, one fresh container per config) ===
+request                      default (901 fallback)      crs-policy-wcp-train
+POST application/json        200                         200
+POST text/plain              403 (920420+949110)         200
+POST application/x-protobuf  403 (920420+949110)         200
+POST application/csp-report  403 (920420+949110)         200
+POST application/xml         200                         403 (920420+949110)
+PUT  (no content-type)       403 (911100+949110)         200
+PATCH(no content-type)       403 (911100+949110)         200
+DELETE(no content-type)      403 (911100+949110)         200
+
+Superset verdict: the corrected policy is NOT a strict superset of the
+effective default: application/xml is allowed by the 901162 fallback but
+absent from the policy list (the step-10 value set used the wrong "image
+default" reading, which lacked application/xml). Measured impact: 0 of
+10,047 TEST and 0 of 9,947 TRAIN manifest requests carry application/xml,
+and the blocked-set comparison shows 0 blocks under wcp-train that are not
+also blocked under default in all four cells, so no sample was affected.
+Paired per-sample comparison (same split manifests, same engine):
+  blocked under wcp-train but not under default: 0 (TEST PL1/PL2, TRAIN PL1/PL2)
+  blocked under default but not under wcp-train: 1,255 / 977 / 1,580 / 1,189
+Corrected headline (best case = waf_deny_status not flagged; worst = flagged):
+  TEST  PL1 default 17.61% (17.89 worst) vs wcp-train 5.12% (5.45 worst)
+  TEST  PL2 default 41.86% (42.20 worst) vs wcp-train 32.14% (32.48 worst)
+  TRAIN PL1 default 20.65% (20.95 worst) vs wcp-train 4.77% (5.07 worst)
+  TRAIN PL2 default 47.68% (47.99 worst) vs wcp-train 35.73% (36.04 worst)
+The step-10 conclusion "policy widening is not an FP lever; wcp-train worse
+everywhere" was an artifact of the unwrapped content-type list and is
+REVERSED: the TRAIN-derived policy reduces FP on BOTH sides at BOTH paranoia
+levels, including held-out TEST (rule 27). The 21 step-10 "neither"-class
+blocked requests no longer exist in the corrected runs (0 neither-class).
