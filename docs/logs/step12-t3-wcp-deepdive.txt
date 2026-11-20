@@ -1,0 +1,154 @@
+
+### PL1 worst-case set (blocked+deny_status+inconsistent+error)
+modsec 3888 coraza 3904 only-modsec 1 only-coraza 17
+  only-coraza wcp-00f2f589e97a: own status=None outcome=error rules=[] | other status=200 outcome=waf_pass rules=[]
+  only-coraza wcp-1140885081e1: own status=413 outcome=inconsistent rules=[] | other status=200 outcome=waf_pass rules=[]
+  only-coraza wcp-131fde29d621: own status=413 outcome=inconsistent rules=[] | other status=200 outcome=waf_pass rules=[]
+  only-coraza wcp-34940e7ffce1: own status=413 outcome=inconsistent rules=[] | other status=200 outcome=waf_pass rules=[]
+  only-coraza wcp-5b3f575b061d: own status=413 outcome=inconsistent rules=[] | other status=200 outcome=waf_pass rules=[]
+  only-coraza wcp-7df6cb91aaf0: own status=None outcome=error rules=[] | other status=200 outcome=waf_pass rules=[]
+  only-coraza wcp-7dfe87a9dd28: own status=413 outcome=inconsistent rules=[] | other status=200 outcome=waf_pass rules=[]
+  only-coraza wcp-80922154f132: own status=413 outcome=inconsistent rules=[] | other status=200 outcome=waf_pass rules=[]
+  only-coraza wcp-86904cff10c3: own status=None outcome=error rules=[] | other status=200 outcome=waf_pass rules=[]
+  only-coraza wcp-908ef72be103: own status=413 outcome=inconsistent rules=[] | other status=200 outcome=waf_pass rules=[]
+  only-coraza wcp-96bd5332ae15: own status=None outcome=error rules=[] | other status=200 outcome=waf_pass rules=[]
+  only-coraza wcp-a5a302eda586: own status=None outcome=error rules=[] | other status=200 outcome=waf_pass rules=[]
+  only-modsec wcp-aa98de364e37: own status=400 outcome=waf_deny_status rules=['200002'] | other status=200 outcome=waf_pass rules=[]
+  only-coraza wcp-ad3399e805f1: own status=413 outcome=inconsistent rules=[] | other status=200 outcome=waf_pass rules=[]
+  only-coraza wcp-c5155c659149: own status=413 outcome=inconsistent rules=[] | other status=200 outcome=waf_pass rules=[]
+  only-coraza wcp-eeeb13d052ce: own status=None outcome=error rules=[] | other status=200 outcome=waf_pass rules=[]
+  only-coraza wcp-f83f7556fc66: own status=413 outcome=inconsistent rules=[] | other status=200 outcome=waf_pass rules=[]
+  only-coraza wcp-ffd61414ef24: own status=None outcome=error rules=[] | other status=200 outcome=waf_pass rules=[]
+blocked-set diff: only-modsec ['wcp-2574cf69006b', 'wcp-4ff99580bb57', 'wcp-80a49c991b2d', 'wcp-82f508a89f65', 'wcp-96b9ef51be10', 'wcp-de8021cfbd94']
+                  only-coraza ['wcp-672911deadaa', 'wcp-71461e371348', 'wcp-8dc97426f4b3', 'wcp-93fd2b577bc9', 'wcp-96a594e2ae57', 'wcp-bf3ad3695dc3', 'wcp-c7970d727861']
+  only-modsec wcp-2574cf69006b: own status=403 outcome=waf_block rules=['920420', '949110'] | other status=400 outcome=waf_deny_status rules=['200007', '920420']
+  only-modsec wcp-4ff99580bb57: own status=403 outcome=waf_block rules=['911100', '920340', '920450', '920640', '949110'] | other status=413 outcome=inconsistent rules=['911100', '920340', '920450']
+  only-coraza wcp-672911deadaa: own status=403 outcome=waf_block rules=['920450', '921130', '931100', '932230', '932235', '932250', '932260', '932370', '941100', '941120', '941130', '941160', '941170', '941190', '941210', '941250', '941260', '941270', '941280', '941370', '942190', '942320', '949110'] | other status=400 outcome=waf_deny_status rules=['200002', '920450']
+  only-coraza wcp-71461e371348: own status=403 outcome=waf_block rules=['920450', '921130', '931100', '932230', '932235', '932250', '932260', '932370', '941100', '941120', '941130', '941160', '941170', '941190', '941210', '941260', '941270', '941280', '942190', '942320', '949110'] | other status=400 outcome=waf_deny_status rules=['200002', '920450']
+  only-modsec wcp-80a49c991b2d: own status=403 outcome=waf_block rules=['920420', '949110'] | other status=None outcome=error rules=[]
+  only-modsec wcp-82f508a89f65: own status=403 outcome=waf_block rules=['920420', '949110'] | other status=400 outcome=waf_deny_status rules=['200007', '920420']
+  only-coraza wcp-8dc97426f4b3: own status=403 outcome=waf_block rules=['920270', '932130', '932140', '932235', '932370', '933160', '933210', '934100', '941100', '941160', '941170', '941180', '941370', '942151', '942170', '942230', '942550', '949110'] | other status=400 outcome=waf_deny_status rules=['200002']
+  only-coraza wcp-93fd2b577bc9: own status=403 outcome=waf_block rules=['921130', '930100', '930110', '932235', '934100', '941100', '941120', '941160', '941190', '941260', '941270', '941280', '941370', '942360', '949110'] | other status=400 outcome=waf_deny_status rules=['200002']
+  only-coraza wcp-96a594e2ae57: own status=403 outcome=waf_block rules=['920450', '921130', '931100', '932230', '932235', '932250', '932260', '932370', '941100', '941120', '941130', '941160', '941170', '941190', '941210', '941250', '941260', '941270', '941280', '941370', '942190', '942320', '942550', '949110'] | other status=400 outcome=waf_deny_status rules=['200002', '920450']
+  only-modsec wcp-96b9ef51be10: own status=403 outcome=waf_block rules=['920340', '920640', '949110'] | other status=400 outcome=waf_deny_status rules=['200007', '920340']
+  only-coraza wcp-bf3ad3695dc3: own status=403 outcome=waf_block rules=['932235', '932260', '934170', '941130', '941170', '949110'] | other status=400 outcome=waf_deny_status rules=['200002']
+  only-coraza wcp-c7970d727861: own status=403 outcome=waf_block rules=['920450', '921130', '931100', '932230', '932235', '932250', '932260', '932370', '941100', '941120', '941130', '941160', '941170', '941190', '941210', '941260', '941270', '941280', '941370', '942190', '942320', '949110'] | other status=400 outcome=waf_deny_status rules=['200002', '920450']
+  only-modsec wcp-de8021cfbd94: own status=403 outcome=waf_block rules=['920420', '949110'] | other status=400 outcome=waf_deny_status rules=['200007', '920420']
+samples with >=1 only-Coraza rule match: 1300; of those, ModSecurity block driven only by 920420: 1151 (88.5%)
+
+### PL1 only-Coraza rule matches: total 2947; masked (sample already worst-case on modsec) 2947; unmasked 0
+top 15 only-Coraza rules by samples:
+  921150: samples 379 (masked 379, unmasked 0)
+  932370: samples 303 (masked 303, unmasked 0)
+  942550: samples 296 (masked 296, unmasked 0)
+  920270: samples 273 (masked 273, unmasked 0)
+  932130: samples 225 (masked 225, unmasked 0)
+  942190: samples 154 (masked 154, unmasked 0)
+  942100: samples 149 (masked 149, unmasked 0)
+  941100: samples 130 (masked 130, unmasked 0)
+  942540: samples 125 (masked 125, unmasked 0)
+  933180: samples 100 (masked 100, unmasked 0)
+  932125: samples 79 (masked 79, unmasked 0)
+  932235: samples 70 (masked 70, unmasked 0)
+  932380: samples 70 (masked 70, unmasked 0)
+  932250: samples 65 (masked 65, unmasked 0)
+  932230: samples 58 (masked 58, unmasked 0)
+920420 share of only-Coraza matches: 0/2947
+unmasked samples (not worst-case on either engine): 0
+top unmasked-by-rule: {}
+
+### PL1 top-5 only-Coraza rules match-shape check (3 samples each, seed-0 first-sorted)
+  rule 921150:
+    wcp-01632754d34f: coraza variable=ARGS_NAMES argname_len=93 matched_len=2 | modsec same-variable-class-present=False modsec variable-classes=['REQUEST_HEADERS', 'TX']
+    wcp-01cd15ffeaa8: coraza variable=ARGS_NAMES argname_len=268 matched_len=2 | modsec same-variable-class-present=False modsec variable-classes=['TX']
+    wcp-01e52d9151d6: coraza variable=ARGS_NAMES argname_len=248 matched_len=2 | modsec same-variable-class-present=False modsec variable-classes=['TX']
+  rule 932370:
+    wcp-00bf6f887d65: coraza variable=ARGS argname_len=14 matched_len=4 | modsec same-variable-class-present=False modsec variable-classes=['TX']
+    wcp-014f421bf1c6: coraza variable=ARGS_NAMES argname_len=260 matched_len=6 | modsec same-variable-class-present=False modsec variable-classes=['TX']
+    wcp-0271ff67a4ab: coraza variable=ARGS_NAMES argname_len=268 matched_len=6 | modsec same-variable-class-present=False modsec variable-classes=['TX']
+  rule 942550:
+    wcp-00ec01ed13b1: coraza variable=None argname_len=None matched_len=None | modsec same-variable-class-present=False modsec variable-classes=['TX']
+    wcp-01272bd3ed44: coraza variable=None argname_len=None matched_len=None | modsec same-variable-class-present=False modsec variable-classes=['TX']
+    wcp-02ad446035c2: coraza variable=ARGS argname_len=247 matched_len=34 | modsec same-variable-class-present=False modsec variable-classes=['TX']
+  rule 920270:
+    wcp-01632754d34f: coraza variable=None argname_len=None matched_len=None | modsec same-variable-class-present=False modsec variable-classes=['REQUEST_HEADERS', 'TX']
+    wcp-026be893f064: coraza variable=None argname_len=None matched_len=None | modsec same-variable-class-present=False modsec variable-classes=['REQUEST_HEADERS', 'TX']
+    wcp-03a48f92b273: coraza variable=None argname_len=None matched_len=None | modsec same-variable-class-present=False modsec variable-classes=['TX']
+  rule 932130:
+    wcp-00bf6f887d65: coraza variable=ARGS argname_len=7 matched_len=79 | modsec same-variable-class-present=False modsec variable-classes=['TX']
+    wcp-01bc9b3fba3e: coraza variable=ARGS_NAMES argname_len=8 matched_len=85 | modsec same-variable-class-present=False modsec variable-classes=['TX']
+    wcp-026be893f064: coraza variable=ARGS_NAMES argname_len=54 matched_len=82 | modsec same-variable-class-present=False modsec variable-classes=['REQUEST_HEADERS', 'TX']
+
+### PL2 worst-case set (blocked+deny_status+inconsistent+error)
+modsec 9015 coraza 9026 only-modsec 0 only-coraza 11
+  only-coraza wcp-1140885081e1: own status=413 outcome=inconsistent rules=[] | other status=200 outcome=waf_pass rules=[]
+  only-coraza wcp-131fde29d621: own status=413 outcome=inconsistent rules=[] | other status=200 outcome=waf_pass rules=[]
+  only-coraza wcp-34940e7ffce1: own status=413 outcome=inconsistent rules=[] | other status=200 outcome=waf_pass rules=[]
+  only-coraza wcp-5b3f575b061d: own status=413 outcome=inconsistent rules=[] | other status=200 outcome=waf_pass rules=[]
+  only-coraza wcp-7df6cb91aaf0: own status=None outcome=error rules=[] | other status=200 outcome=waf_pass rules=[]
+  only-coraza wcp-7dfe87a9dd28: own status=413 outcome=inconsistent rules=[] | other status=200 outcome=waf_pass rules=[]
+  only-coraza wcp-80922154f132: own status=413 outcome=inconsistent rules=[] | other status=200 outcome=waf_pass rules=[]
+  only-coraza wcp-908ef72be103: own status=413 outcome=inconsistent rules=[] | other status=200 outcome=waf_pass rules=[]
+  only-coraza wcp-ad3399e805f1: own status=413 outcome=inconsistent rules=[] | other status=200 outcome=waf_pass rules=[]
+  only-coraza wcp-c5155c659149: own status=413 outcome=inconsistent rules=[] | other status=200 outcome=waf_pass rules=[]
+  only-coraza wcp-f83f7556fc66: own status=413 outcome=inconsistent rules=[] | other status=200 outcome=waf_pass rules=[]
+blocked-set diff: only-modsec ['wcp-2574cf69006b', 'wcp-4ff99580bb57', 'wcp-80a49c991b2d', 'wcp-82f508a89f65', 'wcp-96b9ef51be10', 'wcp-de8021cfbd94']
+                  only-coraza ['wcp-672911deadaa', 'wcp-71461e371348', 'wcp-8dc97426f4b3', 'wcp-93fd2b577bc9', 'wcp-96a594e2ae57', 'wcp-aa98de364e37', 'wcp-bf3ad3695dc3', 'wcp-c7970d727861']
+  only-modsec wcp-2574cf69006b: own status=403 outcome=waf_block rules=['920420', '949110'] | other status=400 outcome=waf_deny_status rules=['200007', '920420']
+  only-modsec wcp-4ff99580bb57: own status=403 outcome=waf_block rules=['911100', '920340', '920450', '920640', '942362', '949110'] | other status=413 outcome=inconsistent rules=['911100', '920340', '920450']
+  only-coraza wcp-672911deadaa: own status=403 outcome=waf_block rules=['920230', '920450', '921130', '931100', '931130', '932200', '932230', '932231', '932235', '932236', '932240', '932250', '932260', '932370', '941100', '941120', '941130', '941150', '941160', '941170', '941190', '941210', '941250', '941260', '941270', '941280', '941320', '941330', '941340', '941370', '942120', '942131', '942180', '942190', '942200', '942210', '942320', '942330', '942340', '942370', '942430', '942440', '942520', '949110'] | other status=400 outcome=waf_deny_status rules=['200002', '920450']
+  only-coraza wcp-71461e371348: own status=403 outcome=waf_block rules=['920230', '920450', '921130', '931100', '931130', '932200', '932230', '932235', '932236', '932240', '932250', '932260', '932370', '941100', '941120', '941130', '941150', '941160', '941170', '941190', '941210', '941260', '941270', '941280', '941320', '941330', '941340', '942120', '942131', '942180', '942190', '942200', '942210', '942300', '942320', '942330', '942340', '942370', '942430', '942440', '942520', '949110'] | other status=400 outcome=waf_deny_status rules=['200002', '920450']
+  only-modsec wcp-80a49c991b2d: own status=403 outcome=waf_block rules=['920420', '949110'] | other status=None outcome=error rules=[]
+  only-modsec wcp-82f508a89f65: own status=403 outcome=waf_block rules=['920420', '949110'] | other status=400 outcome=waf_deny_status rules=['200007', '920420']
+  only-coraza wcp-8dc97426f4b3: own status=403 outcome=waf_block rules=['920270', '920271', '931130', '932130', '932140', '932200', '932235', '932236', '932240', '932281', '932370', '932390', '933153', '933160', '933210', '934100', '934101', '941100', '941150', '941160', '941170', '941180', '941320', '941330', '941340', '941370', '942120', '942131', '942150', '942151', '942170', '942180', '942200', '942210', '942230', '942300', '942310', '942330', '942340', '942370', '942410', '942430', '942440', '942520', '942550', '949110'] | other status=400 outcome=waf_deny_status rules=['200002']
+  only-coraza wcp-93fd2b577bc9: own status=403 outcome=waf_block rules=['920230', '921130', '930100', '930110', '931130', '932200', '932235', '932236', '932240', '934100', '941100', '941120', '941150', '941160', '941190', '941260', '941270', '941280', '941320', '941330', '941340', '941370', '942120', '942131', '942180', '942200', '942210', '942300', '942330', '942340', '942360', '942362', '942370', '942380', '942430', '942440', '942520', '949110'] | other status=400 outcome=waf_deny_status rules=['200002']
+  only-coraza wcp-96a594e2ae57: own status=403 outcome=waf_block rules=['920230', '920450', '921130', '931100', '931130', '932200', '932230', '932231', '932235', '932236', '932240', '932250', '932260', '932370', '941100', '941120', '941130', '941150', '941160', '941170', '941190', '941210', '941250', '941260', '941270', '941280', '941320', '941330', '941340', '941370', '942120', '942131', '942180', '942190', '942200', '942210', '942300', '942320', '942330', '942340', '942370', '942430', '942440', '942520', '942550', '949110'] | other status=400 outcome=waf_deny_status rules=['200002', '920450']
+  only-modsec wcp-96b9ef51be10: own status=403 outcome=waf_block rules=['920340', '920640', '949110'] | other status=400 outcome=waf_deny_status rules=['200007', '920340']
+  only-coraza wcp-aa98de364e37: own status=403 outcome=waf_block rules=['932240', '942131', '949110'] | other status=400 outcome=waf_deny_status rules=['200002']
+  only-coraza wcp-bf3ad3695dc3: own status=403 outcome=waf_block rules=['931130', '932235', '932236', '932260', '934170', '941130', '941170', '942340', '949110'] | other status=400 outcome=waf_deny_status rules=['200002']
+  only-coraza wcp-c7970d727861: own status=403 outcome=waf_block rules=['920230', '920450', '921130', '931100', '931130', '932200', '932230', '932235', '932236', '932240', '932250', '932260', '932370', '941100', '941120', '941130', '941150', '941160', '941170', '941190', '941210', '941260', '941270', '941280', '941320', '941330', '941340', '941370', '942120', '942131', '942180', '942190', '942200', '942210', '942300', '942320', '942330', '942340', '942370', '942430', '942440', '942520', '949110'] | other status=400 outcome=waf_deny_status rules=['200002', '920450']
+  only-modsec wcp-de8021cfbd94: own status=403 outcome=waf_block rules=['920420', '949110'] | other status=400 outcome=waf_deny_status rules=['200007', '920420']
+samples with >=1 only-Coraza rule match: 2744; of those, ModSecurity block driven only by 920420: 2073 (75.5%)
+
+### PL2 only-Coraza rule matches: total 22788; masked (sample already worst-case on modsec) 22788; unmasked 0
+top 15 only-Coraza rules by samples:
+  942430: samples 2539 (masked 2539, unmasked 0)
+  942200: samples 2385 (masked 2385, unmasked 0)
+  942370: samples 2331 (masked 2331, unmasked 0)
+  942340: samples 2120 (masked 2120, unmasked 0)
+  942330: samples 1554 (masked 1554, unmasked 0)
+  932200: samples 1095 (masked 1095, unmasked 0)
+  942520: samples 898 (masked 898, unmasked 0)
+  942440: samples 652 (masked 652, unmasked 0)
+  942300: samples 623 (masked 623, unmasked 0)
+  941340: samples 617 (masked 617, unmasked 0)
+  931130: samples 612 (masked 612, unmasked 0)
+  942131: samples 532 (masked 532, unmasked 0)
+  932240: samples 459 (masked 459, unmasked 0)
+  920240: samples 450 (masked 450, unmasked 0)
+  921150: samples 379 (masked 379, unmasked 0)
+920420 share of only-Coraza matches: 0/22788
+unmasked samples (not worst-case on either engine): 0
+top unmasked-by-rule: {}
+
+### PL2 top-5 only-Coraza rules match-shape check (3 samples each, seed-0 first-sorted)
+  rule 942430:
+    wcp-0014d0e2778f: coraza variable=ARGS_NAMES argname_len=202 matched_len=62 | modsec same-variable-class-present=False modsec variable-classes=['TX']
+    wcp-0051db1fc828: coraza variable=ARGS_NAMES argname_len=150 matched_len=92 | modsec same-variable-class-present=False modsec variable-classes=['TX']
+    wcp-005f8b4064b1: coraza variable=ARGS argname_len=3 matched_len=85 | modsec same-variable-class-present=False modsec variable-classes=['TX']
+  rule 942200:
+    wcp-0014d0e2778f: coraza variable=MATCHED_VARS argname_len=214 matched_len=46 | modsec same-variable-class-present=False modsec variable-classes=['TX']
+    wcp-0051db1fc828: coraza variable=MATCHED_VARS argname_len=219 matched_len=21 | modsec same-variable-class-present=False modsec variable-classes=['TX']
+    wcp-005f8b4064b1: coraza variable=None argname_len=None matched_len=None | modsec same-variable-class-present=False modsec variable-classes=['TX']
+  rule 942370:
+    wcp-0014d0e2778f: coraza variable=ARGS_NAMES argname_len=255 matched_len=8 | modsec same-variable-class-present=False modsec variable-classes=['TX']
+    wcp-005f8b4064b1: coraza variable=ARGS argname_len=3 matched_len=7 | modsec same-variable-class-present=False modsec variable-classes=['TX']
+    wcp-00bf6f887d65: coraza variable=ARGS_NAMES argname_len=9 matched_len=19 | modsec same-variable-class-present=False modsec variable-classes=['TX']
+  rule 942340:
+    wcp-0014d0e2778f: coraza variable=ARGS_NAMES argname_len=247 matched_len=17 | modsec same-variable-class-present=False modsec variable-classes=['TX']
+    wcp-005f8b4064b1: coraza variable=ARGS argname_len=3 matched_len=15 | modsec same-variable-class-present=False modsec variable-classes=['TX']
+    wcp-00bf6f887d65: coraza variable=ARGS_NAMES argname_len=84 matched_len=18 | modsec same-variable-class-present=False modsec variable-classes=['TX']
+  rule 942330:
+    wcp-00bf6f887d65: coraza variable=ARGS argname_len=0 matched_len=9 | modsec same-variable-class-present=False modsec variable-classes=['TX']
+    wcp-00bf70097384: coraza variable=ARGS argname_len=207 matched_len=8 | modsec same-variable-class-present=False modsec variable-classes=['TX']
+    wcp-00d06ec23e0a: coraza variable=ARGS_NAMES argname_len=195 matched_len=9 | modsec same-variable-class-present=False modsec variable-classes=['TX']

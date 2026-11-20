@@ -1,0 +1,27 @@
+===== restored-all PL1 rule-29 proof (fresh container, same env as the run)
+rule29-modsec: E=On B=1 P=1 D=1 BACKEND=http://stub-backend:3000 env_CT=[] env_M=[]
+SecRuleEngine On
+tx.blocking_paranoia_level=1
+tx.detection_paranoia_level=1
+tx.crs_setup_version=4252
+7:SecRequestBodyLimit 13107200
+8:SecRequestBodyNoFilesLimit 131072
+9:SecRequestBodyLimitAction Reject
+    setvar:tx.blocking_paranoia_level=1"
+ Container deploy-stub-backend-1 Creating 
+ Container deploy-target-1 Creating 
+--
+===== restored-all PL2 rule-29 proof (fresh container, same env as the run)
+rule29-modsec: E=On B=2 P=2 D=2 BACKEND=http://stub-backend:3000 env_CT=[] env_M=[]
+SecRuleEngine On
+tx.blocking_paranoia_level=2
+tx.detection_paranoia_level=2
+tx.crs_setup_version=4252
+7:SecRequestBodyLimit 13107200
+8:SecRequestBodyNoFilesLimit 131072
+9:SecRequestBodyLimitAction Reject
+    setvar:tx.blocking_paranoia_level=2"
+== step12 restored-all re-run start 2026-11-20T03:39:33Z
+{"base_url": "http://localhost:8081", "started_utc": "2026-11-20T03:40:01+00:00", "ended_utc": "2026-11-20T03:43:47+00:00", "git_commit": "840fe219f00c13c0d43181a01449e32cd0b20087", "manifest_sha256": "99f4942ba55390b5e58740b364289df0e427b54abba5faff5276aa996e2f29b1", "default_user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/158.0.0.0 Safari/537.36", "labels": {"variant": "restored-all", "paranoia": "1"}, "total_samples": 13261, "responses_ok": 13261, "blocked": 5332, "error_count": 0, "block_rule": {"block_status": 403, "block_marker": "<center>nginx</center>"}}
+crs_audit: 5362 audit entr(ies) -> out/modsec-wcp-cookie-restored-all-pl1/audit.jsonl
+=== done restored-all PL1

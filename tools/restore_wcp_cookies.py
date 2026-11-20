@@ -39,8 +39,14 @@ def main():
     if args.all:
         OUT_DIR = Path("out/wcp-cookie-restored-all")
     rows = [json.loads(l) for l in open(BASE_MANIFEST)]
+    # Step-12 T5 fix: the dataset stores the dropped cookie under BOTH header
+    # spellings ("cookie" and "Cookie"). The original case-sensitive lookup
+    # silently skipped every "Cookie"-spelled row (5,750 of 13,261 in the
+    # baseline), which is why the restored-all manifest had only 7,511 rows.
+    # Selection is now case-insensitive; nothing else changes.
     dropped = [r for r in rows
-               if str(r.get("headers", {}).get("cookie", "")) == "[DROPPED]"]
+               if any(k.lower() == "cookie" and v == "[DROPPED]"
+                      for k, v in r.get("headers", {}).items())]
     print(f"baseline rows {len(rows)}; cookie-dropped rows {len(dropped)}")
     if args.all:
         chosen = sorted(dropped, key=lambda r: r["id"])

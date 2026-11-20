@@ -1,0 +1,72 @@
+##### smoke PL1
+samples compared: 12
+blocked modsec 6  coraza 6  both 6  only-modsec 0  only-coraza 0
+outcome classes modsec: inconsistent=6  proxy_reject=1  waf_pass=5
+outcome classes coraza: proxy_reject=1  waf_block=6  waf_pass=5
+
+    rule   both  only-modsec  only-coraza
+  949110      0            0            6
+  941100      0            0            2
+##### smoke PL2
+samples compared: 12
+blocked modsec 6  coraza 6  both 6  only-modsec 0  only-coraza 0
+outcome classes modsec: inconsistent=6  proxy_reject=1  waf_pass=5
+outcome classes coraza: proxy_reject=1  waf_block=6  waf_pass=5
+
+    rule   both  only-modsec  only-coraza
+  949110      0            0            6
+  942100      0            0            2
+##### attacks-v0 PL1
+samples compared: 1054
+blocked modsec 954  coraza 954  both 954  only-modsec 0  only-coraza 0
+outcome classes modsec: inconsistent=10  waf_block=944  waf_pass=100
+outcome classes coraza: waf_block=954  waf_pass=100
+
+    rule   both  only-modsec  only-coraza
+  949110    944            0           10
+  930120    318            0            0
+##### attacks-v0 PL2
+samples compared: 1054
+blocked modsec 1024  coraza 1024  both 1024  only-modsec 0  only-coraza 0
+outcome classes modsec: inconsistent=12  waf_block=1012  waf_pass=30
+outcome classes coraza: waf_block=1024  waf_pass=30
+
+    rule   both  only-modsec  only-coraza
+  949110   1012            0           12
+  930120    318            0            0
+##### benign-browse-v1 PL1
+samples compared: 774
+blocked modsec 184  coraza 184  both 184  only-modsec 0  only-coraza 0
+outcome classes modsec: inconsistent=1  waf_block=183  waf_pass=590
+outcome classes coraza: waf_block=184  waf_pass=590
+
+    rule   both  only-modsec  only-coraza
+  949110    183            0            1
+  911100    120            0            0
+##### benign-browse-v1 PL2
+samples compared: 774
+blocked modsec 184  coraza 184  both 184  only-modsec 0  only-coraza 0
+outcome classes modsec: inconsistent=1  waf_block=183  waf_pass=590
+outcome classes coraza: waf_block=184  waf_pass=590
+
+    rule   both  only-modsec  only-coraza
+  949110    183            0            1
+  911100    120            0            0
+##### benign-hard-v0 PL1
+samples compared: 180
+blocked modsec 22  coraza 22  both 22  only-modsec 0  only-coraza 0
+outcome classes modsec: inconsistent=2  waf_block=20  waf_pass=158
+outcome classes coraza: waf_block=22  waf_pass=158
+
+    rule   both  only-modsec  only-coraza
+  949110     20            0            2
+  932260      8            0            2
+##### benign-hard-v0 PL2
+samples compared: 180
+blocked modsec 78  coraza 78  both 78  only-modsec 0  only-coraza 0
+outcome classes modsec: waf_block=78  waf_pass=102
+outcome classes coraza: waf_block=78  waf_pass=102
+
+    rule   both  only-modsec  only-coraza
+  949110     78            0            0
+  932236     34            0            0

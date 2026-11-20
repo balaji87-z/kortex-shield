@@ -423,3 +423,47 @@ different image build (and engine build) than the step-10/11 Coraza runs.
 CRS version equality with the ModSecurity side is proven per run from inside
 both containers (rule 28); the engine-version difference is a recorded
 deviation, and coraza-vs-step-11 coraza comparisons are labelled accordingly.
+
+## Step-12: Coraza body-limit pin proven INEFFECTIVE (2026-11-20)
+
+The v0.6 claim "SecRequestBodyNoFilesLimit 131072 pinned on Coraza in-container
+(sed + nginx -s reload), probe: 200,000-byte body -> 400" is WRONG. The probe
+body was invalid JSON, so its 400 was a body-parse deny (rule 200002), not the
+size limit. Live proof on the pinned coraza image (bfbfe70b), after the sed
+showed 131072 in the rendered file and `nginx -s reload`:
+
+- valid 200,000-byte JSON body -> Coraza 200 (passes), ModSecurity 400
+  (200002 "Failed to parse request body").
+- valid 120,000-byte JSON body -> 200 on both (control).
+- multipart/form-data with one file part, 200,000 bytes -> 200 on both.
+- PUT with no content-type, 200,000 bytes -> 403 on both (911100 method
+  policy, not a size effect).
+
+Conclusion: `nginx -s reload` does not make the coraza nginx module re-read the
+rendered coraza.conf; the running engine keeps the image default 524,288. The
+same mechanism applies to the old image, so EVERY Coraza run to date (step-10,
+step-11, step-12 small re-runs) ran with effective NoFilesLimit 524,288. For
+the small datasets this is non-binding (largest body 1,080 bytes; 0 samples
+over 131,072 or 524,288), so the step-12 small-dataset re-runs stand. For
+benign-wcp-v0 the 11 samples where Coraza returned 413 and ModSecurity did not
+are all > 524,288 bytes (723,995-1,527,423): 10 multipart POSTs (ModSecurity
+passes them; file parts count against SecRequestBodyLimit 13,107,200) and 1
+no-content-type PUT (ModSecurity blocks 403 on 911100). Evidence:
+docs/logs/step12-sizeprobe-*.log, docs/logs/step12-oversize-*.log.
+Fix for future runs: pass the limit via the image env (rendered at container
+start), not sed+reload. No step-12 run needed it (no dataset body falls between
+the limits); recorded here before any future run relies on it.
+
+## Step-12: cookie-restore completeness fix and full re-run (2026-11-20)
+
+The benign-wcp-v0 build stored the dropped cookie under two header spellings:
+`cookie` (7,512 frozen rows) and `Cookie` (5,754 frozen rows). The step-10
+restore script selected dropped rows with a case-sensitive lookup, so the
+step-11 restored-all manifest covered only the 7,511 lowercase rows and
+silently skipped 5,750 `Cookie`-spelled rows (rule 12 violation, now fixed).
+tools/restore_wcp_cookies.py selection is case-insensitive as of this note;
+the rebuilt manifest covers all 13,261 baseline dropped rows and the integrity
+check passes (only the cookie value differs from the baseline row). ModSecurity
+PL1+PL2 re-runs on the full restore: out/modsec-wcp-cookie-restored-all-pl{1,2}
+(rule-29 proofs in out/step12-restored-all.log; fresh container per run). The
+frozen dataset was not modified; restored cookie values remain uncommitted.
