@@ -259,3 +259,41 @@ def test_kortex_engine_limit_and_timeout_event_rows():
     for r in rows:
         if r["decision"] == "timeout":
             assert r["status"] == 503
+
+
+def test_unicode_line_separator_inside_json_string_is_not_a_line_break():
+    """Step-17 T4 harness-bug regression (rule 40: failing test first).
+
+    str.splitlines() also splits on U+0085, U+2028 and U+2029, which occur
+    UNESCAPED inside JSON string values (recorded WCP request bodies). The
+    engine writes its audit log to a file directly, so such a body splits a
+    perfectly valid {"transaction"} line in half and parse_logs() wrongly
+    rejects the whole capture as corrupt (191/203 lines on the s17-t4 engine
+    runs). Audit lines are newline-delimited: only \\n (and \\r\\n) end a
+    line. A capture whose JSON strings contain U+2028 must parse."""
+    import json as _json
+
+    body_with_u2028 = "a\u2028b\u0085c\u2029d"
+    entry = {
+        "transaction": {
+            "timestamp": "2026/11/20 16:14:16",
+            "request": {
+                "method": "POST",
+                "uri": "/x",
+                "headers": {"content-type": ["text/plain"]},
+                "body": body_with_u2028,
+            },
+            "response": {"status": 403},
+        },
+        "messages": [
+            {"error_message": '[id "949110"] [msg "Total Score: 5"]'}
+        ],
+    }
+    # Coraza's audit writer does not escape U+0085/U+2028/U+2029 (measured:
+    # they land raw in the engine audit file); emulate that here
+    line = _json.dumps(entry, separators=(",", ":"), ensure_ascii=False)
+    assert "\u2028" in line and "\u0085" in line
+    capture = 'noise line\n' + line + '\nanother noise\n'
+    entries = crs_audit.parse_logs(capture)
+    assert len(entries) == 1
+    assert entries[0]["uri"] == "/x"

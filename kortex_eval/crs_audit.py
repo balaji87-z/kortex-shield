@@ -151,7 +151,13 @@ def parse_logs(text: str) -> list[dict]:
     """
     entries = []
     bad: list[int] = []
-    for lineno, line in enumerate(text.splitlines(), 1):
+    # Audit entries are newline-delimited. str.splitlines() ALSO splits on
+    # U+0085/U+2028/U+2029, which occur unescaped inside JSON string values
+    # (recorded request bodies), splitting a valid {"transaction"} line in
+    # half and wrongly rejecting the capture (step-17 T4 harness bug;
+    # regression test in tests/test_crs_audit.py). Split on \n only.
+    for lineno, raw in enumerate(text.split("\n"), 1):
+        line = raw[:-1] if raw.endswith("\r") else raw
         if not line.strip().startswith('{"transaction":'):
             continue
         try:
