@@ -1,0 +1,9 @@
+try 1: container down, retrying
+try 2: container down, retrying
+try 3: container up
+tx.blocking_paranoia_level=1
+tx.detection_paranoia_level=1
+tx.inbound_anomaly_score_threshold=5
+OWASP_CRS/4.25.2
+setup-done
+exit=0

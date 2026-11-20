@@ -1,0 +1,6 @@
+# T5 probe-c: library coraza v3.7.0 on the 100 T6 swap samples
+recorded: n=100 blocked=100 passed=0
+swapped : n=100 blocked=100 passed=0
+samples with >=1 body-derived detection rule: recorded=100/100 swapped=100/100
+slowest recorded (ms): [('wcp-4ff99580bb57', 6390), ('wcp-527dd0f97e39', 1507), ('wcp-377307dc2a53', 584), ('wcp-ff3f6004e85d', 446), ('wcp-de8021cfbd94', 229)]
+samples whose body-derived rule set differs recorded vs swapped: 1
