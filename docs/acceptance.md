@@ -65,3 +65,20 @@ interrupt a single-shot body-processing call (481,798-byte body ran
 41.8-43.5 s, ended in a normal 403); E6's pass covers budget expiry at phase
 boundaries only. The default 131,072-byte inspection cap rejects such bodies
 with 413 in ~1-3 ms.
+
+Step-16 T2 acceptance tests (rule 40: committed FAILING before the fix;
+failing evidence docs/logs/step16-t2-failing-tests.txt, 8/8 FAIL):
+
+| id | claim | status |
+|----|-------|--------|
+| E10 | engine matches the connector on the attacks-v0 step-15 T6 JSON diff ids (PL1 65 ids, PL2 15 ids; data-driven parity tables in engine/step16_test.go) | failing pre-fix |
+| E11 | malformed JSON body denied 400 like the connector (image rule 200002) | failing pre-fix |
+| E12 | JSON body with >= 1000 arguments denied 400 like the connector (image rule 200007) | failing pre-fix |
+| E13 | text/xml traversal body blocked via the XML processor (image rule 200000 -> 930110), not via mangled ARGS_NAMES rules | failing pre-fix |
+| E14 | engine matches the connector on the benign-hard-v0 JSON diff ids (PL1 23, PL2 51) | failing pre-fix |
+| E15 | engine passes the benign-browse-v1 PL2 engine-only JSON ids (90) | failing pre-fix |
+
+Excluded from the tables on purpose: the 60+60 benign-browse 920420 ids
+(DESIGN C4), the 21 attacks-ct 920420 ids (DESIGN C4), smoke trav-01
+(DESIGN front proxy), attacks-v0 PL2 command-injection-036c522d-q
+(UNEXPLAINED, docs/logs/step16-t1-920230-replay.txt).
