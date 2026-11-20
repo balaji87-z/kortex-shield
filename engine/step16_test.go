@@ -27,6 +27,7 @@ package main
 
 import (
 	"bufio"
+	"bytes"
 	"encoding/json"
 	"fmt"
 	"io"
@@ -35,6 +36,7 @@ import (
 	"os"
 	"strings"
 	"testing"
+	"time"
 )
 
 // dataDirForTests mirrors rulesDirForTests: tests run from engine/.
@@ -525,4 +527,62 @@ var wantBenignBrowsePL2EngineOnly = map[string]bool{
 	"browse-f041dae4557d": false,
 	"browse-f336a1909eef": false,
 	"browse-f4a599ac14ab": false,
+}
+
+// --- Step-16 T3 acceptance test (rule 40: committed FAILING before the fix).
+//
+// E16: a body whose engine processing exceeds the time budget must be
+// answered 503 kortex-decision=timeout within budget+500ms. Step-15 T4
+// PROVED the budget never fires on the single-shot ProcessRequestBody call
+// (481,798-byte wcp body ran 41.8-43.5 s and ended in a normal 403,
+// docs/logs/step15-t4-skeleton-replay.txt); this test pins the fix.
+//
+// The body is recorded-traffic content and is NOT committed to the repo
+// (rule 25); the test reads it from KORTEX_TEST_WCP_BODY and skips when the
+// variable is unset. The step-16 T3 run script sets it to
+// out/step14-t5/wcp-80a49c991b2d.body.
+func TestE16BodyProcessingBoundedByTimeBudget(t *testing.T) {
+	bodyPath := os.Getenv("KORTEX_TEST_WCP_BODY")
+	if bodyPath == "" {
+		t.Skip("KORTEX_TEST_WCP_BODY not set (recorded 481,798-byte wcp body)")
+	}
+	body, err := os.ReadFile(bodyPath)
+	if err != nil {
+		t.Fatalf("read wcp body: %v", err)
+	}
+	if len(body) != 481798 {
+		t.Fatalf("unexpected fixture size %d (want 481798)", len(body))
+	}
+	srv, _ := newEnv(t, map[string]string{
+		// the body must REACH processing: raise the inspection cap above
+		// the body size (config B of docs/logs/step15-t4-skeleton-replay.txt)
+		"KORTEX_MAX_INSPECTED_BYTES": "13107200",
+		"KORTEX_ENGINE_TIME_BUDGET_MS": "2000",
+	})
+	start := time.Now()
+	req, err := http.NewRequest("POST", srv.URL+"/", bytes.NewReader(body))
+	if err != nil {
+		t.Fatalf("new request: %v", err)
+	}
+	req.Header.Set("X-Kortex-Sample-Id", "e16-timeout")
+	req.Header.Set("Content-Type", "text/plain")
+	resp, err := srv.Client().Do(req)
+	if err != nil {
+		t.Fatalf("do: %v", err)
+	}
+	defer resp.Body.Close()
+	elapsed := time.Since(start)
+	b, _ := io.ReadAll(resp.Body)
+	if resp.StatusCode != 503 {
+		t.Fatalf("E16: want 503 timeout, got %d after %s body=%q", resp.StatusCode, elapsed, string(b))
+	}
+	if !strings.Contains(string(b), "kortex-decision=timeout") {
+		t.Fatalf("E16: body missing timeout marker: %q", string(b))
+	}
+	if elapsed > 2500*time.Millisecond {
+		t.Fatalf("E16: timeout answer took %s, want <= budget(2s)+500ms", elapsed)
+	}
+	if backendHit {
+		t.Fatalf("E16: timed-out request must not reach the backend")
+	}
 }
