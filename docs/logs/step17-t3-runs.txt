@@ -1,0 +1,116 @@
+== load average at start:  16:02:52 up  1:06,  1 user,  load average: 9.98, 8.53, 6.69
+== engine binary: e44ba2fcba4e17497127aeb3350a7a5b  /tmp/kortex-engine
+===== PHASE A: cap=32, 20 concurrent 481,798-byte bodies (CPU + latency)
+== engine effective config (port 8096):
+{"backend_url":"http://127.0.0.1:13000","rule_engine":"On","blocking_paranoia":1,"detection_paranoia":1,"max_body_bytes":13107200,"max_inspected_bytes":13107200,"engine_time_budget_ms":2000,"rules_dir":"/home/vboxuser/kortex-shield/engine/crs","listen_addr":"127.0.0.1:8096","events_file":"/tmp/kx17t3-events.jsonl","audit_log":"/tmp/kx17t3-audit.log","allowed_methods":"GET HEAD POST OPTIONS","max_inflight_body":32}
+
+benign[before] status=200 time_total_s=0.144135
+== cpu at start (utime_s stime_s): 0.98 1.88
+copy1 status=503 time_total_s=2.041475
+copy5 status=503 time_total_s=2.038716
+copy4 status=503 time_total_s=2.053640
+copy3 status=503 time_total_s=2.060804
+copy2 status=503 time_total_s=2.078724
+copy9 status=503 time_total_s=2.087523
+copy6 status=503 time_total_s=2.159411
+copy8 status=503 time_total_s=2.158687
+copy10 status=503 time_total_s=2.142310
+copy16 status=503 time_total_s=2.155009
+copy13 status=503 time_total_s=2.134902
+copy11 status=503 time_total_s=2.177701
+copy18 status=503 time_total_s=2.140728
+copy15 status=503 time_total_s=2.150777
+copy7 status=503 time_total_s=2.216089
+copy19 status=503 time_total_s=2.243422
+copy20 status=503 time_total_s=2.246175
+copy17 status=503 time_total_s=2.255181
+copy14 status=503 time_total_s=2.259379
+copy12 status=503 time_total_s=2.305753
+== cpu at deadline (+2.525909339s): 8.17 6.75
+benign[at-deadline] status=200 time_total_s=0.447425
+== all copies answered
+benign[at-plus8s] status=200 time_total_s=0.859273
+benign[at-plus59s] status=200 time_total_s=0.467819
+== cpu at +60s: 278.72 65.69
+== load average phase A end:  16:03:52 up  1:07,  1 user,  load average: 8.94, 8.40, 6.75
+== engine killed
+===== PHASE A2: cap=32, 4 concurrent copies (abandoned-finish events)
+== engine effective config (port 8096):
+{"backend_url":"http://127.0.0.1:13000","rule_engine":"On","blocking_paranoia":1,"detection_paranoia":1,"max_body_bytes":13107200,"max_inspected_bytes":13107200,"engine_time_budget_ms":2000,"rules_dir":"/home/vboxuser/kortex-shield/engine/crs","listen_addr":"127.0.0.1:8096","events_file":"/tmp/kx17t3a2-events.jsonl","audit_log":"/tmp/kx17t3-audit.log","allowed_methods":"GET HEAD POST OPTIONS","max_inflight_body":32}
+
+copy2 status=503 time_total_s=2.082091
+copy4 status=503 time_total_s=2.165902
+copy1 status=503 time_total_s=2.168923
+copy3 status=503 time_total_s=2.149484
+== copies answered; waiting up to 150s for 4 abandoned-finish events
+== abandoned-finish events captured: 4
+{"ts":"2026-11-20T16:06:12.187385247Z","sample_id":"t3-a2-4","decision":"abandoned-body-processing-finished","status":0,"elapsed_ms":136815.157,"reason":"elapsed_ms=136815 interrupted=true rule_id=949110 status=403"}
+{"ts":"2026-11-20T16:06:12.382689111Z","sample_id":"t3-a2-1","decision":"abandoned-body-processing-finished","status":0,"elapsed_ms":136985.730,"reason":"elapsed_ms=136985 interrupted=true rule_id=949110 status=403"}
+{"ts":"2026-11-20T16:06:12.619463258Z","sample_id":"t3-a2-3","decision":"abandoned-body-processing-finished","status":0,"elapsed_ms":137217.147,"reason":"elapsed_ms=137217 interrupted=true rule_id=949110 status=403"}
+{"ts":"2026-11-20T16:06:12.729654066Z","sample_id":"t3-a2-2","decision":"abandoned-body-processing-finished","status":0,"elapsed_ms":137351.178,"reason":"elapsed_ms=137351 interrupted=true rule_id=949110 status=403"}
+== load average phase A2 end:  16:06:20 up  1:09,  1 user,  load average: 3.98, 6.37, 6.23
+== engine killed
+===== PHASE B: cap=8 (default), 20 concurrent 481,798-byte bodies
+== engine effective config (port 8097):
+{"backend_url":"http://127.0.0.1:13000","rule_engine":"On","blocking_paranoia":1,"detection_paranoia":1,"max_body_bytes":13107200,"max_inspected_bytes":13107200,"engine_time_budget_ms":2000,"rules_dir":"/home/vboxuser/kortex-shield/engine/crs","listen_addr":"127.0.0.1:8097","events_file":"/tmp/kx17t3b-events.jsonl","audit_log":"/tmp/kx17t3-audit.log","allowed_methods":"GET HEAD POST OPTIONS","max_inflight_body":8}
+
+benign[before] status=200 time_total_s=0.017876
+copy12 status=503 time_total_s=0.047007
+copy18 status=503 time_total_s=0.076625
+copy2 status=503 time_total_s=0.112798
+copy19 status=503 time_total_s=0.114665
+copy17 status=503 time_total_s=0.118186
+copy10 status=503 time_total_s=0.114068
+copy20 status=503 time_total_s=0.141610
+copy8 status=503 time_total_s=0.116682
+copy15 status=503 time_total_s=0.117030
+copy13 status=503 time_total_s=0.160610
+copy11 status=503 time_total_s=0.215984
+copy16 status=503 time_total_s=0.281999
+benign[during-overload-window] status=200 time_total_s=0.182808
+copy3 status=503 time_total_s=2.071412
+copy9 status=503 time_total_s=2.022047
+copy6 status=503 time_total_s=2.069126
+copy5 status=503 time_total_s=2.086697
+copy7 status=503 time_total_s=2.052432
+copy1 status=503 time_total_s=2.105281
+copy4 status=503 time_total_s=2.097007
+copy14 status=503 time_total_s=2.057778
+== response bodies:
+503 kortex-decision=timeout  [copy1]
+503 kortex-decision=overload  [copy2]
+503 kortex-decision=timeout  [copy3]
+503 kortex-decision=timeout  [copy4]
+503 kortex-decision=timeout  [copy5]
+503 kortex-decision=timeout  [copy6]
+503 kortex-decision=timeout  [copy7]
+503 kortex-decision=overload  [copy8]
+503 kortex-decision=timeout  [copy9]
+503 kortex-decision=overload  [copy10]
+503 kortex-decision=overload  [copy11]
+503 kortex-decision=overload  [copy12]
+503 kortex-decision=overload  [copy13]
+503 kortex-decision=timeout  [copy14]
+503 kortex-decision=overload  [copy15]
+503 kortex-decision=overload  [copy16]
+503 kortex-decision=overload  [copy17]
+503 kortex-decision=overload  [copy18]
+503 kortex-decision=overload  [copy19]
+503 kortex-decision=overload  [copy20]
+== overload events: 12
+== timeout events: 8
+== waiting up to 150s for the 8 abandoned-finish events
+== abandoned-finish events captured: 4
+{"ts":"2026-11-20T16:12:03.628598021Z","sample_id":"t3-b-3","decision":"abandoned-body-processing-finished","status":0,"elapsed_ms":341132.351,"reason":"elapsed_ms=341132 interrupted=true rule_id=949110 status=403"}
+{"ts":"2026-11-20T16:12:03.810554298Z","sample_id":"t3-b-4","decision":"abandoned-body-processing-finished","status":0,"elapsed_ms":341296.506,"reason":"elapsed_ms=341296 interrupted=true rule_id=949110 status=403"}
+{"ts":"2026-11-20T16:12:06.185216522Z","sample_id":"t3-b-6","decision":"abandoned-body-processing-finished","status":0,"elapsed_ms":343705.124,"reason":"elapsed_ms=343705 interrupted=true rule_id=949110 status=403"}
+{"ts":"2026-11-20T16:12:07.425924245Z","sample_id":"t3-b-14","decision":"abandoned-body-processing-finished","status":0,"elapsed_ms":344914.537,"reason":"elapsed_ms=344914 interrupted=true rule_id=949110 status=403"}
+{"ts":"2026-11-20T16:12:08.082567794Z","sample_id":"t3-b-5","decision":"abandoned-body-processing-finished","status":0,"elapsed_ms":345590.454,"reason":"elapsed_ms=345590 interrupted=true rule_id=949110 status=403"}
+{"ts":"2026-11-20T16:12:08.528073361Z","sample_id":"t3-b-7","decision":"abandoned-body-processing-finished","status":0,"elapsed_ms":346013.363,"reason":"elapsed_ms=346013 interrupted=true rule_id=949110 status=403"}
+{"ts":"2026-11-20T16:12:08.818631962Z","sample_id":"t3-b-9","decision":"abandoned-body-processing-finished","status":0,"elapsed_ms":346322.293,"reason":"elapsed_ms=346322 interrupted=true rule_id=949110 status=403"}
+{"ts":"2026-11-20T16:12:09.058186813Z","sample_id":"t3-b-1","decision":"abandoned-body-processing-finished","status":0,"elapsed_ms":346543.879,"reason":"elapsed_ms=346543 interrupted=true rule_id=949110 status=403"}
+benign[after-recovery] status=200 time_total_s=0.502055
+== load average phase B end:  16:12:18 up  1:15,  1 user,  load average: 12.45, 9.91, 7.85
+== engine killed
+== load average at end:  16:12:19 up  1:15,  1 user,  load average: 12.45, 9.91, 7.85
+ALL-DONE
