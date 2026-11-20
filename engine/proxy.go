@@ -55,7 +55,16 @@ func (p *Proxy) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 
 	// engine phases
 	tx := p.waf.NewTransaction()
-	defer tx.Close()
+	var abandoned atomic.Bool
+	defer func() {
+		// on the timeout path the abandoned goroutine owns the transaction
+		// and closes it when its call returns (E17: closing it here while
+		// ProcessRequestBody is still running makes the in-flight call
+		// return within milliseconds with a stale interruption)
+		if !abandoned.Load() {
+			tx.Close()
+		}
+	}()
 
 	tx.ProcessURI(r.URL.RequestURI(), r.Method, "1.1")
 	tx.AddRequestHeader("Host", r.Host)
@@ -141,16 +150,24 @@ func (p *Proxy) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 	done := make(chan bodyProcResult, 1)
-	var abandoned atomic.Bool
 	go func() {
 		it2, err2 := tx.ProcessRequestBody()
 		done <- bodyProcResult{it2, err2}
 		if abandoned.Load() {
 			// the request was already answered 503; record how long the
-			// abandoned call kept running (raw evidence for the DoS-risk
-			// measurement; wall time ~= CPU time for this CPU-bound call)
-			p.events.log(sampleID, "abandoned-body-processing-finished", 0,
-				start, fmt.Sprintf("elapsed_ms=%d", time.Since(start).Milliseconds()))
+			// abandoned call kept running and what it returned (raw evidence
+			// for the DoS-risk measurement; wall time ~= CPU time for this
+			// CPU-bound call), then release the transaction
+			reason := fmt.Sprintf("elapsed_ms=%d", time.Since(start).Milliseconds())
+			if err2 != nil {
+				reason += " error=" + err2.Error()
+			} else if it2 != nil {
+				reason += fmt.Sprintf(" interrupted=true rule_id=%d status=%d", it2.RuleID, it2.Status)
+			} else {
+				reason += " completed_no_interruption=true"
+			}
+			p.events.log(sampleID, "abandoned-body-processing-finished", 0, start, reason)
+			tx.Close()
 		}
 	}()
 	select {
