@@ -1,0 +1,85 @@
+# RE-RUN 2026-11-20: E17 showed the first pass measured the handler tx.Close()
+# killing the abandoned call (finished at budget+12ms, stale 949110). This
+# re-run measures the real abandoned-call behaviour after the ownership fix.
+== load average at start:  10:33:31 up 20 min,  0 user,  load average: 9.62, 11.37, 10.84
+== engine effective config:
+kortex-engine: effective config: backend_url=http://127.0.0.1:13001 rule_engine=On blocking_paranoia=1 detection_paranoia=1 max_body_bytes=13107200 max_inspected_bytes=13107200 engine_time_budget_ms=2000 rules_dir=/home/Kavinharish/kortexshield/engine/crs listen_addr=127.0.0.1:8098 events_file=/tmp/kxt3-events.jsonl audit_log=/tmp/kxt3-audit.log
+body bytes: 481798
+== single replay (budget 2000ms):
+status=503 time_total_s=2.003537
+503 kortex-decision=timeout
+
+== events after single replay:
+{"ts":"2026-11-20T10:33:36.429148733Z","sample_id":"t3-single","decision":"timeout","status":503,"elapsed_ms":2000.889,"reason":"time budget expired in body processing"}
+{"ts":"2026-11-20T10:34:17.9021827Z","sample_id":"t3-single","decision":"abandoned-body-processing-finished","status":0,"elapsed_ms":43473.920,"reason":"elapsed_ms=43473 interrupted=true rule_id=949110 status=403"}
+== benign latency before concurrency:
+benign status=200 time_total_s=0.003801
+== 20 concurrent copies:
+copy2 status=503 time_total_s=2.014492
+copy14 status=503 time_total_s=2.027723
+copy16 status=503 time_total_s=2.054233
+copy7 status=503 time_total_s=2.045316
+copy1 status=503 time_total_s=2.070278
+copy12 status=503 time_total_s=2.003116
+copy11 status=503 time_total_s=2.000793
+copy17 status=503 time_total_s=2.000930
+copy6 status=503 time_total_s=2.045973
+copy18 status=503 time_total_s=2.067792
+copy20 status=503 time_total_s=2.000988
+copy8 status=503 time_total_s=2.009102
+copy10 status=503 time_total_s=2.009006
+copy15 status=503 time_total_s=2.010311
+copy9 status=503 time_total_s=2.009975
+copy4 status=503 time_total_s=2.001089
+copy19 status=503 time_total_s=2.000710
+copy3 status=503 time_total_s=2.077407
+copy5 status=503 time_total_s=2.003753
+copy13 status=503 time_total_s=2.013549
+21
+== benign latency +8s (20 abandoned ~45s CPU-bound goroutines running):
+benign status=200 time_total_s=0.004478
+== waiting 50s for the abandoned calls to finish
+== events after concurrency (tail):
+{"ts":"2026-11-20T10:33:36.429148733Z","sample_id":"t3-single","decision":"timeout","status":503,"elapsed_ms":2000.889,"reason":"time budget expired in body processing"}
+{"ts":"2026-11-20T10:34:17.9021827Z","sample_id":"t3-single","decision":"abandoned-body-processing-finished","status":0,"elapsed_ms":43473.920,"reason":"elapsed_ms=43473 interrupted=true rule_id=949110 status=403"}
+{"ts":"2026-11-20T10:34:20.690037931Z","sample_id":"t3-conc-1","decision":"timeout","status":503,"elapsed_ms":2066.549,"reason":"time budget expired in body processing"}
+{"ts":"2026-11-20T10:34:20.690034668Z","sample_id":"t3-conc-14","decision":"timeout","status":503,"elapsed_ms":2026.647,"reason":"time budget expired in body processing"}
+{"ts":"2026-11-20T10:34:20.690054376Z","sample_id":"t3-conc-16","decision":"timeout","status":503,"elapsed_ms":2052.725,"reason":"time budget expired in body processing"}
+{"ts":"2026-11-20T10:34:20.690061093Z","sample_id":"t3-conc-7","decision":"timeout","status":503,"elapsed_ms":2043.877,"reason":"time budget expired in body processing"}
+{"ts":"2026-11-20T10:34:20.690069216Z","sample_id":"t3-conc-2","decision":"timeout","status":503,"elapsed_ms":2013.902,"reason":"time budget expired in body processing"}
+{"ts":"2026-11-20T10:34:20.694453883Z","sample_id":"t3-conc-12","decision":"timeout","status":503,"elapsed_ms":2001.047,"reason":"time budget expired in body processing"}
+{"ts":"2026-11-20T10:34:20.698745767Z","sample_id":"t3-conc-11","decision":"timeout","status":503,"elapsed_ms":2000.262,"reason":"time budget expired in body processing"}
+{"ts":"2026-11-20T10:34:20.712864436Z","sample_id":"t3-conc-17","decision":"timeout","status":503,"elapsed_ms":2000.116,"reason":"time budget expired in body processing"}
+{"ts":"2026-11-20T10:34:20.722571073Z","sample_id":"t3-conc-18","decision":"timeout","status":503,"elapsed_ms":2000.472,"reason":"time budget expired in body processing"}
+{"ts":"2026-11-20T10:34:20.744974691Z","sample_id":"t3-conc-6","decision":"timeout","status":503,"elapsed_ms":2000.437,"reason":"time budget expired in body processing"}
+{"ts":"2026-11-20T10:34:20.799331237Z","sample_id":"t3-conc-8","decision":"timeout","status":503,"elapsed_ms":2000.509,"reason":"time budget expired in body processing"}
+{"ts":"2026-11-20T10:34:20.799389106Z","sample_id":"t3-conc-20","decision":"timeout","status":503,"elapsed_ms":2000.319,"reason":"time budget expired in body processing"}
+{"ts":"2026-11-20T10:34:20.799403911Z","sample_id":"t3-conc-15","decision":"timeout","status":503,"elapsed_ms":2000.578,"reason":"time budget expired in body processing"}
+{"ts":"2026-11-20T10:34:20.799412889Z","sample_id":"t3-conc-10","decision":"timeout","status":503,"elapsed_ms":2000.341,"reason":"time budget expired in body processing"}
+{"ts":"2026-11-20T10:34:20.799420078Z","sample_id":"t3-conc-9","decision":"timeout","status":503,"elapsed_ms":2000.575,"reason":"time budget expired in body processing"}
+{"ts":"2026-11-20T10:34:20.890848485Z","sample_id":"t3-conc-4","decision":"timeout","status":503,"elapsed_ms":2000.424,"reason":"time budget expired in body processing"}
+{"ts":"2026-11-20T10:34:20.891940447Z","sample_id":"t3-conc-19","decision":"timeout","status":503,"elapsed_ms":2000.245,"reason":"time budget expired in body processing"}
+{"ts":"2026-11-20T10:34:20.989485044Z","sample_id":"t3-conc-3","decision":"timeout","status":503,"elapsed_ms":2075.614,"reason":"time budget expired in body processing"}
+{"ts":"2026-11-20T10:34:21.008397958Z","sample_id":"t3-conc-5","decision":"timeout","status":503,"elapsed_ms":2000.827,"reason":"time budget expired in body processing"}
+{"ts":"2026-11-20T10:34:21.008441829Z","sample_id":"t3-conc-13","decision":"timeout","status":503,"elapsed_ms":2000.876,"reason":"time budget expired in body processing"}
+== benign latency after the abandoned calls finished:
+benign status=200 time_total_s=0.059530
+== load average at end:  10:35:19 up 22 min,  0 user,  load average: 15.41, 12.78, 11.39
+ALL-DONE
+
+== unfettered processing cost (separate probe, budget raised to 60000ms):
+engine env as above except KORTEX_ENGINE_TIME_BUDGET_MS=60000, listen 8102
+curl -s -o /dev/null -w "..." --max-time 90 -H 'X-Kortex-Sample-Id: t3f-single' \
+  -H 'Content-Type: text/plain' --data-binary @out/step14-t5/wcp-80a49c991b2d.body \
+  http://127.0.0.1:8102/
+unfettered replay: status=403 time_total_s=42.405531
+(= the work one abandoned goroutine performs in the background after a 503)
+
+== concurrency notes:
+- the 20 conc abandoned-finished events had NOT appeared when the script
+  ended (50s wait): 20 goroutines x ~43s CPU-bound each share the box's
+  cores (load average at end 15.41), so their wall time exceeds 50s; the
+  engine process was stopped at script end with them still running.
+- benign latency under that accumulated load: 4.5ms at +8s, 59.5ms at +59s
+  (vs 5.0ms before the burst) - responsive but degraded; 20/20 copies were
+  still answered within budget+500ms during the burst.

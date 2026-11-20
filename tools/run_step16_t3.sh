@@ -10,6 +10,9 @@ cd /home/Kavinharish/kortexshield
 RUN=docs/logs/step16-t3-runs.txt
 BODY=out/step14-t5/wcp-80a49c991b2d.body
 : > $RUN
+echo "# RE-RUN 2026-11-20: E17 showed the first pass measured the handler tx.Close()" >> $RUN
+echo "# killing the abandoned call (finished at budget+12ms, stale 949110). This" >> $RUN
+echo "# re-run measures the real abandoned-call behaviour after the ownership fix." >> $RUN
 echo "== load average at start: $(uptime)" >> $RUN
 
 (cd engine && export PATH=$PATH:/usr/local/go/bin && go build -buildvcs=false -o /tmp/kortex-engine .) || exit 1
@@ -50,17 +53,27 @@ curl -s -o /dev/null -w "benign status=%{http_code} time_total_s=%{time_total}\n
   http://127.0.0.1:8098/?q=hello >> $RUN
 
 echo "== 20 concurrent copies:" >> $RUN
+CURLPIDS=""
 for i in $(seq 1 20); do
   curl -s -o /tmp/kxt3-conc-$i.out -w "copy$i status=%{http_code} time_total_s=%{time_total}\n" \
     -H "X-Kortex-Sample-Id: t3-conc-$i" -H 'Content-Type: text/plain' \
     --data-binary @$BODY http://127.0.0.1:8098/ >> $RUN &
+  CURLPIDS="$CURLPIDS $!"
 done
-wait
+# wait only for the curls; the engine keeps running (first pass: a bare
+# `wait` returned early because the tx.Close use-after-close CRASHED the
+# engine - copy16 and the post-concurrency benign probe got status 000)
+wait $CURLPIDS
 grep -c "status=503" $RUN >> $RUN 2>/dev/null || true
+echo "== benign latency +8s (20 abandoned ~45s CPU-bound goroutines running):" >> $RUN
+sleep 8
+curl -s -o /dev/null -w "benign status=%{http_code} time_total_s=%{time_total}\n" \
+  http://127.0.0.1:8098/?q=hello >> $RUN
+echo "== waiting 50s for the abandoned calls to finish" >> $RUN
+sleep 50
 echo "== events after concurrency (tail):" >> $RUN
 tail -25 /tmp/kxt3-events.jsonl >> $RUN
-
-echo "== benign latency after concurrency:" >> $RUN
+echo "== benign latency after the abandoned calls finished:" >> $RUN
 curl -s -o /dev/null -w "benign status=%{http_code} time_total_s=%{time_total}\n" \
   http://127.0.0.1:8098/?q=hello >> $RUN
 

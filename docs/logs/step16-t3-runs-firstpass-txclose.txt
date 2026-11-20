@@ -1,0 +1,63 @@
+== load average at start:  10:00:18 up  3:48,  0 user,  load average: 11.20, 9.64, 8.24
+== engine effective config:
+kortex-engine: effective config: backend_url=http://127.0.0.1:13001 rule_engine=On blocking_paranoia=1 detection_paranoia=1 max_body_bytes=13107200 max_inspected_bytes=13107200 engine_time_budget_ms=2000 rules_dir=/home/Kavinharish/kortexshield/engine/crs listen_addr=127.0.0.1:8098 events_file=/tmp/kxt3-events.jsonl audit_log=/tmp/kxt3-audit.log
+body bytes: 481798
+== single replay (budget 2000ms):
+status=503 time_total_s=2.004215
+503 kortex-decision=timeout
+
+== events after single replay:
+{"ts":"2026-11-20T10:00:23.55616514Z","sample_id":"t3-single","decision":"timeout","status":503,"elapsed_ms":2000.459,"reason":"time budget expired in body processing"}
+{"ts":"2026-11-20T10:00:23.587646547Z","sample_id":"t3-single","decision":"abandoned-body-processing-finished","status":0,"elapsed_ms":2031.935,"reason":"elapsed_ms=2031"}
+== benign latency before concurrency:
+benign status=200 time_total_s=0.003403
+== 20 concurrent copies:
+copy4 status=503 time_total_s=2.003484
+copy2 status=503 time_total_s=2.066879
+copy1 status=503 time_total_s=2.001343
+copy10 status=503 time_total_s=2.002039
+copy18 status=503 time_total_s=2.128880
+copy19 status=503 time_total_s=2.222291
+copy9 status=503 time_total_s=2.073099
+copy11 status=503 time_total_s=2.137517
+copy15 status=503 time_total_s=2.105331
+copy6 status=503 time_total_s=2.131898
+copy7 status=503 time_total_s=2.066356
+copy20 status=503 time_total_s=2.039595
+copy5 status=503 time_total_s=2.086498
+copy8 status=503 time_total_s=2.097783
+copy13 status=503 time_total_s=2.161130
+copy12 status=503 time_total_s=2.185078
+copy14 status=503 time_total_s=2.170726
+copy17 status=503 time_total_s=2.110587
+copy3 status=503 time_total_s=2.110491
+copy16 status=000 time_total_s=2.039845
+20
+== events after concurrency (tail):
+{"ts":"2026-11-20T10:00:23.55616514Z","sample_id":"t3-single","decision":"timeout","status":503,"elapsed_ms":2000.459,"reason":"time budget expired in body processing"}
+{"ts":"2026-11-20T10:00:23.587646547Z","sample_id":"t3-single","decision":"abandoned-body-processing-finished","status":0,"elapsed_ms":2031.935,"reason":"elapsed_ms=2031"}
+{"ts":"2026-11-20T10:00:26.607078264Z","sample_id":"t3-conc-4","decision":"timeout","status":503,"elapsed_ms":2002.872,"reason":"time budget expired in body processing"}
+{"ts":"2026-11-20T10:00:26.672772284Z","sample_id":"t3-conc-19","decision":"timeout","status":503,"elapsed_ms":2054.810,"reason":"time budget expired in body processing"}
+{"ts":"2026-11-20T10:00:26.709960085Z","sample_id":"t3-conc-2","decision":"timeout","status":503,"elapsed_ms":2000.513,"reason":"time budget expired in body processing"}
+{"ts":"2026-11-20T10:00:26.711260539Z","sample_id":"t3-conc-10","decision":"timeout","status":503,"elapsed_ms":2000.642,"reason":"time budget expired in body processing"}
+{"ts":"2026-11-20T10:00:26.712354314Z","sample_id":"t3-conc-13","decision":"timeout","status":503,"elapsed_ms":2001.209,"reason":"time budget expired in body processing"}
+{"ts":"2026-11-20T10:00:26.734550924Z","sample_id":"t3-conc-1","decision":"timeout","status":503,"elapsed_ms":2000.189,"reason":"time budget expired in body processing"}
+{"ts":"2026-11-20T10:00:26.734575748Z","sample_id":"t3-conc-18","decision":"timeout","status":503,"elapsed_ms":2000.228,"reason":"time budget expired in body processing"}
+{"ts":"2026-11-20T10:00:26.734593307Z","sample_id":"t3-conc-12","decision":"timeout","status":503,"elapsed_ms":2000.526,"reason":"time budget expired in body processing"}
+{"ts":"2026-11-20T10:00:26.839444537Z","sample_id":"t3-conc-5","decision":"timeout","status":503,"elapsed_ms":2025.601,"reason":"time budget expired in body processing"}
+{"ts":"2026-11-20T10:00:26.839475736Z","sample_id":"t3-conc-17","decision":"timeout","status":503,"elapsed_ms":2053.615,"reason":"time budget expired in body processing"}
+{"ts":"2026-11-20T10:00:26.83969683Z","sample_id":"t3-conc-9","decision":"timeout","status":503,"elapsed_ms":2052.770,"reason":"time budget expired in body processing"}
+{"ts":"2026-11-20T10:00:26.839702982Z","sample_id":"t3-conc-15","decision":"timeout","status":503,"elapsed_ms":2053.887,"reason":"time budget expired in body processing"}
+{"ts":"2026-11-20T10:00:26.839815698Z","sample_id":"t3-conc-11","decision":"timeout","status":503,"elapsed_ms":2103.535,"reason":"time budget expired in body processing"}
+{"ts":"2026-11-20T10:00:26.8400392Z","sample_id":"t3-conc-14","decision":"timeout","status":503,"elapsed_ms":2103.869,"reason":"time budget expired in body processing"}
+{"ts":"2026-11-20T10:00:26.840145672Z","sample_id":"t3-conc-20","decision":"timeout","status":503,"elapsed_ms":2023.791,"reason":"time budget expired in body processing"}
+{"ts":"2026-11-20T10:00:26.840408432Z","sample_id":"t3-conc-10","decision":"abandoned-body-processing-finished","status":0,"elapsed_ms":2129.789,"reason":"elapsed_ms=2129"}
+{"ts":"2026-11-20T10:00:26.840447146Z","sample_id":"t3-conc-6","decision":"timeout","status":503,"elapsed_ms":2103.679,"reason":"time budget expired in body processing"}
+{"ts":"2026-11-20T10:00:26.840536644Z","sample_id":"t3-conc-8","decision":"timeout","status":503,"elapsed_ms":2053.674,"reason":"time budget expired in body processing"}
+{"ts":"2026-11-20T10:00:26.840599927Z","sample_id":"t3-conc-3","decision":"timeout","status":503,"elapsed_ms":2053.895,"reason":"time budget expired in body processing"}
+{"ts":"2026-11-20T10:00:26.840798321Z","sample_id":"t3-conc-7","decision":"timeout","status":503,"elapsed_ms":2027.174,"reason":"time budget expired in body processing"}
+{"ts":"2026-11-20T10:00:26.843572221Z","sample_id":"t3-conc-7","decision":"abandoned-body-processing-finished","status":0,"elapsed_ms":2029.949,"reason":"elapsed_ms=2029"}
+== benign latency after concurrency:
+benign status=000 time_total_s=0.000142
+== load average at end:  10:00:26 up  3:48,  0 user,  load average: 11.90, 9.81, 8.31
+ALL-DONE
