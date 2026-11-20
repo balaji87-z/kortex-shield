@@ -1,0 +1,12 @@
+{"id": "sqli-01", "status": 403, "outcome": "waf_block", "audit_score": 5, "audit_score_from_severities": 5, "score_mismatch": false, "rule_ids": ["942100", "949110"]}
+{"id": "sqli-02", "status": 403, "outcome": "waf_block", "audit_score": 15, "audit_score_from_severities": 15, "score_mismatch": false, "rule_ids": ["942100", "942190", "942360", "949110"]}
+{"id": "xss-01", "status": 403, "outcome": "waf_block", "audit_score": 20, "audit_score_from_severities": 20, "score_mismatch": false, "rule_ids": ["941100", "941110", "941160", "941390", "949110"]}
+{"id": "xss-02", "status": 403, "outcome": "waf_block", "audit_score": 20, "audit_score_from_severities": 20, "score_mismatch": false, "rule_ids": ["941100", "941120", "941160", "941390", "949110"]}
+{"id": "trav-01", "status": 403, "outcome": "waf_block", "audit_score": 15, "audit_score_from_severities": 10, "score_mismatch": true, "rule_ids": ["930100", "930110", "949110"]}
+{"id": "trav-02", "status": 403, "outcome": "waf_block", "audit_score": 40, "audit_score_from_severities": 20, "score_mismatch": true, "rule_ids": ["930100", "930110", "930120", "932160", "949110"]}
+{"id": "home-01", "status": 200, "outcome": "waf_pass", "audit_score": null, "audit_score_from_severities": null, "score_mismatch": null, "rule_ids": []}
+{"id": "search-01", "status": 404, "outcome": "waf_pass", "audit_score": null, "audit_score_from_severities": null, "score_mismatch": null, "rule_ids": []}
+{"id": "whoami-01", "status": 403, "outcome": "waf_block", "audit_score": 5, "audit_score_from_severities": 5, "score_mismatch": false, "rule_ids": ["932260", "949110"]}
+{"id": "js-01", "status": 404, "outcome": "waf_pass", "audit_score": null, "audit_score_from_severities": null, "score_mismatch": null, "rule_ids": []}
+{"id": "img-01", "status": 404, "outcome": "waf_pass", "audit_score": null, "audit_score_from_severities": null, "score_mismatch": null, "rule_ids": []}
+{"id": "login-01", "status": 501, "outcome": "waf_pass", "audit_score": null, "audit_score_from_severities": null, "score_mismatch": null, "rule_ids": []}

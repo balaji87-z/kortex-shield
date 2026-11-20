@@ -126,3 +126,11 @@
 41. A DESIGN classification needs the criterion it relies on shown as measured.
     "Design difference" is not a result until the property it claims is measured
     on the engine.
+
+42. Durable evidence: every run's outcomes.jsonl, audit.jsonl, responses.jsonl and
+    run.json are copied to docs/logs/runs/<run-name>/ (compressed if over 5 MB;
+    never commit credentials, rule 25) at the end of the run, before the next
+    task starts. Nothing needed for a comparison may exist only under out/.
+43. Host change: whenever the host or image set changes, print the effective
+    versions (OS, Go, Python, Docker or its absence, image digests) at the top
+    of the report and re-prove rule 29 on the new host.

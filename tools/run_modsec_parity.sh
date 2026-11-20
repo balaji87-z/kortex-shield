@@ -48,6 +48,8 @@ run_one() {  # $1=dataset name $2=manifest $3=paranoia level
   .venv/bin/python -m kortex_eval.outcome --responses "out/modsec-$1-pl$3-stub/responses.jsonl" \
     --audit "out/modsec-$1-pl$3-stub/audit.jsonl" --out "out/modsec-$1-pl$3-stub/outcomes.jsonl" --engine-mode blocking
   echo "=== done modsec $1 pl$3"
+  # Rule 42 (step-18): durable evidence copy before the next task starts.
+  tools/preserve_run.sh "out/modsec-$1-pl$3-default"
 }
 
 if [ $# -eq 0 ]; then

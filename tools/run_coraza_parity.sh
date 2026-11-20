@@ -38,6 +38,8 @@ run_one() {  # $1=dataset name $2=manifest $3=paranoia level
   .venv/bin/python -m kortex_eval.outcome --responses "out/coraza-$1-pl$3-default/responses.jsonl" \
     --audit "out/coraza-$1-pl$3-default/audit.jsonl" --out "out/coraza-$1-pl$3-default/outcomes.jsonl" --engine-mode blocking
   echo "=== done coraza $1 pl$3"
+  # Rule 42 (step-18): durable evidence copy before the next task starts.
+  tools/preserve_run.sh "out/coraza-$1-pl$3-default"
 }
 
 if [ $# -eq 0 ]; then
