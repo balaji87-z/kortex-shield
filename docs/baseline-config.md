@@ -493,3 +493,103 @@ non-empty after a blocked probe before starting the runner (patch committed
 with this note, before the re-run). The two smoke cells were re-run with the
 fixed script (out/modsec-smoke-pl{1,2}-stub, labels audit_capture=post_reload_wait);
 the step-12 T2 smoke numbers are superseded by the re-run.
+
+## Step-13 T4: the Coraza body-limit knob (documented BEFORE any run, rule 17)
+
+### What will be changed and why
+
+The step-12 finding: the sed+reload "pin" of Coraza's
+SecRequestBodyNoFilesLimit never took effect; every Coraza run to date ran
+with the effective default 524,288 while ModSecurity ran with 131,072.
+
+Root knob found (PROVEN, read from the pinned image bfbfe70b):
+- `/templates/coraza.conf` renders `SecRequestBodyNoFilesLimit
+  ${CORAZA_REQ_BODY_NOFILES_LIMIT}` and `SecRequestBodyLimit
+  ${CORAZA_REQ_BODY_LIMIT}` at container START (template rendering, not a
+  reloadable file) — that is why sed+nginx-reload could not change it.
+- The image ENV defaults are `CORAZA_REQ_BODY_NOFILES_LIMIT=524288`,
+  `CORAZA_REQ_BODY_LIMIT=13107200`, `CORAZA_REQ_BODY_LIMIT_ACTION=Reject`,
+  `CORAZA_ARGUMENTS_LIMIT=1000` (docker run --entrypoint env, saved in
+  docs/logs/step13-t4-coraza-env.txt). So 524,288 comes from the image ENV
+  default — PROVEN, not inferred.
+
+### Intended settings for all step-13 Coraza runs (both engines aligned)
+
+- Coraza: `CORAZA_REQ_BODY_NOFILES_LIMIT=131072` (match ModSecurity's
+  modsecurity.conf:8 value), `CORAZA_REQ_BODY_LIMIT=13107200` (already the
+  image default; matches ModSecurity SecRequestBodyLimit), limit action
+  Reject (default on both).
+- ModSecurity: unchanged (SecRequestBodyNoFilesLimit 131072,
+  SecRequestBodyLimit 13107200, Reject — proven in-container in step-11/12).
+- Mechanism: pass the two vars through deploy/compose.yml environment for the
+  coraza-crs service (compose edit committed together with this note, before
+  the runs).
+- Verification: bisect body size at 1 KB resolution on BOTH engines, PL1,
+  stub backend, for valid JSON, urlencoded, and multipart-with-file bodies;
+  report status + rule IDs at each threshold. Rule-29 proof lines for every
+  run will print the effective limits from inside the container.
+- If Coraza cannot match a ModSecurity value, the difference stays a
+  documented parameter (no engine code will be written).
+
+### Step-13 T4 addendum: what the bisect actually showed (before any T5 run)
+
+The env knob works mechanically (rendered into the loaded
+/opt/coraza/config/coraza.conf: SecRequestBodyNoFilesLimit 131072 — read back
+from inside the running container) but the bisect PROVED that this Coraza
+build does not enforce it: with the limit set to 131,072, valid JSON,
+urlencoded and multipart-with-file bodies of 140,000–1,000,000 bytes all pass
+(200); the first 413 appears just above 1,048,576 and its body is the standard
+NGINX "413 Request Entity Too Large" HTML page. The Coraza image ships the
+STOCK nginx default.conf with NO client_max_body_size directive (nginx default
+1 MiB); the ModSecurity image sets client_max_body_size 0 in both location
+blocks of its default.conf.template (grep evidence in
+docs/logs/step13-t4-nginx-conf.txt).
+
+Consequences, superseding the step-12 wording:
+- The step-12 claim "Coraza effective limit always 524,288" is DISPROVEN —
+  Coraza (v3.7.0 in this image) enforces neither SecRequestBodyNoFilesLimit
+  nor SecRequestBodyLimit on these probe bodies; every observed 413 came from
+  the nginx 1 MiB cap. The step-12 sample sizes 723,995–1,527,423 were
+  recorded-body lengths; the true encoded sizes are larger (replayed
+  wcp-34940e7ffce1 = 1,620,081 bytes), all above 1 MiB.
+- The 11 WCP 413 divergences are therefore a PROXY-LAYER difference
+  (client_max_body_size 1M vs 0), not a Coraza body-limit behaviour.
+- Config change (documented here BEFORE it is run, rule 17): align the proxy
+  layer by mounting a one-line nginx include `client_max_body_size 0;` into
+  the coraza-crs service (deploy/coraza-nginx-body.conf ->
+  /etc/nginx/conf.d/zz-body-size.conf), matching the ModSecurity image's own
+  setting. After this, the bisect is repeated to expose Coraza's OWN
+  enforcement. If Coraza still does not enforce its configured limits, that
+  stays a documented engine difference (no engine code will be written).
+
+### Step-13 T4 addendum 2 (still before the re-bisect / any T5 run)
+
+The first alignment attempt (mounting a one-line include into
+/etc/nginx/conf.d/) was INEFFECTIVE: the Coraza image's /etc/nginx/nginx.conf
+contains no `include` directives at all — conf.d files are never loaded. The
+image renders /etc/nginx/nginx.conf from /templates/nginx.conf at container
+start (docker-entrypoint.d/20-envsubst-on-templates.sh). The alignment is
+therefore done by mounting a modified copy of that template
+(deploy/coraza-nginx.conf.template -> /templates/nginx.conf) with
+`client_max_body_size 0;` added to both location blocks; everything else in
+the template is byte-identical to the image's. The unused
+deploy/coraza-nginx-body.conf attempt is removed.
+
+### Step-13 T4 result (after the re-bisect; all points PROVEN by named experiments)
+
+With the proxy layer aligned (client_max_body_size 0 on both engines):
+- Coraza enforces SecRequestBodyLimit 13,107,200 for multipart-with-file
+  bodies byte-exactly (13,107,199 -> 200; 13,107,200 -> 413);
+  ModSecurity passes at 13,107,200 (boundary differs by one byte).
+- Coraza does NOT enforce SecRequestBodyNoFilesLimit at all in this build:
+  with the limit configured to 131,072 (read back from the loaded config),
+  JSON, urlencoded and text/xml bodies of 140,000–1,000,000 bytes pass.
+  ModSecurity enforces 131,072 for the same no-files bodies (400/200002 at
+  >= 131,072; bisect log docs/logs/step13-t4-bisect.txt).
+- Conclusion: the no-files body-limit difference cannot be removed by
+  configuration; it stays a documented engine difference (rule: no engine
+  code). The WCP re-runs (T5) therefore use: Coraza with
+  CORAZA_REQ_BODY_NOFILES_LIMIT=131072 + client_max_body_size 0 (both
+  documented here), ModSecurity unchanged.
+- tools/run_coraza_parity.sh: the sed+reload body-limit pin is REMOVED for
+  step-13 runs (it never worked and the env var + template mount replace it).

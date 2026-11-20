@@ -1,0 +1,5 @@
+# ModSecurity image (6296ce68) nginx body-size config:
+76:        client_max_body_size 0;
+125:        client_max_body_size 0;
+# Coraza image (bfbfe70b) nginx body-size config:
+no client_max_body_size directive anywhere (nginx default 1 MiB)
