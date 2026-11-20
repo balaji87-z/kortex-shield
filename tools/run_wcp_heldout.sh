@@ -26,7 +26,8 @@ run_one() {  # $1=side $2=cfg $3=pl
   curl -s -o /dev/null -w "pre-run probe: %{http_code}\n" http://localhost:8081/
   .venv/bin/python -m kortex_eval.runner --manifest out/wcp-heldout-$1-manifest.jsonl \
     --base-url http://localhost:8081 --out out/wcp-heldout-$1-$2-pl$3 --timeout 15 --workers 1 \
-    --default-user-agent "$UA" --label side=$1 --label config=$2 --label paranoia=$3
+    --default-user-agent "$UA" --label side=$1 --label config=$2 --label paranoia=$3 \
+    --label stub_drain=fixed
   docker cp deploy-baseline-crs-1:/var/log/modsecurity/audit/audit.log out/wcp-heldout-$1-$2-pl$3/modsec-audit.log
   .venv/bin/python -m kortex_eval.crs_audit --logs out/wcp-heldout-$1-$2-pl$3/modsec-audit.log --out out/wcp-heldout-$1-$2-pl$3/audit.jsonl
   .venv/bin/python -m kortex_eval.outcome --responses out/wcp-heldout-$1-$2-pl$3/responses.jsonl \

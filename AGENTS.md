@@ -93,3 +93,8 @@
     config name is a claim until this proof exists for that run.
 30. Any request whose outcome is inconsistent or waf_deny_status must appear by
     count in every rate table, and is included in the worst case.
+31. Every task's key result and numbers go in the report body, not only a file
+    pointer. If something was not computed, say so.
+32. A parity claim names the quantity compared: blocked set; blocked + deny_status
+    + inconsistent + error (the worst-case set); or rule-ID sets. Differences
+    are listed per sample id.
