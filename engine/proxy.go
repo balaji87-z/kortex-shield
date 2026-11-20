@@ -33,7 +33,11 @@ type Proxy struct {
 }
 
 func buildWAF(cfg *Config) (coraza.WAF, error) {
-	return coraza.NewWAF(coraza.NewWAFConfig().WithDirectives(cfg.directives()))
+	conf, err := cfg.directives()
+	if err != nil {
+		return nil, err
+	}
+	return coraza.NewWAF(coraza.NewWAFConfig().WithDirectives(conf))
 }
 
 func buildHandler(cfg *Config) http.Handler {

@@ -23,6 +23,12 @@ type Config struct {
 	ListenAddr         string
 	EventsFile         string
 	AuditLog           string
+	// RequestBodyTargetIDs is the sorted list of CRS rule ids that received a
+	// REQUEST_BODY target via SecRuleUpdateTargetById (step-18 T4, body
+	// parsing fidelity). Computed by directives() at WAF build; printed at
+	// startup and served on /__kortex/config so the effective configuration
+	// is provable per run (rule 29).
+	RequestBodyTargetIDs []int
 }
 
 func envOr(key, def string) string {
@@ -63,13 +69,20 @@ func loadConfig() *Config {
 
 // directives renders the SecLang config: engine settings, the CRS setup
 // SecActions mirroring the pinned container's activated crs-setup.conf
-// (ids 900000, 900001, 900110), audit directives, and the rule Include.
-func (c *Config) directives() string {
+// (ids 900000, 900001, 900110), audit directives, the rule Include, and the
+// step-18 T4 REQUEST_BODY target updates (which must come after the Include:
+// SecRuleUpdateTargetById addresses already-loaded rules).
+func (c *Config) directives() (string, error) {
 	engine := "On"
 	if c.RuleEngine == "DetectionOnly" {
 		engine = "DetectionOnly"
 	}
-	return fmt.Sprintf(`
+	bodyTargets, err := requestBodyTargetUpdates(c.RulesDir)
+	if err != nil {
+		return "", fmt.Errorf("request-body target scan: %w", err)
+	}
+	c.RequestBodyTargetIDs = bodyTargets
+	base := fmt.Sprintf(`
 SecRuleEngine %s
 SecRequestBodyAccess On
 SecRequestBodyLimit %d
@@ -117,4 +130,5 @@ SecRule MULTIPART_STRICT_ERROR "!@eq 0" \
 Include %s/owasp-crs/rules/*.conf
 `, engine, c.MaxBodyBytes, c.MaxInspectedBytes, c.AuditLog,
 		c.BlockingParanoia, c.DetectionParanoia, c.AllowedMethods, c.RulesDir)
+	return base + renderBodyTargetUpdates(bodyTargets), nil
 }
