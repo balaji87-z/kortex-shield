@@ -1,0 +1,108 @@
+# step-16 T1: classification of every step-15 T6 differing id (rule 39)
+
+Inputs: out/s15-t6-engine-{ds}-pl{pl}/outcomes.jsonl (engine) and
+out/coraza-{ds}-pl{pl}-default/outcomes.jsonl (connector reference) for the
+five datasets at PL1/PL2; per-id detection rule ids exclude the threshold
+rules 949110/959100 (see docs/logs/step16-t1-classes.txt for the full
+per-id dump, 1208 lines).
+
+## Classification (rule 39: BUG / DESIGN / UNEXPLAINED; each id exactly one)
+
+Total differing ids across all cells: 396
+
+1. BUG - missing connector-image body-processor selection + body-parse-failure
+   rules: 253 ids
+   - attacks-v0 PL1: 65 (55 ref-only misses + 10 engine-only false blocks)
+   - attacks-v0 PL2: 15 (engine-only false blocks) [+1 UNEXPLAINED, see 3]
+   - attacks-ct-v0 PL1: 7 (ref-only, JSON carrier), PL2: 1 (ref-only, JSON)
+   - benign-browse-v1 PL2: 90 (engine-only false blocks)
+   - benign-hard-v0 PL1: 23 (18 engine-only + 5 ref-only), PL2: 51 (engine-only)
+   Every one of these ids is an application/json POST (verified from the
+   frozen manifests).
+
+2. DESIGN - C4 content-type policy (documented in engine-design.md before
+   the step-15 runs): 141 ids
+   - attacks-ct-v0 PL1: 18 (6 octet-stream + 6 text/plain + 6 unknown-CT,
+     ref-only, all rule 920420 only), PL2: 3 (same carriers)
+   - benign-browse-v1 PL1: 60 ref-only (920420 only, text/plain;charset=UTF-8
+     POST), PL2: the same 60 ref-only again
+   The connector's 920420 content-type allow-list is a policy the engine
+   deliberately does not implement (C4: inspect any content type).
+
+3. UNEXPLAINED: 1 id
+   - attacks-v0 PL2 command-injection-036c522d-q (GET, query-carried): the
+     engine blocked with 920230; the T6 ref run passed it, but the current
+     PL2 connector container blocks it (DIAGNOSTIC replay,
+     docs/logs/step16-t1-920230-replay.txt). Counted, not classified away.
+
+4. DESIGN - front proxy: 2 cells, 1 id (smoke trav-01, GET with
+   %-encoded traversal path): the connector's nginx rejects the encoded
+   path with 400 before the engine would run (ref outcome proxy_reject);
+   the engine has no nginx front (documented engine design) and CRS blocks
+   it with 930100/930110 (403). Same id at PL1 and PL2.
+
+## PROVEN root cause of class 1 (raw evidence)
+
+(a) Coraza v3.7.0 source, internal/corazawaf/transaction.go,
+    ProcessRequestBody: with ForceRequestBodyVariable set (CRS 901340
+    ctl:forceRequestBodyVariable=On) and no body processor selected,
+    `rbp = "URLENCODED"` - the URLENCODED fallback; JSON/XML "must be
+    forced with ctl:requestBodyProcessor=JSON/XML" (comment in source).
+
+(b) The connector image ships the processor-selection rules the engine
+    lacks (docker exec deploy-coraza-crs-1, /opt/coraza/config/coraza.conf
+    lines 31-41):
+    200000 Content-Type ^(?:application(?:/soap\+|/)|text/)xml ->
+        ctl:requestBodyProcessor=XML
+    200001 Content-Type ^application/json ->
+        ctl:requestBodyProcessor=JSON
+    200007 &ARGS @ge 1000 -> deny status:400
+    200002 REQBODY_ERROR !@eq 0 -> deny status:400
+    200003 MULTIPART_STRICT_ERROR !@eq 0 -> deny status:400
+
+(c) Engine audit evidence of the mangled fallback parse - 10 engine-only
+    attacks-v0 PL1 blocks (all JSON POST), matched variables from
+    out/s15-t6-engine-attacks-v0-pl1/engine-audit-full.log:
+    sqli-304cb2e9-login, sqli-eb4fafe8-login:
+        ARGS:{\"email\": (rules 942100)
+    path-traversal-d6aad809-login, command-injection-036c522d/43aaa6fe/
+    9255e799/933f7004/d1400c1b/f7d36638/5dd90c56-login:
+        ARGS_NAMES:{\"email\": (rules 921150 / 942550 / 930120 / 932230 /
+        932250)
+    The matched variable NAME is the raw JSON text `{"email":` - only the
+    URLENCODED fallback produces argument names like that; the JSON
+    processor would produce ARGS:email.
+
+(d) Engine-only benign blocks, matched variable classes from the engine
+    audit (all application/json POST):
+    - benign-browse-v1 PL2 (90): ARGS_NAMES+MATCHED_VARS, rules
+      942200/942340/942430(/942370/942440) - PL2 SQLi regexes matching the
+      raw JSON in ARGS_NAMES
+    - benign-hard-v0 PL1 (18): 920540 x12 (regex \x5cu[0-9a-f]{4} -
+      JSON \uXXXX escapes in the mangled ARGS), 942190 x6 (ARGS_NAMES)
+    - benign-hard-v0 PL2 (51): ARGS_NAMES+MATCHED_VARS, rules
+      942200/942430(/942370/920540/942190)
+    The connector parsed the same bodies with the JSON processor and did
+    not match.
+
+(e) Ref-only misses (connector blocked, engine passed): ref rule ids per
+    cell - attacks-v0 PL1: 942100/932xxx/930xxx on ARGS via the JSON
+    processor; attacks-ct-v0 JSON carriers: 942100 x6, 932125+932380,
+    932236, 932236 (PL2); benign-hard-v0 PL1: 932260 x3, 942100,
+    932140+942100. All JSON POST.
+
+## Carrier evidence statement (T1 requirement)
+
+- application/json: PROVEN - the engine's Coraza transaction receives the
+  body (framing gate passes it, proxy.go reads it up to
+  max_inspected_bytes) and populates ARGS/ARGS_NAMES via the URLENCODED
+  fallback (audit evidence in (c)/(d)); the connector populates them via
+  the JSON processor (image rule 200001).
+- text/plain, application/octet-stream, unknown content type: the engine
+  passes the body through the same 901340-forced URLENCODED fallback
+  (same code path, PROVEN from source (a)); no engine audit entries exist
+  for these carriers in the T6 runs because every such request passed
+  (RelevantOnly audit). The connector never inspected these carriers in
+  the default policy (920420 blocks in phase 1 before body processing).
+  Post-fix per-carrier variable population is proven by the E13 test
+  (XML) and the T2 re-run outcomes.
