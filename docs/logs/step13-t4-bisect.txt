@@ -1,0 +1,99 @@
+=== engine modsec 2026-11-20T04:56:06Z
+7:SecRequestBodyLimit 13107200
+8:SecRequestBodyNoFilesLimit 131072
+9:SecRequestBodyLimitAction Reject
+modsec json 128500 -> 200
+modsec json 128999 -> 200
+modsec json 129000 -> 200
+modsec json 129999 -> 200
+modsec json 130000 -> 200
+modsec json 130999 -> 200
+modsec json 131000 -> 200
+modsec json 131001 -> 200
+modsec json 131072 -> 400
+modsec json 131073 -> 400
+modsec json 132000 -> 400
+modsec json 140000 -> 400
+modsec urlenc 128500 -> 200
+modsec urlenc 128999 -> 200
+modsec urlenc 129000 -> 200
+modsec urlenc 129999 -> 200
+modsec urlenc 130000 -> 200
+modsec urlenc 130999 -> 200
+modsec urlenc 131000 -> 200
+modsec urlenc 131001 -> 200
+modsec urlenc 131072 -> 400
+modsec urlenc 131073 -> 400
+modsec urlenc 132000 -> 400
+modsec urlenc 140000 -> 400
+modsec multipart 128500 -> 200
+modsec multipart 128999 -> 200
+modsec multipart 129000 -> 200
+modsec multipart 129999 -> 200
+modsec multipart 130000 -> 200
+modsec multipart 130999 -> 200
+modsec multipart 131000 -> 200
+modsec multipart 131001 -> 200
+modsec multipart 131072 -> 200
+modsec multipart 131073 -> 200
+modsec multipart 132000 -> 200
+modsec multipart 140000 -> 200
+=== engine coraza 2026-11-20T04:56:30Z
+CORAZA_ARGUMENTS_LIMIT=1000
+CORAZA_REQ_BODY_ACCESS=On
+CORAZA_REQ_BODY_JSON_DEPTH_LIMIT=1024
+CORAZA_REQ_BODY_LIMIT=13107200
+CORAZA_REQ_BODY_LIMIT_ACTION=Reject
+CORAZA_REQ_BODY_NOFILES_LIMIT=131072
+4:SecRequestBodyLimit ${CORAZA_REQ_BODY_LIMIT}
+5:SecRequestBodyNoFilesLimit ${CORAZA_REQ_BODY_NOFILES_LIMIT}
+coraza json 128500 -> 200
+coraza json 128999 -> 200
+coraza json 129000 -> 200
+coraza json 129999 -> 200
+coraza json 130000 -> 200
+coraza json 130999 -> 200
+coraza json 131000 -> 200
+coraza json 131001 -> 200
+coraza json 131072 -> 200
+coraza json 131073 -> 200
+coraza json 132000 -> 200
+coraza json 140000 -> 200
+coraza urlenc 128500 -> 200
+coraza urlenc 128999 -> 200
+coraza urlenc 129000 -> 200
+coraza urlenc 129999 -> 200
+coraza urlenc 130000 -> 200
+coraza urlenc 130999 -> 200
+coraza urlenc 131000 -> 200
+coraza urlenc 131001 -> 200
+coraza urlenc 131072 -> 200
+coraza urlenc 131073 -> 200
+coraza urlenc 132000 -> 200
+coraza urlenc 140000 -> 200
+coraza multipart 128500 -> 200
+coraza multipart 128999 -> 200
+coraza multipart 129000 -> 200
+coraza multipart 129999 -> 200
+coraza multipart 130000 -> 200
+coraza multipart 130999 -> 200
+coraza multipart 131000 -> 200
+coraza multipart 131001 -> 200
+coraza multipart 131072 -> 200
+coraza multipart 131073 -> 200
+coraza multipart 132000 -> 200
+coraza multipart 140000 -> 200
+=== bisect done 2026-11-20T04:57:07Z
+
+=== addendum: post-alignment boundary probes (coraza, client_max_body_size 0) ===
+coraza multipart 2,000,000  -> 200 (nginx cap removed; stub page returned)
+coraza multipart 8,000,000  -> 200
+coraza multipart 12,000,000 -> 200
+coraza multipart 20,000,000 -> 413 (nginx HTML page)
+coraza multipart total 13,107,199 -> 200
+coraza multipart total 13,107,200 -> 413
+coraza multipart total 13,107,201 -> 413
+modsec  multipart total 13,107,199 -> 200
+modsec  multipart total 13,107,200 -> 200   (boundary differs from Coraza by one byte)
+coraza text/xml 200,000 -> 200  (NoFilesLimit 131072 NOT enforced for XML either)
+coraza json 1,000,000 -> 200 / 1,048,578 -> 413-nginx (BEFORE the nginx alignment)
