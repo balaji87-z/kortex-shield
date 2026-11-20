@@ -120,3 +120,13 @@ Step-17 status evidence (current host, go 1.25.0): `go test -buildvcs=false
 `ok kortexshield/engine 54.300s`, 23/23 PASS (E1-E21 incl. PL1/PL2
 variants), 0 FAIL, 0 SKIP. Without the fixture env the E16/E17/E19/E20/E21
 tests skip by design (recorded content is not committed, rule 25).
+
+Step-18 acceptance tests (rule 40: committed FAILING before the
+implementation; failing evidence in commit <sha>, implementation <sha>):
+
+| id | claim | status |
+|----|-------|--------|
+| E22 | a client still streaming a body above the inspected limit receives the full 413 response (status 413 and kortex-decision=limit marker, clean EOF close), not a connection reset (reproduces the step-17 T4 ConnectionResetError ids wcp-1140885081e1 / wcp-f83f7556fc66 / wcp-908ef72be103) | failing pre-fix: read reset after 184 bytes |
+| E23 | (T4) a text/plain body whose SQLi payload spans the '&'-split boundary is blocked like the connector (942100 on the raw body) | failing pre-fix |
+| E24 | (T4) octet-stream and unknown-content-type bodies with the same split-breaking payloads are inspected as one raw value | failing pre-fix |
+| E25 | (T4) the '&'-split behaviour on urlencoded bodies is unchanged (split targets still populated) | passing after the T4 fix |
