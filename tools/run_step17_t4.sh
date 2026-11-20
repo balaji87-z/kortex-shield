@@ -5,7 +5,7 @@
 # proof, frozen manifest), same UA contract as tools/run_step16_t2.sh.
 # Reference: out/coraza-benign-wcp-v0-pl{1,2}-default (step-13, same UA).
 set -u
-cd /home/Kavinharish/kortexshield
+cd "$(cd "$(dirname "$0")/.." && pwd)"
 RUN=docs/logs/step17-t4-runs.txt
 mkdir -p out
 : > $RUN
@@ -21,7 +21,7 @@ fi
 for PL in 1 2; do
   rm -f /tmp/kx17t4-events-$PL.jsonl /tmp/kx17t4-audit-$PL.log
   KORTEX_BACKEND_URL=http://127.0.0.1:13000 \
-  KORTEX_RULES_DIR=/home/Kavinharish/kortexshield/engine/crs \
+  KORTEX_RULES_DIR="$PWD/engine/crs" \
   KORTEX_RULE_ENGINE=On \
   KORTEX_BLOCKING_PARANOIA=$PL KORTEX_DETECTION_PARANOIA=$PL \
   KORTEX_MAX_BODY_BYTES=13107200 KORTEX_MAX_INSPECTED_BYTES=131072 \

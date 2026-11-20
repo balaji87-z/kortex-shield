@@ -1,0 +1,20 @@
+policy-clear samples: 17022 (body-less 14279, body-bearing 2743)
+
+== PL1: engine n=20000
+   engine blocked set: 2128  worst-case set (block+deny_status+inconsistent+error): 2190
+   engine outcomes: {'waf_pass': 17810, 'waf_block': 2128, 'waf_deny_status': 58, 'error': 4}
+   REFERENCE MISSING: out/coraza-benign-wcp-v0-pl1-default/outcomes.jsonl not on this host (the step-13 connector runs live in gitignored out/ on the lab host; docker is unavailable here, so they cannot be reproduced). Per-id rule-32 comparison and rule-39 classes are NOT COMPUTED. Aggregate comparison against the committed step-13 numbers (docs/logs/step13-t5-parity.txt) is done in the step-17 report.
+   policy-clear body-less: n=14279  blocked eng 411  worst-case eng 411
+   policy-clear body-bearing: n=2743  blocked eng 432  worst-case eng 491
+   engine events: {'timeout': 3, 'limit': 32, 'abandoned-body-processing-finished': 3, 'would_reject': 1}
+     timeout wcp-8aa4b0b85a6f status=503
+     timeout wcp-b6414928592d status=503
+     timeout wcp-ce387745a393 status=503
+
+== PL2: engine n=20000
+   engine blocked set: 8845  worst-case set (block+deny_status+inconsistent+error): 8908
+   engine outcomes: {'waf_pass': 11092, 'waf_block': 8845, 'waf_deny_status': 58, 'error': 4, 'inconsistent': 1}
+   REFERENCE MISSING: out/coraza-benign-wcp-v0-pl2-default/outcomes.jsonl not on this host (the step-13 connector runs live in gitignored out/ on the lab host; docker is unavailable here, so they cannot be reproduced). Per-id rule-32 comparison and rule-39 classes are NOT COMPUTED. Aggregate comparison against the committed step-13 numbers (docs/logs/step13-t5-parity.txt) is done in the step-17 report.
+   policy-clear body-less: n=14279  blocked eng 4131  worst-case eng 4132
+   policy-clear body-bearing: n=2743  blocked eng 1838  worst-case eng 1897
+   engine events: {'limit': 32}

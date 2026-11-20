@@ -46,6 +46,14 @@ def policy_clear():
     return ids
 
 
+def load_ref(pl):
+    path = f"{REF_PREFIX}{pl}{REF_SUFFIX}/outcomes.jsonl"
+    try:
+        return load(path), path
+    except OSError:
+        return None, path
+
+
 def main():
     clear = policy_clear()
     print(f"policy-clear samples: {len(clear)} "
@@ -53,49 +61,65 @@ def main():
           f"body-bearing {sum(1 for v in clear.values() if v)})")
     for pl in (1, 2):
         eng = load(f"{ENGINE_PREFIX}{pl}/outcomes.jsonl")
-        ref = load(f"{REF_PREFIX}{pl}{REF_SUFFIX}/outcomes.jsonl")
+        ref, ref_path = load_ref(pl)
+        BAD = ("waf_block", "waf_deny_status", "inconsistent", "error")
         eb = {i for i, r in eng.items() if r["outcome"] == "waf_block"}
-        rb = {i for i, r in ref.items() if r["outcome"] == "waf_block"}
-        ew = {i for i, r in eng.items()
-              if r["outcome"] in ("waf_block", "waf_deny_status",
-                                  "inconsistent", "error")}
-        rw = {i for i, r in ref.items()
-              if r["outcome"] in ("waf_block", "waf_deny_status",
-                                  "inconsistent", "error")}
-        print(f"\n== PL{pl}: engine n={len(eng)} ref n={len(ref)}")
-        print(f"   blocked set: engine {len(eb)}  ref {len(rb)}  "
-              f"engine-only {len(eb - rb)}  ref-only {len(rb - eb)}")
-        print(f"   worst-case set: engine {len(ew)}  ref {len(rw)}  "
-              f"engine-only {len(ew - rw)}  ref-only {len(rw - ew)}")
+        ew = {i for i, r in eng.items() if r["outcome"] in BAD}
+        print(f"\n== PL{pl}: engine n={len(eng)}")
+        print(f"   engine blocked set: {len(eb)}  "
+              f"worst-case set (block+deny_status+inconsistent+error): {len(ew)}")
         ec = collections.Counter(r["outcome"] for r in eng.values())
-        rc = collections.Counter(r["outcome"] for r in ref.values())
         print(f"   engine outcomes: {dict(ec)}")
-        print(f"   ref outcomes:    {dict(rc)}")
-        # policy-clear subset
+        if ref is None:
+            print(f"   REFERENCE MISSING: {ref_path} not on this host (the "
+                  f"step-13 connector runs live in gitignored out/ on the lab "
+                  f"host; docker is unavailable here, so they cannot be "
+                  f"reproduced). Per-id rule-32 comparison and rule-39 "
+                  f"classes are NOT COMPUTED. Aggregate comparison against "
+                  f"the committed step-13 numbers (docs/logs/step13-t5-parity.txt) "
+                  f"is done in the step-17 report.")
+        else:
+            rb = {i for i, r in ref.items() if r["outcome"] == "waf_block"}
+            rw = {i for i, r in ref.items()
+                  if r["outcome"] in ("waf_block", "waf_deny_status",
+                                      "inconsistent", "error")}
+            print(f"   ref n={len(ref)}  blocked set: engine {len(eb)}  "
+                  f"ref {len(rb)}  engine-only {len(eb - rb)}  "
+                  f"ref-only {len(rb - eb)}")
+            print(f"   worst-case set: engine {len(ew)}  ref {len(rw)}  "
+                  f"engine-only {len(ew - rw)}  ref-only {len(rw - ew)}")
+            rc = collections.Counter(r["outcome"] for r in ref.values())
+            print(f"   ref outcomes:    {dict(rc)}")
+        # policy-clear subset (engine side; both sides when ref exists)
         for label, want in (("body-less", False), ("body-bearing", True)):
             ids = {i for i, b in clear.items() if b == want}
             e_ids = {i for i in ids if eng[i]["outcome"] == "waf_block"}
-            r_ids = {i for i in ids if ref[i]["outcome"] == "waf_block"}
-            e_w = {i for i in ids if eng[i]["outcome"] in
-                   ("waf_block", "waf_deny_status", "inconsistent", "error")}
-            r_w = {i for i in ids if ref[i]["outcome"] in
-                   ("waf_block", "waf_deny_status", "inconsistent", "error")}
-            print(f"   policy-clear {label}: n={len(ids)}  "
-                  f"blocked eng {len(e_ids)} ref {len(r_ids)}  "
-                  f"worst-case eng {len(e_w)} ref {len(r_w)}  "
-                  f"diff {len(e_w ^ r_w)}")
-            for i in sorted(e_w ^ r_w):
-                er, rr = eng[i], ref[i]
-                print(f"     DIFF {i}: engine {er['outcome']} "
-                      f"status={er.get('status')} rules={er['rule_ids']} | "
-                      f"ref {rr['outcome']} status={rr.get('status')} "
-                      f"rules={rr['rule_ids']}")
+            e_w = {i for i in ids if eng[i]["outcome"] in BAD}
+            line = (f"   policy-clear {label}: n={len(ids)}  "
+                    f"blocked eng {len(e_ids)}  "
+                    f"worst-case eng {len(e_w)}")
+            if ref is not None:
+                r_ids = {i for i in ids if ref[i]["outcome"] == "waf_block"}
+                r_w = {i for i in ids if ref[i]["outcome"] in BAD}
+                line += (f"  ref {len(r_ids)}/{len(r_w)}  "
+                         f"diff {len(e_w ^ r_w)}")
+                for i in sorted(e_w ^ r_w):
+                    er, rr = eng[i], ref[i]
+                    line += (f"\n     DIFF {i}: engine {er['outcome']} "
+                             f"status={er.get('status')} rules={er['rule_ids']} | "
+                             f"ref {rr['outcome']} status={rr.get('status')} "
+                             f"rules={rr['rule_ids']}")
+            print(line)
         # engine decisions from events
         try:
             ev = [json.loads(l) for l in
                   open(f"{ENGINE_PREFIX}{pl}/kortex-events-full.jsonl")]
             dec = collections.Counter(e["decision"] for e in ev)
             print(f"   engine events: {dict(dec)}")
+            for e in ev:
+                if e["decision"] in ("overload", "timeout"):
+                    print(f"     {e['decision']} {e['sample_id']} "
+                          f"status={e.get('status')}")
         except FileNotFoundError:
             print("   engine events: MISSING")
 
