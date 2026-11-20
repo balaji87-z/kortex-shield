@@ -37,3 +37,26 @@ with the correct body processor the engine blocks the attack payloads in
 every carrier, so detection no longer depends on the connector's
 content-type allow-list. The time budget now bounds body processing
 (E16/E17, step-16 T3). Reversal triggers unchanged.
+
+## Status update (step-17, 2026-11-20)
+
+STAYS PROVISIONAL. Step-17 set three conditions for dropping the
+provisional status; two are met, one is unproven:
+
+1. C4 holds on the engine — MET, and now MEASURED (rule 41): the engine
+   blocks attacks by detection rules on every carrier including the raw
+   ones the connector refuses (34-38/40 per carrier), so detection does
+   not depend on a content-type allow-list (docs/logs/step17-t1-c4.txt,
+   replayed bit-identically in step17-t1-c4-replay.txt).
+2. The method allow-list gap is closed — MET: tx.allowed_methods is set
+   from KORTEX_ALLOWED_METHODS and 911100 enforces it (E18); re-run shows
+   the outcome sets unchanged (124/774 benign-browse-v1 PL1, same ids).
+3. T4 has zero UNEXPLAINED — UNPROVEN: the per-id engine-vs-connector
+   comparison on benign-wcp-v0 could not be run (the step-13 reference
+   outcome files are on the unreachable lab host; docker is unavailable on
+   the current host). Aggregates are close (policy-clear body-less
+   411 vs 410, 4,131 vs 4,130; body-bearing 432 vs 441, 1,838 vs 1,848),
+   but per rule 32/39 a parity claim needs per-id diffs, so this condition
+   is neither met nor failed.
+
+Reversal triggers unchanged.
