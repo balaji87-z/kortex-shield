@@ -104,3 +104,19 @@ failing evidence docs/logs/step16-t3-e17-failing.txt):
 | id | claim | status |
 |----|-------|--------|
 | E17 | the abandoned body-processing call owns the transaction: after a 503 timeout the handler's deferred tx.Close() must NOT kill the in-flight call (pre-fix the call "finished" at budget+12 ms with a stale 949110/403 while the unfettered call needs ~42 s, measured 403 at 42.41 s with a 60 s budget) | failing pre-fix; passing after the ownership fix (39324c9) |
+
+Step-17 acceptance tests (rule 40: committed FAILING before the
+implementation; failing evidence in commit 460eed7, implementation 559d9b6):
+
+| id | claim | status |
+|----|-------|--------|
+| E18 | PUT/DELETE/PATCH are rejected 403 kortex-decision=block with 911100 under the default method policy, and pass to the backend when KORTEX_ALLOWED_METHODS includes them | passing |
+| E19 | when the in-flight body-processing cap is reached, a further body-bearing request is answered 503 kortex-decision=overload within 50 ms and the decision is logged to the events file | passing |
+| E20 | after the abandoned calls finish, new body-bearing requests are inspected again (no overload) | passing |
+| E21 | a body-less benign request on a cap-reached engine still returns promptly (<= 500 ms) | passing |
+
+Step-17 status evidence (current host, go 1.25.0): `go test -buildvcs=false
+-count=1 -timeout 900s -v .` in engine/ with KORTEX_TEST_WCP_BODY set ->
+`ok kortexshield/engine 54.300s`, 23/23 PASS (E1-E21 incl. PL1/PL2
+variants), 0 FAIL, 0 SKIP. Without the fixture env the E16/E17/E19/E20/E21
+tests skip by design (recorded content is not committed, rule 25).

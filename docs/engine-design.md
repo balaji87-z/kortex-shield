@@ -122,3 +122,23 @@ samples with the same User-Agent and Host the kortex_eval.runner sends on
 both sides of the comparison — a missing User-Agent (CRS 920320, +2) or a
 numeric-IP Host (CRS 920350, +3) flips marginal detections and is a harness
 artifact, not engine behaviour (step-16 T2 finding).
+
+## Step-17 additions (2026-11-20)
+
+- C4 (no content-type allow-list) is no longer only a design statement: the
+  criterion is MEASURED on the engine (rule 41). The engine blocks 34/40
+  (PL1) and 38/40 (PL2) attacks-ct payloads by detection rules on
+  text/plain, octet-stream AND unknown-ct carriers — carriers the connector
+  refuses at phase 1 — and the 2/1 missed payloads are a measured
+  URLENCODED-fallback split artifact, not allow-list dependence
+  (docs/logs/step17-t1-c4.txt, reproduced on the current host in
+  docs/logs/step17-t1-c4-replay.txt).
+- Method allow-list (T2): the engine now sets tx.allowed_methods from
+  KORTEX_ALLOWED_METHODS (default GET HEAD POST OPTIONS, mirroring the
+  connector's crs-setup 900200) and CRS 911100 enforces it. Measured
+  DESIGN difference that remains: the engine's audit entries carry only
+  phase-2 rule messages, so phase-1 matches (911100, 920350, 901160) never
+  appear as audit MESSAGES although they score and block; the connector's
+  audit writer emits phase-1 messages.
+- In-flight body-processing cap (T3): see "In-flight body-processing cap"
+  above (documented before the measurement run, as required).

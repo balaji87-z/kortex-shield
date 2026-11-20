@@ -423,3 +423,31 @@ the engine writes NO coraza audit entry for passed/limited/timed-out
 requests (0-byte audit logs, RelevantOnly) — their decisions appear as
 kortex-events rows. crs_audit handles both dialects additively; pytest 110
 passed.
+
+## Step-17 (2026-11-20, current host; the lab host was unreachable)
+
+- T1 C4 replay: tools/run_step17_t1_engine.sh -> out/s17-t1-engine-*,
+  analysis docs/logs/step17-t1-c4-replay.txt. Per-carrier table identical
+  to the committed lab analysis (36/36/36/36, 34/34/34, 40=34+6 at PL1;
+  39x4, 38x3, 40=39+1 at PL2); cross-carrier gaps identical
+  (dc2932d5, 6e47f23b PL1; ecb32a80 PL2). Engine totals 286/320 (PL1) and
+  310/320 (PL2) match the s16-t2 engine runs exactly.
+- T2 re-run: docs/logs/step17-t2-runs.txt — smoke 7/12, benign-browse-v1
+  PL1 124/774, 0 errors, config proof shows allowed_methods and
+  max_inflight_body.
+- T3 measurement: docs/logs/step17-t3-runs.txt — Phase A/B numbers in
+  docs/baseline-v1.2.md; Phase B: 12 overload (47-282 ms) + 8 timeout
+  (~2.0 s), all 8 abandoned-finish events captured.
+- T4 engine runs: docs/logs/step17-t4-runs.txt (frozen manifest sha proven
+  in-run), analysis docs/logs/step17-t4-analysis.txt. PL1 2,128 blocked /
+  58 deny_status / 4 errors; PL2 8,845 / 58 / 4 / 1 inconsistent. 3
+  timeouts at PL1 (max 2,043.5 ms), 32 limits per PL, 0 overload. Per-id
+  connector comparison NOT COMPUTED (reference files on the unreachable
+  lab host; no docker here).
+- Harness fix (rule 40): crs_audit newline-only splitting; failing test
+  first (tests/test_crs_audit.py), 108 passed / 3 skipped after.
+- go test 23/23 PASS with the real 481,798-byte fixture (rebuilt from the
+  frozen manifest; sha c8ce11f2... reproduced bit-exact by the step-09
+  builder — the current builder writes a NEW manifest sha 8c6c20ed...
+  because of the step-13 cookie canonicalization, which is why the v0
+  builder is pinned in git history).
