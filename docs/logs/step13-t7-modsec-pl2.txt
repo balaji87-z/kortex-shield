@@ -1,0 +1,16 @@
+== ModSecurity PL2 on wcp-80a49c991b2d 477KB (DIAGNOSTIC)
+ Container deploy-stub-backend-1 Creating 
+ Container deploy-target-1 Creating 
+ Container deploy-target-1 Created 
+ Container deploy-baseline-crs-1 Creating 
+ Container deploy-stub-backend-1 Created 
+ Container deploy-baseline-crs-1 Created 
+ Container deploy-target-1 Starting 
+ Container deploy-stub-backend-1 Starting 
+ Container deploy-target-1 Started 
+ Container deploy-baseline-crs-1 Starting 
+ Container deploy-stub-backend-1 Started 
+ Container deploy-baseline-crs-1 Started 
+target wcp-80a49c991b2d method=POST ct_len=25 full_body_bytes=481798
+modsec-pl2-477k bytes=477231: 68ms/403 29ms/403 27ms/403
+exit=0

@@ -1,0 +1,62 @@
+== PL1: n=20000
+blocked-set: modsec 3823 = 19.11% (18.58-19.67) | coraza 3824 = 19.12% (18.58-19.67) | sym-diff 13
+worst-case : modsec 3888 = 19.44% (18.90-19.99) | coraza 3891 = 19.45% (18.91-20.01) | sym-diff 5
+policy-clear body-less: n=14279 | blocked modsec 410 = 2.87% (2.61-3.16) coraza 410 = 2.87% (2.61-3.16) | sym-diff 0 | worst-diff 2
+policy-clear body-bearing: n=2743 | blocked modsec 435 = 15.86% (14.54-17.27) coraza 441 = 16.08% (14.75-17.50) | sym-diff 8 | worst-diff 3
+blocked-set per-sample diffs:
+  wcp-2574cf69006b only-modsec: other status=400 outcome=waf_deny_status defects=[]
+  wcp-4ff99580bb57 only-modsec: other status=400 outcome=waf_deny_status defects=['body_over_131072', 'recorded_cl_mismatch']
+  wcp-672911deadaa only-coraza: other status=400 outcome=waf_deny_status defects=['body_over_131072', 'gzip_header_mismatch', 'recorded_cl_mismatch']
+  wcp-71461e371348 only-coraza: other status=400 outcome=waf_deny_status defects=['body_over_131072', 'gzip_header_mismatch', 'recorded_cl_mismatch']
+  wcp-80a49c991b2d only-modsec: other status=None outcome=error defects=['body_over_131072', 'recorded_cl_mismatch']
+  wcp-82f508a89f65 only-modsec: other status=400 outcome=waf_deny_status defects=[]
+  wcp-8dc97426f4b3 only-coraza: other status=400 outcome=waf_deny_status defects=['body_over_131072', 'recorded_cl_mismatch']
+  wcp-93fd2b577bc9 only-coraza: other status=400 outcome=waf_deny_status defects=['body_over_131072', 'recorded_cl_mismatch']
+  wcp-96a594e2ae57 only-coraza: other status=400 outcome=waf_deny_status defects=['body_over_131072', 'gzip_header_mismatch', 'recorded_cl_mismatch']
+  wcp-96b9ef51be10 only-modsec: other status=400 outcome=waf_deny_status defects=['body_over_131072', 'recorded_cl_mismatch']
+  wcp-bf3ad3695dc3 only-coraza: other status=400 outcome=waf_deny_status defects=['body_over_131072']
+  wcp-c7970d727861 only-coraza: other status=400 outcome=waf_deny_status defects=['body_over_131072', 'gzip_header_mismatch', 'recorded_cl_mismatch']
+  wcp-de8021cfbd94 only-modsec: other status=400 outcome=waf_deny_status defects=[]
+worst-case per-sample diffs:
+  wcp-00f2f589e97a only-coraza: other status=200 outcome=waf_pass defects=[]
+  wcp-50071536f159 only-coraza: other status=200 outcome=waf_pass defects=[]
+  wcp-96bd5332ae15 only-coraza: other status=200 outcome=waf_pass defects=[]
+  wcp-aa98de364e37 only-modsec: other status=200 outcome=waf_pass defects=['body_over_131072', 'recorded_cl_mismatch']
+  wcp-ab265f963540 only-coraza: other status=200 outcome=waf_pass defects=[]
+== PL2: n=20000
+blocked-set: modsec 8949 = 44.74% (44.06-45.44) | coraza 8951 = 44.76% (44.07-45.45) | sym-diff 14
+worst-case : modsec 9015 = 45.08% (44.39-45.77) | coraza 9026 = 45.13% (44.44-45.82) | sym-diff 11
+policy-clear body-less: n=14279 | blocked modsec 4130 = 28.92% (28.19-29.67) coraza 4130 = 28.92% (28.19-29.67) | sym-diff 0 | worst-diff 1
+policy-clear body-bearing: n=2743 | blocked modsec 1841 = 67.12% (65.34-68.85) coraza 1848 = 67.37% (65.59-69.10) | sym-diff 9 | worst-diff 10
+blocked-set per-sample diffs:
+  wcp-2574cf69006b only-modsec: other status=400 outcome=waf_deny_status defects=[]
+  wcp-4ff99580bb57 only-modsec: other status=413 outcome=inconsistent defects=['body_over_131072', 'recorded_cl_mismatch']
+  wcp-672911deadaa only-coraza: other status=400 outcome=waf_deny_status defects=['body_over_131072', 'gzip_header_mismatch', 'recorded_cl_mismatch']
+  wcp-71461e371348 only-coraza: other status=400 outcome=waf_deny_status defects=['body_over_131072', 'gzip_header_mismatch', 'recorded_cl_mismatch']
+  wcp-80a49c991b2d only-modsec: other status=None outcome=error defects=['body_over_131072', 'recorded_cl_mismatch']
+  wcp-82f508a89f65 only-modsec: other status=400 outcome=waf_deny_status defects=[]
+  wcp-8dc97426f4b3 only-coraza: other status=400 outcome=waf_deny_status defects=['body_over_131072', 'recorded_cl_mismatch']
+  wcp-93fd2b577bc9 only-coraza: other status=400 outcome=waf_deny_status defects=['body_over_131072', 'recorded_cl_mismatch']
+  wcp-96a594e2ae57 only-coraza: other status=400 outcome=waf_deny_status defects=['body_over_131072', 'gzip_header_mismatch', 'recorded_cl_mismatch']
+  wcp-96b9ef51be10 only-modsec: other status=400 outcome=waf_deny_status defects=['body_over_131072', 'recorded_cl_mismatch']
+  wcp-aa98de364e37 only-coraza: other status=400 outcome=waf_deny_status defects=['body_over_131072', 'recorded_cl_mismatch']
+  wcp-bf3ad3695dc3 only-coraza: other status=400 outcome=waf_deny_status defects=['body_over_131072']
+  wcp-c7970d727861 only-coraza: other status=400 outcome=waf_deny_status defects=['body_over_131072', 'gzip_header_mismatch', 'recorded_cl_mismatch']
+  wcp-de8021cfbd94 only-modsec: other status=400 outcome=waf_deny_status defects=[]
+worst-case per-sample diffs:
+  wcp-1140885081e1 only-coraza: other status=200 outcome=waf_pass defects=['body_over_131072', 'recorded_cl_mismatch']
+  wcp-131fde29d621 only-coraza: other status=200 outcome=waf_pass defects=['body_over_131072', 'recorded_cl_mismatch']
+  wcp-34940e7ffce1 only-coraza: other status=200 outcome=waf_pass defects=['body_over_131072', 'recorded_cl_mismatch']
+  wcp-5b3f575b061d only-coraza: other status=200 outcome=waf_pass defects=['body_over_131072', 'recorded_cl_mismatch']
+  wcp-7df6cb91aaf0 only-coraza: other status=200 outcome=waf_pass defects=[]
+  wcp-7dfe87a9dd28 only-coraza: other status=200 outcome=waf_pass defects=['body_over_131072', 'recorded_cl_mismatch']
+  wcp-80922154f132 only-coraza: other status=200 outcome=waf_pass defects=['body_over_131072', 'recorded_cl_mismatch']
+  wcp-908ef72be103 only-coraza: other status=200 outcome=waf_pass defects=['body_over_131072', 'recorded_cl_mismatch']
+  wcp-ad3399e805f1 only-coraza: other status=200 outcome=waf_pass defects=['body_over_131072', 'recorded_cl_mismatch']
+  wcp-c5155c659149 only-coraza: other status=200 outcome=waf_pass defects=['body_over_131072', 'recorded_cl_mismatch']
+  wcp-f83f7556fc66 only-coraza: other status=200 outcome=waf_pass defects=['body_over_131072', 'recorded_cl_mismatch']
+pl1 coraza errors: 6 {'wcp-00f2f589e97a': 'timeout', 'wcp-96bd5332ae15': 'timeout', 'wcp-50071536f159': 'timeout', 'wcp-6b0bf5e43122': 'encoding: UnicodeEncodeError: ', 'wcp-ab265f963540': 'timeout', 'wcp-80a49c991b2d': 'timeout'}
+pl1 modsec errors: 1 {'wcp-6b0bf5e43122': 'encoding: UnicodeEncodeError: '}
+pl2 coraza errors: 3 {'wcp-6b0bf5e43122': 'encoding: UnicodeEncodeError: ', 'wcp-7df6cb91aaf0': 'timeout', 'wcp-80a49c991b2d': 'timeout'}
+pl2 modsec errors: 1 {'wcp-6b0bf5e43122': 'encoding: UnicodeEncodeError: '}
+CT/method of 200007-divergent samples: {('text/plain', 'POST'): 2, ('application/atom+xml', 'POST'): 1, ('<none>', 'POST'): 1, ('<none>', 'PUT'): 1, ('application/x-www-form-urlencoded', 'POST'): 1, ('multipart/form-data', 'POST'): 10, ('<none>', 'GET'): 1}
