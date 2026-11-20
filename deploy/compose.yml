@@ -105,6 +105,11 @@ services:
       # differ from ModSecurity (131072) on oversize bodies.
       CORAZA_REQ_BODY_NOFILES_LIMIT: "${CORAZA_REQ_BODY_NOFILES_LIMIT:-131072}"
       CORAZA_REQ_BODY_LIMIT: "${CORAZA_REQ_BODY_LIMIT:-13107200}"
+      # Step-14 T3: the image supports ALLOWED_REQUEST_CONTENT_TYPE natively
+      # (activate-rules.sh activates crs-setup rule 900220 from it); the env
+      # var was simply not passed through before. Verified in-container:
+      # grep -n ALLOWED_REQUEST_CONTENT_TYPE /opt/coraza/activate-rules.sh
+      ALLOWED_REQUEST_CONTENT_TYPE: "${ALLOWED_REQUEST_CONTENT_TYPE:-}"
     volumes:
       # Step-13 T4: match the ModSecurity image's client_max_body_size 0
       # (docs/baseline-config.md step-13 T4 addendum). The image's nginx.conf

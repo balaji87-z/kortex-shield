@@ -593,3 +593,26 @@ With the proxy layer aligned (client_max_body_size 0 on both engines):
   documented here), ModSecurity unchanged.
 - tools/run_coraza_parity.sh: the sed+reload body-limit pin is REMOVED for
   step-13 runs (it never worked and the env var + template mount replace it).
+
+## Step-14 T3: crs-ct-wide config (documented BEFORE the runs, rule 17)
+
+- What: a second config, `crs-ct-wide`, used only by the step-14 attacks-ct-v0
+  cells. It activates CRS setup rule 900220 with
+  `tx.allowed_request_content_type=|application/x-www-form-urlencoded| |multipart/form-data| |text/xml| |application/xml| |application/soap+xml| |application/json| |text/plain| |application/octet-stream|`
+  (the CRS 4.25.2 default list from REQUEST-901-INITIALIZATION lines 192-200,
+  plus `|text/plain| |application/octet-stream|`). `crs-default` leaves the
+  env unset, so the CRS default list applies (rule 901370-style default).
+- Why: the step-14 task asks whether a content-type policy change moves
+  detection blocks, not just policy blocks. text/plain and
+  application/octet-stream are the two carriers CRS blocks by default
+  (rule 920420).
+- How: ModSecurity image — env `ALLOWED_REQUEST_CONTENT_TYPE` (native
+  entrypoint support, configure-rules.v4.conf line 16). Coraza image — same
+  env, native support in /opt/coraza/activate-rules.sh line 43; the env was
+  not passed through in deploy/compose.yml before, so the passthrough was
+  added (deploy/compose.yml, coraza service, step-14 comment).
+- Mechanism proof per run: the rule-29 line in each run's log prints
+  `env_CT=[...]` from inside the container, plus the effective crs-setup
+  grep of rule 900220 where activated.
+- Reference: https://coreruleset.org/docs/prepare/#environment-variables and
+  the in-image scripts quoted above.
