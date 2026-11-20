@@ -82,3 +82,10 @@ Excluded from the tables on purpose: the 60+60 benign-browse 920420 ids
 (DESIGN C4), the 21 attacks-ct 920420 ids (DESIGN C4), smoke trav-01
 (DESIGN front proxy), attacks-v0 PL2 command-injection-036c522d-q
 (UNEXPLAINED, docs/logs/step16-t1-920230-replay.txt).
+
+Step-16 T3 acceptance test (rule 40: committed FAILING before the fix;
+failing evidence in the commit message run below):
+
+| id | claim | status |
+|----|-------|--------|
+| E16 | a body whose processing exceeds the time budget is answered 503 kortex-decision=timeout within budget+500ms (481,798-byte wcp body, inspection cap raised to 13,107,200; fixture read from KORTEX_TEST_WCP_BODY, skipped when unset — recorded content is not committed, rule 25) | failing pre-fix: 403 after 44.1 s |
