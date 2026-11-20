@@ -89,6 +89,23 @@ SecAction "id:900990,phase:1,pass,t:none,nolog,setvar:tx.crs_setup_version=4252"
 # body processors still act per content type.
 SecRule REQUEST_HEADERS:Content-Type "@rx ^[^;\s]+" "id:900220,phase:1,pass,nolog,t:none,capture,setvar:'tx.allowed_request_content_type=|%%{tx.0}|'"
 
+# Connector-image body-processor selection and body-parse-failure rules
+# (mirror of the pinned container's /opt/coraza/config/coraza.conf lines
+# 31-41; step-16 T2 BUG fix, rule 40 tests E10-E15). Without 200001 the
+# CRS 901340 forced-body-variable path makes coraza fall back to the
+# URLENCODED processor for JSON bodies (coraza v3.7.0 transaction.go),
+# which both missed and invented detections (step-16 T1, PROVEN).
+SecRule REQUEST_HEADERS:Content-Type "^(?:application(?:/soap\+|/)|text/)xml" \
+    "id:'200000',phase:1,t:none,t:lowercase,pass,nolog,ctl:requestBodyProcessor=XML"
+SecRule REQUEST_HEADERS:Content-Type "^application/json" \
+    "id:'200001',phase:1,t:none,t:lowercase,pass,nolog,ctl:requestBodyProcessor=JSON"
+SecRule &ARGS "@ge 1000" \
+    "id:'200007',phase:2,t:none,log,deny,status:400,msg:'Failed to fully parse request body due to large argument count',severity:2"
+SecRule REQBODY_ERROR "!@eq 0" \
+    "id:'200002',phase:2,t:none,log,deny,status:400,msg:'Failed to parse request body.',logdata:'%%{reqbody_error_msg}',severity:2"
+SecRule MULTIPART_STRICT_ERROR "!@eq 0" \
+    "id:'200003',phase:2,t:none,log,deny,status:400,msg:'Multipart request body failed strict validation.',severity:2"
+
 Include %s/owasp-crs/rules/*.conf
 `, engine, c.MaxBodyBytes, c.MaxInspectedBytes, c.AuditLog,
 		c.BlockingParanoia, c.DetectionParanoia, c.RulesDir)

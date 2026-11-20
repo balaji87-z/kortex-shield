@@ -170,11 +170,14 @@ func postJSON(t *testing.T, srv *httptest.Server, id, ct, body string) (*http.Re
 
 // --- E10: attacks-v0 JSON diff ids must match the connector ------------------
 // PL1 table: 65 ids (55 ref-only misses + 10 engine-only false blocks).
-// PL2 table: 15 ids, all engine-only false blocks; the 16th T6 PL2 diff id
-// (command-injection-036c522d-q, GET, query-carried, 920230) is NOT a body
-// bug: the current PL2 connector container blocks it (DIAGNOSTIC replay,
-// docs/logs/step16-t1-920230-replay.txt) while the T6 ref run passed it, so
-// it is UNEXPLAINED and tracked in reports/step-16.md, not here.
+// PL2 table: 14 ids, all engine-only false blocks. Two T6 PL2 diff ids are
+// excluded: command-injection-036c522d-q (GET, query-carried) and
+// command-injection-036c522d-login (JSON POST whose payload carries %XX).
+// Both were passed by the T6 ref run but the CURRENT PL2 connector container
+// blocks both with 920230 (DIAGNOSTIC replays,
+// docs/logs/step16-t1-920230-replay.txt), so the T6 ref artifacts for them
+// are not reproducible; they are counted UNEXPLAINED in reports/step-16.md
+// and re-measured by the T2 re-run.
 func TestE10AttacksV0JSONDiffParityPL1(t *testing.T) {
 	srv, _ := newEnv(t, nil)
 	parityCheck(t, srv, "attacks-v0", wantAttacksV0PL1)
@@ -338,7 +341,6 @@ var wantAttacksV0PL1 = map[string]bool{
 	"sqli-fb72118c-login": true,
 }
 var wantAttacksV0PL2 = map[string]bool{
-	"command-injection-036c522d-login": false,
 	"command-injection-10bd76c8-login": false,
 	"command-injection-156de42b-login": false,
 	"command-injection-2b64c6d9-login": false,
