@@ -1,0 +1,221 @@
+# T3 per-cell: blocked/320; per-carrier blocked
+cell                       blocked       query urlencoded       json  multipart text-plain octet-stream unknown-ct      no-ct
+modsec-default-pl1          304/320          36         36         36         36         40         40         40         40
+modsec-default-pl2          316/320          39         39         39         39         40         40         40         40
+modsec-ct-wide-pl1          224/320          36         36         36         36          0          0         40         40
+modsec-ct-wide-pl2          236/320          39         39         39         39          0          0         40         40
+coraza-default-pl1          304/320          36         36         36         36         40         40         40         40
+coraza-default-pl2          316/320          39         39         39         39         40         40         40         40
+coraza-ct-wide-pl1          292/320          36         36         36         36         34         34         40         40
+coraza-ct-wide-pl2          312/320          39         39         39         39         38         38         40         40
+
+# 920420-only (policy) vs detection-rule blocks per cell
+modsec-default-pl1         920420-only=120 detection=184 blocked-no-rules=  0
+modsec-default-pl2         920420-only=120 detection=196 blocked-no-rules=  0
+modsec-ct-wide-pl1         920420-only= 40 detection=184 blocked-no-rules=  0
+modsec-ct-wide-pl2         920420-only= 40 detection=196 blocked-no-rules=  0
+coraza-default-pl1         920420-only= 18 detection=286 blocked-no-rules=  0
+coraza-default-pl2         920420-only=  3 detection=313 blocked-no-rules=  0
+coraza-ct-wide-pl1         920420-only=  6 detection=286 blocked-no-rules=  0
+coraza-ct-wide-pl2         920420-only=  1 detection=311 blocked-no-rules=  0
+
+# carriers where one engine blocked fewer (per config, per PL)
+default pl1: none
+ct-wide pl1: text-plain: modsec=0 coraza=34; octet-stream: modsec=0 coraza=34
+default pl2: none
+ct-wide pl2: text-plain: modsec=0 coraza=38; octet-stream: modsec=0 coraza=38
+
+# carriers where DETECTION blocks drop default -> ct-wide (same engine+PL)
+modsec pl1: none
+modsec pl2: none
+coraza pl1: none
+coraza pl2: octet-stream:1, text-plain:1
+
+# payloads detected under >=2 but not all 8 carriers (same engine+cell); and on all 8
+modsec-default-pl1         partial-carrier:  36   all-carrier:   0
+modsec-default-pl2         partial-carrier:  39   all-carrier:   0
+modsec-ct-wide-pl1         partial-carrier:  36   all-carrier:   0
+modsec-ct-wide-pl2         partial-carrier:  39   all-carrier:   0
+coraza-default-pl1         partial-carrier:   2   all-carrier:  34
+coraza-default-pl2         partial-carrier:   0   all-carrier:  39
+coraza-ct-wide-pl1         partial-carrier:   2   all-carrier:  34
+coraza-ct-wide-pl2         partial-carrier:   1   all-carrier:  38
+
+# per-carrier detection-block counts per cell (detail)
+modsec-default-pl1          36  36  36  36   0   0   0  40
+modsec-default-pl2          39  39  39  39   0   0   0  40
+modsec-ct-wide-pl1          36  36  36  36   0   0   0  40
+modsec-ct-wide-pl2          39  39  39  39   0   0   0  40
+coraza-default-pl1          36  36  36  36  34  34  34  40
+coraza-default-pl2          39  39  39  39  39  39  39  40
+coraza-ct-wide-pl1          36  36  36  36  34  34  34  40
+coraza-ct-wide-pl2          39  39  39  39  38  38  39  40
+
+# ids where DETECTION blocks drop default -> ct-wide (coraza pl2)
+actv0-octet-stream-command-injection-ecb32a80 default-rules: ['920240'] ct-wide-rules: []
+actv0-text-plain-command-injection-ecb32a80 default-rules: ['920240'] ct-wide-rules: []
+
+# per-payload carrier sets (detection blocks), partial payloads only
+== modsec-default-pl1 (36 payloads)
+  command-injection-05bbe7a8: query,urlencoded,json,multipart,no-ct
+  command-injection-1b8cf3ce: query,urlencoded,json,multipart,no-ct
+  command-injection-227cb8a4: query,urlencoded,json,multipart,no-ct
+  command-injection-77c3ff65: query,urlencoded,json,multipart,no-ct
+  command-injection-b810e30e: query,urlencoded,json,multipart,no-ct
+  command-injection-cfb6b9f0: query,urlencoded,json,multipart,no-ct
+  command-injection-dc2932d5: query,urlencoded,json,multipart,no-ct
+  path-traversal-1ec1b09a: query,urlencoded,json,multipart,no-ct
+  path-traversal-2aa7f02e: query,urlencoded,json,multipart,no-ct
+  path-traversal-556a4824: query,urlencoded,json,multipart,no-ct
+  path-traversal-921f3d78: query,urlencoded,json,multipart,no-ct
+  path-traversal-9a36aadc: query,urlencoded,json,multipart,no-ct
+  path-traversal-a605a9c3: query,urlencoded,json,multipart,no-ct
+  path-traversal-c5d7df2b: query,urlencoded,json,multipart,no-ct
+  path-traversal-d0149f94: query,urlencoded,json,multipart,no-ct
+  path-traversal-f51c297b: query,urlencoded,json,multipart,no-ct
+  path-traversal-f8eebd5c: query,urlencoded,json,multipart,no-ct
+  sqli-0933fb66: query,urlencoded,json,multipart,no-ct
+  sqli-6e47f23b: query,urlencoded,json,multipart,no-ct
+  sqli-8c187a93: query,urlencoded,json,multipart,no-ct
+  sqli-a2035700: query,urlencoded,json,multipart,no-ct
+  sqli-bd5671f5: query,urlencoded,json,multipart,no-ct
+  sqli-bde4f6b2: query,urlencoded,json,multipart,no-ct
+  sqli-c6072953: query,urlencoded,json,multipart,no-ct
+  sqli-daa646a8: query,urlencoded,json,multipart,no-ct
+  sqli-e0ed04bd: query,urlencoded,json,multipart,no-ct
+  xss-369d0b75: query,urlencoded,json,multipart,no-ct
+  xss-545d1ff8: query,urlencoded,json,multipart,no-ct
+  xss-56083d09: query,urlencoded,json,multipart,no-ct
+  xss-784791cd: query,urlencoded,json,multipart,no-ct
+  xss-84f65a00: query,urlencoded,json,multipart,no-ct
+  xss-8f5b4e90: query,urlencoded,json,multipart,no-ct
+  xss-9d9144c5: query,urlencoded,json,multipart,no-ct
+  xss-e0e52a03: query,urlencoded,json,multipart,no-ct
+  xss-eb4cfe84: query,urlencoded,json,multipart,no-ct
+  xss-ffb57ed3: query,urlencoded,json,multipart,no-ct
+== modsec-default-pl2 (39 payloads)
+  command-injection-029d9cca: query,urlencoded,json,multipart,no-ct
+  command-injection-05bbe7a8: query,urlencoded,json,multipart,no-ct
+  command-injection-1b8cf3ce: query,urlencoded,json,multipart,no-ct
+  command-injection-227cb8a4: query,urlencoded,json,multipart,no-ct
+  command-injection-77c3ff65: query,urlencoded,json,multipart,no-ct
+  command-injection-b810e30e: query,urlencoded,json,multipart,no-ct
+  command-injection-cfb6b9f0: query,urlencoded,json,multipart,no-ct
+  command-injection-dc2932d5: query,urlencoded,json,multipart,no-ct
+  command-injection-ecb32a80: query,urlencoded,json,multipart,no-ct
+  path-traversal-1ec1b09a: query,urlencoded,json,multipart,no-ct
+  path-traversal-2aa7f02e: query,urlencoded,json,multipart,no-ct
+  path-traversal-556a4824: query,urlencoded,json,multipart,no-ct
+  path-traversal-921f3d78: query,urlencoded,json,multipart,no-ct
+  path-traversal-9a36aadc: query,urlencoded,json,multipart,no-ct
+  path-traversal-a605a9c3: query,urlencoded,json,multipart,no-ct
+  path-traversal-c5d7df2b: query,urlencoded,json,multipart,no-ct
+  path-traversal-d0149f94: query,urlencoded,json,multipart,no-ct
+  path-traversal-f51c297b: query,urlencoded,json,multipart,no-ct
+  path-traversal-f8eebd5c: query,urlencoded,json,multipart,no-ct
+  sqli-0933fb66: query,urlencoded,json,multipart,no-ct
+  sqli-6e47f23b: query,urlencoded,json,multipart,no-ct
+  sqli-8c187a93: query,urlencoded,json,multipart,no-ct
+  sqli-a2035700: query,urlencoded,json,multipart,no-ct
+  sqli-bd5671f5: query,urlencoded,json,multipart,no-ct
+  sqli-bde4f6b2: query,urlencoded,json,multipart,no-ct
+  sqli-c6072953: query,urlencoded,json,multipart,no-ct
+  sqli-daa646a8: query,urlencoded,json,multipart,no-ct
+  sqli-e0ed04bd: query,urlencoded,json,multipart,no-ct
+  sqli-eb3ff328: query,urlencoded,json,multipart,no-ct
+  xss-369d0b75: query,urlencoded,json,multipart,no-ct
+  xss-545d1ff8: query,urlencoded,json,multipart,no-ct
+  xss-56083d09: query,urlencoded,json,multipart,no-ct
+  xss-784791cd: query,urlencoded,json,multipart,no-ct
+  xss-84f65a00: query,urlencoded,json,multipart,no-ct
+  xss-8f5b4e90: query,urlencoded,json,multipart,no-ct
+  xss-9d9144c5: query,urlencoded,json,multipart,no-ct
+  xss-e0e52a03: query,urlencoded,json,multipart,no-ct
+  xss-eb4cfe84: query,urlencoded,json,multipart,no-ct
+  xss-ffb57ed3: query,urlencoded,json,multipart,no-ct
+== modsec-ct-wide-pl1 (36 payloads)
+  command-injection-05bbe7a8: query,urlencoded,json,multipart,no-ct
+  command-injection-1b8cf3ce: query,urlencoded,json,multipart,no-ct
+  command-injection-227cb8a4: query,urlencoded,json,multipart,no-ct
+  command-injection-77c3ff65: query,urlencoded,json,multipart,no-ct
+  command-injection-b810e30e: query,urlencoded,json,multipart,no-ct
+  command-injection-cfb6b9f0: query,urlencoded,json,multipart,no-ct
+  command-injection-dc2932d5: query,urlencoded,json,multipart,no-ct
+  path-traversal-1ec1b09a: query,urlencoded,json,multipart,no-ct
+  path-traversal-2aa7f02e: query,urlencoded,json,multipart,no-ct
+  path-traversal-556a4824: query,urlencoded,json,multipart,no-ct
+  path-traversal-921f3d78: query,urlencoded,json,multipart,no-ct
+  path-traversal-9a36aadc: query,urlencoded,json,multipart,no-ct
+  path-traversal-a605a9c3: query,urlencoded,json,multipart,no-ct
+  path-traversal-c5d7df2b: query,urlencoded,json,multipart,no-ct
+  path-traversal-d0149f94: query,urlencoded,json,multipart,no-ct
+  path-traversal-f51c297b: query,urlencoded,json,multipart,no-ct
+  path-traversal-f8eebd5c: query,urlencoded,json,multipart,no-ct
+  sqli-0933fb66: query,urlencoded,json,multipart,no-ct
+  sqli-6e47f23b: query,urlencoded,json,multipart,no-ct
+  sqli-8c187a93: query,urlencoded,json,multipart,no-ct
+  sqli-a2035700: query,urlencoded,json,multipart,no-ct
+  sqli-bd5671f5: query,urlencoded,json,multipart,no-ct
+  sqli-bde4f6b2: query,urlencoded,json,multipart,no-ct
+  sqli-c6072953: query,urlencoded,json,multipart,no-ct
+  sqli-daa646a8: query,urlencoded,json,multipart,no-ct
+  sqli-e0ed04bd: query,urlencoded,json,multipart,no-ct
+  xss-369d0b75: query,urlencoded,json,multipart,no-ct
+  xss-545d1ff8: query,urlencoded,json,multipart,no-ct
+  xss-56083d09: query,urlencoded,json,multipart,no-ct
+  xss-784791cd: query,urlencoded,json,multipart,no-ct
+  xss-84f65a00: query,urlencoded,json,multipart,no-ct
+  xss-8f5b4e90: query,urlencoded,json,multipart,no-ct
+  xss-9d9144c5: query,urlencoded,json,multipart,no-ct
+  xss-e0e52a03: query,urlencoded,json,multipart,no-ct
+  xss-eb4cfe84: query,urlencoded,json,multipart,no-ct
+  xss-ffb57ed3: query,urlencoded,json,multipart,no-ct
+== modsec-ct-wide-pl2 (39 payloads)
+  command-injection-029d9cca: query,urlencoded,json,multipart,no-ct
+  command-injection-05bbe7a8: query,urlencoded,json,multipart,no-ct
+  command-injection-1b8cf3ce: query,urlencoded,json,multipart,no-ct
+  command-injection-227cb8a4: query,urlencoded,json,multipart,no-ct
+  command-injection-77c3ff65: query,urlencoded,json,multipart,no-ct
+  command-injection-b810e30e: query,urlencoded,json,multipart,no-ct
+  command-injection-cfb6b9f0: query,urlencoded,json,multipart,no-ct
+  command-injection-dc2932d5: query,urlencoded,json,multipart,no-ct
+  command-injection-ecb32a80: query,urlencoded,json,multipart,no-ct
+  path-traversal-1ec1b09a: query,urlencoded,json,multipart,no-ct
+  path-traversal-2aa7f02e: query,urlencoded,json,multipart,no-ct
+  path-traversal-556a4824: query,urlencoded,json,multipart,no-ct
+  path-traversal-921f3d78: query,urlencoded,json,multipart,no-ct
+  path-traversal-9a36aadc: query,urlencoded,json,multipart,no-ct
+  path-traversal-a605a9c3: query,urlencoded,json,multipart,no-ct
+  path-traversal-c5d7df2b: query,urlencoded,json,multipart,no-ct
+  path-traversal-d0149f94: query,urlencoded,json,multipart,no-ct
+  path-traversal-f51c297b: query,urlencoded,json,multipart,no-ct
+  path-traversal-f8eebd5c: query,urlencoded,json,multipart,no-ct
+  sqli-0933fb66: query,urlencoded,json,multipart,no-ct
+  sqli-6e47f23b: query,urlencoded,json,multipart,no-ct
+  sqli-8c187a93: query,urlencoded,json,multipart,no-ct
+  sqli-a2035700: query,urlencoded,json,multipart,no-ct
+  sqli-bd5671f5: query,urlencoded,json,multipart,no-ct
+  sqli-bde4f6b2: query,urlencoded,json,multipart,no-ct
+  sqli-c6072953: query,urlencoded,json,multipart,no-ct
+  sqli-daa646a8: query,urlencoded,json,multipart,no-ct
+  sqli-e0ed04bd: query,urlencoded,json,multipart,no-ct
+  sqli-eb3ff328: query,urlencoded,json,multipart,no-ct
+  xss-369d0b75: query,urlencoded,json,multipart,no-ct
+  xss-545d1ff8: query,urlencoded,json,multipart,no-ct
+  xss-56083d09: query,urlencoded,json,multipart,no-ct
+  xss-784791cd: query,urlencoded,json,multipart,no-ct
+  xss-84f65a00: query,urlencoded,json,multipart,no-ct
+  xss-8f5b4e90: query,urlencoded,json,multipart,no-ct
+  xss-9d9144c5: query,urlencoded,json,multipart,no-ct
+  xss-e0e52a03: query,urlencoded,json,multipart,no-ct
+  xss-eb4cfe84: query,urlencoded,json,multipart,no-ct
+  xss-ffb57ed3: query,urlencoded,json,multipart,no-ct
+== coraza-default-pl1 (2 payloads)
+  command-injection-dc2932d5: query,urlencoded,json,multipart,no-ct
+  sqli-6e47f23b: query,urlencoded,json,multipart,no-ct
+== coraza-default-pl2 (0 payloads)
+== coraza-ct-wide-pl1 (2 payloads)
+  command-injection-dc2932d5: query,urlencoded,json,multipart,no-ct
+  sqli-6e47f23b: query,urlencoded,json,multipart,no-ct
+== coraza-ct-wide-pl2 (1 payloads)
+  command-injection-ecb32a80: query,urlencoded,json,multipart,unknown-ct,no-ct

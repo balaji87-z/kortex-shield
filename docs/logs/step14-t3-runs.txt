@@ -1,0 +1,237 @@
+ Container deploy-target-1 Creating 
+ Container deploy-stub-backend-1 Creating 
+ Container deploy-target-1 Created 
+ Container deploy-baseline-crs-1 Creating 
+ Container deploy-stub-backend-1 Created 
+ Container deploy-baseline-crs-1 Created 
+ Container deploy-target-1 Starting 
+ Container deploy-stub-backend-1 Starting 
+ Container deploy-target-1 Started 
+ Container deploy-baseline-crs-1 Starting 
+ Container deploy-baseline-crs-1 Started 
+ Container deploy-stub-backend-1 Started 
+2026/11/20 07:33:49 [warn] 688#688: "ssl_stapling" ignored, issuer certificate not found for certificate "/etc/nginx/conf/server.crt"
+nginx: [warn] "ssl_stapling" ignored, issuer certificate not found for certificate "/etc/nginx/conf/server.crt"
+2026/11/20 07:33:49 [notice] 688#688: ModSecurity-nginx v1.0.4 (rules loaded inline/local/remote: 0/853/0)
+2026/11/20 07:33:49 [notice] 688#688: libmodsecurity3 version 3.0.17
+2026/11/20 07:33:49 [notice] 688#688: signal process started
+rule29-modsec: E=On B=1 P=1 D=1 env_CT=[]
+SecRuleEngine On
+tx.blocking_paranoia_level=1
+tx.detection_paranoia_level=1
+tx.allowed_request_content_type=|application/x-www-form-urlencoded|
+tx.crs_setup_version=4252
+rule36: control-before entries: 20 (expect 20)
+{"base_url": "http://localhost:8081", "started_utc": "2026-11-20T07:33:53+00:00", "ended_utc": "2026-11-20T07:33:54+00:00", "git_commit": null, "manifest_sha256": "69d0447c5b33ca63e37c2993e8c7e87add2a16d56dd89201978883905f923251", "default_user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/158.0.0.0 Safari/537.36", "labels": {"engine": "modsec", "config": "default", "paranoia": "1"}, "total_samples": 320, "responses_ok": 320, "blocked": 304, "error_count": 0, "block_rule": {"block_status": 403, "block_marker": "<center>nginx</center>"}}
+rule36: control-after total entries: 40 (expect 40; before=20)
+crs_audit: 345 audit entr(ies) -> out/t14-attacks-ct-default-pl1/audit.jsonl
+warning: 41 audit entr(ies) could not be attributed to a sample id
+waf_block: 304
+waf_pass: 16
+=== done modsec-default-pl1
+ Container deploy-stub-backend-1 Creating 
+ Container deploy-target-1 Creating 
+ Container deploy-stub-backend-1 Created 
+ Container deploy-target-1 Created 
+ Container deploy-baseline-crs-1 Creating 
+ Container deploy-baseline-crs-1 Created 
+ Container deploy-stub-backend-1 Starting 
+ Container deploy-target-1 Starting 
+ Container deploy-stub-backend-1 Started 
+ Container deploy-target-1 Started 
+ Container deploy-baseline-crs-1 Starting 
+ Container deploy-baseline-crs-1 Started 
+2026/11/20 07:34:18 [warn] 688#688: "ssl_stapling" ignored, issuer certificate not found for certificate "/etc/nginx/conf/server.crt"
+nginx: [warn] "ssl_stapling" ignored, issuer certificate not found for certificate "/etc/nginx/conf/server.crt"
+2026/11/20 07:34:18 [notice] 688#688: ModSecurity-nginx v1.0.4 (rules loaded inline/local/remote: 0/853/0)
+2026/11/20 07:34:18 [notice] 688#688: libmodsecurity3 version 3.0.17
+2026/11/20 07:34:18 [notice] 688#688: signal process started
+rule29-modsec: E=On B=2 P=2 D=2 env_CT=[]
+SecRuleEngine On
+tx.blocking_paranoia_level=2
+tx.detection_paranoia_level=2
+tx.allowed_request_content_type=|application/x-www-form-urlencoded|
+tx.crs_setup_version=4252
+rule36: control-before entries: 20 (expect 20)
+{"base_url": "http://localhost:8081", "started_utc": "2026-11-20T07:34:20+00:00", "ended_utc": "2026-11-20T07:34:21+00:00", "git_commit": null, "manifest_sha256": "69d0447c5b33ca63e37c2993e8c7e87add2a16d56dd89201978883905f923251", "default_user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/158.0.0.0 Safari/537.36", "labels": {"engine": "modsec", "config": "default", "paranoia": "2"}, "total_samples": 320, "responses_ok": 320, "blocked": 316, "error_count": 0, "block_rule": {"block_status": 403, "block_marker": "<center>nginx</center>"}}
+rule36: control-after total entries: 40 (expect 40; before=20)
+crs_audit: 357 audit entr(ies) -> out/t14-attacks-ct-default-pl2/audit.jsonl
+warning: 41 audit entr(ies) could not be attributed to a sample id
+waf_block: 316
+waf_pass: 4
+=== done modsec-default-pl2
+ Container deploy-stub-backend-1 Creating 
+ Container deploy-target-1 Creating 
+ Container deploy-stub-backend-1 Created 
+ Container deploy-target-1 Created 
+ Container deploy-baseline-crs-1 Creating 
+ Container deploy-baseline-crs-1 Created 
+ Container deploy-target-1 Starting 
+ Container deploy-stub-backend-1 Starting 
+ Container deploy-target-1 Started 
+ Container deploy-baseline-crs-1 Starting 
+ Container deploy-stub-backend-1 Started 
+ Container deploy-baseline-crs-1 Started 
+2026/11/20 07:34:44 [warn] 693#693: "ssl_stapling" ignored, issuer certificate not found for certificate "/etc/nginx/conf/server.crt"
+nginx: [warn] "ssl_stapling" ignored, issuer certificate not found for certificate "/etc/nginx/conf/server.crt"
+2026/11/20 07:34:44 [notice] 693#693: ModSecurity-nginx v1.0.4 (rules loaded inline/local/remote: 0/854/0)
+2026/11/20 07:34:44 [notice] 693#693: libmodsecurity3 version 3.0.17
+2026/11/20 07:34:44 [notice] 693#693: signal process started
+rule29-modsec: E=On B=1 P=1 D=1 env_CT=[|application/x-www-form-urlencoded| |multipart/form-data| |text/xml| |application/xml| |application/soap+xml| |application/json| |text/plain| |application/octet-stream|]
+SecRuleEngine On
+tx.blocking_paranoia_level=1
+tx.detection_paranoia_level=1
+tx.allowed_request_content_type=|application/x-www-form-urlencoded|
+tx.crs_setup_version=4252
+rule36: control-before entries: 20 (expect 20)
+{"base_url": "http://localhost:8081", "started_utc": "2026-11-20T07:34:46+00:00", "ended_utc": "2026-11-20T07:34:47+00:00", "git_commit": null, "manifest_sha256": "69d0447c5b33ca63e37c2993e8c7e87add2a16d56dd89201978883905f923251", "default_user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/158.0.0.0 Safari/537.36", "labels": {"engine": "modsec", "config": "ct-wide", "paranoia": "1"}, "total_samples": 320, "responses_ok": 320, "blocked": 224, "error_count": 0, "block_rule": {"block_status": 403, "block_marker": "<center>nginx</center>"}}
+rule36: control-after total entries: 40 (expect 40; before=20)
+crs_audit: 265 audit entr(ies) -> out/t14-attacks-ct-ct-wide-pl1/audit.jsonl
+warning: 41 audit entr(ies) could not be attributed to a sample id
+waf_block: 224
+waf_pass: 96
+=== done modsec-wide-pl1
+ Container deploy-stub-backend-1 Creating 
+ Container deploy-target-1 Creating 
+ Container deploy-target-1 Created 
+ Container deploy-baseline-crs-1 Creating 
+ Container deploy-stub-backend-1 Created 
+ Container deploy-baseline-crs-1 Created 
+ Container deploy-stub-backend-1 Starting 
+ Container deploy-target-1 Starting 
+ Container deploy-stub-backend-1 Started 
+ Container deploy-target-1 Started 
+ Container deploy-baseline-crs-1 Starting 
+ Container deploy-baseline-crs-1 Started 
+2026/11/20 07:35:11 [warn] 693#693: "ssl_stapling" ignored, issuer certificate not found for certificate "/etc/nginx/conf/server.crt"
+nginx: [warn] "ssl_stapling" ignored, issuer certificate not found for certificate "/etc/nginx/conf/server.crt"
+2026/11/20 07:35:11 [notice] 693#693: ModSecurity-nginx v1.0.4 (rules loaded inline/local/remote: 0/854/0)
+2026/11/20 07:35:11 [notice] 693#693: libmodsecurity3 version 3.0.17
+2026/11/20 07:35:11 [notice] 693#693: signal process started
+rule29-modsec: E=On B=2 P=2 D=2 env_CT=[|application/x-www-form-urlencoded| |multipart/form-data| |text/xml| |application/xml| |application/soap+xml| |application/json| |text/plain| |application/octet-stream|]
+SecRuleEngine On
+tx.blocking_paranoia_level=2
+tx.detection_paranoia_level=2
+tx.allowed_request_content_type=|application/x-www-form-urlencoded|
+tx.crs_setup_version=4252
+rule36: control-before entries: 20 (expect 20)
+{"base_url": "http://localhost:8081", "started_utc": "2026-11-20T07:35:13+00:00", "ended_utc": "2026-11-20T07:35:14+00:00", "git_commit": null, "manifest_sha256": "69d0447c5b33ca63e37c2993e8c7e87add2a16d56dd89201978883905f923251", "default_user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/158.0.0.0 Safari/537.36", "labels": {"engine": "modsec", "config": "ct-wide", "paranoia": "2"}, "total_samples": 320, "responses_ok": 320, "blocked": 236, "error_count": 0, "block_rule": {"block_status": 403, "block_marker": "<center>nginx</center>"}}
+rule36: control-after total entries: 40 (expect 40; before=20)
+crs_audit: 277 audit entr(ies) -> out/t14-attacks-ct-ct-wide-pl2/audit.jsonl
+warning: 41 audit entr(ies) could not be attributed to a sample id
+waf_block: 236
+waf_pass: 84
+=== done modsec-wide-pl2
+ Container deploy-stub-backend-1 Creating 
+ Container deploy-target-1 Creating 
+ Container deploy-stub-backend-1 Created 
+ Container deploy-target-1 Created 
+ Container deploy-coraza-crs-1 Recreate 
+ Container deploy-coraza-crs-1 Recreated 
+ Container deploy-stub-backend-1 Starting 
+ Container deploy-target-1 Starting 
+ Container deploy-stub-backend-1 Started 
+ Container deploy-target-1 Started 
+ Container deploy-coraza-crs-1 Starting 
+ Container deploy-coraza-crs-1 Started 
+rule29-coraza: E=On B=1 P=1 D=1 env_CT=[] env_body=[nofiles=131072 total=13107200]
+tx.blocking_paranoia_level=1
+tx.detection_paranoia_level=1
+tx.allowed_request_content_type=|application/x-www-form-urlencoded|
+tx.crs_setup_version=4252
+4:SecRequestBodyLimit 13107200
+5:SecRequestBodyNoFilesLimit 131072
+4
+rule36: control-before entries: 20 (expect 20)
+{"base_url": "http://localhost:8082", "started_utc": "2026-11-20T07:35:38+00:00", "ended_utc": "2026-11-20T07:35:39+00:00", "git_commit": null, "manifest_sha256": "69d0447c5b33ca63e37c2993e8c7e87add2a16d56dd89201978883905f923251", "default_user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/158.0.0.0 Safari/537.36", "labels": {"engine": "coraza", "config": "default", "paranoia": "1"}, "total_samples": 320, "responses_ok": 320, "blocked": 304, "error_count": 0, "block_rule": {"block_status": 403, "block_marker": "<center>nginx</center>"}}
+rule36: control-after total entries: 40 (expect 40; before=20)
+coraza_audit: 344 audit entr(ies) -> out/t14-attacks-ct-default-pl1/audit.jsonl
+warning: 40 audit entr(ies) could not be attributed to a sample id
+waf_block: 304
+waf_pass: 16
+=== done coraza-default-pl1
+ Container deploy-stub-backend-1 Creating 
+ Container deploy-target-1 Creating 
+ Container deploy-target-1 Created 
+ Container deploy-coraza-crs-1 Recreate 
+ Container deploy-stub-backend-1 Created 
+ Container deploy-coraza-crs-1 Recreated 
+ Container deploy-stub-backend-1 Starting 
+ Container deploy-target-1 Starting 
+ Container deploy-stub-backend-1 Started 
+ Container deploy-target-1 Started 
+ Container deploy-coraza-crs-1 Starting 
+ Container deploy-coraza-crs-1 Started 
+rule29-coraza: E=On B=2 P=2 D=2 env_CT=[] env_body=[nofiles=131072 total=13107200]
+tx.blocking_paranoia_level=2
+tx.detection_paranoia_level=2
+tx.allowed_request_content_type=|application/x-www-form-urlencoded|
+tx.crs_setup_version=4252
+4:SecRequestBodyLimit 13107200
+5:SecRequestBodyNoFilesLimit 131072
+4
+rule36: control-before entries: 20 (expect 20)
+{"base_url": "http://localhost:8082", "started_utc": "2026-11-20T07:36:03+00:00", "ended_utc": "2026-11-20T07:36:04+00:00", "git_commit": null, "manifest_sha256": "69d0447c5b33ca63e37c2993e8c7e87add2a16d56dd89201978883905f923251", "default_user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/158.0.0.0 Safari/537.36", "labels": {"engine": "coraza", "config": "default", "paranoia": "2"}, "total_samples": 320, "responses_ok": 320, "blocked": 316, "error_count": 0, "block_rule": {"block_status": 403, "block_marker": "<center>nginx</center>"}}
+rule36: control-after total entries: 40 (expect 40; before=20)
+coraza_audit: 356 audit entr(ies) -> out/t14-attacks-ct-default-pl2/audit.jsonl
+warning: 40 audit entr(ies) could not be attributed to a sample id
+waf_block: 316
+waf_pass: 4
+=== done coraza-default-pl2
+ Container deploy-stub-backend-1 Creating 
+ Container deploy-target-1 Creating 
+ Container deploy-stub-backend-1 Created 
+ Container deploy-target-1 Created 
+ Container deploy-coraza-crs-1 Recreate 
+ Container deploy-coraza-crs-1 Recreated 
+ Container deploy-target-1 Starting 
+ Container deploy-stub-backend-1 Starting 
+ Container deploy-target-1 Started 
+ Container deploy-coraza-crs-1 Starting 
+ Container deploy-stub-backend-1 Started 
+ Container deploy-coraza-crs-1 Started 
+rule29-coraza: E=On B=1 P=1 D=1 env_CT=[|application/x-www-form-urlencoded| |multipart/form-data| |text/xml| |application/xml| |application/soap+xml| |application/json| |text/plain| |application/octet-stream|] env_body=[nofiles=131072 total=13107200]
+tx.blocking_paranoia_level=1
+tx.detection_paranoia_level=1
+tx.allowed_request_content_type=|application/x-www-form-urlencoded|
+tx.crs_setup_version=4252
+4:SecRequestBodyLimit 13107200
+5:SecRequestBodyNoFilesLimit 131072
+4
+rule36: control-before entries: 20 (expect 20)
+{"base_url": "http://localhost:8082", "started_utc": "2026-11-20T07:36:29+00:00", "ended_utc": "2026-11-20T07:36:30+00:00", "git_commit": null, "manifest_sha256": "69d0447c5b33ca63e37c2993e8c7e87add2a16d56dd89201978883905f923251", "default_user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/158.0.0.0 Safari/537.36", "labels": {"engine": "coraza", "config": "ct-wide", "paranoia": "1"}, "total_samples": 320, "responses_ok": 320, "blocked": 292, "error_count": 0, "block_rule": {"block_status": 403, "block_marker": "<center>nginx</center>"}}
+rule36: control-after total entries: 40 (expect 40; before=20)
+coraza_audit: 332 audit entr(ies) -> out/t14-attacks-ct-ct-wide-pl1/audit.jsonl
+warning: 40 audit entr(ies) could not be attributed to a sample id
+waf_block: 292
+waf_pass: 28
+=== done coraza-wide-pl1
+ Container deploy-target-1 Creating 
+ Container deploy-stub-backend-1 Creating 
+ Container deploy-stub-backend-1 Created 
+ Container deploy-target-1 Created 
+ Container deploy-coraza-crs-1 Recreate 
+ Container deploy-coraza-crs-1 Recreated 
+ Container deploy-stub-backend-1 Starting 
+ Container deploy-target-1 Starting 
+ Container deploy-stub-backend-1 Started 
+ Container deploy-target-1 Started 
+ Container deploy-coraza-crs-1 Starting 
+ Container deploy-coraza-crs-1 Started 
+rule29-coraza: E=On B=2 P=2 D=2 env_CT=[|application/x-www-form-urlencoded| |multipart/form-data| |text/xml| |application/xml| |application/soap+xml| |application/json| |text/plain| |application/octet-stream|] env_body=[nofiles=131072 total=13107200]
+tx.blocking_paranoia_level=2
+tx.detection_paranoia_level=2
+tx.allowed_request_content_type=|application/x-www-form-urlencoded|
+tx.crs_setup_version=4252
+4:SecRequestBodyLimit 13107200
+5:SecRequestBodyNoFilesLimit 131072
+4
+rule36: control-before entries: 20 (expect 20)
+{"base_url": "http://localhost:8082", "started_utc": "2026-11-20T07:36:54+00:00", "ended_utc": "2026-11-20T07:36:56+00:00", "git_commit": null, "manifest_sha256": "69d0447c5b33ca63e37c2993e8c7e87add2a16d56dd89201978883905f923251", "default_user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/158.0.0.0 Safari/537.36", "labels": {"engine": "coraza", "config": "ct-wide", "paranoia": "2"}, "total_samples": 320, "responses_ok": 320, "blocked": 312, "error_count": 0, "block_rule": {"block_status": 403, "block_marker": "<center>nginx</center>"}}
+rule36: control-after total entries: 40 (expect 40; before=20)
+coraza_audit: 352 audit entr(ies) -> out/t14-attacks-ct-ct-wide-pl2/audit.jsonl
+warning: 40 audit entr(ies) could not be attributed to a sample id
+waf_block: 312
+waf_pass: 8
+=== done coraza-wide-pl2
+exit=0
