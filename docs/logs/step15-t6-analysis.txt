@@ -1,0 +1,447 @@
+== step-15 T6 (DIAGNOSTIC): engine skeleton vs Coraza connector (default policy)
+
+smoke pl1: engine n=12 ref n=12 common=12 only-engine=0 only-ref=0
+  blocked: engine 7 ref 6; worst: engine 7 ref 6
+  blocked-set diff (common ids): 1
+  worst-case-set diff (common ids): 1
+    trav-01 engine=waf_block/403 ref=proxy_reject/400
+
+smoke pl2: engine n=12 ref n=12 common=12 only-engine=0 only-ref=0
+  blocked: engine 7 ref 6; worst: engine 7 ref 6
+  blocked-set diff (common ids): 1
+  worst-case-set diff (common ids): 1
+    trav-01 engine=waf_block/403 ref=proxy_reject/400
+
+attacks-v0 pl1: engine n=1054 ref n=1054 common=1054 only-engine=0 only-ref=0
+  blocked: engine 909 ref 954; worst: engine 909 ref 954
+  blocked-set diff (common ids): 65
+  worst-case-set diff (common ids): 65
+    command-injection-036c522d-login engine=waf_block/403 ref=waf_pass/200
+    command-injection-1bff845a-login engine=waf_pass/401 ref=waf_block/403
+    command-injection-1e054ad2-login engine=waf_pass/401 ref=waf_block/403
+    command-injection-43aaa6fe-login engine=waf_block/403 ref=waf_pass/200
+    command-injection-498d017a-login engine=waf_pass/401 ref=waf_block/403
+    command-injection-55090590-login engine=waf_pass/401 ref=waf_block/403
+    command-injection-5dd90c56-login engine=waf_block/403 ref=waf_pass/200
+    command-injection-77a634bd-login engine=waf_pass/500 ref=waf_block/403
+    command-injection-86b08086-login engine=waf_pass/401 ref=waf_block/403
+    command-injection-9255e799-login engine=waf_block/403 ref=waf_pass/200
+    command-injection-933f7004-login engine=waf_block/403 ref=waf_pass/200
+    command-injection-9a990e35-login engine=waf_pass/401 ref=waf_block/403
+    command-injection-ae105740-login engine=waf_pass/401 ref=waf_block/403
+    command-injection-b336a991-login engine=waf_pass/401 ref=waf_block/403
+    command-injection-c754be48-login engine=waf_pass/401 ref=waf_block/403
+    command-injection-cd3079a9-login engine=waf_pass/401 ref=waf_block/403
+    command-injection-d090c063-login engine=waf_pass/401 ref=waf_block/403
+    command-injection-d1400c1b-login engine=waf_block/403 ref=waf_pass/200
+    command-injection-d62a0c50-login engine=waf_pass/401 ref=waf_block/403
+    command-injection-dc2932d5-login engine=waf_pass/401 ref=waf_block/403
+    command-injection-ea885b41-login engine=waf_pass/401 ref=waf_block/403
+    command-injection-edd1a45b-login engine=waf_pass/401 ref=waf_block/403
+    command-injection-f7d36638-login engine=waf_block/403 ref=waf_pass/200
+    path-traversal-58195129-login engine=waf_pass/401 ref=waf_block/403
+    path-traversal-8aab46a5-login engine=waf_pass/401 ref=waf_block/403
+    path-traversal-d6aad809-login engine=waf_block/403 ref=waf_pass/200
+    sqli-06acab32-login engine=waf_pass/401 ref=waf_block/403
+    sqli-07a2ed1e-login engine=waf_pass/401 ref=waf_block/403
+    sqli-0933fb66-login engine=waf_pass/401 ref=waf_block/403
+    sqli-0c1567f5-login engine=waf_pass/401 ref=waf_block/403
+    sqli-0ee59083-login engine=waf_pass/401 ref=waf_block/403
+    sqli-180d12ba-login engine=waf_pass/401 ref=waf_block/403
+    sqli-1c13e2dc-login engine=waf_pass/401 ref=waf_block/403
+    sqli-1db92de8-login engine=waf_pass/401 ref=waf_block/403
+    sqli-1e018b13-login engine=waf_pass/401 ref=waf_block/403
+    sqli-27f94926-login engine=waf_pass/401 ref=waf_block/403
+    sqli-304cb2e9-login engine=waf_block/403 ref=waf_pass/200
+    sqli-32d32940-login engine=waf_pass/401 ref=waf_block/403
+    sqli-382abb8b-login engine=waf_pass/401 ref=waf_block/403
+    sqli-43319db8-login engine=waf_pass/401 ref=waf_block/403
+    sqli-4cab31b0-login engine=waf_pass/200 ref=waf_block/403
+    sqli-57e105b4-login engine=waf_pass/401 ref=waf_block/403
+    sqli-59730505-login engine=waf_pass/500 ref=waf_block/403
+    sqli-6e47f23b-login engine=waf_pass/401 ref=waf_block/403
+    sqli-7f62f3e0-login engine=waf_pass/401 ref=waf_block/403
+    sqli-85738caa-login engine=waf_pass/401 ref=waf_block/403
+    sqli-8c187a93-login engine=waf_pass/401 ref=waf_block/403
+    sqli-906b8603-login engine=waf_pass/401 ref=waf_block/403
+    sqli-91485dbb-login engine=waf_pass/401 ref=waf_block/403
+    sqli-a2035700-login engine=waf_pass/401 ref=waf_block/403
+    sqli-a77cd69b-login engine=waf_pass/401 ref=waf_block/403
+    sqli-b0c12141-login engine=waf_pass/401 ref=waf_block/403
+    sqli-bde4f6b2-login engine=waf_pass/401 ref=waf_block/403
+    sqli-beca71f8-login engine=waf_pass/401 ref=waf_block/403
+    sqli-c6072953-login engine=waf_pass/401 ref=waf_block/403
+    sqli-c9fe3605-login engine=waf_pass/401 ref=waf_block/403
+    sqli-cba0a4a7-login engine=waf_pass/401 ref=waf_block/403
+    sqli-d5e8c63e-login engine=waf_pass/401 ref=waf_block/403
+    sqli-eb4fafe8-login engine=waf_block/403 ref=waf_pass/200
+    sqli-ebf229cf-login engine=waf_pass/401 ref=waf_block/403
+    sqli-ed725292-login engine=waf_pass/401 ref=waf_block/403
+    sqli-ef11b83d-login engine=waf_pass/401 ref=waf_block/403
+    sqli-ef753d10-login engine=waf_pass/401 ref=waf_block/403
+    sqli-f0b4d8ab-login engine=waf_pass/401 ref=waf_block/403
+    sqli-fb72118c-login engine=waf_pass/401 ref=waf_block/403
+
+attacks-v0 pl2: engine n=1054 ref n=1054 common=1054 only-engine=0 only-ref=0
+  blocked: engine 1040 ref 1024; worst: engine 1040 ref 1024
+  blocked-set diff (common ids): 16
+  worst-case-set diff (common ids): 16
+    command-injection-036c522d-login engine=waf_block/403 ref=waf_pass/200
+    command-injection-036c522d-q engine=waf_block/403 ref=waf_pass/200
+    command-injection-10bd76c8-login engine=waf_block/403 ref=waf_pass/200
+    command-injection-156de42b-login engine=waf_block/403 ref=waf_pass/200
+    command-injection-2b64c6d9-login engine=waf_block/403 ref=waf_pass/200
+    command-injection-6b31c08e-login engine=waf_block/403 ref=waf_pass/200
+    command-injection-9255e799-login engine=waf_block/403 ref=waf_pass/200
+    command-injection-9fdd7094-login engine=waf_block/403 ref=waf_pass/200
+    command-injection-a2b61937-login engine=waf_block/403 ref=waf_pass/200
+    command-injection-a41e115e-login engine=waf_block/403 ref=waf_pass/200
+    command-injection-d51e34a4-login engine=waf_block/403 ref=waf_pass/200
+    command-injection-f48aa068-login engine=waf_block/403 ref=waf_pass/200
+    command-injection-f7d36638-login engine=waf_block/403 ref=waf_pass/200
+    sqli-52109349-login engine=waf_block/403 ref=waf_pass/200
+    sqli-730d16ce-login engine=waf_block/403 ref=waf_pass/200
+    sqli-925997bb-login engine=waf_block/403 ref=waf_pass/200
+
+benign-browse-v1 pl1: engine n=774 ref n=774 common=774 only-engine=0 only-ref=0
+  blocked: engine 124 ref 184; worst: engine 124 ref 184
+  blocked-set diff (common ids): 60
+  worst-case-set diff (common ids): 60
+    browse-00319098438d engine=waf_pass/400 ref=waf_block/403
+    browse-01863a78fc8d engine=waf_pass/400 ref=waf_block/403
+    browse-03b008ae9758 engine=waf_pass/400 ref=waf_block/403
+    browse-0627fa581411 engine=waf_pass/400 ref=waf_block/403
+    browse-09b30a528ad5 engine=waf_pass/400 ref=waf_block/403
+    browse-15812fcb143a engine=waf_pass/400 ref=waf_block/403
+    browse-17a732b64731 engine=waf_pass/400 ref=waf_block/403
+    browse-1a14379f4381 engine=waf_pass/400 ref=waf_block/403
+    browse-1d4acae65f9c engine=waf_pass/400 ref=waf_block/403
+    browse-1e25bc8a71e7 engine=waf_pass/400 ref=waf_block/403
+    browse-1e8899c87d0d engine=waf_pass/400 ref=waf_block/403
+    browse-2aa00da2dc21 engine=waf_pass/400 ref=waf_block/403
+    browse-2d2196291c7c engine=waf_pass/400 ref=waf_block/403
+    browse-2fc45fda453a engine=waf_pass/400 ref=waf_block/403
+    browse-36f780cfb3f3 engine=waf_pass/400 ref=waf_block/403
+    browse-46097cba5c1c engine=waf_pass/400 ref=waf_block/403
+    browse-4e0f9d98d846 engine=waf_pass/400 ref=waf_block/403
+    browse-5a6546a3dc8c engine=waf_pass/400 ref=waf_block/403
+    browse-5d982660c9a7 engine=waf_pass/400 ref=waf_block/403
+    browse-627ae9d2a7c3 engine=waf_pass/400 ref=waf_block/403
+    browse-6823cd6b277b engine=waf_pass/400 ref=waf_block/403
+    browse-6a98a44db278 engine=waf_pass/400 ref=waf_block/403
+    browse-6c73f14bcbcd engine=waf_pass/400 ref=waf_block/403
+    browse-6ddba51b8e17 engine=waf_pass/400 ref=waf_block/403
+    browse-6de61347d131 engine=waf_pass/400 ref=waf_block/403
+    browse-72079ccae1bb engine=waf_pass/400 ref=waf_block/403
+    browse-76ccc66646bf engine=waf_pass/400 ref=waf_block/403
+    browse-78ece8e07a08 engine=waf_pass/400 ref=waf_block/403
+    browse-7c816c32a059 engine=waf_pass/400 ref=waf_block/403
+    browse-81e1cc8ad181 engine=waf_pass/400 ref=waf_block/403
+    browse-85facaf96b41 engine=waf_pass/400 ref=waf_block/403
+    browse-8b4313f59489 engine=waf_pass/400 ref=waf_block/403
+    browse-9233d093eeb1 engine=waf_pass/400 ref=waf_block/403
+    browse-9cf0fad340d4 engine=waf_pass/400 ref=waf_block/403
+    browse-a242567bbdce engine=waf_pass/400 ref=waf_block/403
+    browse-a6454375bdfb engine=waf_pass/400 ref=waf_block/403
+    browse-b1903ccfe172 engine=waf_pass/400 ref=waf_block/403
+    browse-b2906158e89f engine=waf_pass/400 ref=waf_block/403
+    browse-b3ef0d16046b engine=waf_pass/400 ref=waf_block/403
+    browse-b8c0f2b1fb5a engine=waf_pass/400 ref=waf_block/403
+    browse-b9b519a9b521 engine=waf_pass/400 ref=waf_block/403
+    browse-ba3db7b1ed49 engine=waf_pass/400 ref=waf_block/403
+    browse-bbbc017b18a4 engine=waf_pass/400 ref=waf_block/403
+    browse-be2c7d7566a4 engine=waf_pass/400 ref=waf_block/403
+    browse-c25a5f85fd5e engine=waf_pass/400 ref=waf_block/403
+    browse-c7f0266691ab engine=waf_pass/400 ref=waf_block/403
+    browse-cffbf259f4cd engine=waf_pass/400 ref=waf_block/403
+    browse-d3332dfb98e8 engine=waf_pass/400 ref=waf_block/403
+    browse-d4fc3328c600 engine=waf_pass/400 ref=waf_block/403
+    browse-df865f30d8fc engine=waf_pass/400 ref=waf_block/403
+    browse-e1fde0f8cdf1 engine=waf_pass/400 ref=waf_block/403
+    browse-e742f0a61e6e engine=waf_pass/400 ref=waf_block/403
+    browse-e948d6abcc98 engine=waf_pass/400 ref=waf_block/403
+    browse-ead519190caf engine=waf_pass/400 ref=waf_block/403
+    browse-eb7d473a5c02 engine=waf_pass/400 ref=waf_block/403
+    browse-f25970591bd7 engine=waf_pass/400 ref=waf_block/403
+    browse-f491c8a09a42 engine=waf_pass/400 ref=waf_block/403
+    browse-fc868b076b8a engine=waf_pass/400 ref=waf_block/403
+    browse-fc9dbe179f34 engine=waf_pass/400 ref=waf_block/403
+    browse-fd71b5bb926f engine=waf_pass/400 ref=waf_block/403
+
+benign-browse-v1 pl2: engine n=774 ref n=774 common=774 only-engine=0 only-ref=0
+  blocked: engine 214 ref 184; worst: engine 214 ref 184
+  blocked-set diff (common ids): 150
+  worst-case-set diff (common ids): 150
+    browse-00319098438d engine=waf_pass/400 ref=waf_block/403
+    browse-01863a78fc8d engine=waf_pass/400 ref=waf_block/403
+    browse-02c008b9f3ba engine=waf_block/403 ref=waf_pass/200
+    browse-035e98519bb6 engine=waf_block/403 ref=waf_pass/200
+    browse-03b008ae9758 engine=waf_pass/400 ref=waf_block/403
+    browse-0627fa581411 engine=waf_pass/400 ref=waf_block/403
+    browse-08bc426f5841 engine=waf_block/403 ref=waf_pass/200
+    browse-09b30a528ad5 engine=waf_pass/400 ref=waf_block/403
+    browse-09ef9bec9572 engine=waf_block/403 ref=waf_pass/200
+    browse-0ab126265b38 engine=waf_block/403 ref=waf_pass/200
+    browse-0d3aa2ae781f engine=waf_block/403 ref=waf_pass/200
+    browse-0eb179c9a407 engine=waf_block/403 ref=waf_pass/200
+    browse-0f2b766495fc engine=waf_block/403 ref=waf_pass/200
+    browse-0f88f2e4962c engine=waf_block/403 ref=waf_pass/200
+    browse-15812fcb143a engine=waf_pass/400 ref=waf_block/403
+    browse-17a732b64731 engine=waf_pass/400 ref=waf_block/403
+    browse-1a14379f4381 engine=waf_pass/400 ref=waf_block/403
+    browse-1d4acae65f9c engine=waf_pass/400 ref=waf_block/403
+    browse-1d8eecec72c5 engine=waf_block/403 ref=waf_pass/200
+    browse-1e25bc8a71e7 engine=waf_pass/400 ref=waf_block/403
+    browse-1e27fb15d3d9 engine=waf_block/403 ref=waf_pass/200
+    browse-1e8899c87d0d engine=waf_pass/400 ref=waf_block/403
+    browse-21d761df3dad engine=waf_block/403 ref=waf_pass/200
+    browse-25229be0a7c7 engine=waf_block/403 ref=waf_pass/200
+    browse-25a78c9d23b3 engine=waf_block/403 ref=waf_pass/200
+    browse-2946258beb54 engine=waf_block/403 ref=waf_pass/200
+    browse-29578eb9fda9 engine=waf_block/403 ref=waf_pass/200
+    browse-29fc6e48058c engine=waf_block/403 ref=waf_pass/200
+    browse-2aa00da2dc21 engine=waf_pass/400 ref=waf_block/403
+    browse-2aad47f30ef9 engine=waf_block/403 ref=waf_pass/200
+    browse-2c1cddd97de5 engine=waf_block/403 ref=waf_pass/200
+    browse-2c2c9ea4c6a3 engine=waf_block/403 ref=waf_pass/200
+    browse-2d2196291c7c engine=waf_pass/400 ref=waf_block/403
+    browse-2f389400d51f engine=waf_block/403 ref=waf_pass/200
+    browse-2fc45fda453a engine=waf_pass/400 ref=waf_block/403
+    browse-3030dd36c8d7 engine=waf_block/403 ref=waf_pass/200
+    browse-30ce46282d8e engine=waf_block/403 ref=waf_pass/200
+    browse-33857f88bb8d engine=waf_block/403 ref=waf_pass/200
+    browse-36f780cfb3f3 engine=waf_pass/400 ref=waf_block/403
+    browse-373d645a7016 engine=waf_block/403 ref=waf_pass/200
+    browse-39ad082d8a88 engine=waf_block/403 ref=waf_pass/200
+    browse-3a6075697a11 engine=waf_block/403 ref=waf_pass/200
+    browse-3a822d828e51 engine=waf_block/403 ref=waf_pass/200
+    browse-3ac7cef67e1d engine=waf_block/403 ref=waf_pass/200
+    browse-3b71a52f5bda engine=waf_block/403 ref=waf_pass/200
+    browse-3c0574b92a5e engine=waf_block/403 ref=waf_pass/200
+    browse-3e1bead0cee9 engine=waf_block/403 ref=waf_pass/200
+    browse-3f4b758325bc engine=waf_block/403 ref=waf_pass/200
+    browse-3fa6e642f6c1 engine=waf_block/403 ref=waf_pass/200
+    browse-4142911a587a engine=waf_block/403 ref=waf_pass/200
+    browse-42f9cd0b80a4 engine=waf_block/403 ref=waf_pass/200
+    browse-4304574c2d32 engine=waf_block/403 ref=waf_pass/200
+    browse-4386c383a728 engine=waf_block/403 ref=waf_pass/200
+    browse-46097cba5c1c engine=waf_pass/400 ref=waf_block/403
+    browse-4e0f9d98d846 engine=waf_pass/400 ref=waf_block/403
+    browse-552dc08ef01e engine=waf_block/403 ref=waf_pass/200
+    browse-558f7b543d43 engine=waf_block/403 ref=waf_pass/200
+    browse-5881e5abdaa6 engine=waf_block/403 ref=waf_pass/200
+    browse-5887b3fbd8f4 engine=waf_block/403 ref=waf_pass/200
+    browse-5a6546a3dc8c engine=waf_pass/400 ref=waf_block/403
+    browse-5d982660c9a7 engine=waf_pass/400 ref=waf_block/403
+    browse-5e1e52ea8f8d engine=waf_block/403 ref=waf_pass/200
+    browse-627ae9d2a7c3 engine=waf_pass/400 ref=waf_block/403
+    browse-66ff0d7e7618 engine=waf_block/403 ref=waf_pass/200
+    browse-6823cd6b277b engine=waf_pass/400 ref=waf_block/403
+    browse-6a98a44db278 engine=waf_pass/400 ref=waf_block/403
+    browse-6c73f14bcbcd engine=waf_pass/400 ref=waf_block/403
+    browse-6ddba51b8e17 engine=waf_pass/400 ref=waf_block/403
+    browse-6de61347d131 engine=waf_pass/400 ref=waf_block/403
+    browse-72079ccae1bb engine=waf_pass/400 ref=waf_block/403
+    browse-73c0c6ccaf55 engine=waf_block/403 ref=waf_pass/200
+    browse-754470027cd8 engine=waf_block/403 ref=waf_pass/200
+    browse-75a390129922 engine=waf_block/403 ref=waf_pass/200
+    browse-76ccc66646bf engine=waf_pass/400 ref=waf_block/403
+    browse-78ece8e07a08 engine=waf_pass/400 ref=waf_block/403
+    browse-7c816c32a059 engine=waf_pass/400 ref=waf_block/403
+    browse-7c835ff0ce28 engine=waf_block/403 ref=waf_pass/200
+    browse-81e1cc8ad181 engine=waf_pass/400 ref=waf_block/403
+    browse-85facaf96b41 engine=waf_pass/400 ref=waf_block/403
+    browse-88fafa1c2e9e engine=waf_block/403 ref=waf_pass/200
+    browse-891b61124033 engine=waf_block/403 ref=waf_pass/200
+    browse-8b4313f59489 engine=waf_pass/400 ref=waf_block/403
+    browse-913200783ae1 engine=waf_block/403 ref=waf_pass/200
+    browse-9233d093eeb1 engine=waf_pass/400 ref=waf_block/403
+    browse-923a928a7d20 engine=waf_block/403 ref=waf_pass/200
+    browse-94b425b16a0a engine=waf_block/403 ref=waf_pass/200
+    browse-991f26ea8d23 engine=waf_block/403 ref=waf_pass/200
+    browse-9cf0fad340d4 engine=waf_pass/400 ref=waf_block/403
+    browse-9ed5e6085f9a engine=waf_block/403 ref=waf_pass/200
+    browse-a0332dc68fba engine=waf_block/403 ref=waf_pass/200
+    browse-a242567bbdce engine=waf_pass/400 ref=waf_block/403
+    browse-a2642a351e0b engine=waf_block/403 ref=waf_pass/200
+    browse-a298bed927d7 engine=waf_block/403 ref=waf_pass/200
+    browse-a47517bc4855 engine=waf_block/403 ref=waf_pass/200
+    browse-a6454375bdfb engine=waf_pass/400 ref=waf_block/403
+    browse-a8daba86e0de engine=waf_block/403 ref=waf_pass/200
+    browse-ab74497d2fbc engine=waf_block/403 ref=waf_pass/200
+    browse-acd5d1f813ac engine=waf_block/403 ref=waf_pass/200
+    browse-ae16cc10287d engine=waf_block/403 ref=waf_pass/200
+    browse-ae640b00fc5c engine=waf_block/403 ref=waf_pass/200
+    browse-aeb47bab0eea engine=waf_block/403 ref=waf_pass/200
+    browse-af7e865d6268 engine=waf_block/403 ref=waf_pass/200
+    browse-b1903ccfe172 engine=waf_pass/400 ref=waf_block/403
+    browse-b2906158e89f engine=waf_pass/400 ref=waf_block/403
+    browse-b3ef0d16046b engine=waf_pass/400 ref=waf_block/403
+    browse-b5cd863d4ec8 engine=waf_block/403 ref=waf_pass/200
+    browse-b8c0f2b1fb5a engine=waf_pass/400 ref=waf_block/403
+    browse-b940805dd399 engine=waf_block/403 ref=waf_pass/200
+    browse-b9b519a9b521 engine=waf_pass/400 ref=waf_block/403
+    browse-ba3db7b1ed49 engine=waf_pass/400 ref=waf_block/403
+    browse-bbbc017b18a4 engine=waf_pass/400 ref=waf_block/403
+    browse-bc9b5b118d0e engine=waf_block/403 ref=waf_pass/200
+    browse-bd6e1352326e engine=waf_block/403 ref=waf_pass/200
+    browse-be2c7d7566a4 engine=waf_pass/400 ref=waf_block/403
+    browse-c25a5f85fd5e engine=waf_pass/400 ref=waf_block/403
+    browse-c26d25dc9da2 engine=waf_block/403 ref=waf_pass/200
+    browse-c2fd342e0e02 engine=waf_block/403 ref=waf_pass/200
+    browse-c2fe847a9819 engine=waf_block/403 ref=waf_pass/200
+    browse-c3b8bd0cbd38 engine=waf_block/403 ref=waf_pass/200
+    browse-c5bf36e75022 engine=waf_block/403 ref=waf_pass/200
+    browse-c7f0266691ab engine=waf_pass/400 ref=waf_block/403
+    browse-ca1a86d74bc0 engine=waf_block/403 ref=waf_pass/200
+    browse-ca4bfc28c78e engine=waf_block/403 ref=waf_pass/200
+    browse-cffbf259f4cd engine=waf_pass/400 ref=waf_block/403
+    browse-d304f351aedc engine=waf_block/403 ref=waf_pass/200
+    browse-d3332dfb98e8 engine=waf_pass/400 ref=waf_block/403
+    browse-d4683b54e6fb engine=waf_block/403 ref=waf_pass/200
+    browse-d4fc3328c600 engine=waf_pass/400 ref=waf_block/403
+    browse-d8bcb1335c03 engine=waf_block/403 ref=waf_pass/200
+    browse-d93c8f615d37 engine=waf_block/403 ref=waf_pass/200
+    browse-dea205f6c340 engine=waf_block/403 ref=waf_pass/200
+    browse-df865f30d8fc engine=waf_pass/400 ref=waf_block/403
+    browse-e1fde0f8cdf1 engine=waf_pass/400 ref=waf_block/403
+    browse-e22e46558cd2 engine=waf_block/403 ref=waf_pass/200
+    browse-e3054bc51dac engine=waf_block/403 ref=waf_pass/200
+    browse-e51e2b03dbf1 engine=waf_block/403 ref=waf_pass/200
+    browse-e52deb60aff9 engine=waf_block/403 ref=waf_pass/200
+    browse-e742f0a61e6e engine=waf_pass/400 ref=waf_block/403
+    browse-e8679c70c47b engine=waf_block/403 ref=waf_pass/200
+    browse-e948d6abcc98 engine=waf_pass/400 ref=waf_block/403
+    browse-ead519190caf engine=waf_pass/400 ref=waf_block/403
+    browse-eb7d473a5c02 engine=waf_pass/400 ref=waf_block/403
+    browse-f041dae4557d engine=waf_block/403 ref=waf_pass/200
+    browse-f25970591bd7 engine=waf_pass/400 ref=waf_block/403
+    browse-f336a1909eef engine=waf_block/403 ref=waf_pass/200
+    browse-f491c8a09a42 engine=waf_pass/400 ref=waf_block/403
+    browse-f4a599ac14ab engine=waf_block/403 ref=waf_pass/200
+    browse-fc868b076b8a engine=waf_pass/400 ref=waf_block/403
+    browse-fc9dbe179f34 engine=waf_pass/400 ref=waf_block/403
+    browse-fd71b5bb926f engine=waf_pass/400 ref=waf_block/403
+
+benign-hard-v0 pl1: engine n=180 ref n=180 common=180 only-engine=0 only-ref=0
+  blocked: engine 35 ref 22; worst: engine 35 ref 22
+  blocked-set diff (common ids): 23
+  worst-case-set diff (common ids): 23
+    hardben-0a7d3e69-login engine=waf_block/403 ref=waf_pass/200
+    hardben-19c254d4-login engine=waf_block/403 ref=waf_pass/200
+    hardben-1cf6dcc9-login engine=waf_pass/401 ref=waf_block/403
+    hardben-273b3ad4-login engine=waf_pass/401 ref=waf_block/403
+    hardben-2cec0287-login engine=waf_block/403 ref=waf_pass/200
+    hardben-30066792-login engine=waf_block/403 ref=waf_pass/200
+    hardben-33f16716-login engine=waf_block/403 ref=waf_pass/200
+    hardben-37a01385-login engine=waf_block/403 ref=waf_pass/200
+    hardben-3b33a427-login engine=waf_block/403 ref=waf_pass/200
+    hardben-5c420414-login engine=waf_block/403 ref=waf_pass/200
+    hardben-70895718-login engine=waf_block/403 ref=waf_pass/200
+    hardben-8b7a2259-login engine=waf_block/403 ref=waf_pass/200
+    hardben-939def6e-login engine=waf_block/403 ref=waf_pass/200
+    hardben-978edf99-login engine=waf_block/403 ref=waf_pass/200
+    hardben-a7842989-login engine=waf_block/403 ref=waf_pass/200
+    hardben-a903d870-login engine=waf_block/403 ref=waf_pass/200
+    hardben-ac35b46d-login engine=waf_pass/401 ref=waf_block/403
+    hardben-d3ef2fc4-login engine=waf_block/403 ref=waf_pass/200
+    hardben-d85ddaae-login engine=waf_pass/401 ref=waf_block/403
+    hardben-e20f3562-login engine=waf_block/403 ref=waf_pass/200
+    hardben-e45aeda9-login engine=waf_pass/401 ref=waf_block/403
+    hardben-e8a60a97-login engine=waf_block/403 ref=waf_pass/200
+    hardben-f5f4a0bc-login engine=waf_block/403 ref=waf_pass/200
+
+benign-hard-v0 pl2: engine n=180 ref n=180 common=180 only-engine=0 only-ref=0
+  blocked: engine 129 ref 78; worst: engine 129 ref 78
+  blocked-set diff (common ids): 51
+  worst-case-set diff (common ids): 51
+    hardben-034b2004-login engine=waf_block/403 ref=waf_pass/200
+    hardben-0a7d3e69-login engine=waf_block/403 ref=waf_pass/200
+    hardben-0dea1f45-login engine=waf_block/403 ref=waf_pass/200
+    hardben-174363cd-login engine=waf_block/403 ref=waf_pass/200
+    hardben-19c254d4-login engine=waf_block/403 ref=waf_pass/200
+    hardben-1a8940de-login engine=waf_block/403 ref=waf_pass/200
+    hardben-2cec0287-login engine=waf_block/403 ref=waf_pass/200
+    hardben-30066792-login engine=waf_block/403 ref=waf_pass/200
+    hardben-32e972b9-login engine=waf_block/403 ref=waf_pass/200
+    hardben-33277e22-login engine=waf_block/403 ref=waf_pass/200
+    hardben-33f16716-login engine=waf_block/403 ref=waf_pass/200
+    hardben-348c1afb-login engine=waf_block/403 ref=waf_pass/200
+    hardben-37a01385-login engine=waf_block/403 ref=waf_pass/200
+    hardben-3a25df55-login engine=waf_block/403 ref=waf_pass/200
+    hardben-3b33a427-login engine=waf_block/403 ref=waf_pass/200
+    hardben-476a4888-login engine=waf_block/403 ref=waf_pass/200
+    hardben-4b26bf86-login engine=waf_block/403 ref=waf_pass/200
+    hardben-5425008b-login engine=waf_block/403 ref=waf_pass/200
+    hardben-57359002-login engine=waf_block/403 ref=waf_pass/200
+    hardben-65ad5876-login engine=waf_block/403 ref=waf_pass/200
+    hardben-70895718-login engine=waf_block/403 ref=waf_pass/200
+    hardben-76ee7785-login engine=waf_block/403 ref=waf_pass/200
+    hardben-882a2a3f-login engine=waf_block/403 ref=waf_pass/200
+    hardben-8836c945-login engine=waf_block/403 ref=waf_pass/200
+    hardben-8b7a2259-login engine=waf_block/403 ref=waf_pass/200
+    hardben-939def6e-login engine=waf_block/403 ref=waf_pass/200
+    hardben-978edf99-login engine=waf_block/403 ref=waf_pass/200
+    hardben-a4694ca4-login engine=waf_block/403 ref=waf_pass/200
+    hardben-a4926260-login engine=waf_block/403 ref=waf_pass/200
+    hardben-a69dfed7-login engine=waf_block/403 ref=waf_pass/200
+    hardben-a7842989-login engine=waf_block/403 ref=waf_pass/200
+    hardben-a86106e3-login engine=waf_block/403 ref=waf_pass/200
+    hardben-a8e0c78a-login engine=waf_block/403 ref=waf_pass/200
+    hardben-afcf055c-login engine=waf_block/403 ref=waf_pass/200
+    hardben-b9115dfd-login engine=waf_block/403 ref=waf_pass/200
+    hardben-bf3d56a0-login engine=waf_block/403 ref=waf_pass/200
+    hardben-c0218512-login engine=waf_block/403 ref=waf_pass/200
+    hardben-d15f5884-login engine=waf_block/403 ref=waf_pass/200
+    hardben-d3ef2fc4-login engine=waf_block/403 ref=waf_pass/200
+    hardben-d5a06b16-login engine=waf_block/403 ref=waf_pass/200
+    hardben-da381db0-login engine=waf_block/403 ref=waf_pass/200
+    hardben-db65e666-login engine=waf_block/403 ref=waf_pass/200
+    hardben-dde21246-login engine=waf_block/403 ref=waf_pass/200
+    hardben-e5aea8de-login engine=waf_block/403 ref=waf_pass/200
+    hardben-e6e62496-login engine=waf_block/403 ref=waf_pass/200
+    hardben-e8a60a97-login engine=waf_block/403 ref=waf_pass/200
+    hardben-efa26c15-login engine=waf_block/403 ref=waf_pass/200
+    hardben-f5f4a0bc-login engine=waf_block/403 ref=waf_pass/200
+    hardben-f676fa00-login engine=waf_block/403 ref=waf_pass/200
+    hardben-f6ca0404-login engine=waf_block/403 ref=waf_pass/200
+    hardben-f91f5dae-login engine=waf_block/403 ref=waf_pass/200
+
+attacks-ct-v0 pl1: engine n=320 ref n=320 common=320 only-engine=0 only-ref=0
+  blocked: engine 279 ref 304; worst: engine 279 ref 304
+  blocked-set diff (common ids): 25
+  worst-case-set diff (common ids): 25
+    actv0-json-command-injection-dc2932d5 engine=waf_pass/200 ref=waf_block/403
+    actv0-json-sqli-0933fb66 engine=waf_pass/200 ref=waf_block/403
+    actv0-json-sqli-6e47f23b engine=waf_pass/200 ref=waf_block/403
+    actv0-json-sqli-8c187a93 engine=waf_pass/200 ref=waf_block/403
+    actv0-json-sqli-a2035700 engine=waf_pass/200 ref=waf_block/403
+    actv0-json-sqli-bde4f6b2 engine=waf_pass/200 ref=waf_block/403
+    actv0-json-sqli-c6072953 engine=waf_pass/200 ref=waf_block/403
+    actv0-octet-stream-command-injection-029d9cca engine=waf_pass/200 ref=waf_block/403
+    actv0-octet-stream-command-injection-dc2932d5 engine=waf_pass/200 ref=waf_block/403
+    actv0-octet-stream-command-injection-ecb32a80 engine=waf_pass/200 ref=waf_block/403
+    actv0-octet-stream-command-injection-f48aa068 engine=waf_pass/200 ref=waf_block/403
+    actv0-octet-stream-sqli-6e47f23b engine=waf_pass/200 ref=waf_block/403
+    actv0-octet-stream-sqli-eb3ff328 engine=waf_pass/200 ref=waf_block/403
+    actv0-text-plain-command-injection-029d9cca engine=waf_pass/200 ref=waf_block/403
+    actv0-text-plain-command-injection-dc2932d5 engine=waf_pass/200 ref=waf_block/403
+    actv0-text-plain-command-injection-ecb32a80 engine=waf_pass/200 ref=waf_block/403
+    actv0-text-plain-command-injection-f48aa068 engine=waf_pass/200 ref=waf_block/403
+    actv0-text-plain-sqli-6e47f23b engine=waf_pass/200 ref=waf_block/403
+    actv0-text-plain-sqli-eb3ff328 engine=waf_pass/200 ref=waf_block/403
+    actv0-unknown-ct-command-injection-029d9cca engine=waf_pass/200 ref=waf_block/403
+    actv0-unknown-ct-command-injection-dc2932d5 engine=waf_pass/200 ref=waf_block/403
+    actv0-unknown-ct-command-injection-ecb32a80 engine=waf_pass/200 ref=waf_block/403
+    actv0-unknown-ct-command-injection-f48aa068 engine=waf_pass/200 ref=waf_block/403
+    actv0-unknown-ct-sqli-6e47f23b engine=waf_pass/200 ref=waf_block/403
+    actv0-unknown-ct-sqli-eb3ff328 engine=waf_pass/200 ref=waf_block/403
+
+attacks-ct-v0 pl2: engine n=320 ref n=320 common=320 only-engine=0 only-ref=0
+  blocked: engine 312 ref 316; worst: engine 312 ref 316
+  blocked-set diff (common ids): 4
+  worst-case-set diff (common ids): 4
+    actv0-json-command-injection-029d9cca engine=waf_pass/200 ref=waf_block/403
+    actv0-octet-stream-command-injection-f48aa068 engine=waf_pass/200 ref=waf_block/403
+    actv0-text-plain-command-injection-f48aa068 engine=waf_pass/200 ref=waf_block/403
+    actv0-unknown-ct-command-injection-f48aa068 engine=waf_pass/200 ref=waf_block/403

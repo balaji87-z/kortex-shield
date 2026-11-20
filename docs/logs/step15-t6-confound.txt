@@ -1,0 +1,14 @@
+NOTE: per-run engine-audit-full.log copies are cumulative within each PL
+(the run script does not truncate between datasets); entries are filtered
+to each dataset's own sample-id prefixes here. 949110 is the blocking-
+evaluation rule and is expected in every scored (blocked) transaction.
+smoke pl1: entries=7 top-rules 949110:100%, 942100:29%, 941390:29%, 941100:29%, 941160:29%, 930100:29%
+attacks-v0 pl1: entries=913 top-rules 949110:100%, 930120:35%, 941390:34%, 941100:25%, 941120:25%, 941160:21%
+benign-browse-v1 pl1: entries=124 top-rules 949110:100%, 932260:3%
+benign-hard-v0 pl1: entries=35 top-rules 949110:100%, 920540:34%, 942190:20%, 932260:20%, 932235:14%, 934110:11%
+attacks-ct-v0 pl1: entries=279 top-rules 949110:100%, 941390:32%, 930120:29%, 941120:25%, 942100:22%, 941100:22%
+smoke pl2: entries=7 top-rules 949110:100%, 932236:43%, 942100:29%, 941320:29%, 941390:29%, 941100:29%
+attacks-v0 pl2: entries=1044 top-rules 949110:100%, 942430:51%, 942200:51%, 942520:38%, 942370:35%, 930120:31%
+benign-browse-v1 pl2: entries=214 top-rules 949110:100%, 942340:56%, 942200:56%, 942430:56%, 942370:28%, 942440:14%
+benign-hard-v0 pl2: entries=129 top-rules 949110:100%, 942200:71%, 942430:67%, 932236:16%, 942131:11%, 920540:9%
+attacks-ct-v0 pl2: entries=312 top-rules 949110:100%, 942520:37%, 942370:29%, 941390:28%, 941320:26%, 930120:26%
