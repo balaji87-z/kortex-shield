@@ -1,0 +1,8 @@
+# Real capture, benign case (step-16 T4 probe, 2026-11-20):
+#   KORTEX_BLOCKING_PARANOIA=1 KORTEX_DETECTION_PARANOIA=1
+#   KORTEX_ENGINE_TIME_BUDGET_MS=2000, GET /?q=hello X-Kortex-Sample-Id: t4-benign
+#   -> 200 (passed to the backend)
+# The engine's audit log for this capture is 0 BYTES: SecAuditEngine
+# RelevantOnly with relevant status ^(?:4|5) never records a passed request,
+# and passes are not event-logged either. There is NO engine audit entry for
+# the benign case; crs_audit must parse this capture as zero entries.

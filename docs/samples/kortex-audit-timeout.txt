@@ -1,0 +1,11 @@
+# Real capture, timeout case (step-16 T4 probe, 2026-11-20):
+# KORTEX_ENGINE_TIME_BUDGET_MS=1, POST text/plain 'hello' -> 503
+# kortex-decision=timeout. The timeout decision short-circuits BEFORE coraza
+# finishes, so the audit log for this capture is 0 BYTES; the engine's own
+# decision records are the events rows below. The second row of each pair is
+# the step-16 T3 DoS-risk evidence: the abandoned ProcessRequestBody call
+# kept running after the 503 and logged when it finished.
+{"ts":"2026-11-20T09:57:55.420852544Z","sample_id":"t4-benign","decision":"timeout","status":503,"elapsed_ms":1.915,"reason":"time budget expired in body processing"}
+{"ts":"2026-11-20T09:57:55.423598856Z","sample_id":"t4-benign","decision":"abandoned-body-processing-finished","status":0,"elapsed_ms":4.651,"reason":"elapsed_ms=4"}
+{"ts":"2026-11-20T09:57:55.445062241Z","sample_id":"t4-timeout","decision":"timeout","status":503,"elapsed_ms":1.813,"reason":"time budget expired in body processing"}
+{"ts":"2026-11-20T09:57:55.445182822Z","sample_id":"t4-timeout","decision":"abandoned-body-processing-finished","status":0,"elapsed_ms":1.932,"reason":"elapsed_ms=1"}

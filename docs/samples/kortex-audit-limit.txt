@@ -1,0 +1,6 @@
+# Real capture, limit case (step-16 T4 probe, 2026-11-20): POST with a
+# 200,000-byte text/plain body against the default 131,072-byte inspection
+# cap -> 413 kortex-decision=limit. The limit decision short-circuits BEFORE
+# coraza, so the audit log for this capture is 0 BYTES; the engine's own
+# decision record is the events row below (the only artifact that exists).
+{"ts":"2026-11-20T09:57:47.472874682Z","sample_id":"t4-limit","decision":"limit","status":413,"elapsed_ms":1.281,"reason":"body-over-inspected-limit"}
