@@ -30,3 +30,20 @@ Status values: `not started`, `in progress`, `passing`, `failing`.
 
 Gartner evaluation criteria, ICSA Labs criteria, the original SecureIQLab report
 (we saw only vendor and distributor summaries that disagree with each other).
+
+## Step-15 engine acceptance tests (rule 37)
+
+| id | behaviour | status |
+|----|-----------|--------|
+| E1 | conflicting or duplicate Content-Length rejected (400, kortex-decision=framing, not proxied) | failing |
+| E2 | Transfer-Encoding with Content-Length rejected (400, framing) | failing |
+| E3 | raw NUL in path or query rejected (400, framing) | failing |
+| E4 | body over inspected limit rejected 413 (kortex-decision=limit, not passed to engine, event logged) | failing |
+| E5 | body exactly at the limit inspected (reaches engine and stub) | failing |
+| E6 | time budget expiry returns 503 (kortex-decision=timeout, event logged with sample id) | failing |
+| E7 | known SQLi in query blocked at PL1 (403, kortex-decision=block) | failing |
+| E8 | benign request passed to the stub backend (200 stub-ok) | failing |
+| E9 | /__kortex/config unreachable from non-loopback, JSON config on loopback | failing |
+
+Status recorded at commit time of the tests (go test ./... build failure:
+undefined: buildHandler, undefined: loadConfig).

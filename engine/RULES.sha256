@@ -1,0 +1,6 @@
+# Rule file set copied from ghcr.io/coreruleset/coraza-crs:4.25.2-nginx-lts
+# image digest sha256:bfbfe70b4445c1ef1dc389c2de12cfdb194c9616746c33dc8a7131461c28f4a6
+# (docker cp from /opt/coraza/owasp-crs, step-15 T5; rules NOT edited).
+# Set hash = sha256 of sorted (relative path, per-file sha256) pairs,
+# concatenated as (path || filehash) UTF-8, over engine/crs/owasp-crs/.
+7c55eb4938e6282d11e96ce431babefd6a076461a462dea9e4a9f3a1f16333d7
