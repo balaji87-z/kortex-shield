@@ -1,0 +1,15 @@
+== sample actv0-text-plain-sqli-0933fb66 (engine audit entry, blocked, from out/s16-t2-engine-attacks-ct-v0-pl1)
+  content-type: ['text/plain']
+  audit request.body: '"-"'
+  rule 942100: data=-
+  rule 949110: data=
+== sample actv0-octet-stream-sqli-0933fb66 (engine audit entry, blocked, from out/s16-t2-engine-attacks-ct-v0-pl1)
+  content-type: ['application/octet-stream']
+  audit request.body: '"-"'
+  rule 942100: data=-
+  rule 949110: data=
+== sample actv0-unknown-ct-sqli-0933fb66 (engine audit entry, blocked, from out/s16-t2-engine-attacks-ct-v0-pl1)
+  content-type: ['application/x-kortex-probe-unknown']
+  audit request.body: '"-"'
+  rule 942100: data=-
+  rule 949110: data=

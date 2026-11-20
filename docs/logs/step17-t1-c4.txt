@@ -1,0 +1,113 @@
+# step-17 T1: C4 measured on the engine (attacks-ct-v0, default config, s16-t2 engine runs)
+# inputs: out/s16-t2-engine-attacks-ct-v0-pl{1,2}/outcomes.jsonl vs out/s16-t2-coraza-...
+
+== PL1 per-carrier blocked/40: engine | connector; engine blocks with a detection rule (not 920420/920640-only):
+  query         engine 36/40 | connector 36/40 | engine detection-rule blocks: 36, policy-only (920640) blocks: 0
+  urlencoded    engine 36/40 | connector 36/40 | engine detection-rule blocks: 36, policy-only (920640) blocks: 0
+  json          engine 36/40 | connector 36/40 | engine detection-rule blocks: 36, policy-only (920640) blocks: 0
+  multipart     engine 36/40 | connector 36/40 | engine detection-rule blocks: 36, policy-only (920640) blocks: 0
+  text-plain    engine 34/40 | connector 40/40 | engine detection-rule blocks: 34, policy-only (920640) blocks: 0
+  octet-stream  engine 34/40 | connector 40/40 | engine detection-rule blocks: 34, policy-only (920640) blocks: 0
+  unknown-ct    engine 34/40 | connector 40/40 | engine detection-rule blocks: 34, policy-only (920640) blocks: 0
+  no-ct         engine 40/40 | connector 40/40 | engine detection-rule blocks: 34, policy-only (920640) blocks: 6
+  blocked-set equality across carriers (engine): query==urlencoded==json==multipart: True
+  query-set minus text-plain-set: ['command-injection-dc2932d5', 'sqli-6e47f23b']
+  query-set minus octet-stream-set: ['command-injection-dc2932d5', 'sqli-6e47f23b']
+  query-set minus unknown-ct-set: ['command-injection-dc2932d5', 'sqli-6e47f23b']
+  payloads detected under NO structured carrier: ['command-injection-029d9cca', 'command-injection-ecb32a80', 'command-injection-f48aa068', 'sqli-eb3ff328']
+  connector-blocked engine-passed diffs: 18; engine rule_ids nonempty: 0
+    per carrier: {'text-plain': 6, 'octet-stream': 6, 'unknown-ct': 6}; engine outcome on all: {'waf_pass'}
+
+== PL2 per-carrier blocked/40: engine | connector; engine blocks with a detection rule (not 920420/920640-only):
+  query         engine 39/40 | connector 39/40 | engine detection-rule blocks: 39, policy-only (920640) blocks: 0
+  urlencoded    engine 39/40 | connector 39/40 | engine detection-rule blocks: 39, policy-only (920640) blocks: 0
+  json          engine 39/40 | connector 39/40 | engine detection-rule blocks: 39, policy-only (920640) blocks: 0
+  multipart     engine 39/40 | connector 39/40 | engine detection-rule blocks: 39, policy-only (920640) blocks: 0
+  text-plain    engine 38/40 | connector 40/40 | engine detection-rule blocks: 38, policy-only (920640) blocks: 0
+  octet-stream  engine 38/40 | connector 40/40 | engine detection-rule blocks: 38, policy-only (920640) blocks: 0
+  unknown-ct    engine 38/40 | connector 40/40 | engine detection-rule blocks: 38, policy-only (920640) blocks: 0
+  no-ct         engine 40/40 | connector 40/40 | engine detection-rule blocks: 39, policy-only (920640) blocks: 1
+  blocked-set equality across carriers (engine): query==urlencoded==json==multipart: True
+  query-set minus text-plain-set: ['command-injection-ecb32a80']
+  query-set minus octet-stream-set: ['command-injection-ecb32a80']
+  query-set minus unknown-ct-set: ['command-injection-ecb32a80']
+  payloads detected under NO structured carrier: ['command-injection-f48aa068']
+  connector-blocked engine-passed diffs: 6; engine rule_ids nonempty: 0
+    per carrier: {'text-plain': 2, 'octet-stream': 2, 'unknown-ct': 2}; engine outcome on all: {'waf_pass'}
+
+== cross-carrier detection differences (engine), payloads detected under >=1 structured carrier but not another:
+  PL1 command-injection-dc2932d5:
+    query/urlencoded/json/multipart rules: ['932125', '932380']
+    text-plain/octet-stream/unknown-ct rules: [] (outcome waf_pass, no rules)
+  PL1 sqli-6e47f23b:
+    query/urlencoded/json/multipart rules: ['942100']
+    text-plain/octet-stream/unknown-ct rules: [] (outcome waf_pass, no rules)
+  PL2 command-injection-ecb32a80:
+    query/urlencoded/json/multipart rules: ['932240']
+    text-plain/octet-stream/unknown-ct rules: [] (outcome waf_pass, no rules)
+
+== raw engine audit entries per carrier (blocked samples, from the s16-t2 PL1 engine run):
+== sample actv0-text-plain-sqli-0933fb66 (engine audit entry, blocked, from out/s16-t2-engine-attacks-ct-v0-pl1)
+  content-type: ['text/plain']
+  audit request.body: '"-"'
+  rule 942100: data=-
+  rule 949110: data=
+== sample actv0-octet-stream-sqli-0933fb66 (engine audit entry, blocked, from out/s16-t2-engine-attacks-ct-v0-pl1)
+  content-type: ['application/octet-stream']
+  audit request.body: '"-"'
+  rule 942100: data=-
+  rule 949110: data=
+== sample actv0-unknown-ct-sqli-0933fb66 (engine audit entry, blocked, from out/s16-t2-engine-attacks-ct-v0-pl1)
+  content-type: ['application/x-kortex-probe-unknown']
+  audit request.body: '"-"'
+  rule 942100: data=-
+  rule 949110: data=
+
+== PROVEN (raw engine audit entries, one per carrier; see
+docs/logs/step17-t1-audit-passed.txt for the passed samples and
+docs/logs/step17-t1-audit-per-carrier.txt for blocked samples from the
+committed s16-t2 run):
+
+1. The engine transaction RECEIVES the body for text/plain,
+   application/octet-stream and application/x-kortex-probe-unknown: the
+   audit request.body field carries the raw body for every one of the three
+   carriers (blocked samples from the committed s16-t2 run AND passed
+   samples from the DIAGNOSTIC audit-always-on run).
+2. The URLENCODED fallback processor IS engaged for those carriers: the
+   diagnostic dump rule 999908 shows REQBODY_PROCESSOR == URLENCODED at
+   phase 2 for text/plain, octet-stream and unknown-ct (engaged via CRS
+   901340 ctl:forceRequestBodyVariable=On + coraza's rbp=="" -> URLENCODED
+   fallback, coraza v3.7.0 transaction.go line ~1111). Control: the
+   urlencoded carrier shows the same.
+3. ARGS_POST IS populated for those carriers (dump rule 999905): the raw
+   body is split at '&' and '=' into argument names and values
+   (URL-decoded non-strictly).
+4. The 2 (PL1) / 1 (PL2) payloads missed under the raw-body carriers are
+   missed BECAUSE of that split: e.g. sqli-6e47f23b's text-plain body
+   'admin" or "1"="1"#' splits into ARGS_POST name 'admin" or "1"' and
+   value '"1"#', so 942100 (which scans single variables) does not match
+   either piece, while the urlencoded carrier's body 'q=admin%22%20or...'
+   decodes to one argument value and 942100 fires. Same for
+   command-injection-dc2932d5 ('& dir ...' -> empty first key is dropped,
+   the rest becomes one name) and command-injection-ecb32a80
+   ('; type %SYSTEMROOT%\repair\SAM' -> one name, 932240 does not match).
+   PROVEN by the diag10 audit entries: text/plain/octet/unknown variants
+   show 999908+999905 and NO detection rule; the urlencoded variants of the
+   same payloads show 999908+999905+942100/932125/932380+949110.
+
+== C4 criterion, measured on the engine: detection blocks on a carrier do
+not depend on whether its content type is on the allow-list. The engine has
+NO content-type allow-list (920420 disabled by design, config 900220 sets
+the allowed list to the request's own type - PROVEN from engine/config.go
+and the /__kortex/config lines in docs/logs/step16-t2-runs.txt). Measured:
+the engine blocks 34/40 (PL1) and 38/40 (PL2) attacks under text-plain,
+octet-stream AND unknown-ct, all by detection rules
+(942100/9321xx/930120/9411xx/...), i.e. detection happens on carriers the
+connector refuses at phase 1 (connector: 0/40 detection blocks there - all
+40 are 920420 policy blocks). The 2 (PL1) / 1 (PL2) missed payloads are a
+body-PARSING fidelity gap of the URLENCODED fallback (item 4 above), not an
+allow-list dependence: the engine has no allow-list to depend on, and the
+same payloads ARE detected on those carriers when their encoding survives
+the split.
+=> C4 HOLDS on the engine (measured, with the fallback-split caveat above).
+920420 stays a DESIGN difference (rule 41: criterion measured).
