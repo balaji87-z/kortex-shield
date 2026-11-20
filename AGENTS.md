@@ -112,3 +112,9 @@
     the audit log was complete: entries recorded for a seeded control set of
     requests that are known to match a rule (send 20 before and 20 after the
     main run). Report the counts.
+37. Engine code lives under engine/. Every behaviour in T5 has its test written
+    and committed BEFORE the implementation, with the test id listed in
+    docs/acceptance.md (status: failing -> passing).
+38. No performance or parity claim without raw timings or per-sample diffs in the
+    report body. Timing tests record load average at start and end in run.json
+    (additive; add this to the runner now).

@@ -177,6 +177,11 @@ def test_run_json_contents(tmp_path, fake_server):
     assert data["block_rule"] == {"block_status": 403, "block_marker": "<center>nginx</center>"}
     assert data["manifest_sha256"] == "abc123"
     assert data["labels"] == {"engine_mode": "On", "paranoia": "1"}
+    # Rule 38 (step-15): load average at start and end, 1/5/15-minute tuples.
+    assert isinstance(data["load_avg_start"], list) and len(data["load_avg_start"]) == 3
+    assert all(isinstance(x, (int, float)) and x >= 0 for x in data["load_avg_start"])
+    assert isinstance(data["load_avg_end"], list) and len(data["load_avg_end"]) == 3
+    assert all(isinstance(x, (int, float)) and x >= 0 for x in data["load_avg_end"])
     assert summary == data
 
 
