@@ -31,7 +31,11 @@ services:
       - "${TARGET_PORT:-13000}:3000"      # direct access, for the "no WAF" control run
 
   baseline-crs:
-    image: owasp/modsecurity-crs:4.25.2-nginx-lts  # https://hub.docker.com/r/owasp/modsecurity-crs/tags (tag 4.25.2-nginx-lts)
+    # Step-12: pinned by digest. The floating tag moved upstream on 2026-11-19
+    # (new build 98d448750b86..., pulled by a compose run on 2026-11-20); this
+    # digest is the image every previous ModSecurity run used (step-01 record,
+    # re-verified 2026-11-20 by docker pull - still available).
+    image: owasp/modsecurity-crs:4.25.2-nginx-lts@sha256:6296ce685cb88ba4012998b935b25dabbd9e0ff326088c1149447102544de661
     depends_on:
       - target
     environment:
@@ -74,7 +78,14 @@ services:
   # 4.25.2 (verified from inside both containers, rule 28).
   # Started only with --profile coraza; never runs WCP traffic (task T8).
   coraza-crs:
-    image: ghcr.io/coreruleset/coraza-crs:4.25.2-nginx-lts@sha256:ffefe71585b42daa5ead5653206b086b37090f498e4cde9ed6e4c52f05cc93e7
+    # Step-12: re-pinned. The step-10/11 digest ffefe71585b42... was DELETED
+    # from ghcr.io (docker pull 2026-11-20: "not found"), so the old image is
+    # unobtainable; the tag now resolves to this newer build (created
+    # 2026-11-13). Engine inside: coraza/v3@v3.7.0 (Go build info in
+    # /usr/local/lib/libcoraza.so); CRS still 4.25.2 (verified in-container).
+    # DETECTION_PARANOIA is now honoured by this image's activate-rules.sh
+    # (the ffefe715 image ignored it and fell back to 901125).
+    image: ghcr.io/coreruleset/coraza-crs:4.25.2-nginx-lts@sha256:bfbfe70b4445c1ef1dc389c2de12cfdb194c9616746c33dc8a7131461c28f4a6
     profiles:
       - coraza
     depends_on:
@@ -83,6 +94,7 @@ services:
       BACKEND: "${CORAZA_BACKEND:-http://target:3000}"
       PARANOIA: "${PARANOIA:-1}"
       BLOCKING_PARANOIA: "${BLOCKING_PARANOIA:-${PARANOIA:-1}}"
+      DETECTION_PARANOIA: "${DETECTION_PARANOIA:-}"
       CORAZA_RULE_ENGINE: "${CORAZA_RULE_ENGINE:-On}"
       CORAZA_AUDIT_ENGINE: "${CORAZA_AUDIT_ENGINE:-RelevantOnly}"
       CORAZA_AUDIT_LOG: "${CORAZA_AUDIT_LOG:-/var/log/coraza/audit/audit.log}"

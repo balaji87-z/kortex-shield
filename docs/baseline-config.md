@@ -380,3 +380,46 @@ https://github.com/owasp-modsecurity/ModSecurity/wiki/Reference-Manual-(v2.x)#se
 not take effect (verified by the rule-29 print and a >131072-byte probe),
 the Coraza runs keep 524288, the 11 samples stay listed, and no
 aligned-config claim is made.
+
+## Step-12: image digests re-pinned (documented BEFORE any step-12 run, 2026-11-20)
+
+Two upstream drift events discovered while starting the step-12 re-runs:
+
+1. **ModSecurity image (`baseline-crs`)**: compose used the floating tag
+   `owasp/modsecurity-crs:4.25.2-nginx-lts`. A compose pull on 2026-11-20
+   resolved it to a NEW build `sha256:98d448750b86...` (image created
+   2026-11-19 14:56:53Z - after all step-11 runs). The step-01/step-11 digest
+   `sha256:6296ce685cb8...` is STILL available on Docker Hub and was re-pulled
+   by digest. Compose now pins `image@sha256:6296ce68...` so every ModSecurity
+   run stays on the image all previous runs used.
+2. **Coraza image (`coraza-crs`)**: the step-10/11 pinned digest
+   `sha256:ffefe71585b42...` has been DELETED from ghcr.io
+   (`docker pull ...@sha256:ffefe715...` -> "not found", 2026-11-20); the old
+   image is unobtainable. The tag now resolves to a newer build,
+   `sha256:bfbfe70b4445...` (image created 2026-11-13). Compose is re-pinned to
+   that digest. Consequences, all verified from inside the new image:
+   - CRS is still 4.25.2 (rule files carry `ver:'OWASP_CRS/4.25.2'`; proven
+     per run via tx.crs_setup_version=4252).
+   - Engine: Go build info in /usr/local/lib/libcoraza.so contains
+     `github.com/corazawaf/coraza/v3@v3.7.0` (the old image's engine version
+     was never proven in-container; step-10 quoted v1.8.0 from the build def).
+   - Image layout changed: rules now at /opt/coraza/owasp-crs/rules/;
+     coraza.conf is rendered at runtime from /templates/coraza.conf to
+     /opt/coraza/config/coraza.conf (same runtime path as before, so the
+     SecRequestBodyNoFilesLimit sed pin in tools/run_coraza_parity.sh still
+     applies to the rendered file).
+   - The new image HONOURS `DETECTION_PARANOIA` (activate-rules.sh renders
+     rule 900001). The old image ignored it and fell back to rule 901125
+     (detection = blocking). Step-12 Coraza runs therefore pass
+     DETECTION_PARANOIA explicitly and prove tx.detection_paranoia_level
+     per run. The step-10/11 Coraza runs relied on the 901125 fallback;
+     `docs/logs/coraza-rule29-pl2.txt` line "tx.detection_paranoia_level=1"
+     is a grep of the COMMENTED crs-setup example, not the effective value
+     (901125 set it to blocking=2; cross-check: the step-11 coraza PL2 run's
+     audit contains PL2-tagged rules, which requires detection >= 2).
+
+Comparability caveat (recorded up front): step-12 Coraza-side runs use a
+different image build (and engine build) than the step-10/11 Coraza runs.
+CRS version equality with the ModSecurity side is proven per run from inside
+both containers (rule 28); the engine-version difference is a recorded
+deviation, and coraza-vs-step-11 coraza comparisons are labelled accordingly.
