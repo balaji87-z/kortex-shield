@@ -1,0 +1,12 @@
+{"id": "sqli-01", "status": 403, "elapsed_ms": 5.7, "blocked": true, "body_marker": true, "error": null, "error_class": null}
+{"id": "sqli-02", "status": 403, "elapsed_ms": 3.0, "blocked": true, "body_marker": true, "error": null, "error_class": null}
+{"id": "xss-01", "status": 403, "elapsed_ms": 3.5, "blocked": true, "body_marker": true, "error": null, "error_class": null}
+{"id": "xss-02", "status": 403, "elapsed_ms": 19.3, "blocked": true, "body_marker": true, "error": null, "error_class": null}
+{"id": "trav-01", "status": 403, "elapsed_ms": 3.6, "blocked": true, "body_marker": true, "error": null, "error_class": null}
+{"id": "trav-02", "status": 403, "elapsed_ms": 4.5, "blocked": true, "body_marker": true, "error": null, "error_class": null}
+{"id": "home-01", "status": 200, "elapsed_ms": 6.6, "blocked": false, "body_marker": false, "error": null, "error_class": null}
+{"id": "search-01", "status": 404, "elapsed_ms": 4.9, "blocked": false, "body_marker": false, "error": null, "error_class": null}
+{"id": "whoami-01", "status": 403, "elapsed_ms": 2.1, "blocked": true, "body_marker": true, "error": null, "error_class": null}
+{"id": "js-01", "status": 404, "elapsed_ms": 4.2, "blocked": false, "body_marker": false, "error": null, "error_class": null}
+{"id": "img-01", "status": 404, "elapsed_ms": 4.8, "blocked": false, "body_marker": false, "error": null, "error_class": null}
+{"id": "login-01", "status": 501, "elapsed_ms": 10.5, "blocked": false, "body_marker": false, "error": null, "error_class": null}

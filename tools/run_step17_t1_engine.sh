@@ -73,3 +73,5 @@ done
 
 echo "== load average at end: $(uptime)" >> $RUN
 echo ALL-DONE >> $RUN
+# Rule 42 (step-18): durable evidence copy before the next task starts.
+tools/preserve_run.sh out/s17-t1-engine-attacks-ct-v0-pl1 out/s17-t1-engine-attacks-ct-v0-pl2

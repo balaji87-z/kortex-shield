@@ -64,3 +64,5 @@ kill $EPID 2>/dev/null || true
 wait $EPID 2>/dev/null || true
 echo "== load average at end: $(uptime)" >> $RUN
 echo ALL-DONE >> $RUN
+# Rule 42 (step-18): durable evidence copy before the next task starts.
+tools/preserve_run.sh out/s17-t2-engine-*
