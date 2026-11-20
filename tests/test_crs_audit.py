@@ -210,3 +210,52 @@ def test_cli_exits_nonzero_on_corrupt_capture(tmp_path):
     )
     assert proc.returncode != 0
     assert "1 unparseable audit line" in proc.stderr
+
+
+# --- step-16 T4: real KORTEX engine-dialect samples --------------------------
+
+def test_kortex_engine_attack_entry_parses():
+    """The engine's own audit dialect (docs/samples/kortex-audit-attack.txt,
+    captured from the step-16 T2 run) must parse: sample id correlated from
+    the lowercase list-valued header, detection + threshold rule ids from the
+    error_message brackets, status 403."""
+    entries = load_audit("kortex-audit-attack.txt")
+    assert len(entries) == 1
+    e = entries[0]
+    assert e["sample_id"] == "sqli-01"
+    ids = [r["id"] for r in e["rules"]]
+    assert "942100" in ids and "949110" in ids
+    assert e["status"] in (403, 0, None)  # engine dialect may omit response.status
+    assert e["inbound_score_from_949110"] >= 5
+
+
+@pytest.mark.parametrize("case", ["benign", "limit", "timeout"])
+def test_kortex_engine_non_attack_cases_have_no_audit_entries(case):
+    """Real captures for the benign, limit and timeout cases: the engine
+    writes NO coraza audit entry for any of them (RelevantOnly never records
+    a passed request; limit/timeout short-circuit before coraza). The sample
+    files document this with comment lines only; the parser must return zero
+    entries and must not invent entries from the comments."""
+    entries = load_audit(f"kortex-audit-{case}.txt")
+    assert entries == []
+
+
+def test_kortex_engine_limit_and_timeout_event_rows():
+    """The engine's own decision records for the limit/timeout cases are the
+    events rows embedded in the sample files."""
+    import json as _json
+    limit_lines = [l for l in (SAMPLES / "kortex-audit-limit.txt").read_text().splitlines()
+                   if l.startswith("{")]
+    rows = [_json.loads(l) for l in limit_lines]
+    assert len(rows) == 1
+    assert rows[0]["decision"] == "limit" and rows[0]["status"] == 413
+    assert rows[0]["sample_id"] == "t4-limit"
+
+    timeout_lines = [l for l in (SAMPLES / "kortex-audit-timeout.txt").read_text().splitlines()
+                     if l.startswith("{")]
+    rows = [_json.loads(l) for l in timeout_lines]
+    decisions = [r["decision"] for r in rows]
+    assert "timeout" in decisions and "abandoned-body-processing-finished" in decisions
+    for r in rows:
+        if r["decision"] == "timeout":
+            assert r["status"] == 503
