@@ -47,8 +47,33 @@ SEVERITY_WEIGHTS = {
 }
 
 
+def _sample_id(headers: dict) -> str | None:
+    """Sample id from the request headers of an audit transaction.
+
+    Container audit logs keep the exact-cased string form
+    ("X-Kortex-Sample-Id": "sqli-02"); the engine skeleton's Coraza audit
+    lowercases header names and stores list values
+    ("x-kortex-sample-id": ["sqli-02"]). Both must attribute.
+    """
+    value = headers.get(SAMPLE_ID_HEADER)
+    if value is None:
+        value = headers.get(SAMPLE_ID_HEADER.lower())
+    if isinstance(value, list):
+        value = value[0] if value else None
+    return value
+
+
 class AuditError(ValueError):
     pass
+
+
+# Engine-skeleton (Coraza v3 library) audit dialect: messages carry an empty
+# "message" field and the rule id/msg/severity as bracketed fields inside
+# "error_message". Container connectors put the same fields in structured
+# "message"/"details". Both dialects must attribute (see tests).
+_ENGINE_ID_RE = re.compile(r'\[id "(\d+)"\]')
+_ENGINE_MSG_RE = re.compile(r'\[msg "([^"]*)"\]')
+_ENGINE_SEV_RE = re.compile(r'\[severity "([^"]*)"\]')
 
 
 def parse_line(line: str) -> dict | None:
@@ -57,31 +82,52 @@ def parse_line(line: str) -> dict | None:
     if not stripped.startswith('{"transaction":'):
         return None
     try:
-        txn = json.loads(stripped)["transaction"]
+        doc = json.loads(stripped)
+        txn = doc["transaction"]
     except (json.JSONDecodeError, KeyError) as exc:
         raise AuditError(f"malformed audit line: {exc}") from exc
 
     headers = txn.get("request", {}).get("headers", {}) or {}
-    messages = txn.get("messages", []) or []
+    # container dialect: messages inside transaction; engine dialect: top level
+    messages = txn.get("messages")
+    if messages is None:
+        messages = doc.get("messages") or []
     rules = []
     score_from_949110 = None
     score_from_severities = 0
     for m in messages:
         details = m.get("details", {}) or {}
+        rule_id = details.get("ruleId")
+        message_text = m.get("message")
+        severity = details.get("severity")
+        if rule_id is None and m.get("error_message"):
+            em = m["error_message"]
+            id_match = _ENGINE_ID_RE.search(em)
+            if id_match:
+                rule_id = id_match.group(1)
+            msg_match = _ENGINE_MSG_RE.search(em)
+            if msg_match:
+                message_text = msg_match.group(1)
+            sev_match = _ENGINE_SEV_RE.search(em)
+            if sev_match:
+                severity = sev_match.group(1)
+        if not message_text and m.get("error_message"):
+            # score fallback: 949110's total score is in the error text
+            message_text = m["error_message"]
         rule = {
-            "id": details.get("ruleId"),
-            "message": m.get("message"),
-            "severity": details.get("severity"),
+            "id": rule_id,
+            "message": message_text,
+            "severity": severity,
         }
         rules.append(rule)
-        score_from_severities += SEVERITY_WEIGHTS.get(str(details.get("severity", "")).lower(), 0)
-        if details.get("ruleId") == "949110":
-            match = _SCORE_RE.search(m.get("message", ""))
+        score_from_severities += SEVERITY_WEIGHTS.get(str(severity).lower(), 0)
+        if rule_id == "949110":
+            match = _SCORE_RE.search(message_text or "")
             if match:
                 score_from_949110 = int(match.group(1))
 
     return {
-        "sample_id": headers.get(SAMPLE_ID_HEADER),
+        "sample_id": _sample_id(headers),
         "time_stamp": txn.get("time_stamp"),
         "method": txn.get("request", {}).get("method"),
         "uri": txn.get("request", {}).get("uri"),

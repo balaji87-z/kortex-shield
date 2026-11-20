@@ -1,0 +1,53 @@
+== engine effective config (PL1):
+kortex-engine: effective config: backend_url=http://127.0.0.1:13000 rule_engine=On blocking_paranoia=1 detection_paranoia=1 max_body_bytes=13107200 max_inspected_bytes=131072 engine_time_budget_ms=2000 rules_dir=/home/Kavinharish/kortexshield/engine/crs listen_addr=127.0.0.1:8090 events_file=/tmp/kx-events-1.jsonl audit_log=/tmp/kx-audit-1.log
+== /__kortex/config:
+{"backend_url":"http://127.0.0.1:13000","rule_engine":"On","blocking_paranoia":1,"detection_paranoia":1,"max_body_bytes":13107200,"max_inspected_bytes":131072,"engine_time_budget_ms":2000,"rules_dir":"/home/Kavinharish/kortexshield/engine/crs","listen_addr":"127.0.0.1:8090","events_file":"/tmp/kx-events-1.jsonl","audit_log":"/tmp/kx-audit-1.log"}
+
+== run engine smoke pl1 2026-11-20T09:08:45Z
+events-before=0 audit-before=0
+0
+{"base_url": "http://localhost:8090", "started_utc": "2026-11-20T09:08:45+00:00", "ended_utc": "2026-11-20T09:08:47+00:00", "load_avg_start": [6.83, 8.0, 8.41], "load_avg_end": [6.83, 8.0, 8.41], "git_commit": null, "manifest_sha256": "944d78d3781ef0f70aa2dd4e924be874f95d4bc399928e460587f8604e691f2c", "default_user_agent": null, "labels": {}, "total_samples": 12, "responses_ok": 12, "blocked": 0, "error_count": 0, "block_rule": {"block_status": 403, "block_marker": "<center>nginx</center>"}}
+events-after=0 audit-after=7
+== run engine attacks-v0 pl1 2026-11-20T09:08:47Z
+events-before=0 audit-before=7
+{"base_url": "http://localhost:8090", "started_utc": "2026-11-20T09:08:47+00:00", "ended_utc": "2026-11-20T09:08:51+00:00", "load_avg_start": [6.83, 8.0, 8.41], "load_avg_end": [6.92, 8.0, 8.41], "git_commit": null, "manifest_sha256": "5b6a844d9521082428725b6de6b8921a6c0bdc8606e362b5046af633d4fa8540", "default_user_agent": null, "labels": {}, "total_samples": 1054, "responses_ok": 1054, "blocked": 0, "error_count": 0, "block_rule": {"block_status": 403, "block_marker": "<center>nginx</center>"}}
+events-after=0 audit-after=916
+== run engine benign-browse-v1 pl1 2026-11-20T09:08:51Z
+events-before=0 audit-before=916
+{"base_url": "http://localhost:8090", "started_utc": "2026-11-20T09:08:51+00:00", "ended_utc": "2026-11-20T09:08:59+00:00", "load_avg_start": [6.92, 8.0, 8.41], "load_avg_end": [7.79, 8.15, 8.45], "git_commit": null, "manifest_sha256": "950a683bf776ef637691514f1dab809fddd2de757bacdff3dc9cb1f30af3b085", "default_user_agent": null, "labels": {}, "total_samples": 774, "responses_ok": 774, "blocked": 0, "error_count": 0, "block_rule": {"block_status": 403, "block_marker": "<center>nginx</center>"}}
+events-after=0 audit-after=1040
+== run engine benign-hard-v0 pl1 2026-11-20T09:08:59Z
+events-before=0 audit-before=1040
+{"base_url": "http://localhost:8090", "started_utc": "2026-11-20T09:08:59+00:00", "ended_utc": "2026-11-20T09:09:02+00:00", "load_avg_start": [7.79, 8.15, 8.45], "load_avg_end": [10.69, 8.74, 8.64], "git_commit": null, "manifest_sha256": "65bdfc69022c5b026815acacd033d1e005fadc9c2e7000745614bd903a01d78b", "default_user_agent": null, "labels": {}, "total_samples": 180, "responses_ok": 180, "blocked": 0, "error_count": 0, "block_rule": {"block_status": 403, "block_marker": "<center>nginx</center>"}}
+events-after=0 audit-after=1075
+== run engine attacks-ct-v0 pl1 2026-11-20T09:09:02Z
+events-before=0 audit-before=1075
+{"base_url": "http://localhost:8090", "started_utc": "2026-11-20T09:09:02+00:00", "ended_utc": "2026-11-20T09:09:04+00:00", "load_avg_start": [10.69, 8.74, 8.64], "load_avg_end": [10.69, 8.74, 8.64], "git_commit": null, "manifest_sha256": "69d0447c5b33ca63e37c2993e8c7e87add2a16d56dd89201978883905f923251", "default_user_agent": null, "labels": {}, "total_samples": 320, "responses_ok": 320, "blocked": 0, "error_count": 0, "block_rule": {"block_status": 403, "block_marker": "<center>nginx</center>"}}
+events-after=0 audit-after=1354
+== engine effective config (PL2):
+kortex-engine: effective config: backend_url=http://127.0.0.1:13000 rule_engine=On blocking_paranoia=2 detection_paranoia=2 max_body_bytes=13107200 max_inspected_bytes=131072 engine_time_budget_ms=2000 rules_dir=/home/Kavinharish/kortexshield/engine/crs listen_addr=127.0.0.1:8090 events_file=/tmp/kx-events-2.jsonl audit_log=/tmp/kx-audit-2.log
+== /__kortex/config:
+{"backend_url":"http://127.0.0.1:13000","rule_engine":"On","blocking_paranoia":2,"detection_paranoia":2,"max_body_bytes":13107200,"max_inspected_bytes":131072,"engine_time_budget_ms":2000,"rules_dir":"/home/Kavinharish/kortexshield/engine/crs","listen_addr":"127.0.0.1:8090","events_file":"/tmp/kx-events-2.jsonl","audit_log":"/tmp/kx-audit-2.log"}
+
+== run engine smoke pl2 2026-11-20T09:09:05Z
+events-before=0 audit-before=0
+0
+{"base_url": "http://localhost:8090", "started_utc": "2026-11-20T09:09:05+00:00", "ended_utc": "2026-11-20T09:09:05+00:00", "load_avg_start": [10.69, 8.74, 8.64], "load_avg_end": [10.69, 8.74, 8.64], "git_commit": null, "manifest_sha256": "944d78d3781ef0f70aa2dd4e924be874f95d4bc399928e460587f8604e691f2c", "default_user_agent": null, "labels": {}, "total_samples": 12, "responses_ok": 12, "blocked": 0, "error_count": 0, "block_rule": {"block_status": 403, "block_marker": "<center>nginx</center>"}}
+events-after=0 audit-after=7
+== run engine attacks-v0 pl2 2026-11-20T09:09:05Z
+events-before=0 audit-before=7
+{"base_url": "http://localhost:8090", "started_utc": "2026-11-20T09:09:05+00:00", "ended_utc": "2026-11-20T09:09:09+00:00", "load_avg_start": [10.69, 8.74, 8.64], "load_avg_end": [10.47, 8.73, 8.64], "git_commit": null, "manifest_sha256": "5b6a844d9521082428725b6de6b8921a6c0bdc8606e362b5046af633d4fa8540", "default_user_agent": null, "labels": {}, "total_samples": 1054, "responses_ok": 1054, "blocked": 0, "error_count": 0, "block_rule": {"block_status": 403, "block_marker": "<center>nginx</center>"}}
+events-after=0 audit-after=1047
+== run engine benign-browse-v1 pl2 2026-11-20T09:09:09Z
+events-before=0 audit-before=1047
+{"base_url": "http://localhost:8090", "started_utc": "2026-11-20T09:09:09+00:00", "ended_utc": "2026-11-20T09:09:16+00:00", "load_avg_start": [10.47, 8.73, 8.64], "load_avg_end": [11.96, 9.07, 8.75], "git_commit": null, "manifest_sha256": "950a683bf776ef637691514f1dab809fddd2de757bacdff3dc9cb1f30af3b085", "default_user_agent": null, "labels": {}, "total_samples": 774, "responses_ok": 774, "blocked": 0, "error_count": 0, "block_rule": {"block_status": 403, "block_marker": "<center>nginx</center>"}}
+events-after=0 audit-after=1261
+== run engine benign-hard-v0 pl2 2026-11-20T09:09:16Z
+events-before=0 audit-before=1261
+{"base_url": "http://localhost:8090", "started_utc": "2026-11-20T09:09:16+00:00", "ended_utc": "2026-11-20T09:09:17+00:00", "load_avg_start": [11.96, 9.07, 8.75], "load_avg_end": [12.36, 9.2, 8.79], "git_commit": null, "manifest_sha256": "65bdfc69022c5b026815acacd033d1e005fadc9c2e7000745614bd903a01d78b", "default_user_agent": null, "labels": {}, "total_samples": 180, "responses_ok": 180, "blocked": 0, "error_count": 0, "block_rule": {"block_status": 403, "block_marker": "<center>nginx</center>"}}
+events-after=0 audit-after=1390
+== run engine attacks-ct-v0 pl2 2026-11-20T09:09:17Z
+events-before=0 audit-before=1390
+{"base_url": "http://localhost:8090", "started_utc": "2026-11-20T09:09:17+00:00", "ended_utc": "2026-11-20T09:09:18+00:00", "load_avg_start": [12.36, 9.2, 8.79], "load_avg_end": [12.36, 9.2, 8.79], "git_commit": null, "manifest_sha256": "69d0447c5b33ca63e37c2993e8c7e87add2a16d56dd89201978883905f923251", "default_user_agent": null, "labels": {}, "total_samples": 320, "responses_ok": 320, "blocked": 0, "error_count": 0, "block_rule": {"block_status": 403, "block_marker": "<center>nginx</center>"}}
+events-after=0 audit-after=1702
+ALL-DONE

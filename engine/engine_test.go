@@ -16,12 +16,14 @@ import (
 	"encoding/json"
 	"fmt"
 	"io"
+	"net"
 	"net/http"
 	"net/http/httptest"
 	"os"
 	"path/filepath"
 	"strings"
 	"testing"
+	"time"
 )
 
 // stub backend: records that the request REACHED the backend and answers 200.
@@ -59,7 +61,17 @@ func newEnv(t *testing.T, overrides map[string]string) (*httptest.Server, string
 	for k, v := range env {
 		t.Setenv(k, v)
 	}
-	srv := httptest.NewServer(buildHandler(loadConfig()))
+	// engine server behind the framing gate (the gate runs on the raw
+	// connection before Go's HTTP parser, as in main())
+	ln, err := net.Listen("tcp", "127.0.0.1:0")
+	if err != nil {
+		t.Fatalf("listen: %v", err)
+	}
+	srv := &httptest.Server{
+		Listener: &gatedListener{Listener: ln, gateTimeout: 30 * time.Second},
+		Config:   &http.Server{Handler: buildHandler(loadConfig())},
+	}
+	srv.Start()
 	t.Cleanup(srv.Close)
 	return srv, events
 }
@@ -245,7 +257,8 @@ func TestE8BenignRequestPassedToStub(t *testing.T) {
 	srv, _ := newEnv(t, nil)
 	resp := get(t, srv, "/?q=hello", map[string]string{"X-Kortex-Sample-Id": "e8-benign"}, "")
 	if resp.StatusCode != 200 {
-		t.Fatalf("E8: want 200 from stub, got %d", resp.StatusCode)
+		b, _ := io.ReadAll(resp.Body)
+		t.Fatalf("E8: want 200 from stub, got %d body=%q", resp.StatusCode, string(b))
 	}
 	b, _ := io.ReadAll(resp.Body)
 	if string(b) != "stub-ok" {

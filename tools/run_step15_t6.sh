@@ -1,6 +1,10 @@
 #!/bin/bash
 # Step-15 T6 (DIAGNOSTIC): evaluate the engine skeleton on smoke, attacks-v0,
 # benign-browse-v1, benign-hard-v0, attacks-ct-v0 at PL1/PL2.
+# Block classification uses the engine's own marker (docs/block-discriminator.md):
+# a first pass with the default nginx marker scored every engine block as
+# blocked=false (status 403 was right, body marker was not) — see
+# docs/logs/step15-t6-runs-firstpass-nginxmarker.txt.
 # Usage: bash tools/run_step15_t6.sh
 set -u
 cd /home/Kavinharish/kortexshield
@@ -45,7 +49,8 @@ for PL in 1 2; do
     echo "events-before=$(wc -l < /tmp/kx-events-$PL.jsonl 2>/dev/null || echo 0) audit-before=$(grep -c '"transaction"' /tmp/kx-audit-$PL.log 2>/dev/null || echo 0)" >> $RUN
     .venv/bin/python -m kortex_eval.runner --manifest data/$DS/manifest.jsonl \
       --base-url http://localhost:8090 --out out/s15-t6-engine-$DS-pl$PL \
-      --timeout 30 --workers 1 >> $RUN 2>&1
+      --timeout 30 --workers 1 --block-status 403 \
+      --block-marker 'kortex-decision=block' >> $RUN 2>&1
     echo "events-after=$(wc -l < /tmp/kx-events-$PL.jsonl 2>/dev/null || echo 0) audit-after=$(grep -c '"transaction"' /tmp/kx-audit-$PL.log 2>/dev/null || echo 0)" >> $RUN
     cp /tmp/kx-audit-$PL.log out/s15-t6-engine-$DS-pl$PL/engine-audit-full.log
     cp /tmp/kx-events-$PL.jsonl out/s15-t6-engine-$DS-pl$PL/kortex-events-full.jsonl 2>/dev/null || true

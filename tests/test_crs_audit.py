@@ -105,6 +105,78 @@ def test_sample_id_header_is_correlated():
     assert entry["engine"] == "Enabled"
 
 
+def test_sample_id_header_lowercase_list_form_is_correlated():
+    """The engine skeleton's Coraza audit lowercases header names and stores
+    list values (x-kortex-sample-id: ["sqli-02"]); the attribution must
+    still work. Baseline logs keep the exact-cased string form."""
+    txn = {
+        "transaction": {
+            "time_stamp": "Wed Nov 18 09:00:00 2026",
+            "request": {
+                "method": "GET",
+                "uri": "/x",
+                "headers": {"host": ["h"], "x-kortex-sample-id": ["sqli-02"]},
+            },
+            "response": {"http_code": 403},
+            "producer": {"secrules_engine": "On"},
+            "messages": [
+                {
+                    "message": "Inbound Anomaly Score Exceeded (Total Score: 15)",
+                    "details": {"ruleId": "949110", "severity": "0"},
+                }
+            ],
+        }
+    }
+    entry = crs_audit.parse_line(json.dumps(txn))
+    assert entry["sample_id"] == "sqli-02"
+
+
+def test_engine_dialect_error_message_rules_are_correlated():
+    """The engine skeleton's Coraza audit puts rule id/msg/severity in
+    error_message brackets with an empty message field; 949110's total score
+    must still be parsed and weighted severities must still sum."""
+    txn = {
+        "transaction": {
+            "time_stamp": "Wed Nov 18 09:00:00 2026",
+            "request": {
+                "method": "GET",
+                "uri": "/x",
+                "headers": {"x-kortex-sample-id": ["sqli-03"]},
+            },
+            "response": {"status": 0},
+            "producer": {"secrules_engine": "On"},
+        },
+        # engine dialect: messages are a TOP-LEVEL sibling of transaction
+        "messages": [
+                {
+                    "actionset": "",
+                    "message": "",
+                    "error_message": '[client "127.0.0.1"] Coraza: Warning. SQLi [file "r.conf"] '
+                                     '[line "1"] [id "942100"] [rev ""] '
+                                     '[msg "SQL Injection Attack Detected via libinjection"] '
+                                     '[data ""] [severity "critical"]',
+                },
+                {
+                    "actionset": "",
+                    "message": "",
+                    "error_message": '[client "127.0.0.1"] Coraza: Access denied (phase 2). '
+                                     'Inbound Anomaly Score Exceeded (Total Score: 5) '
+                                     '[file "r.conf"] [line "2"] [id "949110"] [rev ""] '
+                                     '[msg "Inbound Anomaly Score Exceeded (Total Score: 5)"] '
+                                     '[data ""] [severity "unknown"]',
+                },
+            ],
+    }
+    entry = crs_audit.parse_line(json.dumps(txn))
+    assert entry["sample_id"] == "sqli-03"
+    assert [r["id"] for r in entry["rules"]] == ["942100", "949110"]
+    assert entry["rules"][0]["message"] == "SQL Injection Attack Detected via libinjection"
+    assert entry["rules"][0]["severity"] == "critical"
+    assert entry["inbound_score_from_949110"] == 5
+    assert entry["inbound_score_from_severities"] == 5  # 942100 critical=5; 949110 unknown=0
+    assert entry["score_mismatch"] is False
+
+
 def test_malformed_audit_line_raises():
     with pytest.raises(crs_audit.AuditError):
         crs_audit.parse_line('{"transaction": {"request": "broken"')
