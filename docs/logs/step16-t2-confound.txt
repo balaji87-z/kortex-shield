@@ -1,0 +1,37 @@
+# step-16 T2 confound check (rules 18/24): rule ids in >=20% of all audit
+# entries per dataset/PL, engine side (s16-t2-engine-*) and ref side
+# (s16-t2-coraza-*). Audit logs are cumulative per PL; entries are
+# attributed by the dataset's sample-id prefix: {'smoke': '', 'attacks-v0': '', 'benign-browse-v1': 'browse-', 'benign-hard-v0': 'hardben-', 'attacks-ct-v0': 'actv0-'}
+engine smoke              pl1: entries=    7 top=[('942100', 2), ('941100', 2), ('941160', 2)] >=20%: [('942100', 2), ('941100', 2), ('941160', 2)]
+engine smoke              pl2: entries=    7 top=[('932236', 3), ('942100', 2), ('941100', 2)] >=20%: [('932236', 3), ('942100', 2), ('941100', 2)]
+engine attacks-v0         pl1: entries=  961 top=[('930120', 319), ('941390', 312), ('941120', 303)] >=20%: [('930120', 319), ('941390', 312), ('941120', 303)]
+engine attacks-v0         pl2: entries= 1031 top=[('930120', 319), ('941390', 312), ('941120', 303)] >=20%: [('930120', 319), ('941390', 312), ('941120', 303)]
+engine benign-browse-v1   pl1: entries=  124 top=[('932260', 4)] >=20%: none
+engine benign-browse-v1   pl2: entries=  124 top=[('932236', 7), ('932260', 4)] >=20%: none
+engine benign-hard-v0     pl1: entries=   22 top=[('932260', 10), ('942100', 6), ('932235', 6)] >=20%: [('932260', 10), ('942100', 6), ('932235', 6)]
+engine benign-hard-v0     pl2: entries=   78 top=[('932236', 34), ('931130', 16), ('942131', 14)] >=20%: [('932236', 34), ('931130', 16)]
+engine attacks-ct-v0      pl1: entries=  286 top=[('941390', 88), ('930120', 80), ('941120', 72)] >=20%: [('941390', 88), ('930120', 80), ('941120', 72)]
+engine attacks-ct-v0      pl2: entries=  310 top=[('942520', 112), ('942370', 88), ('941390', 88)] >=20%: [('942520', 112), ('942370', 88), ('941390', 88)]
+ref    smoke              pl1: entries=    6 top=[('942100', 2), ('941100', 2), ('941160', 2)] >=20%: [('942100', 2), ('941100', 2), ('941160', 2)]
+ref    smoke              pl2: entries=    6 top=[('942100', 2), ('941100', 2), ('941160', 2)] >=20%: [('942100', 2), ('941100', 2), ('941160', 2)]
+ref    attacks-v0         pl1: entries=  954 top=[('930120', 318), ('941390', 310), ('941120', 302)] >=20%: [('930120', 318), ('941390', 310), ('941120', 302)]
+ref    attacks-v0         pl2: entries= 1024 top=[('930120', 318), ('941390', 310), ('941120', 302)] >=20%: [('930120', 318), ('941390', 310), ('941120', 302)]
+ref    benign-browse-v1   pl1: entries=  184 top=[('911100', 120), ('920420', 60), ('932260', 4)] >=20%: [('911100', 120), ('920420', 60)]
+ref    benign-browse-v1   pl2: entries=  184 top=[('911100', 120), ('920420', 60), ('932236', 7)] >=20%: [('911100', 120), ('920420', 60)]
+ref    benign-hard-v0     pl1: entries=   22 top=[('932260', 10), ('942100', 6), ('932235', 6)] >=20%: [('932260', 10), ('942100', 6), ('932235', 6)]
+ref    benign-hard-v0     pl2: entries=   78 top=[('932236', 34), ('931130', 16), ('942131', 14)] >=20%: [('932236', 34), ('931130', 16)]
+ref    attacks-ct-v0      pl1: entries=  304 top=[('920420', 120), ('941390', 88), ('930120', 80)] >=20%: [('920420', 120), ('941390', 88), ('930120', 80)]
+ref    attacks-ct-v0      pl2: entries=  316 top=[('920420', 120), ('942520', 112), ('942370', 88)] >=20%: [('920420', 120), ('942520', 112), ('942370', 88)]
+
+Notes:
+- smoke and attacks-v0 share the empty id prefix; the attacks-v0 counts
+  include the 7 smoke entries (7/961 worst case). No >=20% verdict changes.
+- The ref-side benign-browse 911100 flag (120/184 entries, 65%): CRS method
+  allow-list (crs-setup 900200) blocks methods the engine does not restrict
+  (the engine sets no tx.allowed_methods, so 911100 never fires there). Every
+  one of those samples is ALSO blocked by the engine via other rules (the
+  blocked-set diff table has no 911100-only ref-only id), so this is a
+  rule-set difference inside agreed-blocked samples, not a blocked-set diff.
+  Documented as a DESIGN note in baseline-v1.1.md.
+- benign-hard-v0 pl2 932236 (34/78, 44%) fires equally on BOTH sides - the
+  dataset is built to exercise CRS edge cases; not a one-sided artifact.

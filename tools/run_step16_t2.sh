@@ -5,12 +5,19 @@
 # block-status 403; 400 denies classify as waf_deny_status via the audit).
 # Ref side follows tools/run_coraza_parity.sh (fresh container per run, rule
 # 13; rule-29 effective-config line printed per run).
-# Usage: bash tools/run_step16_t2.sh
+# Usage: bash tools/run_step16_t2.sh   (ENGINE_ONLY=1 skips the ref side)
 set -u
 cd /home/Kavinharish/kortexshield
 RUN=docs/logs/step16-t2-runs.txt
 mkdir -p out
 : > $RUN
+
+# Same UA for BOTH sides (harness parity): the CRS missing-user-agent rule
+# 920320 (NOTICE, +2 at PL2) fires when the request has no User-Agent, which
+# flips marginal warning-score detections to blocks. The first T2 engine run
+# omitted the UA (script bug, found 2026-11-20): the engine saw UA-less
+# requests while the connector saw the Chrome UA. Fixed here and re-run.
+UA="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/158.0.0.0 Safari/537.36"
 
 echo "== load average at start: $(uptime)" >> $RUN
 
@@ -57,7 +64,8 @@ for PL in 1 2; do
     .venv/bin/python -m kortex_eval.runner --manifest data/$DS/manifest.jsonl \
       --base-url http://localhost:8090 --out out/s16-t2-engine-$DS-pl$PL \
       --timeout 30 --workers 1 --block-status 403 \
-      --block-marker 'kortex-decision=block' >> $RUN 2>&1
+      --block-marker 'kortex-decision=block' \
+      --default-user-agent "$UA" >> $RUN 2>&1
     echo "events-after=$(wc -l < /tmp/kx16-events-$PL.jsonl 2>/dev/null || echo 0) audit-after=$(grep -c '"transaction"' /tmp/kx16-audit-$PL.log 2>/dev/null || echo 0)" >> $RUN
     cp /tmp/kx16-audit-$PL.log out/s16-t2-engine-$DS-pl$PL/engine-audit-full.log
     cp /tmp/kx16-events-$PL.jsonl out/s16-t2-engine-$DS-pl$PL/kortex-events-full.jsonl 2>/dev/null || true
@@ -66,7 +74,7 @@ for PL in 1 2; do
 done
 
 # --- connector reference side ---
-UA="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/158.0.0.0 Safari/537.36"
+UA="${UA}"  # defined above; kept for the ref-side invocation below
 run_ref() {  # $1=dataset name $2=manifest $3=paranoia level
   docker compose -f deploy/compose.yml down > /dev/null 2>&1 || true
   for try in 1 2 3; do
@@ -91,11 +99,13 @@ run_ref() {  # $1=dataset name $2=manifest $3=paranoia level
   echo "=== done coraza $1 pl$3" >> $RUN
 }
 
+if [ "${ENGINE_ONLY:-0}" != "1" ]; then
 for PL in 1 2; do
   for DS in smoke attacks-v0 benign-browse-v1 benign-hard-v0 attacks-ct-v0; do
     run_ref $DS data/$DS/manifest.jsonl $PL
   done
 done
+fi
 
 echo "== load average at end: $(uptime)" >> $RUN
-echo ALL-DONE >> $RUN
+if [ "${ENGINE_ONLY:-0}" = "1" ]; then echo ENGINE-ONLY-DONE >> $RUN; else echo ALL-DONE >> $RUN; fi
