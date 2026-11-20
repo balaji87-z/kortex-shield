@@ -44,3 +44,28 @@ false positive rate before it ships.
 
 We have not benchmarked Coraza's performance ourselves. Nothing here claims it
 is fast enough; that is test A6.
+
+## Evidence-status addendum (step-14, 2026-11-20)
+
+This decision predates our own measurements. Status of its assumptions after
+steps 9-14 (details in docs/engine-evidence.md and docs/baseline-v0.9.md):
+
+- "We inherit CRS behaviour": measured on benign-wcp-v0 and attacks-ct-v0;
+  blocked-set parity holds on the benign set (worst-case sym-diffs of 5-14
+  per 20,000) but NOT on the attack side once the content-type policy is
+  widened: ModSecurity has no body processor for text/plain and
+  application/octet-stream, Coraza inspects those bodies (34-38/40 detection
+  blocks vs 0). Any parity claim must now name the config (crs-default vs
+  crs-ct-wide).
+- "Coraza failing the CRS suite in our build" (what would change this
+  decision): we have not run the CRS suite; not covered.
+- Latency: coraza v3.7.0 has a PROVEN engine-internal body-processing
+  pathology (44 s on a 477 KB text/plain body, reproduced in-library with no
+  connector). This is direct evidence relevant to "evidence that its
+  performance cannot meet the latency target" — it is one pathological shape,
+  not a benchmark; test A6 remains undone.
+- SecRequestBodyNoFilesLimit is not enforced by coraza v3.7.0 (proven
+  in-container and in-library). Accepted as a documented engine difference
+  (instructor answer 2026-11-20); it becomes an acceptance criterion for our
+  own engine: our limits must be explicit, enforced, and provable from inside
+  the running container.
