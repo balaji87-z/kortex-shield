@@ -83,14 +83,14 @@ run_coraza() { # $1 pl  $2 ct  $3 tag
 }
 
 case "$1" in
-  modsec-default-pl1) run_modsec 1 "$CT_DEFAULT" default ;;
-  modsec-default-pl2) run_modsec 2 "$CT_DEFAULT" default ;;
-  modsec-wide-pl1)    run_modsec 1 "$CT_WIDE" ct-wide ;;
-  modsec-wide-pl2)    run_modsec 2 "$CT_WIDE" ct-wide ;;
-  coraza-default-pl1) run_coraza 1 "$CT_DEFAULT" default ;;
-  coraza-default-pl2) run_coraza 2 "$CT_DEFAULT" default ;;
-  coraza-wide-pl1)    run_coraza 1 "$CT_WIDE" ct-wide ;;
-  coraza-wide-pl2)    run_coraza 2 "$CT_WIDE" ct-wide ;;
+  modsec-default-pl1) run_modsec 1 "$CT_DEFAULT" modsec-default ;;
+  modsec-default-pl2) run_modsec 2 "$CT_DEFAULT" modsec-default ;;
+  modsec-wide-pl1)    run_modsec 1 "$CT_WIDE" modsec-ct-wide ;;
+  modsec-wide-pl2)    run_modsec 2 "$CT_WIDE" modsec-ct-wide ;;
+  coraza-default-pl1) run_coraza 1 "$CT_DEFAULT" coraza-default ;;
+  coraza-default-pl2) run_coraza 2 "$CT_DEFAULT" coraza-default ;;
+  coraza-wide-pl1)    run_coraza 1 "$CT_WIDE" coraza-ct-wide ;;
+  coraza-wide-pl2)    run_coraza 2 "$CT_WIDE" coraza-ct-wide ;;
   *) echo "unknown cell: $1"; exit 1 ;;
 esac
 echo "=== done $1"
