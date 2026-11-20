@@ -142,3 +142,53 @@ artifact, not engine behaviour (step-16 T2 finding).
   audit writer emits phase-1 messages.
 - In-flight body-processing cap (T3): see "In-flight body-processing cap"
   above (documented before the measurement run, as required).
+
+## Step-18 additions (2026-11-20)
+
+### Body parsing fidelity: REQUEST_BODY as an added target (T4, documented BEFORE the re-runs)
+
+Gap (PROVEN, step-17 T1 raw audit entries): the URLENCODED body processor
+splits the raw body on '&' and the first '=' (coraza v3.7.0
+bodyprocessors/urlencoded.go), so a payload spanning the split boundary is
+scanned only as separate name/value fragments; CRS scans single variables.
+This affects every carrier whose body the URLENCODED processor parses: real
+urlencoded bodies and the text/plain / octet-stream / unknown-ct carriers
+that fall back to it (CRS 901340 forces the body variable; coraza falls back
+to URLENCODED when no processor was selected).
+
+Fix: every inbound CRS rule that inspects parsed argument values now ALSO
+inspects REQUEST_BODY (the full raw body, set by the URLENCODED processor
+itself), via the CRS-documented tuning directive SecRuleUpdateTargetById
+(coraza v3.7.0 internal/seclang/directives.go; targets are only ADDED — no
+CRS file is edited, no rule is excluded or removed, rules 5/17 respected).
+The id list is derived at engine startup from the shipped CRS files
+(engine/bodytargets.go) and its size is printed at startup and served on
+/__kortex/config (request_body_target_updates=N) so it is provable per run
+(rule 29). On the pinned CRS 4.25.2 set the list is 173 rules.
+
+Scope (criterion, measured by the count above and by the re-runs): rules in
+REQUEST-921 and REQUEST-930..REQUEST-944 whose target list contains an
+ARGS-family variable, does not already contain REQUEST_BODY, is not counted
+(&ARGS) or size-based (ARGS_COMBINED_SIZE), is not phase:1, and is not a
+chain-inner rule (chain members have no id; SecRuleUpdateTargetById cannot
+reach them — known residual limitation, listed here before the run).
+REQUEST-920 protocol-structure rules are deliberately out of scope: their
+ARGS checks are size/count/encoding-structure checks where the raw body is
+not an argument value, and running URL-encoding validators over raw bodies
+that are not URL-encoded would manufacture false positives.
+
+Expected consequences, classified BEFORE the re-runs (rule 39):
+- ENGINE-ONLY BLOCKS vs the connector on the URLENCODED-parsed carriers
+  (urlencoded, text/plain, octet-stream, unknown-ct, no-ct): DESIGN. The
+  connector has the same split gap; the engine deliberately closes it. The
+  criterion is measured: request_body_target_updates=173 in the run log and
+  the per-id diffs in the step-18 report.
+- JSON, XML and multipart carriers are UNCHANGED: their processors never
+  populate REQUEST_BODY (coraza bodyprocessors: only urlencoded and raw do),
+  so the added target matches nothing there.
+- Possible anomaly-score doubling when a rule matches both ARGS and
+  REQUEST_BODY on the same request (coraza runs match actions per match and
+  only de-duplicates multiphase chain matches): with the CRS inbound
+  threshold of 5 and CRITICAL rules scoring 5 this does not change
+  block/pass for single-rule detections, but it is a measured risk and any
+  outcome flip it causes will be reported per id, not assumed away.

@@ -30,10 +30,11 @@ func adminConfig(cfg *Config) http.HandlerFunc {
 			`"detection_paranoia":%d,"max_body_bytes":%d,"max_inspected_bytes":%d,`+
 			`"engine_time_budget_ms":%d,"rules_dir":%q,"listen_addr":%q,`+
 			`"events_file":%q,"audit_log":%q,"allowed_methods":%q,`+
-			`"max_inflight_body":%d}`+"\n",
+			`"max_inflight_body":%d,"request_body_target_updates":%d}`+"\n",
 			cfg.BackendURL, cfg.RuleEngine, cfg.BlockingParanoia, cfg.DetectionParanoia,
 			cfg.MaxBodyBytes, cfg.MaxInspectedBytes, cfg.EngineTimeBudgetMS, cfg.RulesDir,
-			cfg.ListenAddr, cfg.EventsFile, cfg.AuditLog, cfg.AllowedMethods, cfg.MaxInflightBody)
+			cfg.ListenAddr, cfg.EventsFile, cfg.AuditLog, cfg.AllowedMethods, cfg.MaxInflightBody,
+			len(cfg.RequestBodyTargetIDs))
 	}
 }
 
