@@ -12,9 +12,14 @@ verdict on which engine is "right".
 
 ## Dataset: encoding-diff-v0 (frozen manifest, rule 10)
 
-- 12 base payloads: the first 4 payloads (alphabetical by id) of each family's
+- Base payloads: the first 4 payloads (alphabetical by id) of each family's
   10 already-frozen T2 selections in docs/plan-attacks-ct-v0.md (families:
   sqli, xss, path-traversal, command-injection). No new randomness.
+  NOTE (work-order discrepancy, recorded before the build): the work order
+  says "12 base payloads (4 per family, seeded)", but 4 families x 4 = 16.
+  We follow the more specific "4 per family" and build 16 base payloads;
+  the discrepancy is flagged in reports/step-14.md. 16 payloads x 6
+  encodings x 2 carriers = 192 samples.
 - 6 encodings of the raw payload text (UTF-8 bytes of the payload):
   1. `plain` — payload bytes verbatim, no encoding.
   2. `single-pct` — every byte percent-encoded, uppercase hex.
@@ -33,7 +38,7 @@ verdict on which engine is "right".
     IS the encoding being tested).
   - `urlencoded` — POST, body `q=<encoded>`, Content-Type
     `application/x-www-form-urlencoded`.
-- 12 payloads x 6 encodings x 2 carriers = 144 samples.
+- 16 payloads x 6 encodings x 2 carriers = 192 samples.
 - Sample id scheme: `encd-<carrier>-<encoding>-<base payload id>` where base
   payload id is the T2 base (e.g. `encd-query-overlong-utf8-sqli-6e47f23b`).
 - Labels: `attack` (all samples are attack payloads by construction; rule 11
@@ -50,7 +55,7 @@ verdict on which engine is "right".
   (port 8082, digest bfbfe70b...). Config: crs-default only (no ct-wide
   interaction here).
 - Paranoia: PL1 and PL2 (blocking=detection=PL per run).
-- 4 cells x 144 samples = 576 requests.
+- 4 cells x 192 samples = 768 requests.
 - Rule 13: fresh container per run (compose down + up --force-recreate,
   runner --workers 1).
 - Rule 29: rule-29 line printed from inside each container into the run log.
@@ -61,7 +66,7 @@ verdict on which engine is "right".
 
 ## Analysis (stated before the runs)
 
-- Per cell: blocked count out of 144, and blocked counts per encoding and
+- Per cell: blocked count out of 192, and blocked counts per encoding and
   per carrier (counts, not rates across carriers — rule 35 note applies:
   this set is chosen to probe encodings, not sampled traffic).
 - Disagreement cells: samples where the engines' blocked outcomes differ,
