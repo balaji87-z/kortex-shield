@@ -18,7 +18,7 @@
 #            during the overload window; then wait up to 150 s for the 8
 #            finish events; benign after recovery.
 set -u
-cd /home/Kavinharish/kortexshield
+cd "$(cd "$(dirname "$0")/.." && pwd)"
 RUN=docs/logs/step17-t3-runs.txt
 BODY=out/step14-t5/wcp-80a49c991b2d.body
 mkdir -p out
@@ -33,7 +33,7 @@ if ! curl -s -o /dev/null --max-time 2 http://127.0.0.1:13000/; then
   sleep 1
 fi
 
-export PATH=$PATH:/usr/local/go/bin
+export PATH=$PATH:/usr/local/go/bin:$HOME/go/bin
 (cd engine && go build -buildvcs=false -o /tmp/kortex-engine .) || { echo "BUILD FAILED" >> $RUN; exit 1; }
 echo "== engine binary: $(md5sum /tmp/kortex-engine)" >> $RUN
 
@@ -42,7 +42,7 @@ cpu_of() { awk '{printf "%.2f %.2f", $14/100, $15/100}' /proc/$1/stat 2>/dev/nul
 start_engine() { # $1 = cap $2 = port $3 = events file
   rm -f $3 /tmp/kx17t3-audit.log
   KORTEX_BACKEND_URL=http://127.0.0.1:13000 \
-  KORTEX_RULES_DIR=/home/Kavinharish/kortexshield/engine/crs \
+  KORTEX_RULES_DIR="$PWD/engine/crs" \
   KORTEX_RULE_ENGINE=On \
   KORTEX_BLOCKING_PARANOIA=1 KORTEX_DETECTION_PARANOIA=1 \
   KORTEX_MAX_BODY_BYTES=13107200 KORTEX_MAX_INSPECTED_BYTES=13107200 \
