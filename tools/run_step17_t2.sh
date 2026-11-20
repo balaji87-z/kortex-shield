@@ -4,7 +4,7 @@
 # Engine-only: the connector reference is unchanged (s16-t2 ref runs reused).
 # Same UA contract and marker contract as tools/run_step16_t2.sh.
 set -u
-cd /home/Kavinharish/kortexshield
+cd "$(cd "$(dirname "$0")/.." && pwd)"
 RUN=docs/logs/step17-t2-runs.txt
 mkdir -p out
 : > $RUN
@@ -20,14 +20,14 @@ if ! curl -s -o /dev/null --max-time 2 http://127.0.0.1:13000/; then
 fi
 curl -s -o /dev/null -w "stub probe: %{http_code}\n" http://127.0.0.1:13000/ >> $RUN
 
-export PATH=$PATH:/usr/local/go/bin
+export PATH=$PATH:/usr/local/go/bin:$HOME/go/bin:$HOME/bin
 (cd engine && go build -buildvcs=false -o /tmp/kortex-engine .) || { echo "BUILD FAILED" >> $RUN; exit 1; }
 echo "== engine binary rebuilt: $(md5sum /tmp/kortex-engine)" >> $RUN
 
 PL=1
 rm -f /tmp/kx17t2-events.jsonl /tmp/kx17t2-audit.log
 KORTEX_BACKEND_URL=http://127.0.0.1:13000 \
-KORTEX_RULES_DIR=/home/Kavinharish/kortexshield/engine/crs \
+KORTEX_RULES_DIR="$PWD/engine/crs" \
 KORTEX_RULE_ENGINE=On \
 KORTEX_BLOCKING_PARANOIA=$PL KORTEX_DETECTION_PARANOIA=$PL \
 KORTEX_MAX_BODY_BYTES=13107200 KORTEX_MAX_INSPECTED_BYTES=131072 \

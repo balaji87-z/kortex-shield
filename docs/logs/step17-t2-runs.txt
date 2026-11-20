@@ -1,0 +1,18 @@
+== load average at start:  18:01:40 up  3:05,  1 user,  load average: 2.36, 2.04, 1.27
+== engine binary rebuilt: e44ba2fcba4e17497127aeb3350a7a5b  /tmp/kortex-engine
+== engine effective config (PL1):
+kortex-engine: effective config: backend_url=http://127.0.0.1:13000 rule_engine=On blocking_paranoia=1 detection_paranoia=1 max_body_bytes=13107200 max_inspected_bytes=131072 engine_time_budget_ms=2000 rules_dir=/home/vboxuser/kortex-shield/engine/crs listen_addr=127.0.0.1:8090 events_file=/tmp/kx17t2-events.jsonl audit_log=/tmp/kx17t2-audit.log
+== /__kortex/config:
+{"backend_url":"http://127.0.0.1:13000","rule_engine":"On","blocking_paranoia":1,"detection_paranoia":1,"max_body_bytes":13107200,"max_inspected_bytes":131072,"engine_time_budget_ms":2000,"rules_dir":"/home/vboxuser/kortex-shield/engine/crs","listen_addr":"127.0.0.1:8090","events_file":"/tmp/kx17t2-events.jsonl","audit_log":"/tmp/kx17t2-audit.log","allowed_methods":"GET HEAD POST OPTIONS","max_inflight_body":8}
+
+== run engine smoke pl1 2026-11-20T18:01:42Z
+events-before=0 audit-before=0
+0
+{"base_url": "http://localhost:8090", "started_utc": "2026-11-20T18:01:42+00:00", "ended_utc": "2026-11-20T18:01:42+00:00", "load_avg_start": [2.25, 2.02, 1.27], "load_avg_end": [2.25, 2.02, 1.27], "git_commit": "360dff97ff52f728a31b22b093a60e8c7b2d9fb9", "manifest_sha256": "944d78d3781ef0f70aa2dd4e924be874f95d4bc399928e460587f8604e691f2c", "default_user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/158.0.0.0 Safari/537.36", "labels": {}, "total_samples": 12, "responses_ok": 12, "blocked": 7, "error_count": 0, "block_rule": {"block_status": 403, "block_marker": "kortex-decision=block"}}
+events-after=0 audit-after=7
+== run engine benign-browse-v1 pl1 2026-11-20T18:01:42Z
+events-before=0 audit-before=7
+{"base_url": "http://localhost:8090", "started_utc": "2026-11-20T18:01:43+00:00", "ended_utc": "2026-11-20T18:01:50+00:00", "load_avg_start": [2.25, 2.02, 1.27], "load_avg_end": [2.55, 2.09, 1.3], "git_commit": "360dff97ff52f728a31b22b093a60e8c7b2d9fb9", "manifest_sha256": "950a683bf776ef637691514f1dab809fddd2de757bacdff3dc9cb1f30af3b085", "default_user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/158.0.0.0 Safari/537.36", "labels": {}, "total_samples": 774, "responses_ok": 774, "blocked": 124, "error_count": 0, "block_rule": {"block_status": 403, "block_marker": "kortex-decision=block"}}
+events-after=0 audit-after=131
+== load average at end:  18:01:50 up  3:05,  1 user,  load average: 2.55, 2.09, 1.30
+ALL-DONE
