@@ -24,6 +24,12 @@ type Proxy struct {
 	waf    coraza.WAF
 	events *eventLogger
 	client *http.Client
+	// inflight counts body-processing calls currently running (including
+	// calls abandoned after a budget timeout - they keep running to
+	// completion because coraza has no per-call cancellation). Bounded by
+	// MaxInflightBody; over the cap a body-bearing request is answered 503
+	// kortex-decision=overload immediately (step-17 T3).
+	inflight atomic.Int64
 }
 
 func buildWAF(cfg *Config) (coraza.WAF, error) {
@@ -93,6 +99,30 @@ func (p *Proxy) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
+	// hard cap on concurrent in-flight body-processing calls (step-17 T3):
+	// body-bearing requests only; body-less requests need no slot (their
+	// ProcessRequestBody call is instantaneous) and stay answered promptly.
+	// The slot is released when the processing CALL returns - for an
+	// abandoned call that is long after this handler returned (E17), so the
+	// decrement lives in the processing goroutine, not in a handler defer.
+	bodyBearing := r.Body != nil && r.ContentLength != 0
+	procLaunched := false
+	if bodyBearing {
+		if p.inflight.Load() >= p.cfg.MaxInflightBody {
+			p.overload(w, sampleID, start, "in-flight body-processing cap reached")
+			return
+		}
+		p.inflight.Add(1)
+		defer func() {
+			// release the slot if we return before the processing goroutine
+			// is launched (limit/timeout paths); once launched, the goroutine
+			// releases it when the processing call returns
+			if !procLaunched {
+				p.inflight.Add(-1)
+			}
+		}()
+	}
+
 	// body: read up to maxInspected+1; above the limit -> 413, not passed to
 	// the engine
 	var body []byte
@@ -150,8 +180,12 @@ func (p *Proxy) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 	done := make(chan bodyProcResult, 1)
+	procLaunched = true
 	go func() {
 		it2, err2 := tx.ProcessRequestBody()
+		if bodyBearing {
+			p.inflight.Add(-1)
+		}
 		done <- bodyProcResult{it2, err2}
 		if abandoned.Load() {
 			// the request was already answered 503; record how long the
@@ -250,6 +284,13 @@ func (p *Proxy) limit(w http.ResponseWriter, sampleID string, start time.Time, r
 	w.Header().Set("Connection", "close")
 	w.WriteHeader(http.StatusRequestEntityTooLarge)
 	fmt.Fprint(w, "413 kortex-decision=limit\n")
+}
+
+func (p *Proxy) overload(w http.ResponseWriter, sampleID string, start time.Time, reason string) {
+	p.events.log(sampleID, "overload", 503, start, reason)
+	w.Header().Set("Connection", "close")
+	w.WriteHeader(http.StatusServiceUnavailable)
+	fmt.Fprint(w, "503 kortex-decision=overload\n")
 }
 
 func (p *Proxy) timeout(w http.ResponseWriter, sampleID string, start time.Time, reason string) {

@@ -18,6 +18,8 @@ type Config struct {
 	MaxBodyBytes       int64 // hard ceiling for a request body
 	MaxInspectedBytes  int64 // bodies above this are rejected 413, not passed to the engine
 	EngineTimeBudgetMS int64 // per-request engine time budget; 0 = expire immediately
+	AllowedMethods     string // method allow-list handed to CRS 911100 (tx.allowed_methods)
+	MaxInflightBody    int64  // hard cap on concurrent in-flight body-processing calls
 	ListenAddr         string
 	EventsFile         string
 	AuditLog           string
@@ -51,6 +53,8 @@ func loadConfig() *Config {
 		MaxBodyBytes:       envInt("KORTEX_MAX_BODY_BYTES", 13107200),
 		MaxInspectedBytes:  envInt("KORTEX_MAX_INSPECTED_BYTES", 131072),
 		EngineTimeBudgetMS: envInt("KORTEX_ENGINE_TIME_BUDGET_MS", 2000),
+		AllowedMethods:     envOr("KORTEX_ALLOWED_METHODS", "GET HEAD POST OPTIONS"),
+		MaxInflightBody:    envInt("KORTEX_MAX_INFLIGHT_BODY", 8),
 		ListenAddr:         envOr("KORTEX_LISTEN_ADDR", ":8080"),
 		EventsFile:         envOr("KORTEX_EVENTS_FILE", "kortex-events.jsonl"),
 		AuditLog:           envOr("KORTEX_AUDIT_LOG", "audit.log"),
@@ -83,6 +87,10 @@ SecAction "id:900001,phase:1,nolog,pass,t:none,setvar:tx.detection_paranoia_leve
 SecAction "id:900110,phase:1,nolog,pass,t:none,setvar:tx.inbound_anomaly_score_threshold=5,setvar:tx.outbound_anomaly_score_threshold=4"
 SecAction "id:900990,phase:1,pass,t:none,nolog,setvar:tx.crs_setup_version=4252"
 
+# Method allow-list (step-17 T2, parity with the connector's crs-setup.conf
+# rule 900200): CRS 911100 (PL1, critical) rejects methods outside the list.
+SecAction "id:900200,phase:1,pass,nolog,t:none,setvar:'tx.allowed_methods=%s'"
+
 # C4 (decision 0002 addendum): the engine has NO content-type allow-list.
 # The CRS customization point 900220 sets the allowed list per-request to the
 # request's own content type, so 920420 never blocks on content type while
@@ -108,5 +116,5 @@ SecRule MULTIPART_STRICT_ERROR "!@eq 0" \
 
 Include %s/owasp-crs/rules/*.conf
 `, engine, c.MaxBodyBytes, c.MaxInspectedBytes, c.AuditLog,
-		c.BlockingParanoia, c.DetectionParanoia, c.RulesDir)
+		c.BlockingParanoia, c.DetectionParanoia, c.AllowedMethods, c.RulesDir)
 }

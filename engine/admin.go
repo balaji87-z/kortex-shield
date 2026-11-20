@@ -29,10 +29,11 @@ func adminConfig(cfg *Config) http.HandlerFunc {
 		fmt.Fprintf(w, `{"backend_url":%q,"rule_engine":%q,"blocking_paranoia":%d,`+
 			`"detection_paranoia":%d,"max_body_bytes":%d,"max_inspected_bytes":%d,`+
 			`"engine_time_budget_ms":%d,"rules_dir":%q,"listen_addr":%q,`+
-			`"events_file":%q,"audit_log":%q}`+"\n",
+			`"events_file":%q,"audit_log":%q,"allowed_methods":%q,`+
+			`"max_inflight_body":%d}`+"\n",
 			cfg.BackendURL, cfg.RuleEngine, cfg.BlockingParanoia, cfg.DetectionParanoia,
 			cfg.MaxBodyBytes, cfg.MaxInspectedBytes, cfg.EngineTimeBudgetMS, cfg.RulesDir,
-			cfg.ListenAddr, cfg.EventsFile, cfg.AuditLog)
+			cfg.ListenAddr, cfg.EventsFile, cfg.AuditLog, cfg.AllowedMethods, cfg.MaxInflightBody)
 	}
 }
 
