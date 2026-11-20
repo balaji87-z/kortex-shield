@@ -10,6 +10,7 @@ import (
 	"regexp"
 	"strconv"
 	"strings"
+	"sync/atomic"
 	"time"
 
 	"github.com/corazawaf/coraza/v3"
@@ -123,8 +124,44 @@ func (p *Proxy) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 		}
 	}
 	// phase 2 runs even without a body: query-string ARGS are evaluated by
-	// phase-2 rules (e.g. 942100)
-	it, err := tx.ProcessRequestBody()
+	// phase-2 rules (e.g. 942100). ProcessRequestBody is a single-shot call
+	// with no internal deadline (step-15 T4 PROVED the budget cannot fire
+	// inside it), so it runs in a goroutine bounded by the REMAINING budget;
+	// on expiry the request is answered 503 and the call is abandoned (it
+	// runs to completion - coraza has no per-call cancellation - and its
+	// finish is logged as DoS-risk evidence).
+	type bodyProcResult struct {
+		it  *types.Interruption
+		err error
+	}
+	remaining := time.Duration(p.cfg.EngineTimeBudgetMS)*time.Millisecond - time.Since(start)
+	var err error
+	if remaining <= 0 {
+		p.timeout(w, sampleID, start, "time budget expired before body processing")
+		return
+	}
+	done := make(chan bodyProcResult, 1)
+	var abandoned atomic.Bool
+	go func() {
+		it2, err2 := tx.ProcessRequestBody()
+		done <- bodyProcResult{it2, err2}
+		if abandoned.Load() {
+			// the request was already answered 503; record how long the
+			// abandoned call kept running (raw evidence for the DoS-risk
+			// measurement; wall time ~= CPU time for this CPU-bound call)
+			p.events.log(sampleID, "abandoned-body-processing-finished", 0,
+				start, fmt.Sprintf("elapsed_ms=%d", time.Since(start).Milliseconds()))
+		}
+	}()
+	select {
+	case r := <-done:
+		it, err = r.it, r.err
+	case <-time.After(remaining):
+		abandoned.Store(true)
+		p.timeout(w, sampleID, start, "time budget expired in body processing")
+		// the abandoned goroutine owns tx now; the handler must not touch it
+		return
+	}
 	if err != nil {
 		p.timeout(w, sampleID, start, "body-processor-error: "+err.Error())
 		return
