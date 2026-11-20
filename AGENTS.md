@@ -105,3 +105,10 @@
 34. Diagnostic runs (scratch containers, rule disabling, modified bodies) are
     allowed only when labelled DIAGNOSTIC in the run label and the report. They
     never produce a baseline or parity number.
+
+35. A set chosen because of an observed difference cannot give a rate. Report
+    such results as counts of an effect, never as a percentage of traffic.
+36. Any tool that changes config by edit-and-reload must prove, per run, that
+    the audit log was complete: entries recorded for a seeded control set of
+    requests that are known to match a rule (send 20 before and 20 after the
+    main run). Report the counts.
