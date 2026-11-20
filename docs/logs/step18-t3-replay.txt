@@ -1,0 +1,16 @@
+== load average at start:  18:36:19 up  3:39,  1 user,  load average: 5.11, 5.48, 3.15
+== engine binary: a5eafa1cbe2c8ef111c60f2e959b93df  /tmp/kortex-engine (includes the step-18 T3 drain fix)
+== manifest sha: bdff0c85626615932fe9b87114deee55d743888c8b2a815a8a9948cdf375d667 (frozen value below)
+c8ce11f26406df96d55e5a1cc6186bcbf648cb29bd628081dd834c6ccf1329d1
+== filtered manifest lines: 3
+== engine effective config (PL1):
+kortex-engine: effective config: backend_url=http://127.0.0.1:13000 rule_engine=On blocking_paranoia=1 detection_paranoia=1 max_body_bytes=13107200 max_inspected_bytes=131072 engine_time_budget_ms=2000 rules_dir=/home/vboxuser/kortex-shield/engine/crs listen_addr=127.0.0.1:8090 events_file=/tmp/kx18t3-events.jsonl audit_log=/tmp/kx18t3-audit.log
+== /__kortex/config:
+{"backend_url":"http://127.0.0.1:13000","rule_engine":"On","blocking_paranoia":1,"detection_paranoia":1,"max_body_bytes":13107200,"max_inspected_bytes":131072,"engine_time_budget_ms":2000,"rules_dir":"/home/vboxuser/kortex-shield/engine/crs","listen_addr":"127.0.0.1:8090","events_file":"/tmp/kx18t3-events.jsonl","audit_log":"/tmp/kx18t3-audit.log","allowed_methods":"GET HEAD POST OPTIONS","max_inflight_body":8}
+
+== replay 3 reset ids 2026-11-20T18:36:24Z
+{"base_url": "http://localhost:8090", "started_utc": "2026-11-20T18:36:25+00:00", "ended_utc": "2026-11-20T18:36:25+00:00", "load_avg_start": [5.42, 5.54, 3.19], "load_avg_end": [5.42, 5.54, 3.19], "git_commit": "13e0b135cf633548ec19f6b06d465e7c7cd5c640", "manifest_sha256": "a657dba54cbf1e249ba9ab586b565992fe66fe608c7ccdc3cef4c95343892ce1", "default_user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/158.0.0.0 Safari/537.36", "labels": {}, "total_samples": 3, "responses_ok": 3, "blocked": 0, "error_count": 0, "block_rule": {"block_status": 403, "block_marker": "kortex-decision=block"}}
+crs_audit: 0 audit entr(ies) -> out/s18-t3-reset-ids/audit.jsonl
+waf_pass: 3
+== load average at end:  18:36:26 up  3:40,  1 user,  load average: 5.42, 5.54, 3.18
+ALL-DONE

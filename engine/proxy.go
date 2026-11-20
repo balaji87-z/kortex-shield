@@ -95,7 +95,7 @@ func (p *Proxy) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 	if p.overBudget(start) {
-		p.timeout(w, sampleID, start, "time budget expired after headers")
+		p.timeout(w, r, sampleID, start, "time budget expired after headers")
 		return
 	}
 
@@ -113,7 +113,7 @@ func (p *Proxy) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 		for {
 			n := p.inflight.Load()
 			if n >= p.cfg.MaxInflightBody {
-				p.overload(w, sampleID, start, "in-flight body-processing cap reached")
+				p.overload(w, r, sampleID, start, "in-flight body-processing cap reached")
 				return
 			}
 			if p.inflight.CompareAndSwap(n, n+1) {
@@ -135,20 +135,20 @@ func (p *Proxy) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 	var body []byte
 	if r.Body != nil && r.ContentLength != 0 {
 		if r.ContentLength > p.cfg.MaxBodyBytes {
-			p.limit(w, sampleID, start, "body-over-total-limit")
+			p.limit(w, r, sampleID, start, "body-over-total-limit")
 			return
 		}
 		buf, err := io.ReadAll(io.LimitReader(r.Body, p.cfg.MaxInspectedBytes+1))
 		if err != nil {
-			p.timeout(w, sampleID, start, "body-read-error: "+err.Error())
+			p.timeout(w, r, sampleID, start, "body-read-error: "+err.Error())
 			return
 		}
 		if int64(len(buf)) > p.cfg.MaxInspectedBytes {
-			p.limit(w, sampleID, start, "body-over-inspected-limit")
+			p.limit(w, r, sampleID, start, "body-over-inspected-limit")
 			return
 		}
 		if int64(len(buf)) > p.cfg.MaxBodyBytes {
-			p.limit(w, sampleID, start, "body-over-total-limit")
+			p.limit(w, r, sampleID, start, "body-over-total-limit")
 			return
 		}
 		body = buf
@@ -160,11 +160,11 @@ func (p *Proxy) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 				end = len(body)
 			}
 			if _, _, err := tx.WriteRequestBody(body[off:end]); err != nil {
-				p.timeout(w, sampleID, start, "write-body-error: "+err.Error())
+				p.timeout(w, r, sampleID, start, "write-body-error: "+err.Error())
 				return
 			}
 			if p.overBudget(start) {
-				p.timeout(w, sampleID, start, "time budget expired writing body")
+				p.timeout(w, r, sampleID, start, "time budget expired writing body")
 				return
 			}
 		}
@@ -183,7 +183,7 @@ func (p *Proxy) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 	remaining := time.Duration(p.cfg.EngineTimeBudgetMS)*time.Millisecond - time.Since(start)
 	var err error
 	if remaining <= 0 {
-		p.timeout(w, sampleID, start, "time budget expired before body processing")
+		p.timeout(w, r, sampleID, start, "time budget expired before body processing")
 		return
 	}
 	done := make(chan bodyProcResult, 1)
@@ -216,12 +216,12 @@ func (p *Proxy) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 		it, err = r.it, r.err
 	case <-time.After(remaining):
 		abandoned.Store(true)
-		p.timeout(w, sampleID, start, "time budget expired in body processing")
+		p.timeout(w, r, sampleID, start, "time budget expired in body processing")
 		// the abandoned goroutine owns tx now; the handler must not touch it
 		return
 	}
 	if err != nil {
-		p.timeout(w, sampleID, start, "body-processor-error: "+err.Error())
+		p.timeout(w, r, sampleID, start, "body-processor-error: "+err.Error())
 		return
 	}
 	if p.blocked(it) {
@@ -229,7 +229,7 @@ func (p *Proxy) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 	if p.overBudget(start) {
-		p.timeout(w, sampleID, start, "time budget expired in body processing")
+		p.timeout(w, r, sampleID, start, "time budget expired in body processing")
 		return
 	}
 
@@ -286,25 +286,72 @@ func matchedIDs(tx types.Transaction) []string {
 	return ids
 }
 
-func (p *Proxy) limit(w http.ResponseWriter, sampleID string, start time.Time, reason string) {
+func (p *Proxy) limit(w http.ResponseWriter, r *http.Request, sampleID string, start time.Time, reason string) {
 	p.events.log(sampleID, "limit", 413, start, reason)
+	// step-18 T3 (E22): consume what is left of the body, bounded, BEFORE the
+	// response. Without this the handler returns with unread body data in the
+	// socket, the kernel answers the close with RST, and the RST discards the
+	// 413 response the client has not read yet (step-17 T4 ConnectionResetError
+	// ids). Bounded so a client that never stops streaming cannot hold us.
+	p.drainRequestBody(r)
 	w.Header().Set("Connection", "close")
 	w.WriteHeader(http.StatusRequestEntityTooLarge)
 	fmt.Fprint(w, "413 kortex-decision=limit\n")
+	if f, ok := w.(http.Flusher); ok {
+		f.Flush()
+	}
 }
 
-func (p *Proxy) overload(w http.ResponseWriter, sampleID string, start time.Time, reason string) {
+// drainTimeout bounds how long a decision response waits for the client to
+// finish streaming its body (step-18 T3).
+const drainTimeout = 5 * time.Second
+
+// drainRequestBody reads and discards up to MaxBodyBytes of the remaining
+// request body, or until drainTimeout, whichever comes first. Safe on
+// bodies already fully consumed (returns at once).
+func (p *Proxy) drainRequestBody(r *http.Request) {
+	if r.Body == nil || r.ContentLength == 0 {
+		return
+	}
+	done := make(chan struct{})
+	go func() {
+		defer close(done)
+		io.Copy(io.Discard, io.LimitReader(r.Body, p.cfg.MaxBodyBytes))
+	}()
+	stop := time.AfterFunc(drainTimeout, func() { r.Body.Close() })
+	defer stop.Stop()
+	select {
+	case <-done:
+	case <-time.After(drainTimeout + time.Second):
+		// the timer already closed the body to unblock the reader
+	}
+}
+
+func (p *Proxy) overload(w http.ResponseWriter, r *http.Request, sampleID string, start time.Time, reason string) {
 	p.events.log(sampleID, "overload", 503, start, reason)
+	// same mid-stream hazard as limit(): the cap can be hit while the client
+	// is still sending the body (step-18 T3)
+	p.drainRequestBody(r)
 	w.Header().Set("Connection", "close")
 	w.WriteHeader(http.StatusServiceUnavailable)
 	fmt.Fprint(w, "503 kortex-decision=overload\n")
+	if f, ok := w.(http.Flusher); ok {
+		f.Flush()
+	}
 }
 
-func (p *Proxy) timeout(w http.ResponseWriter, sampleID string, start time.Time, reason string) {
+func (p *Proxy) timeout(w http.ResponseWriter, r *http.Request, sampleID string, start time.Time, reason string) {
 	p.events.log(sampleID, "timeout", 503, start, reason)
+	// same mid-stream hazard as limit() for the paths that fire before the
+	// body was fully read (body-over-total, read-error); harmless when the
+	// body is already consumed (step-18 T3)
+	p.drainRequestBody(r)
 	w.Header().Set("Connection", "close")
 	w.WriteHeader(http.StatusServiceUnavailable)
 	fmt.Fprint(w, "503 kortex-decision=timeout\n")
+	if f, ok := w.(http.Flusher); ok {
+		f.Flush()
+	}
 }
 
 func (p *Proxy) forward(w http.ResponseWriter, r *http.Request, body []byte) {
