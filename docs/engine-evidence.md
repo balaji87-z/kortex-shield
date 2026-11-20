@@ -88,3 +88,74 @@ and docs/logs/.
 - Recall impact of widening the allowed content-type list: attacks-v0 cannot
   measure it (every attacks-v0 body uses a type the 901162 fallback already
   allows); see docs/baseline-v0.7.md.
+
+---
+
+# Step-13 update (2026-11-20): evidence against the acceptance criteria (decision 0002)
+
+All step-13 numbers below come from the digest-pinned images with the aligned
+proxy config (docs/baseline-v0.8.md). Diagnostic runs (rule 34) are marked and
+never enter these numbers. This section reports what was measured; it makes no
+verdict and no recommendation (decision 0002, Non-criteria).
+
+## C1 — blocked-set parity, per sample: MEASURED
+
+Full-scale benign-wcp-v0, n=20,000 per cell (docs/logs/step13-t5-parity.txt):
+
+| quantity (rule 32) | ModSecurity | Coraza | sym-diff |
+|---|---|---|---|
+| PL1 blocked set | 3,823 (19.11%) | 3,824 (19.12%) | 13 |
+| PL1 worst-case set | 3,888 (19.44%) | 3,891 (19.45%) | 5 |
+| PL2 blocked set | 8,949 (44.74%) | 8,951 (44.76%) | 14 |
+| PL2 worst-case set | 9,015 (45.08%) | 9,026 (45.13%) | 11 |
+
+Policy-clear subset (14,279 body-less / 2,743 body-bearing, never merged):
+
+| subset | ModSecurity | Coraza | sym-diff (blocked) |
+|---|---|---|---|
+| body-less PL1 | 410 (2.87%) | 410 (2.87%) | 0 |
+| body-bearing PL1 | 435 (15.86%) | 441 (16.08%) | 8 |
+| body-less PL2 | 4,130 (28.92%) | 4,130 (28.92%) | 0 |
+| body-bearing PL2 | 1,841 (67.12%) | 1,848 (67.37%) | 9 |
+
+Every differing id is listed with status and defect tags in
+docs/logs/step13-t5-parity.txt. Attribution: the blocked-set differences are
+body-limit/defect samples (body_over_131072, recorded_cl_mismatch,
+gzip_header_mismatch) plus one Coraza timeout (wcp-80a49c991b2d, see C2) and
+the encoding sample wcp-6b0bf5e43122; 0 unexplained remain at PL1 after
+attribution. Rule-ID presence on the policy-clear subset is tabulated in
+docs/logs/step13-t5-rule-presence.txt: at PL1 body-bearing, 5 rules
+only-ModSec vs 50 rules only-Coraza (top only-Coraza: 920270, 921150, 942100,
+941100); at PL2 body-bearing, 9 vs 86. The T6 diagnostic (DIAGNOSTIC,
+docs/decisions/0003-step13-t6-hypothesis.md, PROVEN) attributes the
+only-Coraza body-rule presence to body access on policy-rejected content
+types: ModSecurity recorded body-derived rules on 6/100 seeded samples where
+Coraza recorded 97/100, and 97/100 after the content type was rewritten to an
+allowed one. Per rule 4, no engine is called correct anywhere.
+
+## C2 — oversize bodies and latency: MEASURED
+
+- Effective limits proven in-container for every run (C3 lines in the run
+  logs; e.g. coraza PL1: E=On B=1 P=1 D=1, nofiles=131072 total=13107200,
+  client_max_body_size 0). ModSecurity enforces SecRequestBodyNoFilesLimit
+  131,072 (json/urlencoded 400 at >= 131,072; multipart passes to the total
+  limit). Coraza v3.7.0 does NOT enforce SecRequestBodyNoFilesLimit
+  (131,072 configured and read back; 140,000–1,000,000-byte bodies pass) — a
+  documented engine difference, no engine code changed
+  (docs/logs/step13-t4-bisect.txt). SecRequestBodyLimit 13,107,200 is enforced
+  byte-exact by Coraza; ModSecurity passes at exactly 13,107,200 (one-byte
+  boundary difference).
+- Latency pathology characterised (DIAGNOSTIC): Coraza super-linear (≈
+  quadratic from 128 KB up) on bodies it scans in full (text/plain, empty CT,
+  urlencoded); dominant cost PROVEN to be engine-internal body processing,
+  not a CRS rule (all 8 matched body-derived rules removed -> unchanged ~40 s;
+  SecRequestBodyAccess Off -> 3–5 ms). Multipart up to 2.8 MB fast (14–50 ms).
+  ModSecurity flat at PL1 and PL2. docs/logs/step13-t7-evidence.txt. The
+  internal mechanism is HYPOTHESIS.
+
+## C3 — effective-config proof: PRESENT for every run cited
+
+Every step-13 run log carries its rule-29 line printed from inside the running
+container (engine mode, B/P/D paranoia, allowed methods/content types, body
+limits, nginx client_max_body_size). Examples: docs/logs/step13-t5-coraza-wcp.log,
+docs/logs/step13-t1-crs-setup-lines.txt, docs/logs/step13-t4-bisect.txt.
