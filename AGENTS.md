@@ -123,3 +123,6 @@
     of: BUG (we fix it, test first), DESIGN (documented in engine-design.md
     before the run), UNEXPLAINED (counted). No difference is dropped.
 40. Any fix to the engine adds a failing test first, committed before the fix.
+41. A DESIGN classification needs the criterion it relies on shown as measured.
+    "Design difference" is not a result until the property it claims is measured
+    on the engine.
