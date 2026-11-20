@@ -50,3 +50,34 @@ of the exact recorded request against the current PL2 connector returned
 920230 at PL2. Both 920230 ids are therefore the same UNEXPLAINED class:
 T6 ref artifact not reproducible on the recreated container. Container
 restored to PL1 afterwards (probe 200).
+
+## CORRECTION (2026-11-20, after the T2 UA-fixed re-run)
+
+The DIAGNOSTIC conclusion above ("the current PL2 connector container blocks
+both ids") was WRONG. The replay URLError client sent `Host: 127.0.0.1:8082`
+(a numeric-IP Host), which fires CRS 920350 "Host header is a numeric IP
+address" (WARNING, +3 at PL2). With 920230 (+3 WARNING) the total reaches 6
+>= threshold 5 -> block. Raw socket bisection against the same container:
+
+  runner-style (localhost host, chrome UA): HTTP/1.1 200 OK
+  numeric host (127.0.0.1), chrome UA:      HTTP/1.1 403 Forbidden
+  numeric host, python UA:                  HTTP/1.1 403 Forbidden
+  localhost host, python UA:                HTTP/1.1 200 OK
+
+The real explanation of the T6 engine-vs-ref difference for these two ids is
+a harness artifact on the ENGINE side: tools/run_step15_t6.sh and the first
+tools/run_step16_t2.sh engine-side runner invocation omitted
+--default-user-agent, so the engine saw UA-less requests; CRS 920320
+"Missing User Agent Header" (NOTICE, sets tx.inbound_anomaly_score_pl2=+2)
+fired on every engine-side request. For command-injection-036c522d-q/-login:
+engine 920230 (3) + 920320 (2) = 5 >= 5 -> block; connector (Chrome UA,
+localhost Host): 920230 alone = 3 < 5 -> pass.
+
+Mechanism proof (Go tx probe, engine directives, no User-Agent):
+  matched: 920320 sev=notice; matched: 920230 sev=warning; body interrupt 403
+With User-Agent present: only 920230 matched, no interruption (pass).
+
+The T2 engine-side re-run with --default-user-agent shows BOTH ids agreeing
+(engine pass = ref pass): attacks-v0 PL2 now has ZERO differing ids
+(docs/logs/step16-t2-analysis.txt). The engine was faithful all along; the
+harness requests differed.
