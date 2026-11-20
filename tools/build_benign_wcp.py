@@ -22,6 +22,42 @@ SAMPLE_SIZE = 20_000
 SITE_CAP = 400  # 2% of 20,000
 SEED = 0
 DROP_HEADERS = {"authorization", "proxy-authorization", "cookie"}
+
+
+def canonicalize_dropped_cookie(headers):
+    """Step-13 T2 (future versions only): the v0 build wrote the dropped-cookie
+    marker under two header spellings ("cookie" and "Cookie"), which later
+    broke case-sensitive tooling (step-12 restore bug). Rewrite every dropped
+    cookie header to the canonical lowercase key "cookie". Non-dropped headers
+    keep their recorded casing (verbatim replay)."""
+    out = {}
+    dropped_value = None
+    for k, v in headers.items():
+        if k.lower() == "cookie" and v == "[DROPPED]":
+            dropped_value = v
+        else:
+            out[k] = v
+    if dropped_value is not None:
+        out["cookie"] = dropped_value
+    return out
+
+
+def drop_inconsistent_content_encoding(headers):
+    """Step-13 T2 (future versions only): the source stores DECODED request
+    bodies, so a recorded Content-Encoding header (e.g. gzip) describes an
+    encoding the stored body does not have. Replay then sends the header with
+    the decoded body and every engine's decoder fails (the 10 gzip
+    replay_artifact status-400 samples of step-12). Drop Content-Encoding
+    headers so the header always matches the stored body. Returns
+    (headers, n_dropped)."""
+    out = {}
+    n = 0
+    for k, v in headers.items():
+        if k.lower() == "content-encoding" and str(v).strip().lower() not in ("", "identity"):
+            n += 1
+            continue
+        out[k] = v
+    return out, n
 ASSET_EXT = re.compile(
     r"\.(js|css|png|jpe?g|gif|svg|woff2?|ttf|ico|json|xml|map|webp|mp4)$",
     re.I,
@@ -170,6 +206,11 @@ def main():
                     if lk in DROP_HEADERS:
                         cred_counts[f"{lk} header value dropped"] += 1
                         headers[k] = "[DROPPED]"
+                # Step-13 T2 fixes for FUTURE versions (v0 stays frozen):
+                headers = canonicalize_dropped_cookie(headers)
+                headers, n_ce = drop_inconsistent_content_encoding(headers)
+                if n_ce:
+                    cred_counts["content-encoding header dropped (body stored decoded)"] += n_ce
                 if email_re.search(query):
                     cred_counts["email-like string in URL query"] += 1
                 if any(email_re.search(str(v)) for v in headers.values()):

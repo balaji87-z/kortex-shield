@@ -1,0 +1,161 @@
+# Step-13 T1 evidence
+
+## 1. Image digest and version table
+
+As recorded in step 1 (reports/step-01.md, `docker images --digests`) and as
+used in step 12 (compose pins + in-container proofs):
+
+| role | step 1 record | step 12 used | drifted? |
+|---|---|---|---|
+| target | bkimminich/juice-shop:v20.4.0 sha256:9bbaecc41791f00b002bc65931cc5ff355fbdb941fa72b06558c18dace43197b | same digest (docker images 2026-11-20: sha256:9bbaecc41791…) | no |
+| ModSecurity | owasp/modsecurity-crs:4.25.2-nginx-lts sha256:6296ce685cb88ba4012998b935b25dabbd9e0ff326088c1149447102544de661 | same digest, now PINNED in deploy/compose.yml (image@sha256:6296ce68…) | the FLOATING TAG drifted on 2026-11-19 14:56Z to sha256:98d448750b86…; the digest did NOT change for any run — 98d44875 was pulled once by accident during step-12 setup, never used for a run (the tainted first batch1 attempt was deleted), and is not pinned anywhere |
+| Coraza | not used in step 1 | ghcr.io/coreruleset/coraza-crs:4.25.2-nginx-lts@sha256:bfbfe70b4445c1ef1dc389c2de12cfdb194c9616746c33dc8a7131461c28f4a6 (engine coraza/v3@v3.7.0, docs/logs/step12-coraza-version.txt) | the step-10/11 digest sha256:ffefe71585b42… was DELETED from ghcr ("not found" on pull 2026-11-20); the old image is no longer local either, so step-10/11 Coraza runs cannot be re-verified from the image |
+| stub backend | not present in step 1 (added step-11) | python:3.12-alpine sha256:c5ba3deef00c7758561a0f03c26f44f10589263d40e732b8748e0d1f38f6dd89 running tools/stub_backend.py | n/a (added later; unchanged since) |
+
+Engine versions read from inside running containers:
+- ModSecurity (6296ce68): libmodsecurity3 3.0.17, ModSecurity-nginx v1.0.4
+  (nginx notice lines, out/step12-batch1.log lines 241-242); CRS 4.25.2
+  (tx.crs_setup_version=4252).
+- Coraza (bfbfe70b): coraza/v3@v3.7.0 (grep of libcoraza.so Go build info);
+  CRS 4.25.2 (tx.crs_setup_version=4252).
+- Coraza OLD image (ffefe715): engine version UNVERIFIED (image deleted
+  upstream and no longer local).
+
+## 2. The 12 runs of the default-signature check
+
+Tool: tools/check_default_signature.py. Check performed per run, from the
+run's own audit.jsonl joined with the frozen manifests:
+(a) rule 920420 never fires on a content type the 901162 fallback allows
+    (form-urlencoded, multipart/form-data, text/xml, application/xml,
+    application/soap+xml, application/json, plus 901370's application/*+json);
+(b) rule 911100 fires only on PUT/DELETE/PATCH;
+(c) 920420 DOES fire on text/plain (check is live, not vacuous).
+Result file: docs/logs/step12-default-signature.txt (12/12 pass).
+
+| # | run | engine | PL | result |
+|---|---|---|---|---|
+| 1 | out/modsec-benign-wcp-v0-pl1-stub | modsec | 1 | OK (920420 on text/plain 2783; 911100 only PUT 33/DELETE 13/PATCH 1) |
+| 2 | out/modsec-benign-wcp-v0-pl2-stub | modsec | 2 | OK (same signature) |
+| 3 | out/modsec-wcp-cookie-restored-all-pl1 | modsec | 1 | OK (text/plain 1859) |
+| 4 | out/modsec-wcp-cookie-restored-all-pl2 | modsec | 2 | OK (text/plain 1859) |
+| 5 | out/coraza-benign-wcp-v0-pl1-default | coraza | 1 | OK (text/plain 2782) |
+| 6 | out/coraza-benign-wcp-v0-pl2-default | coraza | 2 | OK (text/plain 2782) |
+| 7 | out/modsec-wcp-cookie-restored-pl1-pl1-stub | modsec | 1 | OK (text/plain 1188) |
+| 8 | out/modsec-wcp-cookie-restored-pl2-pl2-stub | modsec | 2 | OK (text/plain 1188) |
+| 9 | out/wcp-heldout-test-default-pl1 | modsec | 1 | OK (text/plain 1243) |
+| 10 | out/wcp-heldout-test-default-pl2 | modsec | 2 | OK (text/plain 1243) |
+| 11 | out/wcp-heldout-train-default-pl1 | modsec | 1 | OK (text/plain 1540) |
+| 12 | out/wcp-heldout-train-default-pl2 | modsec | 2 | OK (text/plain 1540) |
+
+### Why step 10 read "PUT DELETE" at crs-setup.conf lines 494/583
+
+Fresh read of the pinned default container (6296ce68, no policy env,
+DIAGNOSTIC, docs/logs/step13-t1-crs-setup-lines.txt): lines 494/583 are
+COMMENTED example `setvar:'tx.allowed_methods=GET HEAD POST OPTIONS'` /
+`tx.allowed_request_content_type=|…6 types…|` lines — no PUT/DELETE anywhere;
+env shows ALLOWED_METHODS= (empty). The image ENV has no ALLOWED_METHODS
+default (docker inspect: only CORS_HEADER_403_ALLOW_METHODS="GET, POST, PUT,
+DELETE, OPTIONS", a different setting).
+
+Step-11's T1 audit (docs/baseline-config.md "Step-11 T1" section) already
+identified the source: the step-10 grep was executed against the container
+that happened to be up at that moment — the last ALIGNED PL2 run, whose
+ALLOWED_METHODS env was "GET HEAD POST OPTIONS PUT DELETE" — and its rendered
+values were misattributed to the image default. The committed policy file
+(docs/logs/wcp-heldout-policy.json) shows the step-10 "default_methods" list
+was exactly that 6-method env value. The exact container of that grep cannot
+be re-inspected today, so the attribution rests on the step-11 audit record
+plus the fresh pinned-image read above; the superseding fact (true default =
+GET HEAD POST OPTIONS via 901160/901162; PUT/DELETE blocked by 911100 in every
+default run) is PROVEN by the behavioral signature check in all 12 runs.
+
+## 3. wcp-train / heldout TEST-TRAIN table (current evidence)
+
+From out/wcp-heldout-{test,train}-{default,wcp-train}-pl{1,2}/outcomes.jsonl
+(wilson() as in tools/cookie_strata.py; worst case = waf_block +
+waf_deny_status + inconsistent + error, rule 32):
+
+| split | config | PL | n | waf_block | worst case |
+|---|---|---|---|---|---|
+| TEST | default | 1 | 10,047 | 1,769 = 17.61% (16.87–18.36) | 1,803 = 17.95% (17.21–18.71) |
+| TEST | default | 2 | 10,047 | 4,206 = 41.86% (40.90–42.83) | 4,240 = 42.20% (41.24–43.17) |
+| TEST | wcp-train | 1 | 10,047 | 514 = 5.12% (4.70–5.56) | 548 = 5.45% (5.03–5.92) |
+| TEST | wcp-train | 2 | 10,047 | 3,229 = 32.14% (31.23–33.06) | 3,263 = 32.48% (31.57–33.40) |
+| TRAIN | default | 1 | 9,947 | 2,054 = 20.65% (19.87–21.46) | 2,084 = 20.95% (20.16–21.76) |
+| TRAIN | default | 2 | 9,947 | 4,743 = 47.68% (46.70–48.66) | 4,774 = 47.99% (47.01–48.98) |
+| TRAIN | wcp-train | 1 | 9,947 | 474 = 4.77% (4.36–5.20) | 504 = 5.07% (4.65–5.52) |
+| TRAIN | wcp-train | 2 | 9,947 | 3,554 = 35.73% (34.79–36.68) | 3,585 = 36.04% (35.10–36.99) |
+
+Note: the TRAIN splits are in-sample for the wcp-train policy (the policy was
+derived from TRAIN-observed types; rule 27/19 label applies). The TEST splits
+are the out-of-sample numbers.
+
+### Is step-10's TEST PL1 figure (3,181) superseded by 514? YES — PROVEN
+
+Step-10 TEST crs-policy-wcp-train PL1 = 3,181/10,047 = 31.66%. The step-11
+corrected re-run of the same cell = 514 (step-12 T7 re-run reproduced 514
+exactly: identical id sets, symmetric difference 0, identical
+predictions.jsonl — out/step12-batch1.log). The cause is PROVEN, named in
+docs/baseline-config.md "Rendering bug found": the step-10 runs passed the
+content-type list UNWRAPPED (no pipe-wrapping), so rule 920420's `@within`
+matched nothing and 920420 fired on every content-type-bearing request —
+step-10 wcp-train TEST PL1 audit shows 920420 on 1,264/1,264 application/json
+and 338/338 form-urlencoded requests. After the pipe-wrapped list, the same
+cell blocks 514. Experiment: the step-10 audit (920420 on 100% of typed
+requests) vs the step-11/12 audits (920420 only on non-allowed types).
+Step-10's TEST PL2 figure (4,820) is likewise superseded by 3,229 for the same
+reason. The step-10 TRAIN figures are in-sample and superseded by 474 (PL1) /
+3,554 (PL2).
+
+## 4. The 6 absent ids (20,000 built vs 19,994 baseline)
+
+All 6 are in out/benign-wcp-v0-reach-quarantine.jsonl (committed), each with a
+recorded reason:
+
+| id | cause | detail |
+|---|---|---|
+| wcp-6b0bf5e43122 | 1 encoding | "header name or request-line not latin-1 encodable; http.client cannot send" |
+| wcp-005b0edbf82b | 5 URI-too-long | path+query 9,298 bytes; proxy_reject (414) at the reach check |
+| wcp-0a215302467a | 5 URI-too-long | 8,357 bytes; proxy_reject at reach check |
+| wcp-5f05329756d9 | 5 URI-too-long | 9,574 bytes; proxy_reject at reach check |
+| wcp-9f8b37ae80d7 | 5 URI-too-long | 10,900 bytes; proxy_reject at reach check |
+| wcp-ea0a05ccb67e | 5 URI-too-long | 9,114 bytes; proxy_reject at reach check |
+
+(The 5 URI-too-long samples were later replayed anyway in the step-11/12
+20,000-row parity runs, where they classify proxy_reject/414 on both engines.)
+
+## 5. `inconsistent` (ModSecurity) vs `waf_block` (Coraza) in the step-12 small runs
+
+Finding: the two ModSecurity smoke cells (PL1/PL2) captured 0 audit entries
+(out/modsec-smoke-pl{1,2}-stub/modsec-audit.log are 0 bytes; crs_audit printed
+"0 audit entr(ies)" in out/step12-batch1.log). All other batch1 ModSecurity
+runs captured normally (attacks-v0 944/1,014, browse 183/183, hard 20/78).
+
+PROVEN mechanism (DIAGNOSTIC, same file): after `nginx -s reload`, requests
+served by the OLD nginx workers still audit to the OLD destination
+(/dev/stdout). Diagnostic: 12-request burst immediately after reload → 6 audit
+JSON lines in `docker logs`, 0 bytes in the audit file; one request 3 s later
+→ 2,178 bytes in the file. The smoke run's 12 requests completed within ~1 s
+of the reload → every audit entry went to stdout, the copied file was empty,
+and outcome.py — correctly, on empty audit input — classified the 403s as
+`inconsistent` instead of `waf_block`.
+
+Raw evidence for one sample (sqli-01), Coraza side (audit existed all along):
+uri /rest/products/search?q=%27%20OR%201%3d1--, status 403, 2 messages
+(942100, 949110); outcome row: 403 waf_block ['942100','949110'].
+ModSecurity side BEFORE the re-run: audit file empty (0 bytes) — no entry
+exists to show; outcome row: 403 inconsistent [].
+ModSecurity side AFTER the re-run (out/modsec-smoke-pl1-stub, label
+audit_capture=post_reload_wait): raw audit entry present
+(`"uri":"/rest/products/search?q=%27%20OR%201%3d1--", "is_interrupted":true,
+status 403`); outcome row: 403 waf_block ['942100','949110'] — now IDENTICAL
+to Coraza. Re-run smoke PL1: modsec worst 6 = coraza worst 6, symmetric
+difference empty.
+
+Validity: rule-ID comparisons from the two step-12 smoke runs are INVALID
+(no audit data). The other six batch1 ModSecurity runs are valid. outcome.py
+and crs_audit need NO fix (they classified empty input correctly); the fix is
+in tools/run_modsec_parity.sh (wait until a blocked probe lands in the audit
+FILE after reload, then run), documented in docs/baseline-config.md before the
+re-run. The smoke PL1/PL2 cells were re-run with the fixed script; the step-12
+smoke numbers are superseded.

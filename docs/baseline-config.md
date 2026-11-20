@@ -467,3 +467,29 @@ check passes (only the cookie value differs from the baseline row). ModSecurity
 PL1+PL2 re-runs on the full restore: out/modsec-wcp-cookie-restored-all-pl{1,2}
 (rule-29 proofs in out/step12-restored-all.log; fresh container per run). The
 frozen dataset was not modified; restored cookie values remain uncommitted.
+
+## Step-13 T1: empty ModSecurity audit in the step-12 smoke runs (2026-11-20)
+
+The step-12 batch1 ModSecurity smoke PL1/PL2 runs captured 0 audit entries
+(crs_audit printed "0 audit entr(ies)"; out/modsec-smoke-pl{1,2}-stub/
+modsec-audit.log are 0 bytes). All other batch1 ModSecurity runs captured
+normally (attacks-v0 944/1,014, browse 183/183, hard 20/78 entries).
+
+PROVEN mechanism (DIAGNOSTIC, docs/logs/step13-t1-crs-setup-lines.txt): after
+`nginx -s reload`, requests served by the OLD nginx workers still audit to the
+OLD destination (/dev/stdout); only new workers use the redirected audit file.
+Diagnostic output: immediately after reload, a 12-request burst produced 6
+audit JSON lines in `docker logs` and 0 bytes in the audit file; a request sent
+3 s later landed in the file (2,178 bytes). The smoke run's 12 requests
+completed within ~1 s of the reload, so every audit entry went to stdout.
+
+Consequences: the `inconsistent` outcome class on those two smoke cells is a
+capture artifact (empty audit -> outcome.py cannot confirm the block), NOT an
+engine difference. Rule-ID comparisons from the two smoke runs are INVALID;
+the other six batch1 ModSecurity runs are unaffected. outcome.py and crs_audit
+need no change (they classified empty input correctly); the fix is in the
+capture script: tools/run_modsec_parity.sh now waits for the audit file to be
+non-empty after a blocked probe before starting the runner (patch committed
+with this note, before the re-run). The two smoke cells were re-run with the
+fixed script (out/modsec-smoke-pl{1,2}-stub, labels audit_capture=post_reload_wait);
+the step-12 T2 smoke numbers are superseded by the re-run.
