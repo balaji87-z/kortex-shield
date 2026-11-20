@@ -1,0 +1,30 @@
+# DIAGNOSTIC: crs-setup.conf lines 490-500 and 579-589 in the pinned default ModSecurity container (6296ce68), no policy env
+#    t:none,\
+#    nolog,\
+#    tag:'OWASP_CRS',\
+#    ver:'OWASP_CRS/4.25.2',\
+#    setvar:'tx.allowed_methods=GET HEAD POST OPTIONS'"
+
+#
+# -- [[ HTTP Method Override Parameter ]] -------------------------------------
+#
+# Many web frameworks (Laravel, Rails, Symfony, CakePHP, Express.js, etc.)
+# support overriding the HTTP method via a _method parameter in the query
+#    t:none,\
+#    nolog,\
+#    tag:'OWASP_CRS',\
+#    ver:'OWASP_CRS/4.25.2',\
+#    setvar:'tx.allowed_request_content_type=|application/x-www-form-urlencoded| |multipart/form-data| |text/xml| |application/xml| |application/soap+xml| |application/json|'"
+
+#
+# -- [[ AWS JSON and "+json" Content Types ]] -----------------------------
+#
+# IMPORTANT: in addition to the fixed list above, CRS allows and JSON-parses
+# ANY content type of the form application/*+json by default, unconditionally
+---- env in that container:
+ALLOWED_METHODS=
+ALLOWED_REQUEST_CONTENT_TYPE=
+BLOCKING_PARANOIA=1
+DETECTION_PARANOIA=1
+MODSEC_RULE_ENGINE=DetectionOnly
+PARANOIA=1

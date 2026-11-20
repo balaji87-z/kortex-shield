@@ -26,11 +26,22 @@ run_one() {  # $1=dataset name $2=manifest $3=paranoia level
   # capture-only change (documented docs/baseline-config.md step-09): audit to file
   docker exec deploy-baseline-crs-1 sed -i 's|SecAuditLog /dev/stdout|SecAuditLog /var/log/modsecurity/audit/audit.log|' /etc/modsecurity.d/modsecurity.conf
   docker exec deploy-baseline-crs-1 nginx -s reload
+  # Step-13 T1 fix (docs/baseline-config.md step-13 section): after `nginx -s
+  # reload`, OLD workers still audit to stdout; wait until a blocked probe
+  # lands in the FILE before running the sample set (step-12 smoke runs lost
+  # their whole audit this way).
+  audit_ok=0
+  for i in 1 2 3 4 5 6 7 8 9 10; do
+    sleep 1
+    curl -s -o /dev/null "http://localhost:8081/?audit-warmup-blocked=%27%20OR%201%3d1--"
+    if docker exec deploy-baseline-crs-1 sh -c '[ -s /var/log/modsecurity/audit/audit.log ]'; then audit_ok=1; break; fi
+  done
+  [ "$audit_ok" = 1 ] || { echo "AUDIT CAPTURE FAILED: audit file still empty after 10 warmup probes"; exit 1; }
   curl -s -o /dev/null -w "pre-run probe: %{http_code}\n" http://localhost:8081/
   .venv/bin/python -m kortex_eval.runner --manifest "$2" --base-url http://localhost:8081 \
     --out "out/modsec-$1-pl$3-stub" --timeout 15 --workers 1 \
     --default-user-agent "$UA" --label engine=modsec --label backend=stub --label paranoia=$3 \
-    --label stub_drain=fixed --label body_limit=131072 \
+    --label stub_drain=fixed --label body_limit=131072 --label audit_capture=post_reload_wait \
     || echo "runner exited non-zero (sample errors); continuing audit processing"
   docker cp deploy-baseline-crs-1:/var/log/modsecurity/audit/audit.log "out/modsec-$1-pl$3-stub/modsec-audit.log"
   .venv/bin/python -m kortex_eval.crs_audit --logs "out/modsec-$1-pl$3-stub/modsec-audit.log" --out "out/modsec-$1-pl$3-stub/audit.jsonl"

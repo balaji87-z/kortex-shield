@@ -86,3 +86,35 @@ frozen manifest SHA-256 (MANIFEST.sha256), and the census/build logs. The
 dataset is exactly reproducible: fetch the zip (SHA-256 checked), run the
 builder — it reads sample-plan.json and reproduces the identical manifest
 byte-for-byte.
+
+## replay-defects.jsonl (added step-13, additive annotation only)
+
+One line per (id, defect): `{"id": ..., "defect": ...}` — no request values.
+The frozen manifest is NOT modified; this file only annotates replay-relevant
+defects of v0 samples, derived from the manifest itself:
+
+- gzip_header_mismatch (19): a Content-Encoding header is recorded but the
+  stored body is the DECODED text; replay sends header+decoded body and the
+  engine's decoder fails (the 10 step-12 "replay_artifact" status-400 samples
+  are all in this class).
+- recorded_cl_mismatch (653): recorded Content-Length differs from the encoded
+  byte length the runner actually sends. Metadata-only (the runner sends
+  len(encoded bytes) and drops the recorded CL); 10 of the 17 step-10
+  status-400 samples are among these, but the mismatch does not cause the 400s
+  (step-11 T3 recheck).
+- non_latin1 (1): a header name, header value or request-line not latin-1
+  encodable; http.client cannot send it (wcp-6b0bf5e43122, the runner-side
+  encoding error).
+- body_over_131072 (32): encoded body larger than ModSecurity's effective
+  SecRequestBodyNoFilesLimit 131,072.
+- json_members_over_1000 (42): JSON body with more than 1,000 members
+  (recursive count, same measure as tools/forensic_status400.py); the 5
+  step-12 "unknown" status-400 samples (200007) are in this class.
+- uri_too_long (5): path+query > 8,190 bytes; nginx rejects 414 at the reach
+  check (the 5 quarantined ids).
+
+700 of 20,000 samples carry at least one defect. Label meaning (rule 11):
+"defect" means "this recorded property differs from what a replay sends or
+from what the engine limits allow", NOT "the sample is unusable" — rates
+computed with and without defect samples are reported separately in the
+step-13 report (rule 14/20 hygiene).
