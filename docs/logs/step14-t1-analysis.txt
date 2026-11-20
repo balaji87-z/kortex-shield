@@ -1,0 +1,106 @@
+# Step-14 T1 evidence — reconciliation of step-13 loose ends
+
+## T1c — 20 largest-body samples: replay result (elapsed, status)
+
+Raw: docs/logs/step13-t7-largest-coraza.txt, docs/logs/step13-t7-largest-modsec.txt
+(step-13 T7 replays; content types added from the frozen manifest; values not
+printed, rule 25). All runs DIAGNOSTIC.
+
+| id | body bytes | content type | coraza ms (status) | modsec ms (status) |
+|---|---|---|---|---|
+| wcp-1140885081e1 | 2,829,426 | multipart/form-data | 30 (403) | 49 (400) |
+| wcp-f83f7556fc66 | 2,829,426 | multipart/form-data | 24 (403) | 24 (400) |
+| wcp-908ef72be103 | 2,829,422 | multipart/form-data | 32 (403) | 24 (400) |
+| wcp-5b3f575b061d | 2,105,554 | multipart/form-data | 21 (403) | 88 (400) |
+| wcp-131fde29d621 | 2,105,547 | multipart/form-data | 50 (403) | 33 (400) |
+| wcp-c5155c659149 | 2,105,547 | multipart/form-data | 14 (403) | 87 (400) |
+| wcp-7dfe87a9dd28 | 2,105,540 | multipart/form-data | 22 (403) | 29 (400) |
+| wcp-80922154f132 | 1,620,088 | multipart/form-data | 31 (403) | 20 (400) |
+| wcp-34940e7ffce1 | 1,620,081 | multipart/form-data | 18 (403) | 77 (400) |
+| wcp-ad3399e805f1 | 1,620,070 | multipart/form-data | 19 (403) | 36 (400) |
+| wcp-4ff99580bb57 | 1,401,149 | none (PUT) | 116 (400) | 84 (403) |
+| wcp-aa98de364e37 | 958,179 | application/x-www-form-urlencoded | 4,875 (403) | 75 (400) |
+| wcp-96b9ef51be10 | 875,593 | none | 46 (400) | 86 (403) |
+| wcp-3cf36d0103da | 752,448 | text/plain | 5,522 (403) | 116 (403) |
+| wcp-6a389d9290e8 | 735,356 | application/json | 158 (400) | 13 (400) |
+| wcp-80a49c991b2d | 481,798 | text/plain | 44,016 (403) | 25 (403) |
+| wcp-c7d5d3acf255 | 381,921 | none | 2,903 (403) | 67 (403) |
+| wcp-527dd0f97e39 | 324,118 | text/plain | 2,185 (403) | 28 (403) |
+| wcp-db7f83c2da88 | 300,028 | text/plain | 2,032 (403) | 22 (403) |
+| wcp-dac8e6856ecd | 249,607 | text/plain | 2,337 (403) | 75 (403) |
+
+Caveat (PROVEN from the tool code): the T7 replay tool (tools/t7_largest_replay.py)
+sent ALL recorded headers, including the RECORDED Content-Length, which for
+many of these samples differs from the actual body length (the
+recorded_cl_mismatch defect). That is why the statuses here differ from the
+full-run statuses on BOTH engines (e.g. ModSecurity 400 vs full-run 200 for
+multipart samples; Coraza 403 vs full-run 200 for the same rows) — the
+mismatched Content-Length itself triggers rules/rejections. The TIMINGS are
+valid for the latency comparison; the statuses in this table are not
+comparable to full-run statuses and are shown only as recorded. Authoritative
+per-sample statuses are in the full runs (docs/logs/step13-t5-parity.txt).
+
+## T1e — reload-race scope (rule 36 motivation)
+
+Every run whose ModSecurity audit capture used an edit-and-reload step
+(`sed -i SecAuditLog` + `nginx -s reload`):
+
+| script | step | runs | audit completeness check |
+|---|---|---|---|
+| tools/run_wcp_baselines.sh | 10–11 | ModSecurity WCP baseline PL1/PL2 | not checked (only pre-run HTTP probe) |
+| tools/run_wcp_heldout.sh | 11–12 | heldout TEST/TRAIN cells (ModSecurity side) | not checked |
+| tools/run_wcp_cookies.sh | 12 | cookie strata runs | not checked |
+| tools/probe_policy.sh | 11 | policy probes | not checked |
+| tools/run_modsec_parity.sh | 9–13 | small-dataset parity cells | before the step-13 fix: not checked; after the fix: blocked-probe wait until the audit file is non-empty (max 10 tries, else exit 1) |
+| tools/run_step12_probes.sh | 12 | 20 matched-shape probes | not checked |
+| tools/run_step12_oversize.sh | 12 | oversize probes | not checked |
+| tools/run_step12_sizeprobe.sh | 12 | size probes | not checked |
+| tools/run_step12_restored_all.sh | 12 | cookie-restored full runs PL1/PL2 | not checked |
+| tools/run_step13_t6.sh | 13 | T6 swap runs | checked: warm-up loop sends a blocked probe until the audit file is non-empty (max 10 tries, else exit 1) |
+
+Coraza runs never used edit-and-reload (config comes from env rendered at
+container start), so Coraza audits are not exposed to the reload race.
+
+Affected tables (ModSecurity audit-derived): rule-presence tables and
+rule-ID listings on non-blocked samples derived from the audits of the runs
+marked "not checked" — in particular the step-11 WCP rule-presence tables,
+the step-12 matched-shape probe rule comparison (920260), the step-12
+oversize/sizeprobe rule attributions, the step-12 cookie-restored rule-ID
+tables, and the ModSecurity side of docs/logs/step13-t5-rule-presence.txt
+(built from step-12 ModSecurity audits). These are marked "completeness
+unproven" in docs/baseline-v0.9.md. Blocked-set / status / worst-case
+comparisons are based on HTTP responses and are NOT affected. Per-sample rule
+IDs read from entries that ARE present in an audit remain valid (the race
+loses whole entries, it does not corrupt present ones); only totals from
+those audits are "completeness unproven".
+
+## T1f — T6 correction: matched variable classes for the 100 swap samples
+
+Source: out/step13-t6/* audits (captured with the rule-36 warm-up check).
+Variable classes of recorded matches, counts of SAMPLES whose match set
+includes the class (a sample can appear in several classes):
+
+| variant | engine | ARGS_NAMES | ARGS | REQUEST_BODY | only other/none |
+|---|---|---|---|---|---|
+| recorded | coraza | 76 | 39 | 0 | 13 |
+| recorded | modsec | 0 | 0 | 0 | 100 |
+| swapped | coraza | 76 | 40 | 0 | 12 |
+| swapped | modsec | 62 | 39 | 0 | 10 |
+
+Match-level counts (one count per matched rule instance):
+
+| variant | engine | ARGS_NAMES | ARGS | REQUEST_BODY | TX | REQUEST_HEADERS | REQUEST_METHOD | REQBODY_ERROR | other (MATCHED_VARS/AR/none) |
+|---|---|---|---|---|---|---|---|---|---|
+| recorded | coraza | 119 | 64 | 0 | 0 | 0 | 0 | 0 | 244 |
+| recorded | modsec | 0 | 0 | 0 | 200 | 14 | 1 | 0 | 0 |
+| swapped | coraza | 119 | 64 | 0 | 0 | 0 | 0 | 0 | 138 |
+| swapped | modsec | 79 | 63 | 0 | 104 | 0 | 1 | 2 | 1 |
+
+REQUEST_BODY: 0 matches on both engines in both variants — the body-derived
+matches go through ARGS/ARGS_NAMES (parsed parameters), not the raw-body
+variable.
+
+Rule 35 note: the 100 samples were chosen BECAUSE of an observed difference
+(they are the samples with only-Coraza body rules). Therefore 97/100 and
+6/100 are counts of an effect on a pre-selected set and must never be
+reported as percentages of traffic or as false-positive/recall rates.

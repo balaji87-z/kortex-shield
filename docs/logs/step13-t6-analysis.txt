@@ -1,0 +1,5 @@
+coraza recorded variant: samples with >=1 body-derived rule: 97/100
+modsec  recorded variant: samples with >=1 body-derived rule: 6/100
+modsec  urlenc   variant: samples with >=1 body-derived rule: 97/100
+samples where modsec-urlenc body-derived set == coraza-recorded body-derived set: 6/97
+200007: coraza recorded 2, modsec recorded 0, modsec urlenc 1
