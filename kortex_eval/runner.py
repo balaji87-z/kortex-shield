@@ -18,6 +18,7 @@ import datetime
 import hashlib
 import http.client
 import json
+import os
 import re
 import socket
 import subprocess
@@ -154,6 +155,11 @@ def run(
     out = Path(out_dir)
     out.mkdir(parents=True, exist_ok=True)
     started = datetime.datetime.now(datetime.timezone.utc)
+    # Rule 38 (step-15): host load average at start/end, recorded in run.json.
+    try:
+        load_start = [round(x, 2) for x in os.getloadavg()]
+    except OSError:  # pragma: no cover - not available on this platform
+        load_start = None
 
     rows: list[dict] = []
     with concurrent.futures.ThreadPoolExecutor(max_workers=workers) as pool:
@@ -183,10 +189,16 @@ def run(
         commit = None  # not a git checkout; recorded as null
 
     error_count = sum(1 for row in rows if row["error"] is not None)
+    try:
+        load_end = [round(x, 2) for x in os.getloadavg()]
+    except OSError:  # pragma: no cover
+        load_end = None
     summary = {
         "base_url": base_url,
         "started_utc": started.isoformat(timespec="seconds"),
         "ended_utc": ended.isoformat(timespec="seconds"),
+        "load_avg_start": load_start,
+        "load_avg_end": load_end,
         "git_commit": commit,
         "manifest_sha256": manifest_sha256,
         "default_user_agent": default_user_agent,
