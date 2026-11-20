@@ -52,4 +52,16 @@ Passing evidence (step-15): `go test -buildvcs=false -count=1 -timeout 90s -v .`
 in engine/ -> `ok  kortexshield/engine 0.545s`, 9/9 PASS (E1..E9);
 binary verification in docs/logs/step15-t5-verify.txt (403 block with 942100,
 413 limit + event, loopback config JSON, audit log parsed by kortex_eval
-crs_audit, exit 0).
+crs_audit, exit 0). Re-run 2026-11-20 after the gated-listener test-harness
+fix: `ok kortexshield/engine 0.288s`, 9/9.
+
+Step-15 T6 evidence (DIAGNOSTIC, docs/logs/step15-t6-analysis.txt): per-sample
+blocked-set diff of the engine skeleton vs the Coraza connector on smoke,
+attacks-v0, benign-browse-v1, benign-hard-v0 and attacks-ct-v0 at PL1/PL2 —
+diffs 1/1/65/16/60/150/23/51/25/4 (engine-only vs ref-only splits in
+docs/engine-evidence.md). Scope caveat on E6 (2026-11-20, PROVEN):
+docs/logs/step15-t4-skeleton-replay.txt shows the 2,000 ms budget does NOT
+interrupt a single-shot body-processing call (481,798-byte body ran
+41.8-43.5 s, ended in a normal 403); E6's pass covers budget expiry at phase
+boundaries only. The default 131,072-byte inspection cap rejects such bodies
+with 413 in ~1-3 ms.
