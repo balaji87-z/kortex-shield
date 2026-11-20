@@ -65,7 +65,7 @@ def main():
             print(f"{name:8s} error ids: {sorted(errors)}")
 
     rows_w, rules_w, blk_w, _ = data["ct-wide"]
-    rows_d, _, blk_d, _ = data["default"]
+    rows_d, rules_d, blk_d, _ = data["default"]
     det_only = []
     for i in sorted(blk_w - blk_d):
         ids = det_ids(rules_w.get(i, set()))
@@ -79,8 +79,8 @@ def main():
     print(f"\nper-sample blocked-set diff (default vs ct-wide): symmetric difference {len(diff)}")
     for i in diff:
         rd, rw = rows_d[i], rows_w[i]
-        print(f"  {i} default: {rd['outcome']} status={rd['status']} | "
-              f"ct-wide: {rw['outcome']} status={rw['status']} rules={sorted(det_ids(rules_w.get(i, set())))}")
+        print(f"  {i} default: {rd['outcome']} status={rd['status']} rules={sorted(rules_d.get(i, set()))} | "
+              f"ct-wide: {rw['outcome']} status={rw['status']} rules={sorted(rules_w.get(i, set()))}")
 
 
 if __name__ == "__main__":
