@@ -69,3 +69,13 @@ samples (two separate rates, never merged — rule 14).
   evidence is sufficient.
 - No engine is recommended or called correct anywhere in the reports.
 - Diagnostic runs (rule 34) never contribute to baseline or parity numbers.
+
+## Dated addendum (step-15, 2026-11-20): criterion C4
+
+Instructor answer to the step-14 question 1: detection coverage per
+content-type carrier is added as a criterion.
+
+**C4 — detection blocks on a carrier must not depend on whether its content
+type is on the allow-list** (measured on attacks-ct-v0). For our own engine
+this becomes an acceptance test: detection blocks must not depend on whether
+the content type is on the allow-list.
