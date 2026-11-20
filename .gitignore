@@ -5,3 +5,4 @@ __pycache__/
 .pytest_cache/
 *.pyc
 data/benign-wcp-v0/
+engine/audit.log
