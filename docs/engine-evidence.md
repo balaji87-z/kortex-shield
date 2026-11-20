@@ -212,3 +212,103 @@ affected.
 - NEW: transient-timeout cause (not reproducible, HYPOTHESIS host load).
 - NEW: whether the crs-ct-wide detection behaviour generalises beyond the 40
   frozen payloads.
+
+---
+
+# Step-15 update (2026-11-20): the engine skeleton (decision 0004)
+
+## What was built
+
+`engine/` — a Go reverse proxy wrapping Coraza v3.7.0 (Go module
+github.com/corazawaf/coraza/v3 v3.7.0, engine/go.mod) with the CRS 4.25.2
+rule files copied verbatim from the pinned Coraza container
+(ghcr.io/coreruleset/coraza-crs@sha256:bfbfe70b…). Set hash recorded in
+engine/RULES.sha256 (7c55eb49…). Design: docs/engine-design.md; decision:
+docs/decisions/0004-engine-core.md (status: provisional pending T1 and T4).
+
+## Acceptance tests (rule 37)
+
+E1-E9 committed failing first (1de93ef), implementation second (1b7dcb9):
+`go test -buildvcs=false -count=1 ./...` in engine/ -> `ok kortexshield/engine`
+(9/9; re-run 2026-11-20: 0.288s). Binary verification:
+docs/logs/step15-t5-verify.txt (403 block incl. 942100, 413 limit + event,
+loopback config JSON, crs_audit parses the engine audit log).
+
+## Effective config (rule 29 analogue), proven per run
+
+The engine prints its effective config at startup and serves it as JSON on
+loopback /__kortex/config. Printed in docs/logs/step15-t6-runs.txt for both
+PLs and in docs/logs/step15-t4-skeleton-replay.txt for both replay configs:
+rule_engine=On, blocking/detection paranoia 1 or 2, max_body_bytes=13,107,200,
+max_inspected_bytes=131,072 (replay config B: 13,107,200),
+engine_time_budget_ms=2000, rules_dir=engine/crs.
+
+## T6 (DIAGNOSTIC): engine skeleton vs Coraza connector, per-sample diff
+
+Runs: docs/logs/step15-t6-runs.txt (fresh engine per PL, workers 1);
+analysis: docs/logs/step15-t6-analysis.txt (blocked set + worst-case set per
+rule 32, on common ids; counts on difference-chosen sets, not rates, rule 35).
+Reference: the step-12/14 Coraza connector default-policy runs.
+
+| dataset | PL | engine blocked | ref blocked | diff (common ids) |
+|---|---|---|---|---|
+| smoke | 1 | 7/12 | 6/12 | 1 (trav-01: engine 403 block, ref proxy_reject 400) |
+| smoke | 2 | 7/12 | 6/12 | 1 (same) |
+| attacks-v0 | 1 | 909/1054 | 954/1054 | 65 (55 ref-only blocks the engine passes at 401/500; 10 engine-only) |
+| attacks-v0 | 2 | 1040/1054 | 1024/1054 | 16 (all engine-only blocks) |
+| benign-browse-v1 | 1 | 124/774 | 184/774 | 60 (all ref-block / engine-pass-400) |
+| benign-browse-v1 | 2 | 214/774 | 184/774 | 150 (90 engine-only, 60 ref-only) |
+| benign-hard-v0 | 1 | 35/180 | 22/180 | 23 (18 engine-only, 5 ref-only) |
+| benign-hard-v0 | 2 | 129/180 | 78/180 | 51 (all engine-only) |
+| attacks-ct-v0 | 1 | 279/320 | 304/320 | 25 (all ref-only: JSON/octet-stream/text-plain/unknown-CT carriers) |
+| attacks-ct-v0 | 2 | 312/320 | 316/320 | 4 (all ref-only command-injection carriers) |
+
+Reading (per rule 33, HYPOTHESIS unless said otherwise):
+- attacks-ct-v0 PL1 ref-only blocks are exactly the non-urlencoded body
+  carriers (JSON, octet-stream, text-plain, unknown-CT) — the connector
+  blocks them, the engine passes them. PROVEN pattern from the id list; the
+  cause (which rule fires in the connector but not in the engine config) is
+  HYPOTHESIS until a rule-level diff is done.
+- benign-hard-v0 PL2: the engine blocks 51 samples the connector passes —
+  the engine is MORE aggressive there; per-sample ids listed in the analysis.
+- Errors: 0 in every engine run; inconsistent: 0 in every engine run
+  (rule 30: nothing to add to worst case beyond blocked).
+
+## Confound check (rule 18/24)
+
+docs/logs/step15-t6-confound.txt. The engine writes audit entries essentially
+only for blocked transactions, so denominators are blocked sets. 949110
+appears in 100% of entries per dataset — that is the blocking-evaluation rule
+itself, expected, not a harness artifact. Detection rules at >=20% of blocked
+entries: attacks-v0 PL1 930120 35%, 941390 34%, 941100/941120 25%; PL2
+942430/942200 51%, 942520 38%, 942370 35%; benign-browse-v1 PL2 942340/942200/
+942430 56%; benign-hard-v0 PL2 942200 71%, 942430 67%. On the benign datasets
+these are CONFIG-MISMATCH signals (real browsing traffic exercises parameter
+patterns PL2 forbids), consistent with the step-13/14 WCP findings; they are
+the FP drivers, not a measurement artifact.
+
+## Time budget vs single-shot bodies (PROVEN)
+
+docs/logs/step15-t4-skeleton-replay.txt: 481,798-byte text/plain body,
+max_inspected_bytes=13,107,200 (config B): 41.8/42.5/43.5 s per rep, all
+ending in a normal 403 block — the 2,000 ms budget never fired (one
+ProcessRequestBody call has no phase boundary inside it). Config A (default
+131,072 cap): 413 kortex-decision=limit in 1.1-2.9 ms, 3/3. The
+"budget bounds the pathology" claim in the pre-run design text is corrected
+in docs/engine-design.md.
+
+## Harness fixes made for T6 (additive; container-dialect path unchanged)
+
+- crs_audit: the engine's Coraza audit dialect lowercases header names and
+  stores list values, puts messages at top level (sibling of "transaction"),
+  and carries rule id/msg/severity in error_message brackets. Attribution and
+  rule/score extraction now handle both dialects; the container-dialect
+  real-sample tests are unchanged and pass (pytest 105 passed).
+- First T6 pass used the default nginx block marker and scored every engine
+  block blocked=false (status 403 was right, marker was not); re-run with
+  --block-marker 'kortex-decision=block'. First-pass log kept:
+  docs/logs/step15-t6-runs-firstpass-nginxmarker.txt (rule 12).
+- Per-run engine-audit-full.log copies are cumulative within each PL (the run
+  script does not truncate between datasets); per-dataset confound numbers
+  filter entries by sample-id prefix. Outcomes are unaffected (attribution is
+  by unique sample id).
