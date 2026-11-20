@@ -1,0 +1,77 @@
+=== RUN   TestE10AttacksV0JSONDiffParityPL1
+    step16_test.go:180: parity attacks-v0 sqli-beca71f8-login: want block=true, got status=200 block=false
+    step16_test.go:180: parity attacks-v0 sqli-fb72118c-login: want block=true, got status=200 block=false
+    step16_test.go:180: parity attacks-v0 command-injection-ae105740-login: want block=true, got status=200 block=false
+    step16_test.go:180: parity attacks-v0 command-injection-d090c063-login: want block=true, got status=200 block=false
+    step16_test.go:180: parity attacks-v0 command-injection-036c522d-login: want block=false, got status=403 block=true
+    step16_test.go:180: parity attacks-v0 command-injection-edd1a45b-login: want block=true, got status=200 block=false
+    step16_test.go:180: parity attacks-v0 sqli-d5e8c63e-login: want block=true, got status=200 block=false
+    step16_test.go:180: parity attacks-v0 sqli-8c187a93-login: want block=true, got status=200 block=false
+    step16_test.go:180: parity attacks-v0 sqli-ebf229cf-login: want block=true, got status=200 block=false
+    step16_test.go:180: parity attacks-v0 path-traversal-d6aad809-login: want block=false, got status=403 block=true
+    step16_test.go:180: attacks-v0: 65/65 parity mismatches (first 10 shown)
+--- FAIL: TestE10AttacksV0JSONDiffParityPL1 (0.25s)
+=== RUN   TestE10AttacksV0JSONDiffParityPL2
+    step16_test.go:188: parity attacks-v0 command-injection-f48aa068-login: want block=false, got status=403 block=true
+    step16_test.go:188: parity attacks-v0 sqli-925997bb-login: want block=false, got status=403 block=true
+    step16_test.go:188: parity attacks-v0 command-injection-10bd76c8-login: want block=false, got status=403 block=true
+    step16_test.go:188: parity attacks-v0 command-injection-a2b61937-login: want block=false, got status=403 block=true
+    step16_test.go:188: parity attacks-v0 command-injection-f7d36638-login: want block=false, got status=403 block=true
+    step16_test.go:188: parity attacks-v0 sqli-730d16ce-login: want block=false, got status=403 block=true
+    step16_test.go:188: parity attacks-v0 command-injection-6b31c08e-login: want block=false, got status=403 block=true
+    step16_test.go:188: parity attacks-v0 command-injection-9255e799-login: want block=false, got status=403 block=true
+    step16_test.go:188: parity attacks-v0 command-injection-9fdd7094-login: want block=false, got status=403 block=true
+    step16_test.go:188: parity attacks-v0 command-injection-036c522d-login: want block=false, got status=403 block=true
+    step16_test.go:188: attacks-v0: 15/15 parity mismatches (first 10 shown)
+--- FAIL: TestE10AttacksV0JSONDiffParityPL2 (0.05s)
+=== RUN   TestE11MalformedJSONDenied400LikeConnector
+    step16_test.go:196: E11: want 400 deny (rule 200002), got 200 body="stub-ok"
+--- FAIL: TestE11MalformedJSONDenied400LikeConnector (0.01s)
+=== RUN   TestE12JSONThousandArgsDenied400LikeConnector
+    step16_test.go:217: E12: want 400 deny (rule 200007), got 200 body="stub-ok"
+--- FAIL: TestE12JSONThousandArgsDenied400LikeConnector (0.06s)
+=== RUN   TestE13XMLBodyTraversalBlockedViaXMLProcessor
+    step16_test.go:238: E13: block not via the XML-variable rules 930100/930110: "403 kortex-decision=block rules=900000,900001,900110,900990,900220,901111,901115,901130,901140,901141,901142,901143,901160,901168,901163,901164,901165,901171,901510,901167,901169,901170,901180,901200,901340,901400,911013,913013,920350,920013,921013,930013,931013,932013,933013,934013,941010,941013,942013,943013,944013,949052,949152,949013,980013,901181,911014,913014,920014,921014,930120,930014,931014,932160,932014,933014,934014,941014,942014,943014,944014,949059,949159,949060,949160,949110\n"
+--- FAIL: TestE13XMLBodyTraversalBlockedViaXMLProcessor (0.01s)
+=== RUN   TestE14BenignHardJSONDiffParityPL1
+    step16_test.go:250: parity benign-hard-v0 hardben-19c254d4-login: want block=false, got status=403 block=true
+    step16_test.go:250: parity benign-hard-v0 hardben-30066792-login: want block=false, got status=403 block=true
+    step16_test.go:250: parity benign-hard-v0 hardben-37a01385-login: want block=false, got status=403 block=true
+    step16_test.go:250: parity benign-hard-v0 hardben-d3ef2fc4-login: want block=false, got status=403 block=true
+    step16_test.go:250: parity benign-hard-v0 hardben-1cf6dcc9-login: want block=true, got status=200 block=false
+    step16_test.go:250: parity benign-hard-v0 hardben-273b3ad4-login: want block=true, got status=200 block=false
+    step16_test.go:250: parity benign-hard-v0 hardben-2cec0287-login: want block=false, got status=403 block=true
+    step16_test.go:250: parity benign-hard-v0 hardben-33f16716-login: want block=false, got status=403 block=true
+    step16_test.go:250: parity benign-hard-v0 hardben-5c420414-login: want block=false, got status=403 block=true
+    step16_test.go:250: parity benign-hard-v0 hardben-70895718-login: want block=false, got status=403 block=true
+    step16_test.go:250: benign-hard-v0: 23/23 parity mismatches (first 10 shown)
+--- FAIL: TestE14BenignHardJSONDiffParityPL1 (0.08s)
+=== RUN   TestE14BenignHardJSONDiffParityPL2
+    step16_test.go:258: parity benign-hard-v0 hardben-3a25df55-login: want block=false, got status=403 block=true
+    step16_test.go:258: parity benign-hard-v0 hardben-5425008b-login: want block=false, got status=403 block=true
+    step16_test.go:258: parity benign-hard-v0 hardben-57359002-login: want block=false, got status=403 block=true
+    step16_test.go:258: parity benign-hard-v0 hardben-70895718-login: want block=false, got status=403 block=true
+    step16_test.go:258: parity benign-hard-v0 hardben-978edf99-login: want block=false, got status=403 block=true
+    step16_test.go:258: parity benign-hard-v0 hardben-afcf055c-login: want block=false, got status=403 block=true
+    step16_test.go:258: parity benign-hard-v0 hardben-d5a06b16-login: want block=false, got status=403 block=true
+    step16_test.go:258: parity benign-hard-v0 hardben-30066792-login: want block=false, got status=403 block=true
+    step16_test.go:258: parity benign-hard-v0 hardben-32e972b9-login: want block=false, got status=403 block=true
+    step16_test.go:258: parity benign-hard-v0 hardben-476a4888-login: want block=false, got status=403 block=true
+    step16_test.go:258: benign-hard-v0: 51/51 parity mismatches (first 10 shown)
+--- FAIL: TestE14BenignHardJSONDiffParityPL2 (0.25s)
+=== RUN   TestE15BenignBrowsePL2EngineOnlyJSONPass
+    step16_test.go:270: parity benign-browse-v1 browse-88fafa1c2e9e: want block=false, got status=403 block=true
+    step16_test.go:270: parity benign-browse-v1 browse-94b425b16a0a: want block=false, got status=403 block=true
+    step16_test.go:270: parity benign-browse-v1 browse-0f88f2e4962c: want block=false, got status=403 block=true
+    step16_test.go:270: parity benign-browse-v1 browse-29fc6e48058c: want block=false, got status=403 block=true
+    step16_test.go:270: parity benign-browse-v1 browse-4142911a587a: want block=false, got status=403 block=true
+    step16_test.go:270: parity benign-browse-v1 browse-a0332dc68fba: want block=false, got status=403 block=true
+    step16_test.go:270: parity benign-browse-v1 browse-b5cd863d4ec8: want block=false, got status=403 block=true
+    step16_test.go:270: parity benign-browse-v1 browse-3030dd36c8d7: want block=false, got status=403 block=true
+    step16_test.go:270: parity benign-browse-v1 browse-3fa6e642f6c1: want block=false, got status=403 block=true
+    step16_test.go:270: parity benign-browse-v1 browse-42f9cd0b80a4: want block=false, got status=403 block=true
+    step16_test.go:270: benign-browse-v1: 90/90 parity mismatches (first 10 shown)
+--- FAIL: TestE15BenignBrowsePL2EngineOnlyJSONPass (0.41s)
+FAIL
+FAIL	kortexshield/engine	1.141s
+FAIL
