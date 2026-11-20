@@ -1,0 +1,97 @@
+=== T7 rule bisect (DIAGNOSTIC) 2026-11-20T06:12:52Z
+ Network deploy_default Creating 
+ Network deploy_default Creating 
+ Network deploy_default Created 
+ Network deploy_default Created 
+ Container deploy-stub-backend-1 Creating 
+ Container deploy-target-1 Creating 
+ Container deploy-stub-backend-1 Created 
+ Container deploy-target-1 Created 
+ Container deploy-coraza-crs-1 Creating 
+ Container deploy-coraza-crs-1 Created 
+ Container deploy-target-1 Starting 
+ Container deploy-stub-backend-1 Starting 
+ Container deploy-target-1 Started 
+ Container deploy-coraza-crs-1 Starting 
+ Container deploy-stub-backend-1 Started 
+ Container deploy-coraza-crs-1 Started 
+SecRuleRemoveById 932120 932380 933180 941100 941130 941170 941210 942190
+0
+target wcp-80a49c991b2d method=POST ct_len=25 full_body_bytes=481798
+removed[932120 932380 933180 941100 941130 941170 941210 942190] bytes=477231: 40468ms/403 39630ms/403 41022ms/403
+ Container deploy-stub-backend-1 Creating 
+ Container deploy-target-1 Creating 
+ Container deploy-target-1 Created 
+ Container deploy-coraza-crs-1 Recreate 
+ Container deploy-stub-backend-1 Created 
+ Container deploy-coraza-crs-1 Recreated 
+ Container deploy-stub-backend-1 Starting 
+ Container deploy-target-1 Starting 
+ Container deploy-stub-backend-1 Started 
+ Container deploy-target-1 Started 
+ Container deploy-coraza-crs-1 Starting 
+ Container deploy-coraza-crs-1 Started 
+SecRuleRemoveById 941100
+0
+target wcp-80a49c991b2d method=POST ct_len=25 full_body_bytes=481798
+removed[941100] bytes=477231: 43091ms/403 42037ms/403 44240ms/403
+ Container deploy-stub-backend-1 Creating 
+ Container deploy-target-1 Creating 
+ Container deploy-stub-backend-1 Created 
+ Container deploy-target-1 Created 
+ Container deploy-coraza-crs-1 Recreate 
+ Container deploy-coraza-crs-1 Recreated 
+ Container deploy-target-1 Starting 
+ Container deploy-stub-backend-1 Starting 
+ Container deploy-target-1 Started 
+ Container deploy-coraza-crs-1 Starting 
+ Container deploy-stub-backend-1 Started 
+ Container deploy-coraza-crs-1 Started 
+SecRuleRemoveById 941130 941170 941210
+0
+target wcp-80a49c991b2d method=POST ct_len=25 full_body_bytes=481798
+removed[941130 941170 941210] bytes=477231: 42062ms/403 41989ms/403 43542ms/403
+ Container deploy-stub-backend-1 Creating 
+ Container deploy-target-1 Creating 
+ Container deploy-stub-backend-1 Created 
+ Container deploy-target-1 Created 
+ Container deploy-coraza-crs-1 Recreate 
+ Container deploy-coraza-crs-1 Recreated 
+ Container deploy-stub-backend-1 Starting 
+ Container deploy-target-1 Starting 
+ Container deploy-stub-backend-1 Started 
+ Container deploy-target-1 Started 
+ Container deploy-coraza-crs-1 Starting 
+ Container deploy-coraza-crs-1 Started 
+SecRuleRemoveById 932120 932380 933180
+0
+target wcp-80a49c991b2d method=POST ct_len=25 full_body_bytes=481798
+removed[932120 932380 933180] bytes=477231: 43708ms/403 41398ms/403 41539ms/403
+ Container deploy-target-1 Creating 
+ Container deploy-coraza-crs-1 Stopping 
+ Container deploy-stub-backend-1 Creating 
+ Container deploy-coraza-crs-1 Error response from daemon: No such container: ba503a0af5500882d1a8f149b0261644f3d327c980c7744574903a25178556ac 
+ Container deploy-coraza-crs-1 Removing 
+Error response from daemon: No such container: ba503a0af5500882d1a8f149b0261644f3d327c980c7744574903a25178556ac
+ Container deploy-stub-backend-1 Creating 
+ Container deploy-target-1 Creating 
+ Container deploy-target-1 Created 
+ Container deploy-coraza-crs-1 Recreate 
+ Container deploy-stub-backend-1 Created 
+ Container deploy-coraza-crs-1 Recreated 
+ Container deploy-stub-backend-1 Starting 
+ Container deploy-target-1 Starting 
+ Container deploy-stub-backend-1 Started 
+ Container deploy-target-1 Started 
+ Container deploy-coraza-crs-1 Starting 
+Error response from daemon: No such container: 51dc746ce88a8d0b21510b2eb5cbb8cd75b683e021f078c1615057cc2c7646ac
+ Container deploy-target-1 Running 
+ Container f8be1d8e2592_deploy-stub-backend-1 Recreate 
+ Container deploy-stub-backend-1 Stopping 
+ Container deploy-coraza-crs-1 Recreate 
+ Container f8be1d8e2592_deploy-stub-backend-1 Error response from daemon: Error when allocating new name: Conflict. The container name "/deploy-stub-backend-1" is already in use by container "f8be1d8e2592fefa4df093a6658a3643d99aa232dabf644f672b425fce95c049". You have to remove (or rename) that container to be able to reuse that name. 
+Error response from daemon: Error when allocating new name: Conflict. The container name "/deploy-stub-backend-1" is already in use by container "f8be1d8e2592fefa4df093a6658a3643d99aa232dabf644f672b425fce95c049". You have to remove (or rename) that container to be able to reuse that name.
+Error response from daemon: container e4af44e1969557a5d8e6e7c9b5efc2c08aa43b2b0d93a2f265dfa2c2d1fe3a7b is not running
+target wcp-80a49c991b2d method=POST ct_len=25 full_body_bytes=481798
+removed[942190] bytes=477231: 2ms/OSError 0ms/OSError 0ms/OSError
+exit=0

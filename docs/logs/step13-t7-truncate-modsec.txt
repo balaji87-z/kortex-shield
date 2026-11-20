@@ -1,0 +1,8 @@
+target wcp-80a49c991b2d method=POST ct_len=25 full_body_bytes=481798
+modsec bytes=1024: 29ms/403 7ms/403 7ms/403
+modsec bytes=4096: 10ms/403 7ms/403 22ms/403
+modsec bytes=16384: 12ms/403 12ms/403 12ms/403
+modsec bytes=65536: 9ms/403 13ms/403 8ms/403
+modsec bytes=131072: 16ms/403 12ms/403 16ms/403
+modsec bytes=262144: 20ms/403 26ms/403 15ms/403
+modsec bytes=477231: 32ms/403 56ms/403 92ms/403

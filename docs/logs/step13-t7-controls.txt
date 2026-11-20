@@ -1,0 +1,51 @@
+== control A: urlencoded allowed CT, same size
+urlencoded-control: 1848ms 200
+urlencoded-control: 1995ms 200
+urlencoded-control: 1691ms 200
+== control B: SecRequestBodyAccess Off (scratch container)
+ Container deploy-target-1 Creating 
+ Container deploy-stub-backend-1 Creating 
+ Container deploy-target-1 Created 
+ Container deploy-coraza-crs-1 Recreate 
+ Container deploy-stub-backend-1 Created 
+ Container deploy-coraza-crs-1 Recreated 
+ Container deploy-coraza-crs-1 Starting 
+ Container deploy-coraza-crs-1 Started 
+ Container deploy-coraza-crs-1 Recreate 
+ Container deploy-stub-backend-1 Recreate 
+ Container deploy-coraza-crs-1 Recreated 
+ Container deploy-stub-backend-1 Error response from daemon: No such container: ab59f346c4dc9ffb2d8a2d16b415668c6167e2b98964b603e3d2d83305c60cc9 
+Error response from daemon: No such container: ab59f346c4dc9ffb2d8a2d16b415668c6167e2b98964b603e3d2d83305c60cc9
+ Container deploy-target-1 Running 
+ Container ab59f346c4dc_deploy-stub-backend-1 Recreate 
+ Container e4af44e19695_deploy-coraza-crs-1 Recreate 
+ Container deploy-coraza-crs-1 Stopping 
+ Container deploy-coraza-crs-1 Stopped 
+ Container deploy-coraza-crs-1 Removing 
+ Container deploy-coraza-crs-1 Removed 
+ Container ab59f346c4dc_deploy-stub-backend-1 Recreated 
+ Container e4af44e19695_deploy-coraza-crs-1 Recreated 
+ Container deploy-stub-backend-1 Starting 
+ Container deploy-coraza-crs-1 Starting 
+ Container deploy-stub-backend-1 Started 
+ Container deploy-coraza-crs-1 Started 
+target wcp-80a49c991b2d method=POST ct_len=25 full_body_bytes=481798
+bodyaccess-off bytes=477231: 41672ms/403 40598ms/403 40418ms/403
+== control C: DetectionOnly (rules run, no block)
+ Container deploy-stub-backend-1 Creating 
+ Container deploy-target-1 Creating 
+ Container deploy-target-1 Created 
+ Container deploy-coraza-crs-1 Recreate 
+ Container deploy-stub-backend-1 Created 
+ Container deploy-coraza-crs-1 Recreated 
+ Container deploy-target-1 Starting 
+ Container deploy-stub-backend-1 Starting 
+ Container deploy-target-1 Started 
+ Container deploy-coraza-crs-1 Starting 
+ Container deploy-stub-backend-1 Started 
+ Container deploy-coraza-crs-1 Started 
+SecRuleEngine DetectionOnly
+target wcp-80a49c991b2d method=POST ct_len=25 full_body_bytes=481798
+detection-only bytes=477231: 41701ms/200 41373ms/200 44287ms/200
+T7 CONTROLS DONE
+exit=0

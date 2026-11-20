@@ -1,0 +1,4 @@
+out/modsec-benign-wcp-v0-pl1-stub: total=20000 ok=19999 blocked=3823 errors=1 audit=3887 audit∩resp=3887 outcomes=20000
+out/coraza-benign-wcp-v0-pl1-default: total=20000 ok=19994 blocked=3824 errors=6 audit=3885 audit∩resp=3885 outcomes=20000
+out/modsec-benign-wcp-v0-pl2-stub: total=20000 ok=19999 blocked=8949 errors=1 audit=9281 audit∩resp=9281 outcomes=20000
+out/coraza-benign-wcp-v0-pl2-default: total=20000 ok=19997 blocked=8951 errors=3 audit=9023 audit∩resp=9023 outcomes=20000

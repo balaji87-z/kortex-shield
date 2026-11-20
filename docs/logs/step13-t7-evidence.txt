@@ -1,0 +1,138 @@
+# Step-13 T7 evidence — Coraza latency pathology on wcp-80a49c991b2d
+
+All runs in this file are DIAGNOSTIC (AGENTS.md rule 34). They never produce a
+baseline or parity number. Hypothesis was written before the T6 experiment
+(docs/decisions/0003-step13-t6-hypothesis.md); the T7 investigation below was
+run after the T5/T6 results were known.
+
+Sample: wcp-80a49c991b2d — POST, content type text/plain (no body processor),
+body 477,231 bytes (481,798 with the runner's encoding). Only lengths are
+printed here, never recorded values (rule 25).
+
+## 1. Truncation series (3 replays per size, both engines)
+
+Raw: docs/logs/step13-t7-truncate-coraza.txt, docs/logs/step13-t7-truncate-modsec.txt
+
+| bytes | coraza ms (3 replays) | modsec ms (3 replays) |
+|---|---|---|
+| 1,024 | 21 / 14 / 16 | 29 / 7 / 7 |
+| 4,096 | 46 / 40 / 54 | 10 / 7 / 22 |
+| 16,384 | 292 / 324 / 291 | 12 / 12 / 12 |
+| 65,536 | 1,311 / 1,617 / 1,630 | 9 / 13 / 8 |
+| 131,072 | 6,646 / 6,198 / 5,589 | 16 / 12 / 16 |
+| 262,144 | 26,185 / 25,609 / 25,571 | 20 / 26 / 15 |
+| 477,231 | 43,473 / 43,177 / 44,107 | 32 / 56 / 92 |
+
+All responses 403 on both engines. Coraza grows super-linearly (roughly
+quadratic from 128 KB upward: 2x size -> 4.3x time between 128 KB and 256 KB).
+ModSecurity is flat at every size.
+
+## 2. The 20 largest bodies are NOT uniformly slow — slowness is content-type dependent
+
+Raw: docs/logs/step13-t7-largest-coraza.txt, docs/logs/step13-t7-largest-modsec.txt
+(content-type family added below from the frozen manifest; values not printed)
+
+| body bytes | content type | coraza ms (status) |
+|---|---|---|
+| 2,829,426 | multipart/form-data | 30 (403) |
+| 2,829,426 | multipart/form-data | 24 (403) |
+| 2,829,422 | multipart/form-data | 32 (403) |
+| 2,105,554 | multipart/form-data | 21 (403) |
+| 2,105,547 | multipart/form-data | 50 (403) |
+| 2,105,547 | multipart/form-data | 14 (403) |
+| 2,105,540 | multipart/form-data | 22 (403) |
+| 1,620,088 | multipart/form-data | 31 (403) |
+| 1,620,081 | multipart/form-data | 18 (403) |
+| 1,620,070 | multipart/form-data | 19 (403) |
+| 1,401,149 | none | 116 (400) |
+| 958,179 | application/x-www-form-urlencoded | 4,875 (403) |
+| 875,593 | none | 46 (400) |
+| 752,448 | text/plain | 5,522 (403) |
+| 735,356 | application/json | 158 (400) |
+| 481,798* | text/plain | 44,016 (403) |
+| 381,921 | none | 2,903 (403) |
+| 324,118 | text/plain | 2,185 (403) |
+| 300,028 | text/plain | 2,032 (403) |
+| 249,607 | text/plain | 2,337 (403) |
+
+(*runner-encoded length; manifest body is 477,231.)
+
+ModSecurity handled all 20 in 14–116 ms. Coraza is slow only on bodies it
+scans in full through the non-multipart path: text/plain and empty content
+type (no body processor) and urlencoded (1 field-dominated body). Bodies
+blocked before phase-2 body processing (the 400s) and multipart bodies are
+fast even at 2.8 MB.
+
+## 3. Which rules match the slow request (audit, coraza)
+
+Raw: docs/logs/step13-t7-slow-audit.txt — replay reproduced at 46,765 ms / 403.
+Matched rules: 920420, 932120, 932380, 933180, 941100, 941130, 941170, 941210,
+942190, 949110.
+
+## 4. Rule-disable bisect (DIAGNOSTIC scratch containers)
+
+Tool: tools/run_step13_t7_bisect.sh (SecRuleRemoveById via
+/opt/coraza/overrides/zz-t7.conf, mount verified by docker exec in each run).
+Raw: docs/logs/step13-t7-bisect.txt.
+
+| removed | 477,231 B replay (3x) |
+|---|---|
+| 932120 932380 933180 941100 941130 941170 941210 942190 (all 8) | 40,468 / 39,630 / 41,022 ms, 403 |
+| 941100 | 43,091 / 42,037 / 44,240 ms, 403 |
+| 941130 941170 941210 | 42,062 / 41,989 / 43,542 ms, 403 |
+
+Removing every matched body-derived CRS rule changes nothing: the latency is
+not produced by any CRS rule.
+
+## 5. Controls (DIAGNOSTIC)
+
+Tool: tools/run_step13_t7_controls.sh; raw: docs/logs/step13-t7-controls.txt,
+docs/logs/step13-t7-controls-b.txt.
+
+- urlencoded control, same 477,231-byte size, allowed content type:
+  1,848 / 1,995 / 1,691 ms, status 200 — fast (linear-ish), so body size alone
+  does not cause the pathology.
+- SecRequestBodyAccess Off (scratch container; mount + file verified inside the
+  running container: "/opt/coraza/overrides/zz-t7.conf: SecRequestBodyAccess
+  Off"): 5 / 4 / 3 ms, 403. The same request becomes 4 orders of magnitude
+  faster. Note: the first attempt at this control (step13-t7-controls.txt)
+  silently did not apply the override and still showed ~40 s; it was redone
+  with in-container verification (step13-t7-controls-b.txt) and only the
+  verified redo is used as evidence.
+- SecRuleEngine DetectionOnly (rules still evaluated): 41,701 / 41,373 /
+  44,287 ms, status 200 — blocking is not the cost.
+- Direct POST to the stub backend (bypassing both engines): 3 / 2 ms — the
+  backend is not the cost.
+- ModSecurity at PL2 (PARANOIA=2, BLOCKING_PARANOIA=2, DETECTION_PARANOIA=2):
+  68 / 29 / 27 ms, 403 (docs/logs/step13-t7-modsec-pl2.txt) — fast at PL1 and
+  PL2.
+
+## 6. Conclusions
+
+- PROVEN (experiment: rule-disable bisect + RequestBodyAccess-Off control):
+  the dominant cost of the 40+ s requests is Coraza engine-internal request
+  body processing while SecRequestBodyAccess is On. No CRS rule is the
+  dominant cost — removing all 8 matched body-derived rules left the latency
+  unchanged (~40 s), and turning body access off dropped it to 3–5 ms.
+- PROVEN (experiment: truncation series): the cost grows super-linearly with
+  body size on this sample, approximately quadratic from 128 KB upward.
+- PROVEN (experiment: 20-largest replay + content-type table): the pathology
+  is content-dependent, not purely size-dependent — multipart bodies up to
+  2.8 MB are fast (14–50 ms), while text/plain/empty-CT bodies from 156 KB
+  upward and one urlencoded body at 958 KB take 2–44 s.
+- PROVEN (experiment: PL2 replay): ModSecurity is fast on this sample at PL1
+  and PL2 (7–92 ms), so the divergence is one-sided.
+- HYPOTHESIS (unverified): the exact internal mechanism (which Coraza code
+  path, e.g. buffer handling in the no-processor / urlencoded scan path).
+  Not derived from source or a CPU profile; only the external behaviour is
+  proven. Upstream coraza issues #1176 (performance drop with larger request
+  bodies) and #1796 (body cost grows with rules x fields) document related
+  cost growth; whether they are the same code path in coraza/v3 v3.7.0 is
+  UNVERIFIED.
+- Consistency with T6: T6 PROVED Coraza populates body-derived variables even
+  for content types the policy rejects (text/plain etc.), while ModSecurity
+  does not. The slow samples here are exactly the bodies Coraza scans and
+  ModSecurity skips, which is consistent with both findings having the same
+  underlying engine difference.
+- Per rule 4, neither engine is called correct. Per rule 34, none of these
+  numbers enter baseline or parity tables.
