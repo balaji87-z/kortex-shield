@@ -114,19 +114,78 @@ func matchedIDs(tx types.Transaction) []string {
 	return ids
 }
 
+type job struct {
+	ID       string `json:"id"`
+	Method   string `json:"method"`
+	Path     string `json:"path"`
+	Query    string `json:"query"`
+	CT       string `json:"ct"`
+	BodyFile string `json:"body_file"`
+	Reps     int    `json:"reps"`
+}
+
+func loadAvg() string {
+	b, err := os.ReadFile("/proc/loadavg")
+	if err != nil {
+		return "unavailable"
+	}
+	return strings.TrimSpace(string(b))
+}
+
 func main() {
-	rulesDir := flag.String("rules", "crs", "directory with crs-setup.conf and rules/")
+	rulesDir := flag.String("rules", "crs", "directory with crs-setup.conf and owasp-crs/rules/")
 	manifest := flag.String("manifest", "", "JSONL manifest of samples to run (probe c)")
 	bodyFile := flag.String("body-file", "", "raw body file for probe (b)")
 	bodyCT := flag.String("body-ct", "text/plain", "content type for -body-file")
 	bodyLen := flag.Int("json-bytes", 0, "probe (a): build a JSON body of this many bytes")
 	controls := flag.Bool("controls", false, "probe (d): run 5 plain controls")
+	jobsFile := flag.String("jobs", "", "JSON array of jobs (step-15 T4 batch mode)")
 	flag.Parse()
 
 	waf, err := buildWAF(*rulesDir)
 	if err != nil {
 		fmt.Println("BLOCKED: waf build failed:", err)
 		os.Exit(2)
+	}
+
+	if *jobsFile != "" { // step-15 T4 batch mode
+		raw, err := os.ReadFile(*jobsFile)
+		if err != nil {
+			fmt.Println("BLOCKED: jobs file:", err)
+			os.Exit(2)
+		}
+		var jobs []job
+		if err := json.Unmarshal(raw, &jobs); err != nil {
+			fmt.Println("BLOCKED: jobs decode:", err)
+			os.Exit(2)
+		}
+		fmt.Printf("load_avg_start: %s\n", loadAvg())
+		for _, j := range jobs {
+			raw, err := os.ReadFile(j.BodyFile)
+			if err != nil {
+				fmt.Printf("job %s BLOCKED body read: %v\n", j.ID, err)
+				continue
+			}
+			s := wcpSample{ID: j.ID, Method: j.Method, Path: j.Path, Query: j.Query,
+				Body: string(raw), ContentType: j.CT, Headers: map[string]string{"Host": "localhost"}}
+			reps := j.Reps
+			if reps == 0 {
+				reps = 3
+			}
+			for r := 1; r <= reps; r++ {
+				st, el, ids := runSample(waf, s)
+				det := make([]string, 0)
+				for _, id := range ids {
+					if id[:3] != "900" && id[:3] != "901" && id[:3] != "949" && id[:3] != "980" {
+						det = append(det, id)
+					}
+				}
+				fmt.Printf("job %s rep=%d status=%d elapsed_ms=%.1f rules=%v\n",
+					j.ID, r, st, float64(el.Microseconds())/1000.0, det)
+			}
+		}
+		fmt.Printf("load_avg_end: %s\n", loadAvg())
+		return
 	}
 
 	switch {
