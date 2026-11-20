@@ -1,0 +1,40 @@
+== load average at start:  11:28:59 up  1:16,  0 user,  load average: 10.14, 8.15, 8.17
+== engine binary: b682f9e62575c9affdc87f183293f932  /tmp/kortex-engine
+===== PHASE A: cap=32 (raised), 20 concurrent 481,798-byte bodies
+== engine effective config (port 8096):
+{"backend_url":"http://127.0.0.1:13000","rule_engine":"On","blocking_paranoia":1,"detection_paranoia":1,"max_body_bytes":13107200,"max_inspected_bytes":13107200,"engine_time_budget_ms":2000,"rules_dir":"/home/Kavinharish/kortexshield/engine/crs","listen_addr":"127.0.0.1:8096","events_file":"/tmp/kx17t3-events.jsonl","audit_log":"/tmp/kx17t3-audit.log","allowed_methods":"GET HEAD POST OPTIONS","max_inflight_body":32}
+
+benign[before] status=200 time_total_s=0.009880
+== cpu at start (utime_s stime_s): 0.11 0.03
+copy3 status=503 time_total_s=2.029342
+copy15 status=503 time_total_s=2.005252
+copy11 status=503 time_total_s=2.020642
+== cpu at deadline (+2.058406509s): 8.11 0.24
+copy16 status=503 time_total_s=2.001627
+copy4 status=503 time_total_s=2.003883
+copy6 status=503 time_total_s=2.050820
+copy17 status=503 time_total_s=2.005740
+copy1 status=503 time_total_s=2.026157
+copy12 status=503 time_total_s=2.019221
+copy10 status=503 time_total_s=2.046770
+benign[at-deadline] status=200 time_total_s=0.009611
+copy2 status=503 time_total_s=2.002108
+copy19 status=503 time_total_s=2.068017
+copy8 status=503 time_total_s=2.003757
+copy7 status=503 time_total_s=2.002544
+copy5 status=503 time_total_s=2.009299
+copy18 status=503 time_total_s=2.012064
+copy13 status=503 time_total_s=2.009508
+copy14 status=503 time_total_s=2.010700
+copy20 status=503 time_total_s=2.068947
+copy9 status=503 time_total_s=2.017938
+== all copies answered
+benign[at-plus8s] status=200 time_total_s=0.008190
+benign[at-plus59s] status=200 time_total_s=0.076358
+== cpu at +60s: 235.06 2.03
+== abandoned-body-processing-finished events (count and elapsed_ms):
+0
+0
+benign[at-plus120s] status=200 time_total_s=0.006734
+== cpu at +120s: 471.19 3.41
+== polling up to 300s more for the 20 abandoned-body-processing-finished events
