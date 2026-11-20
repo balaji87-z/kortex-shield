@@ -1,0 +1,111 @@
+# step-17 T1 DIAGNOSTIC evidence (rule 34): engine built with SecAuditEngine On
+# plus variable-dump rules (ids 999901-999910, DIAGNOSTIC ONLY, never committed)
+# to capture audit entries for PASSED samples (the committed engine audits
+# RelevantOnly, so passes produce no audit entry).
+#
+# NOTE: five earlier diagnostic attempts (diag3-diag9) are INVALID and were
+# discarded: the dump rules contained %{...} macro expansions inside the
+# fmt.Sprintf format string of engine/config.go directives(), which consumed
+# Sprintf arguments and shifted the Include %s verb, so the CRS ruleset was
+# never loaded in those runs. Fixed by removing every % from the dump rules.
+# The run below (diag10) is the valid one: the urlencoded control shows
+# 942100+949110 exactly as in the committed s16-t2 run.
+#
+# Samples replayed: the payloads the engine passed under the raw-body carriers
+# (sqli-6e47f23b, command-injection-dc2932d5 at PL1; command-injection-ecb32a80
+# at PL2) plus the blocked control sqli-0933fb66, each as text/plain,
+# application/octet-stream, application/x-kortex-probe-unknown and (control)
+# application/x-www-form-urlencoded.
+== sample diag-text-plain-sqli-0933fb66
+  content-type: ['text/plain']
+  audit request.body: '"-"'
+  rule 999908: DIAG RBP=URLENCODED
+  rule 999905: DIAG ARGS_POST POPULATED
+  rule 942100: SQL Injection Attack Detected via libinjection
+  rule 949110: Inbound Anomaly Score Exceeded (Total Score: 8)
+== sample diag-octet-stream-sqli-0933fb66
+  content-type: ['application/octet-stream']
+  audit request.body: '"-"'
+  rule 999908: DIAG RBP=URLENCODED
+  rule 999905: DIAG ARGS_POST POPULATED
+  rule 942100: SQL Injection Attack Detected via libinjection
+  rule 949110: Inbound Anomaly Score Exceeded (Total Score: 8)
+== sample diag-unknown-ct-sqli-0933fb66
+  content-type: ['application/x-kortex-probe-unknown']
+  audit request.body: '"-"'
+  rule 999908: DIAG RBP=URLENCODED
+  rule 999905: DIAG ARGS_POST POPULATED
+  rule 942100: SQL Injection Attack Detected via libinjection
+  rule 949110: Inbound Anomaly Score Exceeded (Total Score: 8)
+== sample diag-urlencoded-sqli-0933fb66
+  content-type: ['application/x-www-form-urlencoded']
+  audit request.body: 'q=%22-%22'
+  rule 999908: DIAG RBP=URLENCODED
+  rule 999905: DIAG ARGS_POST POPULATED
+  rule 942100: SQL Injection Attack Detected via libinjection
+  rule 949110: Inbound Anomaly Score Exceeded (Total Score: 8)
+== sample diag-text-plain-sqli-6e47f23b
+  content-type: ['text/plain']
+  audit request.body: 'admin" or "1"="1"#'
+  rule 999908: DIAG RBP=URLENCODED
+  rule 999905: DIAG ARGS_POST POPULATED
+== sample diag-octet-stream-sqli-6e47f23b
+  content-type: ['application/octet-stream']
+  audit request.body: 'admin" or "1"="1"#'
+  rule 999908: DIAG RBP=URLENCODED
+  rule 999905: DIAG ARGS_POST POPULATED
+== sample diag-unknown-ct-sqli-6e47f23b
+  content-type: ['application/x-kortex-probe-unknown']
+  audit request.body: 'admin" or "1"="1"#'
+  rule 999908: DIAG RBP=URLENCODED
+  rule 999905: DIAG ARGS_POST POPULATED
+== sample diag-urlencoded-sqli-6e47f23b
+  content-type: ['application/x-www-form-urlencoded']
+  audit request.body: 'q=admin%22%20or%20%221%22%3D%221%22%23'
+  rule 999908: DIAG RBP=URLENCODED
+  rule 999905: DIAG ARGS_POST POPULATED
+  rule 942100: SQL Injection Attack Detected via libinjection
+  rule 949110: Inbound Anomaly Score Exceeded (Total Score: 8)
+== sample diag-text-plain-command-injection-dc2932d5
+  content-type: ['text/plain']
+  audit request.body: '& dir C:\\Documents and Settings\\*'
+  rule 999908: DIAG RBP=URLENCODED
+  rule 999905: DIAG ARGS_POST POPULATED
+== sample diag-octet-stream-command-injection-dc2932d5
+  content-type: ['application/octet-stream']
+  audit request.body: '& dir C:\\Documents and Settings\\*'
+  rule 999908: DIAG RBP=URLENCODED
+  rule 999905: DIAG ARGS_POST POPULATED
+== sample diag-unknown-ct-command-injection-dc2932d5
+  content-type: ['application/x-kortex-probe-unknown']
+  audit request.body: '& dir C:\\Documents and Settings\\*'
+  rule 999908: DIAG RBP=URLENCODED
+  rule 999905: DIAG ARGS_POST POPULATED
+== sample diag-urlencoded-command-injection-dc2932d5
+  content-type: ['application/x-www-form-urlencoded']
+  audit request.body: 'q=%26%20dir%20C%3A%5CDocuments%20and%20Settings%5C%2A'
+  rule 999908: DIAG RBP=URLENCODED
+  rule 999905: DIAG ARGS_POST POPULATED
+  rule 932125: Remote Command Execution: Windows Powershell Alias Command Injection
+  rule 932380: Remote Command Execution: Windows Command Injection
+  rule 949110: Inbound Anomaly Score Exceeded (Total Score: 13)
+== sample diag-text-plain-command-injection-ecb32a80
+  content-type: ['text/plain']
+  audit request.body: '; type %SYSTEMROOT%\\repair\\SAM'
+  rule 999908: DIAG RBP=URLENCODED
+  rule 999905: DIAG ARGS_POST POPULATED
+== sample diag-octet-stream-command-injection-ecb32a80
+  content-type: ['application/octet-stream']
+  audit request.body: '; type %SYSTEMROOT%\\repair\\SAM'
+  rule 999908: DIAG RBP=URLENCODED
+  rule 999905: DIAG ARGS_POST POPULATED
+== sample diag-unknown-ct-command-injection-ecb32a80
+  content-type: ['application/x-kortex-probe-unknown']
+  audit request.body: '; type %SYSTEMROOT%\\repair\\SAM'
+  rule 999908: DIAG RBP=URLENCODED
+  rule 999905: DIAG ARGS_POST POPULATED
+== sample diag-urlencoded-command-injection-ecb32a80
+  content-type: ['application/x-www-form-urlencoded']
+  audit request.body: 'q=%3B%20type%20%25SYSTEMROOT%25%5Crepair%5CSAM'
+  rule 999908: DIAG RBP=URLENCODED
+  rule 999905: DIAG ARGS_POST POPULATED
