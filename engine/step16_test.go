@@ -110,6 +110,17 @@ func sendSample(t *testing.T, srv *httptest.Server, s manifestSample) (int, stri
 	}
 	req.Header.Set("Accept-Encoding", "identity")
 	req.Header.Set("X-Kortex-Sample-Id", s.ID)
+	// Same Host the kortex_eval.runner sends on BOTH sides of the parity
+	// runs (base-url localhost). A numeric-IP Host fires CRS 920350
+	// (WARNING, +3) which flips marginal detections - a harness artifact,
+	// not engine behaviour (step-16 T2 re-run finding).
+	req.Host = "localhost:8090"
+	// Same User-Agent the kortex_eval.runner sends on BOTH sides of the
+	// parity runs. Without it CRS 920320 (Missing User Agent Header, NOTICE)
+	// adds +2 at PL2 and flips marginal warning-score detections, which is a
+	// harness artifact, not engine behaviour (step-16 T2 re-run finding).
+	req.Header.Set("User-Agent",
+		"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/158.0.0.0 Safari/537.36")
 	if s.ContentType != "" {
 		req.Header.Set("Content-Type", s.ContentType)
 	}
@@ -154,6 +165,7 @@ func postJSON(t *testing.T, srv *httptest.Server, id, ct, body string) (*http.Re
 	if err != nil {
 		t.Fatalf("new request: %v", err)
 	}
+	req.Host = "localhost:8090" // parity with the runner's Host, see sendSample
 	req.Header.Set("X-Kortex-Sample-Id", id)
 	if ct != "" {
 		req.Header.Set("Content-Type", ct)
@@ -343,6 +355,12 @@ var wantAttacksV0PL1 = map[string]bool{
 	"sqli-fb72118c-login": true,
 }
 var wantAttacksV0PL2 = map[string]bool{
+	// command-injection-036c522d-login and -q were excluded from the first
+	// T2 table (stale-ref suspicion); the UA-fixed re-run shows BOTH sides
+	// pass them (the T6 engine-only blocks were the missing-User-Agent
+	// artifact, 920320 +2), so they are parity ids like the rest.
+	"command-injection-036c522d-login": false,
+	"command-injection-036c522d-q":     false,
 	"command-injection-10bd76c8-login": false,
 	"command-injection-156de42b-login": false,
 	"command-injection-2b64c6d9-login": false,
@@ -584,5 +602,60 @@ func TestE16BodyProcessingBoundedByTimeBudget(t *testing.T) {
 	}
 	if backendHit {
 		t.Fatalf("E16: timed-out request must not reach the backend")
+	}
+}
+
+// E17: the abandoned body-processing call must OWN the transaction. The
+// timeout path answers 503 and returns while tx.ProcessRequestBody() is
+// still running (coraza has no per-call cancellation). If the handler's
+// deferred tx.Close() runs anyway, the closed transaction makes the
+// in-flight call return within milliseconds with a stale interruption -
+// the "DoS-risk evidence" then measures the close, not the call
+// (observed 2026-11-20: abandoned-finished at budget+12ms with
+// interrupted=true 949110, while the unfettered call needs ~42s).
+// Failing test first (rule 40): with the bug the abandoned-finished event
+// appears almost immediately; fixed, it must NOT appear within 2.5s of the
+// timeout (the real call keeps running for tens of seconds).
+func TestE17AbandonedCallOwnsTransaction(t *testing.T) {
+	bodyPath := os.Getenv("KORTEX_TEST_WCP_BODY")
+	if bodyPath == "" {
+		t.Skip("KORTEX_TEST_WCP_BODY not set (recorded 481,798-byte wcp body)")
+	}
+	body, err := os.ReadFile(bodyPath)
+	if err != nil {
+		t.Fatalf("read wcp body: %v", err)
+	}
+	if len(body) != 481798 {
+		t.Fatalf("unexpected fixture size %d (want 481798)", len(body))
+	}
+	srv, eventsPath := newEnv(t, map[string]string{
+		"KORTEX_MAX_INSPECTED_BYTES":   "13107200",
+		"KORTEX_ENGINE_TIME_BUDGET_MS": "200",
+	})
+	req, err := http.NewRequest("POST", srv.URL+"/", bytes.NewReader(body))
+	if err != nil {
+		t.Fatalf("new request: %v", err)
+	}
+	req.Header.Set("X-Kortex-Sample-Id", "e17-abandoned")
+	req.Header.Set("Content-Type", "text/plain")
+	resp, err := srv.Client().Do(req)
+	if err != nil {
+		t.Fatalf("do: %v", err)
+	}
+	defer resp.Body.Close()
+	b, _ := io.ReadAll(resp.Body)
+	if resp.StatusCode != 503 {
+		t.Fatalf("E17: want 503 timeout, got %d body=%q", resp.StatusCode, string(b))
+	}
+	// poll the events file: the abandoned-finished event must not appear
+	// while the real call is still running (it needs tens of seconds)
+	deadline := time.Now().Add(2500 * time.Millisecond)
+	for time.Now().Before(deadline) {
+		data, _ := os.ReadFile(eventsPath)
+		if strings.Contains(string(data), "abandoned-body-processing-finished") {
+			t.Fatalf("E17: abandoned call finished immediately - the handler's "+
+				"tx.Close() killed it (events: %s)", strings.TrimSpace(string(data)))
+		}
+		time.Sleep(100 * time.Millisecond)
 	}
 }

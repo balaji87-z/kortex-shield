@@ -1,0 +1,11 @@
+# step-16 T3 addendum: E17 failing evidence (rule 40) - the handler's
+# deferred tx.Close() kills the abandoned ProcessRequestBody call.
+# Command: cd engine && KORTEX_TEST_WCP_BODY=out/step14-t5/wcp-80a49c991b2d.body go test -run TestE17 -v
+
+=== RUN   TestE17AbandonedCallOwnsTransaction
+    step16_test.go:656: E17: abandoned call finished immediately - the handler's tx.Close() killed it (events: {"ts":"2026-11-20T10:26:56.33114801Z","sample_id":"e17-abandoned","decision":"timeout","status":503,"elapsed_ms":200.334,"reason":"time budget expired in body processing"}
+        {"ts":"2026-11-20T10:26:56.347300355Z","sample_id":"e17-abandoned","decision":"abandoned-body-processing-finished","status":0,"elapsed_ms":216.481,"reason":"elapsed_ms=216 interrupted=true rule_id=949110 status=403"})
+--- FAIL: TestE17AbandonedCallOwnsTransaction (0.42s)
+FAIL
+exit status 1
+FAIL	kortexshield/engine	0.430s
