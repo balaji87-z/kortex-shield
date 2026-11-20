@@ -98,3 +98,10 @@
 32. A parity claim names the quantity compared: blocked set; blocked + deny_status
     + inconsistent + error (the worst-case set); or rule-ID sets. Differences
     are listed per sample id.
+
+33. Every causal explanation in a report is labelled PROVEN (name the
+    experiment and show its output) or HYPOTHESIS. Never write "root cause"
+    without PROVEN.
+34. Diagnostic runs (scratch containers, rule disabling, modified bodies) are
+    allowed only when labelled DIAGNOSTIC in the run label and the report. They
+    never produce a baseline or parity number.
