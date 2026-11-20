@@ -1,0 +1,40 @@
+== EXACT T3 table: blocked/320 per cell, per carrier (replaces step-14 ranges)
+cell                           query urlencode      json multipart text-plai octet-str unknown-c     no-ct   TOTAL
+modsec-default-pl1                36        36        36        36        40        40        40        40  304/320
+modsec-default-pl2                39        39        39        39        40        40        40        40  316/320
+modsec-ct-wide-pl1                36        36        36        36         0         0        40        40  224/320
+modsec-ct-wide-pl2                39        39        39        39         0         0        40        40  236/320
+coraza-default-pl1                36        36        36        36        40        40        40        40  304/320
+coraza-default-pl2                39        39        39        39        40        40        40        40  316/320
+coraza-ct-wide-pl1                36        36        36        36        34        34        40        40  292/320
+coraza-ct-wide-pl2                39        39        39        39        38        38        40        40  312/320
+
+== EXACT T4 table: blocked/16 per encoding x carrier x cell (replaces step-14 ranges)
+-- modsec-default-pl1 (total 137/192)
+   plain           query=6/16 urlencoded=15/16
+   single-pct      query=15/16 urlencoded=15/16
+   double-pct      query=14/16 urlencoded=14/16
+   pct-u           query=14/16 urlencoded=14/16
+   mixed-case-hex  query=15/16 urlencoded=15/16
+   overlong-utf8   query=0/16 urlencoded=0/16  [INVALID stratum: builder bug, hex text sent]
+-- modsec-default-pl2 (total 146/192)
+   plain           query=6/16 urlencoded=16/16
+   single-pct      query=16/16 urlencoded=16/16
+   double-pct      query=15/16 urlencoded=15/16
+   pct-u           query=15/16 urlencoded=15/16
+   mixed-case-hex  query=16/16 urlencoded=16/16
+   overlong-utf8   query=0/16 urlencoded=0/16  [INVALID stratum: builder bug, hex text sent]
+-- coraza-default-pl1 (total 137/192)
+   plain           query=6/16 urlencoded=15/16
+   single-pct      query=15/16 urlencoded=15/16
+   double-pct      query=14/16 urlencoded=14/16
+   pct-u           query=14/16 urlencoded=14/16
+   mixed-case-hex  query=15/16 urlencoded=15/16
+   overlong-utf8   query=0/16 urlencoded=0/16  [INVALID stratum: builder bug, hex text sent]
+-- coraza-default-pl2 (total 146/192)
+   plain           query=6/16 urlencoded=16/16
+   single-pct      query=16/16 urlencoded=16/16
+   double-pct      query=15/16 urlencoded=15/16
+   pct-u           query=15/16 urlencoded=15/16
+   mixed-case-hex  query=16/16 urlencoded=16/16
+   overlong-utf8   query=0/16 urlencoded=0/16  [INVALID stratum: builder bug, hex text sent]

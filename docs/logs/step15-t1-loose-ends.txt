@@ -1,0 +1,37 @@
+== T1a: byte lengths of the 11 step-12 oversize-divergent samples
+wcp-4ff99580bb57 bytes=1401149 chars=723995
+wcp-34940e7ffce1 bytes=1620081 chars=860488
+wcp-80922154f132 bytes=1620088 chars=860495
+wcp-ad3399e805f1 bytes=1620070 chars=860477
+wcp-1140885081e1 bytes=2829426 chars=1527423
+wcp-f83f7556fc66 bytes=2829426 chars=1527423
+wcp-908ef72be103 bytes=2829422 chars=1527419
+wcp-131fde29d621 bytes=2105547 chars=1117962
+wcp-5b3f575b061d bytes=2105554 chars=1117969
+wcp-c5155c659149 bytes=2105547 chars=1117962
+wcp-7dfe87a9dd28 bytes=2105540 chars=1117955
+samples below 1,048,576 bytes: none
+
+Reconciliation: the step-14 report's range '723,995-2,829,426 bytes' mixed
+units: 723,995 is the CHARACTER count of wcp-4ff99580bb57 (its byte count is
+1,401,149). Byte lengths range 1,401,149-2,829,426; every sample is above
+1,048,576 bytes, so the 'all above 1 MiB' claim stands for bytes; the range
+label was wrong and is corrected here (docs/baseline-v1.0.md).
+
+== T1b: wcp-80a49c991b2d body: 477,231 vs 481,798 bytes
+chars: 477231
+utf-8 strict bytes: 481798
+utf-8 surrogatepass bytes (what the runner sends): 481798
+json-escaped (ensure_ascii=False) byte length in a re-dump: 593528
+non-ascii chars: 4567 lone-surrogate chars: 0
+surrogatepass - strict delta: 0
+NFC-normalized utf-8 bytes: 481798
+NFD-normalized utf-8 bytes: 481881
+LF count: 0 CR count: 0
+latin-1 ignore bytes: 477231
+latin-1 replace bytes: 477231
+runner-bytes sha256: 5c718716a795c041
+probe-file  sha256: 5c718716a795c041
+byte-identical: True
+=> the step-14 library probe ALREADY used the exact bytes the runner sends;
+   fresh re-run below (docs/logs/step15-t1-probe-rerun.txt).

@@ -1,0 +1,73 @@
+== T1c-i: plain-encoding QUERY payloads: raw request line + status per engine
+encd-query-plain-command-injection-029d9cca
+  request-line: GET /?q=dir C:\Documents and Settings\* HTTP/1.1 (len=48)
+  modsec pl1: None error   coraza pl1: None error
+encd-query-plain-command-injection-05bbe7a8
+  request-line: GET /?q=|| perl -e 'print "X"x4096' HTTP/1.1 (len=44)
+  modsec pl1: None error   coraza pl1: None error
+encd-query-plain-command-injection-1b8cf3ce
+  request-line: GET /?q=eval('pwd') HTTP/1.1 (len=28)
+  modsec pl1: 403 waf_block   coraza pl1: 403 waf_block
+encd-query-plain-command-injection-227cb8a4
+  request-line: GET /?q=echo "<?php system($_GET['cmd']); ?>" > cmd.php HTTP/1.1 (len=64)
+  modsec pl1: None error   coraza pl1: None error
+encd-query-plain-path-traversal-1ec1b09a
+  request-line: GET /?q=..\..\\..\..\\..\boot.ini HTTP/1.1 (len=42)
+  modsec pl1: 403 waf_block   coraza pl1: 403 waf_block
+encd-query-plain-path-traversal-2aa7f02e
+  request-line: GET /?q=/../..//../..///boot.ini HTTP/1.1 (len=41)
+  modsec pl1: 403 waf_block   coraza pl1: 403 waf_block
+encd-query-plain-path-traversal-556a4824
+  request-line: GET /?q=..%255c..%255c..%255c..%255c..%255c..%255cboot.ini%00index.html HTTP/1.1 (len=80)
+  modsec pl1: 403 waf_block   coraza pl1: 403 waf_block
+encd-query-plain-path-traversal-921f3d78
+  request-line: GET /?q=/%c0%ae%c0%ae%c0%af%c0%ae%c0%ae%c0%af%c0%ae%c0%ae%c0%af%c0%ae%c0%ae%c0%af%c0%ae%c0%ae%c0%af%c0%ae%c0%ae%c0%afboot.ini HTTP/1.1 (len=134)
+  modsec pl1: 403 waf_block   coraza pl1: 403 waf_block
+encd-query-plain-sqli-0933fb66
+  request-line: GET /?q="-" HTTP/1.1 (len=20)
+  modsec pl1: 403 waf_block   coraza pl1: 403 waf_block
+encd-query-plain-sqli-6e47f23b
+  request-line: GET /?q=admin" or "1"="1"# HTTP/1.1 (len=35)
+  modsec pl1: None error   coraza pl1: None error
+encd-query-plain-sqli-8c187a93
+  request-line: GET /?q=admin") or "1"="1"# HTTP/1.1 (len=36)
+  modsec pl1: None error   coraza pl1: None error
+encd-query-plain-sqli-a2035700
+  request-line: GET /?q=admin") or ("1"="1 HTTP/1.1 (len=35)
+  modsec pl1: None error   coraza pl1: None error
+encd-query-plain-xss-369d0b75
+  request-line: GET /?q=<tr draggable="true" ondragend="alert(1)">test</tr> HTTP/1.1 (len=68)
+  modsec pl1: None error   coraza pl1: None error
+encd-query-plain-xss-545d1ff8
+  request-line: GET /?q=<style>@keyframes x{from {left:0;}to {left: 1000px;}}:target {animation:10s ease-in-out 0s 1 x;}</style><sub id=x style="position:absolute;" onanimation... (len=193)
+  modsec pl1: None error   coraza pl1: None error
+encd-query-plain-xss-56083d09
+  request-line: GET /?q=<style>@keyframes x{}</style><samp style="animation-name:x" onanimationstart="alert(1)"></samp> HTTP/1.1 (len=112)
+  modsec pl1: None error   coraza pl1: None error
+encd-query-plain-xss-784791cd
+  request-line: GET /?q=<style>:target {color: red;}</style><td id=x style="transition:color 10s" ontransitioncancel=alert(1)></td> HTTP/1.1 (len=124)
+  modsec pl1: None error   coraza pl1: None error
+not blocked under modsec pl1: 10/16
+
+== T1c-ii: overlong UTF-8: bytes on the wire + engine/rule logging
+sample: encd-query-overlong-utf8-sqli-6e47f23b
+query field (manifest): q=C1A1C1A4C1ADC1A9C1AEC0A2C0A0C1AFC1B2C0A0C0A2C0B1C0A2C0BDC0A2C0B1C0A2C0A3 (len=74)
+bytes on the wire (first 24): 71 3D 43 31 41 31 43 31 41 34 43 31 41 44 43 31 41 39 43 31 41 45 43 30
+first 3 encoded chars -> bytes: [('q', '71'), ('=', '3D'), ('C', '43')]
+encd-query-overlong-utf8-sqli-6e47f23b modsec pl1: (200, 'waf_pass') coraza pl1: (200, 'waf_pass')
+encd-urlencoded-overlong-utf8-sqli-6e47f23b modsec pl1: (200, 'waf_pass') coraza pl1: (200, 'waf_pass')
+
+== T1c-ii DEFECT FOUND (2026-11-20): the 'overlong-utf8' encoding in
+encoding-diff-v0 is MALFORMED — the builder emitted the hex digits WITHOUT
+the '%' prefixes (tools/build_encoding_diff.py: overlong join lacks '%').
+The bytes on the wire are ASCII text like 'C1A1C1A4...', NOT %C1%A1-style
+overlong sequences. The 0/32 blocked result therefore measures nothing
+about overlong-UTF-8 decoding: the requests carried plain alphanumeric
+text. The overlong stratum of encoding-diff-v0 is marked INVALID.
+Rule 10: the frozen manifest is not edited; a corrected encoding-diff-v1
+needs a new preregistration (not built in this step).
+
+audit logging for the overlong samples (as sent, i.e. hex text):
+  modsec: overlong samples with ANY audit entry: 0/32; rule ids: []
+  coraza: overlong samples with ANY audit entry: 0/32; rule ids: []
+  (no engine logged anything: the payload was alphanumeric text)
