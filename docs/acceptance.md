@@ -71,7 +71,7 @@ failing evidence docs/logs/step16-t2-failing-tests.txt, 8/8 FAIL):
 
 | id | claim | status |
 |----|-------|--------|
-| E10 | engine matches the connector on the attacks-v0 step-15 T6 JSON diff ids (PL1 65 ids, PL2 15 ids; data-driven parity tables in engine/step16_test.go) | failing pre-fix |
+| E10 | engine matches the connector on the attacks-v0 step-15 T6 JSON diff ids (PL1 65 ids, PL2 16 ids incl. the two former UA-artifact ids; data-driven parity tables in engine/step16_test.go) | failing pre-fix |
 | E11 | malformed JSON body denied 400 like the connector (image rule 200002) | failing pre-fix |
 | E12 | JSON body with >= 1000 arguments denied 400 like the connector (image rule 200007) | failing pre-fix |
 | E13 | text/xml traversal body blocked via the XML processor (image rule 200000 -> 930110), not via mangled ARGS_NAMES rules | failing pre-fix |
@@ -79,9 +79,17 @@ failing evidence docs/logs/step16-t2-failing-tests.txt, 8/8 FAIL):
 | E15 | engine passes the benign-browse-v1 PL2 engine-only JSON ids (90) | failing pre-fix |
 
 Excluded from the tables on purpose: the 60+60 benign-browse 920420 ids
-(DESIGN C4), the 21 attacks-ct 920420 ids (DESIGN C4), smoke trav-01
-(DESIGN front proxy), attacks-v0 PL2 command-injection-036c522d-q
-(UNEXPLAINED, docs/logs/step16-t1-920230-replay.txt).
+(DESIGN C4), the attacks-ct 920420 ids (DESIGN C4), smoke trav-01
+(DESIGN front proxy). The attacks-v0 PL2 command-injection-036c522d-q/-login
+exclusion was LIFTED after the T2 re-run proved the T6 engine-only blocks
+were the missing-User-Agent harness artifact (920320 +2): both ids now sit
+in wantAttacksV0PL2 expecting pass, and the parity tests send the same
+User-Agent and Host the runner sends on both sides.
+
+Step-16 T2 post-fix status: E10-E15 all PASS; go test 19/19 (E1-E9,
+E10 PL1/PL2, E11-E17). The re-run diff table (docs/logs/step16-t2-analysis.txt):
+146 differing ids, all DESIGN (144 C4 + 2 front-proxy cells), zero BUG,
+zero UNEXPLAINED.
 
 Step-16 T3 acceptance test (rule 40: committed FAILING before the fix;
 failing evidence in the commit message run below):
@@ -89,3 +97,10 @@ failing evidence in the commit message run below):
 | id | claim | status |
 |----|-------|--------|
 | E16 | a body whose processing exceeds the time budget is answered 503 kortex-decision=timeout within budget+500ms (481,798-byte wcp body, inspection cap raised to 13,107,200; fixture read from KORTEX_TEST_WCP_BODY, skipped when unset — recorded content is not committed, rule 25) | failing pre-fix: 403 after 44.1 s |
+
+Step-16 T3 acceptance test (rule 40: committed FAILING before the fix;
+failing evidence docs/logs/step16-t3-e17-failing.txt):
+
+| id | claim | status |
+|----|-------|--------|
+| E17 | the abandoned body-processing call owns the transaction: after a 503 timeout the handler's deferred tx.Close() must NOT kill the in-flight call (pre-fix the call "finished" at budget+12 ms with a stale 949110/403 while the unfettered call needs ~42 s, measured 403 at 42.41 s with a 60 s budget) | failing pre-fix; passing after the ownership fix (39324c9) |

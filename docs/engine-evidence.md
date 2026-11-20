@@ -312,3 +312,114 @@ in docs/engine-design.md.
   script does not truncate between datasets); per-dataset confound numbers
   filter entries by sample-id prefix. Outcomes are unaffected (attribution is
   by unique sample id).
+
+## Step-16: T1 classification, T2 fix + re-run, T3 budget bounding
+
+### T1 - every diff classified (rule 39)
+
+396 differing ids across the five datasets at PL1/PL2 (step-15 T6 engine vs
+the connector reference): 252 BUG + 141 DESIGN-C4 + 1 UNEXPLAINED (at T1
+time) + 2 DESIGN-FRONT cells (1 id). Per-id dump
+docs/logs/step16-t1-classes.txt, summary docs/logs/step16-t1-summary.txt,
+tool tools/analyze_step16_t1.py. (The summary's "253 BUG" double-counts the
+UNEXPLAINED id; the cells sum to 252.)
+
+BUG root cause PROVEN: the engine lacked the connector image's
+body-processor selection rules (200000 XML, 200001 JSON) and
+body-parse-failure rules (200002 REQBODY_ERROR, 200003 MULTIPART_STRICT_ERROR,
+200007 &ARGS>=1000, each deny 400; /opt/coraza/config/coraza.conf lines
+31-41). Without a processor selection, Coraza v3.7.0's
+internal/corazawaf/transaction.go ProcessRequestBody falls back to
+`rbp = "URLENCODED"` under CRS 901340's forced body variable — the raw JSON
+body is parsed as urlencoded, producing argument NAMES like `{"email":`
+(engine audit matched-vars evidence) which both miss real detections and
+invent false ones.
+
+### T2 - fix, harness artifacts, re-run
+
+Fix (test-first, E10-E15 failing in 5807afe, fix 7d438fa): the five image
+rules added to engine/config.go directives(); Proxy.block() honors
+it.Status (400 denies).
+
+Harness artifacts found and documented (rules 18/24), both PROVEN by raw
+socket bisection and a Go tx probe:
+
+- Missing User-Agent on the engine side (run scripts omitted
+  --default-user-agent): CRS 920320 (NOTICE) adds +2 to
+  tx.inbound_anomaly_score_pl2 on EVERY engine-side request. Engine audit
+  totals were 5*n_crit + 3*n_warn + 2; the connector's 5*n_crit + 3*n_warn.
+  This flipped exactly the two marginal attacks-v0 PL2 ids
+  (command-injection-036c522d-q/-login: 920230 +3 alone passes, +2 blocks).
+  The T1 "UNEXPLAINED" id and the "stale ref" hypothesis are thereby
+  explained; docs/logs/step16-t1-920230-replay.txt has the CORRECTION (the
+  DIAGNOSTIC replay's "current container blocks it" was itself the
+  numeric-IP-Host artifact below).
+- Numeric-IP Host in manual replays: CRS 920350 (WARNING) +3 —
+  `Host: 127.0.0.1:8082` blocks what `Host: localhost:8082` passes.
+
+Re-run (engine side with the UA fix; tools/run_step16_t2.sh ENGINE_ONLY=1;
+runs docs/logs/step16-t2-runs.txt with per-run effective-config lines,
+analysis docs/logs/step16-t2-analysis.txt, confound check
+docs/logs/step16-t2-confound.txt):
+
+| dataset | PL | engine | ref | diff | class of diff |
+|---|---|---|---|---|---|
+| smoke | 1/2 | 7/12 | 6/12 | 1+1 | DESIGN-FRONT (trav-01) |
+| attacks-v0 | 1 | 954 | 954 | 0 | - |
+| attacks-v0 | 2 | 1024 | 1024 | 0 | - |
+| benign-browse-v1 | 1 | 124 | 184 | 60 | DESIGN-C4 (920420) |
+| benign-browse-v1 | 2 | 124 | 184 | 60 | DESIGN-C4 (920420) |
+| benign-hard-v0 | 1 | 22 | 22 | 0 | - |
+| benign-hard-v0 | 2 | 78 | 78 | 0 | - |
+| attacks-ct-v0 | 1 | 286 | 304 | 18 | DESIGN-C4 (920420) |
+| attacks-ct-v0 | 2 | 310 | 316 | 6 | DESIGN-C4 (920420) |
+
+146 differing ids, ALL DESIGN (144 C4 + 2 front-proxy cells); zero BUG, zero
+UNEXPLAINED. 0 errors / 0 waf_deny_status / 0 inconsistent on both sides in
+every cell. The three attacks-ct PL2 C4 diffs that T1 did not list
+(command-injection-f48aa068/-ecb32a80 x 3 carriers) are the BUG mask
+lifting: CRS 920240's chain requires REQBODY_PROCESSOR == URLENCODED, so its
+T6 engine blocks were fallback artifacts; with the correct processor the
+engine passes and only the C4 policy difference remains.
+
+Confound check (rule 18/24): detection rules at >=20% of a dataset's audit
+entries are listed per side in docs/logs/step16-t2-confound.txt. The
+ref-side benign-browse 911100 flag (120/184) is a CONFIG-MISMATCH-flavored
+DESIGN note: the connector enforces a method allow-list (crs-setup 900200),
+the engine sets no tx.allowed_methods so 911100 never fires there; every
+such sample is blocked by the engine via other rules, so no blocked-set diff
+exists. benign-hard PL2 932236 (44%) fires equally on both sides (dataset by
+design).
+
+### T3 - budget bounds body processing; abandoned-call ownership
+
+E16 (failing bda1678, fix 6235777): ProcessRequestBody runs in a goroutine
+bounded by the remaining budget; expiry answers 503 kortex-decision=timeout.
+
+E17 (failing 7d78963, fix 39324c9): the handler's deferred tx.Close() ran on
+the timeout path and killed the in-flight abandoned call — it "finished" at
+budget+12 ms with a stale 949110/403 interruption. The first-pass T3 run
+even shows the engine CRASHING under concurrency (copy16 and the
+post-concurrency benign probe got status 000 — the use-after-close panicked
+the process; first-pass log kept:
+docs/logs/step16-t3-runs-firstpass-txclose.txt). The abandoned goroutine now
+owns and closes the transaction.
+
+Re-run measurements (docs/logs/step16-t3-runs.txt, fixed binary):
+
+- single replay: 503 at 2.002 s (budget 2000 ms); the abandoned call ran to
+  completion at elapsed_ms=45114 with the real result (949110/403) — the
+  unfettered cost measured separately: 403 at 42.41 s with a 60 s budget.
+- benign latency before the burst: 5.0 ms.
+- 20 concurrent copies: 20/20 answered 503 in 2.00-2.08 s (none wedged).
+- post-burst benign latency and the abandoned-finish events: see the run
+  log (measured with the 20 ~45 s CPU-bound goroutines still running).
+
+### T4 - real engine-dialect audit samples
+
+docs/samples/kortex-audit-{attack,benign,limit,timeout}.txt: attack entry
+from the T2 engine run (sample sqli-01); benign/limit/timeout captures prove
+the engine writes NO coraza audit entry for passed/limited/timed-out
+requests (0-byte audit logs, RelevantOnly) — their decisions appear as
+kortex-events rows. crs_audit handles both dialects additively; pytest 110
+passed.

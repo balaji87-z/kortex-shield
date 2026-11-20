@@ -24,3 +24,16 @@ independent of content type.
   step-15 T1b): docs/logs/step14-t5-probe.txt, docs/logs/step15-t1-probe-rerun.txt.
 - NoFilesLimit non-enforcement PROVEN in-container and in-library.
 - Detection coverage per content type (C4): docs/logs/step14-t3-analysis.txt.
+
+## Status update (step-16, 2026-11-20)
+
+STAYS PROVISIONAL, evidence strengthened. T1 classified every engine-vs-
+connector difference (rule 39): after the BUG fix (missing body-processor
+selection/parse-failure rules, fixed test-first via E10-E15) the re-run
+shows 146 differing ids, ALL documented DESIGN differences (144 x the C4
+content-type policy, 2 cells of the nginx front proxy), zero BUG, zero
+UNEXPLAINED (docs/logs/step16-t2-analysis.txt). C4 held on attacks-ct-v0:
+with the correct body processor the engine blocks the attack payloads in
+every carrier, so detection no longer depends on the connector's
+content-type allow-list. The time budget now bounds body processing
+(E16/E17, step-16 T3). Reversal triggers unchanged.

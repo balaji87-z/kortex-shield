@@ -1,4 +1,4 @@
-# Engine design (step-15)
+# Engine design (step-15, updated step-16)
 
 ## What the engine is
 
@@ -20,7 +20,12 @@ body size limits, and a per-request time budget.
 - `config.go` — environment-only configuration; renders the SecLang config:
   engine settings, the CRS setup SecActions mirroring the pinned container's
   activated crs-setup.conf (ids 900000, 900001, 900110, 900990), the C4
-  no-allow-list rule (id 900220), audit directives, and the rule Include.
+  no-allow-list rule (id 900220), the connector-image body-processor
+  selection and body-parse-failure rules (ids 200000 XML, 200001 JSON,
+  200002 REQBODY_ERROR, 200003 MULTIPART_STRICT_ERROR, 200007 &ARGS>=1000,
+  each deny 400 — step-16 T2 BUG fix, mirror of the pinned container's
+  /opt/coraza/config/coraza.conf lines 31-41), audit directives, and the
+  rule Include.
 - `events.go` — kortex-events.jsonl writer (limit, framing, timeout,
   would_reject).
 - `admin.go` — /__kortex/config, loopback-only, prints the effective config
@@ -55,17 +60,21 @@ KORTEX_ENGINE_TIME_BUDGET_MS (default 2000). Enforced at phase boundaries
 (after headers, during chunked body writes, after body processing). Expiry
 returns 503 kortex-decision=timeout and logs an event.
 
-PROVEN limitation (step-15 T4 replay, docs/logs/step15-t4-skeleton-replay.txt):
-the budget does NOT interrupt a single-shot body processing call. A
-481,798-byte text/plain body with max_inspected_bytes=13,107,200 ran
-41.8-43.5 s per rep (3/3) inside Coraza phase 2 and then returned a normal
-403 block — the 2,000 ms budget never fired, because one
-ProcessRequestBody call is a single phase with no boundary inside it.
-The budget only bounds requests that hit a phase boundary while over budget
-(chunked writes, per-phase checks). Mitigation in this step: the default
-max_inspected_bytes=131072 rejects such bodies with 413 in ~1-3 ms before
-the engine (config A of the same replay). Closing the gap for
-full-inspection configurations is future work, not done in step-15.
+Step-15 PROVEN limitation (docs/logs/step15-t4-skeleton-replay.txt): the
+budget cannot interrupt a single-shot ProcessRequestBody call. Step-16 fix:
+proxy.go runs ProcessRequestBody in a goroutine bounded by the REMAINING
+budget (select against a timer). On expiry the request is answered 503 and
+the call is abandoned — coraza has no per-call cancellation, so the
+goroutine keeps running to completion (measured ~42 s of CPU-bound work for
+the 481,798-byte wcp body; unfettered replay 403 at 42.41 s) and then logs
+an `abandoned-body-processing-finished` event and closes its transaction.
+The abandoned goroutine OWNS the transaction: the handler's deferred Close
+is skipped on the timeout path (E17 — closing the tx mid-call made the
+in-flight call return within milliseconds with a stale interruption). The
+DoS-risk statement is therefore: a body that overruns the budget costs the
+engine the FULL processing time in the background regardless of the client
+seeing a fast 503; concurrent over-budget bodies accumulate background CPU
+work (20 concurrent copies measured in docs/logs/step16-t3-runs.txt).
 
 ## Content-type policy (C4)
 
@@ -83,6 +92,11 @@ by design in this step.
 
 ## Testing
 
-Test-first per rule 37: E1-E9 in engine/engine_test.go were committed
+Test-first per rule 37/40: E1-E9 in engine/engine_test.go were committed
 failing before the implementation (docs/acceptance.md has the ids and
-statuses). The tests run the real CRS rule set and a stub backend.
+statuses); E10-E17 in engine/step16_test.go were committed failing before
+the step-16 fixes. The parity tests (E10/E14/E15) replay real manifest
+samples with the same User-Agent and Host the kortex_eval.runner sends on
+both sides of the comparison — a missing User-Agent (CRS 920320, +2) or a
+numeric-IP Host (CRS 920350, +3) flips marginal detections and is a harness
+artifact, not engine behaviour (step-16 T2 finding).
