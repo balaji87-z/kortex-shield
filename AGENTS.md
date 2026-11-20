@@ -118,3 +118,8 @@
 38. No performance or parity claim without raw timings or per-sample diffs in the
     report body. Timing tests record load average at start and end in run.json
     (additive; add this to the runner now).
+
+39. A difference between the engine and the reference is classified exactly one
+    of: BUG (we fix it, test first), DESIGN (documented in engine-design.md
+    before the run), UNEXPLAINED (counted). No difference is dropped.
+40. Any fix to the engine adds a failing test first, committed before the fix.
