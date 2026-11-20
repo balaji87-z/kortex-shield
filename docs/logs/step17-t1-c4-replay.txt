@@ -1,0 +1,31 @@
+
+== PL1 per-carrier blocked/40 (engine, default config):
+  query         engine 36/40 | detection-rule blocks: 36, policy-only blocks: 0
+  urlencoded    engine 36/40 | detection-rule blocks: 36, policy-only blocks: 0
+  json          engine 36/40 | detection-rule blocks: 36, policy-only blocks: 0
+  multipart     engine 36/40 | detection-rule blocks: 36, policy-only blocks: 0
+  text-plain    engine 34/40 | detection-rule blocks: 34, policy-only blocks: 0
+  octet-stream  engine 34/40 | detection-rule blocks: 34, policy-only blocks: 0
+  unknown-ct    engine 34/40 | detection-rule blocks: 34, policy-only blocks: 0
+  no-ct         engine 40/40 | detection-rule blocks: 34, policy-only blocks: 6
+  cross-carrier detection differences (engine):
+    command-injection-dc2932d5: detected under ['json', 'multipart', 'query', 'urlencoded'] rules ['932125', '932380']; NOT detected under ['octet-stream', 'text-plain', 'unknown-ct'] (outcome waf_pass)
+    sqli-6e47f23b: detected under ['json', 'multipart', 'query', 'urlencoded'] rules ['942100']; NOT detected under ['octet-stream', 'text-plain', 'unknown-ct'] (outcome waf_pass)
+  payloads detected under >=1 structured carrier: 36
+  payloads detected under NO structured carrier (4): ['command-injection-029d9cca', 'command-injection-ecb32a80', 'command-injection-f48aa068', 'sqli-eb3ff328']
+  blocked-set equality across structured carriers: True
+
+== PL2 per-carrier blocked/40 (engine, default config):
+  query         engine 39/40 | detection-rule blocks: 39, policy-only blocks: 0
+  urlencoded    engine 39/40 | detection-rule blocks: 39, policy-only blocks: 0
+  json          engine 39/40 | detection-rule blocks: 39, policy-only blocks: 0
+  multipart     engine 39/40 | detection-rule blocks: 39, policy-only blocks: 0
+  text-plain    engine 38/40 | detection-rule blocks: 38, policy-only blocks: 0
+  octet-stream  engine 38/40 | detection-rule blocks: 38, policy-only blocks: 0
+  unknown-ct    engine 38/40 | detection-rule blocks: 38, policy-only blocks: 0
+  no-ct         engine 40/40 | detection-rule blocks: 39, policy-only blocks: 1
+  cross-carrier detection differences (engine):
+    command-injection-ecb32a80: detected under ['json', 'multipart', 'query', 'urlencoded'] rules ['932240']; NOT detected under ['octet-stream', 'text-plain', 'unknown-ct'] (outcome waf_pass)
+  payloads detected under >=1 structured carrier: 39
+  payloads detected under NO structured carrier (1): ['command-injection-f48aa068']
+  blocked-set equality across structured carriers: True
