@@ -126,7 +126,7 @@ implementation; failing evidence in commit <sha>, implementation <sha>):
 
 | id | claim | status |
 |----|-------|--------|
-| E22 | a client still streaming a body above the inspected limit receives the full 413 response (status 413 and kortex-decision=limit marker, clean EOF close), not a connection reset (reproduces the step-17 T4 ConnectionResetError ids wcp-1140885081e1 / wcp-f83f7556fc66 / wcp-908ef72be103) | failing pre-fix: read reset after 184 bytes |
-| E23 | (T4) a text/plain body whose SQLi payload spans the '&'-split boundary is blocked like the connector (942100 on the raw body) | failing pre-fix |
-| E24 | (T4) octet-stream and unknown-content-type bodies with the same split-breaking payloads are inspected as one raw value | failing pre-fix |
-| E25 | (T4) the '&'-split behaviour on urlencoded bodies is unchanged (split targets still populated) | passing after the T4 fix |
+| E22 | a client still streaming a body above the inspected limit receives the full 413 response (status 413 and kortex-decision=limit marker, clean EOF close), not a connection reset (reproduces the step-17 T4 ConnectionResetError ids wcp-1140885081e1 / wcp-f83f7556fc66 / wcp-908ef72be103) | failing pre-fix: read reset after 184 bytes; passing after the bounded-drain fix (e198ead) |
+| E23 | (T4) a text/plain body whose SQLi payload spans the '&'-split boundary is blocked like the connector-side carriers (942100 on the raw body) | failing pre-fix: 200 stub-ok |
+| E24 | (T4) octet-stream and unknown-content-type bodies with the same split-destroying RCE payloads are inspected as one raw value (932125/932380 PL1; 932240 PL2) | failing pre-fix: 200 stub-ok |
+| E25 | (T4) the '&'-split behaviour on urlencoded bodies is unchanged (split-safe payload still blocked via the parsed ARGS targets) | passing pre- and post-fix (regression guard) |

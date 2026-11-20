@@ -5,11 +5,23 @@
 // E22 (T3): a client that is still streaming a body above the inspected
 // limit must receive the full 413 response (status 413 and the
 // kortex-decision=limit marker), not a connection reset.
+//
+// E23 (T4): a text/plain body whose SQLi payload spans the '&'-split
+// boundary is blocked like on the query/urlencoded/json/multipart carriers
+// (942100 on the raw body).
+// E24 (T4): octet-stream and unknown-content-type bodies with a
+// command-injection payload that the '&'-split destroys are blocked
+// (932125/932380 at PL1; 932240 at PL2 for the ';' payload).
+// E25 (T4): the '&'-split behaviour on urlencoded bodies is unchanged
+// (a split-safe payload is still blocked via the parsed ARGS targets).
 package main
 
 import (
 	"fmt"
+	"io"
 	"net"
+	"net/http"
+	"net/http/httptest"
 	"os"
 	"strings"
 	"testing"
@@ -92,4 +104,101 @@ func readEventsFile(t *testing.T, path string) []string {
 		t.Fatalf("read events: %v", err)
 	}
 	return strings.Split(string(data), "\n")
+}
+
+// postRaw mirrors the runner's request construction for a body-bearing POST
+// with an explicit content type.
+func postRaw(t *testing.T, srv *httptest.Server, id, ct, body string) (int, string) {
+	t.Helper()
+	req, err := http.NewRequest("POST", srv.URL+"/", strings.NewReader(body))
+	if err != nil {
+		t.Fatalf("new request: %v", err)
+	}
+	req.Host = "localhost:8090"
+	req.Header.Set("Accept-Encoding", "identity")
+	req.Header.Set("X-Kortex-Sample-Id", id)
+	req.Header.Set("User-Agent",
+		"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/158.0.0.0 Safari/537.36")
+	if ct != "" {
+		req.Header.Set("Content-Type", ct)
+	}
+	resp, err := srv.Client().Do(req)
+	if err != nil {
+		t.Fatalf("do: %v", err)
+	}
+	defer resp.Body.Close()
+	b, err := io.ReadAll(resp.Body)
+	if err != nil {
+		t.Fatalf("read body: %v", err)
+	}
+	return resp.StatusCode, string(b)
+}
+
+// Payloads are from the frozen attacks-ct-v0 manifest (public payload lists,
+// provenance in the dataset README; committable per rule 25 - the WCP
+// recorded-content rule does not apply to these).
+const (
+	e23SQLiBody = `admin" or "1"="1"#`                     // sqli-6e47f23b, quick-SQLi.txt:62
+	e24RceBody  = `& dir C:\Documents and Settings\*`       // command-injection-dc2932d5, command_exec.txt:75
+	e24RceBody2 = `; type %SYSTEMROOT%\repair\SAM`          // command-injection-ecb32a80, command_exec.txt:386
+)
+
+// E23: the SQLi payload split by the URLENCODED processor into name
+// `admin" or "1` + value `"1"#` must still be blocked via the raw body.
+func TestE23TextPlainSplitSpanningSQLiBlocked(t *testing.T) {
+	srv, _ := newEnv(t, nil)
+	status, body := postRaw(t, srv, "e23-text-plain-sqli", "text/plain", e23SQLiBody)
+	if status != 403 || !strings.Contains(body, "kortex-decision=block") {
+		t.Fatalf("E23: want 403 kortex-decision=block, got %d body=%q", status, body)
+	}
+	if !strings.Contains(body, "942100") {
+		t.Fatalf("E23: block not via 942100 on the raw body: %q", body)
+	}
+	if backendHit {
+		t.Fatalf("E23: blocked request must not reach the backend")
+	}
+}
+
+// E24: the '&' that starts the RCE payload is eaten by the URLENCODED split;
+// the raw-body target must restore detection on octet-stream and unknown
+// content types (PL1), and the ';' payload must be caught at PL2 (932240).
+func TestE24RawCarriersSplitDestroyedRCEBlocked(t *testing.T) {
+	srv, _ := newEnv(t, nil)
+	for _, ct := range []string{"application/octet-stream", "application/x-kortex-probe-unknown"} {
+		status, body := postRaw(t, srv, "e24-"+ct, ct, e24RceBody)
+		if status != 403 || !strings.Contains(body, "kortex-decision=block") {
+			t.Fatalf("E24 (%s): want 403 kortex-decision=block, got %d body=%q", ct, status, body)
+		}
+		if !strings.Contains(body, "932125") && !strings.Contains(body, "932380") {
+			t.Fatalf("E24 (%s): block not via 932125/932380 on the raw body: %q", ct, body)
+		}
+	}
+}
+
+func TestE24RawCarriersSplitDestroyedRCEBlockedPL2(t *testing.T) {
+	srv, _ := newEnv(t, map[string]string{
+		"KORTEX_BLOCKING_PARANOIA":  "2",
+		"KORTEX_DETECTION_PARANOIA": "2",
+	})
+	status, body := postRaw(t, srv, "e24-text-plain-pl2", "text/plain", e24RceBody2)
+	if status != 403 || !strings.Contains(body, "kortex-decision=block") {
+		t.Fatalf("E24 PL2: want 403 kortex-decision=block, got %d body=%q", status, body)
+	}
+	if !strings.Contains(body, "932240") {
+		t.Fatalf("E24 PL2: block not via 932240 on the raw body: %q", body)
+	}
+}
+
+// E25: regression guard - a split-safe urlencoded payload must still be
+// blocked through the parsed ARGS targets (the split stays in place).
+func TestE25UrlencodedSplitBehaviourUnchanged(t *testing.T) {
+	srv, _ := newEnv(t, nil)
+	status, body := postRaw(t, srv, "e25-urlencoded-sqli",
+		"application/x-www-form-urlencoded", "q=admin%22%20or%20%221%22%3D%221%22%23")
+	if status != 403 || !strings.Contains(body, "kortex-decision=block") {
+		t.Fatalf("E25: want 403 kortex-decision=block, got %d body=%q", status, body)
+	}
+	if !strings.Contains(body, "942100") {
+		t.Fatalf("E25: block not via 942100: %q", body)
+	}
 }
