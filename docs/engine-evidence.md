@@ -159,3 +159,56 @@ Every step-13 run log carries its rule-29 line printed from inside the running
 container (engine mode, B/P/D paranoia, allowed methods/content types, body
 limits, nginx client_max_body_size). Examples: docs/logs/step13-t5-coraza-wcp.log,
 docs/logs/step13-t1-crs-setup-lines.txt, docs/logs/step13-t4-bisect.txt.
+
+# Step-14 update (2026-11-20): evidence against the acceptance criteria
+
+## C1 — blocked-set parity, per sample: MEASURED (attacks side now too)
+
+- Benign side: unchanged from step-13 (MEASURED per sample on benign-wcp-v0,
+  PL1 and PL2, worst-case sets).
+- Attack side (NEW): attacks-ct-v0, 8 cells x 320 frozen samples
+  (docs/logs/step14-t3-analysis.txt). Default config: blocked totals identical
+  across engines (304/320 PL1, 316/320 PL2). crs-ct-wide: modsec 224/236 vs
+  coraza 292/312 — the difference is entirely the text-plain and
+  octet-stream carriers, where ModSecurity has no body processor (0 detection
+  blocks) and Coraza inspects the raw body (34-38/40 detection blocks).
+  Per-sample disagreement counts are in the analysis log.
+- Encoding differential (NEW): encoding-diff-v0, 4 cells x 192 samples —
+  per-encoding blocked counts identical across engines and 0 per-sample
+  disagreements at PL1 and PL2 (docs/logs/step14-t4-analysis.txt).
+
+## C2 — oversize bodies and latency: MEASURED, mechanism now localised
+
+- The 11 step-12 oversize divergences are fully explained by the Coraza
+  image's missing nginx client_max_body_size (1 MiB default); after the
+  step-13 alignment all 10 multipart samples are 200 on both engines at both
+  PLs (docs/logs/step14-t1-oversize.txt). Residual status-class difference on
+  the no-CT PUT is a rule-set difference, not a size effect.
+- The ~44 s latency pathology on wcp-80a49c991b2d REPRODUCES in coraza
+  v3.7.0 loaded as a plain Go library with no nginx or connector (44,206 ms,
+  403, same rule set as the container run): PROVEN engine-internal, now
+  localised to the library body-processing path, connector excluded
+  (docs/logs/step14-t5-probe.txt). The exact internal code path stays
+  HYPOTHESIS.
+- Library probe also confirms: SecRequestBodyNoFilesLimit is not enforced by
+  coraza v3.7.0 (140,000-byte JSON passes in-library, 200).
+- Transient step-13 timeouts do not reproduce (3x replay, both engines);
+  only wcp-80a49c991b2d is a real, reproducible timeout.
+
+## C3 — effective-config proof: PRESENT for every step-14 run
+
+Every step-14 run logged a rule-29 line from inside the container (engine
+mode, blocking/detection paranoia, env_CT list, body limits). Rule-36 audit
+completeness controls (20 before + 20 after) were run and printed for every
+step-14 T3/T4 cell. Audit-derived ModSecurity tables from earlier steps that
+used edit-and-reload WITHOUT completeness checks are marked "completeness
+unproven" in docs/baseline-v0.9.md (T1e); HTTP-response-based results are not
+affected.
+
+## Not covered (updated)
+
+- All v0.8 "not covered" items stand, except: the latency pathology is no
+  longer "engine vs connector unknown" — it is PROVEN inside the library.
+- NEW: transient-timeout cause (not reproducible, HYPOTHESIS host load).
+- NEW: whether the crs-ct-wide detection behaviour generalises beyond the 40
+  frozen payloads.
