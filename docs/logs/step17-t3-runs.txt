@@ -1,0 +1,45 @@
+== load average at start:  12:17:54 up 1 min,  0 user,  load average: 12.25, 6.05, 5.40
+== engine binary: b682f9e62575c9affdc87f183293f932  /tmp/kortex-engine
+===== PHASE A: cap=32, 20 concurrent 481,798-byte bodies (CPU + latency)
+== engine effective config (port 8096):
+{"backend_url":"http://127.0.0.1:13000","rule_engine":"On","blocking_paranoia":1,"detection_paranoia":1,"max_body_bytes":13107200,"max_inspected_bytes":13107200,"engine_time_budget_ms":2000,"rules_dir":"/home/Kavinharish/kortexshield/engine/crs","listen_addr":"127.0.0.1:8096","events_file":"/tmp/kx17t3-events.jsonl","audit_log":"/tmp/kx17t3-audit.log","allowed_methods":"GET HEAD POST OPTIONS","max_inflight_body":32}
+
+benign[before] status=200 time_total_s=0.007466
+== cpu at start (utime_s stime_s): 0.10 0.03
+copy19 status=503 time_total_s=2.001140
+copy20 status=503 time_total_s=2.010538
+copy2 status=503 time_total_s=2.025655
+== cpu at deadline (+2.038777641s): 8.00 0.23
+copy18 status=503 time_total_s=2.003904
+copy17 status=503 time_total_s=2.002806
+copy10 status=503 time_total_s=2.034547
+copy4 status=503 time_total_s=2.056413
+copy16 status=503 time_total_s=2.070539
+copy7 status=503 time_total_s=2.079252
+copy1 status=503 time_total_s=2.003818
+copy6 status=503 time_total_s=2.048251
+copy11 status=503 time_total_s=2.005423
+copy3 status=503 time_total_s=2.001459
+copy14 status=503 time_total_s=2.068404
+benign[at-deadline] status=200 time_total_s=0.172169
+copy15 status=503 time_total_s=2.035541
+copy9 status=503 time_total_s=2.004314
+copy5 status=503 time_total_s=2.004131
+copy12 status=503 time_total_s=2.004567
+copy13 status=503 time_total_s=2.005449
+copy8 status=503 time_total_s=2.076934
+== all copies answered
+benign[at-plus8s] status=200 time_total_s=0.011538
+benign[at-plus59s] status=200 time_total_s=0.408385
+== cpu at +60s: 202.91 5.79
+== load average phase A end:  12:19:27 up 2 min,  0 user,  load average: 21.26, 10.30, 6.94
+== engine killed
+===== PHASE A2: cap=32, 4 concurrent copies (abandoned-finish events)
+== engine effective config (port 8096):
+{"backend_url":"http://127.0.0.1:13000","rule_engine":"On","blocking_paranoia":1,"detection_paranoia":1,"max_body_bytes":13107200,"max_inspected_bytes":13107200,"engine_time_budget_ms":2000,"rules_dir":"/home/Kavinharish/kortexshield/engine/crs","listen_addr":"127.0.0.1:8096","events_file":"/tmp/kx17t3a2-events.jsonl","audit_log":"/tmp/kx17t3-audit.log","allowed_methods":"GET HEAD POST OPTIONS","max_inflight_body":32}
+
+copy1 status=503 time_total_s=2.001820
+copy2 status=503 time_total_s=2.001749
+copy4 status=503 time_total_s=2.001681
+copy3 status=503 time_total_s=2.001147
+== copies answered; waiting up to 150s for 4 abandoned-finish events

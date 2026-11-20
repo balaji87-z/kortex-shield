@@ -76,6 +76,28 @@ engine the FULL processing time in the background regardless of the client
 seeing a fast 503; concurrent over-budget bodies accumulate background CPU
 work (20 concurrent copies measured in docs/logs/step16-t3-runs.txt).
 
+## In-flight body-processing cap (step-17 T3, documented BEFORE the
+## measurement run)
+
+KORTEX_MAX_INFLIGHT_BODY (default 8) caps the number of body-processing
+calls running concurrently, counting abandoned calls (they run to
+completion, see above). A BODY-BEARING request (Body != nil and
+ContentLength != 0) arriving when the cap is reached is answered
+503 kortex-decision=overload immediately, before its body is read, and an
+`overload` event is logged. Body-less requests need no slot (their
+ProcessRequestBody call is instantaneous) and are answered promptly even on
+a cap-reached engine (E21). A slot is released when the processing CALL
+returns - for an abandoned call that is long after the handler returned
+(E17), so the decrement lives in the processing goroutine. Recovery:
+overload answers stop and new body-bearing requests are processed again
+once the abandoned calls finish (E20). Outcome semantics: overload is a
+capacity decision, NOT a WAF decision - it is reported separately from
+block/limit/framing/timeout in every rate table (rule 30 style), and
+`kortex-decision=overload` is distinguishable from `kortex-decision=timeout`
+by its marker. DoS-risk statement after the cap: at most
+KORTEX_MAX_INFLIGHT_BODY over-budget bodies accumulate background CPU work;
+additional body-bearing requests get a fast 503 instead of queueing.
+
 ## Content-type policy (C4)
 
 The engine implements NO content-type allow-list. CRS customization point

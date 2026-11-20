@@ -11,6 +11,7 @@ classified without guessing:
 | limit    | 413    | `413 kortex-decision=limit` | body above max inspected (131,072) or max total (13,107,200) bytes; rejected before the engine |
 | framing  | 400    | `400 kortex-decision=framing` | duplicate/conflicting Content-Length, Transfer-Encoding with Content-Length, or a raw NUL in the request line; rejected before the engine |
 | timeout  | 503    | `503 kortex-decision=timeout` | per-request engine time budget (2,000 ms) exceeded |
+| overload | 503    | `503 kortex-decision=overload` | concurrent in-flight body-processing cap (KORTEX_MAX_INFLIGHT_BODY, default 8) reached; capacity decision, not a WAF decision (step-17 T3) |
 | pass     | backend status | — | request inspected and forwarded |
 
 Notes
@@ -31,8 +32,8 @@ Notes
   allow-list at all; CRS rules decide.
 - Events: kortex-events.jsonl lines are
   `{"ts","sample_id","decision","status","elapsed_ms","reason"}` for limit,
-  framing and timeout decisions (and would_reject for log-only encoding
-  checks). Blocks and passes are visible in the Coraza JSON audit log and in
+  framing, timeout and overload decisions (and would_reject for log-only
+  encoding checks). Blocks and passes are visible in the Coraza JSON audit log and in
   the response statuses.
 - The effective configuration is printed at startup and served as JSON on
   /__kortex/config (loopback only), so it is provable in-container.

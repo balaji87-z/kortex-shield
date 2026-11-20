@@ -108,11 +108,18 @@ func (p *Proxy) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 	bodyBearing := r.Body != nil && r.ContentLength != 0
 	procLaunched := false
 	if bodyBearing {
-		if p.inflight.Load() >= p.cfg.MaxInflightBody {
-			p.overload(w, sampleID, start, "in-flight body-processing cap reached")
-			return
+		// CAS loop: the cap is exact even when many requests arrive at once
+		// (a Load-then-Add check could overshoot under a race)
+		for {
+			n := p.inflight.Load()
+			if n >= p.cfg.MaxInflightBody {
+				p.overload(w, sampleID, start, "in-flight body-processing cap reached")
+				return
+			}
+			if p.inflight.CompareAndSwap(n, n+1) {
+				break
+			}
 		}
-		p.inflight.Add(1)
 		defer func() {
 			// release the slot if we return before the processing goroutine
 			// is launched (limit/timeout paths); once launched, the goroutine

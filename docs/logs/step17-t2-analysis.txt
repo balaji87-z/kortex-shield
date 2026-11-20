@@ -1,0 +1,37 @@
+# step-17 T2 analysis: method allow-list re-run (smoke + benign-browse-v1, PL1)
+# engine: /tmp/kortex-engine md5 48bda44885e1dab9abb783eb8c60fe9a, config proof
+# (allowed_methods=GET HEAD POST OPTIONS) in docs/logs/step17-t2-runs.txt
+
+benign-browse-v1 PL1 blocked sets: s16-t2 engine=124  s17-t2 engine=124  connector ref=184
+identical id sets: s17-engine == s16-engine: True
+engine-only vs connector: 0  connector-only vs engine: 60
+(the 60 connector-only ids are the known DESIGN-C4 text/plain POSTs, step-16)
+
+== CORRECTION to the step-16 DESIGN note 'CRS 911100 never fires on engine':
+911100 DOES fire on the engine and scores identically. PROVEN:
+1. The engine's 403 response body for a PUT lists 911100 among the matched
+   rules (matchedIDs) - live probe, /tmp/kortex-engine, 2026-11-20.
+2. The engine's blocked PUT audit entry shows 'Access denied (phase 2)...
+   Total Score: 5' - the same total the connector shows for the same sample
+   (browse-c1c22f3e4905): connector audit messages are 911100 'Coraza:
+   Warning. Method is not allowed by policy' + 949110 'Total Score: 5'.
+   911100 contributes +3 (warning severity, connector message says Warning)
+   plus the +2 notice setvar in the rule = 5.
+3. The engine's audit entry for the same PUT shows ONLY the 949110 message.
+   Measured across s16-t2 and s17-t2 runs and live probes: the engine's
+   audit entries (coraza SecAuditLogFormat JSON) contain ONLY phase-2 rule
+   messages; phase-1 matches (911100, 920350, 901160) never appear as audit
+   messages, though they appear in the engine's response rules list. The
+   connector's audit writer does emit phase-1 messages. This is the
+   remaining DESIGN difference (rule 41 criterion: audit message emission
+   per phase, measured on both engines).
+4. s16-t2 already had tx.allowed_methods set by CRS 901160 (REQUEST-901-
+   INITIALIZATION.conf line 183: default GET HEAD POST OPTIONS when unset),
+   so the OUTCOME parity on PUT/DELETE (120 ids) already held in step-16.
+   The step-17 T2 change makes the policy explicit and env-configurable
+   (KORTEX_ALLOWED_METHODS, E18) and prints it at /__kortex/config; the
+   re-run proves the outcome sets are UNCHANGED (124=124, same ids).
+
+smoke PL1: s17 engine blocked=7 (same ids as s16-t2 engine run).
+errors/waf_deny_status/inconsistent: 0/0/0 in both new cells (runner
+error_count=0; outcomes counted from audit+responses).
