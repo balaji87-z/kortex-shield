@@ -35,15 +35,21 @@ Gartner evaluation criteria, ICSA Labs criteria, the original SecureIQLab report
 
 | id | behaviour | status |
 |----|-----------|--------|
-| E1 | conflicting or duplicate Content-Length rejected (400, kortex-decision=framing, not proxied) | failing |
-| E2 | Transfer-Encoding with Content-Length rejected (400, framing) | failing |
-| E3 | raw NUL in path or query rejected (400, framing) | failing |
-| E4 | body over inspected limit rejected 413 (kortex-decision=limit, not passed to engine, event logged) | failing |
-| E5 | body exactly at the limit inspected (reaches engine and stub) | failing |
-| E6 | time budget expiry returns 503 (kortex-decision=timeout, event logged with sample id) | failing |
-| E7 | known SQLi in query blocked at PL1 (403, kortex-decision=block) | failing |
-| E8 | benign request passed to the stub backend (200 stub-ok) | failing |
-| E9 | /__kortex/config unreachable from non-loopback, JSON config on loopback | failing |
+| E1 | conflicting or duplicate Content-Length rejected (400, kortex-decision=framing, not proxied) | passing |
+| E2 | Transfer-Encoding with Content-Length rejected (400, framing) | passing |
+| E3 | raw NUL in path or query rejected (400, framing) | passing |
+| E4 | body over inspected limit rejected 413 (kortex-decision=limit, not passed to engine, event logged) | passing |
+| E5 | body exactly at the limit inspected (reaches engine and stub) | passing |
+| E6 | time budget expiry returns 503 (kortex-decision=timeout, event logged with sample id) | passing |
+| E7 | known SQLi in query blocked at PL1 (403, kortex-decision=block) | passing |
+| E8 | benign request passed to the stub backend (200 stub-ok) | passing |
+| E9 | /__kortex/config unreachable from non-loopback, JSON config on loopback | passing |
 
 Status recorded at commit time of the tests (go test ./... build failure:
 undefined: buildHandler, undefined: loadConfig).
+
+Passing evidence (step-15): `go test -buildvcs=false -count=1 -timeout 90s -v .`
+in engine/ -> `ok  kortexshield/engine 0.545s`, 9/9 PASS (E1..E9);
+binary verification in docs/logs/step15-t5-verify.txt (403 block with 942100,
+413 limit + event, loopback config JSON, audit log parsed by kortex_eval
+crs_audit, exit 0).
