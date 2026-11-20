@@ -1,0 +1,17 @@
+# Step-14 T1a: 11 step-12 oversize-divergent samples (wcp-34940e7ffce1 is one of them)
+# nginx client_max_body_size BEFORE alignment: ModSecurity image = 0 (lines 76,125 of its template),
+#   Coraza image = directive absent -> nginx default 1 MiB (docs/logs/step13-t4-nginx-conf.txt)
+# AFTER alignment: both engines client_max_body_size 0 (deploy/coraza-nginx.conf.template mounted to Coraza)
+
+id                         bytes     chars   sent_CL ct                             meth  | before (step-12) | after alignment
+wcp-4ff99580bb57         1401149    723995   1401149 <none>                         PUT   | modsec 403 (911100,920340,920450,920640,949110) / coraza 413 | modsec pl1=403 pl2=403 coraza pl1=400 pl2=400
+wcp-34940e7ffce1         1620081    860488   1620081 multipart/form-data            POST  | modsec 200 / coraza 413 | modsec pl1=200 pl2=200 coraza pl1=200 pl2=200
+wcp-80922154f132         1620088    860495   1620088 multipart/form-data            POST  | modsec 200 / coraza 413 | modsec pl1=200 pl2=200 coraza pl1=200 pl2=200
+wcp-ad3399e805f1         1620070    860477   1620070 multipart/form-data            POST  | modsec 200 / coraza 413 | modsec pl1=200 pl2=200 coraza pl1=200 pl2=200
+wcp-1140885081e1         2829426   1527423   2829426 multipart/form-data            POST  | modsec 200 / coraza 413 | modsec pl1=200 pl2=200 coraza pl1=200 pl2=200
+wcp-f83f7556fc66         2829426   1527423   2829426 multipart/form-data            POST  | modsec 200 / coraza 413 | modsec pl1=200 pl2=200 coraza pl1=200 pl2=200
+wcp-908ef72be103         2829422   1527419   2829422 multipart/form-data            POST  | modsec 200 / coraza 413 | modsec pl1=200 pl2=200 coraza pl1=200 pl2=200
+wcp-131fde29d621         2105547   1117962   2105547 multipart/form-data            POST  | modsec 200 / coraza 413 | modsec pl1=200 pl2=200 coraza pl1=200 pl2=200
+wcp-5b3f575b061d         2105554   1117969   2105554 multipart/form-data            POST  | modsec 200 / coraza 413 | modsec pl1=200 pl2=200 coraza pl1=200 pl2=200
+wcp-c5155c659149         2105547   1117962   2105547 multipart/form-data            POST  | modsec 200 / coraza 413 | modsec pl1=200 pl2=200 coraza pl1=200 pl2=200
+wcp-7dfe87a9dd28         2105540   1117955   2105540 multipart/form-data            POST  | modsec 200 / coraza 413 | modsec pl1=200 pl2=200 coraza pl1=200 pl2=200
