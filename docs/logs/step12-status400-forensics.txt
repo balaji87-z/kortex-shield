@@ -1,0 +1,19 @@
+id                     len(sent)   CLrec CL==sent nonascii lone-surr  parses stored==zip class  status/outcome
+wcp-2600366d4ecb            1627    1627     True    False     False   False        True malformed_original 400/waf_deny_status rules=['200002'] enc=None
+wcp-2895d7e869c5           68672   45890    False     True     False   False        True replay_artifact    400/waf_deny_status rules=['920450', '200002'] enc=gzip
+wcp-2ec9a3436296           58505   58505     True    False     False    True        True unknown            400/waf_deny_status rules=['200007'] json_members=1160 enc=None
+wcp-376b3b37ef12           55990    6418    False    False     False    True        True replay_artifact    400/waf_deny_status rules=['920450', '200007'] json_members=1990 enc=gzip
+wcp-384ae4521001           51079   51079     True    False     False    True        True unknown            400/waf_deny_status rules=['200007'] json_members=1322 enc=None
+wcp-4be3821497ed            3590    2414    False     True     False   False        True replay_artifact    400/waf_deny_status rules=['920450', '200002'] enc=gzip
+wcp-62b3375148b4            9898    6585    False     True     False   False        True replay_artifact    400/waf_deny_status rules=['920450', '200002'] enc=gzip
+wcp-672911deadaa          172221   28124    False     True     False    True        True replay_artifact    400/waf_deny_status rules=['920450', '200002'] enc=gzip
+wcp-71461e371348          188228   40958    False     True     False    True        True replay_artifact    400/waf_deny_status rules=['920450', '200002'] enc=gzip
+wcp-96a594e2ae57          218724   31080    False     True     False    True        True replay_artifact    400/waf_deny_status rules=['920450', '200002'] enc=gzip
+wcp-9958e07b65ec           52893   52893     True    False     False    True        True unknown            400/waf_deny_status rules=['200007'] json_members=1569 enc=None
+wcp-a4a6f9fb8303            5466    3641    False     True     False   False        True replay_artifact    400/waf_deny_status rules=['920450', '200002'] enc=gzip
+wcp-aec2a2311eb9          106006  106006     True    False     False    True        True unknown            400/waf_deny_status rules=['200007'] json_members=2210 enc=None
+wcp-c7970d727861          133490   23584    False     True     False    True        True replay_artifact    400/waf_deny_status rules=['920450', '200002'] enc=gzip
+wcp-decac4aed757            2096    2096     True    False     False   False        True malformed_original 400/waf_deny_status rules=['200002'] enc=None
+wcp-ef1d0324c278           52373    5645    False    False     False    True        True replay_artifact    400/waf_deny_status rules=['920450', '200007'] json_members=1849 enc=gzip
+wcp-f78d7afa532c           63377   63377     True    False     False    True        True unknown            400/waf_deny_status rules=['200007'] json_members=4373 enc=None
+class counts: {'malformed_original': 2, 'replay_artifact': 10, 'unknown': 5}

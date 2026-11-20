@@ -1,0 +1,60 @@
+== out/wcp-heldout-test-default-pl1: blocked 1769 composition {'policy-only': 1379, 'detection-only': 326, 'detection+policy': 53, 'neither': 11}
+   policy-only rule IDs: {'920420': 1268, '920600': 42, '920640': 38, '920340': 38, '911100': 22, '920450': 6, '920440': 3, '920470': 2, '920270': 1}
+   neither-class ids (11):
+     wcp-196838c5ecd7: rules=['921130'] status=403
+     wcp-37e79a6a7b55: rules=['921130'] status=403
+     wcp-38cb04047235: rules=['921130'] status=403
+     wcp-6ed4bc4bdea5: rules=['921130'] status=403
+     wcp-7437bb92bdf0: rules=['921130'] status=403
+     wcp-8f55df7c32f6: rules=['921130'] status=403
+     wcp-ad9f84df2902: rules=['921130'] status=403
+     wcp-beb7703f8520: rules=['921130'] status=403
+     wcp-bec820b54c92: rules=['921130'] status=403
+     wcp-d9c2f4896de8: rules=['921130'] status=403
+     wcp-db4724a9ce16: rules=['921130'] status=403
+== out/wcp-heldout-test-default-pl2: blocked 4206 composition {'policy-only': 1067, 'detection+policy': 911, 'detection-only': 2228}
+   policy-only rule IDs: {'920420': 990, '920640': 38, '920340': 38, '911100': 21, '920230': 13, '920450': 4, '920600': 3, '920470': 2, '920440': 1, '920271': 1}
+== out/wcp-heldout-train-default-pl1: blocked 2054 composition {'policy-only': 1666, 'detection-only': 335, 'detection+policy': 44, 'neither': 9}
+   policy-only rule IDs: {'920420': 1578, '920640': 57, '920340': 57, '920450': 26, '911100': 24, '920480': 9, '920470': 2, '920600': 2, '920440': 1}
+   neither-class ids (9):
+     wcp-6b57620bd024: rules=['921130'] status=403
+     wcp-6b97588fb4bf: rules=['921130'] status=403
+     wcp-751844759d49: rules=['921130'] status=403
+     wcp-79f2f9dc2528: rules=['921130'] status=403
+     wcp-7c35f085ab55: rules=['921130'] status=403
+     wcp-9c13f73bdd61: rules=['921130'] status=403
+     wcp-9d3cee7385bd: rules=['921130'] status=403
+     wcp-ce5f92cc530e: rules=['921130'] status=403
+     wcp-ddc9d9304902: rules=['921130'] status=403
+== out/wcp-heldout-train-default-pl2: blocked 4743 composition {'detection+policy': 1303, 'detection-only': 2181, 'policy-only': 1259}
+   policy-only rule IDs: {'920420': 1186, '920640': 43, '920340': 43, '911100': 12, '920450': 10, '920480': 8, '920230': 6, '920600': 2, '920440': 1}
+== out/wcp-heldout-test-wcp-train-pl1: blocked 514 composition {'policy-only': 124, 'detection-only': 373, 'detection+policy': 6, 'neither': 11}
+   policy-only rule IDs: {'920600': 42, '920640': 38, '920340': 38, '920420': 35, '920450': 6, '920440': 3, '920470': 2, '920270': 1}
+   neither-class ids (11):
+     wcp-196838c5ecd7: rules=['921130'] status=403
+     wcp-37e79a6a7b55: rules=['921130'] status=403
+     wcp-38cb04047235: rules=['921130'] status=403
+     wcp-6ed4bc4bdea5: rules=['921130'] status=403
+     wcp-7437bb92bdf0: rules=['921130'] status=403
+     wcp-8f55df7c32f6: rules=['921130'] status=403
+     wcp-ad9f84df2902: rules=['921130'] status=403
+     wcp-beb7703f8520: rules=['921130'] status=403
+     wcp-bec820b54c92: rules=['921130'] status=403
+     wcp-d9c2f4896de8: rules=['921130'] status=403
+     wcp-db4724a9ce16: rules=['921130'] status=403
+== out/wcp-heldout-test-wcp-train-pl2: blocked 3229 composition {'detection+policy': 646, 'detection-only': 2492, 'policy-only': 91}
+   policy-only rule IDs: {'920640': 38, '920340': 38, '920420': 35, '920230': 11, '920450': 4, '920600': 3, '920470': 2, '920440': 1, '920271': 1}
+== out/wcp-heldout-train-wcp-train-pl1: blocked 474 composition {'detection-only': 366, 'policy-only': 86, 'neither': 9, 'detection+policy': 13}
+   policy-only rule IDs: {'920640': 57, '920340': 57, '920450': 26, '920480': 9, '920600': 2, '920420': 2, '920470': 2, '920440': 1}
+   neither-class ids (9):
+     wcp-6b57620bd024: rules=['921130'] status=403
+     wcp-6b97588fb4bf: rules=['921130'] status=403
+     wcp-751844759d49: rules=['921130'] status=403
+     wcp-79f2f9dc2528: rules=['921130'] status=403
+     wcp-7c35f085ab55: rules=['921130'] status=403
+     wcp-9c13f73bdd61: rules=['921130'] status=403
+     wcp-9d3cee7385bd: rules=['921130'] status=403
+     wcp-ce5f92cc530e: rules=['921130'] status=403
+     wcp-ddc9d9304902: rules=['921130'] status=403
+== out/wcp-heldout-train-wcp-train-pl2: blocked 3554 composition {'detection+policy': 1017, 'detection-only': 2467, 'policy-only': 70}
+   policy-only rule IDs: {'920640': 43, '920340': 43, '920450': 10, '920480': 8, '920230': 6, '920600': 2, '920440': 1}

@@ -1,0 +1,2 @@
+# Coraza engine version proof (2026-11-20, image bfbfe70b4445)
+coraza/v3@v3.7.0

@@ -1,0 +1,108 @@
+# Step-12: rule-29 effective-config proofs for every run that has one.
+# Raw ordered evidence (=== done <run> follows the rule29 line(s) it covers).
+# Step-10 and earlier runs predate rule 29: no in-container proof exists (T1 audit).
+# Annotations:
+#  - coraza rows from step-11 logs show D= empty: the OLD image never reported D;
+#    step-12 coraza rows prove D explicitly (D=1 at PL1, D=2 at PL2).
+#  - run_wcp_heldout.sh's printer echoes env_AM=[GET HEAD POST OPTIONS PUT DELETE PATCH];
+#    that is the runner's raw env, NOT the rendered config. The rendered default config
+#    allows GET/HEAD/POST/OPTIONS only: tools/check_default_signature.py proved 911100
+#    still fires on PUT/DELETE/PATCH in every default run (behavioral proof).
+#  - env_CT empty means the 901160/901162 fallback CT list applies (see T1).
+
+===== out/step12-batch1.log
+rule29-coraza: E=On B=1 P=1 D=1 env_CT=[long-env-list]
+=== done coraza smoke pl1
+rule29-coraza: E=On B=2 P=2 D=2 env_CT=[long-env-list]
+=== done coraza smoke pl2
+rule29-coraza: E=On B=1 P=1 D=1 env_CT=[long-env-list]
+=== done coraza attacks-v0 pl1
+rule29-coraza: E=On B=2 P=2 D=2 env_CT=[long-env-list]
+=== done coraza attacks-v0 pl2
+rule29-coraza: E=On B=1 P=1 D=1 env_CT=[long-env-list]
+=== done coraza benign-browse-v1 pl1
+rule29-coraza: E=On B=2 P=2 D=2 env_CT=[long-env-list]
+=== done coraza benign-browse-v1 pl2
+rule29-coraza: E=On B=1 P=1 D=1 env_CT=[long-env-list]
+=== done coraza benign-hard-v0 pl1
+rule29-coraza: E=On B=2 P=2 D=2 env_CT=[long-env-list]
+=== done coraza benign-hard-v0 pl2
+rule29-modsec: E=On B=1 P=1 D=1 BACKEND=http://stub-backend:3000 env_CT=[long-env-list]
+=== done modsec smoke pl1
+rule29-modsec: E=On B=2 P=2 D=2 BACKEND=http://stub-backend:3000 env_CT=[long-env-list]
+=== done modsec smoke pl2
+rule29-modsec: E=On B=1 P=1 D=1 BACKEND=http://stub-backend:3000 env_CT=[long-env-list]
+=== done modsec attacks-v0 pl1
+rule29-modsec: E=On B=2 P=2 D=2 BACKEND=http://stub-backend:3000 env_CT=[long-env-list]
+=== done modsec attacks-v0 pl2
+rule29-modsec: E=On B=1 P=1 D=1 BACKEND=http://stub-backend:3000 env_CT=[long-env-list]
+=== done modsec benign-browse-v1 pl1
+rule29-modsec: E=On B=2 P=2 D=2 BACKEND=http://stub-backend:3000 env_CT=[long-env-list]
+=== done modsec benign-browse-v1 pl2
+rule29-modsec: E=On B=1 P=1 D=1 BACKEND=http://stub-backend:3000 env_CT=[long-env-list]
+=== done modsec benign-hard-v0 pl1
+rule29-modsec: E=On B=2 P=2 D=2 BACKEND=http://stub-backend:3000 env_CT=[long-env-list]
+=== done modsec benign-hard-v0 pl2
+rule29: engine=On B=1 D=1 P=1 env_AM=[GET HEAD POST OPTIONS PUT DELETE PATCH] env_CT=[long-env-list]
+=== done test wcp-train PL1
+===== out/step11-parity-batch.log
+rule29-modsec: E=On B=1 P=1 D=1 BACKEND=http://stub-backend:3000 env_CT=[long-env-list]
+=== done modsec smoke pl1
+rule29-modsec: E=On B=1 P=1 D=1 BACKEND=http://stub-backend:3000 env_CT=[long-env-list]
+=== done modsec attacks-v0 pl1
+rule29-modsec: E=On B=1 P=1 D=1 BACKEND=http://stub-backend:3000 env_CT=[long-env-list]
+=== done modsec benign-browse-v1 pl1
+rule29-modsec: E=On B=1 P=1 D=1 BACKEND=http://stub-backend:3000 env_CT=[long-env-list]
+=== done modsec benign-hard-v0 pl1
+rule29-modsec: E=On B=2 P=2 D=2 BACKEND=http://stub-backend:3000 env_CT=[long-env-list]
+=== done modsec smoke pl2
+rule29-modsec: E=On B=2 P=2 D=2 BACKEND=http://stub-backend:3000 env_CT=[long-env-list]
+=== done modsec attacks-v0 pl2
+rule29-modsec: E=On B=2 P=2 D=2 BACKEND=http://stub-backend:3000 env_CT=[long-env-list]
+=== done modsec benign-browse-v1 pl2
+rule29-modsec: E=On B=2 P=2 D=2 BACKEND=http://stub-backend:3000 env_CT=[long-env-list]
+=== done modsec benign-hard-v0 pl2
+rule29-coraza: E=On B=2 P=2 D= env_CT=[long-env-list]
+rule29-modsec: E=On B=1 P=1 D=1 BACKEND=http://stub-backend:3000 env_CT=[long-env-list]
+rule29-modsec: E=On B=2 P=2 D=2 BACKEND=http://stub-backend:3000 env_CT=[long-env-list]
+rule29-modsec: E=On B=1 P=1 D=1 BACKEND=http://stub-backend:3000 env_CT=[long-env-list]
+=== done modsec wcp-cookie-restored-pl1 pl1
+rule29-modsec: E=On B=2 P=2 D=2 BACKEND=http://stub-backend:3000 env_CT=[long-env-list]
+=== done modsec wcp-cookie-restored-pl2 pl2
+===== out/step11-parity-batch2.log
+rule29-coraza: E=On B=2 P=2 D= env_CT=[long-env-list]
+===== out/step11-parity-batch3.log
+rule29-coraza: E=On B=1 P=1 D= env_CT=[long-env-list]
+=== done coraza benign-wcp-v0 pl1
+rule29-coraza: E=On B=2 P=2 D= env_CT=[long-env-list]
+=== done coraza benign-wcp-v0 pl2
+rule29-modsec: E=On B=1 P=1 D=1 BACKEND=http://stub-backend:3000 env_CT=[long-env-list]
+=== done modsec benign-wcp-v0 pl1
+rule29-modsec: E=On B=2 P=2 D=2 BACKEND=http://stub-backend:3000 env_CT=[long-env-list]
+=== done modsec benign-wcp-v0 pl2
+rule29-modsec: E=On B=1 P=1 D=1 BACKEND=http://stub-backend:3000 env_CT=[long-env-list]
+=== done modsec wcp-cookie-restored-pl1 pl1
+rule29-modsec: E=On B=2 P=2 D=2 BACKEND=http://stub-backend:3000 env_CT=[long-env-list]
+=== done modsec wcp-cookie-restored-pl2 pl2
+===== out/wcp-heldout3.log
+rule29: engine=On B=1 D=1 P=1 env_AM=[GET HEAD POST OPTIONS PUT DELETE PATCH] env_CT=[long-env-list]
+===== out/wcp-heldout3b.log
+rule29: engine=On B=2 D=2 P=2 env_AM=[GET HEAD POST OPTIONS PUT DELETE PATCH] env_CT=[long-env-list]
+=== done test wcp-train PL2
+rule29: engine=On B=1 D=1 P=1 env_AM=[GET HEAD POST OPTIONS PUT DELETE PATCH] env_CT=[long-env-list]
+=== done train wcp-train PL1
+rule29: engine=On B=2 D=2 P=2 env_AM=[GET HEAD POST OPTIONS PUT DELETE PATCH] env_CT=[long-env-list]
+=== done train wcp-train PL2
+===== out/coraza-t4.log
+rule29-coraza: E=On B=2 P=2 D= env_CT=[long-env-list]
+=== done coraza smoke pl2
+rule29-coraza: E=On B=2 P=2 D= env_CT=[long-env-list]
+=== done coraza attacks-v0 pl2
+rule29-coraza: E=On B=2 P=2 D= env_CT=[long-env-list]
+=== done coraza benign-browse-v1 pl2
+===== out/coraza-t4b.log
+rule29-coraza: E=On B=2 P=2 D= env_CT=[long-env-list]
+=== done coraza benign-hard-v0 pl2
+rule29-coraza: E=On B=1 P=1 D= env_CT=[long-env-list]
+===== out/coraza-t4c.log
+rule29-coraza: E=On B=1 P=1 D= env_CT=[long-env-list]
