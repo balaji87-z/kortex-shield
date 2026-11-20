@@ -39,3 +39,14 @@ container. Cause UNEXPLAINED (one id out of 1054; 86 of the 100 %25-query
 samples were blocked via 920230 in the same T6 run). The step-16 T2 re-run
 of both sides will re-measure it; until then the id is counted UNEXPLAINED
 in reports/step-16.md and excluded from the E10 PL2 parity table.
+
+# Addendum (same session, same DIAGNOSTIC label)
+
+Second stale T6 ref artifact found: command-injection-036c522d-login
+(JSON POST). The T6 ref PL2 run recorded waf_pass/200; a DIAGNOSTIC replay
+of the exact recorded request against the current PL2 connector returned
+403 with rules 920350, 920230 (Multiple URL Encoding Detected), 949110
+(container audit log tail). The engine (post-JSON-fix) also blocks it with
+920230 at PL2. Both 920230 ids are therefore the same UNEXPLAINED class:
+T6 ref artifact not reproducible on the recreated container. Container
+restored to PL1 afterwards (probe 200).

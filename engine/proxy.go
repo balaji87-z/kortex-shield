@@ -75,7 +75,7 @@ func (p *Proxy) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 
 	it := tx.ProcessRequestHeaders()
 	if p.blocked(it) {
-		p.block(w, sampleID, start, tx)
+		p.block(w, sampleID, start, tx, it)
 		return
 	}
 	if p.overBudget(start) {
@@ -130,7 +130,7 @@ func (p *Proxy) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 	if p.blocked(it) {
-		p.block(w, sampleID, start, tx)
+		p.block(w, sampleID, start, tx, it)
 		return
 	}
 	if p.overBudget(start) {
@@ -160,10 +160,17 @@ func (p *Proxy) blocked(it *types.Interruption) bool {
 	return true
 }
 
-func (p *Proxy) block(w http.ResponseWriter, sampleID string, start time.Time, tx types.Transaction) {
+func (p *Proxy) block(w http.ResponseWriter, sampleID string, start time.Time, tx types.Transaction, it *types.Interruption) {
 	w.Header().Set("Connection", "close")
-	w.WriteHeader(http.StatusForbidden)
-	fmt.Fprintf(w, "403 kortex-decision=block rules=%s\n", strings.Join(matchedIDs(tx), ","))
+	// Connector-image deny rules (200002/200003/200007) interrupt with an
+	// explicit status (400); honour it like the connector does. Detection
+	// rules without a status keep the engine's 403.
+	status := http.StatusForbidden
+	if it != nil && it.Status != 0 {
+		status = it.Status
+	}
+	w.WriteHeader(status)
+	fmt.Fprintf(w, "%d kortex-decision=block rules=%s\n", status, strings.Join(matchedIDs(tx), ","))
 	tx.ProcessLogging()
 }
 
