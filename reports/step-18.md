@@ -198,6 +198,28 @@ modsec-connector comparison was not re-run this step (step-13 evidence
 stands). Evidence: docs/logs/step18-t2-analysis.txt, sym-diff and
 classification JSONs, both connector runs under docs/logs/runs/.
 
+### Rule-25 finding during T2 (external-traffic secret)
+
+GitHub push protection blocked the first T2 push: a **Mapbox publishable
+access token** (`pk.eyJ1IjoiZG9vcmRhc2gi...` — pk. prefix = publishable,
+not a server secret) appeared in recorded WCP traffic and was copied into
+the preserved connector audit logs.
+
+- Type and count: Mapbox publishable token of the doordash crawl;
+  **6 samples** in data/benign-wcp-v0/manifest.jsonl (and 6 in its
+  annotations.jsonl) carry it in a query string; 1 occurrence in each
+  connector audit log (docs/logs/runs/coraza-benign-wcp-v0-pl{1,2}-default).
+- Action taken: both preserved audit logs redacted
+  (`pk.REDACTED-mapbox-pk-token`) BEFORE the push; the pushed tree
+  contains no occurrence (verified with git grep on HEAD, exit 1). The
+  un-pushed commit was amended.
+- UNRESOLVED: the token is also inside the **frozen** benign-wcp-v0
+  dataset files, which were committed in an earlier step. Rule 10 forbids
+  changing a frozen dataset, so I did not touch it. The token is
+  publishable-by-design (client-side map tokens), but the instructor
+  should decide whether the frozen dataset may keep it, be re-frozen
+  redacted as a new version, or be taken down.
+
 ### T2 — what was missing before docker (kept for the record)
 
 No docker, no docker.sock, no podman/nerdctl, no passwordless sudo on this
