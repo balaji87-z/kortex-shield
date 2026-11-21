@@ -1,0 +1,2 @@
+{"ts":"2026-11-21T09:55:23.437663116Z","sample_id":"wcp-483cfc44d381","decision":"timeout","status":503,"elapsed_ms":2021.701,"reason":"time budget expired in body processing"}
+{"ts":"2026-11-21T09:55:28.118523275Z","sample_id":"wcp-483cfc44d381","decision":"abandoned-body-processing-finished","status":0,"elapsed_ms":6702.557,"reason":"elapsed_ms=6702 completed_no_interruption=true"}
