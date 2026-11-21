@@ -1,6 +1,7 @@
 package main
 
 import (
+	"time"
 	"net/http"
 	"os"
 	"strings"
@@ -55,5 +56,45 @@ func TestE28CorazaDebugLoggerWiring(t *testing.T) {
 	}
 	if !strings.Contains(string(data), "Evaluating phase") {
 		t.Fatalf("expected coraza debug lines in %s, got %d bytes", dbg, len(data))
+	}
+}
+
+// E29 (step-19 T3, FAILING BY DESIGN): while all in-flight body-processing
+// slots are held by slow bodies, a benign body-bearing POST must still be
+// answered (forwarded), not rejected with 503 overload. Today the engine
+// starves it (0/131 benign POSTs served during the step-19 T3 attack run,
+// docs/logs/step19-t3-availability.txt). No fix is proposed in step-19;
+// the instructor chooses. Test-first per the step-19 instruction.
+func TestE29BenignPOSTServedWhileSlotsHeld(t *testing.T) {
+	budget := os.Getenv("KORTEST_T3_SLOW_MS")
+	_ = budget
+	srv, _ := newEnv(t, map[string]string{
+		"KORTEX_MAX_INFLIGHT_BODY":    "8",
+		"KORTEX_ENGINE_TIME_BUDGET_MS": "100",
+	})
+	// 16 KB text/plain body: processing (~0.6 s) exceeds the 100 ms budget,
+	// so each attacker holds a slot and the call runs abandoned.
+	slow := strings.Repeat("a*b|c$d", 2300) // ~16 KB, no newline-split tricks
+	slow = slow[:16100]
+	type result struct {
+		status int
+	}
+	attackerDone := make(chan result, 8)
+	for i := 0; i < 8; i++ {
+		go func() {
+			resp := get(t, srv, "/attack", map[string]string{"Content-Type": "text/plain"}, slow)
+			resp.Body.Close()
+			attackerDone <- result{resp.StatusCode}
+		}()
+	}
+	// give the attackers time to acquire all 8 slots and start processing
+	time.Sleep(150 * time.Millisecond)
+	resp := get(t, srv, "/benign", map[string]string{"Content-Type": "application/json"}, `{"k0":"v"}`)
+	resp.Body.Close()
+	if resp.StatusCode == http.StatusServiceUnavailable {
+		t.Fatalf("benign body-bearing POST starved: got 503 overload while slots held by slow bodies")
+	}
+	for i := 0; i < 8; i++ {
+		<-attackerDone
 	}
 }
