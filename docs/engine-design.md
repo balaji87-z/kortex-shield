@@ -281,3 +281,47 @@ transformation cache key uses a string pointer (unsafe.StringData,
 internal/corazawaf/rulegroup.go:290) as a map key, which is fragile under
 memory reuse. Not fixed in this step (rule 1); raised in the step-18
 report as a question for the instructor.
+
+## Size-class body lanes (step-20 T2, documented BEFORE any run)
+
+Motivation: step-19 T3 showed 8 abandoned large-body calls (131,071 B
+text/plain, ~24 s runtime each) starve ALL body-bearing traffic: benign
+POSTs 0/131 served for 5 minutes. The slot cap is global, so 8 slow
+large bodies block small benign requests that cost <1 s.
+
+Design: two in-flight caps (lanes), selected by declared body size.
+
+- SMALL lane: declared Content-Length <= KORTEX_BODY_LANE_THRESHOLD.
+  Cap = KORTEX_MAX_INFLIGHT_BODY (existing var, default 8, unchanged).
+- LARGE lane: declared Content-Length > threshold, or no Content-Length
+  at all (chunked/unknown framing). Unknown framing cannot escape the
+  large lane (conservative: an attacker cannot shrug the large lane off
+  by omitting Content-Length). Cap = KORTEX_MAX_INFLIGHT_BODY_LARGE
+  (new, default 2).
+
+Defaults, chosen from the measured step-19 T2 cost curve (median
+inspection time, text/plain, pre-engine):
+
+  <= 16,384 B : 0.66-0.81 s   (under the 2 s budget)
+     32,768 B : 1.90-2.04 s   (at the budget edge)
+     65,536 B : 4.57-4.89 s   (over budget)
+    131,071 B : 6.00-20.10 s  (far over)
+
+- KORTEX_BODY_LANE_THRESHOLD default = 65536 (64 KiB): everything the
+  small lane admits is at worst ~4.9 s of inspection (65,536 B), and the
+  bodies that dominate benign corpora (WCP: mostly < 10 KB) are all in
+  the small lane.
+- Large-lane cap default = 2: bounds the worst-case abandoned-call CPU
+  burn to ~2 x 24 s per window instead of 8 x 24 s, while still serving
+  two concurrent large uploads.
+
+Known residual exposure (documented, not hidden): an attacker whose
+bodies fit the SMALL lane can still occupy all 8 small slots and starve
+small benign POSTs within that lane. Lanes only isolate attacker-large
+from benign-small. Measured in the step-20 small-lane run.
+
+Test hook (deterministic, rule 48): KORTEX_TEST_HOLD_BODY_MS=<ms> plus
+request header `X-Kortex-Test-Hold: 1` makes the body-processing call
+sleep <ms> while HOLDING its slot. Unset by default: no production
+effect. Used by E29 so held slots are deterministic instead of
+timing-dependent.
