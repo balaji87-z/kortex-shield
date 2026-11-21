@@ -1,0 +1,34 @@
+{"ts":"2026-11-21T15:13:22.021209763Z","sample_id":"spk-att1","decision":"spike-child-killed","status":0,"elapsed_ms":2018.989,"reason":"request_cpu_ms=2080 budget_ms=2000 cpu_after_deadline_ms=80 err=Post \"http://127.0.0.1:40075/\": context deadline exceeded (Client.Timeout exceeded while awaiting headers) url=http://127.0.0.1:40075"}
+{"ts":"2026-11-21T15:13:22.023063967Z","sample_id":"spk-att1","decision":"timeout","status":503,"elapsed_ms":2020.843,"reason":"time budget expired in body processing (spike child killed)"}
+{"ts":"2026-11-21T15:13:26.422603603Z","sample_id":"spk-att2","decision":"spike-child-killed","status":0,"elapsed_ms":4066.864,"reason":"request_cpu_ms=2500 budget_ms=2000 cpu_after_deadline_ms=500 err=Post \"http://127.0.0.1:42203/\": context deadline exceeded (Client.Timeout exceeded while awaiting headers) url=http://127.0.0.1:42203"}
+{"ts":"2026-11-21T15:13:26.429934538Z","sample_id":"spk-att2","decision":"spike-respawn-wait","status":0,"elapsed_ms":4074.196,"reason":"wait_ms=2011"}
+{"ts":"2026-11-21T15:13:26.429996986Z","sample_id":"spk-att2","decision":"timeout","status":503,"elapsed_ms":4074.256,"reason":"time budget expired in body processing (spike child killed)"}
+{"ts":"2026-11-21T15:13:30.083144919Z","sample_id":"spk-att3","decision":"spike-child-killed","status":0,"elapsed_ms":3506.444,"reason":"request_cpu_ms=2240 budget_ms=2000 cpu_after_deadline_ms=240 err=Post \"http://127.0.0.1:35115/\": context deadline exceeded (Client.Timeout exceeded while awaiting headers) url=http://127.0.0.1:35115"}
+{"ts":"2026-11-21T15:13:30.08912294Z","sample_id":"spk-att3","decision":"spike-respawn-wait","status":0,"elapsed_ms":3512.421,"reason":"wait_ms=1453"}
+{"ts":"2026-11-21T15:13:30.089200098Z","sample_id":"spk-att3","decision":"timeout","status":503,"elapsed_ms":3512.496,"reason":"time budget expired in body processing (spike child killed)"}
+{"ts":"2026-11-21T15:13:34.906050421Z","sample_id":"spk-att4","decision":"spike-child-killed","status":0,"elapsed_ms":4749.984,"reason":"request_cpu_ms=1960 budget_ms=2000 cpu_after_deadline_ms=-40 err=Post \"http://127.0.0.1:43335/\": context deadline exceeded (Client.Timeout exceeded while awaiting headers) url=http://127.0.0.1:43335"}
+{"ts":"2026-11-21T15:13:34.906184029Z","sample_id":"spk-att4","decision":"spike-respawn-wait","status":0,"elapsed_ms":4750.117,"reason":"wait_ms=2740"}
+{"ts":"2026-11-21T15:13:34.906210223Z","sample_id":"spk-att4","decision":"timeout","status":503,"elapsed_ms":4750.146,"reason":"time budget expired in body processing (spike child killed)"}
+{"ts":"2026-11-21T15:13:38.117082599Z","sample_id":"spk-att5","decision":"spike-child-killed","status":0,"elapsed_ms":3169.556,"reason":"request_cpu_ms=2020 budget_ms=2000 cpu_after_deadline_ms=20 err=Post \"http://127.0.0.1:41453/\": context deadline exceeded (Client.Timeout exceeded while awaiting headers) url=http://127.0.0.1:41453"}
+{"ts":"2026-11-21T15:13:38.122094405Z","sample_id":"spk-att5","decision":"spike-respawn-wait","status":0,"elapsed_ms":3174.568,"reason":"wait_ms=1149"}
+{"ts":"2026-11-21T15:13:38.127786214Z","sample_id":"spk-att5","decision":"timeout","status":503,"elapsed_ms":3180.261,"reason":"time budget expired in body processing (spike child killed)"}
+{"ts":"2026-11-21T15:13:42.552685965Z","sample_id":"spk-b1","decision":"pass","status":0,"elapsed_ms":145.411,"reason":"forwarding"}
+{"ts":"2026-11-21T15:13:42.671407788Z","sample_id":"spk-b2","decision":"pass","status":0,"elapsed_ms":23.926,"reason":"forwarding"}
+{"ts":"2026-11-21T15:13:42.87556279Z","sample_id":"spk-b3","decision":"pass","status":0,"elapsed_ms":175.106,"reason":"forwarding"}
+{"ts":"2026-11-21T15:13:42.985314068Z","sample_id":"spk-b4","decision":"pass","status":0,"elapsed_ms":43.385,"reason":"forwarding"}
+{"ts":"2026-11-21T15:13:43.042737554Z","sample_id":"spk-b5","decision":"pass","status":0,"elapsed_ms":27.279,"reason":"forwarding"}
+{"ts":"2026-11-21T15:13:43.100494862Z","sample_id":"spk-b6","decision":"pass","status":0,"elapsed_ms":26.441,"reason":"forwarding"}
+{"ts":"2026-11-21T15:13:43.157468446Z","sample_id":"spk-b7","decision":"pass","status":0,"elapsed_ms":24.817,"reason":"forwarding"}
+{"ts":"2026-11-21T15:13:43.245447882Z","sample_id":"spk-b8","decision":"pass","status":0,"elapsed_ms":57.301,"reason":"forwarding"}
+{"ts":"2026-11-21T15:13:43.478160037Z","sample_id":"spk-b9","decision":"pass","status":0,"elapsed_ms":53.777,"reason":"forwarding"}
+{"ts":"2026-11-21T15:13:43.603514842Z","sample_id":"spk-b10","decision":"pass","status":0,"elapsed_ms":18.082,"reason":"forwarding"}
+{"ts":"2026-11-21T15:13:43.772581656Z","sample_id":"spk-b11","decision":"pass","status":0,"elapsed_ms":120.166,"reason":"forwarding"}
+{"ts":"2026-11-21T15:13:43.814934003Z","sample_id":"spk-b12","decision":"pass","status":0,"elapsed_ms":18.866,"reason":"forwarding"}
+{"ts":"2026-11-21T15:13:43.877490492Z","sample_id":"spk-b13","decision":"pass","status":0,"elapsed_ms":33.973,"reason":"forwarding"}
+{"ts":"2026-11-21T15:13:43.972362838Z","sample_id":"spk-b14","decision":"pass","status":0,"elapsed_ms":67.195,"reason":"forwarding"}
+{"ts":"2026-11-21T15:13:44.029776529Z","sample_id":"spk-b15","decision":"pass","status":0,"elapsed_ms":27.564,"reason":"forwarding"}
+{"ts":"2026-11-21T15:13:44.091810417Z","sample_id":"spk-b16","decision":"pass","status":0,"elapsed_ms":21.441,"reason":"forwarding"}
+{"ts":"2026-11-21T15:13:44.447372271Z","sample_id":"spk-b17","decision":"pass","status":0,"elapsed_ms":198.761,"reason":"forwarding"}
+{"ts":"2026-11-21T15:13:44.759810932Z","sample_id":"spk-b18","decision":"pass","status":0,"elapsed_ms":32.540,"reason":"forwarding"}
+{"ts":"2026-11-21T15:13:44.834003322Z","sample_id":"spk-b19","decision":"pass","status":0,"elapsed_ms":26.935,"reason":"forwarding"}
+{"ts":"2026-11-21T15:13:44.903049273Z","sample_id":"spk-b20","decision":"pass","status":0,"elapsed_ms":23.722,"reason":"forwarding"}

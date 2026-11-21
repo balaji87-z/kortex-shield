@@ -1,0 +1,35 @@
+== SPIKE DIAGNOSTIC: body inspection en subproceso killed al deadline (2026-11-21T15:13:19Z) ==
+== 5 ataques 131071B secuenciales (cada uno mata al hijo):
+  attack1: status=503 wall=2.037461s
+  attack2: status=503 wall=4.227042s
+  attack3: status=503 wall=3.539581s
+  attack4: status=503 wall=4.767085s
+  attack5: status=503 wall=3.193237s
+== 20 benignos con hijo caliente:
+  benigno via spike: median=47ms p90=193ms max=292ms
+== control in-process (binario lanes, misma maquina): 5 ataques
+  spk-att1 request_cpu_ms=2080 budget_ms=2000 cpu_after_deadline_ms=80 err=Post "http://127.0.0.1:40075/":
+  spk-att2 request_cpu_ms=2500 budget_ms=2000 cpu_after_deadline_ms=500 err=Post "http://127.0.0.1:42203/"
+  spk-att3 request_cpu_ms=2240 budget_ms=2000 cpu_after_deadline_ms=240 err=Post "http://127.0.0.1:35115/"
+  spk-att4 request_cpu_ms=1960 budget_ms=2000 cpu_after_deadline_ms=-40 err=Post "http://127.0.0.1:43335/"
+  spk-att5 request_cpu_ms=2020 budget_ms=2000 cpu_after_deadline_ms=20 err=Post "http://127.0.0.1:41453/":
+
+== control in-process (misma maquina, mismo cuerpo, budget 2s) ==
+- llamada abandonada IN-PROCESS (binario lanes v3.8.1, 1 llamada sola):
+  elapsed_ms=74210 (74.2 s), ~77 s CPU  [docs/logs/runs/s20-t2-sgl/]
+- control v3.7.0: elapsed_ms=79588 (79.6 s), ~86 s CPU
+- en la corrida T2-large (5 min, 8 atacantes): los 2 slots del lane
+  grande fueron ocupados por 2 llamadas que NUNCA terminaron en 300 s
+  (timeout=2, abandoned_finished=0), 970 CPU-s del engine.
+
+== lectura ==
+- subproceso killed al deadline: CPU tras deadline 80/500/240/-40/20 ms
+  (ruido de muestreo + cola de respawn); el hijo queda MUERTO y no
+  sigue quemando CPU (in-process: 74-80 s CPU por llamada).
+- coste: respawn del hijo = 1.3-2.7 s (carga de reglas) pagado por el
+  request siguiente (spike-respawn-wait); benigno con hijo caliente
+  median 47 ms (overhead del hop minimo).
+- contrapartida: cada request grande necesita un hijo vivo; bajo ataque
+  sostenido el hijo se mata y respawn en cada request -> los requests
+  grandes pagan ~2 s de respawn + 2 s de budget; el lane grande se
+  degrada a ~1 request cada ~4 s. No se propone para shipping.

@@ -1,0 +1,17 @@
+== T2 lanes[large]: 2026-11-21T14:39:33Z body=131071 PL=1 small_cap=8 large_cap=2 threshold=65536 budget=2000ms ==
+rule29 config proof:
+{"backend_url":"http://127.0.0.1:13000","rule_engine":"On","blocking_paranoia":1,"detection_paranoia":1,"max_body_bytes":13107200,"max_inspected_bytes":131072,"engine_time_budget_ms":2000,"rules_dir":"/home/vboxuser/kortex-shield/engine/crs","listen_addr":"127.0.0.1:8105","events_file":"/tmp/kx-t20-ev-large.jsonl","audit_log":"/tmp/kx-t20-aud-large.log","allowed_methods":"GET HEAD POST OPTIONS","max_inflight_body":8,"max_inflight_body_large":2,"body_lane_threshold":65536,"request_body_target_updates":166}
+cpu_ticks_start=275 (hz=100)
+load_start=[load average: 4.56, 3.77, 4.42]
+cpu_ticks_at_60s=20779
+load_at_60s=[load average: 10.71, 5.71, 5.05]
+cpu_ticks_end=97271
+load_end=[load average: 11.60, 8.66, 6.41]
+attack window ended 2026-11-21T14:44:39Z; measuring recovery
+recovery: first benign POST with status 200 and <500 ms after attack stop: 0.1s
+recovery rows: [[0.1, "200", 56.5]]
+benign POSTs: n=269 status200=269 status503_overload=0 other=0
+benign POST success rate: 269/269
+benign POST latency when not overloaded: median=414ms max=1310ms
+benign GET latency: median=277ms p90=556ms max=2061ms
+engine events: overload=12478 timeout=2 abandoned_finished=0

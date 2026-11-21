@@ -39,7 +39,8 @@ C0=$(cpu); echo "cpu_ticks_start=$C0 (hz=100)" | tee -a $OUT
 echo "load_start=[$(uptime | grep -o 'load average.*')]" | tee -a $OUT
 
 BODY=/tmp/kx-bodies/textplain-$BODYSZ.bin
-[ -f $BODY ] || python3 -c "open('$BODY','wb').write((b'ab*|c$d%22 e' * 6000)[:$BODYSZ])"
+mkdir -p /tmp/kx-bodies
+[ -f $BODY ] || python3 -c "open('$BODY','wb').write(open('/tmp/kx-wcp-body.bin','rb').read()[:$BODYSZ])"
 setsid nohup python3 - <<PYEOF > $RUNDIR/probe-results.txt 2>&1 &
 import http.client, json, threading, time
 PORT=$PORT
