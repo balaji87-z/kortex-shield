@@ -61,11 +61,17 @@ provisional status; two are met, one is unproven:
 
 Reversal triggers unchanged.
 
-## Status update (step-18, 2026-11-21)
+## Status update (step-18 addendum, 2026-11-21, docker became available)
 
-STAYS PROVISIONAL. The T2 per-id comparison is still BLOCKED (no docker,
-no sudo on the current host; the instructor's fallback keeps the decision
-provisional rather than promoting aggregates). Step-18 strengthened the
+PROVISIONAL LIFTED for the coraza-connector comparison. Docker 29.1.3
+became available on the step-18 host; the T2 per-id comparison ran against
+the pinned coraza-crs image (see docs/logs/step18-t2-analysis.txt). After
+removing the documented DESIGN differences (CT policy C4: 1637/78 blocks;
+body-limit policy: 14/15; time budget: 2/3) and the 1 flip (UNEXPLAINED),
+the engine's blocked set on benign-wcp-v0 equals the connector's blocked
+set at PL1 and PL2, and the engine additionally blocks the REQUEST_BODY
+fidelity targets. Remaining condition on the decision: the modsec-connector
+comparison was NOT re-run this step (step-13 evidence stands).
 engine side (413 delivery fixed test-first; raw-carrier body fidelity via
 a 166-rule REQUEST_BODY target update, flip-corrected held-out results:
 +61/+29 real gains on benign-wcp-v0, 0 real detection losses) and

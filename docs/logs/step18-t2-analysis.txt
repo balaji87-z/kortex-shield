@@ -1,0 +1,69 @@
+== Step-18 T2: engine vs coraza CONNECTOR, benign-wcp-v0 (20,000), per-id ==
+Host: same desktop VM as all step-18 runs. Docker 29.1.3, compose 2.40.3.
+Images (pinned digests, deploy/compose.yml):
+  ghcr.io/coreruleset/coraza-crs:4.25.2-nginx-lts@sha256:bfbfe70b4445c1ef1dc389c2de12cfdb194c9616746c33dc8a7131461c28f4a6
+  python:3.12-alpine (stub backend)
+Rule-29 proof per run (from run_coraza_parity.sh, in-container):
+  rule29-coraza: E=On B=1 P=1 D=1 env_CT=[] env_body=[nofiles=131072 total=13107200]
+  tx.paranoia_level=1 tx.blocking_paranoia_level=1 / tx.executing_paranoia_level=1
+  tx.detection_paranoia_level=1 (PL2 run: 2/2)  tx.crs_setup_version=4252
+  SecRequestBodyLimit 13107200 / SecRequestBodyNoFilesLimit 131072
+  client_max_body_size 0 count=4
+BACKEND=stub-backend:3000 (in-container proof), same UA as engine runs.
+Engine side: docs/logs/runs/s18-t4-engine-benign-wcp-v0-v2-pl{1,2} (166
+REQUEST_BODY target updates; rule-29 proof in those runs' logs).
+Connector runs preserved: docs/logs/runs/coraza-benign-wcp-v0-pl{1,2}-default.
+
+Blocked-set comparison (quantity: waf_block outcome sets):
+  PL1: engine 2191 | connector 3824 | sym-diff 1673
+  PL2: engine 8871 | connector 8951 | sym-diff 114
+Worst-case sets (blocked + deny_status + inconsistent + error):
+  PL1: engine 2250 | connector 3896 | sym-diff 1686
+  PL2: engine 8931 | connector 9018 | sym-diff 121
+
+Connector-only blocks classified by the engine's answer in the run:
+  PL1 (1653): 1637 = 920420 CT policy (DESIGN-C4, no allow-list in engine);
+              14 = engine answered 413 (body-limit policy DESIGN);
+              2  = engine timed out 503 (budget DESIGN).
+              0  = genuine detection misses.
+  PL2 (97):   78 = 920420 CT policy (DESIGN-C4);
+              15 = engine 413 (DESIGN-limit);
+              3  = engine timeout 503 (DESIGN-budget);
+              1  = wcp-62cd1bd36bf7 = the known flip (UNEXPLAINED; connector
+                   blocked with 942370+942430; engine replays 4/6 block,
+                   2/6 pass — see step18-t4-flip-replay.txt).
+
+Engine-only blocks (all REQUEST_BODY fidelity gains, DESIGN-extension
+documented in engine-design.md BEFORE the run):
+  PL1 (20): 19 detection rules incl. 932370/933120/932235/942550/...
+            (REQUEST_BODY target gains), 1 = 942190+949110 where 942190 is
+            NOT in the 166-update list — it fired on ARGS_NAMES: the
+            engine's URLENCODED processor puts raw bodies into ARGS_NAMES
+            (pre-existing behaviour), while the connector does not parse a
+            text/plain body at all. Classified DESIGN (documented residual,
+            engine-design.md body-processor section).
+  PL2 (17): all detection rules (942430/942120/932240/...) — REQUEST_BODY
+            target gains.
+  The connector does NOT have the 166 REQUEST_BODY target updates (stock
+  CRS image) — this asymmetry is the step-18 T4 fix measured against a
+  reference that lacks it.
+
+Rule-ID-set differences on COMMONLY blocked ids (quantity: per-id rule-ID
+sets): PL1 1509/2171, PL2 3481/8854. Two systematic causes: the connector
+adds 920420-family policy rules the engine deliberately lacks (C4), and
+the engine adds REQUEST_BODY detection hits the connector lacks (T4 fix).
+
+Connector-side extras (counted): PL1 61 waf_deny_status + 11 errors +
+5 proxy_reject; PL2 61 waf_deny_status + 5 errors + 5 proxy_reject +
+1 inconsistent. Engine-side: PL1 59 deny_status + 3 timeouts; PL2 60
+deny_status + 3 timeouts (flip-corrected numbers in the step-18 report).
+
+Per-id diff files: docs/logs/step18-t2-symdiff-pl{1,2}.json,
+docs/logs/step18-t2-classification.json.
+
+CONCLUSION: after removing the documented DESIGN differences (CT policy
+C4, body-limit policy, time budget) and the 1 flip, the engine's blocked
+set on benign-wcp-v0 equals the connector's blocked set at both paranoia
+levels, and the engine additionally blocks the REQUEST_BODY fidelity
+targets. Decision 0004's provisional status can be lifted on this
+evidence (see decision file update).
