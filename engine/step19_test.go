@@ -168,18 +168,32 @@ func TestE30DuplicateArgZeroFlips(t *testing.T) {
 		"+OR+productCode_uFilter%3A%22100208269%22+OR+productCode_uFilter%3A%22100612854%22"
 	flips := 0
 	blocked := 0
+	timeouts := 0
 	for i := 0; i < N; i++ {
 		runtime.GC()
 		resp := get(t, srv, target, nil, "")
 		io.Copy(io.Discard, resp.Body)
 		resp.Body.Close()
-		if resp.StatusCode == http.StatusForbidden {
+		switch resp.StatusCode {
+		case http.StatusForbidden:
 			blocked++
-		} else {
+		case http.StatusServiceUnavailable:
+			// 503 = engine time budget expired. Under CPU contention (other
+			// tests' leftover goroutines, desktop load) a replay can time out
+			// WITHOUT any cache flip. Counting it as a flip made this test
+			// load-dependent (rule 48 violation, found in the step-20 full
+			// suite run: 8/2000 "flips" that were 503s under a stray-engine
+			// CPU burn). A genuine flip is a 200 pass-through.
+			timeouts++
+		default:
 			flips++
 		}
 	}
 	if flips > 0 {
-		t.Fatalf("duplicate-arg flip defect: %d/%d rounds passed (must be 0); blocked=%d", flips, N, blocked)
+		t.Fatalf("duplicate-arg flip defect: %d/%d rounds passed (must be 0); blocked=%d timeouts=%d", flips, N, blocked, timeouts)
 	}
+	if timeouts > N/10 {
+		t.Fatalf("E30 environment too noisy to prove the flip fix: %d/%d timeouts (want <= %d)", timeouts, N, N/10)
+	}
+	t.Logf("E30: blocked=%d flips=%d timeouts=%d of %d", blocked, flips, timeouts, N)
 }
