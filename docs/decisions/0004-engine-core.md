@@ -97,3 +97,24 @@ STAYS PROVISIONAL overall. Step-19 additions:
    disagreements on benign-wcp-v1 are this defect.
 3. Remaining open condition: the modsec-connector comparison was not
    re-run (step-13 evidence stands).
+
+## Status update (step-20, 2026-11-21)
+
+The two conditions set in step-19 are now MET:
+
+1. T1 zero flips: the coraza transformation-cache flip (PROVEN step-19)
+   is fixed by the version bump v3.7.0 -> v3.8.1 — E30 0/2000 replays,
+   flip_repro PL2 0/2500 (docs/baseline-v1.5.md T1). The decision's
+   "Coraza v3.7.0" is amended to "Coraza v3.8.1"; the decision's core
+   (coraza + CRS as the inspection core, wrapped by our own proxy for
+   limits/budget/framing/CT-independent inspection) is unchanged.
+2. T2 availability test: E29 rewritten deterministically (rule 48 hook)
+   and passing; the large-lane attack serves 269/269 benign POSTs
+   (docs/baseline-v1.5.md T2). The small-lane residual exposure is
+   documented and measured (6/276), not fixed.
+
+STATUS: **ACCEPTED** for the coraza core (both conditions met), with two
+standing notes: (a) the modsec-connector comparison has not been re-run
+since step-13 (step-13 evidence stands); (b) the small-lane starvation
+residual is a known, measured exposure, not a decision reversal trigger.
+Reversal triggers unchanged.
