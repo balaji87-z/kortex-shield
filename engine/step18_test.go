@@ -203,17 +203,22 @@ func TestE25UrlencodedSplitBehaviourUnchanged(t *testing.T) {
 	}
 }
 
-// E26 (T4 scope): literal CRLF in a raw multi-line body is normal content,
-// not response splitting — CRS 921150's premise (CRLF inside a DECODED
-// argument value) does not hold for REQUEST_BODY, so the REQUEST_BODY target
-// must not be added to the REQUEST-921 family. Pre-fix of the scope this
-// blocks a benign multi-line text/plain body via 921150.
+// E26 (T4 scope): CRS 921150 detects CR/LF in ARGUMENT NAMES. A raw body
+// legitimately contains newlines (ND-JSON, multi-line text), so giving 921150
+// a REQUEST_BODY target manufactures false positives (held-out WCP evidence:
+// 921150 in 72% of the PL1 gained ids of the first pass, e.g. wcp-01dadd4f53bc
+// "Matched Data: \n found within REQUEST_BODY"). The REQUEST_BODY target must
+// not be added to the REQUEST-921 family. The body below keeps the split
+// fragments free of newlines (ARGS_NAMES=q, value carries the CRLF) so only
+// the added REQUEST_BODY target can reach 921150 - the no-'=' variant of this
+// scenario is blocked even PRE-fix via the split itself (pre-existing
+// parse-fidelity artifact, step-17 T1) and is NOT what this test isolates.
 func TestE26RawBodyCRLFNotResponseSplitting(t *testing.T) {
 	srv, _ := newEnv(t, nil)
-	body := "line one\r\nline two\r\nharmless payload text\r\n"
-	status, resp := postRaw(t, srv, "e26-multiline-text-plain", "text/plain", body)
+	body := "q=hello\r\nworld\r\nharmless"
+	status, resp := postRaw(t, srv, "e26-crlf-value-text-plain", "text/plain", body)
 	if status != 200 {
-		t.Fatalf("E26: want 200 (benign multi-line body passes), got %d body=%q", status, resp)
+		t.Fatalf("E26: want 200 (CRLF in a raw body value is not response splitting), got %d body=%q", status, resp)
 	}
 	if strings.Contains(resp, "921150") {
 		t.Fatalf("E26: blocked via 921150 on the raw body: %q", resp)

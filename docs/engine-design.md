@@ -167,15 +167,24 @@ The id list is derived at engine startup from the shipped CRS files
 (rule 29). On the pinned CRS 4.25.2 set the list is 173 rules.
 
 Scope (criterion, measured by the count above and by the re-runs): rules in
-REQUEST-921 and REQUEST-930..REQUEST-944 whose target list contains an
-ARGS-family variable, does not already contain REQUEST_BODY, is not counted
-(&ARGS) or size-based (ARGS_COMBINED_SIZE), is not phase:1, and is not a
-chain-inner rule (chain members have no id; SecRuleUpdateTargetById cannot
-reach them — known residual limitation, listed here before the run).
-REQUEST-920 protocol-structure rules are deliberately out of scope: their
-ARGS checks are size/count/encoding-structure checks where the raw body is
-not an argument value, and running URL-encoding validators over raw bodies
-that are not URL-encoded would manufacture false positives.
+REQUEST-930..REQUEST-944 whose target list contains an ARGS-family variable,
+does not already contain REQUEST_BODY, is not counted (&ARGS) or size-based
+(ARGS_COMBINED_SIZE), is not phase:1, and is not a chain-inner rule (chain
+members have no id; SecRuleUpdateTargetById cannot reach them — known
+residual limitation, listed here before the run). REQUEST-920 and
+REQUEST-921 rules are deliberately out of scope: their ARGS checks are
+size/count/encoding-structure checks (920) and CR/LF-in-argument-name checks
+(921, 921150 targets ARGS_NAMES only) where the raw body is not a decoded
+argument value. For 921 the exclusion is evidence-based from the FIRST
+re-run pass (held-out WCP, rule 27): 921150 matched REQUEST_BODY on 126 of
+the 176 PL1 gained ids (72%) because raw bodies legitimately contain
+newlines (ND-JSON telemetry bodies; "Matched Data: \n found within
+REQUEST_BODY", wcp-01dadd4f53bc) — the added target manufactured false
+positives, so the family was removed from the update list (E26, rule 40
+test first). The first-pass count was 173 rules; after the 921 exclusion it
+is 166. CR/LF reaching ARGS_NAMES through the URLENCODED split itself (a
+body with no '=' or '&') is a PRE-EXISTING split behaviour (step-17 T1
+parse-fidelity caveat) and is NOT changed by this fix.
 
 Expected consequences, classified BEFORE the re-runs (rule 39):
 - ENGINE-ONLY BLOCKS vs the connector on the URLENCODED-parsed carriers
