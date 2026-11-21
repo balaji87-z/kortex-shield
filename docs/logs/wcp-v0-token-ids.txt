@@ -1,0 +1,12 @@
+# benign-wcp-v0 samples whose recorded request contains a publishable-token
+# shape (pk./sk. JWT-like strings, e.g. Mapbox pk.eyJ...). Ids only, values
+# NOT reproduced here (rule 25). Frozen manifest untouched (rule 10).
+# count: 8 manifest ids / 8 annotation ids (same id set)
+wcp-2018721a1f09
+wcp-26a6f239cd88
+wcp-35b4f344dfad
+wcp-3f0def4d5d19
+wcp-42d5624e3ae2
+wcp-848c25ce43eb
+wcp-ca6aa5cb4c1c
+wcp-fa14095c2aaf
