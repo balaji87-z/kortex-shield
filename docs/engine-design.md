@@ -201,3 +201,27 @@ Expected consequences, classified BEFORE the re-runs (rule 39):
   threshold of 5 and CRITICAL rules scoring 5 this does not change
   block/pass for single-rule detections, but it is a measured risk and any
   outcome flip it causes will be reported per id, not assumed away.
+
+### Step-18: unexplained engine non-determinism (UNEXPLAINED, counted)
+
+During the T4 v2 re-runs one benign-wcp-v0 sample (wcp-62cd1bd36bf7, a GET
+whose block comes from the query string) passed in the v2 PL2 run where the
+pre run, the v1 run, and a 3/3 replay of the same binary all block it. A
+tight alternating replay of two same-path samples reproduces the flip at a
+much higher rate (7/20 rounds with the v2 binary). Raw evidence and the
+diagnostic matrix are in docs/logs/step18-t4-flip-replay.txt:
+
+- the transaction pool is NOT the vector (a variant with tx.Close()
+  disabled still flips, 5/20 rounds) — DIAGNOSTIC;
+- the behaviour PREDATES step-18 (the pre-fix engine at 1964793 flips too,
+  3/20 rounds) — PROVEN by replay;
+- no GC correlation (GODEBUG=gctrace=1) — DIAGNOSTIC;
+- real-run frequency is low: 1 flip / 8845 would-block samples (v2 PL2
+  WCP), 0 / 2128 (v2 PL1 WCP), 0 in the v1 20k runs.
+
+Classification per the standing rules: UNEXPLAINED, counted. Mechanism
+HYPOTHESIS (unproven): coraza v3.7.0-internal shared state; the
+transformation cache key uses a string pointer (unsafe.StringData,
+internal/corazawaf/rulegroup.go:290) as a map key, which is fragile under
+memory reuse. Not fixed in this step (rule 1); raised in the step-18
+report as a question for the instructor.

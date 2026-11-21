@@ -1,0 +1,9 @@
+== Step-18 T4: unexplained pass-through (engine non-determinism), DIAGNOSTIC replays
+== Sample: wcp-62cd1bd36bf7 (GET, no body; query-based match 942370+942430, pre+s17 and v1(173) both block; v2(166) run passed it once: status 404, no audit entry, stub forward logged 04:25:55)
+== Replay method: alternate wcp-b6f2246ef4b8 / wcp-62cd1bd36bf7 (same path, similar queries), new connection per request, PL2, engine 127.0.0.1:8097
+== v2 engine (02bac43, Close/pooling on):  7/20 rounds with >=1 flip (rounds 7,8,9,10,17,18,19 - sticky bursts)
+== v2 engine variant with tx.Close() disabled (pooling off): 5/20 rounds with flips -> transaction pool NOT the vector
+== PRE engine (1964793, no REQUEST_BODY updates): 3/20 rounds with flips -> behaviour PREDATES the step-18 changes (PROVEN)
+== GODEBUG=gctrace=1 run: 15 GCs, flips at rounds 0,6,7,11,12,16 - no clean correlation; flip requests slower (10.9-15.1ms vs 5.7-9.6ms)
+== Classification: UNEXPLAINED (counted). Real-run frequency: 1 flip / 8845 would-block samples (v2 PL2 WCP); 0 / 2128 (v2 PL1 WCP); 0 in v1 runs (20k each).
+== HYPOTHESIS (unproven): coraza-internal shared state; transformationKey uses a string POINTER (unsafe.StringData) as map key (coraza v3.7.0 rulegroup.go:290) - a candidate mechanism, not verified.
