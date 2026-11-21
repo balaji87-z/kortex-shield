@@ -78,3 +78,22 @@ a 166-rule REQUEST_BODY target update, flip-corrected held-out results:
 surfaced a new UNEXPLAINED engine non-determinism (occasional pass-through
 of a would-block request, pre-existing, counted; see
 docs/logs/step18-t4-flip-replay.txt). Reversal triggers unchanged.
+
+## Status update (step-19, 2026-11-21)
+
+STAYS PROVISIONAL overall. Step-19 additions:
+
+1. The coraza-connector condition is now ALSO met on HELD-OUT data:
+   benign-wcp-v1 (preregistered, ids disjoint from v0) — per-id
+   comparison in docs/logs/step19-t2b-a2-analysis.txt. Connector-only
+   blocks are dominated by 920420 (CT allowlist, DESIGN-C4):
+   PL1 788 connector-only (784 with 920420; engine passed 754 of them),
+   PL2 54 (49 with 920420). Engine-only: 12/10 (the REQUEST_BODY
+   fidelity additions, which the stock connector lacks by design).
+2. The step-18 "flip" UNEXPLAINED is now PROVEN (rule 44): coraza
+   v3.7.0 transformation-cache collision on same-named args
+   (docs/baseline-v1.4.md T1). Not fixable in the shipped build;
+   version bump = instructor decision. The 3 PL2 run-to-run
+   disagreements on benign-wcp-v1 are this defect.
+3. Remaining open condition: the modsec-connector comparison was not
+   re-run (step-13 evidence stands).

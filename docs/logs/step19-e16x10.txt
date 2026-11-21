@@ -1,0 +1,10 @@
+rep=1 dur=10.467872053s load0=[load average: 4.63, 3.43, 2.67] load1=[load average: 4.54, 3.45, 2.68] -> ok  	kortexshield/engine	3.865s
+rep=2 dur=11.005417284s load0=[load average: 4.54, 3.45, 2.68] load1=[load average: 4.84, 3.56, 2.72] -> ok  	kortexshield/engine	4.181s
+rep=3 dur=9.426942683s load0=[load average: 4.84, 3.56, 2.72] load1=[load average: 4.71, 3.57, 2.74] -> ok  	kortexshield/engine	4.023s
+rep=4 dur=13.294820705s load0=[load average: 4.71, 3.57, 2.74] load1=[load average: 4.43, 3.57, 2.75] -> ok  	kortexshield/engine	3.546s
+rep=5 dur=12.848682515s load0=[load average: 4.43, 3.57, 2.75] load1=[load average: 5.47, 3.82, 2.84] -> ok  	kortexshield/engine	4.383s
+rep=6 dur=12.117852534s load0=[load average: 5.47, 3.82, 2.84] load1=[load average: 5.37, 3.86, 2.87] -> ok  	kortexshield/engine	3.750s
+rep=7 dur=9.722026534s load0=[load average: 5.37, 3.86, 2.87] load1=[load average: 5.86, 4.02, 2.93] -> ok  	kortexshield/engine	3.495s
+rep=8 dur=9.177710006s load0=[load average: 5.86, 4.02, 2.93] load1=[load average: 6.28, 4.13, 2.97] -> ok  	kortexshield/engine	3.110s
+rep=9 dur=10.598876137s load0=[load average: 6.09, 4.13, 2.98] load1=[load average: 6.45, 4.28, 3.04] -> ok  	kortexshield/engine	4.085s
+rep=10 dur=10.377796958s load0=[load average: 6.45, 4.28, 3.04] load1=[load average: 6.58, 4.38, 3.09] -> ok  	kortexshield/engine	2.974s

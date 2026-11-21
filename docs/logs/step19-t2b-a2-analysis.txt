@@ -1,0 +1,8 @@
+PL1: engine=1092 connector=1868 comunes=1080 solo-connector=788 solo-engine=12
+  solo-connector según el engine: {'otro-501': 754, '413': 8, 'otro-404': 26}
+  reglas connector (top 6): 949110x788, 920420x784, 921150x5, 932235x4, 932260x3, 941130x3
+
+PL2: engine=4436 connector=4480 comunes=4426 solo-connector=54 solo-engine=10
+  solo-connector según el engine: {'otro-404': 14, '413': 9, 'otro-501': 29, '503': 2}
+  reglas connector (top 6): 949110x54, 920420x49, 942430x12, 942200x10, 942330x10, 942370x10
+
