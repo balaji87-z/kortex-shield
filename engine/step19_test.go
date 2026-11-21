@@ -1,8 +1,10 @@
 package main
 
 import (
+	"io"
 	"net/http"
 	"os"
+	"runtime"
 	"strings"
 	"testing"
 	"time"
@@ -96,5 +98,43 @@ func TestE29BenignPOSTServedWhileSlotsHeld(t *testing.T) {
 	}
 	for i := 0; i < 8; i++ {
 		<-attackerDone
+	}
+}
+
+// E30 (step-20 T1, FAILING BY DESIGN against coraza v3.7.0 — rule 40): a
+// duplicate-name request (two same-named `filter` params with different
+// values, the step-19 T1 flip reproducer wcp-62cd1bd36bf7) must give the
+// SAME outcome on every one of N>=2000 replays with runtime.GC() between
+// rounds. The transformation-cache defect makes a fraction of rounds pass
+// (median 114/500 in tools/flip_repro.py). Zero flips required. Deterministic
+// failure gate per rule 48: no timing luck involved — the defect is
+// probabilistic per transaction and 2000 rounds make a passing build
+// indistinguishable from a fixed one (median flip rate 23% >> 0).
+func TestE30DuplicateArgZeroFlips(t *testing.T) {
+	const N = 2000
+	srv, _ := newEnv(t, map[string]string{
+		"KORTEX_BLOCKING_PARANOIA":  "2",
+		"KORTEX_DETECTION_PARANOIA": "2",
+	})
+	// wcp-62cd1bd36bf7 verbatim query (benign e-commerce search; no credentials)
+	target := "/21705619e273429e5767eea44ccb1ad5/ss-unbxd-auk-extra-saudi-en-prod11541714990488/search" +
+		"?q=*&filter=sellingOutFastCities_uFilter%3A%22SA-riyadh%22+OR+inStockCities_uFilter%3A%22SA-riyadh%22" +
+		"&filter=productCode_uFilter%3A%22100348880%22+OR+productCode_uFilter%3A%22100350680%22+OR+productCode_uFilter%3A%22100067959%22" +
+		"+OR+productCode_uFilter%3A%22100208269%22+OR+productCode_uFilter%3A%22100612854%22"
+	flips := 0
+	blocked := 0
+	for i := 0; i < N; i++ {
+		runtime.GC()
+		resp := get(t, srv, target, nil, "")
+		io.Copy(io.Discard, resp.Body)
+		resp.Body.Close()
+		if resp.StatusCode == http.StatusForbidden {
+			blocked++
+		} else {
+			flips++
+		}
+	}
+	if flips > 0 {
+		t.Fatalf("duplicate-arg flip defect: %d/%d rounds passed (must be 0); blocked=%d", flips, N, blocked)
 	}
 }
