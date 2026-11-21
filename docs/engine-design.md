@@ -325,3 +325,26 @@ request header `X-Kortex-Test-Hold: 1` makes the body-processing call
 sleep <ms> while HOLDING its slot. Unset by default: no production
 effect. Used by E29 so held slots are deterministic instead of
 timing-dependent.
+
+## Step-20 additions (2026-11-21)
+
+- Engine core version: coraza v3.7.0 -> v3.8.1 (T1 fix, E30 test-first).
+  The duplicate-arg flip defect (step-19, PROVEN) is fixed upstream in
+  v3.8.1: E30 0/2000 flips (was 48/2000), flip_repro PL2 0/2500 (was
+  median 114/500). No behaviour change observed at PL1 or on the
+  preregistered dup-arg shapes (identical counts on both versions).
+- Lane threshold vs measured cost (T3): the SMALL-lane default (65536 B)
+  was chosen from the step-19 cost curve (<= ~4.9 s at 65,536 B on the
+  pre-engine). The step-20 T3 matrix shows the POST-engine cost at
+  65,536 B is up to 22.3 s for pathology content (PL1) — the default
+  still holds for availability purposes (a slot is bounded by the 2 s
+  budget at PL1 default config for typical content), but the worst-case
+  content (real WCP pathology) occupies a small-lane slot far longer.
+  Residual exposure unchanged and documented in the T2 section above.
+- Known inspection gap (T4 canary): requests with content type
+  application/json+protobuf (and any CT routed to the JSON processor)
+  do NOT get raw-body inspection — the JSON processor does not populate
+  REQUEST_BODY, so the 166 REQUEST_BODY target updates are inert for
+  them. Proven by canary: the only engine pass (wcp-dedb89ec3d3d) and
+  the only connector pass are both this CT. Detection for these requests
+  relies on the JSON processor's ARGS_JSON targets only.
