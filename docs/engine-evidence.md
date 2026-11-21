@@ -475,3 +475,31 @@ passed.
   E20's 120 s deadline fails on POST as a result.
 - T2 connector comparison: BLOCKED (no docker/sudo on this host);
   decision 0004 stays provisional.
+
+## Step-20 (2026-11-21, post-reboot host — rule 43)
+
+- T1 dup-args (preregistered docs/plan-dup-args.md): NO bypass on the 8
+  preregistered shapes on any of the three engines (identical counts;
+  errors counted separately). The step-19 flip defect is confined to its
+  captured context and is FIXED by the coraza v3.8.1 bump (E30 48/2000
+  -> 0/2000; flip_repro PL2 0/2500). Evidence: docs/logs/step20-t1-summary.txt,
+  docs/logs/runs/s20-t1-dupargs/, docs/logs/runs/s20-t1-e30/.
+- T2 availability: lanes shipped (SMALL cap 8, LARGE cap 2, defaults
+  documented before running); E29 rewritten deterministically (rule 48
+  test hook) and now PASSING; large-lane attack run serves 269/269
+  benign POSTs (step-19: 0/131); small-lane residual exposure measured
+  (6/276). DIAGNOSTIC subprocess-kill spike: caps post-deadline CPU to
+  <=500 ms but respawn costs 1.3-2.7 s — not proposed for shipping.
+  Evidence: docs/logs/step20-t2-*.txt, docs/logs/runs/s20-t2-*.
+- T3 cost: pathology content costs 5-12x same-size benign prose
+  (PL1 128 KB: 83.4 s post vs 6.5 s prose); post-engine PL2 pathology
+  131 KB bimodal 30-120 s (UNEXPLAINED); 942100 raw-body target
+  contributes 0 blocks on benign-wcp-v1 and 2/23 on a directed SQLi
+  canary (PL1), 0 at PL2. Options measured, no change shipped.
+  Evidence: docs/logs/step20-t3-cost-analysis.txt.
+- T4 canary (rule 47): body inspection PROVEN for the A3 request class
+  (engine 98/100, connector 99/100 with an appended XSS canary);
+  application/json+protobuf NOT raw-body inspected (JSON processor gap,
+  both engines). Audit of the 42 new benign-wcp-v1 blocks: 0/42 look
+  like attacks (all browser telemetry) -> classified false positives.
+  Token count corrected 6 -> 8. Evidence: docs/logs/step20-t4-*.txt.
