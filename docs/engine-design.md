@@ -176,13 +176,18 @@ REQUEST-921 rules are deliberately out of scope: their ARGS checks are
 size/count/encoding-structure checks (920) and CR/LF-in-argument-name checks
 (921, 921150 targets ARGS_NAMES only) where the raw body is not a decoded
 argument value. For 921 the exclusion is evidence-based from the FIRST
-re-run pass (held-out WCP, rule 27): 921150 matched REQUEST_BODY on 126 of
+re-run pass on **benign-wcp-v0, which is therefore IN-SAMPLE for this
+scope choice (rule 45)**: 921150 matched REQUEST_BODY on 126 of
 the 176 PL1 gained ids (72%) because raw bodies legitimately contain
 newlines (ND-JSON telemetry bodies; "Matched Data: \n found within
 REQUEST_BODY", wcp-01dadd4f53bc) — the added target manufactured false
 positives, so the family was removed from the update list (E26, rule 40
 test first). The first-pass count was 173 rules; after the 921 exclusion it
-is 166. CR/LF reaching ARGS_NAMES through the URLENCODED split itself (a
+is 166. The HELD-OUT evaluation of the final scope (166 rules, 921
+excluded) is **benign-wcp-v1** (step-19 T4, preregistered in
+docs/plan-benign-wcp-v1.md) and benign-browse-v1; benign-wcp-v0 must be
+labelled IN-SAMPLE wherever the 921 exclusion or the target list is
+reported. CR/LF reaching ARGS_NAMES through the URLENCODED split itself (a
 body with no '=' or '&') is a PRE-EXISTING split behaviour (step-17 T1
 parse-fidelity caveat) and is NOT changed by this fix.
 
