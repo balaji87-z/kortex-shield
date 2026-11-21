@@ -1,11 +1,11 @@
 package main
 
 import (
-	"time"
 	"net/http"
 	"os"
 	"strings"
 	"testing"
+	"time"
 )
 
 // E27: every evaluated request must leave a decision event in
@@ -69,7 +69,7 @@ func TestE29BenignPOSTServedWhileSlotsHeld(t *testing.T) {
 	budget := os.Getenv("KORTEST_T3_SLOW_MS")
 	_ = budget
 	srv, _ := newEnv(t, map[string]string{
-		"KORTEX_MAX_INFLIGHT_BODY":    "8",
+		"KORTEX_MAX_INFLIGHT_BODY":     "8",
 		"KORTEX_ENGINE_TIME_BUDGET_MS": "100",
 	})
 	// 16 KB text/plain body: processing (~0.6 s) exceeds the 100 ms budget,
