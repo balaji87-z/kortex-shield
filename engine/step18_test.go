@@ -202,3 +202,20 @@ func TestE25UrlencodedSplitBehaviourUnchanged(t *testing.T) {
 		t.Fatalf("E25: block not via 942100: %q", body)
 	}
 }
+
+// E26 (T4 scope): literal CRLF in a raw multi-line body is normal content,
+// not response splitting — CRS 921150's premise (CRLF inside a DECODED
+// argument value) does not hold for REQUEST_BODY, so the REQUEST_BODY target
+// must not be added to the REQUEST-921 family. Pre-fix of the scope this
+// blocks a benign multi-line text/plain body via 921150.
+func TestE26RawBodyCRLFNotResponseSplitting(t *testing.T) {
+	srv, _ := newEnv(t, nil)
+	body := "line one\r\nline two\r\nharmless payload text\r\n"
+	status, resp := postRaw(t, srv, "e26-multiline-text-plain", "text/plain", body)
+	if status != 200 {
+		t.Fatalf("E26: want 200 (benign multi-line body passes), got %d body=%q", status, resp)
+	}
+	if strings.Contains(resp, "921150") {
+		t.Fatalf("E26: blocked via 921150 on the raw body: %q", resp)
+	}
+}

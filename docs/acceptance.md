@@ -130,3 +130,4 @@ implementation; failing evidence in commit <sha>, implementation <sha>):
 | E23 | (T4) a text/plain body whose SQLi payload spans the '&'-split boundary is blocked like the connector-side carriers (942100 on the raw body) | failing pre-fix: 200 stub-ok |
 | E24 | (T4) octet-stream and unknown-content-type bodies with the same split-destroying RCE payloads are inspected as one raw value (932125/932380 PL1; 932240 PL2) | failing pre-fix: 200 stub-ok |
 | E25 | (T4) the '&'-split behaviour on urlencoded bodies is unchanged (split-safe payload still blocked via the parsed ARGS targets) | passing pre- and post-fix (regression guard) |
+| E26 | (T4 scope) literal CRLF in a raw multi-line body is normal content, not response splitting: a benign multi-line text/plain body must NOT be blocked via 921150 through the added REQUEST_BODY target | failing pre-fix: 403 with 921150 |
