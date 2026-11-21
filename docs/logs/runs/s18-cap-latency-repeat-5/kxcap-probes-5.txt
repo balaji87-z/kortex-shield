@@ -1,0 +1,15 @@
+phaseB-cap8 repeat5 probe1 200 96ms
+phaseB-cap8 repeat5 probe2 200 214ms
+phaseB-cap8 repeat5 probe3 200 78ms
+phaseB-cap8 repeat5 probe4 200 326ms
+phaseB-cap8 repeat5 probe5 200 261ms
+phaseB-cap8 repeat5 probe6 200 209ms
+phaseB-cap8 repeat5 probe7 200 107ms
+phaseB-cap8 repeat5 probe8 200 229ms
+phaseB-cap8 repeat5 probe9 200 164ms
+phaseB-cap8 repeat5 probe10 200 86ms
+phaseB-cap8 repeat5 probe11 200 343ms
+phaseB-cap8 repeat5 probe12 200 53ms
+phaseB-cap8 repeat5 probe13 200 164ms
+phaseB-cap8 repeat5 probe14 200 81ms
+phaseB-cap8 repeat5 probe15 200 364ms

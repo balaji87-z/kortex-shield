@@ -1,0 +1,20 @@
+{"ts":"2026-11-21T06:10:07.987714094Z","sample_id":"cap-wave-10-phaseB-cap8","decision":"overload","status":503,"elapsed_ms":20.654,"reason":"in-flight body-processing cap reached"}
+{"ts":"2026-11-21T06:10:07.98844643Z","sample_id":"cap-wave-9-phaseB-cap8","decision":"overload","status":503,"elapsed_ms":0.284,"reason":"in-flight body-processing cap reached"}
+{"ts":"2026-11-21T06:10:07.997709219Z","sample_id":"cap-wave-14-phaseB-cap8","decision":"overload","status":503,"elapsed_ms":0.991,"reason":"in-flight body-processing cap reached"}
+{"ts":"2026-11-21T06:10:08.010333883Z","sample_id":"cap-wave-17-phaseB-cap8","decision":"overload","status":503,"elapsed_ms":0.461,"reason":"in-flight body-processing cap reached"}
+{"ts":"2026-11-21T06:10:08.011509085Z","sample_id":"cap-wave-15-phaseB-cap8","decision":"overload","status":503,"elapsed_ms":0.392,"reason":"in-flight body-processing cap reached"}
+{"ts":"2026-11-21T06:10:08.013975312Z","sample_id":"cap-wave-4-phaseB-cap8","decision":"overload","status":503,"elapsed_ms":0.404,"reason":"in-flight body-processing cap reached"}
+{"ts":"2026-11-21T06:10:08.014524898Z","sample_id":"cap-wave-20-phaseB-cap8","decision":"overload","status":503,"elapsed_ms":0.371,"reason":"in-flight body-processing cap reached"}
+{"ts":"2026-11-21T06:10:08.014882391Z","sample_id":"cap-wave-18-phaseB-cap8","decision":"overload","status":503,"elapsed_ms":0.326,"reason":"in-flight body-processing cap reached"}
+{"ts":"2026-11-21T06:10:08.022994397Z","sample_id":"cap-wave-16-phaseB-cap8","decision":"overload","status":503,"elapsed_ms":0.470,"reason":"in-flight body-processing cap reached"}
+{"ts":"2026-11-21T06:10:08.029329458Z","sample_id":"cap-wave-11-phaseB-cap8","decision":"overload","status":503,"elapsed_ms":0.252,"reason":"in-flight body-processing cap reached"}
+{"ts":"2026-11-21T06:10:08.029408677Z","sample_id":"cap-wave-19-phaseB-cap8","decision":"overload","status":503,"elapsed_ms":0.685,"reason":"in-flight body-processing cap reached"}
+{"ts":"2026-11-21T06:10:08.032868709Z","sample_id":"cap-wave-13-phaseB-cap8","decision":"overload","status":503,"elapsed_ms":3.271,"reason":"in-flight body-processing cap reached"}
+{"ts":"2026-11-21T06:10:10.826394772Z","sample_id":"cap-wave-6-phaseB-cap8","decision":"timeout","status":503,"elapsed_ms":2847.596,"reason":"time budget expired in body processing"}
+{"ts":"2026-11-21T06:10:10.826845853Z","sample_id":"cap-wave-3-phaseB-cap8","decision":"timeout","status":503,"elapsed_ms":2844.562,"reason":"time budget expired in body processing"}
+{"ts":"2026-11-21T06:10:10.827187975Z","sample_id":"cap-wave-1-phaseB-cap8","decision":"timeout","status":503,"elapsed_ms":2859.912,"reason":"time budget expired in body processing"}
+{"ts":"2026-11-21T06:10:10.82625602Z","sample_id":"cap-wave-7-phaseB-cap8","decision":"timeout","status":503,"elapsed_ms":2843.733,"reason":"time budget expired in body processing"}
+{"ts":"2026-11-21T06:10:10.826749587Z","sample_id":"cap-wave-2-phaseB-cap8","decision":"timeout","status":503,"elapsed_ms":2863.658,"reason":"time budget expired in body processing"}
+{"ts":"2026-11-21T06:10:10.830011336Z","sample_id":"cap-wave-5-phaseB-cap8","decision":"timeout","status":503,"elapsed_ms":2880.305,"reason":"time budget expired in body processing"}
+{"ts":"2026-11-21T06:10:10.826753249Z","sample_id":"cap-wave-12-phaseB-cap8","decision":"timeout","status":503,"elapsed_ms":2896.930,"reason":"time budget expired in body processing"}
+{"ts":"2026-11-21T06:10:10.861807196Z","sample_id":"cap-wave-8-phaseB-cap8","decision":"timeout","status":503,"elapsed_ms":2881.825,"reason":"time budget expired in body processing"}

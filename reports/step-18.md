@@ -36,6 +36,10 @@
 | T4 body parsing fidelity | done | failing E23-E25 1964793, fix 3f3f440, scope fix E26 02bac43, pre/post runs + analysis docs/logs/step18-t4-analysis.txt, flip evidence docs/logs/step18-t4-flip-replay.txt, cost A/B docs/logs/step18-t4-abandoned-cost.txt |
 | T5 docs | done | docs/baseline-v1.3.md, engine-design.md (scope + UNEXPLAINED entry), engine-evidence.md, acceptance.md E22-E26, decisions/0004, README |
 | go test + pytest reported; this report | done | below |
+| Addendum R1 per-id artifact inventory | done | "Per-id artifact inventory" section below |
+| Addendum R2 T2 missing-items statement | done | "T2 — exactly what is missing" section below |
+| Addendum R3 cap latency, 3 repeats, medians, DIAGNOSTIC | done | tools/run_step18_cap_latency.sh, docs/logs/step18-cap-latency.txt, artifacts docs/logs/runs/s18-cap-latency-repeat-{1..6}/ |
+| Addendum R4 every run preserves artifacts | done | preserve_run.sh on all runner scripts; cap test copies per-repeat artifacts incl. events |
 
 ## Key results (numbers in the body, rule 31)
 
@@ -118,12 +122,58 @@ A request that should be blocked is occasionally passed. Evidence:
   uses a string pointer (unsafe.StringData, coraza v3.7.0
   rulegroup.go:290). Not fixed in this step (rule 1).
 
-### T2 — connector-side comparison: BLOCKED
+### Cap latency test (addendum R3 — DIAGNOSTIC, this-host only)
+
+tools/run_step18_cap_latency.sh: phase A (KORTEX_MAX_INFLIGHT_BODY=32) and
+phase B (cap 8) back to back on the SAME host in one script, three repeats
+each (repeats 1-3 = phase A, 4-6 = phase B). Per repeat: a wave of 20
+concurrent 481,798-byte bodies, then 15 benign probes during the overload
+window. Median benign latency per phase (n=15 probes per repeat, 45 per
+phase):
+
+| phase | repeat medians (ms) | OVERALL median |
+|---|---|---|
+| A — cap 32 | 576 / 478 / 616 | **583 ms** |
+| B — cap 8 | 96 / 164 / 123 | **142 ms** |
+
+Phase B's median benign latency is ~4x lower than phase A's: with cap 8,
+12 of the 20 wave requests get an immediate 503 overload and only 8
+CPU-bound abandoned calls run; with cap 32 all 20 run. This is the
+cap's bounding benefit MEASURED on this host with the v2 engine (whose
+abandoned calls are 6.2x more expensive — see the cost section), which
+makes the difference larger than in the step-17 measurement. DIAGNOSTIC:
+these numbers do not enter any baseline or parity claim; they are
+this-host only. Artifacts per repeat under docs/logs/runs/s18-cap-latency-
+repeat-{1..6}/ (rule 42, including the engine events files).
+
+### T2 — connector-side comparison: BLOCKED (exactly what is missing)
 
 No docker, no docker.sock, no podman/nerdctl, no passwordless sudo on this
-host (verified in T1). The per-id engine-vs-connector comparison on
-benign-wcp-v0 is NOT computed; per the instructor's fallback, decision
-0004 stays provisional and no aggregate is promoted to a parity claim.
+host (verified in T1). To run the comparison I need, in order:
+
+1. **A host with Docker** (docker compose v2; the compose project brings
+   up `stub-backend` + `coraza-crs` on localhost:8082). Rootless docker or
+   podman-with-compose would also work; passwordless sudo is NOT needed if
+   the user is in the docker group.
+2. **The pinned image digests** (already in deploy/compose.yml, no action
+   needed beyond pulling on the new host):
+   `owasp/modsecurity-crs:4.25.2-nginx-lts@sha256:6296ce68...` and
+   `ghcr.io/coreruleset/coraza-crs:4.25.2-nginx-lts@sha256:bfbfe70b...`
+   (full digests in deploy/compose.yml lines 38/88; re-pinning history in
+   docs/baseline-config.md "Step-12: image digests re-pinned").
+3. **The commands**: `tools/run_coraza_parity.sh` (and
+   `tools/run_modsec_parity.sh`) — per run: docker compose down,
+   force-recreate with MODSEC/CORAZA_RULE_ENGINE=On and PARANOIA/
+   BLOCKING_PARANOIA/DETECTION_PARANOIA env, the in-container rule-29
+   proof line, then the runner at --base-url http://localhost:8082,
+   docker cp of the audit log, coraza_audit.py, kortex_eval.outcome.
+   Rule 42 applies to the new runs automatically (preserve_run.sh is
+   appended).
+
+Nothing else is missing: the manifests are frozen and committed, the
+runner/audit tooling is host-independent, and the engine side runs
+natively. Until a Docker host exists, decision 0004 stays provisional and
+no aggregate is promoted to a parity claim.
 
 ## Raw evidence (exact commands; outputs trimmed where noted)
 
@@ -188,12 +238,50 @@ benign-wcp-v0 is NOT computed; per the instructor's fallback, decision
   PRE binary path did not exist) and were re-run by
   tools/run_step18_t4_pre.sh.
 
-## Lost artifacts
+## Per-id artifact inventory (addendum R1)
 
-- The step-09..16 runs' out/ directories (per-id connector outcomes
-  needed for the T2 comparison) exist only on the unreachable lab host
-  (/home/Kavinharish/kortexshield). Everything step-17/18 comparisons
-  need from the engine side is under docs/logs/runs/ (rule 42).
+Per-id outcome files that survive in the repo (outcomes.jsonl and/or
+responses.jsonl with one row per sample):
+
+- docs/logs/runs/ — 41 run dirs, each with per-id outcomes.jsonl +
+  responses.jsonl (audit.jsonl where the capture produced one):
+  s17-t1-engine-attacks-ct-v0-pl{1,2}, s17-t2-engine-{smoke,benign-browse-v1}-pl1,
+  s17-t4-engine-benign-wcp-v0-pl{1,2}, s18-t3-reset-ids,
+  s18-t4-engine-{attacks-ct-v0,attacks-v0,benign-browse-v1,benign-hard-v0}-
+  {pre,post,v2}-pl{1,2} (24 dirs), s18-t4-engine-benign-wcp-v0-{post,v2}-pl{1,2}
+  (4 dirs), s18-cap-latency-repeat-{1..6} (probe-level, DIAGNOSTIC).
+- docs/logs/ per-id files from the lab-host era:
+  step12-t6-replay-{coraza,modsec}.jsonl (45 WCP ids each, both engines),
+  t5-probe-{coraza,modsec}-pl1.jsonl (30 probes each),
+  step12-oversize-{coraza,modsec}-audit.jsonl (2 probe entries each),
+  step12-sizeprobe-{coraza,modsec}-audit.jsonl (1 each),
+  step12-t3-probes-{coraza,modsec}-audit.jsonl (6 each),
+  t4-parity-wcp-fixed.txt (per-id sym-diff lists for the step-13 WCP
+  parity re-run), wcp-decompose.txt (per-rule block attribution).
+
+Step-09..17 runs with NO per-id artifacts anywhere (only aggregates or
+analyses are committed; the out/ dirs lived on the unreachable lab host
+or in wiped /tmp):
+
+- step-09/10: the CRS baseline runs (crs-default v0/v1, benign-hard,
+  aligned / aligned-v2 policy runs) — aggregate tables only.
+- step-11: out/backup-step11-small, step11-parity-batch3,
+  step11-old-harness-runs, the deny-status runs — side-by-side aggregates
+  (step11-side-by-side.txt) only.
+- step-12: step12-batch1, step12-restored-all, wcp-cookie-restored,
+  wcp-cookie-restored-all, the wcp-heldout-* parity runs — only the
+  probe-level jsonl files listed above survive.
+- step-13: step13-policy-clear-wcp, step13-t5-coraza-wcp,
+  step13-t5-parity, step13-smoke-rerun — per-id sym-diff LISTS survive
+  (t4-parity-wcp-fixed.txt), not full per-id outcomes.
+- step-14: step14-t1-coraza-pl2, the step14-t3/t4/t5 runs — analyses only.
+- step-15: s15-t3-coraza-*, step15-t4-scaling, step15-t4-skeleton-replay,
+  step15-t6 — analyses only.
+- step-16: the s16-t2 engine and connector re-runs — analyses
+  (step16-t2-analysis.txt) only.
+- step-17: NOW covered — s17-t1/t2/t4 per-id artifacts were back-filled
+  into docs/logs/runs/ this step (rule 42); before step-18 they existed
+  only under out/ on this host.
 
 ## UNVERIFIED items
 

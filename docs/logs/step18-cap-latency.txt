@@ -1,0 +1,20 @@
+== DIAGNOSTIC, this-host only; load average at start:  06:05:57 up  2:36,  1 user,  load average: 1.01, 7.88, 10.32
+== repeat 1 phase cap=32 engine config: kortex-engine: effective config: backend_url=http://127.0.0.1:13000 rule_engine=On blocking_paranoia=1 detection_paranoia=1 max_body_bytes=13107200 max_inspected_bytes=13107200 engine_time_budget_ms=2000 rules_dir=/home/vboxuser/kortex-shield/engine/crs listen_addr=127.0.0.1:8091 events_file=/tmp/kxcap-events-1.jsonl audit_log=/tmp/kxcap-audit-1.log request_body_target_updates=166
+== repeat 2 phase cap=32 engine config: kortex-engine: effective config: backend_url=http://127.0.0.1:13000 rule_engine=On blocking_paranoia=1 detection_paranoia=1 max_body_bytes=13107200 max_inspected_bytes=13107200 engine_time_budget_ms=2000 rules_dir=/home/vboxuser/kortex-shield/engine/crs listen_addr=127.0.0.1:8091 events_file=/tmp/kxcap-events-2.jsonl audit_log=/tmp/kxcap-audit-2.log request_body_target_updates=166
+== repeat 3 phase cap=32 engine config: kortex-engine: effective config: backend_url=http://127.0.0.1:13000 rule_engine=On blocking_paranoia=1 detection_paranoia=1 max_body_bytes=13107200 max_inspected_bytes=13107200 engine_time_budget_ms=2000 rules_dir=/home/vboxuser/kortex-shield/engine/crs listen_addr=127.0.0.1:8091 events_file=/tmp/kxcap-events-3.jsonl audit_log=/tmp/kxcap-audit-3.log request_body_target_updates=166
+== repeat 4 phase cap=8 engine config: kortex-engine: effective config: backend_url=http://127.0.0.1:13000 rule_engine=On blocking_paranoia=1 detection_paranoia=1 max_body_bytes=13107200 max_inspected_bytes=13107200 engine_time_budget_ms=2000 rules_dir=/home/vboxuser/kortex-shield/engine/crs listen_addr=127.0.0.1:8091 events_file=/tmp/kxcap-events-4.jsonl audit_log=/tmp/kxcap-audit-4.log request_body_target_updates=166
+== repeat 5 phase cap=8 engine config: kortex-engine: effective config: backend_url=http://127.0.0.1:13000 rule_engine=On blocking_paranoia=1 detection_paranoia=1 max_body_bytes=13107200 max_inspected_bytes=13107200 engine_time_budget_ms=2000 rules_dir=/home/vboxuser/kortex-shield/engine/crs listen_addr=127.0.0.1:8091 events_file=/tmp/kxcap-events-5.jsonl audit_log=/tmp/kxcap-audit-5.log request_body_target_updates=166
+== repeat 6 phase cap=8 engine config: kortex-engine: effective config: backend_url=http://127.0.0.1:13000 rule_engine=On blocking_paranoia=1 detection_paranoia=1 max_body_bytes=13107200 max_inspected_bytes=13107200 engine_time_budget_ms=2000 rules_dir=/home/vboxuser/kortex-shield/engine/crs listen_addr=127.0.0.1:8091 events_file=/tmp/kxcap-events-6.jsonl audit_log=/tmp/kxcap-audit-6.log request_body_target_updates=166
+== median benign latency per phase (ms), per repeat and overall:
+phaseA-cap32:
+  repeat 1: median=576.0 ms n=15 vals=[137, 1583, 2432, 1589, 217, 536, 587, 576, 149, 1821, 306, 703, 1672, 475, 445]
+  repeat 2: median=478.0 ms n=15 vals=[1289, 151, 478, 807, 438, 2094, 670, 651, 645, 276, 685, 402, 376, 336, 326]
+  repeat 3: median=616.0 ms n=15 vals=[158, 394, 311, 677, 1006, 836, 889, 481, 1877, 548, 684, 967, 555, 583, 616]
+  OVERALL median=583.0 ms n=45
+phaseB-cap8:
+  repeat 4: median=96.0 ms n=15 vals=[93, 66, 96, 91, 145, 267, 89, 588, 455, 85, 189, 142, 90, 93, 446]
+  repeat 5: median=164.0 ms n=15 vals=[96, 214, 78, 326, 261, 209, 107, 229, 164, 86, 343, 53, 164, 81, 364]
+  repeat 6: median=123.0 ms n=15 vals=[123, 339, 76, 38, 121, 97, 53, 95, 580, 156, 279, 103, 188, 400, 304]
+  OVERALL median=142.0 ms n=45
+== load average at end:  06:15:23 up  2:46,  1 user,  load average: 21.02, 15.96, 12.42
+CAP-DONE
