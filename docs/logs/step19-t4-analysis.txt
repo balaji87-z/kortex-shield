@@ -1,0 +1,14 @@
+== PL1: 28 new blocks (held-out v1) ==
+reglas: 949110x28, 932370x16, 932235x6, 932125x5, 942550x3, 933120x3, 932380x1
+familias: 949x28, 932x28, 942x3, 933x3
+content types: text/plain;charset=UTF-8x17, application/x-www-form-urlencodedx9, application/x-www-form-urlencoded; charset=UTF-8x1, application/csp-reportx1
+ids: ['wcp-04a2e0361cfd', 'wcp-0a3479018afc', 'wcp-22f30228f623', 'wcp-2feaf4151664', 'wcp-37b682f6ce60', 'wcp-40a0394e0268', 'wcp-424f893739e2', 'wcp-44151f6a19a4', 'wcp-5af39b82adff', 'wcp-5f172b6f65e7', 'wcp-7c00131a3c32', 'wcp-7ffa92142a17', 'wcp-89785f453ee5', 'wcp-b3ffad98fa1b', 'wcp-b5776eacd5b5', 'wcp-bb0de7f91b1f', 'wcp-bbc448294fcd', 'wcp-bcebfe2fff7a', 'wcp-bde436dbb645', 'wcp-be280b51ae11', 'wcp-c0cd47515055', 'wcp-c5cc5b1ae151', 'wcp-d024c7575cb9', 'wcp-d29b3421cd90', 'wcp-dcde020d1614', 'wcp-e53e5a8e46b5', 'wcp-f34df15a6669', 'wcp-f3552250e714']
+flip run-a-run post: 0 -> []
+
+== PL2: 14 new blocks (held-out v1) ==
+reglas: 949110x14, 942430x11, 932240x5, 942440x2, 942120x2, 932236x1, 932370x1, 932380x1
+familias: 942x15, 949x14, 932x8
+content types: text/plain;charset=UTF-8x6, application/x-www-form-urlencodedx4, application/x-www-form-urlencoded; charset=UTF-8x3, application/x-www-form-urlencoded;charset=UTF-8x1
+ids: ['wcp-3003d84bc92a', 'wcp-47345e70bded', 'wcp-4b36a4081bfd', 'wcp-516e0a8829ef', 'wcp-59854e69c4c4', 'wcp-78441b5f4c29', 'wcp-7c00131a3c32', 'wcp-8c1af4ff8d4e', 'wcp-8d56146c1c25', 'wcp-9cac96b777c9', 'wcp-d5d9cb65d073', 'wcp-f03cc8a0452b', 'wcp-f5e2ec747222', 'wcp-fd32a862be95']
+flip run-a-run post: 3 -> ['wcp-464f59067651', 'wcp-5d3fca6ceb20', 'wcp-81f2f8b2c3e0']
+
