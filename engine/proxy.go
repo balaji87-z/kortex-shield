@@ -26,12 +26,16 @@ type Proxy struct {
 	waf    coraza.WAF
 	events *eventLogger
 	client *http.Client
-	// inflight counts body-processing calls currently running (including
-	// calls abandoned after a budget timeout - they keep running to
-	// completion because coraza has no per-call cancellation). Bounded by
-	// MaxInflightBody; over the cap a body-bearing request is answered 503
-	// kortex-decision=overload immediately (step-17 T3).
-	inflight atomic.Int64
+	// inflightSmall / inflightLarge count body-processing calls currently
+	// running per size-class lane (including calls abandoned after a budget
+	// timeout - they keep running to completion because coraza has no
+	// per-call cancellation). A body is SMALL when its declared
+	// Content-Length is <= BodyLaneThreshold; LARGE otherwise, including
+	// unknown framing (no Content-Length). Over its lane's cap a
+	// body-bearing request is answered 503 kortex-decision=overload
+	// immediately (step-17 T3; lanes step-20 T2).
+	inflightSmall atomic.Int64
+	inflightLarge atomic.Int64
 }
 
 func buildWAF(cfg *Config) (coraza.WAF, error) {
@@ -148,16 +152,25 @@ func (p *Proxy) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 	// decrement lives in the processing goroutine, not in a handler defer.
 	bodyBearing := r.Body != nil && r.ContentLength != 0
 	procLaunched := false
+	// lane selection by DECLARED size; unknown framing (ContentLength < 0)
+	// is conservative: LARGE lane
+	laneLarge := bodyBearing && (r.ContentLength < 0 || r.ContentLength > p.cfg.BodyLaneThreshold)
+	inflight := &p.inflightSmall
+	cap := p.cfg.MaxInflightBody
+	if laneLarge {
+		inflight = &p.inflightLarge
+		cap = p.cfg.MaxInflightBodyLarge
+	}
 	if bodyBearing {
 		// CAS loop: the cap is exact even when many requests arrive at once
 		// (a Load-then-Add check could overshoot under a race)
 		for {
-			n := p.inflight.Load()
-			if n >= p.cfg.MaxInflightBody {
+			n := inflight.Load()
+			if n >= cap {
 				p.overload(w, r, sampleID, start, "in-flight body-processing cap reached")
 				return
 			}
-			if p.inflight.CompareAndSwap(n, n+1) {
+			if inflight.CompareAndSwap(n, n+1) {
 				break
 			}
 		}
@@ -166,7 +179,7 @@ func (p *Proxy) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 			// is launched (limit/timeout paths); once launched, the goroutine
 			// releases it when the processing call returns
 			if !procLaunched {
-				p.inflight.Add(-1)
+				inflight.Add(-1)
 			}
 		}()
 	}
@@ -241,7 +254,7 @@ func (p *Proxy) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 		}
 		it2, err2 := tx.ProcessRequestBody()
 		if bodyBearing {
-			p.inflight.Add(-1)
+			inflight.Add(-1)
 		}
 		done <- bodyProcResult{it2, err2}
 		if abandoned.Load() {

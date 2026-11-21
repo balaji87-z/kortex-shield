@@ -149,6 +149,9 @@ func TestE19OverloadCapImmediate(t *testing.T) {
 		"KORTEX_MAX_INSPECTED_BYTES":   "13107200",
 		"KORTEX_ENGINE_TIME_BUDGET_MS": "200",
 		"KORTEX_MAX_INFLIGHT_BODY":     "1",
+		// lanes (step-20 T2): pin everything into the SMALL lane so the
+		// single-cap overload semantics under test are unchanged
+		"KORTEX_BODY_LANE_THRESHOLD": "13107200",
 	})
 	e19StartOccupy(t, srv, "e19-occupier")
 	start := time.Now()
@@ -185,6 +188,9 @@ func TestE20OverloadRecovery(t *testing.T) {
 		"KORTEX_MAX_INSPECTED_BYTES":   "13107200",
 		"KORTEX_ENGINE_TIME_BUDGET_MS": "200",
 		"KORTEX_MAX_INFLIGHT_BODY":     "1",
+		// lanes (step-20 T2): pin everything into the SMALL lane so the
+		// single-cap overload semantics under test are unchanged
+		"KORTEX_BODY_LANE_THRESHOLD": "13107200",
 	})
 	e19StartOccupy(t, srv, "e20-occupier")
 	// poll until the occupier's abandoned call has finished (event row),
@@ -224,6 +230,9 @@ func TestE21BenignPromptOnCapReachedEngine(t *testing.T) {
 		"KORTEX_MAX_INSPECTED_BYTES":   "13107200",
 		"KORTEX_ENGINE_TIME_BUDGET_MS": "200",
 		"KORTEX_MAX_INFLIGHT_BODY":     "1",
+		// lanes (step-20 T2): pin everything into the SMALL lane so the
+		// single-cap overload semantics under test are unchanged
+		"KORTEX_BODY_LANE_THRESHOLD": "13107200",
 	})
 	e19StartOccupy(t, srv, "e21-occupier")
 	start := time.Now()
