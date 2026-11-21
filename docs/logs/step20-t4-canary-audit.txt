@@ -1,0 +1,81 @@
+== T4a: canary de inspeccion sobre los 100 ids A3 (benign-wcp-v0, PL1 / config desplegada) ==
+
+Objetivo (regla 47): los 100 ids connector-only-920420 de A3 (step-19) pasaron sin
+matches. Un pass sin matches no distingue "inspeccionado, sin match" de "no
+inspeccionado". Canary: el MISMO request de cada id con un payload conocido
+anadido al final del body; si el engine/connector lo bloquea, la inspeccion de
+ese tipo de request queda probada.
+
+Muestra: los mismos 100 ids de A3 (recuperados de
+docs/logs/runs/s19-a3-replay-v2/responses.jsonl; random.Random(42).sample sobre
+los 1.499 connector-only PL1 con body de benign-wcp-v0). Todos con body no vacio.
+
+Contrato de replay (leccion A3): headers del manifest case-exactos, sin
+setdefault de Content-Type/User-Agent; se omiten Host, Content-Length
+(recomputado) y Cookie ([DROPPED] en el manifest).
+
+INTENTO 1 INVALIDO (regla 18, confound del propio harness): el payload se anadio
+con separador "\n" (newline). Ese newline disparo 921150 (HTTP Header Injection,
+CR/LF) en 54/71 entradas de audit -> 70/100 bloqueados, pero la mayoria por el
+newline, no por el payload SQLi. Artefacto: /tmp (no conservado); el conteo de
+reglas quedo documentado aqui. Rehecho con separador de espacio " ".
+
+INTENTO 2 (payload SQLi ' admin" or "1"="1"#', engine PL1, puerto 8099):
+  bloqueados 18/100; audit: 942100=18, 949110=18, 200002=1, 921150=0.
+  Lectura: 942100 (libinjection sobre REQUEST_BODY) es sensible al contexto:
+  el fingerprint de body-completo+payload solo clasifica como SQLi en 18 de los
+  100 cuerpos. No sirve como canary universal; demuestra que el target raw-body
+  corre en esta clase de requests.
+
+INTENTO 3 (payload XSS '"><script>alert(1)</script>', substring-determinista):
+
+ENGINE (coraza v3.8.1, lanes, PL1, 127.0.0.1:8099):
+  bloqueados 98/100.
+  audit (docs/logs/runs/s20-t4a-canary-engine/audit-parsed): 99 entradas;
+  941100=98, 941110=98, 941160=98, 941390=98, 949110=98, 932235=2.
+  Los 2 que pasan:
+    - wcp-dedb89ec3d3d  ct=application/json+protobuf  body 73 B
+      -> processor JSON no puebla REQUEST_BODY (hallazgo step-19 T2): el canary
+         en el body es invisible para los targets raw-body. GAP REAL de
+         inspeccion para este CT (aceptado por el engine, no por el connector).
+    - wcp-483cfc44d381  ct=text/plain  body 100.254 B
+      -> sin match en audit; causa no determinada (UNVERIFIED). El body cabe en
+         el lane LARGE (>65536) y en los 131.072 inspeccionados; el payload va
+         al final. Posible: el processor URLENCODED no puebla REQUEST_BODY para
+         este cuerpo concreto. Queda abierto.
+
+CONNECTOR (coraza-crs 4.25.2-nginx bfbfe70b, coraza v3.7.0 dentro, config
+desplegada PL1, 127.0.0.1:8082):
+  bloqueados 99/100.
+  audit (docs/logs/runs/s20-t4a-canary-connector/): 100 entradas;
+  920350=100, 920420=100 (rechazo CT text/plain, no en la lista permitida),
+  941100/941110/941160=98, 949110=99.
+  El unico que pasa: wcp-dedb89ec3d3d (application/json+protobuf, CT permitido
+  por la politica del connector -> processor JSON -> mismo gap de REQUEST_BODY).
+
+NOTA OPERATIVA (regla 4): el arranque del connector falla hoy con
+"nginx [emerg] invalid host in upstream" cuando CORAZA_BACKEND lleva esquema
+(http://...): el template /templates/nginx.conf del image bfbfe70b renderiza
+`server ${BACKEND};` dentro de upstream, y nginx exige host:port sin esquema.
+Arranque valido: CORAZA_BACKEND=stub-backend:3000 (sin esquema). Las corridas de
+T1 de esta manana usaron el export CON esquema y funcionaron; con el mismo
+comando post-reboot falla (recreacion forzada). Causa de la diferencia con la
+manana: UNVERIFIED (posible contenedor heredado de config previa en T1).
+tools/run_step20_t1_flip_connector.sh documenta el export con esquema: no
+reproducible hoy; anotado para el reporte.
+
+CONCLUSION (canary, regla 47):
+  - La inspeccion de bodies en esta clase de requests esta PROBADA (98/100 y
+    99/100 bloqueados con payload canary).
+  - Combinado con A3 (0/100 matches de 920420 sin payload): la lectura soportada
+    para los 100 ids es "inspeccionado, sin match" para los CT text/plain, y
+    "NO inspeccionado (gap JSON)" para wcp-dedb89ec3d3d (application/json+
+    protobuf) en ambos motores.
+  - El id wcp-483cfc44d381 (engine, text/plain 100 KB) queda como caso abierto:
+    el canary no bloqueo y no hay matches; no se puede afirmar inspeccion para
+    ese request concreto.
+
+Artefactos: docs/logs/runs/s20-t4a-canary-engine/ (canary.json, audit.log,
+audit-parsed, engine.log), docs/logs/runs/s20-t4a-canary-connector/ (canary.json,
+audit-connector.log, audit-parsed). Scripts: /tmp/t4a_engine.py (replay), ids en
+/tmp/a3-ids.json (regenerables desde s19-a3-replay-v2/responses.jsonl).

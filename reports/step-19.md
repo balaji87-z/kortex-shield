@@ -256,5 +256,8 @@ de fidelidad que el connector stock no tiene.
 4. **benign-wcp-v0 congelada** contiene 6 tokens Mapbox publicables
    (regla 25, step-18): ¿re-freezar redactada como v0.1, dejarla, o
    retirarla? (v1 ya nace limpia.)
+   **CORRECCION step-20 (T4):** el recuento correcto es **8 tokens**, no 6
+   (docs/logs/wcp-v0-token-ids.txt: 8 manifest ids / 8 annotation ids; verificado
+   re-contando el manifest en step-20). El "6" de este reporte fue un subconteo.
 5. Los 28/14 new blocks del held-out: ¿se aceptan como coste conocido de la
    fidelidad o se abren exclusiones por familia (requeriría ciclo propio)?

@@ -1,0 +1,197 @@
+== T3 cost: 2026-11-21T15:14:37Z budget=120000ms secuencial, host post-reboot (ver regla 43) ==
+rule29[pre pl=1 rep=1]: "blocking_paranoia":1 
+pre pl=1 rep=1 patho size=16384 -> 403 1.181023 load=[load average: 2.52, 3.99, 5.26]
+pre pl=1 rep=1 patho size=32768 -> 403 3.057022 load=[load average: 2.52, 3.99, 5.26]
+pre pl=1 rep=1 patho size=65536 -> 403 5.476663 load=[load average: 2.47, 3.95, 5.24]
+pre pl=1 rep=1 patho size=131072 -> 403 27.030662 load=[load average: 2.65, 3.85, 5.17]
+pre pl=1 rep=1 prose size=16384 -> 200 0.481859 load=[load average: 2.65, 3.85, 5.17]
+pre pl=1 rep=1 prose size=32768 -> 200 1.163526 load=[load average: 2.65, 3.85, 5.17]
+pre pl=1 rep=1 prose size=65536 -> 200 2.068253 load=[load average: 2.75, 3.85, 5.16]
+pre pl=1 rep=1 prose size=131072 -> 200 5.259819 load=[load average: 2.77, 3.84, 5.15]
+pre pl=1 rep=1 adv size=16384 -> 403 0.436829 load=[load average: 2.77, 3.84, 5.15]
+pre pl=1 rep=1 adv size=32768 -> 403 1.267486 load=[load average: 2.77, 3.84, 5.15]
+pre pl=1 rep=1 adv size=65536 -> 403 1.652991 load=[load average: 2.77, 3.84, 5.15]
+pre pl=1 rep=1 adv size=131072 -> 403 3.953391 load=[load average: 2.95, 3.86, 5.15]
+rule29[post pl=1 rep=1]: "blocking_paranoia":1 
+post pl=1 rep=1 patho size=16384 -> 403 2.522548 load=[load average: 3.20, 3.89, 5.15]
+post pl=1 rep=1 patho size=32768 -> 403 7.635702 load=[load average: 3.75, 3.99, 5.17]
+post pl=1 rep=1 patho size=65536 -> 403 22.294653 load=[load average: 4.12, 4.05, 5.16]
+post pl=1 rep=1 patho size=131072 -> 403 83.359199 load=[load average: 3.86, 4.01, 5.05]
+post pl=1 rep=1 prose size=16384 -> 200 0.764699 load=[load average: 3.86, 4.01, 5.05]
+post pl=1 rep=1 prose size=32768 -> 200 1.561980 load=[load average: 3.86, 4.01, 5.05]
+post pl=1 rep=1 prose size=65536 -> 200 3.098037 load=[load average: 3.71, 3.98, 5.04]
+post pl=1 rep=1 prose size=131072 -> 200 5.950066 load=[load average: 3.82, 3.99, 5.04]
+post pl=1 rep=1 adv size=16384 -> 403 1.006892 load=[load average: 3.82, 3.99, 5.04]
+post pl=1 rep=1 adv size=32768 -> 403 1.728864 load=[load average: 3.83, 3.99, 5.03]
+post pl=1 rep=1 adv size=65536 -> 403 3.496183 load=[load average: 4.00, 4.03, 5.04]
+post pl=1 rep=1 adv size=131072 -> 403 5.653965 load=[load average: 3.68, 3.96, 5.01]
+rule29[pre pl=1 rep=2]: "blocking_paranoia":1 
+pre pl=1 rep=2 patho size=16384 -> 403 1.088432 load=[load average: 3.68, 3.96, 5.01]
+pre pl=1 rep=2 patho size=32768 -> 403 2.242963 load=[load average: 3.55, 3.93, 4.99]
+pre pl=1 rep=2 patho size=65536 -> 403 5.151388 load=[load average: 3.34, 3.88, 4.97]
+pre pl=1 rep=2 patho size=131072 -> 403 23.065561 load=[load average: 4.10, 4.02, 4.99]
+pre pl=1 rep=2 prose size=16384 -> 200 0.449811 load=[load average: 4.10, 4.02, 4.99]
+pre pl=1 rep=2 prose size=32768 -> 200 0.960506 load=[load average: 3.93, 3.98, 4.98]
+pre pl=1 rep=2 prose size=65536 -> 200 1.886086 load=[load average: 3.93, 3.98, 4.98]
+pre pl=1 rep=2 prose size=131072 -> 200 4.801778 load=[load average: 4.10, 4.02, 4.98]
+pre pl=1 rep=2 adv size=16384 -> 403 0.804836 load=[load average: 4.10, 4.02, 4.98]
+pre pl=1 rep=2 adv size=32768 -> 403 1.259278 load=[load average: 4.10, 4.02, 4.98]
+pre pl=1 rep=2 adv size=65536 -> 403 1.807997 load=[load average: 3.93, 3.98, 4.97]
+pre pl=1 rep=2 adv size=131072 -> 403 4.954953 load=[load average: 4.50, 4.10, 5.00]
+rule29[post pl=1 rep=2]: "blocking_paranoia":1 
+post pl=1 rep=2 patho size=16384 -> 403 3.119247 load=[load average: 5.02, 4.22, 5.03]
+post pl=1 rep=2 patho size=32768 -> 403 12.099869 load=[load average: 5.63, 4.40, 5.08]
+post pl=1 rep=2 patho size=65536 -> 403 24.708363 load=[load average: 6.01, 4.60, 5.13]
+post pl=1 rep=2 patho size=131072 -> 403 105.147959 load=[load average: 5.52, 4.83, 5.15]
+post pl=1 rep=2 prose size=16384 -> 200 1.198833 load=[load average: 5.52, 4.83, 5.15]
+post pl=1 rep=2 prose size=32768 -> 200 1.966569 load=[load average: 5.52, 4.83, 5.15]
+post pl=1 rep=2 prose size=65536 -> 200 3.671528 load=[load average: 5.24, 4.78, 5.13]
+post pl=1 rep=2 prose size=131072 -> 200 10.491919 load=[load average: 5.46, 4.84, 5.15]
+post pl=1 rep=2 adv size=16384 -> 403 1.061201 load=[load average: 5.46, 4.84, 5.15]
+post pl=1 rep=2 adv size=32768 -> 403 1.650148 load=[load average: 5.82, 4.93, 5.17]
+post pl=1 rep=2 adv size=65536 -> 403 3.424267 load=[load average: 5.82, 4.93, 5.17]
+post pl=1 rep=2 adv size=131072 -> 403 7.428096 load=[load average: 5.48, 4.88, 5.16]
+rule29[pre pl=1 rep=3]: "blocking_paranoia":1 
+pre pl=1 rep=3 patho size=16384 -> 403 2.088323 load=[load average: 5.68, 4.93, 5.17]
+pre pl=1 rep=3 patho size=32768 -> 403 2.809394 load=[load average: 5.22, 4.85, 5.14]
+pre pl=1 rep=3 patho size=65536 -> 403 6.823817 load=[load average: 5.12, 4.84, 5.14]
+pre pl=1 rep=3 patho size=131072 -> 403 36.798646 load=[load average: 4.79, 4.80, 5.12]
+pre pl=1 rep=3 prose size=16384 -> 200 0.574212 load=[load average: 4.56, 4.76, 5.10]
+pre pl=1 rep=3 prose size=32768 -> 200 1.221877 load=[load average: 4.56, 4.76, 5.10]
+pre pl=1 rep=3 prose size=65536 -> 200 2.329907 load=[load average: 4.56, 4.76, 5.10]
+pre pl=1 rep=3 prose size=131072 -> 200 3.610720 load=[load average: 4.68, 4.78, 5.10]
+pre pl=1 rep=3 adv size=16384 -> 403 0.465215 load=[load average: 4.68, 4.78, 5.10]
+pre pl=1 rep=3 adv size=32768 -> 403 0.746527 load=[load average: 4.68, 4.78, 5.10]
+pre pl=1 rep=3 adv size=65536 -> 403 1.857306 load=[load average: 4.47, 4.73, 5.09]
+pre pl=1 rep=3 adv size=131072 -> 403 3.528952 load=[load average: 4.47, 4.73, 5.09]
+rule29[post pl=1 rep=3]: "blocking_paranoia":1 
+post pl=1 rep=3 patho size=16384 -> 403 3.839843 load=[load average: 4.09, 4.64, 5.05]
+post pl=1 rep=3 patho size=32768 -> 403 9.374497 load=[load average: 4.35, 4.68, 5.06]
+post pl=1 rep=3 patho size=65536 -> 403 14.983651 load=[load average: 3.66, 4.52, 5.00]
+post pl=1 rep=3 patho size=131072 -> 403 67.731533 load=[load average: 3.62, 4.34, 4.91]
+post pl=1 rep=3 prose size=16384 -> 200 1.218780 load=[load average: 3.57, 4.32, 4.90]
+post pl=1 rep=3 prose size=32768 -> 200 2.453395 load=[load average: 3.57, 4.32, 4.90]
+post pl=1 rep=3 prose size=65536 -> 200 4.878446 load=[load average: 3.29, 4.25, 4.87]
+post pl=1 rep=3 prose size=131072 -> 200 6.520849 load=[load average: 3.08, 4.17, 4.84]
+post pl=1 rep=3 adv size=16384 -> 403 1.161351 load=[load average: 3.08, 4.17, 4.84]
+post pl=1 rep=3 adv size=32768 -> 403 1.785451 load=[load average: 3.08, 4.17, 4.84]
+post pl=1 rep=3 adv size=65536 -> 403 3.797559 load=[load average: 3.07, 4.15, 4.83]
+post pl=1 rep=3 adv size=131072 -> 403 7.951012 load=[load average: 3.20, 4.15, 4.82]
+rule29[pre pl=2 rep=1]: "blocking_paranoia":2 
+pre pl=2 rep=1 patho size=16384 -> 403 3.143493 load=[load average: 3.91, 4.28, 4.86]
+pre pl=2 rep=1 patho size=32768 -> 403 4.846924 load=[load average: 3.92, 4.27, 4.85]
+pre pl=2 rep=1 patho size=65536 -> 403 9.822223 load=[load average: 4.15, 4.31, 4.86]
+pre pl=2 rep=1 patho size=131072 -> 403 37.167956 load=[load average: 3.75, 4.20, 4.80]
+pre pl=2 rep=1 prose size=16384 -> 403 1.489103 load=[load average: 3.75, 4.20, 4.80]
+pre pl=2 rep=1 prose size=32768 -> 403 2.695769 load=[load average: 3.61, 4.16, 4.79]
+pre pl=2 rep=1 prose size=65536 -> 200 5.329386 load=[load average: 3.88, 4.21, 4.80]
+pre pl=2 rep=1 prose size=131072 -> 200 9.425118 load=[load average: 5.21, 4.48, 4.88]
+pre pl=2 rep=1 adv size=16384 -> 403 0.863951 load=[load average: 5.21, 4.48, 4.88]
+pre pl=2 rep=1 adv size=32768 -> 403 2.255200 load=[load average: 5.11, 4.47, 4.88]
+pre pl=2 rep=1 adv size=65536 -> 403 4.567452 load=[load average: 4.86, 4.43, 4.86]
+pre pl=2 rep=1 adv size=131072 -> 403 8.587731 load=[load average: 4.71, 4.41, 4.85]
+rule29[post pl=2 rep=1]: "blocking_paranoia":2 
+post pl=2 rep=1 patho size=16384 -> 403 3.862907 load=[load average: 4.59, 4.39, 4.84]
+post pl=2 rep=1 patho size=32768 -> 403 13.028636 load=[load average: 4.03, 4.28, 4.80]
+post pl=2 rep=1 patho size=65536 -> 403 27.948983 load=[load average: 3.41, 4.11, 4.72]
+post pl=2 rep=1 patho size=131072 -> 403 98.967660 load=[load average: 4.48, 4.22, 4.70]
+post pl=2 rep=1 prose size=16384 -> 403 2.662229 load=[load average: 4.48, 4.22, 4.70]
+post pl=2 rep=1 prose size=32768 -> 403 4.782649 load=[load average: 4.60, 4.25, 4.70]
+post pl=2 rep=1 prose size=65536 -> 200 8.880551 load=[load average: 4.36, 4.21, 4.69]
+post pl=2 rep=1 prose size=131072 -> 200 16.888234 load=[load average: 3.89, 4.12, 4.65]
+post pl=2 rep=1 adv size=16384 -> 403 1.948087 load=[load average: 3.74, 4.08, 4.63]
+post pl=2 rep=1 adv size=32768 -> 403 3.744195 load=[load average: 3.44, 4.01, 4.61]
+post pl=2 rep=1 adv size=65536 -> 403 7.552516 load=[load average: 3.33, 3.98, 4.59]
+post pl=2 rep=1 adv size=131072 -> 403 14.469845 load=[load average: 2.87, 3.85, 4.54]
+rule29[pre pl=2 rep=2]: "blocking_paranoia":2 
+pre pl=2 rep=2 patho size=16384 -> 403 1.742404 load=[load average: 3.04, 3.87, 4.54]
+pre pl=2 rep=2 patho size=32768 -> 403 4.217207 load=[load average: 2.96, 3.84, 4.53]
+pre pl=2 rep=2 patho size=65536 -> 403 10.284772 load=[load average: 3.40, 3.91, 4.55]
+pre pl=2 rep=2 patho size=131072 -> 403 34.061026 load=[load average: 3.20, 3.81, 4.49]
+pre pl=2 rep=2 prose size=16384 -> 403 1.481678 load=[load average: 3.20, 3.81, 4.49]
+pre pl=2 rep=2 prose size=32768 -> 403 2.486799 load=[load average: 3.11, 3.78, 4.47]
+pre pl=2 rep=2 prose size=65536 -> 200 4.637460 load=[load average: 3.26, 3.80, 4.48]
+pre pl=2 rep=2 prose size=131072 -> 200 9.086570 load=[load average: 3.24, 3.78, 4.47]
+pre pl=2 rep=2 adv size=16384 -> 403 0.823717 load=[load average: 3.14, 3.75, 4.45]
+pre pl=2 rep=2 adv size=32768 -> 403 1.853474 load=[load average: 3.14, 3.75, 4.45]
+pre pl=2 rep=2 adv size=65536 -> 403 3.809162 load=[load average: 2.89, 3.69, 4.43]
+pre pl=2 rep=2 adv size=131072 -> 403 10.071199 load=[load average: 3.63, 3.82, 4.46]
+rule29[post pl=2 rep=2]: "blocking_paranoia":2 
+post pl=2 rep=2 patho size=16384 -> 403 4.754145 load=[load average: 4.42, 3.99, 4.51]
+post pl=2 rep=2 patho size=32768 -> 403 15.624568 load=[load average: 5.14, 4.17, 4.56]
+post pl=2 rep=2 patho size=65536 -> 403 17.324054 load=[load average: 4.14, 3.99, 4.50]
+post pl=2 rep=2 patho size=131072 -> 000 59.087317 load=[load average: 4.10, 4.06, 4.49]
+post pl=2 rep=2 prose size=16384 -> 000 0.003805 load=[load average: 4.10, 4.06, 4.49]
+post pl=2 rep=2 prose size=32768 -> 000 0.000795 load=[load average: 4.10, 4.06, 4.49]
+post pl=2 rep=2 prose size=65536 -> 000 0.001807 load=[load average: 4.10, 4.06, 4.49]
+post pl=2 rep=2 prose size=131072 -> 000 0.000788 load=[load average: 4.10, 4.06, 4.49]
+post pl=2 rep=2 adv size=16384 -> 000 0.000970 load=[load average: 4.10, 4.06, 4.49]
+post pl=2 rep=2 adv size=32768 -> 000 0.001657 load=[load average: 4.10, 4.06, 4.49]
+post pl=2 rep=2 adv size=65536 -> 000 0.001732 load=[load average: 4.10, 4.06, 4.49]
+post pl=2 rep=2 adv size=131072 -> 000 0.000764 load=[load average: 4.10, 4.06, 4.49]
+rule29[pre pl=2 rep=3]: "blocking_paranoia":2 
+pre pl=2 rep=3 patho size=16384 -> 403 1.588938 load=[load average: 4.06, 4.05, 4.49]
+pre pl=2 rep=3 patho size=32768 -> 403 2.822981 load=[load average: 4.06, 4.05, 4.49]
+pre pl=2 rep=3 patho size=65536 -> 403 13.419644 load=[load average: 4.89, 4.25, 4.55]
+pre pl=2 rep=3 patho size=131072 -> 403 34.581834 load=[load average: 3.71, 4.03, 4.46]
+pre pl=2 rep=3 prose size=16384 -> 403 1.672793 load=[load average: 3.71, 4.03, 4.46]
+pre pl=2 rep=3 prose size=32768 -> 403 2.725926 load=[load average: 3.73, 4.03, 4.46]
+pre pl=2 rep=3 prose size=65536 -> 200 5.090648 load=[load average: 3.43, 3.96, 4.43]
+pre pl=2 rep=3 prose size=131072 -> 200 10.822484 load=[load average: 3.84, 4.03, 4.45]
+pre pl=2 rep=3 adv size=16384 -> 403 1.564719 load=[load average: 3.93, 4.05, 4.45]
+pre pl=2 rep=3 adv size=32768 -> 403 2.270139 load=[load average: 3.93, 4.05, 4.45]
+pre pl=2 rep=3 adv size=65536 -> 403 4.670320 load=[load average: 5.06, 4.28, 4.53]
+pre pl=2 rep=3 adv size=131072 -> 403 14.913295 load=[load average: 5.15, 4.34, 4.54]
+rule29[post pl=2 rep=3]: "blocking_paranoia":2 
+post pl=2 rep=3 patho size=16384 -> 403 4.002655 load=[load average: 4.82, 4.29, 4.53]
+post pl=2 rep=3 patho size=32768 -> 403 12.344122 load=[load average: 4.55, 4.26, 4.51]
+post pl=2 rep=3 patho size=65536 -> 403 25.398822 load=[load average: 3.80, 4.10, 4.45]
+post pl=2 rep=3 patho size=131072 -> 000 7.110283 load=[load average: 3.57, 4.05, 4.44]
+post pl=2 rep=3 prose size=16384 -> 000 0.000925 load=[load average: 3.57, 4.05, 4.44]
+post pl=2 rep=3 prose size=32768 -> 000 0.001272 load=[load average: 3.45, 4.02, 4.42]
+post pl=2 rep=3 prose size=65536 -> 000 0.002883 load=[load average: 3.45, 4.02, 4.42]
+post pl=2 rep=3 prose size=131072 -> 000 0.000720 load=[load average: 3.45, 4.02, 4.42]
+post pl=2 rep=3 adv size=16384 -> 000 0.000751 load=[load average: 3.45, 4.02, 4.42]
+post pl=2 rep=3 adv size=32768 -> 000 0.000810 load=[load average: 3.45, 4.02, 4.42]
+post pl=2 rep=3 adv size=65536 -> 000 0.000881 load=[load average: 3.45, 4.02, 4.42]
+post pl=2 rep=3 adv size=131072 -> 000 0.000949 load=[load average: 3.45, 4.02, 4.42]
+== REDO de las celdas 000 (el engine post pl2 rep2/3 fue eliminado por error de limpieza del propio agente; ver reporte) ==
+rule29[post pl=2 rep=2 REDO]: "blocking_paranoia":2 
+post pl=2 rep=2 patho size=16384 -> 403 3.898820 load=[load average: 2.35, 3.34, 4.10] REDO
+post pl=2 rep=2 patho size=32768 -> 403 10.475234 load=[load average: 2.52, 3.34, 4.09] REDO
+post pl=2 rep=2 patho size=65536 -> 403 21.567288 load=[load average: 2.73, 3.34, 4.07] REDO
+post pl=2 rep=2 patho size=131072 -> 503 120.061300 load=[load average: 4.76, 3.98, 4.22] REDO
+post pl=2 rep=2 prose size=16384 -> 403 5.723942 load=[load average: 4.94, 4.03, 4.24] REDO
+post pl=2 rep=2 prose size=32768 -> 403 9.141133 load=[load average: 4.72, 4.02, 4.23] REDO
+post pl=2 rep=2 prose size=65536 -> 200 12.225939 load=[load average: 4.31, 3.95, 4.20] REDO
+post pl=2 rep=2 prose size=131072 -> 200 27.826836 load=[load average: 4.32, 4.00, 4.21] REDO
+post pl=2 rep=2 adv size=16384 -> 403 2.866578 load=[load average: 4.30, 4.00, 4.21] REDO
+post pl=2 rep=2 adv size=32768 -> 403 2.657484 load=[load average: 4.30, 4.00, 4.21] REDO
+post pl=2 rep=2 adv size=65536 -> 403 13.990987 load=[load average: 4.33, 4.02, 4.21] REDO
+post pl=2 rep=2 adv size=131072 -> 403 28.802984 load=[load average: 5.67, 4.39, 4.33] REDO
+rule29[post pl=2 rep=3 REDO]: "blocking_paranoia":2 
+post pl=2 rep=3 patho size=16384 -> 403 7.221261 load=[load average: 5.25, 4.35, 4.32] REDO
+post pl=2 rep=3 patho size=32768 -> 403 21.283572 load=[load average: 5.35, 4.45, 4.35] REDO
+post pl=2 rep=3 patho size=65536 -> 403 42.822739 load=[load average: 4.55, 4.36, 4.33] REDO
+post pl=2 rep=3 patho size=131072 -> 503 120.048797 load=[load average: 6.42, 5.00, 4.56] REDO
+post pl=2 rep=3 prose size=16384 -> 403 2.717681 load=[load average: 6.78, 5.10, 4.60] REDO
+post pl=2 rep=3 prose size=32768 -> 403 8.177891 load=[load average: 6.76, 5.14, 4.62] REDO
+post pl=2 rep=3 prose size=65536 -> 200 14.922207 load=[load average: 6.86, 5.25, 4.66] REDO
+post pl=2 rep=3 prose size=131072 -> 503 1946.349663 load=[load average: 40.00, 40.00, 39.33] REDO
+post pl=2 rep=3 adv size=16384 -> 403 13.892267 load=[load average: 37.59, 39.45, 39.16] REDO
+post pl=2 rep=3 adv size=32768 -> 403 1.574163 load=[load average: 37.59, 39.45, 39.16] REDO
+post pl=2 rep=3 adv size=65536 -> 403 2.625520 load=[load average: 34.82, 38.84, 38.97] REDO
+post pl=2 rep=3 adv size=131072 -> 403 4.831623 load=[load average: 32.27, 38.25, 38.78] REDO
+rule29[post pl=2 rep=3 REDO2]: "blocking_paranoia":2 
+post pl=2 rep=3 patho size=16384 -> 403 1.575326 load=[load average: 2.35, 3.41, 12.34] REDO2
+post pl=2 rep=3 patho size=32768 -> 403 4.328682 load=[load average: 2.56, 3.43, 12.30] REDO2
+post pl=2 rep=3 patho size=65536 -> 403 8.330130 load=[load average: 2.33, 3.35, 12.18] REDO2
+post pl=2 rep=3 patho size=131072 -> 403 30.304624 load=[load average: 1.94, 3.16, 11.83] REDO2
+post pl=2 rep=3 prose size=16384 -> 403 0.591951 load=[load average: 1.94, 3.16, 11.83] REDO2
+post pl=2 rep=3 prose size=32768 -> 403 1.243395 load=[load average: 1.94, 3.16, 11.83] REDO2
+post pl=2 rep=3 prose size=65536 -> 200 2.245772 load=[load average: 2.51, 3.26, 11.81] REDO2
+post pl=2 rep=3 prose size=131072 -> 200 5.158120 load=[load average: 2.31, 3.20, 11.75] REDO2
+post pl=2 rep=3 adv size=16384 -> 403 0.680844 load=[load average: 2.31, 3.20, 11.75] REDO2
+post pl=2 rep=3 adv size=32768 -> 403 1.273753 load=[load average: 2.31, 3.20, 11.75] REDO2
+post pl=2 rep=3 adv size=65536 -> 403 2.486024 load=[load average: 2.28, 3.18, 11.70] REDO2
+post pl=2 rep=3 adv size=131072 -> 403 4.721142 load=[load average: 2.10, 3.13, 11.64] REDO2

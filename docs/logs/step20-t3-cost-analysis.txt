@@ -1,0 +1,78 @@
+== T3: tiempo de inspeccion vs tamano de body (step-20) ==
+
+Metodo (preregistrado en tools/run_step20_t3_cost.sh): 3 cuerpos text/plain
+x 4 tamanos (16/32/64/128 KB) x engine pre/post x PL1/PL2 x 3 reps, secuencial,
+budget 120000 ms, stub 200 en 13000. Cuerpos:
+  - patho: prefijo real del body WCP patologico (kx-wcp-body.bin, id
+    wcp-80a49c991b2d de benign-wcp-v0), truncado a cada tamano.
+  - prose: prosa inglesa benigna (sin keywords de ataque).
+  - adv: prosa densa en keywords SQLi/XSS (bloquea, pero barato).
+Engine pre = /tmp/kortex-engine-prefix (commit 1964793, pre step-18-T4,
+coraza v3.7.0, SIN los 166 updates de raw-body). Engine post = HEAD
+(/tmp/kortex-engine-lanes, coraza v3.8.1, lanes, 166 updates).
+CONFOUND declarado (regla 43/45): pre y post difieren TAMBIEN en version de
+coraza (v3.7.0 vs v3.8.1) y lanes; la comparacion pre/post no aísla los
+raw-body targets por sí sola. Host post-reboot (regla 43): CPU 2611 MHz sin
+boost; celdas con load>8 excluidas; dos re-ejecuciones (REDO/REDO2) tras
+matar por error el engine de rep2/rep3 durante la limpieza de T4a.
+
+MATRIZ (mediana de reps validas, segundos; status entre parentesis):
+
+PL1:
+  size    | pre patho | post patho | pre prose | post prose | pre adv | post adv
+  16384   | 1.2 (403) | 3.1 (403)  | 0.5 (200) | 1.2 (200)  | 0.5(403)| 1.1 (403)
+  32768   | 2.8 (403) | 9.4 (403)  | 1.2 (200) | 2.0 (200)  | 1.3(403)| 1.7 (403)
+  65536   | 5.5 (403) | 22.3 (403) | 2.1 (200) | 3.7 (200)  | 1.8(403)| 3.5 (403)
+  131072  | 27.0 (403)| 83.4 (403) | 4.8 (200) | 6.5 (200)  | 4.0(403)| 7.4 (403)
+
+PL2:
+  size    | pre patho | post patho        | pre prose  | post prose  | pre adv | post adv
+  16384   | 1.7 (403) | 4.0 (403)         | 1.5 (403)  | 2.7 (403)   | 0.9(403)| 1.9 (403)
+  32768   | 4.2 (403) | 12.7 (403)        | 2.7 (403)  | 6.5 (403)   | 2.3(403)| 2.7 (403)
+  65536   | 10.3 (403)| 23.5 (403)        | 5.1 (200)  | 10.6 (200)  | 4.6(403)| 7.6 (403)
+  131072  | 34.6 (403)| 30.3-120 (403/503)| 9.4 (200)  | 16.9 (200)  | 10.1(403)| 14.5 (403)
+
+Celda post PL2 patho 131072 BIMODAL (UNEXPLAINED, regla 39): misma peticion,
+mismo binario: 30.3 s (403, REDO2, load~2), 99.0 s (403, rep1, load 4.5),
+120 s -> 503 (budget) en dos reps. Rango 30-120 s; el modo rapido y el lento
+alternan sin patron identificado. No se reporta como mediana unica.
+
+Hallazgos:
+  1. El coste escala con el tamano en los 3 tipos, pero el CONTENIDO manda:
+     el body patologico cuesta 5-12x mas que prosa/adv del mismo tamano
+     (PL1 128 KB: 83.4 vs 6.5/7.4 s). El body adv (denso en keywords) bloquea
+     RAPIDO: match temprano.
+  2. post es sistematicamente mas lento que pre en PL1 patho (3.1x a 128 KB),
+     y ~2x en prosa/adv; en PL2 la diferencia se reduce o invierte
+     (patho 131 KB: 30-120 vs 34.6). Con el confound de version declarado.
+  3. En PL1 prose pasa (200) pero cuesta 6.5 s a 128 KB: el coste se paga
+     tambien en lo que NO bloquea.
+  4. Un solo POST de 128 KB pathologico puede ocupar un slot del lane 30-120 s
+     (o 83 s a PL1): conecta directo con T2 (la starvation de lanes).
+
+Bloques existentes SOLO por el target raw-body de 942100 (parte b):
+  - benign-wcp-v1 (40.000 requests, step-19 T4): 942100 aparece en 0 de las
+    entradas de audit -> NINGUN bloque de v1 es atribuible a 942100.
+  - Canary dirigido (23 payloads SQLi como body text/plain crudo, PL1):
+    engine completo 8/23 vs engine sin 942100 6/23 -> 942100 aporta 2/23
+    unicamente (payload 0: admin" or "1"="1"#; payload 14: JSON con
+    admin' or '1'='1). A PL2: 23/23 en ambos -> 942100 no aporta nada.
+  - Artefactos: docs/logs/runs/s20-t3-canary942100/.
+
+Opciones medidas (parte c; NADA se cambia en este paso):
+  (a) Limitar raw-body a tamano N: el coste del body patologico a 64 KB ya es
+      22 s (PL1 post) - un limite de 64 KB recortaria a la mitad el peor caso
+      pero dejaria 22 s por request. Un limite de 16 KB deja 3.1 s pero
+      renuncia a inspeccionar bodies grandes.
+  (b) Inspeccion por ventanas (chunked): requeriria cambios en coraza
+      (transformacion incremental) - fuera de alcance de este paso.
+  (c) Status quo: 83 s por POST patologico de 128 KB a PL1, con lane ocupado
+      ese tiempo (T2). Es el que se mantiene: sin cambio.
+  Coste/beneficio: 942100 aporta 2 bloques en 23 payloads SQLi artesanales a
+  PL1 y 0 en 40.000 requests benignos reales; su coste se paga en TODOS los
+  bodies grandes (target raw-body incluido en la cadena de 166 updates).
+  Recomendacion para el instructor: evaluar (a) con N=16-32 KB en un ciclo
+  propio test-first + held-out.
+
+Raw: docs/logs/step20-t3-cost.txt (con marcas REDO/REDO2 y load por celda);
+runs en docs/logs/runs/s20-t3-{pre,post}-pl{1,2}-rep{1,2,3,3b}/.

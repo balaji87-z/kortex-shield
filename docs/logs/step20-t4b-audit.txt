@@ -1,0 +1,54 @@
+== T4b: auditoria manual de los nuevos bloques sobre benign-wcp-v1 (regla 26) ==
+
+Alcance: los 28 ids solo-post bloqueados a PL1 y los 14 a PL2 en benign-wcp-v1
+(step-19 T4). Los 42 ids (uno aparece en ambas listas) fueron leidos uno a uno
+por el autor del paso. Esto es una auditoria de 42, no una prueba (regla 26).
+
+Lista de ids leidos (de /tmp/t4b-samples.txt, regenerable desde
+data/benign-wcp-v1/manifest.jsonl + los outcomes de s19-t4):
+
+PL1 (28): wcp-22f30228f623 wcp-c0cd47515055 wcp-37b682f6ce60 wcp-d29b3421cd90
+  wcp-40a0394e0268 wcp-7ffa92142a17 wcp-be280b51ae11 wcp-b3ffad98fa1b
+  wcp-0a3479018afc wcp-44151f6a19a4 wcp-bde436dbb645 wcp-b5776eacd5b5
+  wcp-5af39b82adff wcp-bbc448294fcd wcp-bcebfe2fff7a wcp-e53e5a8e46b5
+  wcp-89785f453ee5 wcp-2feaf4151664 wcp-f34df15a6669 wcp-bb0de7f91b1f
+  wcp-7c00131a3c32 (+ los 7 restantes del listado PL1 de 28)
+PL2 (14): wcp-8c1af4ff8d4e wcp-9cac96b777c9 wcp-f5e2ec747222 wcp-3003d84bc92a
+  wcp-f03cc8a0452b wcp-fd32a862be95 wcp-d5d9cb65d073 wcp-8d56146c1c25
+  wcp-47345e70bded wcp-4b36a4081bfd wcp-516e0a8829ef wcp-7c00131a3c32 (+ resto)
+
+Reglas que disparan (del audit de s19-t4, parsed): familia 932 (RCE):
+  932235 Unix command injection, 932370/932380 Windows command injection,
+  932125 PowerShell, 932240/932236 (Windows shell), mas scoring 949110.
+  Ejemplos verificados por id:
+    wcp-d024c7575cb9: 932235 + 949110
+    wcp-c5cc5b1ae151: 932370 + 949110
+    wcp-424f893739e2: 932125 + 932370 + 949110
+    wcp-0a3479018afc: 932370 + 949110
+    wcp-f34df15a6669: 932235 + 949110
+    wcp-bb0de7f91b1f: 932235 + 949110
+    wcp-7c00131a3c32: 932370 + 932380 + 949110
+
+Juicio por muestra (42/42): todos parecen telemetria/analytics benigna de
+navegador, sin patron de ataque visible en path/query/body:
+  - beacons de RUM/APM: /api/v2/rum (Datadog), /g/collect y /api/t/gtm/g/collect
+    (GA4), /b/ss/... (Adobe Analytics), /ingest.php (metricas de rendimiento
+    pt/pdns/pcon/pfet), /.well-known/shopify/monorail (Shopify Trekkie),
+    /my-wisepop, /uia (Nespresso analytics), /6463/.../jsEvent.json,
+    /di/swadc/beacon/et (blob base64), /v1/ecs/topics/floop (telemetria con
+    separadores de unidad).
+  - formularios de e-commerce: Cart-AddProduct con token CSRF, checkout Shopify
+    (authenticity_token), busquedas, wise pop.
+  - los matches 932 vienen de subcadenas dentro de esos cuerpos (nombres de
+    param tipo cmd=, rutas .php, parentesis/brackets en URLs y valores), no de
+    sintaxis de comando real.
+
+Resultado: 0 de 42 parecen ataques -> los 28+14 "nuevos bloques" sobre
+benign-wcp-v1 se clasifican como FALSOS POSITIVOS atribuibles a los targets
+raw-body (regla 46: nuevos bloqueos, nunca "ganancias"). Es un juicio de lectura
+manual de 42 muestras; el limite del metodo (una sola persona, previews
+truncados del manifest) queda anotado.
+
+Los ids concretos de la muestra completa estan en el listado generado
+(/tmp/t4b-samples.txt; regenerable). La version definitiva de esta auditoria va
+en reports/step-20.md con la tabla de ids y reglas.
