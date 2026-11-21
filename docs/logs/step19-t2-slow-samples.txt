@@ -1,0 +1,18 @@
+== Step-19 T2: benign-wcp-v0 samples with engine elapsed > 1 s (POST/v2 engine, 2 s budget) ==
+events with decision=timeout are the budget answer (503); abandoned-body-processing-finished
+is the abandoned call's total runtime. Dominant rule ids: '-' = no audit entry (abandoned
+transactions are not audit-logged); filled by the 120 s-budget replay in step19-t2-slow-replay.txt
+-- PL1 --
+wcp-ce387745a393 body=84292B ct=application/vnd.chrome.uma decision=abandoned-body-processing-finished elapsed=8210ms rules=[-]
+wcp-1ac6d04dac2d body=78297B ct=application/vnd.chrome.uma decision=abandoned-body-processing-finished elapsed=7238ms rules=[-]
+wcp-baf63e0805fa body=43094B ct=application/json;charset=UTF-8 decision=abandoned-body-processing-finished elapsed=3708ms rules=[-]
+wcp-1ac6d04dac2d body=78297B ct=application/vnd.chrome.uma decision=timeout elapsed=2164ms rules=[-]
+wcp-ce387745a393 body=84292B ct=application/vnd.chrome.uma decision=timeout elapsed=2003ms rules=[-]
+wcp-baf63e0805fa body=43094B ct=application/json;charset=UTF-8 decision=timeout elapsed=2002ms rules=[-]
+-- PL2 --
+wcp-f8ba3db5e5c3 body=97608B ct=application/vnd.chrome.uma decision=abandoned-body-processing-finished elapsed=2151ms rules=[-]
+wcp-2e39e9b3376a body=76061B ct=- decision=abandoned-body-processing-finished elapsed=2129ms rules=[-]
+wcp-377307dc2a53 body=69714B ct=- decision=abandoned-body-processing-finished elapsed=2035ms rules=[-]
+wcp-377307dc2a53 body=69714B ct=- decision=timeout elapsed=2008ms rules=[-]
+wcp-2e39e9b3376a body=76061B ct=- decision=timeout elapsed=2003ms rules=[-]
+wcp-f8ba3db5e5c3 body=97608B ct=application/vnd.chrome.uma decision=timeout elapsed=2001ms rules=[-]
