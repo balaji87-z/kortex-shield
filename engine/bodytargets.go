@@ -21,12 +21,16 @@
 // removed (rules 5/17 respected).
 //
 // Scope (documented in docs/engine-design.md before the re-runs): the
-// payload-scanning families REQUEST-921 (CRLF in arguments) and
-// REQUEST-930..REQUEST-944 (LFI, RFI, RCE, PHP, SSRF, XSS, SQLi, session
-// fixation, Java). REQUEST-920 protocol-structure rules are out of scope:
-// their ARGS checks are size/count/encoding-structure checks where the raw
-// body is not an argument value (adding it would change size/count semantics
-// and run URL-encoding validators over bodies that are not URL-encoded).
+// payload-scanning families REQUEST-930..REQUEST-944 (LFI, RFI, RCE, PHP,
+// SSRF, XSS, SQLi, session fixation, Java). REQUEST-920 protocol-structure
+// rules are out of scope: their ARGS checks are size/count/encoding-structure
+// checks where the raw body is not an argument value (adding it would change
+// size/count semantics and run URL-encoding validators over bodies that are
+// not URL-encoded). REQUEST-921 is out of scope for the same reason (E26,
+// held-out WCP evidence): its ARGS checks test DECODED argument values for
+// CRLF smuggling; literal CRLF inside a raw body is normal multi-line
+// content, so the added target manufactured false positives (921150 in 72%
+// of the WCP PL1 gained ids of the first pass).
 package main
 
 import (
@@ -65,7 +69,7 @@ func requestBodyTargetUpdates(rulesDir string) ([]int, error) {
 	for _, f := range files {
 		base := filepath.Base(f)
 		fam := strings.Split(base, "-")[1]
-		if fam != "921" && !strings.HasPrefix(fam, "93") && !strings.HasPrefix(fam, "94") {
+		if !strings.HasPrefix(fam, "93") && !strings.HasPrefix(fam, "94") {
 			continue
 		}
 		logical, err := logicalRuleLines(f)
@@ -93,7 +97,7 @@ func requestBodyTargetUpdates(rulesDir string) ([]int, error) {
 			if _, err := fmt.Sscanf(idm[1], "%d", &id); err != nil {
 				continue
 			}
-			if id < 921000 || id > 949999 {
+			if id < 930000 || id > 949999 {
 				continue
 			}
 			if seen[id] {
