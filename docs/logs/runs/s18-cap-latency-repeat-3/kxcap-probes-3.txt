@@ -1,0 +1,15 @@
+phaseA-cap32 repeat3 probe1 200 158ms
+phaseA-cap32 repeat3 probe2 200 394ms
+phaseA-cap32 repeat3 probe3 200 311ms
+phaseA-cap32 repeat3 probe4 200 677ms
+phaseA-cap32 repeat3 probe5 200 1006ms
+phaseA-cap32 repeat3 probe6 200 836ms
+phaseA-cap32 repeat3 probe7 200 889ms
+phaseA-cap32 repeat3 probe8 200 481ms
+phaseA-cap32 repeat3 probe9 200 1877ms
+phaseA-cap32 repeat3 probe10 200 548ms
+phaseA-cap32 repeat3 probe11 200 684ms
+phaseA-cap32 repeat3 probe12 200 967ms
+phaseA-cap32 repeat3 probe13 200 555ms
+phaseA-cap32 repeat3 probe14 200 583ms
+phaseA-cap32 repeat3 probe15 200 616ms
