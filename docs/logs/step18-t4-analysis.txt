@@ -1,0 +1,236 @@
+
+== attacks-ct-v0 pl1 pre vs post [IN-SAMPLE (counts only, rule 35)] n=320
+   blocked pre=286 post=292 gained=6 lost=0
+   worst-case pre=286 post=292 gained=6 lost=0
+   outcomes pre: {'waf_block': 286, 'waf_pass': 34}
+   outcomes post: {'waf_block': 292, 'waf_pass': 28}
+   gained ids (post rule ids):
+     actv0-octet-stream-command-injection-dc2932d5 rules=['932125', '932380', '949110']
+     actv0-octet-stream-sqli-6e47f23b rules=['942100', '949110']
+     actv0-text-plain-command-injection-dc2932d5 rules=['932125', '932380', '949110']
+     actv0-text-plain-sqli-6e47f23b rules=['942100', '949110']
+     actv0-unknown-ct-command-injection-dc2932d5 rules=['932125', '932380', '949110']
+     actv0-unknown-ct-sqli-6e47f23b rules=['942100', '949110']
+
+== attacks-ct-v0 pl2 pre vs post [IN-SAMPLE (counts only, rule 35)] n=320
+   blocked pre=310 post=313 gained=3 lost=0
+   worst-case pre=310 post=313 gained=3 lost=0
+   outcomes pre: {'waf_block': 310, 'waf_pass': 10}
+   outcomes post: {'waf_block': 313, 'waf_pass': 7}
+   gained ids (post rule ids):
+     actv0-octet-stream-command-injection-ecb32a80 rules=['920240', '932240', '949110']
+     actv0-text-plain-command-injection-ecb32a80 rules=['920240', '932240', '949110']
+     actv0-unknown-ct-command-injection-ecb32a80 rules=['920240', '932240', '949110']
+
+== attacks-v0 pl1 pre vs post [IN-SAMPLE (counts only, rule 35)] n=1054
+   blocked pre=954 post=954 gained=0 lost=0
+   worst-case pre=954 post=954 gained=0 lost=0
+   outcomes pre: {'waf_block': 954, 'waf_pass': 100}
+   outcomes post: {'waf_block': 954, 'waf_pass': 100}
+
+== attacks-v0 pl2 pre vs post [IN-SAMPLE (counts only, rule 35)] n=1054
+   blocked pre=1024 post=1024 gained=0 lost=0
+   worst-case pre=1024 post=1024 gained=0 lost=0
+   outcomes pre: {'waf_block': 1024, 'waf_pass': 30}
+   outcomes post: {'waf_block': 1024, 'waf_pass': 30}
+
+== benign-browse-v1 pl1 pre vs post [HELD-OUT] n=774
+   blocked pre=124 post=124 gained=0 lost=0
+   worst-case pre=124 post=124 gained=0 lost=0
+   outcomes pre: {'waf_block': 124, 'waf_pass': 650}
+   outcomes post: {'waf_block': 124, 'waf_pass': 650}
+
+== benign-browse-v1 pl2 pre vs post [HELD-OUT] n=774
+   blocked pre=124 post=124 gained=0 lost=0
+   worst-case pre=124 post=124 gained=0 lost=0
+   outcomes pre: {'waf_block': 124, 'waf_pass': 650}
+   outcomes post: {'waf_block': 124, 'waf_pass': 650}
+
+== benign-hard-v0 pl1 pre vs post [HELD-OUT] n=180
+   blocked pre=22 post=22 gained=0 lost=0
+   worst-case pre=22 post=22 gained=0 lost=0
+   outcomes pre: {'waf_block': 22, 'waf_pass': 158}
+   outcomes post: {'waf_block': 22, 'waf_pass': 158}
+
+== benign-hard-v0 pl2 pre vs post [HELD-OUT] n=180
+   blocked pre=78 post=78 gained=0 lost=0
+   worst-case pre=78 post=78 gained=0 lost=0
+   outcomes pre: {'waf_block': 78, 'waf_pass': 102}
+   outcomes post: {'waf_block': 78, 'waf_pass': 102}
+
+== benign-wcp-v0 pl1 pre(s17) vs post [HELD-OUT] n=20000
+   blocked pre=2128 post=2191 gained=64 lost=1
+   worst-case pre=2190 post=2250 gained=64 lost=4
+   outcomes pre: {'error': 4, 'waf_block': 2128, 'waf_deny_status': 58, 'waf_pass': 17810}
+   outcomes post: {'error': 1, 'waf_block': 2191, 'waf_deny_status': 58, 'waf_pass': 17750}
+   gained ids (post rule ids):
+     wcp-00d784d0546b rules=['932235', '949110']
+     wcp-02158f556196 rules=['933120', '949110']
+     wcp-032fb0bd16bb rules=['932235', '932380', '949110']
+     wcp-046f43e72bdc rules=['932125', '932370', '949110']
+     wcp-065ab97165c8 rules=['932235', '949110']
+     wcp-07cba1d80902 rules=['933120', '949110']
+     wcp-09f606af5acc rules=['933120', '949110']
+     wcp-0aa06daead34 rules=['932130', '949110']
+     wcp-17c18882a1b0 rules=['932125', '932370', '949110']
+     wcp-19b564e79051 rules=['932370', '949110']
+     wcp-1c3535e77f3f rules=['932370', '949110']
+     wcp-2c825a9145ff rules=['932370', '949110']
+     wcp-2cbe06f1cfd8 rules=['933120', '949110']
+     wcp-2f8f020ced25 rules=['932370', '949110']
+     wcp-35c3ec209c0c rules=['933120', '949110']
+     wcp-39f21e383c0c rules=['932130', '949110']
+     wcp-420646a788bc rules=['932125', '932370', '949110']
+     wcp-4477a3613684 rules=['933120', '949110']
+     wcp-470191f81305 rules=['932370', '949110']
+     wcp-4c82840d198e rules=['932235', '949110']
+     wcp-53adb39b095e rules=['932370', '949110']
+     wcp-559ab475bf23 rules=['932125', '932370', '949110']
+     wcp-5e4c21575907 rules=['932370', '949110']
+     wcp-5f790cc553eb rules=['942550', '949110']
+     wcp-624d60edb980 rules=['932370', '949110']
+     wcp-62d355cd5e42 rules=['932235', '949110']
+     wcp-6aabe8161494 rules=['932370', '949110']
+     wcp-6cf2727aeafc rules=['932370', '949110']
+     wcp-7353861d4ca5 rules=['932130', '933180', '933210', '941100', '949110']
+     wcp-76ca7a7755cb rules=['933120', '949110']
+     wcp-78053a25afb5 rules=['932130', '949110']
+     wcp-7c87b1a93177 rules=['932370', '949110']
+     wcp-7f3afa512b35 rules=['932370', '949110']
+     wcp-8322eb0e2416 rules=['932370', '949110']
+     wcp-85d4f5871372 rules=['942550', '949110']
+     wcp-865370fa1b7e rules=['942550', '949110']
+     wcp-89c1ad11fcdc rules=['932235', '949110']
+     wcp-8aa4b0b85a6f rules=['920270', '921150', '932130', '932230', '932250', '933100', '941100', '941310', '942100', '942540', '949110']
+     wcp-9195d4594c8d rules=['932125', '932370', '949110']
+     wcp-9746f3110ae3 rules=['932235', '949110']
+     wcp-98bc24fb8e83 rules=['932235', '949110']
+     wcp-abdd8cc88c47 rules=['932370', '949110']
+     wcp-ac812f379ab1 rules=['932235', '949110']
+     wcp-aff759752e7f rules=['933120', '949110']
+     wcp-b31837fddf05 rules=['932370', '949110']
+     wcp-b6414928592d rules=['920270', '921150', '932130', '932230', '932250', '933100', '941100', '941310', '942100', '942540', '949110']
+     wcp-bf38003b1803 rules=['932235', '949110']
+     wcp-c20b200aa556 rules=['932370', '949110']
+     wcp-c56a77b98920 rules=['932370', '949110']
+     wcp-c5ed493c30cd rules=['932125', '932370', '949110']
+     wcp-cc7723ecd295 rules=['932370', '949110']
+     wcp-ce8e3e060a63 rules=['932125', '932370', '949110']
+     wcp-cf8bd0fd4ff1 rules=['932370', '949110']
+     wcp-da74649a54a3 rules=['932125', '932370', '949110']
+     wcp-e45e65c7bae3 rules=['932130', '933180', '949110']
+     wcp-e4ba5f1622af rules=['942550', '949110']
+     wcp-e61c4a9fcdd1 rules=['932370', '949110']
+     wcp-e66779ab2cbc rules=['932370', '949110']
+     wcp-ebb2d7beea63 rules=['932370', '949110']
+     wcp-ec295479fa2d rules=['932370', '949110']
+     wcp-ee3ccf263277 rules=['932370', '949110']
+     wcp-eeb0609b88f0 rules=['942550', '949110']
+     wcp-ef1face7a810 rules=['933120', '949110']
+     wcp-f60631e1582a rules=['933120', '949110']
+   lost ids (pre rule ids):
+     wcp-1ac6d04dac2d rules=['920270', '921150', '932230', '932250', '933100', '941100', '941310', '942100', '942540', '949110']
+   worst-case-only lost ids:
+     wcp-1140885081e1 pre_outcome=error post_outcome=waf_pass
+     wcp-908ef72be103 pre_outcome=error post_outcome=waf_pass
+     wcp-f83f7556fc66 pre_outcome=error post_outcome=waf_pass
+
+== benign-wcp-v0 pl2 pre(s17) vs post [HELD-OUT] n=20000
+   blocked pre=8845 post=8871 gained=30 lost=4
+   worst-case pre=8908 post=8931 gained=30 lost=7
+   outcomes pre: {'error': 4, 'inconsistent': 1, 'waf_block': 8845, 'waf_deny_status': 58, 'waf_pass': 11092}
+   outcomes post: {'error': 1, 'inconsistent': 1, 'waf_block': 8871, 'waf_deny_status': 58, 'waf_pass': 11069}
+   gained ids (post rule ids):
+     wcp-05f76076bd9c rules=['932240', '942430', '949110']
+     wcp-0ee7a2a3432a rules=['942120', '949110']
+     wcp-2d8f64a21620 rules=['932240', '942430', '949110']
+     wcp-312ce4be9821 rules=['942120', '949110']
+     wcp-3a29ddd98d64 rules=['942120', '949110']
+     wcp-3bb2b2f87387 rules=['932240', '942430', '949110']
+     wcp-3fcc1f0dab85 rules=['942430', '942440', '949110']
+     wcp-4bc7d22b1376 rules=['942120', '949110']
+     wcp-6da7efe9ac58 rules=['932240', '942430', '949110']
+     wcp-7189919f347c rules=['942430', '949110']
+     wcp-71bc5f8c0218 rules=['932240', '942430', '949110']
+     wcp-733254bda44e rules=['942120', '949110']
+     wcp-82f38620dc6d rules=['942430', '942440', '949110']
+     wcp-87e712868721 rules=['932200', '942430', '949110']
+     wcp-8c32d2276368 rules=['942120', '949110']
+     wcp-91946a8534c1 rules=['942120', '949110']
+     wcp-9b520ca2b40a rules=['942430', '949110']
+     wcp-9b69de39b562 rules=['942120', '949110']
+     wcp-a8ecbaed234b rules=['932240', '942430', '949110']
+     wcp-b6f2246ef4b8 rules=['942370', '949110']
+     wcp-cb3ad05d349b rules=['942430', '942440', '949110']
+     wcp-cf3ef54ea03f rules=['942120', '949110']
+     wcp-d18acdb5bc2e rules=['932240', '942430', '949110']
+     wcp-d3608ad6b6fb rules=['932240', '942430', '949110']
+     wcp-d7fc7f9bebf0 rules=['942430', '949110']
+     wcp-dbfce67591bb rules=['942120', '949110']
+     wcp-e0b3f36206c1 rules=['932240', '942430', '949110']
+     wcp-e2a91321b79c rules=['932240', '942430', '949110']
+     wcp-e96a31626cd7 rules=['942430', '949110']
+     wcp-ecbe1e7c47b6 rules=['942120', '949110']
+   lost ids (pre rule ids):
+     wcp-2e39e9b3376a rules=NONE-IN-AUDIT
+     wcp-377307dc2a53 rules=NONE-IN-AUDIT
+     wcp-62cd1bd36bf7 rules=NONE-IN-AUDIT
+     wcp-f8ba3db5e5c3 rules=NONE-IN-AUDIT
+   worst-case-only lost ids:
+     wcp-1140885081e1 pre_outcome=error post_outcome=waf_pass
+     wcp-908ef72be103 pre_outcome=error post_outcome=waf_pass
+     wcp-f83f7556fc66 pre_outcome=error post_outcome=waf_pass
+
+== CORRECTIONS (post-analysis, runner-based verification) ==
+
+1) Engine non-determinism ("flip"): a request that should be blocked is
+   occasionally passed (UNEXPLAINED, counted; see
+   docs/logs/step18-t4-flip-replay.txt). It contaminates BOTH sides of the
+   pre/post comparison. Verified with the actual runner against the PRE
+   engine (not hand-rolled replays; an earlier hand-rolled replay was
+   invalid - it duplicated Content-Type headers on samples whose recorded
+   header used another case, which CRS 920620 blocks):
+
+   - PL1 gained 64 -> 61 REAL gains + 3 pre-run flip artifacts
+     (wcp-8aa4b0b85a6f, wcp-b6414928592d, wcp-eeb0609b88f0: the pre engine
+     blocks them under the runner, so the pre run's pass was a flip).
+   - PL2 gained 30 -> 29 REAL gains + 1 pre-run flip artifact
+     (wcp-b6f2246ef4b8).
+   - PL2 lost 4 = 3 timeouts (503, event-logged) + 1 post-run flip
+     (wcp-62cd1bd36bf7: the v2 engine blocks it 3/3 on replay; the run
+     passed it once).
+   - PL1 lost 1 = timeout only.
+
+2) FINAL v2 numbers (real, flip-corrected):
+
+   attacks-ct-v0 (IN-SAMPLE, counts only, rule 35):
+     PL1 blocked 286 -> 292 (+6, 0 lost); worst-case 286 -> 292
+     PL2 blocked 310 -> 313 (+3, 0 lost); worst-case 310 -> 313
+   attacks-v0 (IN-SAMPLE, counts only): PL1 954 -> 954 (0/0); PL2 1024 -> 1024 (0/0)
+   benign-browse-v1 (HELD-OUT): PL1 124 -> 124 (0/0); PL2 124 -> 124 (0/0)
+   benign-hard-v0 (HELD-OUT): PL1 22 -> 22 (0/0); PL2 78 -> 78 (0/0)
+   benign-wcp-v0 (HELD-OUT, n=20000):
+     PL1 blocked 2128 -> 2191: +61 real gains, 0 real losses
+       (3 apparent gains were pre-run flips; 1 apparent loss was a timeout)
+       worst-case (errors flagged): 2190 -> 2250
+     PL2 blocked 8845 -> 8871: +29 real gains, real losses = 1 post-run flip
+       (3 apparent losses were timeouts)
+       worst-case: 8908 -> 8931
+
+3) REAL-gain rule distribution (v2 audit, excl. 949110):
+   PL1 (61): 932370 x32, 933120 x10, 932235 x10, 932125 x8, 932130 x5,
+             942550 x4, 933180 x2, 933210 x1  (921150: 0 after the scope fix)
+   PL2 (29): 942430 x18, 942120 x11, 932240 x10, 942440 x3, 932200 x1
+   (a sample can carry several rules; sums exceed the gained count)
+
+4) Rule-18/24 confound check (rules in >=20% of this run's audit entries):
+   v2 PL1 (2249 entries): 932370 466 (20.7%) -> listed.
+   v2 PL2 (8930 entries): 931130 5854 (65.5%), 942430 4990 (55.9%),
+     942200 4272 (47.8%), 942370 3241 (36.3%), 942340 3091 (34.6%) -> listed.
+   PRE runs show the same picture (PL1: 932370 19%, 921150 17%, 942550 17%;
+     PL2: 931130 57%, 942430 54%, 942200 47%, 942370 36%, 942340 35%).
+   The high-fire rates are a property of the WCP corpus under this config
+   (CONFIG-MISMATCH signal per rule 24: the corpus exercises special
+   characters / encoding shapes the config flags), not an artifact
+   introduced by the REQUEST_BODY change: the same rules dominate both
+   sides.

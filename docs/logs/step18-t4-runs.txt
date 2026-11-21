@@ -1,0 +1,303 @@
+== load average at start:  18:53:41 up  3:57,  1 user,  load average: 4.07, 3.91, 3.51
+stub probe: 200
+== manifest sha attacks-ct-v0: 2acbca80510d9e5c1676168743b9d047e4d013fc7ede9d5caac9c82597439940 frozen: 69d0447c5b33ca63e37c2993e8c7e87add2a16d56dd89201978883905f923251  manifest.jsonl
+== manifest sha attacks-v0: 8b06464669c47b136ee0bd6902781ed80fe68ea9bfc4c0e40b1f232689fdc0ab frozen: 5b6a844d9521082428725b6de6b8921a6c0bdc8606e362b5046af633d4fa8540  manifest.jsonl
+== manifest sha benign-browse-v1: 4af578e7919419aeb0d3d2050f8a3f656f1933160e349d8ac469b85d0e452271 frozen: 950a683bf776ef637691514f1dab809fddd2de757bacdff3dc9cb1f30af3b085
+== manifest sha benign-hard-v0: e05e6c1d90e15f75a71f0723295866fee154db48a14698fce7507e75e2054955 frozen: 65bdfc69022c5b026815acacd033d1e005fadc9c2e7000745614bd903a01d78b  manifest.jsonl
+== manifest sha benign-wcp-v0: bdff0c85626615932fe9b87114deee55d743888c8b2a815a8a9948cdf375d667 frozen: c8ce11f26406df96d55e5a1cc6186bcbf648cb29bd628081dd834c6ccf1329d1
+Preparing worktree (detached HEAD 1964793)
+HEAD is now at 1964793 step-18: T4 rule 40 - failing E23/E24 first: split-destroyed payloads pass on text/plain, octet-stream, unknown-ct (200 stub-ok); E25 split-unchanged guard added
+== PRE engine binary: 293dcbd06dfac1de2bf22b2c2f0aac1a  /tmp/kortex-engine-prefix (1964793, pre-REQUEST_BODY-fix)
+== POST engine binary: 0b1ad639b6b73e9638a50fb1de1e62f3  /tmp/kortex-engine-post (3f3f440, REQUEST_BODY fix)
+== engine effective config (pre PL1):
+tools/run_step18_t4.sh: line 47: /tmp/kortex-engine-pre: No such file or directory
+== /__kortex/config:
+
+== run engine attacks-ct-v0 pre pl1 2026-11-20T18:54:07Z
+runner: 320 sample(s) had errors
+{"base_url": "http://localhost:8090", "started_utc": "2026-11-20T18:54:07+00:00", "ended_utc": "2026-11-20T18:54:07+00:00", "load_avg_start": [3.92, 3.9, 3.52], "load_avg_end": [3.92, 3.9, 3.52], "git_commit": "3f3f440b6ba6400ce0dfd78b4fa4e818bfd8e91e", "manifest_sha256": "69d0447c5b33ca63e37c2993e8c7e87add2a16d56dd89201978883905f923251", "default_user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/158.0.0.0 Safari/537.36", "labels": {}, "total_samples": 320, "responses_ok": 0, "blocked": 0, "error_count": 320, "block_rule": {"block_status": 403, "block_marker": "kortex-decision=block"}}
+crs_audit: [Errno 2] No such file or directory: 'out/s18-t4-engine-attacks-ct-v0-pre-pl1/engine-audit-full.log'
+outcome: [Errno 2] No such file or directory: 'out/s18-t4-engine-attacks-ct-v0-pre-pl1/audit.jsonl'
+== run engine attacks-v0 pre pl1 2026-11-20T18:54:08Z
+runner: 1054 sample(s) had errors
+{"base_url": "http://localhost:8090", "started_utc": "2026-11-20T18:54:08+00:00", "ended_utc": "2026-11-20T18:54:08+00:00", "load_avg_start": [3.61, 3.83, 3.5], "load_avg_end": [3.61, 3.83, 3.5], "git_commit": "3f3f440b6ba6400ce0dfd78b4fa4e818bfd8e91e", "manifest_sha256": "5b6a844d9521082428725b6de6b8921a6c0bdc8606e362b5046af633d4fa8540", "default_user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/158.0.0.0 Safari/537.36", "labels": {}, "total_samples": 1054, "responses_ok": 0, "blocked": 0, "error_count": 1054, "block_rule": {"block_status": 403, "block_marker": "kortex-decision=block"}}
+crs_audit: [Errno 2] No such file or directory: 'out/s18-t4-engine-attacks-v0-pre-pl1/engine-audit-full.log'
+outcome: [Errno 2] No such file or directory: 'out/s18-t4-engine-attacks-v0-pre-pl1/audit.jsonl'
+== run engine benign-browse-v1 pre pl1 2026-11-20T18:54:08Z
+runner: 774 sample(s) had errors
+{"base_url": "http://localhost:8090", "started_utc": "2026-11-20T18:54:08+00:00", "ended_utc": "2026-11-20T18:54:09+00:00", "load_avg_start": [3.61, 3.83, 3.5], "load_avg_end": [3.61, 3.83, 3.5], "git_commit": "3f3f440b6ba6400ce0dfd78b4fa4e818bfd8e91e", "manifest_sha256": "950a683bf776ef637691514f1dab809fddd2de757bacdff3dc9cb1f30af3b085", "default_user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/158.0.0.0 Safari/537.36", "labels": {}, "total_samples": 774, "responses_ok": 0, "blocked": 0, "error_count": 774, "block_rule": {"block_status": 403, "block_marker": "kortex-decision=block"}}
+crs_audit: [Errno 2] No such file or directory: 'out/s18-t4-engine-benign-browse-v1-pre-pl1/engine-audit-full.log'
+outcome: [Errno 2] No such file or directory: 'out/s18-t4-engine-benign-browse-v1-pre-pl1/audit.jsonl'
+== run engine benign-hard-v0 pre pl1 2026-11-20T18:54:09Z
+runner: 180 sample(s) had errors
+{"base_url": "http://localhost:8090", "started_utc": "2026-11-20T18:54:09+00:00", "ended_utc": "2026-11-20T18:54:09+00:00", "load_avg_start": [3.61, 3.83, 3.5], "load_avg_end": [3.61, 3.83, 3.5], "git_commit": "3f3f440b6ba6400ce0dfd78b4fa4e818bfd8e91e", "manifest_sha256": "65bdfc69022c5b026815acacd033d1e005fadc9c2e7000745614bd903a01d78b", "default_user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/158.0.0.0 Safari/537.36", "labels": {}, "total_samples": 180, "responses_ok": 0, "blocked": 0, "error_count": 180, "block_rule": {"block_status": 403, "block_marker": "kortex-decision=block"}}
+crs_audit: [Errno 2] No such file or directory: 'out/s18-t4-engine-benign-hard-v0-pre-pl1/engine-audit-full.log'
+outcome: [Errno 2] No such file or directory: 'out/s18-t4-engine-benign-hard-v0-pre-pl1/audit.jsonl'
+== engine effective config (pre PL2):
+tools/run_step18_t4.sh: line 47: /tmp/kortex-engine-pre: No such file or directory
+== /__kortex/config:
+
+== run engine attacks-ct-v0 pre pl2 2026-11-20T18:54:32Z
+runner: 320 sample(s) had errors
+{"base_url": "http://localhost:8090", "started_utc": "2026-11-20T18:54:32+00:00", "ended_utc": "2026-11-20T18:54:32+00:00", "load_avg_start": [3.35, 3.76, 3.48], "load_avg_end": [3.35, 3.76, 3.48], "git_commit": "3f3f440b6ba6400ce0dfd78b4fa4e818bfd8e91e", "manifest_sha256": "69d0447c5b33ca63e37c2993e8c7e87add2a16d56dd89201978883905f923251", "default_user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/158.0.0.0 Safari/537.36", "labels": {}, "total_samples": 320, "responses_ok": 0, "blocked": 0, "error_count": 320, "block_rule": {"block_status": 403, "block_marker": "kortex-decision=block"}}
+crs_audit: [Errno 2] No such file or directory: 'out/s18-t4-engine-attacks-ct-v0-pre-pl2/engine-audit-full.log'
+outcome: [Errno 2] No such file or directory: 'out/s18-t4-engine-attacks-ct-v0-pre-pl2/audit.jsonl'
+== run engine attacks-v0 pre pl2 2026-11-20T18:54:32Z
+runner: 1054 sample(s) had errors
+{"base_url": "http://localhost:8090", "started_utc": "2026-11-20T18:54:32+00:00", "ended_utc": "2026-11-20T18:54:32+00:00", "load_avg_start": [3.35, 3.76, 3.48], "load_avg_end": [3.35, 3.76, 3.48], "git_commit": "3f3f440b6ba6400ce0dfd78b4fa4e818bfd8e91e", "manifest_sha256": "5b6a844d9521082428725b6de6b8921a6c0bdc8606e362b5046af633d4fa8540", "default_user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/158.0.0.0 Safari/537.36", "labels": {}, "total_samples": 1054, "responses_ok": 0, "blocked": 0, "error_count": 1054, "block_rule": {"block_status": 403, "block_marker": "kortex-decision=block"}}
+crs_audit: [Errno 2] No such file or directory: 'out/s18-t4-engine-attacks-v0-pre-pl2/engine-audit-full.log'
+outcome: [Errno 2] No such file or directory: 'out/s18-t4-engine-attacks-v0-pre-pl2/audit.jsonl'
+== run engine benign-browse-v1 pre pl2 2026-11-20T18:54:33Z
+runner: 774 sample(s) had errors
+{"base_url": "http://localhost:8090", "started_utc": "2026-11-20T18:54:33+00:00", "ended_utc": "2026-11-20T18:54:33+00:00", "load_avg_start": [3.4, 3.77, 3.49], "load_avg_end": [3.4, 3.77, 3.49], "git_commit": "3f3f440b6ba6400ce0dfd78b4fa4e818bfd8e91e", "manifest_sha256": "950a683bf776ef637691514f1dab809fddd2de757bacdff3dc9cb1f30af3b085", "default_user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/158.0.0.0 Safari/537.36", "labels": {}, "total_samples": 774, "responses_ok": 0, "blocked": 0, "error_count": 774, "block_rule": {"block_status": 403, "block_marker": "kortex-decision=block"}}
+crs_audit: [Errno 2] No such file or directory: 'out/s18-t4-engine-benign-browse-v1-pre-pl2/engine-audit-full.log'
+outcome: [Errno 2] No such file or directory: 'out/s18-t4-engine-benign-browse-v1-pre-pl2/audit.jsonl'
+== run engine benign-hard-v0 pre pl2 2026-11-20T18:54:33Z
+runner: 180 sample(s) had errors
+{"base_url": "http://localhost:8090", "started_utc": "2026-11-20T18:54:33+00:00", "ended_utc": "2026-11-20T18:54:33+00:00", "load_avg_start": [3.4, 3.77, 3.49], "load_avg_end": [3.4, 3.77, 3.49], "git_commit": "3f3f440b6ba6400ce0dfd78b4fa4e818bfd8e91e", "manifest_sha256": "65bdfc69022c5b026815acacd033d1e005fadc9c2e7000745614bd903a01d78b", "default_user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/158.0.0.0 Safari/537.36", "labels": {}, "total_samples": 180, "responses_ok": 0, "blocked": 0, "error_count": 180, "block_rule": {"block_status": 403, "block_marker": "kortex-decision=block"}}
+crs_audit: [Errno 2] No such file or directory: 'out/s18-t4-engine-benign-hard-v0-pre-pl2/engine-audit-full.log'
+outcome: [Errno 2] No such file or directory: 'out/s18-t4-engine-benign-hard-v0-pre-pl2/audit.jsonl'
+== engine effective config (post PL1):
+kortex-engine: effective config: backend_url=http://127.0.0.1:13000 rule_engine=On blocking_paranoia=1 detection_paranoia=1 max_body_bytes=13107200 max_inspected_bytes=131072 engine_time_budget_ms=2000 rules_dir=/home/vboxuser/kortex-shield/engine/crs listen_addr=127.0.0.1:8090 events_file=/tmp/kx18t4-events-post-1.jsonl audit_log=/tmp/kx18t4-audit-post-1.log request_body_target_updates=173
+== /__kortex/config:
+{"backend_url":"http://127.0.0.1:13000","rule_engine":"On","blocking_paranoia":1,"detection_paranoia":1,"max_body_bytes":13107200,"max_inspected_bytes":131072,"engine_time_budget_ms":2000,"rules_dir":"/home/vboxuser/kortex-shield/engine/crs","listen_addr":"127.0.0.1:8090","events_file":"/tmp/kx18t4-events-post-1.jsonl","audit_log":"/tmp/kx18t4-audit-post-1.log","allowed_methods":"GET HEAD POST OPTIONS","max_inflight_body":8,"request_body_target_updates":173}
+
+== run engine attacks-ct-v0 post pl1 2026-11-20T18:54:35Z
+{"base_url": "http://localhost:8090", "started_utc": "2026-11-20T18:54:35+00:00", "ended_utc": "2026-11-20T18:54:38+00:00", "load_avg_start": [3.4, 3.77, 3.49], "load_avg_end": [3.37, 3.75, 3.48], "git_commit": "3f3f440b6ba6400ce0dfd78b4fa4e818bfd8e91e", "manifest_sha256": "69d0447c5b33ca63e37c2993e8c7e87add2a16d56dd89201978883905f923251", "default_user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/158.0.0.0 Safari/537.36", "labels": {}, "total_samples": 320, "responses_ok": 320, "blocked": 292, "error_count": 0, "block_rule": {"block_status": 403, "block_marker": "kortex-decision=block"}}
+crs_audit: 292 audit entr(ies) -> out/s18-t4-engine-attacks-ct-v0-post-pl1/audit.jsonl
+waf_block: 292
+waf_pass: 28
+== run engine attacks-v0 post pl1 2026-11-20T18:54:39Z
+{"base_url": "http://localhost:8090", "started_utc": "2026-11-20T18:54:39+00:00", "ended_utc": "2026-11-20T18:54:47+00:00", "load_avg_start": [3.37, 3.75, 3.48], "load_avg_end": [3.42, 3.76, 3.49], "git_commit": "3f3f440b6ba6400ce0dfd78b4fa4e818bfd8e91e", "manifest_sha256": "5b6a844d9521082428725b6de6b8921a6c0bdc8606e362b5046af633d4fa8540", "default_user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/158.0.0.0 Safari/537.36", "labels": {}, "total_samples": 1054, "responses_ok": 1054, "blocked": 954, "error_count": 0, "block_rule": {"block_status": 403, "block_marker": "kortex-decision=block"}}
+crs_audit: 1246 audit entr(ies) -> out/s18-t4-engine-attacks-v0-post-pl1/audit.jsonl
+warning: 292 audit entr(ies) could not be attributed to a sample id
+waf_block: 954
+waf_pass: 100
+== run engine benign-browse-v1 post pl1 2026-11-20T18:54:47Z
+{"base_url": "http://localhost:8090", "started_utc": "2026-11-20T18:54:47+00:00", "ended_utc": "2026-11-20T18:54:55+00:00", "load_avg_start": [3.42, 3.76, 3.49], "load_avg_end": [3.66, 3.8, 3.5], "git_commit": "3f3f440b6ba6400ce0dfd78b4fa4e818bfd8e91e", "manifest_sha256": "950a683bf776ef637691514f1dab809fddd2de757bacdff3dc9cb1f30af3b085", "default_user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/158.0.0.0 Safari/537.36", "labels": {}, "total_samples": 774, "responses_ok": 774, "blocked": 124, "error_count": 0, "block_rule": {"block_status": 403, "block_marker": "kortex-decision=block"}}
+crs_audit: 1370 audit entr(ies) -> out/s18-t4-engine-benign-browse-v1-post-pl1/audit.jsonl
+warning: 1246 audit entr(ies) could not be attributed to a sample id
+waf_block: 124
+waf_pass: 650
+== run engine benign-hard-v0 post pl1 2026-11-20T18:54:56Z
+{"base_url": "http://localhost:8090", "started_utc": "2026-11-20T18:54:56+00:00", "ended_utc": "2026-11-20T18:54:57+00:00", "load_avg_start": [3.66, 3.8, 3.5], "load_avg_end": [3.66, 3.8, 3.5], "git_commit": "3f3f440b6ba6400ce0dfd78b4fa4e818bfd8e91e", "manifest_sha256": "65bdfc69022c5b026815acacd033d1e005fadc9c2e7000745614bd903a01d78b", "default_user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/158.0.0.0 Safari/537.36", "labels": {}, "total_samples": 180, "responses_ok": 180, "blocked": 22, "error_count": 0, "block_rule": {"block_status": 403, "block_marker": "kortex-decision=block"}}
+crs_audit: 1392 audit entr(ies) -> out/s18-t4-engine-benign-hard-v0-post-pl1/audit.jsonl
+warning: 1370 audit entr(ies) could not be attributed to a sample id
+waf_block: 22
+waf_pass: 158
+== engine effective config (post PL2):
+kortex-engine: effective config: backend_url=http://127.0.0.1:13000 rule_engine=On blocking_paranoia=2 detection_paranoia=2 max_body_bytes=13107200 max_inspected_bytes=131072 engine_time_budget_ms=2000 rules_dir=/home/vboxuser/kortex-shield/engine/crs listen_addr=127.0.0.1:8090 events_file=/tmp/kx18t4-events-post-2.jsonl audit_log=/tmp/kx18t4-audit-post-2.log request_body_target_updates=173
+== /__kortex/config:
+{"backend_url":"http://127.0.0.1:13000","rule_engine":"On","blocking_paranoia":2,"detection_paranoia":2,"max_body_bytes":13107200,"max_inspected_bytes":131072,"engine_time_budget_ms":2000,"rules_dir":"/home/vboxuser/kortex-shield/engine/crs","listen_addr":"127.0.0.1:8090","events_file":"/tmp/kx18t4-events-post-2.jsonl","audit_log":"/tmp/kx18t4-audit-post-2.log","allowed_methods":"GET HEAD POST OPTIONS","max_inflight_body":8,"request_body_target_updates":173}
+
+== run engine attacks-ct-v0 post pl2 2026-11-20T18:54:59Z
+{"base_url": "http://localhost:8090", "started_utc": "2026-11-20T18:54:59+00:00", "ended_utc": "2026-11-20T18:55:03+00:00", "load_avg_start": [3.6, 3.79, 3.5], "load_avg_end": [4.2, 3.91, 3.54], "git_commit": "3f3f440b6ba6400ce0dfd78b4fa4e818bfd8e91e", "manifest_sha256": "69d0447c5b33ca63e37c2993e8c7e87add2a16d56dd89201978883905f923251", "default_user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/158.0.0.0 Safari/537.36", "labels": {}, "total_samples": 320, "responses_ok": 320, "blocked": 313, "error_count": 0, "block_rule": {"block_status": 403, "block_marker": "kortex-decision=block"}}
+crs_audit: 313 audit entr(ies) -> out/s18-t4-engine-attacks-ct-v0-post-pl2/audit.jsonl
+waf_block: 313
+waf_pass: 7
+== run engine attacks-v0 post pl2 2026-11-20T18:55:03Z
+{"base_url": "http://localhost:8090", "started_utc": "2026-11-20T18:55:03+00:00", "ended_utc": "2026-11-20T18:55:13+00:00", "load_avg_start": [4.2, 3.91, 3.54], "load_avg_end": [4.65, 4.01, 3.58], "git_commit": "3f3f440b6ba6400ce0dfd78b4fa4e818bfd8e91e", "manifest_sha256": "5b6a844d9521082428725b6de6b8921a6c0bdc8606e362b5046af633d4fa8540", "default_user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/158.0.0.0 Safari/537.36", "labels": {}, "total_samples": 1054, "responses_ok": 1054, "blocked": 1024, "error_count": 0, "block_rule": {"block_status": 403, "block_marker": "kortex-decision=block"}}
+crs_audit: 1337 audit entr(ies) -> out/s18-t4-engine-attacks-v0-post-pl2/audit.jsonl
+warning: 313 audit entr(ies) could not be attributed to a sample id
+waf_block: 1024
+waf_pass: 30
+== run engine benign-browse-v1 post pl2 2026-11-20T18:55:14Z
+{"base_url": "http://localhost:8090", "started_utc": "2026-11-20T18:55:14+00:00", "ended_utc": "2026-11-20T18:55:24+00:00", "load_avg_start": [4.65, 4.01, 3.58], "load_avg_end": [4.4, 3.98, 3.57], "git_commit": "3f3f440b6ba6400ce0dfd78b4fa4e818bfd8e91e", "manifest_sha256": "950a683bf776ef637691514f1dab809fddd2de757bacdff3dc9cb1f30af3b085", "default_user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/158.0.0.0 Safari/537.36", "labels": {}, "total_samples": 774, "responses_ok": 774, "blocked": 124, "error_count": 0, "block_rule": {"block_status": 403, "block_marker": "kortex-decision=block"}}
+crs_audit: 1461 audit entr(ies) -> out/s18-t4-engine-benign-browse-v1-post-pl2/audit.jsonl
+warning: 1337 audit entr(ies) could not be attributed to a sample id
+waf_block: 124
+waf_pass: 650
+== run engine benign-hard-v0 post pl2 2026-11-20T18:55:24Z
+{"base_url": "http://localhost:8090", "started_utc": "2026-11-20T18:55:24+00:00", "ended_utc": "2026-11-20T18:55:26+00:00", "load_avg_start": [4.4, 3.98, 3.57], "load_avg_end": [4.4, 3.98, 3.57], "git_commit": "3f3f440b6ba6400ce0dfd78b4fa4e818bfd8e91e", "manifest_sha256": "65bdfc69022c5b026815acacd033d1e005fadc9c2e7000745614bd903a01d78b", "default_user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/158.0.0.0 Safari/537.36", "labels": {}, "total_samples": 180, "responses_ok": 180, "blocked": 78, "error_count": 0, "block_rule": {"block_status": 403, "block_marker": "kortex-decision=block"}}
+crs_audit: 1539 audit entr(ies) -> out/s18-t4-engine-benign-hard-v0-post-pl2/audit.jsonl
+warning: 1461 audit entr(ies) could not be attributed to a sample id
+waf_block: 78
+waf_pass: 102
+== engine effective config (post PL1):
+kortex-engine: effective config: backend_url=http://127.0.0.1:13000 rule_engine=On blocking_paranoia=1 detection_paranoia=1 max_body_bytes=13107200 max_inspected_bytes=131072 engine_time_budget_ms=2000 rules_dir=/home/vboxuser/kortex-shield/engine/crs listen_addr=127.0.0.1:8090 events_file=/tmp/kx18t4-events-post-1.jsonl audit_log=/tmp/kx18t4-audit-post-1.log request_body_target_updates=173
+== /__kortex/config:
+{"backend_url":"http://127.0.0.1:13000","rule_engine":"On","blocking_paranoia":1,"detection_paranoia":1,"max_body_bytes":13107200,"max_inspected_bytes":131072,"engine_time_budget_ms":2000,"rules_dir":"/home/vboxuser/kortex-shield/engine/crs","listen_addr":"127.0.0.1:8090","events_file":"/tmp/kx18t4-events-post-1.jsonl","audit_log":"/tmp/kx18t4-audit-post-1.log","allowed_methods":"GET HEAD POST OPTIONS","max_inflight_body":8,"request_body_target_updates":173}
+
+== run engine benign-wcp-v0 post pl1 2026-11-20T18:55:28Z
+runner: 1 sample(s) had errors
+{"base_url": "http://localhost:8090", "started_utc": "2026-11-20T18:55:29+00:00", "ended_utc": "2026-11-20T19:14:49+00:00", "load_avg_start": [4.13, 3.93, 3.56], "load_avg_end": [4.93, 4.44, 3.86], "git_commit": "3f3f440b6ba6400ce0dfd78b4fa4e818bfd8e91e", "manifest_sha256": "c8ce11f26406df96d55e5a1cc6186bcbf648cb29bd628081dd834c6ccf1329d1", "default_user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/158.0.0.0 Safari/537.36", "labels": {}, "total_samples": 20000, "responses_ok": 19999, "blocked": 2279, "error_count": 1, "block_rule": {"block_status": 403, "block_marker": "kortex-decision=block"}}
+crs_audit: 2337 audit entr(ies) -> out/s18-t4-engine-benign-wcp-v0-post-pl1/audit.jsonl
+error: 1
+waf_block: 2279
+waf_deny_status: 58
+waf_pass: 17662
+== engine effective config (post PL2):
+kortex-engine: effective config: backend_url=http://127.0.0.1:13000 rule_engine=On blocking_paranoia=2 detection_paranoia=2 max_body_bytes=13107200 max_inspected_bytes=131072 engine_time_budget_ms=2000 rules_dir=/home/vboxuser/kortex-shield/engine/crs listen_addr=127.0.0.1:8090 events_file=/tmp/kx18t4-events-post-2.jsonl audit_log=/tmp/kx18t4-audit-post-2.log request_body_target_updates=173
+== /__kortex/config:
+{"backend_url":"http://127.0.0.1:13000","rule_engine":"On","blocking_paranoia":2,"detection_paranoia":2,"max_body_bytes":13107200,"max_inspected_bytes":131072,"engine_time_budget_ms":2000,"rules_dir":"/home/vboxuser/kortex-shield/engine/crs","listen_addr":"127.0.0.1:8090","events_file":"/tmp/kx18t4-events-post-2.jsonl","audit_log":"/tmp/kx18t4-audit-post-2.log","allowed_methods":"GET HEAD POST OPTIONS","max_inflight_body":8,"request_body_target_updates":173}
+
+== run engine benign-wcp-v0 post pl2 2026-11-20T19:15:04Z
+== load average at start (PRE re-run):  03:31:51 up 2 min,  1 user,  load average: 1.12, 0.53, 0.21
+Preparing worktree (detached HEAD 1964793)
+HEAD is now at 1964793 step-18: T4 rule 40 - failing E23/E24 first: split-destroyed payloads pass on text/plain, octet-stream, unknown-ct (200 stub-ok); E25 split-unchanged guard added
+== PRE engine binary: 293dcbd06dfac1de2bf22b2c2f0aac1a  /tmp/kortex-engine-prefix (1964793, pre-REQUEST_BODY-fix)
+== engine effective config (pre PL1):
+kortex-engine: effective config: backend_url=http://127.0.0.1:13000 rule_engine=On blocking_paranoia=1 detection_paranoia=1 max_body_bytes=13107200 max_inspected_bytes=131072 engine_time_budget_ms=2000 rules_dir=/home/vboxuser/kortex-shield/engine/crs listen_addr=127.0.0.1:8090 events_file=/tmp/kx18t4-events-pre-1.jsonl audit_log=/tmp/kx18t4-audit-pre-1.log
+== /__kortex/config:
+{"backend_url":"http://127.0.0.1:13000","rule_engine":"On","blocking_paranoia":1,"detection_paranoia":1,"max_body_bytes":13107200,"max_inspected_bytes":131072,"engine_time_budget_ms":2000,"rules_dir":"/home/vboxuser/kortex-shield/engine/crs","listen_addr":"127.0.0.1:8090","events_file":"/tmp/kx18t4-events-pre-1.jsonl","audit_log":"/tmp/kx18t4-audit-pre-1.log","allowed_methods":"GET HEAD POST OPTIONS","max_inflight_body":8}
+
+== run engine attacks-ct-v0 pre pl1 2026-11-21T03:31:59Z
+{"base_url": "http://localhost:8090", "started_utc": "2026-11-21T03:31:59+00:00", "ended_utc": "2026-11-21T03:32:00+00:00", "load_avg_start": [1.27, 0.57, 0.22], "load_avg_end": [1.17, 0.56, 0.22], "git_commit": "3f3f440b6ba6400ce0dfd78b4fa4e818bfd8e91e", "manifest_sha256": "69d0447c5b33ca63e37c2993e8c7e87add2a16d56dd89201978883905f923251", "default_user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/158.0.0.0 Safari/537.36", "labels": {}, "total_samples": 320, "responses_ok": 320, "blocked": 286, "error_count": 0, "block_rule": {"block_status": 403, "block_marker": "kortex-decision=block"}}
+crs_audit: 286 audit entr(ies) -> out/s18-t4-engine-attacks-ct-v0-pre-pl1/audit.jsonl
+waf_block: 286
+waf_pass: 34
+== run engine attacks-v0 pre pl1 2026-11-21T03:32:01Z
+{"base_url": "http://localhost:8090", "started_utc": "2026-11-21T03:32:01+00:00", "ended_utc": "2026-11-21T03:32:06+00:00", "load_avg_start": [1.17, 0.56, 0.22], "load_avg_end": [1.64, 0.67, 0.26], "git_commit": "3f3f440b6ba6400ce0dfd78b4fa4e818bfd8e91e", "manifest_sha256": "5b6a844d9521082428725b6de6b8921a6c0bdc8606e362b5046af633d4fa8540", "default_user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/158.0.0.0 Safari/537.36", "labels": {}, "total_samples": 1054, "responses_ok": 1054, "blocked": 954, "error_count": 0, "block_rule": {"block_status": 403, "block_marker": "kortex-decision=block"}}
+crs_audit: 1240 audit entr(ies) -> out/s18-t4-engine-attacks-v0-pre-pl1/audit.jsonl
+warning: 286 audit entr(ies) could not be attributed to a sample id
+waf_block: 954
+waf_pass: 100
+== run engine benign-browse-v1 pre pl1 2026-11-21T03:32:06Z
+{"base_url": "http://localhost:8090", "started_utc": "2026-11-21T03:32:06+00:00", "ended_utc": "2026-11-21T03:32:12+00:00", "load_avg_start": [1.64, 0.67, 0.26], "load_avg_end": [1.83, 0.73, 0.28], "git_commit": "3f3f440b6ba6400ce0dfd78b4fa4e818bfd8e91e", "manifest_sha256": "950a683bf776ef637691514f1dab809fddd2de757bacdff3dc9cb1f30af3b085", "default_user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/158.0.0.0 Safari/537.36", "labels": {}, "total_samples": 774, "responses_ok": 774, "blocked": 124, "error_count": 0, "block_rule": {"block_status": 403, "block_marker": "kortex-decision=block"}}
+crs_audit: 1364 audit entr(ies) -> out/s18-t4-engine-benign-browse-v1-pre-pl1/audit.jsonl
+warning: 1240 audit entr(ies) could not be attributed to a sample id
+waf_block: 124
+waf_pass: 650
+== run engine benign-hard-v0 pre pl1 2026-11-21T03:32:12Z
+{"base_url": "http://localhost:8090", "started_utc": "2026-11-21T03:32:12+00:00", "ended_utc": "2026-11-21T03:32:13+00:00", "load_avg_start": [1.83, 0.73, 0.28], "load_avg_end": [1.83, 0.73, 0.28], "git_commit": "3f3f440b6ba6400ce0dfd78b4fa4e818bfd8e91e", "manifest_sha256": "65bdfc69022c5b026815acacd033d1e005fadc9c2e7000745614bd903a01d78b", "default_user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/158.0.0.0 Safari/537.36", "labels": {}, "total_samples": 180, "responses_ok": 180, "blocked": 22, "error_count": 0, "block_rule": {"block_status": 403, "block_marker": "kortex-decision=block"}}
+crs_audit: 1386 audit entr(ies) -> out/s18-t4-engine-benign-hard-v0-pre-pl1/audit.jsonl
+warning: 1364 audit entr(ies) could not be attributed to a sample id
+waf_block: 22
+waf_pass: 158
+== engine effective config (pre PL2):
+kortex-engine: effective config: backend_url=http://127.0.0.1:13000 rule_engine=On blocking_paranoia=2 detection_paranoia=2 max_body_bytes=13107200 max_inspected_bytes=131072 engine_time_budget_ms=2000 rules_dir=/home/vboxuser/kortex-shield/engine/crs listen_addr=127.0.0.1:8090 events_file=/tmp/kx18t4-events-pre-2.jsonl audit_log=/tmp/kx18t4-audit-pre-2.log
+== /__kortex/config:
+{"backend_url":"http://127.0.0.1:13000","rule_engine":"On","blocking_paranoia":2,"detection_paranoia":2,"max_body_bytes":13107200,"max_inspected_bytes":131072,"engine_time_budget_ms":2000,"rules_dir":"/home/vboxuser/kortex-shield/engine/crs","listen_addr":"127.0.0.1:8090","events_file":"/tmp/kx18t4-events-pre-2.jsonl","audit_log":"/tmp/kx18t4-audit-pre-2.log","allowed_methods":"GET HEAD POST OPTIONS","max_inflight_body":8}
+
+== run engine attacks-ct-v0 pre pl2 2026-11-21T03:32:15Z
+{"base_url": "http://localhost:8090", "started_utc": "2026-11-21T03:32:15+00:00", "ended_utc": "2026-11-21T03:32:17+00:00", "load_avg_start": [1.68, 0.71, 0.28], "load_avg_end": [1.68, 0.71, 0.28], "git_commit": "3f3f440b6ba6400ce0dfd78b4fa4e818bfd8e91e", "manifest_sha256": "69d0447c5b33ca63e37c2993e8c7e87add2a16d56dd89201978883905f923251", "default_user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/158.0.0.0 Safari/537.36", "labels": {}, "total_samples": 320, "responses_ok": 320, "blocked": 310, "error_count": 0, "block_rule": {"block_status": 403, "block_marker": "kortex-decision=block"}}
+crs_audit: 310 audit entr(ies) -> out/s18-t4-engine-attacks-ct-v0-pre-pl2/audit.jsonl
+waf_block: 310
+waf_pass: 10
+== run engine attacks-v0 pre pl2 2026-11-21T03:32:17Z
+{"base_url": "http://localhost:8090", "started_utc": "2026-11-21T03:32:17+00:00", "ended_utc": "2026-11-21T03:32:23+00:00", "load_avg_start": [1.68, 0.71, 0.28], "load_avg_end": [1.79, 0.75, 0.29], "git_commit": "3f3f440b6ba6400ce0dfd78b4fa4e818bfd8e91e", "manifest_sha256": "5b6a844d9521082428725b6de6b8921a6c0bdc8606e362b5046af633d4fa8540", "default_user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/158.0.0.0 Safari/537.36", "labels": {}, "total_samples": 1054, "responses_ok": 1054, "blocked": 1024, "error_count": 0, "block_rule": {"block_status": 403, "block_marker": "kortex-decision=block"}}
+crs_audit: 1334 audit entr(ies) -> out/s18-t4-engine-attacks-v0-pre-pl2/audit.jsonl
+warning: 310 audit entr(ies) could not be attributed to a sample id
+waf_block: 1024
+waf_pass: 30
+== run engine benign-browse-v1 pre pl2 2026-11-21T03:32:23Z
+{"base_url": "http://localhost:8090", "started_utc": "2026-11-21T03:32:23+00:00", "ended_utc": "2026-11-21T03:32:30+00:00", "load_avg_start": [1.79, 0.75, 0.29], "load_avg_end": [1.97, 0.83, 0.32], "git_commit": "3f3f440b6ba6400ce0dfd78b4fa4e818bfd8e91e", "manifest_sha256": "950a683bf776ef637691514f1dab809fddd2de757bacdff3dc9cb1f30af3b085", "default_user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/158.0.0.0 Safari/537.36", "labels": {}, "total_samples": 774, "responses_ok": 774, "blocked": 124, "error_count": 0, "block_rule": {"block_status": 403, "block_marker": "kortex-decision=block"}}
+crs_audit: 1458 audit entr(ies) -> out/s18-t4-engine-benign-browse-v1-pre-pl2/audit.jsonl
+warning: 1334 audit entr(ies) could not be attributed to a sample id
+waf_block: 124
+waf_pass: 650
+== run engine benign-hard-v0 pre pl2 2026-11-21T03:32:31Z
+{"base_url": "http://localhost:8090", "started_utc": "2026-11-21T03:32:31+00:00", "ended_utc": "2026-11-21T03:32:32+00:00", "load_avg_start": [1.97, 0.83, 0.32], "load_avg_end": [1.97, 0.83, 0.32], "git_commit": "3f3f440b6ba6400ce0dfd78b4fa4e818bfd8e91e", "manifest_sha256": "65bdfc69022c5b026815acacd033d1e005fadc9c2e7000745614bd903a01d78b", "default_user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/158.0.0.0 Safari/537.36", "labels": {}, "total_samples": 180, "responses_ok": 180, "blocked": 78, "error_count": 0, "block_rule": {"block_status": 403, "block_marker": "kortex-decision=block"}}
+crs_audit: 1536 audit entr(ies) -> out/s18-t4-engine-benign-hard-v0-pre-pl2/audit.jsonl
+warning: 1458 audit entr(ies) could not be attributed to a sample id
+waf_block: 78
+waf_pass: 102
+== load average at end (PRE re-run):  03:32:32 up 3 min,  1 user,  load average: 1.97, 0.83, 0.32
+PRE-REDONE
+== load average at start (WCP PL2 recovery):  03:32:32 up 3 min,  1 user,  load average: 1.97, 0.83, 0.32
+== POST engine binary rebuilt: 0b1ad639b6b73e9638a50fb1de1e62f3  /tmp/kortex-engine-post
+== engine effective config (post PL2, recovery):
+kortex-engine: effective config: backend_url=http://127.0.0.1:13000 rule_engine=On blocking_paranoia=2 detection_paranoia=2 max_body_bytes=13107200 max_inspected_bytes=131072 engine_time_budget_ms=2000 rules_dir=/home/vboxuser/kortex-shield/engine/crs listen_addr=127.0.0.1:8090 events_file=/tmp/kx18t4-events-post-2.jsonl audit_log=/tmp/kx18t4-audit-post-2.log request_body_target_updates=173
+== /__kortex/config:
+{"backend_url":"http://127.0.0.1:13000","rule_engine":"On","blocking_paranoia":2,"detection_paranoia":2,"max_body_bytes":13107200,"max_inspected_bytes":131072,"engine_time_budget_ms":2000,"rules_dir":"/home/vboxuser/kortex-shield/engine/crs","listen_addr":"127.0.0.1:8090","events_file":"/tmp/kx18t4-events-post-2.jsonl","audit_log":"/tmp/kx18t4-audit-post-2.log","allowed_methods":"GET HEAD POST OPTIONS","max_inflight_body":8,"request_body_target_updates":173}
+
+== run engine benign-wcp-v0 post pl2 (recovery) 2026-11-21T03:32:35Z
+runner: 1 sample(s) had errors
+{"base_url": "http://localhost:8090", "started_utc": "2026-11-21T03:32:36+00:00", "ended_utc": "2026-11-21T03:42:14+00:00", "load_avg_start": [1.82, 0.81, 0.32], "load_avg_end": [2.86, 2.56, 1.56], "git_commit": "3f3f440b6ba6400ce0dfd78b4fa4e818bfd8e91e", "manifest_sha256": "c8ce11f26406df96d55e5a1cc6186bcbf648cb29bd628081dd834c6ccf1329d1", "default_user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/158.0.0.0 Safari/537.36", "labels": {}, "total_samples": 20000, "responses_ok": 19999, "blocked": 8870, "error_count": 1, "block_rule": {"block_status": 403, "block_marker": "kortex-decision=block"}}
+crs_audit: 8929 audit entr(ies) -> out/s18-t4-engine-benign-wcp-v0-post-pl2/audit.jsonl
+inconsistent samples: wcp-67cb71cd0c38
+error: 1
+inconsistent: 1
+waf_block: 8870
+waf_deny_status: 58
+waf_pass: 11070
+== load average at end (WCP PL2 recovery):  03:42:26 up 13 min,  1 user,  load average: 2.72, 2.55, 1.57
+WCP-PL2-RECOVERED
+== load average at start (v2 re-run):  04:13:20 up 44 min,  1 user,  load average: 1.91, 1.47, 1.34
+== V2 engine binary: 8a107ff3a17aac5e330fea4f0ccba93f  /tmp/kortex-engine-v2 (02bac43, 921 excluded, 166 updates)
+== engine effective config (v2 PL1):
+kortex-engine: effective config: backend_url=http://127.0.0.1:13000 rule_engine=On blocking_paranoia=1 detection_paranoia=1 max_body_bytes=13107200 max_inspected_bytes=131072 engine_time_budget_ms=2000 rules_dir=/home/vboxuser/kortex-shield/engine/crs listen_addr=127.0.0.1:8090 events_file=/tmp/kx18t4-events-v2-1.jsonl audit_log=/tmp/kx18t4-audit-v2-1.log request_body_target_updates=166
+== /__kortex/config:
+{"backend_url":"http://127.0.0.1:13000","rule_engine":"On","blocking_paranoia":1,"detection_paranoia":1,"max_body_bytes":13107200,"max_inspected_bytes":131072,"engine_time_budget_ms":2000,"rules_dir":"/home/vboxuser/kortex-shield/engine/crs","listen_addr":"127.0.0.1:8090","events_file":"/tmp/kx18t4-events-v2-1.jsonl","audit_log":"/tmp/kx18t4-audit-v2-1.log","allowed_methods":"GET HEAD POST OPTIONS","max_inflight_body":8,"request_body_target_updates":166}
+
+== run engine attacks-ct-v0 v2 pl1 2026-11-21T04:13:22Z
+{"base_url": "http://localhost:8090", "started_utc": "2026-11-21T04:13:22+00:00", "ended_utc": "2026-11-21T04:13:23+00:00", "load_avg_start": [1.91, 1.47, 1.34], "load_avg_end": [1.91, 1.47, 1.34], "git_commit": "02bac432649fc3198de0e3362095639e74da18a6", "manifest_sha256": "69d0447c5b33ca63e37c2993e8c7e87add2a16d56dd89201978883905f923251", "default_user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/158.0.0.0 Safari/537.36", "labels": {}, "total_samples": 320, "responses_ok": 320, "blocked": 292, "error_count": 0, "block_rule": {"block_status": 403, "block_marker": "kortex-decision=block"}}
+crs_audit: 292 audit entr(ies) -> out/s18-t4-engine-attacks-ct-v0-v2-pl1/audit.jsonl
+waf_block: 292
+waf_pass: 28
+== run engine attacks-v0 v2 pl1 2026-11-21T04:13:24Z
+{"base_url": "http://localhost:8090", "started_utc": "2026-11-21T04:13:24+00:00", "ended_utc": "2026-11-21T04:13:29+00:00", "load_avg_start": [1.91, 1.47, 1.34], "load_avg_end": [2.24, 1.55, 1.37], "git_commit": "02bac432649fc3198de0e3362095639e74da18a6", "manifest_sha256": "5b6a844d9521082428725b6de6b8921a6c0bdc8606e362b5046af633d4fa8540", "default_user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/158.0.0.0 Safari/537.36", "labels": {}, "total_samples": 1054, "responses_ok": 1054, "blocked": 954, "error_count": 0, "block_rule": {"block_status": 403, "block_marker": "kortex-decision=block"}}
+crs_audit: 1246 audit entr(ies) -> out/s18-t4-engine-attacks-v0-v2-pl1/audit.jsonl
+warning: 292 audit entr(ies) could not be attributed to a sample id
+waf_block: 954
+waf_pass: 100
+== run engine benign-browse-v1 v2 pl1 2026-11-21T04:13:29Z
+{"base_url": "http://localhost:8090", "started_utc": "2026-11-21T04:13:29+00:00", "ended_utc": "2026-11-21T04:13:36+00:00", "load_avg_start": [2.24, 1.55, 1.37], "load_avg_end": [2.28, 1.58, 1.38], "git_commit": "02bac432649fc3198de0e3362095639e74da18a6", "manifest_sha256": "950a683bf776ef637691514f1dab809fddd2de757bacdff3dc9cb1f30af3b085", "default_user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/158.0.0.0 Safari/537.36", "labels": {}, "total_samples": 774, "responses_ok": 774, "blocked": 124, "error_count": 0, "block_rule": {"block_status": 403, "block_marker": "kortex-decision=block"}}
+crs_audit: 1370 audit entr(ies) -> out/s18-t4-engine-benign-browse-v1-v2-pl1/audit.jsonl
+warning: 1246 audit entr(ies) could not be attributed to a sample id
+waf_block: 124
+waf_pass: 650
+== run engine benign-hard-v0 v2 pl1 2026-11-21T04:13:36Z
+{"base_url": "http://localhost:8090", "started_utc": "2026-11-21T04:13:36+00:00", "ended_utc": "2026-11-21T04:13:38+00:00", "load_avg_start": [2.28, 1.58, 1.38], "load_avg_end": [2.28, 1.58, 1.38], "git_commit": "02bac432649fc3198de0e3362095639e74da18a6", "manifest_sha256": "65bdfc69022c5b026815acacd033d1e005fadc9c2e7000745614bd903a01d78b", "default_user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/158.0.0.0 Safari/537.36", "labels": {}, "total_samples": 180, "responses_ok": 180, "blocked": 22, "error_count": 0, "block_rule": {"block_status": 403, "block_marker": "kortex-decision=block"}}
+crs_audit: 1392 audit entr(ies) -> out/s18-t4-engine-benign-hard-v0-v2-pl1/audit.jsonl
+warning: 1370 audit entr(ies) could not be attributed to a sample id
+waf_block: 22
+waf_pass: 158
+== engine effective config (v2 PL2):
+kortex-engine: effective config: backend_url=http://127.0.0.1:13000 rule_engine=On blocking_paranoia=2 detection_paranoia=2 max_body_bytes=13107200 max_inspected_bytes=131072 engine_time_budget_ms=2000 rules_dir=/home/vboxuser/kortex-shield/engine/crs listen_addr=127.0.0.1:8090 events_file=/tmp/kx18t4-events-v2-2.jsonl audit_log=/tmp/kx18t4-audit-v2-2.log request_body_target_updates=166
+== /__kortex/config:
+{"backend_url":"http://127.0.0.1:13000","rule_engine":"On","blocking_paranoia":2,"detection_paranoia":2,"max_body_bytes":13107200,"max_inspected_bytes":131072,"engine_time_budget_ms":2000,"rules_dir":"/home/vboxuser/kortex-shield/engine/crs","listen_addr":"127.0.0.1:8090","events_file":"/tmp/kx18t4-events-v2-2.jsonl","audit_log":"/tmp/kx18t4-audit-v2-2.log","allowed_methods":"GET HEAD POST OPTIONS","max_inflight_body":8,"request_body_target_updates":166}
+
+== run engine attacks-ct-v0 v2 pl2 2026-11-21T04:13:40Z
+{"base_url": "http://localhost:8090", "started_utc": "2026-11-21T04:13:40+00:00", "ended_utc": "2026-11-21T04:13:42+00:00", "load_avg_start": [2.18, 1.57, 1.38], "load_avg_end": [2.18, 1.57, 1.38], "git_commit": "02bac432649fc3198de0e3362095639e74da18a6", "manifest_sha256": "69d0447c5b33ca63e37c2993e8c7e87add2a16d56dd89201978883905f923251", "default_user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/158.0.0.0 Safari/537.36", "labels": {}, "total_samples": 320, "responses_ok": 320, "blocked": 313, "error_count": 0, "block_rule": {"block_status": 403, "block_marker": "kortex-decision=block"}}
+crs_audit: 313 audit entr(ies) -> out/s18-t4-engine-attacks-ct-v0-v2-pl2/audit.jsonl
+waf_block: 313
+waf_pass: 7
+== run engine attacks-v0 v2 pl2 2026-11-21T04:13:42Z
+{"base_url": "http://localhost:8090", "started_utc": "2026-11-21T04:13:42+00:00", "ended_utc": "2026-11-21T04:13:52+00:00", "load_avg_start": [2.18, 1.57, 1.38], "load_avg_end": [2.85, 1.73, 1.43], "git_commit": "02bac432649fc3198de0e3362095639e74da18a6", "manifest_sha256": "5b6a844d9521082428725b6de6b8921a6c0bdc8606e362b5046af633d4fa8540", "default_user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/158.0.0.0 Safari/537.36", "labels": {}, "total_samples": 1054, "responses_ok": 1054, "blocked": 1024, "error_count": 0, "block_rule": {"block_status": 403, "block_marker": "kortex-decision=block"}}
+crs_audit: 1337 audit entr(ies) -> out/s18-t4-engine-attacks-v0-v2-pl2/audit.jsonl
+warning: 313 audit entr(ies) could not be attributed to a sample id
+waf_block: 1024
+waf_pass: 30
+== run engine benign-browse-v1 v2 pl2 2026-11-21T04:13:52Z
+{"base_url": "http://localhost:8090", "started_utc": "2026-11-21T04:13:52+00:00", "ended_utc": "2026-11-21T04:14:01+00:00", "load_avg_start": [2.85, 1.73, 1.43], "load_avg_end": [3.11, 1.82, 1.47], "git_commit": "02bac432649fc3198de0e3362095639e74da18a6", "manifest_sha256": "950a683bf776ef637691514f1dab809fddd2de757bacdff3dc9cb1f30af3b085", "default_user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/158.0.0.0 Safari/537.36", "labels": {}, "total_samples": 774, "responses_ok": 774, "blocked": 124, "error_count": 0, "block_rule": {"block_status": 403, "block_marker": "kortex-decision=block"}}
+crs_audit: 1461 audit entr(ies) -> out/s18-t4-engine-benign-browse-v1-v2-pl2/audit.jsonl
+warning: 1337 audit entr(ies) could not be attributed to a sample id
+waf_block: 124
+waf_pass: 650
+== run engine benign-hard-v0 v2 pl2 2026-11-21T04:14:02Z
+{"base_url": "http://localhost:8090", "started_utc": "2026-11-21T04:14:02+00:00", "ended_utc": "2026-11-21T04:14:04+00:00", "load_avg_start": [3.11, 1.82, 1.47], "load_avg_end": [3.11, 1.82, 1.47], "git_commit": "02bac432649fc3198de0e3362095639e74da18a6", "manifest_sha256": "65bdfc69022c5b026815acacd033d1e005fadc9c2e7000745614bd903a01d78b", "default_user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/158.0.0.0 Safari/537.36", "labels": {}, "total_samples": 180, "responses_ok": 180, "blocked": 78, "error_count": 0, "block_rule": {"block_status": 403, "block_marker": "kortex-decision=block"}}
+crs_audit: 1539 audit entr(ies) -> out/s18-t4-engine-benign-hard-v0-v2-pl2/audit.jsonl
+warning: 1461 audit entr(ies) could not be attributed to a sample id
+waf_block: 78
+waf_pass: 102
+== engine effective config (v2 PL1):
+kortex-engine: effective config: backend_url=http://127.0.0.1:13000 rule_engine=On blocking_paranoia=1 detection_paranoia=1 max_body_bytes=13107200 max_inspected_bytes=131072 engine_time_budget_ms=2000 rules_dir=/home/vboxuser/kortex-shield/engine/crs listen_addr=127.0.0.1:8090 events_file=/tmp/kx18t4-events-v2-1.jsonl audit_log=/tmp/kx18t4-audit-v2-1.log request_body_target_updates=166
+== /__kortex/config:
+{"backend_url":"http://127.0.0.1:13000","rule_engine":"On","blocking_paranoia":1,"detection_paranoia":1,"max_body_bytes":13107200,"max_inspected_bytes":131072,"engine_time_budget_ms":2000,"rules_dir":"/home/vboxuser/kortex-shield/engine/crs","listen_addr":"127.0.0.1:8090","events_file":"/tmp/kx18t4-events-v2-1.jsonl","audit_log":"/tmp/kx18t4-audit-v2-1.log","allowed_methods":"GET HEAD POST OPTIONS","max_inflight_body":8,"request_body_target_updates":166}
+
+== run engine benign-wcp-v0 v2 pl1 2026-11-21T04:14:05Z
+runner: 1 sample(s) had errors
+{"base_url": "http://localhost:8090", "started_utc": "2026-11-21T04:14:06+00:00", "ended_utc": "2026-11-21T04:23:32+00:00", "load_avg_start": [3.02, 1.83, 1.47], "load_avg_end": [4.06, 3.61, 2.62], "git_commit": "02bac432649fc3198de0e3362095639e74da18a6", "manifest_sha256": "c8ce11f26406df96d55e5a1cc6186bcbf648cb29bd628081dd834c6ccf1329d1", "default_user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/158.0.0.0 Safari/537.36", "labels": {}, "total_samples": 20000, "responses_ok": 19999, "blocked": 2191, "error_count": 1, "block_rule": {"block_status": 403, "block_marker": "kortex-decision=block"}}
+crs_audit: 2249 audit entr(ies) -> out/s18-t4-engine-benign-wcp-v0-v2-pl1/audit.jsonl
+error: 1
+waf_block: 2191
+waf_deny_status: 58
+waf_pass: 17750
+== engine effective config (v2 PL2):
+kortex-engine: effective config: backend_url=http://127.0.0.1:13000 rule_engine=On blocking_paranoia=2 detection_paranoia=2 max_body_bytes=13107200 max_inspected_bytes=131072 engine_time_budget_ms=2000 rules_dir=/home/vboxuser/kortex-shield/engine/crs listen_addr=127.0.0.1:8090 events_file=/tmp/kx18t4-events-v2-2.jsonl audit_log=/tmp/kx18t4-audit-v2-2.log request_body_target_updates=166
+== /__kortex/config:
+{"backend_url":"http://127.0.0.1:13000","rule_engine":"On","blocking_paranoia":2,"detection_paranoia":2,"max_body_bytes":13107200,"max_inspected_bytes":131072,"engine_time_budget_ms":2000,"rules_dir":"/home/vboxuser/kortex-shield/engine/crs","listen_addr":"127.0.0.1:8090","events_file":"/tmp/kx18t4-events-v2-2.jsonl","audit_log":"/tmp/kx18t4-audit-v2-2.log","allowed_methods":"GET HEAD POST OPTIONS","max_inflight_body":8,"request_body_target_updates":166}
+
+== run engine benign-wcp-v0 v2 pl2 2026-11-21T04:23:36Z
+runner: 1 sample(s) had errors
+{"base_url": "http://localhost:8090", "started_utc": "2026-11-21T04:23:36+00:00", "ended_utc": "2026-11-21T04:32:32+00:00", "load_avg_start": [3.89, 3.59, 2.62], "load_avg_end": [3.47, 3.15, 2.81], "git_commit": "02bac432649fc3198de0e3362095639e74da18a6", "manifest_sha256": "c8ce11f26406df96d55e5a1cc6186bcbf648cb29bd628081dd834c6ccf1329d1", "default_user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/158.0.0.0 Safari/537.36", "labels": {}, "total_samples": 20000, "responses_ok": 19999, "blocked": 8871, "error_count": 1, "block_rule": {"block_status": 403, "block_marker": "kortex-decision=block"}}
+crs_audit: 8930 audit entr(ies) -> out/s18-t4-engine-benign-wcp-v0-v2-pl2/audit.jsonl
+inconsistent samples: wcp-67cb71cd0c38
+error: 1
+inconsistent: 1
+waf_block: 8871
+waf_deny_status: 58
+waf_pass: 11069
+== load average at end (v2 re-run):  04:32:43 up  1:03,  1 user,  load average: 3.40, 3.15, 2.81
+V2-DONE

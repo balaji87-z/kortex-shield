@@ -60,3 +60,15 @@ provisional status; two are met, one is unproven:
    is neither met nor failed.
 
 Reversal triggers unchanged.
+
+## Status update (step-18, 2026-11-21)
+
+STAYS PROVISIONAL. The T2 per-id comparison is still BLOCKED (no docker,
+no sudo on the current host; the instructor's fallback keeps the decision
+provisional rather than promoting aggregates). Step-18 strengthened the
+engine side (413 delivery fixed test-first; raw-carrier body fidelity via
+a 166-rule REQUEST_BODY target update, flip-corrected held-out results:
++61/+29 real gains on benign-wcp-v0, 0 real detection losses) and
+surfaced a new UNEXPLAINED engine non-determinism (occasional pass-through
+of a would-block request, pre-existing, counted; see
+docs/logs/step18-t4-flip-replay.txt). Reversal triggers unchanged.
