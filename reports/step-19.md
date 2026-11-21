@@ -140,7 +140,7 @@ benigno con body + 1 GET benigno por segundo
 ## T4 — scope final en datos NO vistos (benign-wcp-v1, HELD-OUT)
 
 - Preregistrado ANTES de construir (`docs/plan-benign-wcp-v1.md`, commit
-  a7a6224): seed 1, 10.000 muestras, cap 2%/sitio (200; máx real 160),
+  24a68bc): seed 1, 10.000 muestras, cap 2%/sitio (200; máx real 160),
   índices globales de v0 excluidos → **ids disjuntos (intersección 0,
   verificado)**. El builder se generalizó con CLI (defaults de v0 intactos).
 - Regla 45: la exclusión de REQUEST-921 y la lista de 166 targets se
