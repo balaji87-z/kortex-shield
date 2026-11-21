@@ -15,11 +15,12 @@ type Config struct {
 	RuleEngine         string // On | DetectionOnly
 	BlockingParanoia   int
 	DetectionParanoia  int
-	MaxBodyBytes       int64 // hard ceiling for a request body
-	MaxInspectedBytes  int64 // bodies above this are rejected 413, not passed to the engine
-	EngineTimeBudgetMS int64 // per-request engine time budget; 0 = expire immediately
+	MaxBodyBytes       int64  // hard ceiling for a request body
+	MaxInspectedBytes  int64  // bodies above this are rejected 413, not passed to the engine
+	EngineTimeBudgetMS int64  // per-request engine time budget; 0 = expire immediately
 	AllowedMethods     string // method allow-list handed to CRS 911100 (tx.allowed_methods)
 	MaxInflightBody    int64  // hard cap on concurrent in-flight body-processing calls
+	TestHoldBodyMS     int64  // TEST ONLY: with X-Kortex-Test-Hold:1, sleep this long inside the slot (deterministic hold; 0 = off)
 	ListenAddr         string
 	EventsFile         string
 	CorazaDebugLevel   string
@@ -63,6 +64,7 @@ func loadConfig() *Config {
 		EngineTimeBudgetMS: envInt("KORTEX_ENGINE_TIME_BUDGET_MS", 2000),
 		AllowedMethods:     envOr("KORTEX_ALLOWED_METHODS", "GET HEAD POST OPTIONS"),
 		MaxInflightBody:    envInt("KORTEX_MAX_INFLIGHT_BODY", 8),
+		TestHoldBodyMS:     envInt("KORTEX_TEST_HOLD_BODY_MS", 0),
 		ListenAddr:         envOr("KORTEX_LISTEN_ADDR", ":8080"),
 		EventsFile:         envOr("KORTEX_EVENTS_FILE", "kortex-events.jsonl"),
 		CorazaDebugLevel:   os.Getenv("KORTEX_CORAZA_DEBUG_LEVEL"),

@@ -67,37 +67,82 @@ func TestE28CorazaDebugLoggerWiring(t *testing.T) {
 // starves it (0/131 benign POSTs served during the step-19 T3 attack run,
 // docs/logs/step19-t3-availability.txt). No fix is proposed in step-19;
 // the instructor chooses. Test-first per the step-19 instruction.
+// E29 (step-20 T2 rewrite, deterministic per rule 48): eight attackers
+// hold body-processing slots via the test hook (KORTEX_TEST_HOLD_BODY_MS
+// + X-Kortex-Test-Hold, large 100,000-B bodies, budget 30 s so the hold
+// is not abandoned). Each attacker RETRIES on 503 until it holds a slot
+// (a loser of the startup race must not silently shrink the attack to 7
+// slots). A probe (large body, NO hook header) is then polled until it
+// returns 503 — deterministic proof that every slot of the attacker's
+// lane is held. Then a benign SMALL POST must still be served: non-503
+// AND the backend must have received it. FAILS against the pre-lane
+// engine (single global cap: the benign request 503s); PASSES once
+// lanes isolate the large lane from the small one.
 func TestE29BenignPOSTServedWhileSlotsHeld(t *testing.T) {
-	budget := os.Getenv("KORTEST_T3_SLOW_MS")
-	_ = budget
-	srv, _ := newEnv(t, map[string]string{
-		"KORTEX_MAX_INFLIGHT_BODY":     "8",
-		"KORTEX_ENGINE_TIME_BUDGET_MS": "100",
+	srv, events := newEnv(t, map[string]string{
+		"KORTEX_MAX_INFLIGHT_BODY":       "8",
+		"KORTEX_MAX_INFLIGHT_BODY_LARGE": "2",
+		"KORTEX_BODY_LANE_THRESHOLD":     "65536",
+		"KORTEX_TEST_HOLD_BODY_MS":       "15000",
+		"KORTEX_ENGINE_TIME_BUDGET_MS":   "30000",
 	})
-	// 16 KB text/plain body: processing (~0.6 s) exceeds the 100 ms budget,
-	// so each attacker holds a slot and the call runs abandoned.
-	slow := strings.Repeat("a*b|c$d", 2300) // ~16 KB, no newline-split tricks
-	slow = slow[:16100]
-	type result struct {
-		status int
-	}
-	attackerDone := make(chan result, 8)
+	big := strings.Repeat("x", 100000) // > lane threshold, <= inspected limit
+	attackerDone := make(chan int, 8)
 	for i := 0; i < 8; i++ {
 		go func() {
-			resp := get(t, srv, "/attack", map[string]string{"Content-Type": "text/plain"}, slow)
-			resp.Body.Close()
-			attackerDone <- result{resp.StatusCode}
+			st := 0
+			for try := 0; try < 200; try++ {
+				resp := get(t, srv, "/attack", map[string]string{
+					"Content-Type":       "text/plain",
+					"X-Kortex-Test-Hold": "1",
+				}, big)
+				io.Copy(io.Discard, resp.Body)
+				st = resp.StatusCode
+				resp.Body.Close()
+				if st != http.StatusServiceUnavailable {
+					break // slot held for 15 s from here
+				}
+				time.Sleep(50 * time.Millisecond)
+			}
+			attackerDone <- st
 		}()
 	}
-	// give the attackers time to acquire all 8 slots and start processing
-	time.Sleep(150 * time.Millisecond)
-	resp := get(t, srv, "/benign", map[string]string{"Content-Type": "application/json"}, `{"k0":"v"}`)
-	resp.Body.Close()
-	if resp.StatusCode == http.StatusServiceUnavailable {
-		t.Fatalf("benign body-bearing POST starved: got 503 overload while slots held by slow bodies")
+	// gate: probe until the attacker's lane is provably full (503). Probes
+	// carry no hook header, so a probe that acquires a slot releases it at
+	// once; bounded loop, deterministic outcome while the 8 holds last.
+	gate := false
+	for i := 0; i < 40; i++ {
+		resp := get(t, srv, "/probe", map[string]string{"Content-Type": "text/plain"}, big)
+		io.Copy(io.Discard, resp.Body)
+		st := resp.StatusCode
+		resp.Body.Close()
+		if st == http.StatusServiceUnavailable {
+			gate = true
+			break
+		}
+		time.Sleep(20 * time.Millisecond)
 	}
+	if !gate {
+		t.Fatalf("probe never observed a full lane: attackers did not hold slots")
+	}
+	// benign small POST must be served while the attacker lane is full
+	// (sent BEFORE joining the attackers: the holds must still be active)
+	resp := get(t, srv, "/benign", map[string]string{"Content-Type": "application/json"}, `{"k0":"v"}`)
+	io.Copy(io.Discard, resp.Body)
+	benignStatus := resp.StatusCode
+	resp.Body.Close()
+	attStatuses := make([]int, 8)
 	for i := 0; i < 8; i++ {
-		<-attackerDone
+		attStatuses[i] = <-attackerDone
+	}
+	if benignStatus == http.StatusServiceUnavailable {
+		t.Fatalf("benign small POST starved (503) while the attacker lane was full: lanes not effective")
+	}
+	if !backendHit {
+		t.Fatalf("benign small POST never reached the backend")
+	}
+	if ev, err := os.ReadFile(events); err == nil {
+		t.Logf("events-timeline:\n%s", string(ev))
 	}
 }
 

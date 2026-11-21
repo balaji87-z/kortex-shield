@@ -6,8 +6,8 @@ import (
 	"fmt"
 	"io"
 	"net"
-	"os"
 	"net/http"
+	"os"
 	"regexp"
 	"strconv"
 	"strings"
@@ -229,7 +229,16 @@ func (p *Proxy) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 	}
 	done := make(chan bodyProcResult, 1)
 	procLaunched = true
+	// TEST hook: deterministic slot hold (rule 48). Off unless
+	// KORTEX_TEST_HOLD_BODY_MS is set AND the request carries the magic header.
+	holdMS := int64(0)
+	if p.cfg.TestHoldBodyMS > 0 && r.Header.Get("X-Kortex-Test-Hold") == "1" {
+		holdMS = p.cfg.TestHoldBodyMS
+	}
 	go func() {
+		if holdMS > 0 {
+			time.Sleep(time.Duration(holdMS) * time.Millisecond)
+		}
 		it2, err2 := tx.ProcessRequestBody()
 		if bodyBearing {
 			p.inflight.Add(-1)
