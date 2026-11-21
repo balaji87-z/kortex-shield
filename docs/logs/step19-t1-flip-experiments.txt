@@ -1,0 +1,22 @@
+== T1 flip experiments: 2026-11-21T07:33:06Z binary=/tmp/kortex-engine-v2 rounds=500 ==
+cond=d rep=1 rc=0 :: rounds=500 flip_rounds=114 flips/round=0.2280 per_sample={'wcp-62cd1bd36bf7': 37, 'wcp-b6f2246ef4b8': 82} wall_s=8.2
+cond=d rep=2 rc=0 :: rounds=500 flip_rounds=111 flips/round=0.2220 per_sample={'wcp-62cd1bd36bf7': 28, 'wcp-b6f2246ef4b8': 86} wall_s=7.9
+cond=d rep=3 rc=0 :: rounds=500 flip_rounds=122 flips/round=0.2440 per_sample={'wcp-62cd1bd36bf7': 28, 'wcp-b6f2246ef4b8': 102} wall_s=9.0
+cond=d rep=4 rc=0 :: rounds=500 flip_rounds=117 flips/round=0.2340 per_sample={'wcp-62cd1bd36bf7': 32, 'wcp-b6f2246ef4b8': 93} wall_s=8.0
+cond=d rep=5 rc=0 :: rounds=500 flip_rounds=113 flips/round=0.2260 per_sample={'wcp-62cd1bd36bf7': 31, 'wcp-b6f2246ef4b8': 85} wall_s=8.6
+cond=a rep=1 rc=0 :: rounds=500 flip_rounds=110 flips/round=0.2200 per_sample={'wcp-62cd1bd36bf7': 22, 'wcp-b6f2246ef4b8': 93} wall_s=8.2
+cond=a rep=2 rc=0 :: rounds=500 flip_rounds=111 flips/round=0.2220 per_sample={'wcp-62cd1bd36bf7': 27, 'wcp-b6f2246ef4b8': 89} wall_s=8.3
+cond=a rep=3 rc=0 :: rounds=500 flip_rounds=94 flips/round=0.1880 per_sample={'wcp-62cd1bd36bf7': 24, 'wcp-b6f2246ef4b8': 77} wall_s=8.2
+cond=a rep=4 rc=0 :: rounds=500 flip_rounds=107 flips/round=0.2140 per_sample={'wcp-62cd1bd36bf7': 35, 'wcp-b6f2246ef4b8': 78} wall_s=8.5
+cond=a rep=5 rc=0 :: rounds=500 flip_rounds=107 flips/round=0.2140 per_sample={'wcp-62cd1bd36bf7': 30, 'wcp-b6f2246ef4b8': 81} wall_s=8.1
+cond=b rep=1 rc=0 :: rounds=500 flip_rounds=122 flips/round=0.2440 per_sample={'wcp-62cd1bd36bf7': 26, 'wcp-b6f2246ef4b8': 103} wall_s=20.6
+cond=b rep=2 rc=0 :: rounds=500 flip_rounds=108 flips/round=0.2160 per_sample={'wcp-62cd1bd36bf7': 32, 'wcp-b6f2246ef4b8': 83} wall_s=21.7
+cond=b rep=3 rc=0 :: rounds=500 flip_rounds=115 flips/round=0.2300 per_sample={'wcp-62cd1bd36bf7': 35, 'wcp-b6f2246ef4b8': 86} wall_s=18.6
+cond=b rep=4 rc=0 :: rounds=500 flip_rounds=122 flips/round=0.2440 per_sample={'wcp-62cd1bd36bf7': 40, 'wcp-b6f2246ef4b8': 90} wall_s=18.1
+cond=b rep=5 rc=0 :: rounds=500 flip_rounds=108 flips/round=0.2160 per_sample={'wcp-62cd1bd36bf7': 24, 'wcp-b6f2246ef4b8': 88} wall_s=18.6
+cond=c rep=1 rc=0 :: rounds=500 flip_rounds=121 flips/round=0.2420 per_sample={'wcp-62cd1bd36bf7': 27, 'wcp-b6f2246ef4b8': 96} wall_s=6.9
+cond=c rep=2 rc=0 :: rounds=500 flip_rounds=111 flips/round=0.2220 per_sample={'wcp-62cd1bd36bf7': 28, 'wcp-b6f2246ef4b8': 91} wall_s=7.0
+cond=c rep=3 rc=0 :: rounds=500 flip_rounds=122 flips/round=0.2440 per_sample={'wcp-62cd1bd36bf7': 24, 'wcp-b6f2246ef4b8': 101} wall_s=7.0
+cond=c rep=4 rc=0 :: rounds=500 flip_rounds=126 flips/round=0.2520 per_sample={'wcp-62cd1bd36bf7': 37, 'wcp-b6f2246ef4b8': 97} wall_s=7.1
+cond=c rep=5 rc=0 :: rounds=500 flip_rounds=113 flips/round=0.2260 per_sample={'wcp-62cd1bd36bf7': 42, 'wcp-b6f2246ef4b8': 78} wall_s=6.9
+FLIP-EXPERIMENTS-DONE

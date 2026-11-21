@@ -22,6 +22,8 @@ type Config struct {
 	MaxInflightBody    int64  // hard cap on concurrent in-flight body-processing calls
 	ListenAddr         string
 	EventsFile         string
+	CorazaDebugLevel   string
+	CorazaDebugFile    string
 	AuditLog           string
 	// RequestBodyTargetIDs is the sorted list of CRS rule ids that received a
 	// REQUEST_BODY target via SecRuleUpdateTargetById (step-18 T4, body
@@ -63,6 +65,8 @@ func loadConfig() *Config {
 		MaxInflightBody:    envInt("KORTEX_MAX_INFLIGHT_BODY", 8),
 		ListenAddr:         envOr("KORTEX_LISTEN_ADDR", ":8080"),
 		EventsFile:         envOr("KORTEX_EVENTS_FILE", "kortex-events.jsonl"),
+		CorazaDebugLevel:   os.Getenv("KORTEX_CORAZA_DEBUG_LEVEL"),
+		CorazaDebugFile:    os.Getenv("KORTEX_CORAZA_DEBUG_FILE"),
 		AuditLog:           envOr("KORTEX_AUDIT_LOG", "audit.log"),
 	}
 }

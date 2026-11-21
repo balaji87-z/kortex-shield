@@ -1,0 +1,93 @@
+== Step-19 T1: pass-through flip — cause PROVEN by discriminating experiment ==
+
+Reproducer: tools/flip_repro.py (committed BEFORE the experiments; fixed
+order [wcp-62cd1bd36bf7, wcp-b6f2246ef4b8], both same-path GETs with TWO
+same-named 'filter' query params; 942370+942430 match on the productCode
+value at PL2).
+
+1. Baseline flip rate (same binary /tmp/kortex-engine-v2, PL2, 5x500
+   rounds): flip_rounds per 500 = 114/111/122/117/113 (median 114, 22.8%).
+   docs/logs/step19-t1-flip-experiments.txt, per-round files under
+   docs/logs/runs/s19-flip-{d,a,b,c}-{1..5}/.
+
+2. Discriminating experiments (5x500 each, same binary, fresh process per
+   repeat):
+   (a) GOGC=off  -> 110/111/94/107/107  (median 107)  flips PERSIST
+   (b) GOGC=1    -> 122/108/115/122/108 (median 115)  flips PERSIST
+   (c) GOMAXPROCS=1 -> 121/111/122/126/113 (median 121) flips PERSIST
+   (d) -race build, 300 rounds -> 56 flip rounds, ZERO data-race reports
+       (docs/logs/runs/ has the rounds file; race log empty of reports)
+   => The GC/allocator pointer-reuse hypothesis (step-18's HYPOTHESIS about
+   unsafe.StringData keys) is REJECTED as the sole mechanism: with GC off
+   there is no address reuse to speak of, yet flips persist. A data race is
+   excluded by the race detector. Single-threaded execution still flips.
+
+3. Divergence capture (DIAGNOSTIC, E27/E28-instrumented binary
+   /tmp/kortex-engine-e27, coraza debug level=debug, 120 rounds, 27 flip
+   rounds): docs/logs/runs/s19-flip-trace/ (rounds.jsonl, events.jsonl,
+   audit.log, key-tx-segments.log.gz). Per-request tx order == request
+   order (sequential). For the SAME sample:
+   - block tx fNzMHOjnpntpPUugpDU and pass tx hDCJfFwXbpyhaQLQkyZ contain
+     the SAME 22 distinct ARGS values (raw + transformed variants) — no
+     cross-transaction leakage; the pass tx has the correct query values.
+   - rule 942370 MATCHes ARGS 'productCode_uFilter:\"100348880\" OR ...'
+     in the block tx; in the pass tx the same value is evaluated with NO
+     MATCH. 942430: 2 MATCHes in block, 0 in pass.
+   - the evaluation DIVERGES inside operator evaluation on identical
+     input, not in parsing or collections.
+
+4. Mechanism found in coraza v3.7.0 source (module cache,
+   internal/corazawaf/):
+   - rule.go transformArg() keys the per-transaction transformation cache
+     by transformationKey{argKey: unsafe.StringData(arg.Key()), argIndex:
+     i, argVariable, transformationsID} (rule.go:435/463).
+   - the argIndex i is the position of the arg in the slice returned by
+     tx.GetField() -> collection.FindAll(), which iterates
+     c.collection.data — a Go MAP (internal/collections/named.go:155,
+     'for _, data := range c.collection.data'). Go map iteration order is
+     RANDOMIZED per iteration, so the SAME arg lands at a different index
+     for every rule that reads the collection.
+   - both flip samples have TWO args named 'filter'. In a Go map the key
+     string is stored once, so both entries' Key() is the SAME string
+     POINTER: the cache key's pointer component is identical for both.
+     The only distinguishing component is the (randomized) index.
+   - therefore rule A caches transform('filter'[i]=sellingOut...) and
+     rule B, whose map iteration put productCode at the same index i,
+     gets a CACHE HIT and evaluates the regex against the WRONG value ->
+     missed match -> pass. Whether the collision happens depends on the
+     per-rule map order -> intermittent.
+
+5. Discriminating experiment (rule 44): scratch coraza v3.7.0 copy
+   (/tmp/coraza-scratch, DIAGNOSTIC, never shipped) with the
+   transformation cache BYPASSED in transformArg's default case; engine
+   rebuilt against it (/tmp/kortex-engine-nocache from /tmp/engine-scratch
+   with a go.mod replace). 5x500 rounds: flip_rounds = 0/0/0/0/0
+   (0/2500) vs median 114/500 with the cache
+   (docs/logs/step19-t1-nocache.txt, docs/logs/runs/s19-flip-nocache-{1..5}/).
+   The outcome WOULD have been different if the cache were not the cause.
+
+CONCLUSION (rule 33/44): PROVEN — the pass-through flips are caused by
+coraza v3.7.0's transformation cache colliding across same-named request
+arguments when GetField's map iteration order varies. Not a data race,
+not GC.
+
+FIXABILITY: the cache is internal to coraza; no CRS edit and no engine
+config can disable it. Per the step-19 instruction ("If not fixable,
+document the exposure and stop; do not invent a mitigation") the exposure
+is documented and NO fix is shipped:
+- exposure: 498/20000 benign-wcp-v0 samples carry >=2 same-named args
+  (docs/logs/step19-t1-exposure.txt); only such samples can flip.
+- observed flip rates: ~0.01-0.14% of would-block samples per full RUN
+  (step-18), ~6-17% per sample per 500-round tight replay.
+- upstream: coraza acknowledges map-order nondeterminism in FindAll
+  (github.com/corazawaf/coraza issue #1815, opened 2026-10-26); v3.8.1
+  (2026-10-02) is a security release fixing several v3.7.x issues but its
+  notes do not list the transformation-cache key. A coraza version bump
+  (and/or an upstream fix keying the cache by content) is the proper fix
+  and needs an instructor decision (rule 7 pins versions).
+- instrumentation added this step (shipped): E27 block/pass events with
+  matched rule ids in kortex-events.jsonl (test-first), E28 optional
+  coraza debug logger (KORTEX_CORAZA_DEBUG_LEVEL/FILE, off by default).
+  Error paths already emitted events (write-body-error, body-processor-
+  error -> 503 timeout events), so a silent engine error cannot look like
+  a pass.
