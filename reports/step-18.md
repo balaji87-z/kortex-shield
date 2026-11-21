@@ -31,7 +31,7 @@
 | task | status | evidence |
 |---|---|---|
 | T1 durable evidence + host facts | done | tools/preserve_run.sh (commit 518e5cc); 24 files under docs/logs/runs/; s17-t2 dirs back-filled (counts match); lost artifacts listed below |
-| T2 WCP connector-side comparison | BLOCKED | no docker / no sudo on this host (verified in T1); per instructor fallback decision 0004 stays provisional, no aggregates promoted |
+| T2 WCP connector-side comparison | done (addendum) | docker became available; coraza connector vs engine per-id, PL1+PL2 — see "T2 results" below |
 | T3 413 connection reset | done | failing E22 13e0b13, fix e198ead, replay docs/logs/step18-t3-replay.txt |
 | T4 body parsing fidelity | done | failing E23-E25 1964793, fix 3f3f440, scope fix E26 02bac43, pre/post runs + analysis docs/logs/step18-t4-analysis.txt, flip evidence docs/logs/step18-t4-flip-replay.txt, cost A/B docs/logs/step18-t4-abandoned-cost.txt |
 | T5 docs | done | docs/baseline-v1.3.md, engine-design.md (scope + UNEXPLAINED entry), engine-evidence.md, acceptance.md E22-E26, decisions/0004, README |
@@ -146,7 +146,59 @@ these numbers do not enter any baseline or parity claim; they are
 this-host only. Artifacts per repeat under docs/logs/runs/s18-cap-latency-
 repeat-{1..6}/ (rule 42, including the engine events files).
 
-### T2 — connector-side comparison: BLOCKED (exactly what is missing)
+### T2 — connector-side comparison: DONE (addendum — docker became available)
+
+Docker 29.1.3 + compose 2.40.3 became available on this host after the
+main report was written. The comparison ran exactly as specified above:
+pinned coraza-crs image (digest in deploy/compose.yml), stub-backend:3000
+(in-container proof), rule-29 proof printed per run, artifacts preserved
+to docs/logs/runs/coraza-benign-wcp-v0-pl{1,2}-default (rule 42).
+
+Blocked-set comparison (quantity: waf_block outcome sets, per rule 32):
+
+| PL | engine blocked | connector blocked | sym-diff | worst-case engine | worst-case connector | sym-diff |
+|---|---|---|---|---|---|---|
+| 1 | 2191 | 3824 | 1673 | 2250 | 3896 | 1686 |
+| 2 | 8871 | 8951 | 114 | 8931 | 9018 | 121 |
+
+Connector-only blocks, classified by the engine's answer in the run
+(docs/logs/step18-t2-classification.json):
+
+- PL1 (1653): 1637 = 920420 CT policy (DESIGN-C4 — the engine deliberately
+  has no content-type allow-list); 14 = engine answered 413 (body-limit
+  policy DESIGN); 2 = engine timed out 503 (budget DESIGN); **0 genuine
+  detection misses**.
+- PL2 (97): 78 = 920420 (DESIGN-C4); 15 = engine 413; 3 = engine 503
+  timeout; **1 = wcp-62cd1bd36bf7, the known flip** (UNEXPLAINED; the
+  connector blocked it with 942370+942430, engine replays 4/6 block,
+  2/6 pass).
+
+Engine-only blocks: PL1 20 (19 REQUEST_BODY fidelity gains + 1 where
+942190 fired on ARGS_NAMES — the engine's raw-body-into-ARGS_NAMES
+processor behaviour, DESIGN residual); PL2 17 (all fidelity gains). The
+connector runs stock CRS and has none of the 166 REQUEST_BODY target
+updates, so this asymmetry is the T4 fix measured against a reference
+that lacks it.
+
+Rule-ID-set differences on commonly blocked ids: PL1 1509/2171, PL2
+3481/8854 — two systematic causes: the connector adds 920420-family
+policy rules the engine lacks (C4), the engine adds REQUEST_BODY
+detection hits the connector lacks (T4).
+
+Connector-side extras (counted): PL1 61 deny_status + 11 errors + 5
+proxy_reject; PL2 61 deny_status + 5 errors + 5 proxy_reject + 1
+inconsistent.
+
+**Conclusion**: after removing the documented DESIGN differences (CT
+policy C4, body-limit policy, time budget) and the 1 flip, the engine's
+blocked set equals the connector's blocked set on benign-wcp-v0 at both
+paranoia levels. Decision 0004's provisional status is lifted for the
+coraza-connector comparison (docs/decisions/0004-engine-core.md); the
+modsec-connector comparison was not re-run this step (step-13 evidence
+stands). Evidence: docs/logs/step18-t2-analysis.txt, sym-diff and
+classification JSONs, both connector runs under docs/logs/runs/.
+
+### T2 — what was missing before docker (kept for the record)
 
 No docker, no docker.sock, no podman/nerdctl, no passwordless sudo on this
 host (verified in T1). To run the comparison I need, in order:
