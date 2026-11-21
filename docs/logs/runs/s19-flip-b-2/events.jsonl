@@ -1,0 +1,2 @@
+{"ts":"2026-11-21T07:35:19.870478915Z","sample_id":"wcp-62cd1bd36bf7-fliprepro","decision":"timeout","status":503,"elapsed_ms":3483.975,"reason":"time budget expired in body processing"}
+{"ts":"2026-11-21T07:35:19.878977993Z","sample_id":"wcp-62cd1bd36bf7-fliprepro","decision":"abandoned-body-processing-finished","status":0,"elapsed_ms":3492.473,"reason":"elapsed_ms=3492 interrupted=true rule_id=949110 status=403"}

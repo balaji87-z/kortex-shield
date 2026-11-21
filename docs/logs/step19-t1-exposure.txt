@@ -1,0 +1,32 @@
+== Step-19 T1 flip exposure ==
+benign-wcp-v0 samples with >=2 same-named args (query or urlencoded body):
+count: 498 / 20000
+mechanism (PROVEN, discriminating experiment): coraza v3.7.0 transformation
+cache keyed by arg-name string POINTER + position in GetField's randomly
+ordered map iteration (rule.go transformArg; collections/named.go FindAll
+iterates a map). Two same-named args swap positions between rules; a rule
+can read the other arg's cached transformation and miss. Evidence:
+docs/logs/step19-t1-flip-experiments.txt (GOGC off/1, GOMAXPROCS=1, -race:
+flips persist ~21-24%/500 rounds), docs/logs/step19-t1-nocache.txt
+(cache bypassed: 0/2500 flip rounds, 5 reps).
+first 20 ids:
+wcp-9b9646e22f08
+wcp-7f3d5862ab2e
+wcp-14960f98fc32
+wcp-b2f1af2c5b93
+wcp-14a55d140d39
+wcp-4121620bd7bb
+wcp-bf8affcf274b
+wcp-e62f2eebc2d3
+wcp-795128cb57a9
+wcp-44d2b6960b25
+wcp-8174d7a1b6a5
+wcp-23654ed42e80
+wcp-d6401f306b07
+wcp-aae85f4f9e37
+wcp-7ff91a155681
+wcp-548c3f7d3336
+wcp-5d12c4b1189a
+wcp-e5f75d8b93bb
+wcp-fdb8c264efe5
+wcp-87f7d40c70df

@@ -6,6 +6,7 @@ import (
 	"fmt"
 	"io"
 	"net"
+	"os"
 	"net/http"
 	"regexp"
 	"strconv"
@@ -14,6 +15,7 @@ import (
 	"time"
 
 	"github.com/corazawaf/coraza/v3"
+	"github.com/corazawaf/coraza/v3/debuglog"
 	"github.com/corazawaf/coraza/v3/types"
 )
 
@@ -37,7 +39,42 @@ func buildWAF(cfg *Config) (coraza.WAF, error) {
 	if err != nil {
 		return nil, err
 	}
-	return coraza.NewWAF(coraza.NewWAFConfig().WithDirectives(conf))
+	wcfg := coraza.NewWAFConfig().WithDirectives(conf)
+	// step-19 T1 (E28): optional coraza debug logger for the flip
+	// investigation (DIAGNOSTIC tooling; off by default).
+	if cfg.CorazaDebugLevel != "" {
+		wcfg = wcfg.WithDebugLogger(newCorazaDebugLogger(cfg.CorazaDebugFile,
+			cfg.CorazaDebugLevel))
+	}
+	return coraza.NewWAF(wcfg)
+}
+
+// newCorazaDebugLogger builds a coraza debuglog.Logger writing to path at
+// the given level (error|warn|info|debug|trace). Falls back to stderr.
+func newCorazaDebugLogger(path, level string) debuglog.Logger {
+	var w io.Writer = os.Stderr
+	if path != "" {
+		f, err := os.OpenFile(path, os.O_CREATE|os.O_WRONLY|os.O_APPEND, 0o644)
+		if err == nil {
+			w = f
+		}
+	}
+	var lvl debuglog.Level
+	switch strings.ToLower(level) {
+	case "error":
+		lvl = debuglog.LevelError
+	case "warn":
+		lvl = debuglog.LevelWarn
+	case "info":
+		lvl = debuglog.LevelInfo
+	case "debug":
+		lvl = debuglog.LevelDebug
+	default:
+		lvl = debuglog.LevelTrace
+	}
+	return debuglog.Default().WithLevel(lvl).(interface {
+		WithOutput(io.Writer) debuglog.Logger
+	}).WithOutput(w)
 }
 
 func buildHandler(cfg *Config) http.Handler {
@@ -240,7 +277,7 @@ func (p *Proxy) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 	// encoding checks: LOG-ONLY (would_reject), never blocking
 	p.logEncodingIssues(sampleID, r, body)
 
-	p.forward(w, r, body)
+	p.forward(w, r, body, sampleID, start)
 	tx.ProcessLogging()
 }
 
@@ -269,7 +306,11 @@ func (p *Proxy) block(w http.ResponseWriter, sampleID string, start time.Time, t
 		status = it.Status
 	}
 	w.WriteHeader(status)
-	fmt.Fprintf(w, "%d kortex-decision=block rules=%s\n", status, strings.Join(matchedIDs(tx), ","))
+	ids := strings.Join(matchedIDs(tx), ",")
+	// step-19 T1 (E27): block events carry the matched rule ids so a flip
+	// round leaves a per-request trail in kortex-events.jsonl
+	p.events.log(sampleID, "block", status, start, "rules="+ids)
+	fmt.Fprintf(w, "%d kortex-decision=block rules=%s\n", status, ids)
 	tx.ProcessLogging()
 }
 
@@ -358,7 +399,10 @@ func (p *Proxy) timeout(w http.ResponseWriter, r *http.Request, sampleID string,
 	}
 }
 
-func (p *Proxy) forward(w http.ResponseWriter, r *http.Request, body []byte) {
+func (p *Proxy) forward(w http.ResponseWriter, r *http.Request, body []byte, sampleID string, start time.Time) {
+	// step-19 T1 (E27): pass events record that the engine evaluated and
+	// chose to forward (a silent error cannot look like a pass)
+	p.events.log(sampleID, "pass", 0, start, "forwarding")
 	out, err := http.NewRequest(r.Method, p.cfg.BackendURL+r.URL.RequestURI(), bytes.NewReader(body))
 	if err != nil {
 		http.Error(w, "bad upstream request", http.StatusBadGateway)

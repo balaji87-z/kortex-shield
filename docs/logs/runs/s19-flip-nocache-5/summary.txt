@@ -1,0 +1,1 @@
+rounds=500 flip_rounds=0 flips/round=0.0000 per_sample={'wcp-62cd1bd36bf7': 0, 'wcp-b6f2246ef4b8': 0} wall_s=7.3
