@@ -1,0 +1,42 @@
+== T3 availability: 2026-11-21T08:18:43Z cap=8 inspected=131072 budget=2000ms PL1 ==
+engine_time_budget_ms=2000
+max_inspected_bytes=131072
+request_body_target_updates=166
+cpu_ticks_start=29 (hz=100)
+load_start=[load average: 1.27, 1.46, 1.70]
+cpu_ticks_at_60s=42082
+load_at_60s=[load average: 5.72, 2.81, 2.16]
+cpu_ticks_end=215401
+load_end=[load average: 10.39, 6.57, 3.83]
+attack window ended 2026-11-21T08:23:52Z; measuring recovery
+recovery: first benign POST with status 200 and <500 ms after attack stop: NOT within 120s
+recovery rows: [[0.0, "501", 26.3], [1.6, "501", 26.6], [4.0, "501", 16.5], [6.8, "501", 8.0], [11.6, "501", 9.1], [12.7, "501", 15.0], [13.7, "501", 14.9], [14.7, "501", 11.6], [15.7, "501", 20.7], [16.8, "501", 8.8], [17.8, "501", 10.4], [18.8, "501", 8.2], [19.8, "501", 6.9], [20.9, "501", 10.3], [21.9, "501", 9.0], [22.9, "501", 6.9], [23.9, "501", 14.3], [24.9, "501", 7.9], [25.9, "501", 11.1], [26.9, "501", 11.7], [28.0, "501", 18.8], [29.0, "501", 9.9], [30.0, "501", 7.0], [31.0, "501", 11.9], [32.1, "501", 7.0], [33.1, "501", 7.9], [34.2, "501", 20.3], [35.2, "501", 7.5], [36.2, "501", 7.4], [37.3, "501", 9.3]]
+benign POSTs: n=131 status200=0 status503_overload=129 other=2
+benign POST success rate: 0/131
+benign GET latency: median=521ms p90=3218ms max=6262ms
+engine events: timeouts(benign+attack 503 budget)=102 overload=8292 abandoned-finished=102
+slot hold time (abandoned call runtime): median=23719ms max=32978ms n=102
+T3-DONE
+
+== Analysis (DIAGNOSTIC, this host only) ==
+- Benign body-bearing POST success rate during the 5-min attack: 0/131
+  (129 x 503 overload, 2 other). Every slot was permanently held by
+  attack requests whose processing is abandoned at 2 s but keeps running:
+  102 abandoned calls finished with median hold 23.7 s / max 33.0 s.
+- Benign GET (no slot needed): median 521 ms, p90 3,218 ms, max 6,262 ms
+  (vs ~10-30 ms unloaded) - degraded but never starved.
+- CPU: engine consumed 2,154 CPU-seconds over the ~306 s window (~7 of 8
+  cores); load average 1.27 -> 10.39.
+- Overload rejections: 8,292 (attack + benign requests rejected while the
+  8 slots were held).
+- Recovery: the recovery probe expected status 200, but the stub answers
+  501 for POST (no do_POST) - the criterion was mis-specified by the
+  harness, not the engine. The recorded rows show the engine PASSED
+  benign POSTs again from the first probe after the attack stopped
+  (501 in 26 ms at t=0), i.e. response-path recovery is immediate once
+  the attacker stops sending; the CPU drain (abandoned calls) continues
+  for up to ~33 s after the last request (max slot hold).
+- Interpretation (counts, rule 35): a sustained slow-body attacker pins
+  all 8 slots and starves ALL benign body-bearing requests for the
+  duration, while each abandoned call burns ~24 s of CPU. The cap bounds
+  concurrency but not the abandoned-call CPU cost (T2: 942100 alone).
