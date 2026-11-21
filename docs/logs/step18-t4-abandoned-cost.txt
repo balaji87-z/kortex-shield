@@ -1,0 +1,18 @@
+== Step-18 T4: abandoned body-processing call cost, PRE vs POST (rule 42 evidence)
+== Body: wcp-80a49c991b2d fixture, 481,798 bytes, text/plain; budget 200ms; engine answers 503 and the call runs to completion (coraza has no cancellation); elapsed_ms from the abandoned-body-processing-finished event
+== All runs single-call, uncontended, same host (Ubuntu 26.04.1, go1.25.0), desktop load present but no other engine running
+
+PRE engine (commit 1964793, 0 REQUEST_BODY updates):
+{"ts":"2026-11-21T05:24:23.838256071Z","sample_id":"abandoned-pre-alone","decision":"timeout","status":503,"elapsed_ms":1082.129,"reason":"time budget expired in body processing"}
+{"ts":"2026-11-21T05:25:25.414480771Z","sample_id":"abandoned-pre-alone","decision":"abandoned-body-processing-finished","status":0,"elapsed_ms":62658.350,"reason":"elapsed_ms=62658 interrupted=true rule_id=949110 status=403"}
+
+POST engine (v2, commit d9fbf14, 166 REQUEST_BODY updates):
+{"ts":"2026-11-21T05:15:12.618993665Z","sample_id":"abandoned-v2-alone","decision":"timeout","status":503,"elapsed_ms":200.863,"reason":"time budget expired in body processing"}
+{"ts":"2026-11-21T05:21:41.536075301Z","sample_id":"abandoned-v2-alone","decision":"abandoned-body-processing-finished","status":0,"elapsed_ms":389117.941,"reason":"elapsed_ms=389117 interrupted=true rule_id=949110 status=403"}
+
+Secondary (both engines fired simultaneously - contention-contaminated, kept for the trail):
+  PRE 44,520 ms (while v2 also running); v2 306,136 ms (while PRE ran its first 44 s)
+
+Ratio (uncontended): 389,118 / 62,658 = 6.2x
+Consequence: E20 (120s deadline for the abandoned call) passes on PRE, fails on POST - PROVEN cause.
+The in-flight cap (default 8) still bounds CONCURRENCY; the per-call CPU cost rose ~6x.

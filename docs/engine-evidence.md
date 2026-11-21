@@ -451,3 +451,27 @@ passed.
   builder — the current builder writes a NEW manifest sha 8c6c20ed...
   because of the step-13 cookie canonicalization, which is why the v0
   builder is pinned in git history).
+
+## Step-18 (2026-11-21, same host as step-17)
+
+- Durable evidence (rule 42): tools/preserve_run.sh; 24 files under
+  docs/logs/runs/ after T1; step-17 run dirs back-filled (s17-t2
+  audit/outcome regenerated from raw logs, counts match).
+- T3 413 fix (E22 failing first, 13e0b13 -> e198ead): the engine drains
+  the body before answering 413/503; the three step-17 reset ids now
+  return 413 with a readable body (docs/logs/step18-t3-replay.txt).
+- T4 body fidelity (E23-E25 failing first, 1964793 -> 3f3f440; scope fix
+  E26, 02bac43): SecRuleUpdateTargetById adds REQUEST_BODY to 166 CRS
+  rules (REQUEST-930..944 families; 921 excluded after it manufactured
+  126 PL1 false positives on raw multi-line bodies). Pre/post runs of all
+  five datasets at PL1+PL2 with rule-29 config proofs; final numbers and
+  the flip-corrected gain/loss lists in docs/baseline-v1.3.md and
+  docs/logs/step18-t4-analysis.txt.
+- NEW engine behaviour (UNEXPLAINED, counted, pre-existing): occasional
+  pass-through of a would-block request; replay evidence and rates in
+  docs/logs/step18-t4-flip-replay.txt.
+- Abandoned-call cost A/B (PROVEN): 62,658 ms PRE vs 389,118 ms POST on
+  the 481,798-byte fixture, uncontended (docs/logs/step18-t4-abandoned-cost.txt);
+  E20's 120 s deadline fails on POST as a result.
+- T2 connector comparison: BLOCKED (no docker/sudo on this host);
+  decision 0004 stays provisional.
