@@ -6,6 +6,7 @@ Streams the zip twice; never extracts it to disk; keeps memory low by never
 holding request bodies (pass 1 stores only content hashes and indices).
 """
 
+import argparse
 import hashlib
 import json
 import random
@@ -15,12 +16,30 @@ import zipfile
 from collections import Counter
 from pathlib import Path
 
+
+def parse_args():
+    """Step-19 T4: v0 defaults are unchanged (the frozen dataset was built by
+    the original builder); future versions are built with explicit flags.
+    --exclude-sample-plan lists global indices that must NOT be re-sampled
+    (id disjointness between versions, docs/plan-benign-wcp-v1.md)."""
+    ap = argparse.ArgumentParser()
+    ap.add_argument("--out-dir", default="data/benign-wcp-v0")
+    ap.add_argument("--seed", type=int, default=0)
+    ap.add_argument("--sample-size", type=int, default=20_000)
+    ap.add_argument("--site-cap", type=int, default=400, help="2%% of sample size")
+    ap.add_argument("--exclude-sample-plan", default="",
+                    help="sample-plan.json of an earlier version; its global "
+                         "indices are removed from the sampling frame")
+    return ap.parse_args()
+
+
 ZIP_PATH = Path("data/external/legitimate.zip")
 OUT_DIR = Path("data/benign-wcp-v0")
 WCP_COMMIT = "8ec8263eebba76816601f7c7052f8ffb83e31312"
 SAMPLE_SIZE = 20_000
-SITE_CAP = 400  # 2% of 20,000
+SITE_CAP = 400
 SEED = 0
+EXCLUDE_SAMPLE_PLAN = ""
 DROP_HEADERS = {"authorization", "proxy-authorization", "cookie"}
 
 
@@ -120,6 +139,13 @@ def parse_record(r):
 
 
 def main():
+    global OUT_DIR, SAMPLE_SIZE, SITE_CAP, SEED, EXCLUDE_SAMPLE_PLAN
+    a = parse_args()
+    OUT_DIR = Path(a.out_dir)
+    SAMPLE_SIZE = a.sample_size
+    SITE_CAP = a.site_cap
+    SEED = a.seed
+    EXCLUDE_SAMPLE_PLAN = a.exclude_sample_plan
     if not ZIP_PATH.exists():
         sys.exit(f"missing {ZIP_PATH}")
     OUT_DIR.mkdir(parents=True, exist_ok=True)
@@ -187,7 +213,14 @@ def main():
           f"(cap {SITE_CAP}); sites used {sum(1 for v in alloc.values() if v)}",
           flush=True)
 
-    # ---- sample positions within each stratum (seed 0) ----
+    # ---- sample positions within each stratum (seed from the CLI) ----
+    excluded = set()
+    if EXCLUDE_SAMPLE_PLAN:
+        prev = json.loads(Path(EXCLUDE_SAMPLE_PLAN).read_text(encoding="utf-8"))
+        for lst in prev["strata"].values():
+            excluded.update(int(x) for x in lst)
+        print(f"excluding {len(excluded)} global indices of the previous "
+              "version from the sampling frame", flush=True)
     rng = random.Random(SEED)
     chosen_global = set()
     plan = {}
@@ -196,10 +229,19 @@ def main():
         k = alloc[s]
         if k == 0:
             continue
-        positions = range(len(strata[s]))
-        pick = sorted(rng.sample(list(positions), k))
+        if excluded:
+            keep = [i for i, gi in enumerate(strata[s]) if gi not in excluded]
+            if len(keep) < k:
+                sys.exit(f"stratum {s}: only {len(keep)} non-excluded "
+                         f"positions for k={k}")
+            pick = sorted(rng.sample(keep, k))
+        else:
+            positions = range(len(strata[s]))
+            pick = sorted(rng.sample(list(positions), k))
         plan[s] = [strata[s][p] for p in pick]
         chosen_global.update(plan[s])
+    if excluded & chosen_global:
+        sys.exit("internal: excluded index re-chosen")
     print(f"sampled {len(chosen_global)} global indices", flush=True)
 
     # ---- pass 2: emit chosen records ----
@@ -294,6 +336,7 @@ def main():
     (OUT_DIR / "sample-plan.json").write_text(
         json.dumps({"seed": SEED, "sample_size": SAMPLE_SIZE,
                     "site_cap": SITE_CAP, "allocation": alloc,
+                    "exclude_sample_plan": EXCLUDE_SAMPLE_PLAN or None,
                     "strata": plan}, indent=1), encoding="utf-8")
     sha = hashlib.sha256(
         (OUT_DIR / "manifest.jsonl").read_bytes()).hexdigest()

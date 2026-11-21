@@ -6,3 +6,6 @@ __pycache__/
 *.pyc
 data/benign-wcp-v0/
 engine/audit.log
+# step-19 T4: v1 manifest/annotations no se commitean (regla 25)
+data/benign-wcp-v1/manifest.jsonl
+data/benign-wcp-v1/annotations.jsonl
