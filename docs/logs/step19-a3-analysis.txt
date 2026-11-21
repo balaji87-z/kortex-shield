@@ -1,0 +1,34 @@
+== A3 (step-19): replay de 100 ids connector-only 920420 (benign-wcp-v0, PL1) ==
+
+Muestra: 100 ids con body, elegidos con random.Random(42).sample sobre los
+1.499 connector-only PL1 con body (de los 1.637 totales; ids en
+/tmp/a3-sample.json, guardados también en docs/logs/runs/s19-a3-replay-v2/).
+
+PRIMER INTENTO — INVALIDO (defecto del harness, documentado por regla 4):
+un replay manual duplicaba headers (User-Agent y Content-Type por
+case-sensitivity del dict Python) -> el engine veia 2 Content-Type y
+bloqueaba 66/100 por scoring (949110 score 8). Ese resultado NO describe
+al engine; describe el defecto del replay. Los artefactos quedan en
+docs/logs/runs/s19-a3-replay/ solo como registro del defecto.
+
+SEGUNDO INTENTO — VALIDO (contrato exacto del runner, engine POST PL1,
+166 updates, prueba de config en /tmp/kx-a3b-eng.log):
+- 100/100 replayados, 0 errores.
+- bloqueados: 0/100.
+- entradas de auditoria: 0/100 (el engine solo audita tx con matches o
+  interrupcion; no hay ninguna).
+- reglas matched (cualquiera): 0/100.
+- evaluacion body-derived (reglas de las 166 con target REQUEST_BODY): 0/100.
+- reglas de deteccion (familias 93x-95x): 0/100.
+
+CONCLUSION (conteos, regla 35): en los 100 ids connector-only 920420 el
+engine NO evalua ninguna regla con match — ni body-derived ni de
+deteccion. El connector los bloquea por la politica de Content-Type
+(920420) ANTES de inspeccionar; el engine (diseno C4) acepta el CT,
+inspecciona y no encuentra nada. Limitacion: el audit del engine no
+registra evaluaciones sin match, asi que "evaluacion sin resultado" no es
+observable; lo observable (matches) es 0.
+
+NOTA ADICIONAL (hallazgo del defecto): la sensibilidad del engine a
+headers duplicados (2 Content-Type -> 949110 score 8 -> 403) es
+comportamiento CRS correcto (920620 familia), no un bug del engine.

@@ -1,0 +1,766 @@
+{
+ "wcp-01dadd4f53bc": {
+  "rules": [
+   "949110"
+  ],
+  "detection": [
+   "949110"
+  ],
+  "body_derived": []
+ },
+ "wcp-068ec3b06213": {
+  "rules": [
+   "949110"
+  ],
+  "detection": [
+   "949110"
+  ],
+  "body_derived": []
+ },
+ "wcp-075c181840bb": {
+  "rules": [
+   "949110"
+  ],
+  "detection": [
+   "949110"
+  ],
+  "body_derived": []
+ },
+ "wcp-090a4b0a9e34": {
+  "rules": [
+   "949110"
+  ],
+  "detection": [
+   "949110"
+  ],
+  "body_derived": []
+ },
+ "wcp-09a08f756098": {
+  "rules": [],
+  "detection": [],
+  "body_derived": []
+ },
+ "wcp-0ca7c98bb333": {
+  "rules": [
+   "949110"
+  ],
+  "detection": [
+   "949110"
+  ],
+  "body_derived": []
+ },
+ "wcp-0d6695364134": {
+  "rules": [
+   "949110"
+  ],
+  "detection": [
+   "949110"
+  ],
+  "body_derived": []
+ },
+ "wcp-0ffa593ea09b": {
+  "rules": [],
+  "detection": [],
+  "body_derived": []
+ },
+ "wcp-1542f46eee61": {
+  "rules": [
+   "949110"
+  ],
+  "detection": [
+   "949110"
+  ],
+  "body_derived": []
+ },
+ "wcp-1609621637df": {
+  "rules": [
+   "949110"
+  ],
+  "detection": [
+   "949110"
+  ],
+  "body_derived": []
+ },
+ "wcp-188c6509b286": {
+  "rules": [],
+  "detection": [],
+  "body_derived": []
+ },
+ "wcp-190d25f1dc23": {
+  "rules": [
+   "949110"
+  ],
+  "detection": [
+   "949110"
+  ],
+  "body_derived": []
+ },
+ "wcp-1af45f7e930f": {
+  "rules": [
+   "949110"
+  ],
+  "detection": [
+   "949110"
+  ],
+  "body_derived": []
+ },
+ "wcp-1c6e351b6c97": {
+  "rules": [
+   "949110"
+  ],
+  "detection": [
+   "949110"
+  ],
+  "body_derived": []
+ },
+ "wcp-1c98df46fe6a": {
+  "rules": [],
+  "detection": [],
+  "body_derived": []
+ },
+ "wcp-1d0252167dd2": {
+  "rules": [
+   "949110"
+  ],
+  "detection": [
+   "949110"
+  ],
+  "body_derived": []
+ },
+ "wcp-1ee74032d288": {
+  "rules": [
+   "949110"
+  ],
+  "detection": [
+   "949110"
+  ],
+  "body_derived": []
+ },
+ "wcp-1f12f13f754d": {
+  "rules": [
+   "949110"
+  ],
+  "detection": [
+   "949110"
+  ],
+  "body_derived": []
+ },
+ "wcp-2232aa7390d9": {
+  "rules": [
+   "949110"
+  ],
+  "detection": [
+   "949110"
+  ],
+  "body_derived": []
+ },
+ "wcp-26ab24cba53a": {
+  "rules": [],
+  "detection": [],
+  "body_derived": []
+ },
+ "wcp-2bd9153a13ab": {
+  "rules": [
+   "949110"
+  ],
+  "detection": [
+   "949110"
+  ],
+  "body_derived": []
+ },
+ "wcp-300715fe4d70": {
+  "rules": [
+   "949110"
+  ],
+  "detection": [
+   "949110"
+  ],
+  "body_derived": []
+ },
+ "wcp-31b7b64c621c": {
+  "rules": [],
+  "detection": [],
+  "body_derived": []
+ },
+ "wcp-32b397dd3125": {
+  "rules": [
+   "949110"
+  ],
+  "detection": [
+   "949110"
+  ],
+  "body_derived": []
+ },
+ "wcp-330836b10a9d": {
+  "rules": [
+   "949110"
+  ],
+  "detection": [
+   "949110"
+  ],
+  "body_derived": []
+ },
+ "wcp-3571e78a3e2e": {
+  "rules": [
+   "949110"
+  ],
+  "detection": [
+   "949110"
+  ],
+  "body_derived": []
+ },
+ "wcp-3c01688eb96b": {
+  "rules": [
+   "949110"
+  ],
+  "detection": [
+   "949110"
+  ],
+  "body_derived": []
+ },
+ "wcp-3eec609970dd": {
+  "rules": [
+   "949110"
+  ],
+  "detection": [
+   "949110"
+  ],
+  "body_derived": []
+ },
+ "wcp-435b53c4ccdb": {
+  "rules": [],
+  "detection": [],
+  "body_derived": []
+ },
+ "wcp-469d89ed2343": {
+  "rules": [
+   "949110"
+  ],
+  "detection": [
+   "949110"
+  ],
+  "body_derived": []
+ },
+ "wcp-47ce224448ca": {
+  "rules": [
+   "949110"
+  ],
+  "detection": [
+   "949110"
+  ],
+  "body_derived": []
+ },
+ "wcp-4815d52778a5": {
+  "rules": [
+   "949110"
+  ],
+  "detection": [
+   "949110"
+  ],
+  "body_derived": []
+ },
+ "wcp-483cfc44d381": {
+  "rules": [
+   "949110"
+  ],
+  "detection": [
+   "949110"
+  ],
+  "body_derived": []
+ },
+ "wcp-492f44e9ddc2": {
+  "rules": [],
+  "detection": [],
+  "body_derived": []
+ },
+ "wcp-4a29e7a00b26": {
+  "rules": [],
+  "detection": [],
+  "body_derived": []
+ },
+ "wcp-4b3f4c328d20": {
+  "rules": [],
+  "detection": [],
+  "body_derived": []
+ },
+ "wcp-4ca7a62bd6a5": {
+  "rules": [
+   "949110"
+  ],
+  "detection": [
+   "949110"
+  ],
+  "body_derived": []
+ },
+ "wcp-5140c10448bf": {
+  "rules": [],
+  "detection": [],
+  "body_derived": []
+ },
+ "wcp-574981310e57": {
+  "rules": [],
+  "detection": [],
+  "body_derived": []
+ },
+ "wcp-581878072b2f": {
+  "rules": [],
+  "detection": [],
+  "body_derived": []
+ },
+ "wcp-592dcd9d4998": {
+  "rules": [
+   "949110"
+  ],
+  "detection": [
+   "949110"
+  ],
+  "body_derived": []
+ },
+ "wcp-5a12e9e6b696": {
+  "rules": [],
+  "detection": [],
+  "body_derived": []
+ },
+ "wcp-5a7ac4609a41": {
+  "rules": [],
+  "detection": [],
+  "body_derived": []
+ },
+ "wcp-5e79f87e8af4": {
+  "rules": [
+   "949110"
+  ],
+  "detection": [
+   "949110"
+  ],
+  "body_derived": []
+ },
+ "wcp-60392c6a3bb2": {
+  "rules": [
+   "949110"
+  ],
+  "detection": [
+   "949110"
+  ],
+  "body_derived": []
+ },
+ "wcp-690868e31b34": {
+  "rules": [],
+  "detection": [],
+  "body_derived": []
+ },
+ "wcp-6c856211de65": {
+  "rules": [],
+  "detection": [],
+  "body_derived": []
+ },
+ "wcp-7189919f347c": {
+  "rules": [
+   "949110"
+  ],
+  "detection": [
+   "949110"
+  ],
+  "body_derived": []
+ },
+ "wcp-72514c6e2f3a": {
+  "rules": [
+   "949110"
+  ],
+  "detection": [
+   "949110"
+  ],
+  "body_derived": []
+ },
+ "wcp-7448cbb9f2c1": {
+  "rules": [],
+  "detection": [],
+  "body_derived": []
+ },
+ "wcp-78f91b2c40e4": {
+  "rules": [],
+  "detection": [],
+  "body_derived": []
+ },
+ "wcp-7a4a3d15ff79": {
+  "rules": [
+   "949110"
+  ],
+  "detection": [
+   "949110"
+  ],
+  "body_derived": []
+ },
+ "wcp-7bb2bad676a1": {
+  "rules": [
+   "949110"
+  ],
+  "detection": [
+   "949110"
+  ],
+  "body_derived": []
+ },
+ "wcp-7ccd62b45989": {
+  "rules": [
+   "949110"
+  ],
+  "detection": [
+   "949110"
+  ],
+  "body_derived": []
+ },
+ "wcp-7ed2c29fd8be": {
+  "rules": [
+   "949110"
+  ],
+  "detection": [
+   "949110"
+  ],
+  "body_derived": []
+ },
+ "wcp-82ce93cf4d43": {
+  "rules": [
+   "949110"
+  ],
+  "detection": [
+   "949110"
+  ],
+  "body_derived": []
+ },
+ "wcp-830f8a39df77": {
+  "rules": [
+   "949110"
+  ],
+  "detection": [
+   "949110"
+  ],
+  "body_derived": []
+ },
+ "wcp-8311b50acbad": {
+  "rules": [
+   "949110"
+  ],
+  "detection": [
+   "949110"
+  ],
+  "body_derived": []
+ },
+ "wcp-8b029edff7c4": {
+  "rules": [
+   "949110"
+  ],
+  "detection": [
+   "949110"
+  ],
+  "body_derived": []
+ },
+ "wcp-9192569cf84a": {
+  "rules": [
+   "949110"
+  ],
+  "detection": [
+   "949110"
+  ],
+  "body_derived": []
+ },
+ "wcp-921208865095": {
+  "rules": [
+   "949110"
+  ],
+  "detection": [
+   "949110"
+  ],
+  "body_derived": []
+ },
+ "wcp-921de4792d7d": {
+  "rules": [
+   "949110"
+  ],
+  "detection": [
+   "949110"
+  ],
+  "body_derived": []
+ },
+ "wcp-9ae14074e8cc": {
+  "rules": [
+   "949110"
+  ],
+  "detection": [
+   "949110"
+  ],
+  "body_derived": []
+ },
+ "wcp-9cb22ee3c53c": {
+  "rules": [
+   "949110"
+  ],
+  "detection": [
+   "949110"
+  ],
+  "body_derived": []
+ },
+ "wcp-9eface487150": {
+  "rules": [
+   "949110"
+  ],
+  "detection": [
+   "949110"
+  ],
+  "body_derived": []
+ },
+ "wcp-a03bda6fa243": {
+  "rules": [],
+  "detection": [],
+  "body_derived": []
+ },
+ "wcp-af551fbba307": {
+  "rules": [],
+  "detection": [],
+  "body_derived": []
+ },
+ "wcp-ba5e5e566eb6": {
+  "rules": [
+   "949110"
+  ],
+  "detection": [
+   "949110"
+  ],
+  "body_derived": []
+ },
+ "wcp-bb4861697f57": {
+  "rules": [],
+  "detection": [],
+  "body_derived": []
+ },
+ "wcp-be1868644bf6": {
+  "rules": [
+   "949110"
+  ],
+  "detection": [
+   "949110"
+  ],
+  "body_derived": []
+ },
+ "wcp-c00f2b73808e": {
+  "rules": [],
+  "detection": [],
+  "body_derived": []
+ },
+ "wcp-c1bb890a475b": {
+  "rules": [
+   "949110"
+  ],
+  "detection": [
+   "949110"
+  ],
+  "body_derived": []
+ },
+ "wcp-c3889661750f": {
+  "rules": [
+   "949110"
+  ],
+  "detection": [
+   "949110"
+  ],
+  "body_derived": []
+ },
+ "wcp-c8e355ee5a9b": {
+  "rules": [
+   "949110"
+  ],
+  "detection": [
+   "949110"
+  ],
+  "body_derived": []
+ },
+ "wcp-cbf331b71654": {
+  "rules": [
+   "949110"
+  ],
+  "detection": [
+   "949110"
+  ],
+  "body_derived": []
+ },
+ "wcp-cc67d0ff55be": {
+  "rules": [
+   "949110"
+  ],
+  "detection": [
+   "949110"
+  ],
+  "body_derived": []
+ },
+ "wcp-cfbe3e8d59f4": {
+  "rules": [
+   "949110"
+  ],
+  "detection": [
+   "949110"
+  ],
+  "body_derived": []
+ },
+ "wcp-d060b74fecba": {
+  "rules": [
+   "949110"
+  ],
+  "detection": [
+   "949110"
+  ],
+  "body_derived": []
+ },
+ "wcp-d2fa9a01b539": {
+  "rules": [],
+  "detection": [],
+  "body_derived": []
+ },
+ "wcp-d59c8bd85adb": {
+  "rules": [],
+  "detection": [],
+  "body_derived": []
+ },
+ "wcp-da32e2f646f7": {
+  "rules": [
+   "949110"
+  ],
+  "detection": [
+   "949110"
+  ],
+  "body_derived": []
+ },
+ "wcp-dcd8291d777d": {
+  "rules": [
+   "949110"
+  ],
+  "detection": [
+   "949110"
+  ],
+  "body_derived": []
+ },
+ "wcp-dd17e1c37b48": {
+  "rules": [],
+  "detection": [],
+  "body_derived": []
+ },
+ "wcp-ded8e2a59ecb": {
+  "rules": [
+   "949110"
+  ],
+  "detection": [
+   "949110"
+  ],
+  "body_derived": []
+ },
+ "wcp-dedb89ec3d3d": {
+  "rules": [
+   "949110"
+  ],
+  "detection": [
+   "949110"
+  ],
+  "body_derived": []
+ },
+ "wcp-e1e4a0e7df01": {
+  "rules": [
+   "949110"
+  ],
+  "detection": [
+   "949110"
+  ],
+  "body_derived": []
+ },
+ "wcp-e29e17aa933d": {
+  "rules": [
+   "949110"
+  ],
+  "detection": [
+   "949110"
+  ],
+  "body_derived": []
+ },
+ "wcp-e648a770a1fe": {
+  "rules": [
+   "949110"
+  ],
+  "detection": [
+   "949110"
+  ],
+  "body_derived": []
+ },
+ "wcp-e8be5ea396da": {
+  "rules": [],
+  "detection": [],
+  "body_derived": []
+ },
+ "wcp-ea701b3e3f87": {
+  "rules": [
+   "949110"
+  ],
+  "detection": [
+   "949110"
+  ],
+  "body_derived": []
+ },
+ "wcp-ecbe1e7c47b6": {
+  "rules": [],
+  "detection": [],
+  "body_derived": []
+ },
+ "wcp-eddef2469a3c": {
+  "rules": [],
+  "detection": [],
+  "body_derived": []
+ },
+ "wcp-ef0006b024a3": {
+  "rules": [],
+  "detection": [],
+  "body_derived": []
+ },
+ "wcp-f3eb41c8a56d": {
+  "rules": [],
+  "detection": [],
+  "body_derived": []
+ },
+ "wcp-f55420c16f87": {
+  "rules": [
+   "949110"
+  ],
+  "detection": [
+   "949110"
+  ],
+  "body_derived": []
+ },
+ "wcp-f5afd0a8001c": {
+  "rules": [
+   "949110"
+  ],
+  "detection": [
+   "949110"
+  ],
+  "body_derived": []
+ },
+ "wcp-f677965854a3": {
+  "rules": [],
+  "detection": [],
+  "body_derived": []
+ },
+ "wcp-fa87f0b8c837": {
+  "rules": [
+   "949110"
+  ],
+  "detection": [
+   "949110"
+  ],
+  "body_derived": []
+ },
+ "wcp-fed035e0df69": {
+  "rules": [],
+  "detection": [],
+  "body_derived": []
+ },
+ "wcp-ff330dc41dc5": {
+  "rules": [],
+  "detection": [],
+  "body_derived": []
+ }
+}
