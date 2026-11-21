@@ -65,6 +65,32 @@ ASSET_EXT = re.compile(
 API_RE = re.compile(r"^/(api|rest)/|/(v1|v2)/|/graphql", re.I)
 
 
+# Step-19 A1: publishable-token scrub for FUTURE dataset versions only
+# (v0 stays frozen, rule 10). Matches pk./sk. JWT-like shapes (e.g. Mapbox
+# pk.eyJ...). Values are replaced, never reproduced.
+PUBLISHABLE_TOKEN_RE = re.compile(r"\b[ps]k\.eyJ[A-Za-z0-9_-]+\.[A-Za-z0-9_-]+")
+
+
+def scrub_publishable_tokens(query, body, headers):
+    """Replace publishable-token shapes in query/body/header values.
+
+    Returns (scrubbed dict, number of replacements)."""
+    n = 0
+
+    def sub(s):
+        nonlocal n
+        out, k = PUBLISHABLE_TOKEN_RE.subn("[REDACTED-TOKEN]", s)
+        n += k
+        return out
+
+    return ({
+        "query": sub(query or ""),
+        "body": sub(body or ""),
+        "headers": {k: sub(v) if isinstance(v, str) else v
+                    for k, v in (headers or {}).items()},
+    }, n)
+
+
 def endpoint_class(path: str) -> str:
     last = path.rstrip("/").rsplit("/", 1)[-1]
     if ASSET_EXT.search(last):
@@ -200,6 +226,12 @@ def main():
                 if key in seen2:
                     sys.exit(f"internal: g={g} chosen but not first occurrence")
                 seen2.add(key)
+                # Step-19 A1: scrub publishable-token shapes (future versions)
+                _scrubbed, n_tok = scrub_publishable_tokens(query, body, headers)
+                if n_tok:
+                    query, body, headers = (_scrubbed["query"], _scrubbed["body"],
+                                            _scrubbed["headers"])
+                    cred_counts["publishable-token shape redacted"] += n_tok
                 headers = dict(headers)
                 for k in list(headers):
                     lk = k.lower()

@@ -134,3 +134,12 @@
 43. Host change: whenever the host or image set changes, print the effective
     versions (OS, Go, Python, Docker or its absence, image digests) at the top
     of the report and re-prove rule 29 on the new host.
+
+44. PROVEN needs a discriminating experiment: one whose outcome would have been
+    different if the hypothesis were false. A consistent observation is a
+    HYPOTHESIS.
+45. A dataset used to choose an engine setting (scope, targets, exclusions) is
+    in-sample for that choice. Say which dataset informed each choice. Held-out
+    means unseen for that choice.
+46. Never call a block on benign-labelled traffic a "gain". Call it a new block
+    (potential false positive).
