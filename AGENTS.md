@@ -143,3 +143,8 @@
     means unseen for that choice.
 46. Never call a block on benign-labelled traffic a "gain". Call it a new block
     (potential false positive).
+47. A probe that cannot tell "inspected, no match" from "not inspected" proves
+    nothing about inspection. Use a canary: the same request plus a known attack
+    payload, shown to be detected.
+48. A failing-by-design test must fail deterministically (use a hook or fake slow
+    engine, not timing luck). A test that sometimes passes cannot gate a fix.
