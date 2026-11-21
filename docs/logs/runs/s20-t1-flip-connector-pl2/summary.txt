@@ -1,0 +1,17 @@
+== connector flip PL2 2026-11-21T13:26:26Z load=[load average: 2.31, 6.62, 7.58]
+== rule29 connector PL2:
+E=On B=2 P=2 D=2
+tx.crs_setup_version=4252
+== coraza library version inside the container (rule 28):
+github.com/corazawaf/coraza/v3@v3.7.0
+== image digest:
+sha256:bfbfe70b4445c1ef1dc389c2de12cfdb194c9616746c33dc8a7131461c28f4a6
+
+rounds=500 flip_rounds=130 flips/round=0.2600 per_sample={'wcp-62cd1bd36bf7': 31, 'wcp-b6f2246ef4b8': 104} wall_s=16.7
+rounds=500 flip_rounds=126 flips/round=0.2520 per_sample={'wcp-62cd1bd36bf7': 41, 'wcp-b6f2246ef4b8': 94} wall_s=196.9
+rounds=500 flip_rounds=117 flips/round=0.2340 per_sample={'wcp-62cd1bd36bf7': 28, 'wcp-b6f2246ef4b8': 96} wall_s=15.4
+rounds=500 flip_rounds=500 flips/round=1.0000 per_sample={'wcp-62cd1bd36bf7': 500, 'wcp-b6f2246ef4b8': 500} wall_s=0.3
+rounds=500 flip_rounds=500 flips/round=1.0000 per_sample={'wcp-62cd1bd36bf7': 500, 'wcp-b6f2246ef4b8': 500} wall_s=0.2
+load_end=[load average: 6.07, 6.55, 7.33]
+CONNECTOR-FLIP-DONE
+CONNECTOR-EXIT=0

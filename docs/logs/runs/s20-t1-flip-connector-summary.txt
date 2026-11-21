@@ -1,0 +1,16 @@
+== connector flip run 2026-11-21T13:09:39Z load=[load average: 6.42, 4.76, 5.23]
+ Container deploy-coraza-crs-1  Starting
+ Container deploy-stub-backend-1  Started
+ Container deploy-coraza-crs-1  Started
+readiness probe status=000
+== rule29 connector effective config 2026-11-21T13:15:35Z
+Error response from daemon: container f7525f44d760703b6bd952d74ccc120df43114958fed92b227001549db37a85c is not running
+Error response from daemon: container f7525f44d760703b6bd952d74ccc120df43114958fed92b227001549db37a85c is not running
+coraza build info: Error response from daemon: container f7525f44d760703b6bd952d74ccc120df43114958fed92b227001549db37a85c is not running
+CRS version: Error response from daemon: container f7525f44d760703b6bd952d74ccc120df43114958fed92b227001549db37a85c is not running
+
+Error response from daemon: No such image: ghcr.io/coreruleset/coraza-crs:4.25.2-nginx-lts
+probe wcp-62cd1bd36bf7: status=error:ConnectionRefusedError ms=452.9
+probe wcp-b6f2246ef4b8: status=error:ConnectionRefusedError ms=1.4
+rounds=500 flip_rounds=500 flips/round=1.0000 per_sample={'wcp-62cd1bd36bf7': 500, 'wcp-b6f2246ef4b8': 500} wall_s=20.2
+rounds=500 flip_rounds=500 flips/round=1.0000 per_sample={'wcp-62cd1bd36bf7': 500, 'wcp-b6f2246ef4b8': 500} wall_s=21.6

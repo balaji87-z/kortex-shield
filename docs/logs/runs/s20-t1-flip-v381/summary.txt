@@ -1,0 +1,19 @@
+== flip_repro v381 bin=out/s20-t1/engine-v381 sha256=9abce390aad7602352a155cbe17712b4244b7e8cbe1a64f339314ae04c481f7e rounds=500 reps=5 pls=1 2 ==
+== v381 PL1 rule29: effective config: backend_url=http://127.0.0.1:13000 rule_engine=On blocking_paranoia=1 detection_paranoia=1 max_body_bytes=13107200 max_inspected_bytes=131072 engine_time_budget_ms=2000 rules_dir=/home/vboxuser/kortex-shield/engine/crs listen_addr=127.0.0.1:8093 events_file=docs/logs/runs/s20-t1-flip-v381/events-pl1.jsonl audit_log=docs/logs/runs/s20-t1-flip-v381/audit-pl1.log request_body_target_updates=166
+load_start=[load average: 7.37, 4.90, 4.85]
+rounds=500 flip_rounds=500 flips/round=1.0000 per_sample={'wcp-62cd1bd36bf7': 500, 'wcp-b6f2246ef4b8': 500} wall_s=67.1
+rounds=500 flip_rounds=500 flips/round=1.0000 per_sample={'wcp-62cd1bd36bf7': 500, 'wcp-b6f2246ef4b8': 500} wall_s=82.4
+rounds=500 flip_rounds=500 flips/round=1.0000 per_sample={'wcp-62cd1bd36bf7': 500, 'wcp-b6f2246ef4b8': 500} wall_s=81.5
+rounds=500 flip_rounds=500 flips/round=1.0000 per_sample={'wcp-62cd1bd36bf7': 500, 'wcp-b6f2246ef4b8': 500} wall_s=82.3
+== completion run 2026-11-21T12:10:01Z load=[load average: 2.91, 3.52, 4.17]
+== v381 PL1 rule29: effective config: backend_url=http://127.0.0.1:13000 rule_engine=On blocking_paranoia=1 detection_paranoia=1 max_body_bytes=13107200 max_inspected_bytes=131072 engine_time_budget_ms=2000 rules_dir=/home/vboxuser/kortex-shield/engine/crs listen_addr=127.0.0.1:8093 events_file=docs/logs/runs/s20-t1-flip-v381/events-pl1.jsonl audit_log=docs/logs/runs/s20-t1-flip-v381/audit-pl1.log request_body_target_updates=166
+rounds=500 flip_rounds=500 flips/round=1.0000 per_sample={'wcp-62cd1bd36bf7': 500, 'wcp-b6f2246ef4b8': 500} wall_s=83.8
+== v381 PL2 rule29: effective config: backend_url=http://127.0.0.1:13000 rule_engine=On blocking_paranoia=2 detection_paranoia=2 max_body_bytes=13107200 max_inspected_bytes=131072 engine_time_budget_ms=2000 rules_dir=/home/vboxuser/kortex-shield/engine/crs listen_addr=127.0.0.1:8093 events_file=docs/logs/runs/s20-t1-flip-v381/events-pl2.jsonl audit_log=docs/logs/runs/s20-t1-flip-v381/audit-pl2.log request_body_target_updates=166
+load_start_pl2=[load average: 4.95, 3.91, 4.24]
+rounds=500 flip_rounds=0 flips/round=0.0000 per_sample={'wcp-62cd1bd36bf7': 0, 'wcp-b6f2246ef4b8': 0} wall_s=12.3
+rounds=500 flip_rounds=0 flips/round=0.0000 per_sample={'wcp-62cd1bd36bf7': 0, 'wcp-b6f2246ef4b8': 0} wall_s=12.4
+rounds=500 flip_rounds=0 flips/round=0.0000 per_sample={'wcp-62cd1bd36bf7': 0, 'wcp-b6f2246ef4b8': 0} wall_s=13.0
+== v381 PL2 reps 4-5 2026-11-21T12:18:44Z load=[load average: 4.41, 5.50, 4.97]
+rounds=500 flip_rounds=0 flips/round=0.0000 per_sample={'wcp-62cd1bd36bf7': 0, 'wcp-b6f2246ef4b8': 0} wall_s=11.1
+rounds=500 flip_rounds=0 flips/round=0.0000 per_sample={'wcp-62cd1bd36bf7': 0, 'wcp-b6f2246ef4b8': 0} wall_s=11.9
+FLIP-v381-PL2-R45-DONE

@@ -1,0 +1,53 @@
+ Network deploy_default  Creating
+ Network deploy_default  Created
+ Container deploy-stub-backend-1  Creating
+ Container deploy-target-1  Creating
+ Container deploy-target-1  Created
+ Container deploy-coraza-crs-1  Creating
+ Container deploy-stub-backend-1  Created
+ Container deploy-coraza-crs-1  Created
+ Container deploy-stub-backend-1  Starting
+ Container deploy-target-1  Starting
+ Container deploy-stub-backend-1  Started
+ Container deploy-target-1  Started
+ Container deploy-coraza-crs-1  Starting
+ Container deploy-coraza-crs-1  Started
+== coraza connector PL2 rule29:
+E=On B=2 P=2 D=2
+tx.crs_setup_version=4252
+duration 85s, 320 variants x 20
+Q1: passes 0/800 errors 0 (variants with >=1 pass: 0/40)
+Q2: passes 0/800 errors 0 (variants with >=1 pass: 0/40)
+Q3: passes 0/800 errors 0 (variants with >=1 pass: 0/40)
+Q4: passes 0/800 errors 0 (variants with >=1 pass: 0/40)
+B1: passes 0/800 errors 0 (variants with >=1 pass: 0/40)
+B2: passes 0/800 errors 0 (variants with >=1 pass: 0/40)
+B3: passes 0/800 errors 0 (variants with >=1 pass: 0/40)
+B4: passes 0/800 errors 0 (variants with >=1 pass: 0/40)
+ Container deploy-stub-backend-1  Creating
+ Container deploy-target-1  Creating
+ Container deploy-stub-backend-1  Created
+ Container deploy-target-1  Created
+ Container deploy-baseline-crs-1  Creating
+ Container deploy-baseline-crs-1  Created
+ Container deploy-stub-backend-1  Starting
+ Container deploy-target-1  Starting
+ Container deploy-target-1  Started
+ Container deploy-baseline-crs-1  Starting
+ Container deploy-stub-backend-1  Started
+ Container deploy-baseline-crs-1  Started
+MODSEC NO ARRIBA
+ Container deploy-target-1  Creating
+ Container deploy-stub-backend-1  Creating
+ Container deploy-stub-backend-1  Created
+ Container deploy-target-1  Created
+ Container deploy-baseline-crs-1  Creating
+ Container deploy-baseline-crs-1  Created
+ Container deploy-target-1  Starting
+ Container deploy-stub-backend-1  Starting
+ Container deploy-target-1  Started
+ Container deploy-baseline-crs-1  Starting
+ Container deploy-stub-backend-1  Started
+ Container deploy-baseline-crs-1  Started
+MODSEC NO ARRIBA
+T1-CONTAINERS2-DONE

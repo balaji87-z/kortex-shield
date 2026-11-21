@@ -1,0 +1,6 @@
+warning: both GOPATH and GOROOT are the same directory (/home/vboxuser/go); see https://go.dev/wiki/InstallTroubleshooting
+=== RUN   TestE30DuplicateArgZeroFlips
+--- PASS: TestE30DuplicateArgZeroFlips (40.56s)
+PASS
+ok  	kortexshield/engine	40.581s
+E30-POST-EXIT=0

@@ -8,7 +8,11 @@ round which samples passed, and prints flips/rounds.
 Usage: flip_repro.py --base-url http://127.0.0.1:PORT --rounds 500 \
          [--pl 2] [--out /tmp/flip-rounds.jsonl]
 Samples (fixed order): wcp-62cd1bd36bf7, wcp-b6f2246ef4b8 (same-path
-neighbours; both block on the query at PL1 and PL2).
+neighbours). Both block on the query at PL2 (942370/942430 are
+paranoia-level/2 rules). At PL1 they match nothing and pass through to the
+stub (200) on coraza v3.7.0 AND v3.8.1 alike (step-20 probe: 0 audit lines,
+pass event), so a PL1 run reports rounds=flips trivially - the flip metric
+is only meaningful at PL2.
 
 Exit code 0 always; results on stdout and --out jsonl (one line per round).
 """

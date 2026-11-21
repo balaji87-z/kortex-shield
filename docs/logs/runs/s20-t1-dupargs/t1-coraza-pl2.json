@@ -1,0 +1,3522 @@
+[
+ {
+  "id": "command-injection-1497268f-q",
+  "family": "command-injection",
+  "shape": "Q1",
+  "passes": 0,
+  "errors": 0,
+  "repeats": 20,
+  "statuses": {
+   "403": 20
+  }
+ },
+ {
+  "id": "command-injection-1497268f-q",
+  "family": "command-injection",
+  "shape": "Q2",
+  "passes": 0,
+  "errors": 0,
+  "repeats": 20,
+  "statuses": {
+   "403": 20
+  }
+ },
+ {
+  "id": "command-injection-1497268f-q",
+  "family": "command-injection",
+  "shape": "Q3",
+  "passes": 0,
+  "errors": 0,
+  "repeats": 20,
+  "statuses": {
+   "403": 20
+  }
+ },
+ {
+  "id": "command-injection-1497268f-q",
+  "family": "command-injection",
+  "shape": "Q4",
+  "passes": 0,
+  "errors": 0,
+  "repeats": 20,
+  "statuses": {
+   "403": 20
+  }
+ },
+ {
+  "id": "command-injection-1497268f-q",
+  "family": "command-injection",
+  "shape": "B1",
+  "passes": 0,
+  "errors": 0,
+  "repeats": 20,
+  "statuses": {
+   "403": 20
+  }
+ },
+ {
+  "id": "command-injection-1497268f-q",
+  "family": "command-injection",
+  "shape": "B2",
+  "passes": 0,
+  "errors": 0,
+  "repeats": 20,
+  "statuses": {
+   "403": 20
+  }
+ },
+ {
+  "id": "command-injection-1497268f-q",
+  "family": "command-injection",
+  "shape": "B3",
+  "passes": 0,
+  "errors": 0,
+  "repeats": 20,
+  "statuses": {
+   "403": 20
+  }
+ },
+ {
+  "id": "command-injection-1497268f-q",
+  "family": "command-injection",
+  "shape": "B4",
+  "passes": 0,
+  "errors": 0,
+  "repeats": 20,
+  "statuses": {
+   "403": 20
+  }
+ },
+ {
+  "id": "command-injection-77c3ff65-q",
+  "family": "command-injection",
+  "shape": "Q1",
+  "passes": 0,
+  "errors": 0,
+  "repeats": 20,
+  "statuses": {
+   "403": 20
+  }
+ },
+ {
+  "id": "command-injection-77c3ff65-q",
+  "family": "command-injection",
+  "shape": "Q2",
+  "passes": 0,
+  "errors": 0,
+  "repeats": 20,
+  "statuses": {
+   "403": 20
+  }
+ },
+ {
+  "id": "command-injection-77c3ff65-q",
+  "family": "command-injection",
+  "shape": "Q3",
+  "passes": 0,
+  "errors": 0,
+  "repeats": 20,
+  "statuses": {
+   "403": 20
+  }
+ },
+ {
+  "id": "command-injection-77c3ff65-q",
+  "family": "command-injection",
+  "shape": "Q4",
+  "passes": 0,
+  "errors": 0,
+  "repeats": 20,
+  "statuses": {
+   "403": 20
+  }
+ },
+ {
+  "id": "command-injection-77c3ff65-q",
+  "family": "command-injection",
+  "shape": "B1",
+  "passes": 0,
+  "errors": 0,
+  "repeats": 20,
+  "statuses": {
+   "403": 20
+  }
+ },
+ {
+  "id": "command-injection-77c3ff65-q",
+  "family": "command-injection",
+  "shape": "B2",
+  "passes": 0,
+  "errors": 0,
+  "repeats": 20,
+  "statuses": {
+   "403": 20
+  }
+ },
+ {
+  "id": "command-injection-77c3ff65-q",
+  "family": "command-injection",
+  "shape": "B3",
+  "passes": 0,
+  "errors": 0,
+  "repeats": 20,
+  "statuses": {
+   "403": 20
+  }
+ },
+ {
+  "id": "command-injection-77c3ff65-q",
+  "family": "command-injection",
+  "shape": "B4",
+  "passes": 0,
+  "errors": 0,
+  "repeats": 20,
+  "statuses": {
+   "403": 20
+  }
+ },
+ {
+  "id": "command-injection-933f7004-q",
+  "family": "command-injection",
+  "shape": "Q1",
+  "passes": 0,
+  "errors": 0,
+  "repeats": 20,
+  "statuses": {
+   "403": 20
+  }
+ },
+ {
+  "id": "command-injection-933f7004-q",
+  "family": "command-injection",
+  "shape": "Q2",
+  "passes": 0,
+  "errors": 0,
+  "repeats": 20,
+  "statuses": {
+   "403": 20
+  }
+ },
+ {
+  "id": "command-injection-933f7004-q",
+  "family": "command-injection",
+  "shape": "Q3",
+  "passes": 0,
+  "errors": 0,
+  "repeats": 20,
+  "statuses": {
+   "403": 20
+  }
+ },
+ {
+  "id": "command-injection-933f7004-q",
+  "family": "command-injection",
+  "shape": "Q4",
+  "passes": 0,
+  "errors": 0,
+  "repeats": 20,
+  "statuses": {
+   "403": 20
+  }
+ },
+ {
+  "id": "command-injection-933f7004-q",
+  "family": "command-injection",
+  "shape": "B1",
+  "passes": 0,
+  "errors": 0,
+  "repeats": 20,
+  "statuses": {
+   "403": 20
+  }
+ },
+ {
+  "id": "command-injection-933f7004-q",
+  "family": "command-injection",
+  "shape": "B2",
+  "passes": 0,
+  "errors": 0,
+  "repeats": 20,
+  "statuses": {
+   "403": 20
+  }
+ },
+ {
+  "id": "command-injection-933f7004-q",
+  "family": "command-injection",
+  "shape": "B3",
+  "passes": 0,
+  "errors": 0,
+  "repeats": 20,
+  "statuses": {
+   "403": 20
+  }
+ },
+ {
+  "id": "command-injection-933f7004-q",
+  "family": "command-injection",
+  "shape": "B4",
+  "passes": 0,
+  "errors": 0,
+  "repeats": 20,
+  "statuses": {
+   "403": 20
+  }
+ },
+ {
+  "id": "command-injection-a88d9403-q",
+  "family": "command-injection",
+  "shape": "Q1",
+  "passes": 0,
+  "errors": 0,
+  "repeats": 20,
+  "statuses": {
+   "403": 20
+  }
+ },
+ {
+  "id": "command-injection-a88d9403-q",
+  "family": "command-injection",
+  "shape": "Q2",
+  "passes": 0,
+  "errors": 0,
+  "repeats": 20,
+  "statuses": {
+   "403": 20
+  }
+ },
+ {
+  "id": "command-injection-a88d9403-q",
+  "family": "command-injection",
+  "shape": "Q3",
+  "passes": 0,
+  "errors": 0,
+  "repeats": 20,
+  "statuses": {
+   "403": 20
+  }
+ },
+ {
+  "id": "command-injection-a88d9403-q",
+  "family": "command-injection",
+  "shape": "Q4",
+  "passes": 0,
+  "errors": 0,
+  "repeats": 20,
+  "statuses": {
+   "403": 20
+  }
+ },
+ {
+  "id": "command-injection-a88d9403-q",
+  "family": "command-injection",
+  "shape": "B1",
+  "passes": 0,
+  "errors": 0,
+  "repeats": 20,
+  "statuses": {
+   "403": 20
+  }
+ },
+ {
+  "id": "command-injection-a88d9403-q",
+  "family": "command-injection",
+  "shape": "B2",
+  "passes": 0,
+  "errors": 0,
+  "repeats": 20,
+  "statuses": {
+   "403": 20
+  }
+ },
+ {
+  "id": "command-injection-a88d9403-q",
+  "family": "command-injection",
+  "shape": "B3",
+  "passes": 0,
+  "errors": 0,
+  "repeats": 20,
+  "statuses": {
+   "403": 20
+  }
+ },
+ {
+  "id": "command-injection-a88d9403-q",
+  "family": "command-injection",
+  "shape": "B4",
+  "passes": 0,
+  "errors": 0,
+  "repeats": 20,
+  "statuses": {
+   "403": 20
+  }
+ },
+ {
+  "id": "command-injection-b336a991-q",
+  "family": "command-injection",
+  "shape": "Q1",
+  "passes": 0,
+  "errors": 0,
+  "repeats": 20,
+  "statuses": {
+   "403": 20
+  }
+ },
+ {
+  "id": "command-injection-b336a991-q",
+  "family": "command-injection",
+  "shape": "Q2",
+  "passes": 0,
+  "errors": 0,
+  "repeats": 20,
+  "statuses": {
+   "403": 20
+  }
+ },
+ {
+  "id": "command-injection-b336a991-q",
+  "family": "command-injection",
+  "shape": "Q3",
+  "passes": 0,
+  "errors": 0,
+  "repeats": 20,
+  "statuses": {
+   "403": 20
+  }
+ },
+ {
+  "id": "command-injection-b336a991-q",
+  "family": "command-injection",
+  "shape": "Q4",
+  "passes": 0,
+  "errors": 0,
+  "repeats": 20,
+  "statuses": {
+   "403": 20
+  }
+ },
+ {
+  "id": "command-injection-b336a991-q",
+  "family": "command-injection",
+  "shape": "B1",
+  "passes": 0,
+  "errors": 0,
+  "repeats": 20,
+  "statuses": {
+   "403": 20
+  }
+ },
+ {
+  "id": "command-injection-b336a991-q",
+  "family": "command-injection",
+  "shape": "B2",
+  "passes": 0,
+  "errors": 0,
+  "repeats": 20,
+  "statuses": {
+   "403": 20
+  }
+ },
+ {
+  "id": "command-injection-b336a991-q",
+  "family": "command-injection",
+  "shape": "B3",
+  "passes": 0,
+  "errors": 0,
+  "repeats": 20,
+  "statuses": {
+   "403": 20
+  }
+ },
+ {
+  "id": "command-injection-b336a991-q",
+  "family": "command-injection",
+  "shape": "B4",
+  "passes": 0,
+  "errors": 0,
+  "repeats": 20,
+  "statuses": {
+   "403": 20
+  }
+ },
+ {
+  "id": "command-injection-bb18285d-q",
+  "family": "command-injection",
+  "shape": "Q1",
+  "passes": 0,
+  "errors": 0,
+  "repeats": 20,
+  "statuses": {
+   "403": 20
+  }
+ },
+ {
+  "id": "command-injection-bb18285d-q",
+  "family": "command-injection",
+  "shape": "Q2",
+  "passes": 0,
+  "errors": 0,
+  "repeats": 20,
+  "statuses": {
+   "403": 20
+  }
+ },
+ {
+  "id": "command-injection-bb18285d-q",
+  "family": "command-injection",
+  "shape": "Q3",
+  "passes": 0,
+  "errors": 0,
+  "repeats": 20,
+  "statuses": {
+   "403": 20
+  }
+ },
+ {
+  "id": "command-injection-bb18285d-q",
+  "family": "command-injection",
+  "shape": "Q4",
+  "passes": 0,
+  "errors": 0,
+  "repeats": 20,
+  "statuses": {
+   "403": 20
+  }
+ },
+ {
+  "id": "command-injection-bb18285d-q",
+  "family": "command-injection",
+  "shape": "B1",
+  "passes": 0,
+  "errors": 0,
+  "repeats": 20,
+  "statuses": {
+   "403": 20
+  }
+ },
+ {
+  "id": "command-injection-bb18285d-q",
+  "family": "command-injection",
+  "shape": "B2",
+  "passes": 0,
+  "errors": 0,
+  "repeats": 20,
+  "statuses": {
+   "403": 20
+  }
+ },
+ {
+  "id": "command-injection-bb18285d-q",
+  "family": "command-injection",
+  "shape": "B3",
+  "passes": 0,
+  "errors": 0,
+  "repeats": 20,
+  "statuses": {
+   "403": 20
+  }
+ },
+ {
+  "id": "command-injection-bb18285d-q",
+  "family": "command-injection",
+  "shape": "B4",
+  "passes": 0,
+  "errors": 0,
+  "repeats": 20,
+  "statuses": {
+   "403": 20
+  }
+ },
+ {
+  "id": "command-injection-c479cd7c-q",
+  "family": "command-injection",
+  "shape": "Q1",
+  "passes": 0,
+  "errors": 0,
+  "repeats": 20,
+  "statuses": {
+   "403": 20
+  }
+ },
+ {
+  "id": "command-injection-c479cd7c-q",
+  "family": "command-injection",
+  "shape": "Q2",
+  "passes": 0,
+  "errors": 0,
+  "repeats": 20,
+  "statuses": {
+   "403": 20
+  }
+ },
+ {
+  "id": "command-injection-c479cd7c-q",
+  "family": "command-injection",
+  "shape": "Q3",
+  "passes": 0,
+  "errors": 0,
+  "repeats": 20,
+  "statuses": {
+   "403": 20
+  }
+ },
+ {
+  "id": "command-injection-c479cd7c-q",
+  "family": "command-injection",
+  "shape": "Q4",
+  "passes": 0,
+  "errors": 0,
+  "repeats": 20,
+  "statuses": {
+   "403": 20
+  }
+ },
+ {
+  "id": "command-injection-c479cd7c-q",
+  "family": "command-injection",
+  "shape": "B1",
+  "passes": 0,
+  "errors": 0,
+  "repeats": 20,
+  "statuses": {
+   "403": 20
+  }
+ },
+ {
+  "id": "command-injection-c479cd7c-q",
+  "family": "command-injection",
+  "shape": "B2",
+  "passes": 0,
+  "errors": 0,
+  "repeats": 20,
+  "statuses": {
+   "403": 20
+  }
+ },
+ {
+  "id": "command-injection-c479cd7c-q",
+  "family": "command-injection",
+  "shape": "B3",
+  "passes": 0,
+  "errors": 0,
+  "repeats": 20,
+  "statuses": {
+   "403": 20
+  }
+ },
+ {
+  "id": "command-injection-c479cd7c-q",
+  "family": "command-injection",
+  "shape": "B4",
+  "passes": 0,
+  "errors": 0,
+  "repeats": 20,
+  "statuses": {
+   "403": 20
+  }
+ },
+ {
+  "id": "command-injection-dc2932d5-q",
+  "family": "command-injection",
+  "shape": "Q1",
+  "passes": 0,
+  "errors": 0,
+  "repeats": 20,
+  "statuses": {
+   "403": 20
+  }
+ },
+ {
+  "id": "command-injection-dc2932d5-q",
+  "family": "command-injection",
+  "shape": "Q2",
+  "passes": 0,
+  "errors": 0,
+  "repeats": 20,
+  "statuses": {
+   "403": 20
+  }
+ },
+ {
+  "id": "command-injection-dc2932d5-q",
+  "family": "command-injection",
+  "shape": "Q3",
+  "passes": 0,
+  "errors": 0,
+  "repeats": 20,
+  "statuses": {
+   "403": 20
+  }
+ },
+ {
+  "id": "command-injection-dc2932d5-q",
+  "family": "command-injection",
+  "shape": "Q4",
+  "passes": 0,
+  "errors": 0,
+  "repeats": 20,
+  "statuses": {
+   "403": 20
+  }
+ },
+ {
+  "id": "command-injection-dc2932d5-q",
+  "family": "command-injection",
+  "shape": "B1",
+  "passes": 0,
+  "errors": 0,
+  "repeats": 20,
+  "statuses": {
+   "403": 20
+  }
+ },
+ {
+  "id": "command-injection-dc2932d5-q",
+  "family": "command-injection",
+  "shape": "B2",
+  "passes": 0,
+  "errors": 0,
+  "repeats": 20,
+  "statuses": {
+   "403": 20
+  }
+ },
+ {
+  "id": "command-injection-dc2932d5-q",
+  "family": "command-injection",
+  "shape": "B3",
+  "passes": 0,
+  "errors": 0,
+  "repeats": 20,
+  "statuses": {
+   "403": 20
+  }
+ },
+ {
+  "id": "command-injection-dc2932d5-q",
+  "family": "command-injection",
+  "shape": "B4",
+  "passes": 0,
+  "errors": 0,
+  "repeats": 20,
+  "statuses": {
+   "403": 20
+  }
+ },
+ {
+  "id": "command-injection-e1e36844-q",
+  "family": "command-injection",
+  "shape": "Q1",
+  "passes": 0,
+  "errors": 0,
+  "repeats": 20,
+  "statuses": {
+   "403": 20
+  }
+ },
+ {
+  "id": "command-injection-e1e36844-q",
+  "family": "command-injection",
+  "shape": "Q2",
+  "passes": 0,
+  "errors": 0,
+  "repeats": 20,
+  "statuses": {
+   "403": 20
+  }
+ },
+ {
+  "id": "command-injection-e1e36844-q",
+  "family": "command-injection",
+  "shape": "Q3",
+  "passes": 0,
+  "errors": 0,
+  "repeats": 20,
+  "statuses": {
+   "403": 20
+  }
+ },
+ {
+  "id": "command-injection-e1e36844-q",
+  "family": "command-injection",
+  "shape": "Q4",
+  "passes": 0,
+  "errors": 0,
+  "repeats": 20,
+  "statuses": {
+   "403": 20
+  }
+ },
+ {
+  "id": "command-injection-e1e36844-q",
+  "family": "command-injection",
+  "shape": "B1",
+  "passes": 0,
+  "errors": 0,
+  "repeats": 20,
+  "statuses": {
+   "403": 20
+  }
+ },
+ {
+  "id": "command-injection-e1e36844-q",
+  "family": "command-injection",
+  "shape": "B2",
+  "passes": 0,
+  "errors": 0,
+  "repeats": 20,
+  "statuses": {
+   "403": 20
+  }
+ },
+ {
+  "id": "command-injection-e1e36844-q",
+  "family": "command-injection",
+  "shape": "B3",
+  "passes": 0,
+  "errors": 0,
+  "repeats": 20,
+  "statuses": {
+   "403": 20
+  }
+ },
+ {
+  "id": "command-injection-e1e36844-q",
+  "family": "command-injection",
+  "shape": "B4",
+  "passes": 0,
+  "errors": 0,
+  "repeats": 20,
+  "statuses": {
+   "403": 20
+  }
+ },
+ {
+  "id": "command-injection-ea53985f-q",
+  "family": "command-injection",
+  "shape": "Q1",
+  "passes": 0,
+  "errors": 0,
+  "repeats": 20,
+  "statuses": {
+   "403": 20
+  }
+ },
+ {
+  "id": "command-injection-ea53985f-q",
+  "family": "command-injection",
+  "shape": "Q2",
+  "passes": 0,
+  "errors": 0,
+  "repeats": 20,
+  "statuses": {
+   "403": 20
+  }
+ },
+ {
+  "id": "command-injection-ea53985f-q",
+  "family": "command-injection",
+  "shape": "Q3",
+  "passes": 0,
+  "errors": 0,
+  "repeats": 20,
+  "statuses": {
+   "403": 20
+  }
+ },
+ {
+  "id": "command-injection-ea53985f-q",
+  "family": "command-injection",
+  "shape": "Q4",
+  "passes": 0,
+  "errors": 0,
+  "repeats": 20,
+  "statuses": {
+   "403": 20
+  }
+ },
+ {
+  "id": "command-injection-ea53985f-q",
+  "family": "command-injection",
+  "shape": "B1",
+  "passes": 0,
+  "errors": 0,
+  "repeats": 20,
+  "statuses": {
+   "403": 20
+  }
+ },
+ {
+  "id": "command-injection-ea53985f-q",
+  "family": "command-injection",
+  "shape": "B2",
+  "passes": 0,
+  "errors": 0,
+  "repeats": 20,
+  "statuses": {
+   "403": 20
+  }
+ },
+ {
+  "id": "command-injection-ea53985f-q",
+  "family": "command-injection",
+  "shape": "B3",
+  "passes": 0,
+  "errors": 0,
+  "repeats": 20,
+  "statuses": {
+   "403": 20
+  }
+ },
+ {
+  "id": "command-injection-ea53985f-q",
+  "family": "command-injection",
+  "shape": "B4",
+  "passes": 0,
+  "errors": 0,
+  "repeats": 20,
+  "statuses": {
+   "403": 20
+  }
+ },
+ {
+  "id": "path-traversal-265ec89e-q",
+  "family": "path-traversal",
+  "shape": "Q1",
+  "passes": 0,
+  "errors": 0,
+  "repeats": 20,
+  "statuses": {
+   "403": 20
+  }
+ },
+ {
+  "id": "path-traversal-265ec89e-q",
+  "family": "path-traversal",
+  "shape": "Q2",
+  "passes": 0,
+  "errors": 0,
+  "repeats": 20,
+  "statuses": {
+   "403": 20
+  }
+ },
+ {
+  "id": "path-traversal-265ec89e-q",
+  "family": "path-traversal",
+  "shape": "Q3",
+  "passes": 0,
+  "errors": 0,
+  "repeats": 20,
+  "statuses": {
+   "403": 20
+  }
+ },
+ {
+  "id": "path-traversal-265ec89e-q",
+  "family": "path-traversal",
+  "shape": "Q4",
+  "passes": 0,
+  "errors": 0,
+  "repeats": 20,
+  "statuses": {
+   "403": 20
+  }
+ },
+ {
+  "id": "path-traversal-265ec89e-q",
+  "family": "path-traversal",
+  "shape": "B1",
+  "passes": 0,
+  "errors": 0,
+  "repeats": 20,
+  "statuses": {
+   "403": 20
+  }
+ },
+ {
+  "id": "path-traversal-265ec89e-q",
+  "family": "path-traversal",
+  "shape": "B2",
+  "passes": 0,
+  "errors": 0,
+  "repeats": 20,
+  "statuses": {
+   "403": 20
+  }
+ },
+ {
+  "id": "path-traversal-265ec89e-q",
+  "family": "path-traversal",
+  "shape": "B3",
+  "passes": 0,
+  "errors": 0,
+  "repeats": 20,
+  "statuses": {
+   "403": 20
+  }
+ },
+ {
+  "id": "path-traversal-265ec89e-q",
+  "family": "path-traversal",
+  "shape": "B4",
+  "passes": 0,
+  "errors": 0,
+  "repeats": 20,
+  "statuses": {
+   "403": 20
+  }
+ },
+ {
+  "id": "path-traversal-3cdd9309-q",
+  "family": "path-traversal",
+  "shape": "Q1",
+  "passes": 0,
+  "errors": 0,
+  "repeats": 20,
+  "statuses": {
+   "403": 20
+  }
+ },
+ {
+  "id": "path-traversal-3cdd9309-q",
+  "family": "path-traversal",
+  "shape": "Q2",
+  "passes": 0,
+  "errors": 0,
+  "repeats": 20,
+  "statuses": {
+   "403": 20
+  }
+ },
+ {
+  "id": "path-traversal-3cdd9309-q",
+  "family": "path-traversal",
+  "shape": "Q3",
+  "passes": 0,
+  "errors": 0,
+  "repeats": 20,
+  "statuses": {
+   "403": 20
+  }
+ },
+ {
+  "id": "path-traversal-3cdd9309-q",
+  "family": "path-traversal",
+  "shape": "Q4",
+  "passes": 0,
+  "errors": 0,
+  "repeats": 20,
+  "statuses": {
+   "403": 20
+  }
+ },
+ {
+  "id": "path-traversal-3cdd9309-q",
+  "family": "path-traversal",
+  "shape": "B1",
+  "passes": 0,
+  "errors": 0,
+  "repeats": 20,
+  "statuses": {
+   "403": 20
+  }
+ },
+ {
+  "id": "path-traversal-3cdd9309-q",
+  "family": "path-traversal",
+  "shape": "B2",
+  "passes": 0,
+  "errors": 0,
+  "repeats": 20,
+  "statuses": {
+   "403": 20
+  }
+ },
+ {
+  "id": "path-traversal-3cdd9309-q",
+  "family": "path-traversal",
+  "shape": "B3",
+  "passes": 0,
+  "errors": 0,
+  "repeats": 20,
+  "statuses": {
+   "403": 20
+  }
+ },
+ {
+  "id": "path-traversal-3cdd9309-q",
+  "family": "path-traversal",
+  "shape": "B4",
+  "passes": 0,
+  "errors": 0,
+  "repeats": 20,
+  "statuses": {
+   "403": 20
+  }
+ },
+ {
+  "id": "path-traversal-3fe7f45d-q",
+  "family": "path-traversal",
+  "shape": "Q1",
+  "passes": 0,
+  "errors": 0,
+  "repeats": 20,
+  "statuses": {
+   "403": 20
+  }
+ },
+ {
+  "id": "path-traversal-3fe7f45d-q",
+  "family": "path-traversal",
+  "shape": "Q2",
+  "passes": 0,
+  "errors": 0,
+  "repeats": 20,
+  "statuses": {
+   "403": 20
+  }
+ },
+ {
+  "id": "path-traversal-3fe7f45d-q",
+  "family": "path-traversal",
+  "shape": "Q3",
+  "passes": 0,
+  "errors": 0,
+  "repeats": 20,
+  "statuses": {
+   "403": 20
+  }
+ },
+ {
+  "id": "path-traversal-3fe7f45d-q",
+  "family": "path-traversal",
+  "shape": "Q4",
+  "passes": 0,
+  "errors": 0,
+  "repeats": 20,
+  "statuses": {
+   "403": 20
+  }
+ },
+ {
+  "id": "path-traversal-3fe7f45d-q",
+  "family": "path-traversal",
+  "shape": "B1",
+  "passes": 0,
+  "errors": 0,
+  "repeats": 20,
+  "statuses": {
+   "403": 20
+  }
+ },
+ {
+  "id": "path-traversal-3fe7f45d-q",
+  "family": "path-traversal",
+  "shape": "B2",
+  "passes": 0,
+  "errors": 0,
+  "repeats": 20,
+  "statuses": {
+   "403": 20
+  }
+ },
+ {
+  "id": "path-traversal-3fe7f45d-q",
+  "family": "path-traversal",
+  "shape": "B3",
+  "passes": 0,
+  "errors": 0,
+  "repeats": 20,
+  "statuses": {
+   "403": 20
+  }
+ },
+ {
+  "id": "path-traversal-3fe7f45d-q",
+  "family": "path-traversal",
+  "shape": "B4",
+  "passes": 0,
+  "errors": 0,
+  "repeats": 20,
+  "statuses": {
+   "403": 20
+  }
+ },
+ {
+  "id": "path-traversal-5a3a53f4-q",
+  "family": "path-traversal",
+  "shape": "Q1",
+  "passes": 0,
+  "errors": 0,
+  "repeats": 20,
+  "statuses": {
+   "403": 20
+  }
+ },
+ {
+  "id": "path-traversal-5a3a53f4-q",
+  "family": "path-traversal",
+  "shape": "Q2",
+  "passes": 0,
+  "errors": 0,
+  "repeats": 20,
+  "statuses": {
+   "403": 20
+  }
+ },
+ {
+  "id": "path-traversal-5a3a53f4-q",
+  "family": "path-traversal",
+  "shape": "Q3",
+  "passes": 0,
+  "errors": 0,
+  "repeats": 20,
+  "statuses": {
+   "403": 20
+  }
+ },
+ {
+  "id": "path-traversal-5a3a53f4-q",
+  "family": "path-traversal",
+  "shape": "Q4",
+  "passes": 0,
+  "errors": 0,
+  "repeats": 20,
+  "statuses": {
+   "403": 20
+  }
+ },
+ {
+  "id": "path-traversal-5a3a53f4-q",
+  "family": "path-traversal",
+  "shape": "B1",
+  "passes": 0,
+  "errors": 0,
+  "repeats": 20,
+  "statuses": {
+   "403": 20
+  }
+ },
+ {
+  "id": "path-traversal-5a3a53f4-q",
+  "family": "path-traversal",
+  "shape": "B2",
+  "passes": 0,
+  "errors": 0,
+  "repeats": 20,
+  "statuses": {
+   "403": 20
+  }
+ },
+ {
+  "id": "path-traversal-5a3a53f4-q",
+  "family": "path-traversal",
+  "shape": "B3",
+  "passes": 0,
+  "errors": 0,
+  "repeats": 20,
+  "statuses": {
+   "403": 20
+  }
+ },
+ {
+  "id": "path-traversal-5a3a53f4-q",
+  "family": "path-traversal",
+  "shape": "B4",
+  "passes": 0,
+  "errors": 0,
+  "repeats": 20,
+  "statuses": {
+   "403": 20
+  }
+ },
+ {
+  "id": "path-traversal-74147b50-q",
+  "family": "path-traversal",
+  "shape": "Q1",
+  "passes": 0,
+  "errors": 0,
+  "repeats": 20,
+  "statuses": {
+   "403": 20
+  }
+ },
+ {
+  "id": "path-traversal-74147b50-q",
+  "family": "path-traversal",
+  "shape": "Q2",
+  "passes": 0,
+  "errors": 0,
+  "repeats": 20,
+  "statuses": {
+   "403": 20
+  }
+ },
+ {
+  "id": "path-traversal-74147b50-q",
+  "family": "path-traversal",
+  "shape": "Q3",
+  "passes": 0,
+  "errors": 0,
+  "repeats": 20,
+  "statuses": {
+   "403": 20
+  }
+ },
+ {
+  "id": "path-traversal-74147b50-q",
+  "family": "path-traversal",
+  "shape": "Q4",
+  "passes": 0,
+  "errors": 0,
+  "repeats": 20,
+  "statuses": {
+   "403": 20
+  }
+ },
+ {
+  "id": "path-traversal-74147b50-q",
+  "family": "path-traversal",
+  "shape": "B1",
+  "passes": 0,
+  "errors": 0,
+  "repeats": 20,
+  "statuses": {
+   "403": 20
+  }
+ },
+ {
+  "id": "path-traversal-74147b50-q",
+  "family": "path-traversal",
+  "shape": "B2",
+  "passes": 0,
+  "errors": 0,
+  "repeats": 20,
+  "statuses": {
+   "403": 20
+  }
+ },
+ {
+  "id": "path-traversal-74147b50-q",
+  "family": "path-traversal",
+  "shape": "B3",
+  "passes": 0,
+  "errors": 0,
+  "repeats": 20,
+  "statuses": {
+   "403": 20
+  }
+ },
+ {
+  "id": "path-traversal-74147b50-q",
+  "family": "path-traversal",
+  "shape": "B4",
+  "passes": 0,
+  "errors": 0,
+  "repeats": 20,
+  "statuses": {
+   "403": 20
+  }
+ },
+ {
+  "id": "path-traversal-8126dd98-q",
+  "family": "path-traversal",
+  "shape": "Q1",
+  "passes": 0,
+  "errors": 0,
+  "repeats": 20,
+  "statuses": {
+   "403": 20
+  }
+ },
+ {
+  "id": "path-traversal-8126dd98-q",
+  "family": "path-traversal",
+  "shape": "Q2",
+  "passes": 0,
+  "errors": 0,
+  "repeats": 20,
+  "statuses": {
+   "403": 20
+  }
+ },
+ {
+  "id": "path-traversal-8126dd98-q",
+  "family": "path-traversal",
+  "shape": "Q3",
+  "passes": 0,
+  "errors": 0,
+  "repeats": 20,
+  "statuses": {
+   "403": 20
+  }
+ },
+ {
+  "id": "path-traversal-8126dd98-q",
+  "family": "path-traversal",
+  "shape": "Q4",
+  "passes": 0,
+  "errors": 0,
+  "repeats": 20,
+  "statuses": {
+   "403": 20
+  }
+ },
+ {
+  "id": "path-traversal-8126dd98-q",
+  "family": "path-traversal",
+  "shape": "B1",
+  "passes": 0,
+  "errors": 0,
+  "repeats": 20,
+  "statuses": {
+   "403": 20
+  }
+ },
+ {
+  "id": "path-traversal-8126dd98-q",
+  "family": "path-traversal",
+  "shape": "B2",
+  "passes": 0,
+  "errors": 0,
+  "repeats": 20,
+  "statuses": {
+   "403": 20
+  }
+ },
+ {
+  "id": "path-traversal-8126dd98-q",
+  "family": "path-traversal",
+  "shape": "B3",
+  "passes": 0,
+  "errors": 0,
+  "repeats": 20,
+  "statuses": {
+   "403": 20
+  }
+ },
+ {
+  "id": "path-traversal-8126dd98-q",
+  "family": "path-traversal",
+  "shape": "B4",
+  "passes": 0,
+  "errors": 0,
+  "repeats": 20,
+  "statuses": {
+   "403": 20
+  }
+ },
+ {
+  "id": "path-traversal-8cf36b00-q",
+  "family": "path-traversal",
+  "shape": "Q1",
+  "passes": 0,
+  "errors": 0,
+  "repeats": 20,
+  "statuses": {
+   "403": 20
+  }
+ },
+ {
+  "id": "path-traversal-8cf36b00-q",
+  "family": "path-traversal",
+  "shape": "Q2",
+  "passes": 0,
+  "errors": 0,
+  "repeats": 20,
+  "statuses": {
+   "403": 20
+  }
+ },
+ {
+  "id": "path-traversal-8cf36b00-q",
+  "family": "path-traversal",
+  "shape": "Q3",
+  "passes": 0,
+  "errors": 0,
+  "repeats": 20,
+  "statuses": {
+   "403": 20
+  }
+ },
+ {
+  "id": "path-traversal-8cf36b00-q",
+  "family": "path-traversal",
+  "shape": "Q4",
+  "passes": 0,
+  "errors": 0,
+  "repeats": 20,
+  "statuses": {
+   "403": 20
+  }
+ },
+ {
+  "id": "path-traversal-8cf36b00-q",
+  "family": "path-traversal",
+  "shape": "B1",
+  "passes": 0,
+  "errors": 0,
+  "repeats": 20,
+  "statuses": {
+   "403": 20
+  }
+ },
+ {
+  "id": "path-traversal-8cf36b00-q",
+  "family": "path-traversal",
+  "shape": "B2",
+  "passes": 0,
+  "errors": 0,
+  "repeats": 20,
+  "statuses": {
+   "403": 20
+  }
+ },
+ {
+  "id": "path-traversal-8cf36b00-q",
+  "family": "path-traversal",
+  "shape": "B3",
+  "passes": 0,
+  "errors": 0,
+  "repeats": 20,
+  "statuses": {
+   "403": 20
+  }
+ },
+ {
+  "id": "path-traversal-8cf36b00-q",
+  "family": "path-traversal",
+  "shape": "B4",
+  "passes": 0,
+  "errors": 0,
+  "repeats": 20,
+  "statuses": {
+   "403": 20
+  }
+ },
+ {
+  "id": "path-traversal-e2c554f4-q",
+  "family": "path-traversal",
+  "shape": "Q1",
+  "passes": 0,
+  "errors": 0,
+  "repeats": 20,
+  "statuses": {
+   "403": 20
+  }
+ },
+ {
+  "id": "path-traversal-e2c554f4-q",
+  "family": "path-traversal",
+  "shape": "Q2",
+  "passes": 0,
+  "errors": 0,
+  "repeats": 20,
+  "statuses": {
+   "403": 20
+  }
+ },
+ {
+  "id": "path-traversal-e2c554f4-q",
+  "family": "path-traversal",
+  "shape": "Q3",
+  "passes": 0,
+  "errors": 0,
+  "repeats": 20,
+  "statuses": {
+   "403": 20
+  }
+ },
+ {
+  "id": "path-traversal-e2c554f4-q",
+  "family": "path-traversal",
+  "shape": "Q4",
+  "passes": 0,
+  "errors": 0,
+  "repeats": 20,
+  "statuses": {
+   "403": 20
+  }
+ },
+ {
+  "id": "path-traversal-e2c554f4-q",
+  "family": "path-traversal",
+  "shape": "B1",
+  "passes": 0,
+  "errors": 0,
+  "repeats": 20,
+  "statuses": {
+   "403": 20
+  }
+ },
+ {
+  "id": "path-traversal-e2c554f4-q",
+  "family": "path-traversal",
+  "shape": "B2",
+  "passes": 0,
+  "errors": 0,
+  "repeats": 20,
+  "statuses": {
+   "403": 20
+  }
+ },
+ {
+  "id": "path-traversal-e2c554f4-q",
+  "family": "path-traversal",
+  "shape": "B3",
+  "passes": 0,
+  "errors": 0,
+  "repeats": 20,
+  "statuses": {
+   "403": 20
+  }
+ },
+ {
+  "id": "path-traversal-e2c554f4-q",
+  "family": "path-traversal",
+  "shape": "B4",
+  "passes": 0,
+  "errors": 0,
+  "repeats": 20,
+  "statuses": {
+   "403": 20
+  }
+ },
+ {
+  "id": "path-traversal-ed5630c7-q",
+  "family": "path-traversal",
+  "shape": "Q1",
+  "passes": 0,
+  "errors": 0,
+  "repeats": 20,
+  "statuses": {
+   "403": 20
+  }
+ },
+ {
+  "id": "path-traversal-ed5630c7-q",
+  "family": "path-traversal",
+  "shape": "Q2",
+  "passes": 0,
+  "errors": 0,
+  "repeats": 20,
+  "statuses": {
+   "403": 20
+  }
+ },
+ {
+  "id": "path-traversal-ed5630c7-q",
+  "family": "path-traversal",
+  "shape": "Q3",
+  "passes": 0,
+  "errors": 0,
+  "repeats": 20,
+  "statuses": {
+   "403": 20
+  }
+ },
+ {
+  "id": "path-traversal-ed5630c7-q",
+  "family": "path-traversal",
+  "shape": "Q4",
+  "passes": 0,
+  "errors": 0,
+  "repeats": 20,
+  "statuses": {
+   "403": 20
+  }
+ },
+ {
+  "id": "path-traversal-ed5630c7-q",
+  "family": "path-traversal",
+  "shape": "B1",
+  "passes": 0,
+  "errors": 0,
+  "repeats": 20,
+  "statuses": {
+   "403": 20
+  }
+ },
+ {
+  "id": "path-traversal-ed5630c7-q",
+  "family": "path-traversal",
+  "shape": "B2",
+  "passes": 0,
+  "errors": 0,
+  "repeats": 20,
+  "statuses": {
+   "403": 20
+  }
+ },
+ {
+  "id": "path-traversal-ed5630c7-q",
+  "family": "path-traversal",
+  "shape": "B3",
+  "passes": 0,
+  "errors": 0,
+  "repeats": 20,
+  "statuses": {
+   "403": 20
+  }
+ },
+ {
+  "id": "path-traversal-ed5630c7-q",
+  "family": "path-traversal",
+  "shape": "B4",
+  "passes": 0,
+  "errors": 0,
+  "repeats": 20,
+  "statuses": {
+   "403": 20
+  }
+ },
+ {
+  "id": "path-traversal-ff7ae830-q",
+  "family": "path-traversal",
+  "shape": "Q1",
+  "passes": 0,
+  "errors": 0,
+  "repeats": 20,
+  "statuses": {
+   "403": 20
+  }
+ },
+ {
+  "id": "path-traversal-ff7ae830-q",
+  "family": "path-traversal",
+  "shape": "Q2",
+  "passes": 0,
+  "errors": 0,
+  "repeats": 20,
+  "statuses": {
+   "403": 20
+  }
+ },
+ {
+  "id": "path-traversal-ff7ae830-q",
+  "family": "path-traversal",
+  "shape": "Q3",
+  "passes": 0,
+  "errors": 0,
+  "repeats": 20,
+  "statuses": {
+   "403": 20
+  }
+ },
+ {
+  "id": "path-traversal-ff7ae830-q",
+  "family": "path-traversal",
+  "shape": "Q4",
+  "passes": 0,
+  "errors": 0,
+  "repeats": 20,
+  "statuses": {
+   "403": 20
+  }
+ },
+ {
+  "id": "path-traversal-ff7ae830-q",
+  "family": "path-traversal",
+  "shape": "B1",
+  "passes": 0,
+  "errors": 0,
+  "repeats": 20,
+  "statuses": {
+   "403": 20
+  }
+ },
+ {
+  "id": "path-traversal-ff7ae830-q",
+  "family": "path-traversal",
+  "shape": "B2",
+  "passes": 0,
+  "errors": 0,
+  "repeats": 20,
+  "statuses": {
+   "403": 20
+  }
+ },
+ {
+  "id": "path-traversal-ff7ae830-q",
+  "family": "path-traversal",
+  "shape": "B3",
+  "passes": 0,
+  "errors": 0,
+  "repeats": 20,
+  "statuses": {
+   "403": 20
+  }
+ },
+ {
+  "id": "path-traversal-ff7ae830-q",
+  "family": "path-traversal",
+  "shape": "B4",
+  "passes": 0,
+  "errors": 0,
+  "repeats": 20,
+  "statuses": {
+   "403": 20
+  }
+ },
+ {
+  "id": "sqli-15a7e30e-q",
+  "family": "sqli",
+  "shape": "Q1",
+  "passes": 0,
+  "errors": 0,
+  "repeats": 20,
+  "statuses": {
+   "403": 20
+  }
+ },
+ {
+  "id": "sqli-15a7e30e-q",
+  "family": "sqli",
+  "shape": "Q2",
+  "passes": 0,
+  "errors": 0,
+  "repeats": 20,
+  "statuses": {
+   "403": 20
+  }
+ },
+ {
+  "id": "sqli-15a7e30e-q",
+  "family": "sqli",
+  "shape": "Q3",
+  "passes": 0,
+  "errors": 0,
+  "repeats": 20,
+  "statuses": {
+   "403": 20
+  }
+ },
+ {
+  "id": "sqli-15a7e30e-q",
+  "family": "sqli",
+  "shape": "Q4",
+  "passes": 0,
+  "errors": 0,
+  "repeats": 20,
+  "statuses": {
+   "403": 20
+  }
+ },
+ {
+  "id": "sqli-15a7e30e-q",
+  "family": "sqli",
+  "shape": "B1",
+  "passes": 0,
+  "errors": 0,
+  "repeats": 20,
+  "statuses": {
+   "403": 20
+  }
+ },
+ {
+  "id": "sqli-15a7e30e-q",
+  "family": "sqli",
+  "shape": "B2",
+  "passes": 0,
+  "errors": 0,
+  "repeats": 20,
+  "statuses": {
+   "403": 20
+  }
+ },
+ {
+  "id": "sqli-15a7e30e-q",
+  "family": "sqli",
+  "shape": "B3",
+  "passes": 0,
+  "errors": 0,
+  "repeats": 20,
+  "statuses": {
+   "403": 20
+  }
+ },
+ {
+  "id": "sqli-15a7e30e-q",
+  "family": "sqli",
+  "shape": "B4",
+  "passes": 0,
+  "errors": 0,
+  "repeats": 20,
+  "statuses": {
+   "403": 20
+  }
+ },
+ {
+  "id": "sqli-1d273014-q",
+  "family": "sqli",
+  "shape": "Q1",
+  "passes": 0,
+  "errors": 0,
+  "repeats": 20,
+  "statuses": {
+   "403": 20
+  }
+ },
+ {
+  "id": "sqli-1d273014-q",
+  "family": "sqli",
+  "shape": "Q2",
+  "passes": 0,
+  "errors": 0,
+  "repeats": 20,
+  "statuses": {
+   "403": 20
+  }
+ },
+ {
+  "id": "sqli-1d273014-q",
+  "family": "sqli",
+  "shape": "Q3",
+  "passes": 0,
+  "errors": 0,
+  "repeats": 20,
+  "statuses": {
+   "403": 20
+  }
+ },
+ {
+  "id": "sqli-1d273014-q",
+  "family": "sqli",
+  "shape": "Q4",
+  "passes": 0,
+  "errors": 0,
+  "repeats": 20,
+  "statuses": {
+   "403": 20
+  }
+ },
+ {
+  "id": "sqli-1d273014-q",
+  "family": "sqli",
+  "shape": "B1",
+  "passes": 0,
+  "errors": 0,
+  "repeats": 20,
+  "statuses": {
+   "403": 20
+  }
+ },
+ {
+  "id": "sqli-1d273014-q",
+  "family": "sqli",
+  "shape": "B2",
+  "passes": 0,
+  "errors": 0,
+  "repeats": 20,
+  "statuses": {
+   "403": 20
+  }
+ },
+ {
+  "id": "sqli-1d273014-q",
+  "family": "sqli",
+  "shape": "B3",
+  "passes": 0,
+  "errors": 0,
+  "repeats": 20,
+  "statuses": {
+   "403": 20
+  }
+ },
+ {
+  "id": "sqli-1d273014-q",
+  "family": "sqli",
+  "shape": "B4",
+  "passes": 0,
+  "errors": 0,
+  "repeats": 20,
+  "statuses": {
+   "403": 20
+  }
+ },
+ {
+  "id": "sqli-43c36ec3-q",
+  "family": "sqli",
+  "shape": "Q1",
+  "passes": 0,
+  "errors": 0,
+  "repeats": 20,
+  "statuses": {
+   "403": 20
+  }
+ },
+ {
+  "id": "sqli-43c36ec3-q",
+  "family": "sqli",
+  "shape": "Q2",
+  "passes": 0,
+  "errors": 0,
+  "repeats": 20,
+  "statuses": {
+   "403": 20
+  }
+ },
+ {
+  "id": "sqli-43c36ec3-q",
+  "family": "sqli",
+  "shape": "Q3",
+  "passes": 0,
+  "errors": 0,
+  "repeats": 20,
+  "statuses": {
+   "403": 20
+  }
+ },
+ {
+  "id": "sqli-43c36ec3-q",
+  "family": "sqli",
+  "shape": "Q4",
+  "passes": 0,
+  "errors": 0,
+  "repeats": 20,
+  "statuses": {
+   "403": 20
+  }
+ },
+ {
+  "id": "sqli-43c36ec3-q",
+  "family": "sqli",
+  "shape": "B1",
+  "passes": 0,
+  "errors": 0,
+  "repeats": 20,
+  "statuses": {
+   "403": 20
+  }
+ },
+ {
+  "id": "sqli-43c36ec3-q",
+  "family": "sqli",
+  "shape": "B2",
+  "passes": 0,
+  "errors": 0,
+  "repeats": 20,
+  "statuses": {
+   "403": 20
+  }
+ },
+ {
+  "id": "sqli-43c36ec3-q",
+  "family": "sqli",
+  "shape": "B3",
+  "passes": 0,
+  "errors": 0,
+  "repeats": 20,
+  "statuses": {
+   "403": 20
+  }
+ },
+ {
+  "id": "sqli-43c36ec3-q",
+  "family": "sqli",
+  "shape": "B4",
+  "passes": 0,
+  "errors": 0,
+  "repeats": 20,
+  "statuses": {
+   "403": 20
+  }
+ },
+ {
+  "id": "sqli-906b8603-q",
+  "family": "sqli",
+  "shape": "Q1",
+  "passes": 0,
+  "errors": 0,
+  "repeats": 20,
+  "statuses": {
+   "403": 20
+  }
+ },
+ {
+  "id": "sqli-906b8603-q",
+  "family": "sqli",
+  "shape": "Q2",
+  "passes": 0,
+  "errors": 0,
+  "repeats": 20,
+  "statuses": {
+   "403": 20
+  }
+ },
+ {
+  "id": "sqli-906b8603-q",
+  "family": "sqli",
+  "shape": "Q3",
+  "passes": 0,
+  "errors": 0,
+  "repeats": 20,
+  "statuses": {
+   "403": 20
+  }
+ },
+ {
+  "id": "sqli-906b8603-q",
+  "family": "sqli",
+  "shape": "Q4",
+  "passes": 0,
+  "errors": 0,
+  "repeats": 20,
+  "statuses": {
+   "403": 20
+  }
+ },
+ {
+  "id": "sqli-906b8603-q",
+  "family": "sqli",
+  "shape": "B1",
+  "passes": 0,
+  "errors": 0,
+  "repeats": 20,
+  "statuses": {
+   "403": 20
+  }
+ },
+ {
+  "id": "sqli-906b8603-q",
+  "family": "sqli",
+  "shape": "B2",
+  "passes": 0,
+  "errors": 0,
+  "repeats": 20,
+  "statuses": {
+   "403": 20
+  }
+ },
+ {
+  "id": "sqli-906b8603-q",
+  "family": "sqli",
+  "shape": "B3",
+  "passes": 0,
+  "errors": 0,
+  "repeats": 20,
+  "statuses": {
+   "403": 20
+  }
+ },
+ {
+  "id": "sqli-906b8603-q",
+  "family": "sqli",
+  "shape": "B4",
+  "passes": 0,
+  "errors": 0,
+  "repeats": 20,
+  "statuses": {
+   "403": 20
+  }
+ },
+ {
+  "id": "sqli-91706853-q",
+  "family": "sqli",
+  "shape": "Q1",
+  "passes": 0,
+  "errors": 0,
+  "repeats": 20,
+  "statuses": {
+   "403": 20
+  }
+ },
+ {
+  "id": "sqli-91706853-q",
+  "family": "sqli",
+  "shape": "Q2",
+  "passes": 0,
+  "errors": 0,
+  "repeats": 20,
+  "statuses": {
+   "403": 20
+  }
+ },
+ {
+  "id": "sqli-91706853-q",
+  "family": "sqli",
+  "shape": "Q3",
+  "passes": 0,
+  "errors": 0,
+  "repeats": 20,
+  "statuses": {
+   "403": 20
+  }
+ },
+ {
+  "id": "sqli-91706853-q",
+  "family": "sqli",
+  "shape": "Q4",
+  "passes": 0,
+  "errors": 0,
+  "repeats": 20,
+  "statuses": {
+   "403": 20
+  }
+ },
+ {
+  "id": "sqli-91706853-q",
+  "family": "sqli",
+  "shape": "B1",
+  "passes": 0,
+  "errors": 0,
+  "repeats": 20,
+  "statuses": {
+   "403": 20
+  }
+ },
+ {
+  "id": "sqli-91706853-q",
+  "family": "sqli",
+  "shape": "B2",
+  "passes": 0,
+  "errors": 0,
+  "repeats": 20,
+  "statuses": {
+   "403": 20
+  }
+ },
+ {
+  "id": "sqli-91706853-q",
+  "family": "sqli",
+  "shape": "B3",
+  "passes": 0,
+  "errors": 0,
+  "repeats": 20,
+  "statuses": {
+   "403": 20
+  }
+ },
+ {
+  "id": "sqli-91706853-q",
+  "family": "sqli",
+  "shape": "B4",
+  "passes": 0,
+  "errors": 0,
+  "repeats": 20,
+  "statuses": {
+   "403": 20
+  }
+ },
+ {
+  "id": "sqli-a2035700-q",
+  "family": "sqli",
+  "shape": "Q1",
+  "passes": 0,
+  "errors": 0,
+  "repeats": 20,
+  "statuses": {
+   "403": 20
+  }
+ },
+ {
+  "id": "sqli-a2035700-q",
+  "family": "sqli",
+  "shape": "Q2",
+  "passes": 0,
+  "errors": 0,
+  "repeats": 20,
+  "statuses": {
+   "403": 20
+  }
+ },
+ {
+  "id": "sqli-a2035700-q",
+  "family": "sqli",
+  "shape": "Q3",
+  "passes": 0,
+  "errors": 0,
+  "repeats": 20,
+  "statuses": {
+   "403": 20
+  }
+ },
+ {
+  "id": "sqli-a2035700-q",
+  "family": "sqli",
+  "shape": "Q4",
+  "passes": 0,
+  "errors": 0,
+  "repeats": 20,
+  "statuses": {
+   "403": 20
+  }
+ },
+ {
+  "id": "sqli-a2035700-q",
+  "family": "sqli",
+  "shape": "B1",
+  "passes": 0,
+  "errors": 0,
+  "repeats": 20,
+  "statuses": {
+   "403": 20
+  }
+ },
+ {
+  "id": "sqli-a2035700-q",
+  "family": "sqli",
+  "shape": "B2",
+  "passes": 0,
+  "errors": 0,
+  "repeats": 20,
+  "statuses": {
+   "403": 20
+  }
+ },
+ {
+  "id": "sqli-a2035700-q",
+  "family": "sqli",
+  "shape": "B3",
+  "passes": 0,
+  "errors": 0,
+  "repeats": 20,
+  "statuses": {
+   "403": 20
+  }
+ },
+ {
+  "id": "sqli-a2035700-q",
+  "family": "sqli",
+  "shape": "B4",
+  "passes": 0,
+  "errors": 0,
+  "repeats": 20,
+  "statuses": {
+   "403": 20
+  }
+ },
+ {
+  "id": "sqli-cba0a4a7-q",
+  "family": "sqli",
+  "shape": "Q1",
+  "passes": 0,
+  "errors": 0,
+  "repeats": 20,
+  "statuses": {
+   "403": 20
+  }
+ },
+ {
+  "id": "sqli-cba0a4a7-q",
+  "family": "sqli",
+  "shape": "Q2",
+  "passes": 0,
+  "errors": 0,
+  "repeats": 20,
+  "statuses": {
+   "403": 20
+  }
+ },
+ {
+  "id": "sqli-cba0a4a7-q",
+  "family": "sqli",
+  "shape": "Q3",
+  "passes": 0,
+  "errors": 0,
+  "repeats": 20,
+  "statuses": {
+   "403": 20
+  }
+ },
+ {
+  "id": "sqli-cba0a4a7-q",
+  "family": "sqli",
+  "shape": "Q4",
+  "passes": 0,
+  "errors": 0,
+  "repeats": 20,
+  "statuses": {
+   "403": 20
+  }
+ },
+ {
+  "id": "sqli-cba0a4a7-q",
+  "family": "sqli",
+  "shape": "B1",
+  "passes": 0,
+  "errors": 0,
+  "repeats": 20,
+  "statuses": {
+   "403": 20
+  }
+ },
+ {
+  "id": "sqli-cba0a4a7-q",
+  "family": "sqli",
+  "shape": "B2",
+  "passes": 0,
+  "errors": 0,
+  "repeats": 20,
+  "statuses": {
+   "403": 20
+  }
+ },
+ {
+  "id": "sqli-cba0a4a7-q",
+  "family": "sqli",
+  "shape": "B3",
+  "passes": 0,
+  "errors": 0,
+  "repeats": 20,
+  "statuses": {
+   "403": 20
+  }
+ },
+ {
+  "id": "sqli-cba0a4a7-q",
+  "family": "sqli",
+  "shape": "B4",
+  "passes": 0,
+  "errors": 0,
+  "repeats": 20,
+  "statuses": {
+   "403": 20
+  }
+ },
+ {
+  "id": "sqli-d5e8c63e-q",
+  "family": "sqli",
+  "shape": "Q1",
+  "passes": 0,
+  "errors": 0,
+  "repeats": 20,
+  "statuses": {
+   "403": 20
+  }
+ },
+ {
+  "id": "sqli-d5e8c63e-q",
+  "family": "sqli",
+  "shape": "Q2",
+  "passes": 0,
+  "errors": 0,
+  "repeats": 20,
+  "statuses": {
+   "403": 20
+  }
+ },
+ {
+  "id": "sqli-d5e8c63e-q",
+  "family": "sqli",
+  "shape": "Q3",
+  "passes": 0,
+  "errors": 0,
+  "repeats": 20,
+  "statuses": {
+   "403": 20
+  }
+ },
+ {
+  "id": "sqli-d5e8c63e-q",
+  "family": "sqli",
+  "shape": "Q4",
+  "passes": 0,
+  "errors": 0,
+  "repeats": 20,
+  "statuses": {
+   "403": 20
+  }
+ },
+ {
+  "id": "sqli-d5e8c63e-q",
+  "family": "sqli",
+  "shape": "B1",
+  "passes": 0,
+  "errors": 0,
+  "repeats": 20,
+  "statuses": {
+   "403": 20
+  }
+ },
+ {
+  "id": "sqli-d5e8c63e-q",
+  "family": "sqli",
+  "shape": "B2",
+  "passes": 0,
+  "errors": 0,
+  "repeats": 20,
+  "statuses": {
+   "403": 20
+  }
+ },
+ {
+  "id": "sqli-d5e8c63e-q",
+  "family": "sqli",
+  "shape": "B3",
+  "passes": 0,
+  "errors": 0,
+  "repeats": 20,
+  "statuses": {
+   "403": 20
+  }
+ },
+ {
+  "id": "sqli-d5e8c63e-q",
+  "family": "sqli",
+  "shape": "B4",
+  "passes": 0,
+  "errors": 0,
+  "repeats": 20,
+  "statuses": {
+   "403": 20
+  }
+ },
+ {
+  "id": "sqli-ef753d10-q",
+  "family": "sqli",
+  "shape": "Q1",
+  "passes": 0,
+  "errors": 0,
+  "repeats": 20,
+  "statuses": {
+   "403": 20
+  }
+ },
+ {
+  "id": "sqli-ef753d10-q",
+  "family": "sqli",
+  "shape": "Q2",
+  "passes": 0,
+  "errors": 0,
+  "repeats": 20,
+  "statuses": {
+   "403": 20
+  }
+ },
+ {
+  "id": "sqli-ef753d10-q",
+  "family": "sqli",
+  "shape": "Q3",
+  "passes": 0,
+  "errors": 0,
+  "repeats": 20,
+  "statuses": {
+   "403": 20
+  }
+ },
+ {
+  "id": "sqli-ef753d10-q",
+  "family": "sqli",
+  "shape": "Q4",
+  "passes": 0,
+  "errors": 0,
+  "repeats": 20,
+  "statuses": {
+   "403": 20
+  }
+ },
+ {
+  "id": "sqli-ef753d10-q",
+  "family": "sqli",
+  "shape": "B1",
+  "passes": 0,
+  "errors": 0,
+  "repeats": 20,
+  "statuses": {
+   "403": 20
+  }
+ },
+ {
+  "id": "sqli-ef753d10-q",
+  "family": "sqli",
+  "shape": "B2",
+  "passes": 0,
+  "errors": 0,
+  "repeats": 20,
+  "statuses": {
+   "403": 20
+  }
+ },
+ {
+  "id": "sqli-ef753d10-q",
+  "family": "sqli",
+  "shape": "B3",
+  "passes": 0,
+  "errors": 0,
+  "repeats": 20,
+  "statuses": {
+   "403": 20
+  }
+ },
+ {
+  "id": "sqli-ef753d10-q",
+  "family": "sqli",
+  "shape": "B4",
+  "passes": 0,
+  "errors": 0,
+  "repeats": 20,
+  "statuses": {
+   "403": 20
+  }
+ },
+ {
+  "id": "sqli-fc1121b9-q",
+  "family": "sqli",
+  "shape": "Q1",
+  "passes": 0,
+  "errors": 0,
+  "repeats": 20,
+  "statuses": {
+   "403": 20
+  }
+ },
+ {
+  "id": "sqli-fc1121b9-q",
+  "family": "sqli",
+  "shape": "Q2",
+  "passes": 0,
+  "errors": 0,
+  "repeats": 20,
+  "statuses": {
+   "403": 20
+  }
+ },
+ {
+  "id": "sqli-fc1121b9-q",
+  "family": "sqli",
+  "shape": "Q3",
+  "passes": 0,
+  "errors": 0,
+  "repeats": 20,
+  "statuses": {
+   "403": 20
+  }
+ },
+ {
+  "id": "sqli-fc1121b9-q",
+  "family": "sqli",
+  "shape": "Q4",
+  "passes": 0,
+  "errors": 0,
+  "repeats": 20,
+  "statuses": {
+   "403": 20
+  }
+ },
+ {
+  "id": "sqli-fc1121b9-q",
+  "family": "sqli",
+  "shape": "B1",
+  "passes": 0,
+  "errors": 0,
+  "repeats": 20,
+  "statuses": {
+   "403": 20
+  }
+ },
+ {
+  "id": "sqli-fc1121b9-q",
+  "family": "sqli",
+  "shape": "B2",
+  "passes": 0,
+  "errors": 0,
+  "repeats": 20,
+  "statuses": {
+   "403": 20
+  }
+ },
+ {
+  "id": "sqli-fc1121b9-q",
+  "family": "sqli",
+  "shape": "B3",
+  "passes": 0,
+  "errors": 0,
+  "repeats": 20,
+  "statuses": {
+   "403": 20
+  }
+ },
+ {
+  "id": "sqli-fc1121b9-q",
+  "family": "sqli",
+  "shape": "B4",
+  "passes": 0,
+  "errors": 0,
+  "repeats": 20,
+  "statuses": {
+   "403": 20
+  }
+ },
+ {
+  "id": "xss-088208c1-q",
+  "family": "xss",
+  "shape": "Q1",
+  "passes": 0,
+  "errors": 0,
+  "repeats": 20,
+  "statuses": {
+   "403": 20
+  }
+ },
+ {
+  "id": "xss-088208c1-q",
+  "family": "xss",
+  "shape": "Q2",
+  "passes": 0,
+  "errors": 0,
+  "repeats": 20,
+  "statuses": {
+   "403": 20
+  }
+ },
+ {
+  "id": "xss-088208c1-q",
+  "family": "xss",
+  "shape": "Q3",
+  "passes": 0,
+  "errors": 0,
+  "repeats": 20,
+  "statuses": {
+   "403": 20
+  }
+ },
+ {
+  "id": "xss-088208c1-q",
+  "family": "xss",
+  "shape": "Q4",
+  "passes": 0,
+  "errors": 0,
+  "repeats": 20,
+  "statuses": {
+   "403": 20
+  }
+ },
+ {
+  "id": "xss-088208c1-q",
+  "family": "xss",
+  "shape": "B1",
+  "passes": 0,
+  "errors": 0,
+  "repeats": 20,
+  "statuses": {
+   "403": 20
+  }
+ },
+ {
+  "id": "xss-088208c1-q",
+  "family": "xss",
+  "shape": "B2",
+  "passes": 0,
+  "errors": 0,
+  "repeats": 20,
+  "statuses": {
+   "403": 20
+  }
+ },
+ {
+  "id": "xss-088208c1-q",
+  "family": "xss",
+  "shape": "B3",
+  "passes": 0,
+  "errors": 0,
+  "repeats": 20,
+  "statuses": {
+   "403": 20
+  }
+ },
+ {
+  "id": "xss-088208c1-q",
+  "family": "xss",
+  "shape": "B4",
+  "passes": 0,
+  "errors": 0,
+  "repeats": 20,
+  "statuses": {
+   "403": 20
+  }
+ },
+ {
+  "id": "xss-2729f09f-q",
+  "family": "xss",
+  "shape": "Q1",
+  "passes": 0,
+  "errors": 0,
+  "repeats": 20,
+  "statuses": {
+   "403": 20
+  }
+ },
+ {
+  "id": "xss-2729f09f-q",
+  "family": "xss",
+  "shape": "Q2",
+  "passes": 0,
+  "errors": 0,
+  "repeats": 20,
+  "statuses": {
+   "403": 20
+  }
+ },
+ {
+  "id": "xss-2729f09f-q",
+  "family": "xss",
+  "shape": "Q3",
+  "passes": 0,
+  "errors": 0,
+  "repeats": 20,
+  "statuses": {
+   "403": 20
+  }
+ },
+ {
+  "id": "xss-2729f09f-q",
+  "family": "xss",
+  "shape": "Q4",
+  "passes": 0,
+  "errors": 0,
+  "repeats": 20,
+  "statuses": {
+   "403": 20
+  }
+ },
+ {
+  "id": "xss-2729f09f-q",
+  "family": "xss",
+  "shape": "B1",
+  "passes": 0,
+  "errors": 0,
+  "repeats": 20,
+  "statuses": {
+   "403": 20
+  }
+ },
+ {
+  "id": "xss-2729f09f-q",
+  "family": "xss",
+  "shape": "B2",
+  "passes": 0,
+  "errors": 0,
+  "repeats": 20,
+  "statuses": {
+   "403": 20
+  }
+ },
+ {
+  "id": "xss-2729f09f-q",
+  "family": "xss",
+  "shape": "B3",
+  "passes": 0,
+  "errors": 0,
+  "repeats": 20,
+  "statuses": {
+   "403": 20
+  }
+ },
+ {
+  "id": "xss-2729f09f-q",
+  "family": "xss",
+  "shape": "B4",
+  "passes": 0,
+  "errors": 0,
+  "repeats": 20,
+  "statuses": {
+   "403": 20
+  }
+ },
+ {
+  "id": "xss-2e32506e-q",
+  "family": "xss",
+  "shape": "Q1",
+  "passes": 0,
+  "errors": 0,
+  "repeats": 20,
+  "statuses": {
+   "403": 20
+  }
+ },
+ {
+  "id": "xss-2e32506e-q",
+  "family": "xss",
+  "shape": "Q2",
+  "passes": 0,
+  "errors": 0,
+  "repeats": 20,
+  "statuses": {
+   "403": 20
+  }
+ },
+ {
+  "id": "xss-2e32506e-q",
+  "family": "xss",
+  "shape": "Q3",
+  "passes": 0,
+  "errors": 0,
+  "repeats": 20,
+  "statuses": {
+   "403": 20
+  }
+ },
+ {
+  "id": "xss-2e32506e-q",
+  "family": "xss",
+  "shape": "Q4",
+  "passes": 0,
+  "errors": 0,
+  "repeats": 20,
+  "statuses": {
+   "403": 20
+  }
+ },
+ {
+  "id": "xss-2e32506e-q",
+  "family": "xss",
+  "shape": "B1",
+  "passes": 0,
+  "errors": 0,
+  "repeats": 20,
+  "statuses": {
+   "403": 20
+  }
+ },
+ {
+  "id": "xss-2e32506e-q",
+  "family": "xss",
+  "shape": "B2",
+  "passes": 0,
+  "errors": 0,
+  "repeats": 20,
+  "statuses": {
+   "403": 20
+  }
+ },
+ {
+  "id": "xss-2e32506e-q",
+  "family": "xss",
+  "shape": "B3",
+  "passes": 0,
+  "errors": 0,
+  "repeats": 20,
+  "statuses": {
+   "403": 20
+  }
+ },
+ {
+  "id": "xss-2e32506e-q",
+  "family": "xss",
+  "shape": "B4",
+  "passes": 0,
+  "errors": 0,
+  "repeats": 20,
+  "statuses": {
+   "403": 20
+  }
+ },
+ {
+  "id": "xss-8663ea87-q",
+  "family": "xss",
+  "shape": "Q1",
+  "passes": 0,
+  "errors": 0,
+  "repeats": 20,
+  "statuses": {
+   "403": 20
+  }
+ },
+ {
+  "id": "xss-8663ea87-q",
+  "family": "xss",
+  "shape": "Q2",
+  "passes": 0,
+  "errors": 0,
+  "repeats": 20,
+  "statuses": {
+   "403": 20
+  }
+ },
+ {
+  "id": "xss-8663ea87-q",
+  "family": "xss",
+  "shape": "Q3",
+  "passes": 0,
+  "errors": 0,
+  "repeats": 20,
+  "statuses": {
+   "403": 20
+  }
+ },
+ {
+  "id": "xss-8663ea87-q",
+  "family": "xss",
+  "shape": "Q4",
+  "passes": 0,
+  "errors": 0,
+  "repeats": 20,
+  "statuses": {
+   "403": 20
+  }
+ },
+ {
+  "id": "xss-8663ea87-q",
+  "family": "xss",
+  "shape": "B1",
+  "passes": 0,
+  "errors": 0,
+  "repeats": 20,
+  "statuses": {
+   "403": 20
+  }
+ },
+ {
+  "id": "xss-8663ea87-q",
+  "family": "xss",
+  "shape": "B2",
+  "passes": 0,
+  "errors": 0,
+  "repeats": 20,
+  "statuses": {
+   "403": 20
+  }
+ },
+ {
+  "id": "xss-8663ea87-q",
+  "family": "xss",
+  "shape": "B3",
+  "passes": 0,
+  "errors": 0,
+  "repeats": 20,
+  "statuses": {
+   "403": 20
+  }
+ },
+ {
+  "id": "xss-8663ea87-q",
+  "family": "xss",
+  "shape": "B4",
+  "passes": 0,
+  "errors": 0,
+  "repeats": 20,
+  "statuses": {
+   "403": 20
+  }
+ },
+ {
+  "id": "xss-c1d13dea-q",
+  "family": "xss",
+  "shape": "Q1",
+  "passes": 0,
+  "errors": 0,
+  "repeats": 20,
+  "statuses": {
+   "403": 20
+  }
+ },
+ {
+  "id": "xss-c1d13dea-q",
+  "family": "xss",
+  "shape": "Q2",
+  "passes": 0,
+  "errors": 0,
+  "repeats": 20,
+  "statuses": {
+   "403": 20
+  }
+ },
+ {
+  "id": "xss-c1d13dea-q",
+  "family": "xss",
+  "shape": "Q3",
+  "passes": 0,
+  "errors": 0,
+  "repeats": 20,
+  "statuses": {
+   "403": 20
+  }
+ },
+ {
+  "id": "xss-c1d13dea-q",
+  "family": "xss",
+  "shape": "Q4",
+  "passes": 0,
+  "errors": 0,
+  "repeats": 20,
+  "statuses": {
+   "403": 20
+  }
+ },
+ {
+  "id": "xss-c1d13dea-q",
+  "family": "xss",
+  "shape": "B1",
+  "passes": 0,
+  "errors": 0,
+  "repeats": 20,
+  "statuses": {
+   "403": 20
+  }
+ },
+ {
+  "id": "xss-c1d13dea-q",
+  "family": "xss",
+  "shape": "B2",
+  "passes": 0,
+  "errors": 0,
+  "repeats": 20,
+  "statuses": {
+   "403": 20
+  }
+ },
+ {
+  "id": "xss-c1d13dea-q",
+  "family": "xss",
+  "shape": "B3",
+  "passes": 0,
+  "errors": 0,
+  "repeats": 20,
+  "statuses": {
+   "403": 20
+  }
+ },
+ {
+  "id": "xss-c1d13dea-q",
+  "family": "xss",
+  "shape": "B4",
+  "passes": 0,
+  "errors": 0,
+  "repeats": 20,
+  "statuses": {
+   "403": 20
+  }
+ },
+ {
+  "id": "xss-ce5bd2e0-q",
+  "family": "xss",
+  "shape": "Q1",
+  "passes": 0,
+  "errors": 0,
+  "repeats": 20,
+  "statuses": {
+   "403": 20
+  }
+ },
+ {
+  "id": "xss-ce5bd2e0-q",
+  "family": "xss",
+  "shape": "Q2",
+  "passes": 0,
+  "errors": 0,
+  "repeats": 20,
+  "statuses": {
+   "403": 20
+  }
+ },
+ {
+  "id": "xss-ce5bd2e0-q",
+  "family": "xss",
+  "shape": "Q3",
+  "passes": 0,
+  "errors": 0,
+  "repeats": 20,
+  "statuses": {
+   "403": 20
+  }
+ },
+ {
+  "id": "xss-ce5bd2e0-q",
+  "family": "xss",
+  "shape": "Q4",
+  "passes": 0,
+  "errors": 0,
+  "repeats": 20,
+  "statuses": {
+   "403": 20
+  }
+ },
+ {
+  "id": "xss-ce5bd2e0-q",
+  "family": "xss",
+  "shape": "B1",
+  "passes": 0,
+  "errors": 0,
+  "repeats": 20,
+  "statuses": {
+   "403": 20
+  }
+ },
+ {
+  "id": "xss-ce5bd2e0-q",
+  "family": "xss",
+  "shape": "B2",
+  "passes": 0,
+  "errors": 0,
+  "repeats": 20,
+  "statuses": {
+   "403": 20
+  }
+ },
+ {
+  "id": "xss-ce5bd2e0-q",
+  "family": "xss",
+  "shape": "B3",
+  "passes": 0,
+  "errors": 0,
+  "repeats": 20,
+  "statuses": {
+   "403": 20
+  }
+ },
+ {
+  "id": "xss-ce5bd2e0-q",
+  "family": "xss",
+  "shape": "B4",
+  "passes": 0,
+  "errors": 0,
+  "repeats": 20,
+  "statuses": {
+   "403": 20
+  }
+ },
+ {
+  "id": "xss-d708ffc6-q",
+  "family": "xss",
+  "shape": "Q1",
+  "passes": 0,
+  "errors": 0,
+  "repeats": 20,
+  "statuses": {
+   "403": 20
+  }
+ },
+ {
+  "id": "xss-d708ffc6-q",
+  "family": "xss",
+  "shape": "Q2",
+  "passes": 0,
+  "errors": 0,
+  "repeats": 20,
+  "statuses": {
+   "403": 20
+  }
+ },
+ {
+  "id": "xss-d708ffc6-q",
+  "family": "xss",
+  "shape": "Q3",
+  "passes": 0,
+  "errors": 0,
+  "repeats": 20,
+  "statuses": {
+   "403": 20
+  }
+ },
+ {
+  "id": "xss-d708ffc6-q",
+  "family": "xss",
+  "shape": "Q4",
+  "passes": 0,
+  "errors": 0,
+  "repeats": 20,
+  "statuses": {
+   "403": 20
+  }
+ },
+ {
+  "id": "xss-d708ffc6-q",
+  "family": "xss",
+  "shape": "B1",
+  "passes": 0,
+  "errors": 0,
+  "repeats": 20,
+  "statuses": {
+   "403": 20
+  }
+ },
+ {
+  "id": "xss-d708ffc6-q",
+  "family": "xss",
+  "shape": "B2",
+  "passes": 0,
+  "errors": 0,
+  "repeats": 20,
+  "statuses": {
+   "403": 20
+  }
+ },
+ {
+  "id": "xss-d708ffc6-q",
+  "family": "xss",
+  "shape": "B3",
+  "passes": 0,
+  "errors": 0,
+  "repeats": 20,
+  "statuses": {
+   "403": 20
+  }
+ },
+ {
+  "id": "xss-d708ffc6-q",
+  "family": "xss",
+  "shape": "B4",
+  "passes": 0,
+  "errors": 0,
+  "repeats": 20,
+  "statuses": {
+   "403": 20
+  }
+ },
+ {
+  "id": "xss-e8287f4c-q",
+  "family": "xss",
+  "shape": "Q1",
+  "passes": 0,
+  "errors": 0,
+  "repeats": 20,
+  "statuses": {
+   "403": 20
+  }
+ },
+ {
+  "id": "xss-e8287f4c-q",
+  "family": "xss",
+  "shape": "Q2",
+  "passes": 0,
+  "errors": 0,
+  "repeats": 20,
+  "statuses": {
+   "403": 20
+  }
+ },
+ {
+  "id": "xss-e8287f4c-q",
+  "family": "xss",
+  "shape": "Q3",
+  "passes": 0,
+  "errors": 0,
+  "repeats": 20,
+  "statuses": {
+   "403": 20
+  }
+ },
+ {
+  "id": "xss-e8287f4c-q",
+  "family": "xss",
+  "shape": "Q4",
+  "passes": 0,
+  "errors": 0,
+  "repeats": 20,
+  "statuses": {
+   "403": 20
+  }
+ },
+ {
+  "id": "xss-e8287f4c-q",
+  "family": "xss",
+  "shape": "B1",
+  "passes": 0,
+  "errors": 0,
+  "repeats": 20,
+  "statuses": {
+   "403": 20
+  }
+ },
+ {
+  "id": "xss-e8287f4c-q",
+  "family": "xss",
+  "shape": "B2",
+  "passes": 0,
+  "errors": 0,
+  "repeats": 20,
+  "statuses": {
+   "403": 20
+  }
+ },
+ {
+  "id": "xss-e8287f4c-q",
+  "family": "xss",
+  "shape": "B3",
+  "passes": 0,
+  "errors": 0,
+  "repeats": 20,
+  "statuses": {
+   "403": 20
+  }
+ },
+ {
+  "id": "xss-e8287f4c-q",
+  "family": "xss",
+  "shape": "B4",
+  "passes": 0,
+  "errors": 0,
+  "repeats": 20,
+  "statuses": {
+   "403": 20
+  }
+ },
+ {
+  "id": "xss-f22c2acc-q",
+  "family": "xss",
+  "shape": "Q1",
+  "passes": 0,
+  "errors": 0,
+  "repeats": 20,
+  "statuses": {
+   "403": 20
+  }
+ },
+ {
+  "id": "xss-f22c2acc-q",
+  "family": "xss",
+  "shape": "Q2",
+  "passes": 0,
+  "errors": 0,
+  "repeats": 20,
+  "statuses": {
+   "403": 20
+  }
+ },
+ {
+  "id": "xss-f22c2acc-q",
+  "family": "xss",
+  "shape": "Q3",
+  "passes": 0,
+  "errors": 0,
+  "repeats": 20,
+  "statuses": {
+   "403": 20
+  }
+ },
+ {
+  "id": "xss-f22c2acc-q",
+  "family": "xss",
+  "shape": "Q4",
+  "passes": 0,
+  "errors": 0,
+  "repeats": 20,
+  "statuses": {
+   "403": 20
+  }
+ },
+ {
+  "id": "xss-f22c2acc-q",
+  "family": "xss",
+  "shape": "B1",
+  "passes": 0,
+  "errors": 0,
+  "repeats": 20,
+  "statuses": {
+   "403": 20
+  }
+ },
+ {
+  "id": "xss-f22c2acc-q",
+  "family": "xss",
+  "shape": "B2",
+  "passes": 0,
+  "errors": 0,
+  "repeats": 20,
+  "statuses": {
+   "403": 20
+  }
+ },
+ {
+  "id": "xss-f22c2acc-q",
+  "family": "xss",
+  "shape": "B3",
+  "passes": 0,
+  "errors": 0,
+  "repeats": 20,
+  "statuses": {
+   "403": 20
+  }
+ },
+ {
+  "id": "xss-f22c2acc-q",
+  "family": "xss",
+  "shape": "B4",
+  "passes": 0,
+  "errors": 0,
+  "repeats": 20,
+  "statuses": {
+   "403": 20
+  }
+ },
+ {
+  "id": "xss-f3801f1d-q",
+  "family": "xss",
+  "shape": "Q1",
+  "passes": 0,
+  "errors": 0,
+  "repeats": 20,
+  "statuses": {
+   "403": 20
+  }
+ },
+ {
+  "id": "xss-f3801f1d-q",
+  "family": "xss",
+  "shape": "Q2",
+  "passes": 0,
+  "errors": 0,
+  "repeats": 20,
+  "statuses": {
+   "403": 20
+  }
+ },
+ {
+  "id": "xss-f3801f1d-q",
+  "family": "xss",
+  "shape": "Q3",
+  "passes": 0,
+  "errors": 0,
+  "repeats": 20,
+  "statuses": {
+   "403": 20
+  }
+ },
+ {
+  "id": "xss-f3801f1d-q",
+  "family": "xss",
+  "shape": "Q4",
+  "passes": 0,
+  "errors": 0,
+  "repeats": 20,
+  "statuses": {
+   "403": 20
+  }
+ },
+ {
+  "id": "xss-f3801f1d-q",
+  "family": "xss",
+  "shape": "B1",
+  "passes": 0,
+  "errors": 0,
+  "repeats": 20,
+  "statuses": {
+   "403": 20
+  }
+ },
+ {
+  "id": "xss-f3801f1d-q",
+  "family": "xss",
+  "shape": "B2",
+  "passes": 0,
+  "errors": 0,
+  "repeats": 20,
+  "statuses": {
+   "403": 20
+  }
+ },
+ {
+  "id": "xss-f3801f1d-q",
+  "family": "xss",
+  "shape": "B3",
+  "passes": 0,
+  "errors": 0,
+  "repeats": 20,
+  "statuses": {
+   "403": 20
+  }
+ },
+ {
+  "id": "xss-f3801f1d-q",
+  "family": "xss",
+  "shape": "B4",
+  "passes": 0,
+  "errors": 0,
+  "repeats": 20,
+  "statuses": {
+   "403": 20
+  }
+ }
+]

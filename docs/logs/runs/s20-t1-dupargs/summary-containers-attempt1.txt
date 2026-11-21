@@ -1,0 +1,44 @@
+== coraza connector PL1 rule29:
+E=On B=1 P=1 D=1
+tx.crs_setup_version=4252
+duration 238s, 320 variants x 20
+Q1: passes 40/800 (variants with >=1 pass: 2/40)
+Q2: passes 40/800 (variants with >=1 pass: 2/40)
+Q3: passes 40/800 (variants with >=1 pass: 2/40)
+Q4: passes 40/800 (variants with >=1 pass: 2/40)
+B1: passes 220/800 (variants with >=1 pass: 11/40)
+B2: passes 220/800 (variants with >=1 pass: 11/40)
+B3: passes 220/800 (variants with >=1 pass: 11/40)
+B4: passes 220/800 (variants with >=1 pass: 11/40)
+== modsec control PL1 rule29:
+duration 2s, 320 variants x 20
+Q1: passes 800/800 (variants with >=1 pass: 40/40)
+Q2: passes 800/800 (variants with >=1 pass: 40/40)
+Q3: passes 800/800 (variants with >=1 pass: 40/40)
+Q4: passes 800/800 (variants with >=1 pass: 40/40)
+B1: passes 800/800 (variants with >=1 pass: 40/40)
+B2: passes 800/800 (variants with >=1 pass: 40/40)
+B3: passes 800/800 (variants with >=1 pass: 40/40)
+B4: passes 800/800 (variants with >=1 pass: 40/40)
+== coraza connector PL2 rule29:
+Error response from daemon: container c1dee89e0492f04352a97ff309e9239f6fe75302672126876648272282947bef is not running
+duration 2s, 320 variants x 20
+Q1: passes 800/800 (variants with >=1 pass: 40/40)
+Q2: passes 800/800 (variants with >=1 pass: 40/40)
+Q3: passes 800/800 (variants with >=1 pass: 40/40)
+Q4: passes 800/800 (variants with >=1 pass: 40/40)
+B1: passes 800/800 (variants with >=1 pass: 40/40)
+B2: passes 800/800 (variants with >=1 pass: 40/40)
+B3: passes 800/800 (variants with >=1 pass: 40/40)
+B4: passes 800/800 (variants with >=1 pass: 40/40)
+== modsec control PL2 rule29:
+duration 1s, 320 variants x 20
+Q1: passes 800/800 (variants with >=1 pass: 40/40)
+Q2: passes 800/800 (variants with >=1 pass: 40/40)
+Q3: passes 800/800 (variants with >=1 pass: 40/40)
+Q4: passes 800/800 (variants with >=1 pass: 40/40)
+B1: passes 800/800 (variants with >=1 pass: 40/40)
+B2: passes 800/800 (variants with >=1 pass: 40/40)
+B3: passes 800/800 (variants with >=1 pass: 40/40)
+B4: passes 800/800 (variants with >=1 pass: 40/40)
+T1-CONTAINERS-DONE

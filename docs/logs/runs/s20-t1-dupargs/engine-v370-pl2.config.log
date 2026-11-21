@@ -1,0 +1,1 @@
+kortex-engine: effective config: backend_url=http://127.0.0.1:13000 rule_engine=On blocking_paranoia=2 detection_paranoia=2 max_body_bytes=13107200 max_inspected_bytes=131072 engine_time_budget_ms=2000 rules_dir=/home/vboxuser/kortex-shield/engine/crs listen_addr=127.0.0.1:8090 events_file=/tmp/kx-t1-ev-2.jsonl audit_log=/tmp/kx-t1-aud-2.log request_body_target_updates=166

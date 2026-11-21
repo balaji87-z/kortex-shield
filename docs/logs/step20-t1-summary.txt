@@ -1,0 +1,37 @@
+== Step-20 T1: duplicate-argument bypass — measurement, fix, re-run ==
+
+MEDICIÓN (docs/plan-dup-args.md, preregistrada; 40 payloads attacks-v0
+seed 0, 10/familia; 8 formas; 20 repeticiones; conteos, regla 35).
+Pases de 20 por variante agregados por forma (Q1=original, Q2=duplicada,
+Q3/Q4=benigno+payload con el MISMO nombre q, B1..B4=body urlencoded):
+
+engine coraza v3.7.0   PL1: Q1-Q4 = 40/800 c/u; B1-B4 = 220/800 c/u
+                       PL2: 0/800 en las 8 formas
+connector coraza 3.7.0 PL1: idéntico al engine (40/220, invariante)
+                       PL2: 0/800 en las 8 formas
+ModSecurity (control)  PL1: idéntico (40/220, invariante)
+                       PL2: 0/800 en las 8 formas
+
+LECTURA: los 3 engines son IDÉNTICOS e INVARIANTES por forma. Los pases
+son payloads que NUNCA bloquean (2 de query en PL1, 11 de body en PL1),
+no un bypass por duplicación. **Las formas preregistradas NO producen
+bypass dup-args en NINGÚN engine** — ni siquiera Q3/Q4, que sí crean
+mismo-nombre-con-distinto-valor (todas las 40 cargas usan el parámetro q).
+El defecto del flip (PROVEN step-19) necesita su contexto específico
+(7 parámetros + 2 `filter` homónimos con valores distintos).
+
+FIX (regla 40: test que falla primero):
+- E30 (commit 83fbebd): 2.000 replays del request flip-prone
+  (wcp-62cd1bd36bf7, query verbatim, sin credenciales) con runtime.GC()
+  entre rondas, 0 flips exigidos. Contra v3.7.0: FALLA con 48/2000 pases.
+- Fix candidato 1: coraza v3.7.0 -> v3.8.1 (go.mod). E30: PASA (0/2000).
+- flip_repro 5x500 con v3.8.1: PL2 = 0/0/0/0/0 (0/2.500; antes mediana
+  114/500). PL1 = 500/500 "flips" en AMBAS versiones — en PL1 estas
+  muestras no bloquean nunca (baseline, no flip; verificado v3.7.0 1x500).
+- Medición dup-args re-ejecutada con v3.8.1: idéntica a v3.7.0 (invariante).
+- El fix candidato 2 (patch vendido) NO hizo falta.
+
+CONNECTOR (regla 44): el bypass dup-args NO se manifiesta en el connector
+en estas formas (idéntico al engine y al control) — el defecto del cache
+existe en el fuente que el connector usa, pero el bypass observable queda
+limitado al patrón flip_repro.

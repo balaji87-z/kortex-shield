@@ -1,0 +1,7 @@
+== rule29 connector effective config 2026-11-21T13:15:35Z
+Error response from daemon: container f7525f44d760703b6bd952d74ccc120df43114958fed92b227001549db37a85c is not running
+Error response from daemon: container f7525f44d760703b6bd952d74ccc120df43114958fed92b227001549db37a85c is not running
+coraza build info: Error response from daemon: container f7525f44d760703b6bd952d74ccc120df43114958fed92b227001549db37a85c is not running
+CRS version: Error response from daemon: container f7525f44d760703b6bd952d74ccc120df43114958fed92b227001549db37a85c is not running
+
+Error response from daemon: No such image: ghcr.io/coreruleset/coraza-crs:4.25.2-nginx-lts

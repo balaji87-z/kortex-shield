@@ -11,7 +11,7 @@ classified without guessing:
 | limit    | 413    | `413 kortex-decision=limit` | body above max inspected (131,072) or max total (13,107,200) bytes; rejected before the engine |
 | framing  | 400    | `400 kortex-decision=framing` | duplicate/conflicting Content-Length, Transfer-Encoding with Content-Length, or a raw NUL in the request line; rejected before the engine |
 | timeout  | 503    | `503 kortex-decision=timeout` | per-request engine time budget (2,000 ms) exceeded |
-| overload | 503    | `503 kortex-decision=overload` | concurrent in-flight body-processing cap (KORTEX_MAX_INFLIGHT_BODY, default 8) reached; capacity decision, not a WAF decision (step-17 T3) |
+| overload | 503 | `503 kortex-decision=overload` | concurrent in-flight body-processing cap reached IN THE REQUEST'S SIZE-CLASS LANE (step-20 T2): small lane (Content-Length <= KORTEX_SMALL_BODY_BYTES, default 65536; cap KORTEX_MAX_INFLIGHT_BODY_SMALL, default 4) or large lane (cap KORTEX_MAX_INFLIGHT_BODY, default 8). A saturated large lane does not consume small-lane capacity. Capacity decision, not a WAF decision (step-17 T3) |
 | pass     | backend status | — | request inspected and forwarded |
 
 Notes

@@ -1,0 +1,25 @@
+ Container deploy-baseline-crs-1  Started
+== modsec control PL1 rule29:
+E=On B=1 P=1 D=1
+duration 35s, 320 variants x 20
+Q1: passes 40/800 errors 0 (variants with >=1 pass: 2/40)
+Q2: passes 40/800 errors 0 (variants with >=1 pass: 2/40)
+Q3: passes 40/800 errors 0 (variants with >=1 pass: 2/40)
+Q4: passes 40/800 errors 0 (variants with >=1 pass: 2/40)
+B1: passes 220/800 errors 0 (variants with >=1 pass: 11/40)
+B2: passes 220/800 errors 0 (variants with >=1 pass: 11/40)
+B3: passes 220/800 errors 0 (variants with >=1 pass: 11/40)
+B4: passes 220/800 errors 0 (variants with >=1 pass: 11/40)
+ Container deploy-baseline-crs-1  Started
+== modsec control PL2 rule29:
+E=On B=2 P=2 D=2
+duration 42s, 320 variants x 20
+Q1: passes 0/800 errors 0 (variants with >=1 pass: 0/40)
+Q2: passes 0/800 errors 0 (variants with >=1 pass: 0/40)
+Q3: passes 0/800 errors 0 (variants with >=1 pass: 0/40)
+Q4: passes 0/800 errors 0 (variants with >=1 pass: 0/40)
+B1: passes 0/800 errors 0 (variants with >=1 pass: 0/40)
+B2: passes 0/800 errors 0 (variants with >=1 pass: 0/40)
+B3: passes 0/800 errors 0 (variants with >=1 pass: 0/40)
+B4: passes 0/800 errors 0 (variants with >=1 pass: 0/40)
+T1-MODSEC-DONE

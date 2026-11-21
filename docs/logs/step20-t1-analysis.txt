@@ -1,0 +1,82 @@
+Step-20 T1 — duplicate-argument bypass: measurement + fix (coraza v3.7.0 -> v3.8.1)
+==================================================================================
+Plan preregistered: docs/plan-dup-args.md (commit 0e5c98c). Rules 47/48 added
+to AGENTS.md in the same commit. All runs workers 1, fresh transaction each.
+
+1. DUPLICATE-ARG MEASUREMENT (40 payloads seed 0 x 8 shapes x 20 repeats)
+----------------------------------------------------------------------------------
+Passes out of 800 per shape class (40 variants x 20), errors 0 everywhere:
+
+  engine v3.7.0   PL1: Q1=Q2=Q3=Q4=40/800   B1=B2=B3=B4=220/800
+  engine v3.7.0   PL2: all shapes 0/800
+  engine v3.8.1   PL1: Q1=Q2=Q3=Q4=40/800   B1=B2=B3=B4=220/800
+  engine v3.8.1   PL2: all shapes 0/800
+  coraza connector PL1: Q=40/800  B=220/800   PL2: all 0/800
+  modsec control   PL1: Q=40/800  B=220/800   PL2: all 0/800
+
+- PER-ID shape invariance: for every id, passes are identical across Q1..Q4
+  AND identical across B1..B4, on every engine (verified programmatically,
+  0 varying ids). Duplicating the argument (Q2/B2) or adding a benign
+  same-point argument (Q3/Q4/B3/B4) never changes the outcome vs the
+  single-argument baseline (Q1/B1). => NO duplicate-argument bypass on the
+  preregistered shapes, on any engine, at either PL.
+- Cross-engine identity: engine v3.7.0, engine v3.8.1, coraza connector and
+  modsec are per-id-per-shape IDENTICAL at PL1 (verified dict equality);
+  PL2 is 0/6400 passes on all four.
+- The PL1 passes are baseline non-detections, not bypasses: 2 query payloads
+  (command-injection-933f7004-q, sqli-91706853-q) pass 20/20 in every Q
+  shape; 11 body payloads (10 command-injection + sqli-91706853-q) pass
+  20/20 in every B shape. They pass equally single and duplicated.
+- Caveat (rule 47): the preregistered shapes duplicate IDENTICAL values
+  (Q2=Q&Q, B2=p=E&p=E). The step-19 flip defect needs same-name DIFFERENT-
+  value args (the cache collision reads the wrong arg's transformation).
+  Identical-value duplication cannot exercise it. The different-values case
+  is covered by flip_repro / E30 below, not by these shapes.
+
+2. FLIP DEFECT FIX (candidate fix 1: coraza bump v3.7.0 -> v3.8.1)
+----------------------------------------------------------------------------------
+- E30 test-first (rule 40), committed FAILING before the fix (83fbebd):
+  2000 replays of wcp-62cd1bd36bf7 (two same-named `filter` args, different
+  values) with runtime.GC() between rounds, zero flips required.
+    PRE  (worktree 83fbebd, go.mod coraza v3.7.0): FAIL 44/2000 rounds passed
+         (docs/logs/runs/s20-t1-e30/e30-pre-v370.log, 357.61s under load).
+    POST (current tree, go.mod coraza v3.8.1): PASS 0/2000, 40.56s
+         (docs/logs/runs/s20-t1-e30/e30-post-v381.log).
+  (An earlier POST attempt hit the 15-min go-test timeout under load 10 —
+  a timeout panic, NOT a flip failure; re-run uncontended passes.)
+- flip_repro 5x500 on the fixed build (tools/run_step20_t1_flip.sh,
+  docs/logs/runs/s20-t1-flip-v381/):
+    PL2: 0/2500 flip rounds (5x 0/500), all 5000 requests status 403.
+         vs step-19 v3.7.0 median 114/500. => flip eliminated at PL2.
+    PL1: 2500/2500 rounds "passed", all 5000 requests status 200. This is
+         DEGENERATE, not a bypass: the two samples match NO PL1 rule
+         (942370/942430 are paranoia-level/2). Probe on v3.8.1 PL1: status
+         200, 0 audit lines, pass event (docs/logs/runs/s20-t1-pl1-probe/).
+- PL1 pass-through is VERSION-INVARIANT (not a v3.8.1 regression):
+  v3.7.0 PL1 flip_repro 1x500 = 500/500 passes, all 1000 requests status 200
+  (docs/logs/runs/s20-t1-flip-v370-pl1/, bin sha256 999b3a4b... built from
+  the 83fbebd worktree). Identical to v3.8.1 PL1 (all 200). The flip metric
+  is only meaningful at PL2 where a block exists to flip from.
+- Candidate fix 2 (vendored go.mod replace patch) NOT NEEDED: flips are zero
+  after the version bump, so the precondition "only if flips persist" is not
+  met. No vendored patch, no latency-cost measurement of a patch required.
+
+3. CONNECTOR: DOES THE REFERENCE SHARE THE DEFECT? (rule 44)
+----------------------------------------------------------------------------------
+[CONNECTOR_FLIP_RESULT]
+
+4. EVIDENCE / PROVENANCE
+----------------------------------------------------------------------------------
+- Measurement JSONs + pick.json + config proofs + gzipped audits + events:
+  docs/logs/runs/s20-t1-dupargs/ (run.json has binary hashes, invalid-attempt
+  log). Runner: tools/run_step20_t1_dupargs.py (reads committed pick.json).
+- Invalid container attempts documented (rule 4): attempt1 modsec PL1 and
+  coraza PL2 returned 800/800 with the container down (2s duration) —
+  replaced by valid re-runs (attempt2 coraza PL2; t1modsec PL1+PL2).
+- Engine binary hashes: v3.7.0 905e6455... (/tmp/kortex-engine-v370),
+  v3.8.1 t1cmp f2b25c54... (/tmp/kortex-engine-v381), v3.8.1 fresh
+  9abce390... (out/s20-t1/engine-v381, used by E30/flip). All v3.8.1 builds
+  are the same go.mod source; the fresh build is the committed-tree binary.
+- Stub backend tools/stub_backend.py answers 200 to GET and POST (verified).
+  It adds ~130 ms/request (TCP delayed-ACK harness artifact) to forwarded
+  requests; this affects wall-clock only, not flip counts or detections.

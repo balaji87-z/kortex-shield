@@ -98,6 +98,57 @@ by its marker. DoS-risk statement after the cap: at most
 KORTEX_MAX_INFLIGHT_BODY over-budget bodies accumulate background CPU work;
 additional body-bearing requests get a fast 503 instead of queueing.
 
+## Step-20 T2: size-class lanes for body inspection (documented BEFORE the run)
+
+Problem (step-19 T3, PROVEN): a single shared in-flight cap lets slow LARGE
+bodies starve small benign bodies. 8 workers re-sending the 131,071-byte
+text/plain body held all 8 slots with abandoned calls (~18-24 s each); 0/131
+benign body-bearing POSTs were served (docs/logs/step19-t3-availability.txt).
+
+Fix: split the in-flight body-processing cap into two SIZE-CLASS LANES with
+independent caps. A body-bearing request is classified by its declared
+Content-Length and acquires a slot in its lane only; an overloaded LARGE lane
+therefore cannot consume the SMALL lane's capacity, so small bodies keep
+being served while large bodies are saturated.
+
+Configuration (env-only, defaults documented here BEFORE any run):
+
+| env | default | meaning |
+|-----|---------|---------|
+| KORTEX_SMALL_BODY_BYTES | 65536 | Content-Length <= this -> small lane; > this -> large lane |
+| KORTEX_MAX_INFLIGHT_BODY | 8 | LARGE lane cap (existing env name preserved) |
+| KORTEX_MAX_INFLIGHT_BODY_SMALL | 4 | SMALL lane cap |
+
+- 65536 is chosen so the step-19 T2 smallest over-budget text/plain body at
+  PL1 (65,536 B, 4.57 s > 2 s budget) fits the SMALL lane (<=). This lets the
+  T2 second attack run (8 workers re-sending that body) exercise small-lane
+  saturation honestly. At PL2 the smallest over-budget body is 32,768 B, also
+  <= 65536.
+- Classification uses Content-Length when > 0. Chunked / unknown length
+  (Content-Length <= 0 with a body) is classified LARGE (conservative). The
+  slot is acquired BEFORE the body is read, so the overload answer stays fast
+  (E19's <= 50 ms bound is preserved). KNOWN LIMITATION: a client that
+  under-declares Content-Length could enter the small lane while streaming
+  more bytes; the bounded read still caps inspected bytes at
+  MaxInspectedBytes (413 above it) and the framing gate rejects duplicate or
+  conflicting Content-Length, so the inspected cost is bounded, but lane
+  isolation is by declared size, not actual streamed size.
+- Overload outcome UNCHANGED: a body-bearing request whose lane is full is
+  answered 503 kortex-decision=overload immediately and an `overload` event
+  is logged (now per lane). Body-less requests still need no slot (E21).
+- DoS-risk trade-off (documented): worst-case concurrent abandoned
+  body-processing calls rises from 8 to 8 + 4 = 12 (large + small caps). On
+  this 8-core host that is more background CPU contention under a mixed
+  attack; the availability gain for small bodies is the intended trade.
+- A slot is still released when the processing CALL returns (abandoned calls
+  hold their lane's slot until they finish, E17/E20 semantics unchanged).
+
+Residual starvation path (NOT hidden, measured in T2): an attacker who sends
+bodies that fit the SMALL lane (<= 65536 B) but still overrun the budget can
+saturate the SMALL lane and starve small benign POSTs again. Lanes isolate
+size classes; they do not make over-budget processing free. The T2 second
+attack run measures this explicitly.
+
 ## Content-type policy (C4)
 
 The engine implements NO content-type allow-list. CRS customization point

@@ -1,0 +1,7 @@
+warning: both GOPATH and GOROOT are the same directory (/home/vboxuser/go); see https://go.dev/wiki/InstallTroubleshooting
+=== RUN   TestE30DuplicateArgZeroFlips
+    step19_test.go:138: duplicate-arg flip defect: 44/2000 rounds passed (must be 0); blocked=1956
+--- FAIL: TestE30DuplicateArgZeroFlips (357.61s)
+FAIL
+FAIL	kortexshield/engine	358.098s
+FAIL

@@ -1,0 +1,26 @@
+== flip_repro coraza v370 PL1 1x500:
+rounds=500 flip_rounds=500 flips/round=1.0000 per_sample={'wcp-62cd1bd36bf7': 500, 'wcp-b6f2246ef4b8': 500} wall_s=5.3
+== flip_repro coraza v381 PL1 1x500:
+rounds=500 flip_rounds=500 flips/round=1.0000 per_sample={'wcp-62cd1bd36bf7': 500, 'wcp-b6f2246ef4b8': 500} wall_s=5.5
+== dup-args engine v3.8.1 PL1:
+request_body_target_updates=166
+duration 24s, 320 variants x 20
+Q1: passes 40/800 errors 0 (variants with >=1 pass: 2/40)
+Q2: passes 40/800 errors 0 (variants with >=1 pass: 2/40)
+Q3: passes 40/800 errors 0 (variants with >=1 pass: 2/40)
+Q4: passes 40/800 errors 0 (variants with >=1 pass: 2/40)
+B1: passes 220/800 errors 0 (variants with >=1 pass: 11/40)
+B2: passes 220/800 errors 0 (variants with >=1 pass: 11/40)
+B3: passes 220/800 errors 0 (variants with >=1 pass: 11/40)
+B4: passes 220/800 errors 0 (variants with >=1 pass: 11/40)
+== dup-args engine v3.8.1 PL2:
+request_body_target_updates=166
+duration 31s, 320 variants x 20
+Q1: passes 0/800 errors 0 (variants with >=1 pass: 0/40)
+Q2: passes 0/800 errors 0 (variants with >=1 pass: 0/40)
+Q3: passes 0/800 errors 0 (variants with >=1 pass: 0/40)
+Q4: passes 0/800 errors 0 (variants with >=1 pass: 0/40)
+B1: passes 0/800 errors 0 (variants with >=1 pass: 0/40)
+B2: passes 0/800 errors 0 (variants with >=1 pass: 0/40)
+B3: passes 0/800 errors 0 (variants with >=1 pass: 0/40)
+B4: passes 0/800 errors 0 (variants with >=1 pass: 0/40)

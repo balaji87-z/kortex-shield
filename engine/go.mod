@@ -2,7 +2,7 @@ module kortexshield/engine
 
 go 1.25.0
 
-require github.com/corazawaf/coraza/v3 v3.7.0
+require github.com/corazawaf/coraza/v3 v3.8.1
 
 require (
 	github.com/corazawaf/libinjection-go v0.3.3 // indirect

@@ -1,0 +1,5 @@
+== v370 bin sha256=999b3a4bcc3ce387fd598aa68651944363e73d843f19cf3331e6f76f36f78740 2026-11-21T13:00:18Z load=[load average: 2.87, 5.03, 6.24]
+== v370 PL1 rule29: effective config: backend_url=http://127.0.0.1:13000 rule_engine=On blocking_paranoia=1 detection_paranoia=1 max_body_bytes=13107200 max_inspected_bytes=131072 engine_time_budget_ms=2000 rules_dir=/home/vboxuser/kortex-shield/engine/crs listen_addr=127.0.0.1:8095 events_file=docs/logs/runs/s20-t1-flip-v370-pl1/events-pl1.jsonl audit_log=docs/logs/runs/s20-t1-flip-v370-pl1/audit-pl1.log request_body_target_updates=166
+rounds=500 flip_rounds=500 flips/round=1.0000 per_sample={'wcp-62cd1bd36bf7': 500, 'wcp-b6f2246ef4b8': 500} wall_s=92.6
+V370-PL1-DONE
+V370-EXIT=0
