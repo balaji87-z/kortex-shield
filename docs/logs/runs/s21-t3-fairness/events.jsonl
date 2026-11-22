@@ -1,0 +1,21 @@
+{"ts":"2026-11-22T11:07:46.492772556Z","sample_id":"","decision":"pass","status":0,"elapsed_ms":2.008,"reason":"forwarding"}
+{"ts":"2026-11-22T11:07:46.530074205Z","sample_id":"t3fair-1","decision":"overload","status":503,"elapsed_ms":0.305,"reason":"in-flight body-processing cap reached"}
+{"ts":"2026-11-22T11:07:46.530841552Z","sample_id":"t3fair-6","decision":"overload","status":503,"elapsed_ms":0.378,"reason":"in-flight body-processing cap reached"}
+{"ts":"2026-11-22T11:07:46.531185407Z","sample_id":"t3fair-4","decision":"overload","status":503,"elapsed_ms":0.441,"reason":"in-flight body-processing cap reached"}
+{"ts":"2026-11-22T11:07:46.531234759Z","sample_id":"t3fair-5","decision":"overload","status":503,"elapsed_ms":0.237,"reason":"in-flight body-processing cap reached"}
+{"ts":"2026-11-22T11:07:46.549117649Z","sample_id":"t3fair-3","decision":"overload","status":503,"elapsed_ms":16.373,"reason":"in-flight body-processing cap reached"}
+{"ts":"2026-11-22T11:07:46.558738181Z","sample_id":"t3fair-7","decision":"overload","status":503,"elapsed_ms":4.527,"reason":"in-flight body-processing cap reached"}
+{"ts":"2026-11-22T11:07:58.923181959Z","sample_id":"t3fair-2","decision":"worker-killed","status":503,"elapsed_ms":12394.457,"reason":"budget expired; worker SIGKILLed"}
+{"ts":"2026-11-22T11:07:58.923227125Z","sample_id":"t3fair-2","decision":"timeout","status":503,"elapsed_ms":12394.501,"reason":"time budget expired in body processing (worker killed)"}
+{"ts":"2026-11-22T11:07:58.923336637Z","sample_id":"t3fair-0","decision":"worker-killed","status":503,"elapsed_ms":12396.063,"reason":"budget expired; worker SIGKILLed"}
+{"ts":"2026-11-22T11:07:58.923343603Z","sample_id":"t3fair-0","decision":"timeout","status":503,"elapsed_ms":12396.070,"reason":"time budget expired in body processing (worker killed)"}
+{"ts":"2026-11-22T11:08:10.027921811Z","sample_id":"t3fair-2","decision":"overload","status":503,"elapsed_ms":0.520,"reason":"in-flight body-processing cap reached"}
+{"ts":"2026-11-22T11:08:10.028437572Z","sample_id":"t3fair-3","decision":"overload","status":503,"elapsed_ms":0.548,"reason":"in-flight body-processing cap reached"}
+{"ts":"2026-11-22T11:08:10.030795727Z","sample_id":"t3fair-5","decision":"overload","status":503,"elapsed_ms":0.468,"reason":"in-flight body-processing cap reached"}
+{"ts":"2026-11-22T11:08:10.03290152Z","sample_id":"t3fair-4","decision":"overload","status":503,"elapsed_ms":1.892,"reason":"in-flight body-processing cap reached"}
+{"ts":"2026-11-22T11:08:10.038344277Z","sample_id":"t3fair-6","decision":"overload","status":503,"elapsed_ms":1.285,"reason":"in-flight body-processing cap reached"}
+{"ts":"2026-11-22T11:08:10.043046527Z","sample_id":"t3fair-7","decision":"overload","status":503,"elapsed_ms":0.524,"reason":"in-flight body-processing cap reached"}
+{"ts":"2026-11-22T11:08:24.767812466Z","sample_id":"t3fair-0","decision":"worker-killed","status":503,"elapsed_ms":14743.322,"reason":"budget expired; worker SIGKILLed"}
+{"ts":"2026-11-22T11:08:24.767911723Z","sample_id":"t3fair-0","decision":"timeout","status":503,"elapsed_ms":14743.420,"reason":"time budget expired in body processing (worker killed)"}
+{"ts":"2026-11-22T11:08:24.768309894Z","sample_id":"t3fair-1","decision":"worker-killed","status":503,"elapsed_ms":14743.001,"reason":"budget expired; worker SIGKILLed"}
+{"ts":"2026-11-22T11:08:24.769330231Z","sample_id":"t3fair-1","decision":"timeout","status":503,"elapsed_ms":14744.022,"reason":"time budget expired in body processing (worker killed)"}
