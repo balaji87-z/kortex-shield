@@ -75,7 +75,7 @@ def main():
     for pl in (1, 2):
         # paranoia via headers is not possible; PL is engine-side config.
         # The caller runs the script once per PL against a PL-configured engine.
-        for k in (8192, 32768, 120000):
+        for k in (8, 32, 120000):
             for payload_name, payload in (("xss", XSS), ("sqli", SQLI)):
                 for pos in ("before", "after"):
                     for ct in ("text/plain", "application/x-www-form-urlencoded", "application/json"):

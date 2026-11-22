@@ -19,7 +19,7 @@ def summarise_padding(path, label):
         for r in odd[:20]:
             print("    ", r["id"], r["status"], r.get("error", "")[:60])
     by_k = collections.Counter((r["k"], r["status"]) for r in rows)
-    for k in (8192, 32768, 120000):
+    for k in (8, 32, 120000):
         line = {s: n for (kk, s), n in by_k.items() if kk == k}
         print(f"   k={k}: {line}")
     passed = [r["id"] for r in rows if r["status"] == 200]
