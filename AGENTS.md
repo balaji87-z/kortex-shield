@@ -148,3 +148,8 @@
     payload, shown to be detected.
 48. A failing-by-design test must fail deterministically (use a hook or fake slow
     engine, not timing luck). A test that sometimes passes cannot gate a fix.
+
+49. A fixed-by-version-bump claim stays "fixed empirically" until the changed
+    code is identified. Say which one you have.
+50. Every in-flight resource (slots, workers, goroutines) is observable at
+    /__kortex/config or /__kortex/stats, and tests assert it returns to zero.
