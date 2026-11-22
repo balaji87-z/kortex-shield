@@ -1,0 +1,34 @@
+== T1a: canary de padding/offset/content-type (step-21) ==
+
+Preregistro implicito (orden del paso): payload XSS '"><script>alert(1)</script>'
+y payload SQLi 'admin" or "1"="1"#', anadidos a padding de prosa benigna
+(generador determinista, random.Random(7), frases de e-commerce/naturaleza sin
+keywords de ataque). k = 0/8/16/32/64/100/128 KB, payload DESPUES y ANTES del
+padding, 3 CTs (text/plain; urlencoded con %-encoding correcto; JSON con el
+payload como valor string), engine + connector, PL1 + PL2, 3 reps.
+Las celdas de 128 KB se excluyen por construction (body >= 131.072 B):
+864 celdas enviadas, 0 excluidas por otro motivo.
+
+RESULTADO: 864/864 celdas -> 403. Cero 200, cero 503, cero 413.
+  - Engine (coraza v3.8.1, lanes, PL1 y PL2): 432/432 bloqueados.
+  - Connector (coraza-crs bfbfe70b, PL1 y PL2, config-probe en
+    docs/logs/runs/s21-t1-pad/connector-pl1-config.txt): 432/432 bloqueados.
+  - Nota de lectura: en el connector, las celdas text/plain bloquean por
+    politica de CT (920420), no por deteccion; las celdas url/json ejercitan
+    deteccion real (ARGS/ARGS_JSON). En el engine, text/plain pasa el processor
+    URLENCODED y ejercita REQUEST_BODY+ARGS.
+
+CONCLUSION: NO hay evasion por padding, offset, tamano ni content-type para
+estos dos payloads en ninguno de los dos motores, hasta 100 KB de padding.
+La deteccion (941 substring para XSS; 942/libinjection + 941 para SQLi) se
+mantiene con el payload al inicio o al final y con el cuerpo en texto crudo,
+urlencoded o JSON.
+
+Contraste con step-20 T4: el canary XSS sobre el body REAL wcp-483cfc44d381
+(text/plain 100.254 B) PASO (sin match). Ese caso se investiga en T1b
+(docs/logs/step21-t1b-483cfc.txt): el contenido del body WCP suprime la
+deteccion, no el padding generico.
+
+Raw: docs/logs/runs/s21-t1-pad/{engine,connector}-pl{1,2}.json (216 celdas
+cada uno), audits /tmp/kx-t1pad/aud-pl{1,2}.log (no commiteados, regenerables;
+los ids de muestra van en X-Kortex-Sample-Id).

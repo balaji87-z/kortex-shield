@@ -1,0 +1,52 @@
+[
+ {
+  "case": "ctl-prose100K-end",
+  "status": 403,
+  "s": 19.476
+ },
+ {
+  "case": "wcp-end",
+  "status": 403,
+  "s": 22.781
+ },
+ {
+  "case": "wcp-start",
+  "status": 403,
+  "s": 23.766
+ },
+ {
+  "case": "wcp-mid",
+  "status": 403,
+  "s": 15.829
+ },
+ {
+  "case": "wcp-trunc50K-end",
+  "status": 403,
+  "s": 2.093
+ },
+ {
+  "case": "wcp-trunc10K-end",
+  "status": 403,
+  "s": 0.65
+ },
+ {
+  "case": "wcp-amp-end",
+  "status": 403,
+  "s": 4.2
+ },
+ {
+  "case": "wcp-eq-end",
+  "status": 403,
+  "s": 2.044
+ },
+ {
+  "case": "wcp-jsonct-end",
+  "status": 400,
+  "s": 0.006
+ },
+ {
+  "case": "wcp-plain-only",
+  "status": 200,
+  "s": 6.015
+ }
+]

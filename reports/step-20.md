@@ -217,3 +217,15 @@ number cited above is reproduced from the committed docs/logs/ copies.
 5. E20 remains a known failure (abandoned call >120 s on the post-reboot
    host, both coraza versions). Keep as documented trade-off or re-scope
    the test's deadline?
+
+## Step-21 addendum (corrections, rule 4/44)
+
+- The T4 canary pass on wcp-483cfc44d381 does NOT reproduce: the same
+  body+canary blocks at every offset/truncation, in the exact step-20
+  replay conditions, and in the full 100-id batch (99/100 blocked; the
+  only pass is the known application/json+protobuf gap). The step-20
+  pass is UNEXPLAINED (1 occurrence, 2 failed reproduction attempts),
+  suspected state-dependent pass-through — not a property of the body.
+  Evidence: docs/logs/step21-t1b-483cfc.txt.
+- The T1 "fixed" wording for the coraza bump: per rule 49 this stays
+  "fixed empirically" until the changed upstream code is identified.
