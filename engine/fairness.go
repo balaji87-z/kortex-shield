@@ -62,31 +62,52 @@ func parseTrustedProxies(spec string) []*net.IPNet {
 }
 
 // fairness tracks per-client in-flight jobs and penalty deadlines.
+// Step-22 design risk (a): the per-client cap is PER LANE and defaults to
+// floor(lane_cap/2) (at least 1), so one client cannot hold a whole lane.
+// An explicit KORTEX_CLIENT_MAX_INFLIGHT overrides both lanes.
 type fairness struct {
 	mu        sync.Mutex
 	inflight  map[string]int
 	penalty   map[string]time.Time
-	maxInfl   int
+	maxSmall  int
+	maxLarge  int
 	penaltyMS int
 	maxEntrys int
 }
 
-func newFairness(maxInflight, penaltyMS, maxEntries int) *fairness {
+func newFairness(maxInflight, penaltyMS, maxEntries, smallCap, largeCap int) *fairness {
+	maxSmall, maxLarge := maxInflight, maxInflight
+	if maxInflight <= 0 {
+		maxSmall = smallCap / 2
+		if maxSmall < 1 {
+			maxSmall = 1
+		}
+		maxLarge = largeCap / 2
+		if maxLarge < 1 {
+			maxLarge = 1
+		}
+	}
 	return &fairness{
 		inflight:  map[string]int{},
 		penalty:   map[string]time.Time{},
-		maxInfl:   maxInflight,
+		maxSmall:  maxSmall,
+		maxLarge:  maxLarge,
 		penaltyMS: penaltyMS,
 		maxEntrys: maxEntries,
 	}
 }
 
 // acquire reports whether the client may start another body job now.
-func (f *fairness) acquire(key string) bool {
+// lane is "small" or "large" (the request's size-class lane).
+func (f *fairness) acquire(key, lane string) bool {
 	f.mu.Lock()
 	defer f.mu.Unlock()
 	f.sweepLocked()
-	if f.maxInfl > 0 && f.inflight[key] >= f.maxInfl {
+	max := f.maxSmall
+	if lane == "large" {
+		max = f.maxLarge
+	}
+	if max > 0 && f.inflight[key] >= max {
 		return false
 	}
 	f.inflight[key]++

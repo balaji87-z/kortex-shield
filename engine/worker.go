@@ -245,7 +245,11 @@ func (p *Proxy) workerServe(w http.ResponseWriter, r *http.Request, sampleID str
 		p.overload(w, r, sampleID, start, "client penalty after kill")
 		return
 	}
-	if !p.fair.acquire(key) {
+	lane := "small"
+	if inflight == &p.inflightLarge {
+		lane = "large"
+	}
+	if !p.fair.acquire(key, lane) {
 		p.overload(w, r, sampleID, start, "per-client in-flight cap")
 		return
 	}

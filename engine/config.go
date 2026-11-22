@@ -29,7 +29,7 @@ type Config struct {
 	WorkerPool         int    // service workers (default: MaxInflightBodyLarge)
 	WorkerSpares       int    // pre-spawned spares (default 1)
 	WorkerRecycleAfter int    // recycle a worker after N jobs (0 = never)
-	ClientMaxInflight  int    // per-client body-job cap (default 2)
+	ClientMaxInflight  int    // per-client body-job cap; 0 = derive floor(lane_cap/2) per lane (small 4, large 1)
 	ClientPenaltyMS    int    // penalty duration after a kill (default 10000)
 	ClientPenaltyMax   int    // penalty map cap (default 4096)
 	TrustedProxies     string // comma-separated CIDRs; empty = XFF ignored
@@ -83,7 +83,7 @@ func loadConfig() *Config {
 		WorkerPool:           int(envInt("KORTEX_WORKER_POOL", 0)),
 		WorkerSpares:         int(envInt("KORTEX_WORKER_SPARES", 1)),
 		WorkerRecycleAfter:   int(envInt("KORTEX_WORKER_RECYCLE_AFTER", 0)),
-		ClientMaxInflight:    int(envInt("KORTEX_CLIENT_MAX_INFLIGHT", 2)),
+		ClientMaxInflight:    int(envInt("KORTEX_CLIENT_MAX_INFLIGHT", 0)),
 		ClientPenaltyMS:      int(envInt("KORTEX_CLIENT_PENALTY_MS", 10000)),
 		ClientPenaltyMax:     int(envInt("KORTEX_CLIENT_PENALTY_MAX_ENTRIES", 4096)),
 		TrustedProxies:       envOr("KORTEX_TRUSTED_PROXIES", ""),
