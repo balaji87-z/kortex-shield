@@ -153,3 +153,9 @@
     code is identified. Say which one you have.
 50. Every in-flight resource (slots, workers, goroutines) is observable at
     /__kortex/config or /__kortex/stats, and tests assert it returns to zero.
+
+51. Nothing derived from request bodies of external datasets is committed, in any
+    format (compressed files included). Only ids, sizes, content types and hashes.
+    Run a secret and personal-data scan over everything staged before every push.
+52. A report that omits a requested measurement says "NOT MEASURED" for it. It
+    never substitutes a different measurement.
