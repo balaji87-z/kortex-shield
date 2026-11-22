@@ -29,13 +29,13 @@ def make_body(payload, k, pos, ct):
     pad = padding_text(k)
     if ct == "text/plain":
         return (pad + payload) if pos == "before" else (payload + pad)
-    if ct == "urlencoded":
+    if ct in ("urlencoded", "application/x-www-form-urlencoded"):
         if pos == "before":
             q = "q=" + urllib.parse.quote(pad + payload, safe="")
         else:
             q = "q=" + urllib.parse.quote(payload + pad, safe="")
         return q
-    if ct == "json":
+    if ct in ("json", "application/json"):
         val = (pad + payload) if pos == "before" else (payload + pad)
         return json.dumps({"note": val})
     raise ValueError(ct)
@@ -71,8 +71,9 @@ def main():
                     for ct in ("text/plain", "application/x-www-form-urlencoded", "application/json"):
                         body = make_body(payload, k, pos, ct)
                         assert len(body) < 131072, (k, len(body))
+                        short = {"text/plain": "plain", "application/x-www-form-urlencoded": "url", "application/json": "json"}[ct]
                         for rep in range(1, args.reps + 1):
-                            sid = f"t5a-pl{pl}-k{k}-{payload_name}-{pos}-{ct.split('/')[0].replace('x-www-form-urlencoded','url')}-r{rep}"
+                            sid = f"t5a-pl{pl}-k{k}-{payload_name}-{pos}-{short}-r{rep}"
                             r = send(args.engine, body, ct, sid, pl)
                             r.update({"id": sid, "k": k, "payload": payload_name,
                                       "pos": pos, "ct": ct, "pl": pl, "rep": rep})
