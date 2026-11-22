@@ -242,3 +242,18 @@ number cited above is reproduced from the committed docs/logs/ copies.
   (403) on both processors' variables.
 - Consequence: the "known inspection gap" paragraph added to
   docs/engine-design.md in step-20 is corrected in place (step-21 note).
+
+## Step-21 addendum 3 (corrections to T1 wording, PROVEN)
+
+- "The passing payloads are ones that never block (they also pass at
+  PL2)" is WRONG: the committed PL2 data (t1-engine-pl2.json) shows
+  passes=0 for every id and shape at PL2 (0/800). The correct statement:
+  the PL1 body-shape passes (11/40) are a DOUBLE-ENCODING artifact of the
+  harness's B-shape construction (`quote()` applied to an
+  already-percent-encoded manifest query); they all block at PL2 with
+  920230 "Multiple URL Encoding Detected" (a PL2-by-design CRS rule).
+- The 11/40 (B shapes, double-encoded) vs 2/40 (Q shapes, single-encoded)
+  vs 4/40 (attacks-ct, single-encoded carriers) numbers measure different
+  encodings and are not directly comparable; see
+  docs/logs/step21-t1d-explain.txt for the exact request bytes and the
+  discriminating probes.

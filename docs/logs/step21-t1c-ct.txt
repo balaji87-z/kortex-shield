@@ -1,0 +1,47 @@
+== T1c: gap de content-type (step-21) ==
+
+Matriz: 9 CTs (application/json, application/json+protobuf,
+application/vnd.api+json, application/ld+json, application/x-ndjson,
+application/xml, text/xml, application/soap+xml, application/x-kortex-fake
+[invencion]) x 4 casos [(a) JSON valido con payload en valor, (b) JSON
+valido con payload en clave, (c) body no-JSON con payload, (d) JSON
+malformado] x engine + connector, PL1. Payload: canary XSS
+'"><script>alert(1)</script>'. 72 requests.
+
+RESULTADOS (docs/logs/runs/s21-t1c-ct/{engine,connector}-pl1.json):
+  - Engine: 28x403 + 8x400. Los 400 son exactamente los casos (c)/(d) de
+    los 4 CTs +json (processor JSON rechaza el body no-parseable, regla
+    bundled 200002 "Failed to parse request body", clase E11).
+  - Connector: IDENTICO (28x403 + 8x400, mismas celdas).
+  - CERO celdas de evasion: no hay ningun CT elegido por el atacante que
+    esquive la deteccion de un payload detectable bajo text/plain.
+
+Evidencia de processor/variables (codigo + audit crudo, 1 entrada por caso):
+  - Codigo: el engine NO reescribe ni filtra CTs (engine/proxy.go no toca
+    Content-Type para el procesamiento; la seleccion del processor es de
+    coraza, por CT; SecRequestBodyAccess On en engine/config.go:97). Las
+    reglas bundled 200000-200007 (del image pinned, step-16) dan el 400 en
+    error de parseo.
+  - application/json (a): 941100 matched dentro de **ARGS:json.v** ->
+    processor JSON corre y puebla ARGS (claves json.*). Audit:
+    "[data \"Matched Data: XSS data found within ARGS:json.v\"]".
+  - application/xml (a): 941390 matched dentro de **REQUEST_XML** ->
+    processor XML corre y puebla REQUEST_XML.
+  - application/x-kortex-fake (a): 941100 matched dentro de **ARGS_NAMES**
+    (coraza cae a parseo urlencoded del body crudo; el body entero queda
+    como nombre/valor de argumento) y el target REQUEST_BODY (166 updates)
+    tambien aplica. Audit con data "within ARGS_NAMES:{\"v\": ...}".
+  - +json (c)/(d): 200002 -> 400 (fail-closed).
+
+RESPUESTA a la pregunta del paso: la lista de "casos donde un CT elegido
+por el atacante evita deteccion de un payload detectado bajo text/plain"
+es VACIA en esta matriz (0 de 36 celdas por motor).
+
+Correccion asociada (T1b): el "gap JSON+protobuf" de step-20 se retira —
+era un artefacto de clasificacion (400/503 contados como passes). El hecho
+de variables de step-19 T2 (el processor JSON no puebla REQUEST_BODY)
+sigue siendo cierto, pero la deteccion via ARGS cubre los payloads JSON.
+
+Consecuencia: NO se necesita ningun test failing ni fix (regla 40 no
+aplica: no hay defecto). Los tests E11 (400 en JSON malformado) ya cubren
+la clase de rechazo.

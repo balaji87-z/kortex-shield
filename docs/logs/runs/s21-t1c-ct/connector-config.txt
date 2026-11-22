@@ -1,0 +1,2 @@
+   setvar:tx.blocking_paranoia_level=1"
+   setvar:tx.detection_paranoia_level=1"

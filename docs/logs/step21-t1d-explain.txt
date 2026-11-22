@@ -1,0 +1,61 @@
+== T1d: explicacion de los numeros step-20 (urlencoded 11/40 vs query 2/40 vs
+   attacks-ct 4/40; y la contradiccion "tambien pasan a PL2") ==
+
+1. Los 11/40 passes en B-shapes (PL1) son un ARTEFACTO DE CODIFICACION del
+   harness preregistrado (PROVEN, experimento directo):
+
+   El harness (tools/run_step20_t1_dupargs.py, variantes()) construye el
+   body asi: E = quote(Q, safe="") donde Q es el campo "query" del manifest
+   de attacks-v0 — que YA viene percent-encoded (p.ej. "q=%7C%20ls%20-l%20%2Ftmp").
+   Resultado: DOBLE codificacion. Bytes exactos del request que pasa
+   (command-injection-1497268f-q, shape B1):
+
+     POST /rest/products/search
+     Content-Type: application/x-www-form-urlencoded
+     body: p=q%3D%257C%2520ls%2520-l%2520%252Ftmp
+
+   El processor URLENCODED decodifica UNA vez -> el valor del argumento p
+   sigue siendo "q=%7C%20ls%20-l%20%2Ftmp": la firma "| ls -l /tmp" queda
+   oculta tras una capa mas de encoding. A PL1 las reglas 932 (RCE) solo
+   ven la forma decodificada una vez -> 200 (pass). Verificacion directa:
+     - body doble-encodeado -> PL1 200 (pass)
+     - body simple-encodeado (p=%7C%20ls%20-l%20%2Ftmp) -> PL1 403 con
+       932230/932125/932250 + 949110 (el payload SI es detectable cuando
+       la codificacion es la esperada)
+     - el MISMO body doble-encodeado -> PL2 403 con **920230 "Multiple URL
+       Encoding Detected"** + 949110 (la deteccion de doble-encoding es de
+       PL2).
+
+   Por eso 11 y no 2: los 11 payloads que pasan en B (10 command-injection
+   + 1 sqli) son los cuyo conjunto de caracteres esenciales (espacio, |, /,
+   ;) quote() re-codifica; los otros 29 tienen firmas que sobreviven a una
+   decodificacion (p.ej. sin caracteres especiales) y bloquean igual.
+   Los 2 que tambien pasan en Q-shapes (command-injection-933f7004,
+   sqli-91706853) son payloads que no disparan reglas PL1 NI en forma
+   simple (se necesita PL2 para ellos, y a PL2 bloquean: passes=0).
+
+2. "4/40 en attacks-ct" (step-14) NO es comparable: ese dataset envia los
+   payloads como carriers de body simple-encodeados; ahi solo 4/40 pasan.
+   La yuxtaposicion en reports/step-20.md ("11/40 vs 2/40 vs 4/40") sin
+   explicar la diferencia de codificacion inducia a error. Los tres numeros
+   miden cosas distintas: 11 = doble-encodeado (artefacto del harness),
+   2 = payloads que no disparan PL1 ni simple-encodeados, 4 = carriers
+   single-encoded del dataset ct-wide.
+
+3. La frase de reports/step-20.md "the passing payloads are ones that
+   never block (they also pass at PL2)" es FALSA (regla 3): los datos
+   commiteados (docs/logs/runs/s20-t1-dupargs/t1-engine-pl2.json) muestran
+   passes=0 para TODOS los ids y shapes a PL2 (0/800), incluidos los 11
+   que pasan a PL1. La frase correcta: los passes de PL1 son el artefacto
+   de doble-codificacion de las B-shapes, y TODOS bloquean a PL2 (920230).
+   Corregido en reports/step-20.md (addendum 3) y recogido en
+   docs/baseline-v1.6.md.
+
+4. Lectura de seguridad: el "bypass" PL1 por doble codificacion es el
+   comportamiento estandar de CRS (920230 es PL2 por diseno de CRS, no un
+   defecto del engine); el connector se comporta igual por construirse
+   sobre el mismo CRS. No requiere fix del engine (no editamos CRS).
+
+Evidencia cruda: probes t1d (200 PL1 / 403 PL2 / 403 single-encoded) en
+/tmp/kx-t1pad/aud-t1d-*.log y aud-t1d2.log (regenerables; los conteos
+quedan aqui y en el reporte). Datos commiteados: docs/logs/runs/s20-t1-dupargs/.
