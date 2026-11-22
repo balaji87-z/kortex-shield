@@ -117,3 +117,18 @@ func framingGate(head []byte) gateResult {
 
 // gateResponse is the raw 400 written when the gate rejects a connection.
 const gateResponse = "HTTP/1.1 400 Bad Request\r\nContent-Type: text/plain\r\nConnection: close\r\n\r\n400 kortex-decision=framing\n"
+
+// adminStats serves /__kortex/stats (loopback only, rule 50): every
+// in-flight resource is observable here and must return to zero when the
+// traffic that produced it ends.
+func (p *Proxy) adminStats(w http.ResponseWriter, r *http.Request) {
+	if !isLoopback(r.RemoteAddr) {
+		http.Error(w, "forbidden", http.StatusForbidden)
+		return
+	}
+	w.Header().Set("Content-Type", "application/json")
+	fmt.Fprintf(w, `{"inflight_small":%d,"inflight_large":%d,`+
+		`"abandoned_running":%d,"kills":%d,"overloads":%d}`+"\n",
+		p.inflightSmall.Load(), p.inflightLarge.Load(),
+		p.abandonedRunning.Load(), p.kills.Load(), p.overloads.Load())
+}

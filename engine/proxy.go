@@ -36,6 +36,14 @@ type Proxy struct {
 	// immediately (step-17 T3; lanes step-20 T2).
 	inflightSmall atomic.Int64
 	inflightLarge atomic.Int64
+	// abandonedRunning counts body-processing goroutines still running after
+	// their request timed out (the abandoned-call path, step-16 E17).
+	abandonedRunning atomic.Int64
+	// overloads counts 503 kortex-decision=overload responses served.
+	overloads atomic.Int64
+	// kills counts worker processes killed at the time budget (T3; zero
+	// while inspection runs in-process).
+	kills atomic.Int64
 }
 
 func buildWAF(cfg *Config) (coraza.WAF, error) {
@@ -101,6 +109,10 @@ func (p *Proxy) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 
 	if r.URL.Path == "/__kortex/config" {
 		adminConfig(p.cfg)(w, r)
+		return
+	}
+	if r.URL.Path == "/__kortex/stats" {
+		p.adminStats(w, r)
 		return
 	}
 
@@ -271,6 +283,7 @@ func (p *Proxy) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 				reason += " completed_no_interruption=true"
 			}
 			p.events.log(sampleID, "abandoned-body-processing-finished", 0, start, reason)
+			p.abandonedRunning.Add(-1)
 			tx.Close()
 		}
 	}()
@@ -279,6 +292,7 @@ func (p *Proxy) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 		it, err = r.it, r.err
 	case <-time.After(remaining):
 		abandoned.Store(true)
+		p.abandonedRunning.Add(1)
 		p.timeout(w, r, sampleID, start, "time budget expired in body processing")
 		// the abandoned goroutine owns tx now; the handler must not touch it
 		return
@@ -395,6 +409,7 @@ func (p *Proxy) drainRequestBody(r *http.Request) {
 }
 
 func (p *Proxy) overload(w http.ResponseWriter, r *http.Request, sampleID string, start time.Time, reason string) {
+	p.overloads.Add(1)
 	p.events.log(sampleID, "overload", 503, start, reason)
 	// same mid-stream hazard as limit(): the cap can be hit while the client
 	// is still sending the body (step-18 T3)
