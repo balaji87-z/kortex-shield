@@ -420,6 +420,28 @@ worker subprocesses:
   per-lane in-flight, abandoned_running, workers {pool, busy, spares,
   loading}, kills, overloads, penalised_clients.
 
+### Design risk (b): single peer address, no trusted proxies (step-22 T2)
+
+With the default KORTEX_TRUSTED_PROXIES empty, client identity is the
+peer address, so ALL users behind one address share a single penalty
+bucket and per-client in-flight cap. One client's budget kill penalises
+every user on that address: after the kill, that address enters penalty
+state (KORTEX_CLIENT_PENALTY_MS, default 10000 ms) and its body-bearing
+requests are answered 503 kortex-decision=overload "client penalty after
+kill" until the penalty expires, even for innocent clients sharing the
+address. Measured in the step-22 T2 cells: under an 8-address PL2
+small-body attack, penalised_clients reached 8 and the pool never
+re-stocked within the recovery watch (small-eight recovery=None).
+
+Configuration guidance: if the engine sits behind a trusted proxy, set
+KORTEX_TRUSTED_PROXIES to the proxy's CIDR(s) so the client is derived
+as the FIRST untrusted X-Forwarded-For hop instead of the peer address;
+this isolates innocent users sharing one egress address. With no trusted
+proxies (the default), the shared-peer penalty is inherent and must be
+accepted or mitigated by shortening KORTEX_CLIENT_PENALTY_MS. The
+per-client cap default is floor(lane_cap/2) per lane, at least 1
+(design risk (a), T3h), so one client cannot hold a whole lane.
+
 ### What this replaces
 
 E20 (step-16: CPU after a budget timeout is unbounded in-process) is

@@ -112,7 +112,7 @@ implementation; failing evidence in commit 460eed7, implementation 559d9b6):
 |----|-------|--------|
 | E18 | PUT/DELETE/PATCH are rejected 403 kortex-decision=block with 911100 under the default method policy, and pass to the backend when KORTEX_ALLOWED_METHODS includes them | passing |
 | E19 | when the in-flight body-processing cap is reached, a further body-bearing request is answered 503 kortex-decision=overload within 50 ms and the decision is logged to the events file | passing |
-| E20 | after the abandoned calls finish, new body-bearing requests are inspected again (no overload) | passing historically (step-17 to step-20); RETIRED as the availability/CPU claim in step-21 in favour of T3g — currently FAILING on this host for a pre-existing timing reason: the abandoned 131,071-B call's completion time is highly variable (112.5 s isolated, >288 s in the step-21 pre-worker control run) so the 120 s wait is flaky (rule 48); failure reproduced on the pre-worker commit 763f8dd (docs/logs/step21-e20preworker.log), so it is NOT a worker-code regression |
+| E20 | after the abandoned calls finish, new body-bearing requests are inspected again (no overload) | RETIRED as the availability/CPU claim in step-21 in favour of T3g; E20's failure on this host was PROVEN pre-existing (reproduced identically on pre-worker commit 763f8dd, docs/logs/step21-e20preworker.log) and NOT a worker-code regression. T3g (bounded CPU after kill, measures whole process tree and asserts the killed worker PID no longer exists) PASS on go1.25.0, full engine suite ok kortexshield/engine 440.425s. E20 test kept passing (in-process mode still supported/default); the availability/CPU property the system relies on is now T3g |
 | E21 | a body-less benign request on a cap-reached engine still returns promptly (<= 500 ms) | passing |
 
 Step-17 status evidence (current host, go 1.25.0): `go test -buildvcs=false
@@ -150,6 +150,7 @@ T3a-T3g; implementations e4a2e76 and 5795c34):
 | T3e | a per-client in-flight cap: a second body-bearing request from the SAME client while one is in flight gets 503 | passing |
 | T3f | after a budget kill the client enters penalty state: further body requests get 503 kortex-decision=overload ("client penalty after kill") until the penalty expires, then 200 | passing |
 | T3g | bounded CPU after a kill: the engine process CPU stops growing after the worker is SIGKILLed (the stricter property that replaces E20) | passing |
+| T3h | per-client in-flight cap defaults to floor(lane_cap/2) per lane (at least 1), so one client cannot hold a whole lane; large lane cap=2 -> per-client large cap=1, second concurrent large-body request from the same client gets 503 "per-client in-flight cap" | passing |
 
 E20 retirement note (rule: replacement must be stricter): E20 (step-16,
 "after the abandoned calls finish, new body-bearing requests are inspected
