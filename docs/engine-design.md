@@ -350,3 +350,80 @@ timing-dependent.
   docs/logs/step21-t1b-483cfc.txt and the step-21 T1c matrix
   (docs/logs/runs/s21-t1c-ct/): no attacker-chosen content type avoided
   detection of a text/plain-detected payload in the 36-cell matrix.
+
+## Step-21 T3 design: killable worker subprocesses (committed BEFORE code)
+
+Status: DESIGN (this section committed before any worker code lands).
+
+### Problem
+
+Body inspection runs in-process (goroutine per request). A pathological
+body keeps a goroutine CPU-bound for ~74-112 s (step-20/21 measurements)
+with no way to cancel it (coraza has no per-call cancellation). The
+request itself is answered 503 at the budget (2 s), but the engine
+process keeps burning CPU on the abandoned call, and the lane slot is
+held until the call completes.
+
+### Design
+
+The engine gains a worker mode. The main engine process keeps the HTTP
+proxy, framing gate, lanes and accounting. Body inspection moves into
+worker subprocesses:
+
+- `engine --worker`: runs ONE worker that reads a request-job framing
+  (method, path, headers, body bytes) from its stdin pipe and writes the
+  inspection result (status, matched rule ids, interruption, elapsed) as
+  one JSON line to stdout. The worker loads the same CRS ruleset from
+  KORTEX_RULES_DIR.
+- The engine (parent) spawns a pool of workers: default size = the LARGE
+  lane cap (KORTEX_MAX_INFLIGHT_BODY_LARGE, default 2) plus one
+  pre-spawned spare. Configurable: KORTEX_WORKER_POOL (pool size),
+  KORTEX_WORKER_SPARES (pre-spawned spares, default 1),
+  KORTEX_WORKER_RECYCLE_AFTER (recycle a worker after N jobs, default
+  0 = never).
+- Job dispatch: a body-bearing request checks out a worker from the pool
+  (blocking wait bounded by the remaining request budget), writes the job
+  framing, waits for the result line with a deadline = the remaining
+  engine time budget. On deadline expiry the parent SIGKILLs the worker,
+  increments the `kills` counter, starts the pre-spawned spare (and a
+  replacement spare), answers 503 timeout, and marks the client for the
+  fairness penalty (below). The killed worker's slot is released
+  immediately: bounded CPU is the property this design buys.
+- Rule-load cost is paid once per worker at spawn (measured: T3
+  acceptance (f)); the spare is pre-spawned at startup so a kill does
+  not pay rule-load on the hot path.
+- Worker protocol framing: a single JSON line with base64 body (jobs
+  are <= KORTEX_MAX_BODY_BYTES). Pipe transport (os.Pipe via
+  exec.Cmd stdin/stdout) — no unix socket needed for one host.
+- In-process mode stays the default (`engine` without --worker) so all
+  existing tests and parity baselines are unchanged. The T5 tests run
+  the parity comparison between in-process and worker modes.
+
+### Per-client fairness
+
+- Client identity = peer address. A trusted-proxy list
+  (KORTEX_TRUSTED_PROXIES, comma-separated CIDRs, default EMPTY) may
+  re-derive the client as the FIRST untrusted X-Forwarded-For hop. With
+  the default (no trusted proxies) XFF is ignored entirely.
+- In-flight limit per client: a client may hold at most
+  KORTEX_CLIENT_MAX_INFLIGHT (default 2) body-processing jobs at once;
+  excess body requests are answered 503 kortex-decision=overload with
+  reason "per-client in-flight cap".
+- Penalty state: after a budget kill, the client's address is put in a
+  penalty map for KORTEX_CLIENT_PENALTY_MS (default 10000); while
+  penalised, the client's body-bearing requests are answered 503
+  kortex-decision=overload with reason "client penalty after kill"
+  without checking out a worker. The penalty map is capped
+  (KORTEX_CLIENT_PENALTY_MAX_ENTRIES, default 4096, evict oldest) so the
+  map itself cannot be exhausted by address spoofing.
+- Fairness state is observable at /__kortex/stats (rule 50):
+  per-lane in-flight, abandoned_running, workers {pool, busy, spares,
+  loading}, kills, overloads, penalised_clients.
+
+### What this replaces
+
+E20 (step-16: CPU after a budget timeout is unbounded in-process) is
+retired ONLY if the worker design demonstrates the stricter bounded-CPU
+property (acceptance (g): after a kill, total engine CPU stays bounded)
+with a committed failing-first replacement test. Until that test passes,
+E20 stays as-is.
