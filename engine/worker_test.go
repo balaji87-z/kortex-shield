@@ -249,3 +249,57 @@ func TestT3gBoundedCPUAfterKill(t *testing.T) {
 		return w["busy"].(float64) == 0
 	}, 2*time.Second, "no busy workers after kill")
 }
+
+// T3h (step-22 design risk (a)): the per-client in-flight cap must default
+// to floor(lane_cap/2) (at least 1) PER LANE, so one client cannot hold a
+// whole lane. Large lane cap is 2 -> per-client large cap 1: the second
+// concurrent large-body request from the SAME client gets 503 with the
+// per-client reason even though the lane cap (2) would have allowed it.
+// Failing-by-design while the cap is a single global value (default 2).
+func TestT3hPerClientCapDefaultsToHalfLaneCap(t *testing.T) {
+	srv, _ := newEnv(t, workerEnv(map[string]string{
+		"KORTEX_TEST_HOLD_BODY_MS": "3000",
+		// no KORTEX_CLIENT_MAX_INFLIGHT: the derived default must apply
+	}))
+	codeCh := make(chan int, 2)
+	large := bytes.Repeat([]byte("a"), 131072)
+	go func() {
+		codeCh <- postBodyBytes(t, srv.URL, "t3h-1", large, map[string]string{"X-Kortex-Test-Hold": "1"})
+	}()
+	waitFor(t, func() bool {
+		s := stats(t, srv.URL)
+		return s["inflight_large"].(float64) >= 1
+	}, 5*time.Second, "first large request in flight")
+	go func() {
+		codeCh <- postBodyBytes(t, srv.URL, "t3h-2", large, nil)
+	}()
+	waitFor(t, func() bool {
+		s := stats(t, srv.URL)
+		return s["overloads"].(float64) >= 1
+	}, 5*time.Second, "per-client overload on the large lane")
+	if code := <-codeCh; code != 503 {
+		t.Fatalf("T3h: second large request from the same client want 503, got %d", code)
+	}
+	<-codeCh
+}
+
+// postRaw posts an explicit body and returns the status code.
+func postBodyBytes(t *testing.T, srv, sampleID string, body []byte, hdr map[string]string) int {
+	t.Helper()
+	req, err := http.NewRequest("POST", srv+"/", bytes.NewReader(body))
+	if err != nil {
+		t.Fatalf("new request: %v", err)
+	}
+	req.Header.Set("Content-Type", "text/plain")
+	req.Header.Set("X-Kortex-Sample-Id", sampleID)
+	for k, v := range hdr {
+		req.Header.Set(k, v)
+	}
+	resp, err := (&http.Client{Timeout: 30 * time.Second}).Do(req)
+	if err != nil {
+		return -1
+	}
+	io.Copy(io.Discard, resp.Body)
+	resp.Body.Close()
+	return resp.StatusCode
+}
