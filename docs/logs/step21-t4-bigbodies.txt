@@ -1,0 +1,47 @@
+# Step-21 T4: replay de bodies >16 KB (benign-wcp-v0+v1), budget 120 s, worker mode
+# n=402, PL1 y PL2, load 1.4-2.3. Run valido: docs/logs/runs/s21-t4-bigbodies/
+
+== PL1: n=402 status={403: 207, 400: 49, 413: 49, 200: 97}
+elapsed ms: min=1.1 p50=212.9 p95=893.3 p99=1132.1 max=1200.2
+>2000 ms (seria 503 con budget 2 s): 0/402
+  <64K: n=318 status={403: 183, 400: 41, 200: 94} p50=239.7 max=941.6
+  <128K: n=42 status={403: 24, 400: 8, 200: 3, 413: 7} p50=831.2 max=1200.2
+  >=128K: n=42 status={413: 42} p50=2.6 max=19.3
+  por CT (n, p50 ms, max ms, status):
+    text/plain: n=124 p50=253.9 max=1132.1 status={403: 78, 400: 4, 413: 10, 200: 32}
+    application/json: n=123 p50=123.7 max=552.0 status={403: 36, 400: 44, 200: 32, 413: 11}
+    : n=44 p50=364.2 max=1200.2 status={403: 36, 413: 8}
+    multipart/form-data: n=42 p50=9.7 max=156.9 status={403: 11, 200: 14, 413: 17}
+    application/x-www-form-urlencoded: n=32 p50=279.6 max=738.1 status={200: 15, 403: 15, 413: 2}
+    application/vnd.chrome.uma: n=30 p50=685.6 max=1174.6 status={403: 29, 413: 1}
+    application/reports+json: n=3 p50=305.8 max=329.2 status={200: 3}
+    text/xml: n=1 p50=167.8 max=167.8 status={200: 1}
+    application/atom+xml: n=1 p50=3.3 max=3.3 status={400: 1}
+    application/x-protobuffer: n=1 p50=164.2 max=164.2 status={403: 1}
+    application/x-ndjson: n=1 p50=1011.6 max=1011.6 status={403: 1}
+
+== PL2: n=402 status={403: 287, 400: 49, 413: 49, 200: 17}
+elapsed ms: min=1.5 p50=410.4 p95=1582.3 p99=1992.2 max=2133.3
+>2000 ms (seria 503 con budget 2 s): 4/402
+   wcp-8aa4b0b85a6f size=97619 status=403 elapsed=2051.1
+   wcp-f8ba3db5e5c3 size=97608 status=403 elapsed=2133.3
+   wcp-a01f72758b1b size=76905 status=403 elapsed=2116.4
+   wcp-81f2f8b2c3e0 size=86668 status=403 elapsed=2076.9
+  <64K: n=318 status={403: 261, 400: 41, 200: 16} p50=438.5 max=1773.6
+  <128K: n=42 status={403: 26, 400: 8, 413: 7, 200: 1} p50=1531.8 max=2133.3
+  >=128K: n=42 status={413: 42} p50=3.2 max=79.5
+  por CT (n, p50 ms, max ms, status):
+    text/plain: n=124 p50=465.2 max=1982.0 status={403: 110, 400: 4, 413: 10}
+    application/json: n=123 p50=235.6 max=1062.8 status={403: 65, 400: 44, 200: 3, 413: 11}
+    : n=44 p50=602.6 max=2116.4 status={403: 36, 413: 8}
+    multipart/form-data: n=42 p50=12.2 max=266.6 status={403: 12, 413: 17, 200: 13}
+    application/x-www-form-urlencoded: n=32 p50=545.2 max=1439.5 status={403: 29, 200: 1, 413: 2}
+    application/vnd.chrome.uma: n=30 p50=1306.7 max=2133.3 status={403: 29, 413: 1}
+    application/reports+json: n=3 p50=504.9 max=516.0 status={403: 3}
+    text/xml: n=1 p50=353.5 max=353.5 status={403: 1}
+    application/atom+xml: n=1 p50=5.4 max=5.4 status={400: 1}
+    application/x-protobuffer: n=1 p50=373.8 max=373.8 status={403: 1}
+    application/x-ndjson: n=1 p50=1728.7 max=1728.7 status={403: 1}
+
+49/402 bodies >=128 KB -> 413 en ambos niveles (limite de inspeccion).
+0/402 superarian los 2 s de budget por defecto en PL1; 4/402 en PL2.

@@ -1,0 +1,31 @@
+{
+  "base_url": "http://127.0.0.1:8098",
+  "started_utc": "2026-11-22T11:23:27+00:00",
+  "ended_utc": "2026-11-22T11:25:19+00:00",
+  "load_avg_start": [
+    1.37,
+    1.63,
+    1.84
+  ],
+  "load_avg_end": [
+    1.76,
+    1.78,
+    1.88
+  ],
+  "git_commit": "1c823cac1a0b761fdbc16e9d0ae71aa2f4587b77",
+  "manifest_sha256": "c52e118fa4f6b4e1ba3021e2cd02a46fa147bac249e7eb147ffea1469ab30230",
+  "default_user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/158.0.0.0 Safari/537.36",
+  "labels": {
+    "engine": "kortex",
+    "mode": "worker",
+    "paranoia": "1"
+  },
+  "total_samples": 402,
+  "responses_ok": 402,
+  "blocked": 0,
+  "error_count": 0,
+  "block_rule": {
+    "block_status": 403,
+    "block_marker": "<center>nginx</center>"
+  }
+}

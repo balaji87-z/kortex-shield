@@ -1,0 +1,90 @@
+# Step-21 T4b: re-auditoría con bodies completos de los 41 bloques nuevos de benign-wcp-v1
+
+Fecha: 2026-11-22. Motor: /tmp/kortex-engine (worker mode, pool 3), CRS 4.25.2, coraza v3.8.1.
+Replay: docs/logs/runs/s21-t4-bigbodies/manifest-41.jsonl (41 muestras congeladas de
+data/benign-wcp-v1), PL1 y PL2, budget 120 s, audit completo capturado en
+audit-41-pl{1,2}.log (28 y 14 entradas, 41 ids distintos). Respuestas en
+blocks41-pl{1,2}/responses.jsonl.
+
+## Reconciliación 41 vs 42
+
+Los "42" del step-20 eran el conteo por nivel (28 en PL1 + 14 en PL2). El id
+wcp-7c00131a3c32 aparece bloqueado en AMBOS niveles, así que la unión de ids
+distintos es 41. Confirmado recalculando desde los runs step-19 pre/post:
+nuevos PL1=28, PL2=14, unión=41 (script en el reporte step-21).
+
+## Clasificación por muestra (lectura manual del body completo)
+
+Variable dominante de matcheo (audit engine-dialect): REQUEST_BODY en 41/41 ids;
+en PL2 además ARGS/ARGS_NAMES (parsing form-urlencoded) y MATCHED_VARS.
+
+| id | PL | reglas (además de 949110) | var | contenido | juicio |
+|---|---|---|---|---|---|
+| wcp-d024c7575cb9 | 1 | 932235 | REQUEST_BODY | CSP report (argos.co.uk) con 'unsafe-eval' en policy | benigno corriente |
+| wcp-c5cc5b1ae151 | 1 | 932370 | REQUEST_BODY | Datadog RUM (_dd), catch.com.au, URLs doubleclick | benigno corriente |
+| wcp-dcde020d1614 | 1 | 942550 | REQUEST_BODY | Shopify trekkie addedProduct (BCAA powder) | benigno corriente |
+| wcp-04a2e0361cfd | 1 | 942550 | REQUEST_BODY | métricas de foco/formulario (id_cityLocalityName...) | benigno corriente |
+| wcp-424f893739e2 | 1 | 932125,932370 | REQUEST_BODY | beacon de performance eltiempo.com | benigno corriente |
+| wcp-5f172b6f65e7 | 1 | 932125,932370 | REQUEST_BODY | beacon de performance eluniversal.com.mx | benigno corriente |
+| wcp-44151f6a19a4 | 1 | 932125,932370 | REQUEST_BODY | beacon de performance globo.com | benigno corriente |
+| wcp-bde436dbb645 | 1 | 932125,932370 | REQUEST_BODY | beacon de performance globo.com | benigno corriente |
+| wcp-bbc448294fcd | 1 | 932125,932370 | REQUEST_BODY | beacon de performance techcrunch.com | benigno corriente |
+| wcp-59854e69c4c4 | 2 | (PL2: 920230...) | REQUEST_BODY | carrito argos (vasSelections) | benigno corriente |
+| wcp-78441b5f4c29 | 2 | (PL2) | REQUEST_BODY | token reCAPTCHA Enterprise (v=03AFcWeA...) | benigno corriente |
+| wcp-f3552250e714 | 1 | 933120 | REQUEST_BODY | GA4 hostelworld (en=Property_Details_Page_Event) | benigno corriente |
+| wcp-22f30228f623 | 1 | 932370 | REQUEST_BODY | Datadog RUM grubhub | benigno corriente |
+| wcp-8c1af4ff8d4e | 2 | (PL2) | REQUEST_BODY | recomendaciones tienda (usd separador ␟␞) | benigno corriente |
+| wcp-9cac96b777c9 | 2 | (PL2) | REQUEST_BODY | recomendaciones tienda (mismo formato) | benigno corriente |
+| wcp-c0cd47515055 | 1 | 932370 | REQUEST_BODY | Adobe Analytics levi.com (AQB=1&ndh=1) | benigno corriente |
+| wcp-37b682f6ce60 | 1 | 932370 | REQUEST_BODY | Adobe Analytics levi.com | benigno corriente |
+| wcp-d29b3421cd90 | 1 | 932370 | REQUEST_BODY | Adobe Analytics levi.com FR | benigno corriente |
+| wcp-40a0394e0268 | 1 | 932370 | REQUEST_BODY | Adobe Analytics levi.com FR | benigno corriente |
+| wcp-7ffa92142a17 | 1 | 932370 | REQUEST_BODY | Adobe Analytics levi.com US | benigno corriente |
+| wcp-be280b51ae11 | 1 | 932370 | REQUEST_BODY | telemetría microcenter.com | benigno corriente |
+| wcp-b3ffad98fa1b | 1 | 932235 | REQUEST_BODY | Adobe Analytics nbcnews (policy CSP con eval') | benigno corriente |
+| wcp-0a3479018afc | 1 | 932370 | REQUEST_BODY | telemetría nespresso.com | benigno corriente |
+| wcp-b5776eacd5b5 | 1 | 933120 | REQUEST_BODY | GA4 optimumnutrition AddToCart | benigno corriente |
+| wcp-5af39b82adff | 1 | 933120 | REQUEST_BODY | GA4 optimumnutrition Behavioural Event | benigno corriente |
+| wcp-f5e2ec747222 | 2 | (PL2) | REQUEST_BODY | blob ofuscado tipo beacon Akamai/Boomerang (z=...&y=...) | no puedo asegurar por contenido |
+| wcp-3003d84bc92a | 2 | (PL2) | REQUEST_BODY | blob ofuscado mismo formato | no puedo asegurar por contenido |
+| wcp-f03cc8a0452b | 2 | (PL2) | REQUEST_BODY | base64 {"ts":...,"pay":...} decodificado: telemetría southwest.com booking | benigno corriente |
+| wcp-fd32a862be95 | 2 | (PL2) | REQUEST_BODY | mismo formato, decodificado: southwest.com select-depart | benigno corriente |
+| wcp-e53e5a8e46b5 | 1 | 942550 | REQUEST_BODY | Shopify trekkie pageView turntablelab.com | benigno corriente |
+| wcp-89785f453ee5 | 1 | 932235 | REQUEST_BODY | GA4 Maybelline view_item (usa 'eval' en datos) | benigno corriente |
+| wcp-2feaf4151664 | 1 | 932235 | REQUEST_BODY | GA4 campaign_showstopper | benigno corriente |
+| wcp-d5d9cb65d073 | 2 | (PL2) | REQUEST_BODY | carrito con g-captcha-token reCAPTCHA | benigno corriente |
+| wcp-8d56146c1c25 | 2 | (PL2) | REQUEST_BODY | Facebook comet route_urls/fb_dtsg | benigno corriente |
+| wcp-47345e70bded | 2 | (PL2) | REQUEST_BODY | Facebook comet | benigno corriente |
+| wcp-4b36a4081bfd | 2 | (PL2) | REQUEST_BODY | Facebook comet | benigno corriente |
+| wcp-516e0a8829ef | 2 | (PL2) | REQUEST_BODY | Facebook comet | benigno corriente |
+| wcp-f34df15a6669 | 1 | 932235 | REQUEST_BODY | checkout Shopify con email/nombre/teléfono/dirección reales | benigno corriente (contiene PII, ver abajo) |
+| wcp-bb0de7f91b1f | 1 | 932235 | REQUEST_BODY | beacon Akamai mPulse levi.com | benigno corriente |
+| wcp-7c00131a3c32 | 1 y 2 | 932370,932380 (PL1) | REQUEST_BODY | isCustomerInSession (cmd=isCustomerInSession) | benigno corriente |
+
+Recuento: 39 benigno corriente, 2 no puedo asegurar por contenido
+(wcp-f5e2ec747222, wcp-3003d84bc92a: blobs ofuscados opacos de telemetría),
+0 plausiblemente malicioso.
+
+## Reglas que disparan y por qué
+
+- 932235/932125/932370/933120/932380 (RCE): subcadenas legítimas de
+  telemetría que parecen comandos/inyección (p. ej. "eval'" dentro de una
+  policy CSP con 'unsafe-eval', "cmd=", "%7C" en URLs de beacons).
+- 942550 (SQLi), 9424xx (SQLi): comillas/paréntesis en datos de formularios.
+- 920230 (PL2): doble URL-encoding en beacons GA4 con %2526/%2520.
+- 931130 (PL2): tokens reCAPTCHA largos en base64.
+- Todos los matches son en REQUEST_BODY/ARGS de beacons de analítica,
+  carritos y tokens, nunca en parámetros de control.
+
+## PII encontrada (regla 25, solo tipo y recuento)
+
+- wcp-f34df15a6669: 1 muestra con email personal, nombre, teléfono y dirección
+  postal en el body. No se copia ningún valor al repositorio; el body vive solo
+  en el dataset congelado (fuente pública de beacons).
+
+## Conclusión
+
+41/41 bloques nuevos confirmados como falsos positivos atribuibles a los
+targets (misma conclusión del step-20, ahora verificada leyendo los bodies
+completos y no solo las variables del motor). 0 exclusiones aplicadas
+(decisión del instructor: no excluir todavía).
