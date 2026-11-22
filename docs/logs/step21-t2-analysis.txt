@@ -1,0 +1,61 @@
+== T2: contabilidad de slots y replay del large lane (step-21) ==
+
+Pregunta del instructor: explicar el run step-20 (2 timeouts, 0
+abandoned-finished en 300 s), si los slots se liberan y cuando, y si los
+eventos abandoned-finished se registran. PROVEN o HYPOTHESIS; leak = bug.
+
+EVIDENCIA (host actual, coraza v3.8.1, binario con /__kortex/stats):
+
+1. Costo de inspeccion del body de ataque en AISLADO (PROVEN, 3 medidas):
+   - watch-2 (2 llamadas concurrentes, sin otro trafico): terminan a los
+     112.5 s (elapsed_ms=112456/112579), con eventos
+     abandoned-body-processing-finished registrados (2) y stats
+     large=0 abandoned=0 desde ~113 s hasta el fin del watch (250 s).
+     docs/logs/runs/s21-t2-large-replay/abandon-watch.json (watch-2).
+   - watch-3 (mismo setup): NO terminan en 250 s.
+   - single-cost (1 llamada, budget 120 s): 503 timeout a los 120.0 s
+     (evento: "time budget expired in body processing", elapsed_ms=120000).
+   => el costo de inspeccion de este body (131,071 B del fixture WCP,
+   text/plain, PL1) es >=112 s y variable (112 -> >250 s). La varianza
+   entre runs aislados queda UNEXPLAINED (posible frecuencia CPU/thermal;
+   no discrimine).
+
+2. NO HAY LEAK (PROVEN, watch-2): los slots se liberan cuando la llamada
+   abandonada completa (inflight.Add(-1) al retorno de
+   ProcessRequestBody), el evento abandoned-body-processing-finished SE
+   registra, y /__kortex/stats vuelve a cero y se mantiene (large=0
+   abandoned=0 durante ~140 s de observacion post-release).
+
+3. Replay 60 s / 8 atacantes (docs/logs/runs/s21-t2-large-replay/):
+   benign POST 17/19 servidos (los 2 fallos al inicio, antes de que los
+   slots se estabilicen), GET 19/19; stats cada 1 s muestran
+   large=2 abandoned=2 constantes durante TODO el run + cola de 10 s —
+   esperable: las llamadas abandonadas tardan >=112 s, mas que la
+   ventana de 70 s. overloads llega a 655. No es leak: es costo.
+
+4. Re-run 300 s (docs/logs/runs/s21-t2-large-lane-rerun/): INVALIDO —
+   se excluye de toda conclusion (regla 12: se documenta, no se descarta
+   en silencio). Razones:
+   a) sus 4 llamadas abandonadas reportan elapsed 2.6-3.0 s con
+      completed_no_interruption=true, lo que CONTRADICE la medicion
+      aislada del mismo body y binario (>120 s) — la inspeccion del
+      rerun no fue equivalente;
+   b) su audit log quedo VACIO (0 bytes) pese a 540 eventos pass;
+   c) load_end=11.09 (regla 43: celda con load>8 se excluye) y latencia
+      benigna mediana 1579 ms (vs run step-20: rapida).
+   Consecuencia: NO explica el run step-20; no se usa.
+
+5. Run step-20 (2 timeouts a t=2.6 s, 0 abandoned-finished en 300 s):
+   la explicacion consistente con la evidencia actual es HYPOTHESIS: las
+   dos llamadas abandonadas no completaron dentro de la ventana de 300 s
+   porque el costo de inspeccion en ese run (host post-reboot a 2611 MHz
+   + contencion del propio ataque) supero los ~297 s restantes. El
+   mecanismo de liberacion esta PROVEN por watch-2; lo que queda sin
+   discriminar es por que el costo bajo carga llega a >300 s (la
+   varianza aislada ya es 112->250 s). El diseno de workers (T3) hace
+   irrelevante esta variabilidad: el kill acota el CPU al budget.
+
+6. /__kortex/stats: implementado test-first (E31, commit ba365d5 ->
+   e4a2e76); campos inflight_small/inflight_large/abandoned_running/
+   kills/overloads; E31 verifica observabilidad en-vuelo y retorno a
+   cero. Loopback-only como /__kortex/config.

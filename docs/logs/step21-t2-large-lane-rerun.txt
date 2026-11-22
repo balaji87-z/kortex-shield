@@ -1,0 +1,18 @@
+== T2 lanes[large]: 2026-11-22T09:44:49Z body=131071 PL=1 small_cap=8 large_cap=2 threshold=65536 budget=2000ms ==
+rule29 config proof:
+{"backend_url":"http://127.0.0.1:13000","rule_engine":"On","blocking_paranoia":1,"detection_paranoia":1,"max_body_bytes":13107200,"max_inspected_bytes":131072,"engine_time_budget_ms":2000,"rules_dir":"/home/vboxuser/kortex-shield/engine/crs","listen_addr":"127.0.0.1:8105","events_file":"/tmp/kx-t21ev-large.jsonl","audit_log":"/tmp/kx-t20-aud-large.log","allowed_methods":"GET HEAD POST OPTIONS","max_inflight_body":8,"max_inflight_body_large":2,"body_lane_threshold":65536,"request_body_target_updates":166}
+cpu_ticks_start=1851 (hz=100)
+load_start=[load average: 3.17, 2.27, 2.64]
+cpu_ticks_at_60s=20151
+load_at_60s=[load average: 6.86, 3.61, 3.09]
+cpu_ticks_end=89577
+load_end=[load average: 11.09, 7.80, 4.95]
+attack window ended 2026-11-22T09:50:08Z; measuring recovery
+recovery: first benign POST with status 200 and <500 ms after attack stop: 53.4s
+recovery rows: [[0.7, "200", 740.8], [2.7, "200", 922.6], [4.5, "200", 841.4], [6.4, "200", 834.8], [8.4, "200", 1008.3], [10.0, "200", 652.8], [11.6, "200", 595.5], [13.3, "200", 681.5], [15.0, "200", 625.1], [16.9, "200", 850.1], [18.7, "200", 794.5], [20.3, "200", 568.2], [22.0, "200", 765.8], [23.7, "200", 667.6], [25.4, "200", 715.9], [27.4, "200", 928.3], [29.1, "200", 697.5], [31.1, "200", 953.3], [32.8, "200", 652.0], [34.8, "200", 1008.1], [36.3, "200", 503.6], [38.0, "200", 697.7], [39.7, "200", 609.2], [41.6, "200", 967.2], [43.3, "200", 606.5], [45.1, "200", 799.0], [46.9, "200", 810.4], [48.7, "200", 731.4], [50.6, "200", 971.6], [52.2, "200", 561.6]]
+benign POSTs: n=97 status200=94 status503_overload=3 other=0
+benign POST success rate: 94/97
+benign POST latency when not overloaded: median=1579ms max=4168ms
+benign GET latency: median=1035ms p90=2004ms max=2743ms
+engine events: overload=2893 timeout=6 abandoned_finished=4
+slot hold (abandoned calls): n=4 median=2.7s max=3.0s

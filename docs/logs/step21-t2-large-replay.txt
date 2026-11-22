@@ -1,0 +1,4 @@
+benign POSTs served 17/19
+benign GETs served 19/19
+POST latency ms median=1713.8 p90=2256.6 max=2538.1
+stats samples: 48
