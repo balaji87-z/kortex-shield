@@ -1,0 +1,55 @@
+# Step-22 T4: engine FP decomposition (existing runs, counts only)
+# worst case per rule 21: blocked + deny_status + error over N
+
+== engine v0 PL1 (step-18 post): n=20000 blocked=2279 deny_status=58 error=1  WORST-CASE rate=2338/20000 = 11.69% (blocked-only 11.39%)
+sole-rule blocks: 1418  multi-rule blocks: 861
+sole-rule top: 942550=271, 932370=235, 921150=206, (none)=109, 943110=100, 942290=61, 942100=59, 932235=57, 931120=45, 932380=26
+family hits (per block-rule occurrence): rce=1511, sqli=1017, protocol=886, other=640, xss=306
+top 15 rules: 921150=499, 932370=465, 942550=367, 932130=321, 920270=251, 942100=201, 932235=179, 941100=166, 942290=165, 942190=163, 943110=159, 933180=147, 932125=124, 942540=112, 920640=92
+body-less blocked=423 body-bearing blocked=1856
+denominator: body-less=14426 body-bearing=5574
+
+== engine v0 PL2 (step-18 post): n=20000 blocked=8870 deny_status=58 error=1  WORST-CASE rate=8929/20000 = 44.65% (blocked-only 44.35%)
+sole-rule blocks: 2702  multi-rule blocks: 6168
+sole-rule top: 931130=1558, 942200=328, 942120=227, (none)=178, 941150=139, 932240=83, 932236=39, 943110=33, 920230=18, 942340=17
+family hits (per block-rule occurrence): sqli=23710, other=6584, rce=6145, protocol=3384, xss=2657
+top 15 rules: 931130=5852, 942430=4989, 942200=4269, 942370=3240, 942340=3089, 942330=1913, 932200=1832, 920230=1678, 941340=1149, 942120=1085, 942520=1077, 942440=885, 932271=825, 932240=819, 932236=736
+body-less blocked=4228 body-bearing blocked=4642
+denominator: body-less=14426 body-bearing=5574
+
+== engine v1 PL1 (step-19 post r1): n=10000 blocked=1092 deny_status=25 error=0  WORST-CASE rate=1117/10000 = 11.17% (blocked-only 10.92%)
+sole-rule blocks: 685  multi-rule blocks: 407
+sole-rule top: 942550=168, 932370=120, (none)=55, 932235=39, 943110=39, 921150=38, 942100=37, 942290=27, 931120=23, 920270=14
+family hits (per block-rule occurrence): rce=748, sqli=541, protocol=406, other=285, xss=152
+top 15 rules: 942550=222, 932370=221, 921150=181, 932130=174, 920270=149, 942100=116, 941100=87, 942190=86, 932235=80, 943110=63, 933180=62, 932125=59, 942540=58, 942290=55, 920640=55
+body-less blocked=217 body-bearing blocked=875
+denominator: body-less=7296 body-bearing=2704
+
+== engine v1 PL2 (step-19 post r1): n=10000 blocked=4436 deny_status=25 error=0  WORST-CASE rate=4461/10000 = 44.61% (blocked-only 44.36%)
+sole-rule blocks: 1376  multi-rule blocks: 3060
+sole-rule top: 931130=772, 942200=150, 942120=131, (none)=94, 941150=84, 932240=39, 932236=21, 943110=14, 920230=12, 942340=10
+family hits (per block-rule occurrence): sqli=11548, other=3248, rce=2980, protocol=1631, xss=1331
+top 15 rules: 931130=2931, 942430=2464, 942200=2071, 942370=1556, 942340=1456, 942330=928, 932200=903, 920230=839, 941340=571, 942120=552, 942520=495, 942440=463, 932271=397, 932240=391, 942300=360
+body-less blocked=2178 body-bearing blocked=2258
+denominator: body-less=7296 body-bearing=2704
+
+== connector v0 PL1: n=3885 403-blocks=3885 detection-involved=2145 (920420-only blocks=1740)
+connector family hits: rce=1371, sqli=1077, protocol=1020, other=556, xss=349
+connector top 10: 932370=424, 921150=379, 942550=364, 920270=275, 932130=274, 942100=224, 942190=177, 942290=166, 932235=166, 943110=160
+
+== connector v0 PL2: audit.jsonl missing -> NOT MEASURED
+
+== connector v1 PL1: n=1898 403-blocks=1898 detection-involved=1070 (920420-only blocks=828)
+connector family hits: rce=667, sqli=540, protocol=531, other=255, xss=133
+connector top 10: 942550=217, 932370=202, 921150=186, 920270=151, 932130=148, 942100=117, 942190=88, 932235=73, 943110=63, 941100=61
+
+== connector v1 PL2: audit.jsonl missing -> NOT MEASURED
+
+== REQUEST_BODY-target attribution (v1, step-19 pre vs post r1)
+PL1: pre_blocked=1064 post_blocked=1092 new_in_post=28 gone_in_post=0
+PL2: pre_blocked=4424 post_blocked=4436 new_in_post=14 gone_in_post=2
+
+NOTE (rule 45/46): WCP samples are third-party captured telemetry with
+cookies dropped; 'attack' labels in public lists mean 'listed under this
+family in this source', not verified exploitable. The number a later ML
+layer would have to beat is the engine worst-case FP rate on v1 (above).

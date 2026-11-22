@@ -1,0 +1,32 @@
+# Step-22 T3: the 10 None (encoding-diff-v0) and the 49x400 (big bodies)
+
+== 10 None: harness client-side error, request never sent
+  encd-query-plain-sqli-6e47f23b: control chars in query bytes: []
+  encd-query-plain-sqli-8c187a93: control chars in query bytes: []
+  total distinct ids: 10; same ids in both modes: yes
+  treatment: counted in the worst case (rule 20/21); never sent, so
+  'inspected, no match' cannot be distinguished from 'not inspected'.
+
+== 49 x 400 in the big-body replay (both PLs): cause classes
+  valid-json(other-cause): 42  ids: wcp-042d40f331b3,wcp-0efc37929d08,wcp-123479ec1b68,wcp-1494e619e46e,wcp-196751acebf0,wcp-223072029082...
+  arg-limit: 5  ids: wcp-2574cf69006b,wcp-5fe26a0ce013,wcp-7cd554e35dfd,wcp-82f508a89f65,wcp-de8021cfbd94
+  gzip-magic-body: 1  ids: wcp-2895d7e869c5
+  malformed-json: 1  ids: wcp-3f074613de2e
+
+== the 10 None ids (both modes identical)
+  encd-query-plain-command-injection-029d9cca,encd-query-plain-command-injection-05bbe7a8,encd-query-plain-command-injection-227cb8a4,encd-query-plain-sqli-6e47f23b,encd-query-plain-sqli-8c187a93,encd-query-plain-sqli-a2035700,encd-query-plain-xss-369d0b75,encd-query-plain-xss-545d1ff8,encd-query-plain-xss-56083d09,encd-query-plain-xss-784791cd
+  first id query control bytes at offsets: []
+
+== structure of the 42 valid-JSON-but-400 bodies (local inspection)
+  top-type=dict keys>100=False depth>32=False size>100KB=False: 36
+  top-type=list keys>100=False depth>32=False size>100KB=False: 3
+  top-type=dict keys>100=False depth>32=False size>100KB=True: 2
+  top-type=dict keys>100=True depth>32=False size>100KB=False: 1
+  example wcp-042d40f331b3: ct=application/json len=48646 top=dict keys=7
+    key=sentAt
+    key=messageId
+    key=entityId
+    key=anonymousId
+    key=userId
+    key=context
+    key=events

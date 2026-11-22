@@ -1,0 +1,7 @@
+cell large-one: post 301/301 get 301/301 kills=24 overloads=276 minpool=3 cpu=6.4s recovery=7.2s
+cell large-eight: post 301/301 get 301/301 kills=181 overloads=2217 minpool=2 cpu=16.9s recovery=12.3s
+cell small-one: post 0/301 get 0/301 kills=24 overloads=276 minpool=3 cpu=10.4s recovery=Nones
+cell small-eight: post 0/300 get 0/300 kills=192 overloads=2216 minpool=0 cpu=14.0s recovery=Nones
+cell mixed-one: post 105/301 get 105/301 kills=18 overloads=65451 minpool=2 cpu=217.8s recovery=Nones
+cell mixed-eight: post 275/300 get 300/300 kills=196 overloads=403046 minpool=0 cpu=673.8s recovery=10.2s
+killstorm: kills=80 (0.67/s) minpool=0 minidle=0 cpu=214.7s
