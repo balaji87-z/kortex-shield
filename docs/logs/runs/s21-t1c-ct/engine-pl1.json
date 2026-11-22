@@ -1,0 +1,182 @@
+[
+ {
+  "ct": "application/json",
+  "case": "a-val",
+  "status": 403
+ },
+ {
+  "ct": "application/json",
+  "case": "b-key",
+  "status": 403
+ },
+ {
+  "ct": "application/json",
+  "case": "c-nonjson",
+  "status": 400
+ },
+ {
+  "ct": "application/json",
+  "case": "d-malformed",
+  "status": 400
+ },
+ {
+  "ct": "application/json+protobuf",
+  "case": "a-val",
+  "status": 403
+ },
+ {
+  "ct": "application/json+protobuf",
+  "case": "b-key",
+  "status": 403
+ },
+ {
+  "ct": "application/json+protobuf",
+  "case": "c-nonjson",
+  "status": 400
+ },
+ {
+  "ct": "application/json+protobuf",
+  "case": "d-malformed",
+  "status": 400
+ },
+ {
+  "ct": "application/vnd.api+json",
+  "case": "a-val",
+  "status": 403
+ },
+ {
+  "ct": "application/vnd.api+json",
+  "case": "b-key",
+  "status": 403
+ },
+ {
+  "ct": "application/vnd.api+json",
+  "case": "c-nonjson",
+  "status": 400
+ },
+ {
+  "ct": "application/vnd.api+json",
+  "case": "d-malformed",
+  "status": 400
+ },
+ {
+  "ct": "application/ld+json",
+  "case": "a-val",
+  "status": 403
+ },
+ {
+  "ct": "application/ld+json",
+  "case": "b-key",
+  "status": 403
+ },
+ {
+  "ct": "application/ld+json",
+  "case": "c-nonjson",
+  "status": 400
+ },
+ {
+  "ct": "application/ld+json",
+  "case": "d-malformed",
+  "status": 400
+ },
+ {
+  "ct": "application/x-ndjson",
+  "case": "a-val",
+  "status": 403
+ },
+ {
+  "ct": "application/x-ndjson",
+  "case": "b-key",
+  "status": 403
+ },
+ {
+  "ct": "application/x-ndjson",
+  "case": "c-nonjson",
+  "status": 403
+ },
+ {
+  "ct": "application/x-ndjson",
+  "case": "d-malformed",
+  "status": 403
+ },
+ {
+  "ct": "application/xml",
+  "case": "a-val",
+  "status": 403
+ },
+ {
+  "ct": "application/xml",
+  "case": "b-key",
+  "status": 403
+ },
+ {
+  "ct": "application/xml",
+  "case": "c-nonjson",
+  "status": 403
+ },
+ {
+  "ct": "application/xml",
+  "case": "d-malformed",
+  "status": 403
+ },
+ {
+  "ct": "text/xml",
+  "case": "a-val",
+  "status": 403
+ },
+ {
+  "ct": "text/xml",
+  "case": "b-key",
+  "status": 403
+ },
+ {
+  "ct": "text/xml",
+  "case": "c-nonjson",
+  "status": 403
+ },
+ {
+  "ct": "text/xml",
+  "case": "d-malformed",
+  "status": 403
+ },
+ {
+  "ct": "application/soap+xml",
+  "case": "a-val",
+  "status": 403
+ },
+ {
+  "ct": "application/soap+xml",
+  "case": "b-key",
+  "status": 403
+ },
+ {
+  "ct": "application/soap+xml",
+  "case": "c-nonjson",
+  "status": 403
+ },
+ {
+  "ct": "application/soap+xml",
+  "case": "d-malformed",
+  "status": 403
+ },
+ {
+  "ct": "application/x-kortex-fake",
+  "case": "a-val",
+  "status": 403
+ },
+ {
+  "ct": "application/x-kortex-fake",
+  "case": "b-key",
+  "status": 403
+ },
+ {
+  "ct": "application/x-kortex-fake",
+  "case": "c-nonjson",
+  "status": 403
+ },
+ {
+  "ct": "application/x-kortex-fake",
+  "case": "d-malformed",
+  "status": 403
+ }
+]

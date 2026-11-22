@@ -113,13 +113,15 @@ A3 canary (rule 47) on the 100 A3 ids (benign-wcp-v0, connector-only
 - XSS canary (`"><script>alert(1)</script>`, substring-deterministic):
   **engine 98/100 blocked** (941100/941110/941160/941390 + 949110);
   **connector 99/100 blocked** (920420 CT rejection on all 100 + 941 on
-  98). The 2 engine passes: wcp-dedb89ec3d3d (application/json+protobuf —
-  the JSON processor does not populate REQUEST_BODY: a REAL inspection
-  gap, also the connector's only pass) and wcp-483cfc44d381 (text/plain
-  100 KB, no match, UNVERIFIED cause).
-- Conclusion: body inspection is PROVEN for this request class; A3's
-  0/100 920420 matches now reads "inspected, no match" for text/plain
-  ids; the JSON+protobuf CT is NOT inspected (gap, both engines).
+  98). The 2 engine non-403 outcomes, CORRECTED in step-21 (PROVEN):
+  wcp-dedb89ec3d3d = 400 (canary broke JSON validity → processor
+  rejection, fail-closed) and wcp-483cfc44d381 = 503 timeout (pathology
+  body vs 2000 ms budget). There was NO pass-through and NO
+  application/json+protobuf inspection gap; the step-20 canary script
+  counted only 403 as a block. See docs/logs/step21-t1b-483cfc.txt.
+- Conclusion (corrected step-21): body inspection is PROVEN for this
+  request class with zero improper passes; A3's 0/100 920420 matches
+  reads "inspected, no match" for text/plain ids.
 
 Audit of the 42 new blocks on benign-wcp-v1 (rule 26; 28 PL1 + 14 PL2,
 one id in both): all 42 read as benign browser telemetry / e-commerce

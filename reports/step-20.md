@@ -229,3 +229,16 @@ number cited above is reproduced from the committed docs/logs/ copies.
   Evidence: docs/logs/step21-t1b-483cfc.txt.
 - The T1 "fixed" wording for the coraza bump: per rule 49 this stays
   "fixed empirically" until the changed upstream code is identified.
+
+## Step-21 addendum 2 (correction, PROVEN — supersedes addendum 1 partly)
+
+- Both step-20 canary "passes" were classification artifacts of the canary
+  script (`blocked = status==403`): wcp-dedb89ec3d3d was REJECTED with 400
+  (canary made the JSON invalid → JSON-processor rejection, E11 class) and
+  wcp-483cfc44d381 was a 503 kortex-decision=timeout (pathology-class body
+  ~6–24 s vs the canary run's 2000 ms budget). Both fail-closed. There was
+  NO pass-through and NO application/json+protobuf inspection gap. The T1c
+  matrix (step-21) shows JSON-CT payloads in values/keys ARE detected
+  (403) on both processors' variables.
+- Consequence: the "known inspection gap" paragraph added to
+  docs/engine-design.md in step-20 is corrected in place (step-21 note).

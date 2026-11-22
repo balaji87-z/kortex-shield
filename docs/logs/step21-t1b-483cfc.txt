@@ -1,46 +1,45 @@
-== T1b: por que paso el canary sobre wcp-483cfc44d381 (step-20) ==
+== T1b: por que "paso" el canary sobre wcp-483cfc44d381 y wcp-dedb89ec3d3d (step-20) ==
 
-Hecho a explicar (step-20 T4): el canary XSS anadido al body de
-wcp-483cfc44d381 (text/plain, 100.254 B, blob JSON-comprimido estilo Adobe
-Analytics) PASO (200, sin matches) mientras 98/100 del batch bloqueaban.
+RESUELTO — PROVEN (artefacto de clasificacion del harness, no gap de
+inspeccion). El script canary de step-20 (t4a_engine.py) clasificaba
+`blocked = (status == 403)`. Los dos "passes" eran OTROS rechazos fail-closed:
 
-Experimentos (engine coraza v3.8.1, HEAD bd29b44, PL1, 8099):
+- wcp-dedb89ec3d3d (application/json+protobuf, body JSON valido
+  [null,[5,1,...]]): el canary anadido al final hace el JSON invalido ->
+  el processor JSON lo rechaza con **400** (misma clase que E11, rechazo
+  de JSON malformado). Verificado hoy: aislado 400, batch 400, y en el
+  artefacto commiteado de step-20
+  (docs/logs/runs/s20-t4a-canary-engine/canary.json) su status es 400.
+- wcp-483cfc44d381 (text/plain 100.254 B, clase patologica): el canary run
+  de step-20 usaba KORTEX_ENGINE_TIME_BUDGET_MS=2000; este body solo ya
+  cuesta ~6 s (y 17-24 s con canary) -> **503 kortex-decision=timeout**.
+  El artefacto de step-20 registra status 503. Hoy, con budget 120 s,
+  el mismo body+canary bloquea 403 en todas las variantes.
 
+Experimentos de hoy (engine coraza v3.8.1, HEAD bd29b44, PL1, budget 120 s):
 1. Aislado, 10 variantes (docs/logs/runs/s21-t1b-483cfc/engine-pl1.json):
-   ctl-prose100K-end 403 (19.5 s) | wcp-end 403 (22.8 s) | wcp-start 403
-   (23.8 s) | wcp-mid 403 (15.8 s) | wcp-trunc50K-end 403 (2.1 s) |
-   wcp-trunc10K-end 403 (0.65 s) | wcp-amp-end 403 (4.2 s) | wcp-eq-end
-   403 (2.0 s) | wcp-jsonct-end 400 (JSON malformado -> 400) |
-   wcp-plain-only 200 (6.0 s, sin canary).
-2. Replay EXACTO de las condiciones de step-20 (headers completos del
-   manifest + path + query del sample): 403 (17.1 s). Variante headers
-   manifest + path "/": 403. Variante headers minimos + path manifest: 403.
-3. Batch completo de los 100 ids canary (mismo procedimiento que step-20):
-   99/100 bloqueados; el unico pass es wcp-dedb89ec3d3d
-   (application/json+protobuf, el gap JSON conocido).
+   wcp-end 403 (22.8 s) | wcp-start 403 | wcp-mid 403 | wcp-trunc50K 403 |
+   wcp-trunc10K 403 | wcp-amp-end 403 | wcp-eq-end 403 | wcp-jsonct-end 400
+   (JSON invalido -> rechazo) | wcp-plain-only 200 (6.0 s) | control prosa
+   100K+canary 403.
+2. Replay exacto step-20 (headers manifest + path + query): 403.
+3. Batch completo 100 ids: 99/100 con 403; dedb con 400 (rechazo, no pass).
 
 CONCLUSION:
-- El body de wcp-483cfc44d381 NO suprime la deteccion: el mismo body con
-  el canary bloquea en todas las posiciones, truncamientos y repeticiones
-  (PROVEN, experimentos 1-3).
-- El pass observado en step-20 NO SE REPRODUCE: mismo codigo, misma version
-  de coraza, mismo payload, mismo procedimiento -> hoy bloquea siempre.
-  Clasificacion (regla 39): UNEXPLAINED, 1 ocurrencia historica, 2 intentos
-  de reproduccion fallidos (aislado x3 variantes + batch completo).
-  Hipotesis principal (HYPOTHESIS, no PROVEN): un pass-through
-  dependiente de estado del engine (misma clase que el defecto flip de
-  coraza v3.7.0 PROVEN en step-19; v3.8.1 habria reducido la tasa pero no
-  a cero). Alternativa: condicion de host/carga del run de step-20 no
-  reconstruible.
-- Impacto en la afirmacion de fix (regla 49): el fix v3.8.1 sigue siendo
-  "fixed empirically" (E30 0/2000, flip_repro 0/2500, batch canary 99/100);
-  el codigo upstream que cambio NO esta identificado todavia (se intenta
-  en T1e, docs/logs/step21-t1e-fix-identity.txt).
-- Nota de coste: este body es de clase patologica (6 s solo, 17-24 s con
-  canary en PL1), consistente con la matriz T3 de step-20.
+- NO existe ningun pass-through: ambos ids fueron RECHAZADOS (400/503) en
+  step-20; la lectura "2 passes" fue un defecto de conteo del script canary
+  (solo 403 contaba como bloqueo). Los 503/400 son fail-closed.
+- El body de wcp-483cfc44d381 no suprime deteccion (PROVEN por 1-3).
+- Correccion en cascada: el "JSON+protobuf REQUEST_BODY gap" de step-20
+  (reports/step-20.md, docs/engine-design.md, docs/baseline-v1.5.md) queda
+  RETIRADO como gap de evasion: un body JSON valido con payload en valor o
+  clave se detecta via ARGS_JSON (matriz T1c: 403), y payload tras JSON
+  valido -> 400. El hecho medido de step-19 T2 (el processor JSON no puebla
+  REQUEST_BODY) sigue siendo cierto como hecho de variables, pero NO
+  implica un gap de deteccion.
+- Regla 49 (fix v3.8.1 "fixed empirically"): este hallazgo NO reabre el
+  defecto flip: no hubo ningun 200 indebido. E30/flip_repro siguen en 0.
 
-Correccion a docs: reports/step-20.md decia "wcp-483cfc44d381 (text/plain
-100 KB, no match, cause UNVERIFIED)" como pass real; la lectura correcta
-tras estos experimentos es que el pass fue un evento no reproducible, no
-una propiedad del body. Corregido en reports/step-20.md (addendum) y en
-docs/baseline-v1.6.md.
+Correcciones aplicadas: reports/step-20.md (addendum 2),
+docs/engine-design.md (parrafo gap corregido), docs/baseline-v1.5.md (T4),
+docs/logs/step20-t4-canary-audit.txt (nota anadida).

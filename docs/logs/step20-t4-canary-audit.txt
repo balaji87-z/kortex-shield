@@ -79,3 +79,15 @@ Artefactos: docs/logs/runs/s20-t4a-canary-engine/ (canary.json, audit.log,
 audit-parsed, engine.log), docs/logs/runs/s20-t4a-canary-connector/ (canary.json,
 audit-connector.log, audit-parsed). Scripts: /tmp/t4a_engine.py (replay), ids en
 /tmp/a3-ids.json (regenerables desde s19-a3-replay-v2/responses.jsonl).
+
+== CORRECCION (step-21, PROVEN) ==
+Los "2 passes" de esta corrida eran un artefacto de clasificacion del
+script canary (blocked = status==403): wcp-dedb89ec3d3d fue RECHAZADO con
+400 (JSON invalido tras el canary -> processor JSON lo rechaza, clase E11)
+y wcp-483cfc44d38i... wcp-483cfc44d381 fue 503 kortex-decision=timeout
+(body patologico ~6-24 s vs budget 2000 ms del run). Ambos fail-closed.
+No existe el "gap" de application/json+protobuf como evasion: ver
+docs/logs/step21-t1b-483cfc.txt y la matriz T1c
+(docs/logs/runs/s21-t1c-ct/). El "98/100 bloqueados" correcto por clase de
+resultado es: 98x403 + 1x400 + 1x503 = 100/100 rechazados o servidos sin
+pass-through indebido.

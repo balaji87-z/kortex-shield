@@ -341,10 +341,12 @@ timing-dependent.
   budget at PL1 default config for typical content), but the worst-case
   content (real WCP pathology) occupies a small-lane slot far longer.
   Residual exposure unchanged and documented in the T2 section above.
-- Known inspection gap (T4 canary): requests with content type
-  application/json+protobuf (and any CT routed to the JSON processor)
-  do NOT get raw-body inspection — the JSON processor does not populate
-  REQUEST_BODY, so the 166 REQUEST_BODY target updates are inert for
-  them. Proven by canary: the only engine pass (wcp-dedb89ec3d3d) and
-  the only connector pass are both this CT. Detection for these requests
-  relies on the JSON processor's ARGS_JSON targets only.
+- Body-processor variable population (step-19 T2, restated step-21): the
+  JSON processor does not populate REQUEST_BODY; detection for JSON-CT
+  bodies runs through ARGS_JSON/ARGS instead, and a payload that breaks
+  JSON validity is rejected 400 (E11 class). Step-20 briefly documented a
+  "JSON+protobuf inspection gap"; that was a canary-script classification
+  artifact (400/503 counted as passes) and is withdrawn — see
+  docs/logs/step21-t1b-483cfc.txt and the step-21 T1c matrix
+  (docs/logs/runs/s21-t1c-ct/): no attacker-chosen content type avoided
+  detection of a text/plain-detected payload in the 36-cell matrix.
