@@ -1,0 +1,40 @@
+== attacks-v0 [inprocess] rule29: {"backend_url":"http://127.0.0.1:13000","rule_engine":"On","blocking_paranoia":1,"detection_paranoia":1,"max_body_bytes":13107200,"max_inspected_bytes":131072,"engine_time_budget_ms":2000,"rules_dir":"/home/vboxuser/kortex-shield/engine/crs","listen_addr":"127.0.0.1:8097","events_file":"/tmp/kx-t3p-ev-inprocess.jsonl","audit_log":"/tmp/kx-t3p-aud-inprocess.log","allowed_methods":"GET HEAD POST OPTIONS","max_inflight_body":8,"max_inflight_body_large":2,"body_lane_threshold":65536,"request_body_target_updates":166}
+== attacks-v0 [worker] rule29: {"backend_url":"http://127.0.0.1:13000","rule_engine":"On","blocking_paranoia":1,"detection_paranoia":1,"max_body_bytes":13107200,"max_inspected_bytes":131072,"engine_time_budget_ms":2000,"rules_dir":"/home/vboxuser/kortex-shield/engine/crs","listen_addr":"127.0.0.1:8098","events_file":"/tmp/kx-t3p-ev-worker.jsonl","audit_log":"/tmp/kx-t3p-aud-worker.log","allowed_methods":"GET HEAD POST OPTIONS","max_inflight_body":8,"max_inflight_body_large":2,"body_lane_threshold":65536,"request_body_target_updates":166}
+== diff attacks-v0:
+samples compared: 1054 (a=1054 b=1054)
+status counts a: {200: 100, 403: 954}
+status counts b: {200: 100, 403: 954}
+status diffs: 0
+== attacks-ct-v0 [inprocess] rule29: {"backend_url":"http://127.0.0.1:13000","rule_engine":"On","blocking_paranoia":1,"detection_paranoia":1,"max_body_bytes":13107200,"max_inspected_bytes":131072,"engine_time_budget_ms":2000,"rules_dir":"/home/vboxuser/kortex-shield/engine/crs","listen_addr":"127.0.0.1:8097","events_file":"/tmp/kx-t3p-ev-inprocess.jsonl","audit_log":"/tmp/kx-t3p-aud-inprocess.log","allowed_methods":"GET HEAD POST OPTIONS","max_inflight_body":8,"max_inflight_body_large":2,"body_lane_threshold":65536,"request_body_target_updates":166}
+== attacks-ct-v0 [worker] rule29: {"backend_url":"http://127.0.0.1:13000","rule_engine":"On","blocking_paranoia":1,"detection_paranoia":1,"max_body_bytes":13107200,"max_inspected_bytes":131072,"engine_time_budget_ms":2000,"rules_dir":"/home/vboxuser/kortex-shield/engine/crs","listen_addr":"127.0.0.1:8098","events_file":"/tmp/kx-t3p-ev-worker.jsonl","audit_log":"/tmp/kx-t3p-aud-worker.log","allowed_methods":"GET HEAD POST OPTIONS","max_inflight_body":8,"max_inflight_body_large":2,"body_lane_threshold":65536,"request_body_target_updates":166}
+== diff attacks-ct-v0:
+samples compared: 320 (a=320 b=320)
+status counts a: {200: 28, 403: 292}
+status counts b: {200: 28, 403: 292}
+status diffs: 0
+== encoding-diff-v0 [inprocess] rule29: {"backend_url":"http://127.0.0.1:13000","rule_engine":"On","blocking_paranoia":1,"detection_paranoia":1,"max_body_bytes":13107200,"max_inspected_bytes":131072,"engine_time_budget_ms":2000,"rules_dir":"/home/vboxuser/kortex-shield/engine/crs","listen_addr":"127.0.0.1:8097","events_file":"/tmp/kx-t3p-ev-inprocess.jsonl","audit_log":"/tmp/kx-t3p-aud-inprocess.log","allowed_methods":"GET HEAD POST OPTIONS","max_inflight_body":8,"max_inflight_body_large":2,"body_lane_threshold":65536,"request_body_target_updates":166}
+== encoding-diff-v0 [worker] rule29: {"backend_url":"http://127.0.0.1:13000","rule_engine":"On","blocking_paranoia":1,"detection_paranoia":1,"max_body_bytes":13107200,"max_inspected_bytes":131072,"engine_time_budget_ms":2000,"rules_dir":"/home/vboxuser/kortex-shield/engine/crs","listen_addr":"127.0.0.1:8098","events_file":"/tmp/kx-t3p-ev-worker.jsonl","audit_log":"/tmp/kx-t3p-aud-worker.log","allowed_methods":"GET HEAD POST OPTIONS","max_inflight_body":8,"max_inflight_body_large":2,"body_lane_threshold":65536,"request_body_target_updates":166}
+== diff encoding-diff-v0:
+samples compared: 192 (a=192 b=192)
+Traceback (most recent call last):
+  File "/home/vboxuser/kortex-shield/tools/step21_engine_diff.py", line 36, in <module>
+    sys.exit(main())
+             ~~~~^^
+  File "/home/vboxuser/kortex-shield/tools/step21_engine_diff.py", line 27, in main
+    print(f"status counts a: {dict(sorted(ca.items()))}")
+                                   ~~~~~~^^^^^^^^^^^^
+TypeError: '<' not supported between instances of 'NoneType' and 'int'
+== benign-browse-v1 [inprocess] rule29: {"backend_url":"http://127.0.0.1:13000","rule_engine":"On","blocking_paranoia":1,"detection_paranoia":1,"max_body_bytes":13107200,"max_inspected_bytes":131072,"engine_time_budget_ms":2000,"rules_dir":"/home/vboxuser/kortex-shield/engine/crs","listen_addr":"127.0.0.1:8097","events_file":"/tmp/kx-t3p-ev-inprocess.jsonl","audit_log":"/tmp/kx-t3p-aud-inprocess.log","allowed_methods":"GET HEAD POST OPTIONS","max_inflight_body":8,"max_inflight_body_large":2,"body_lane_threshold":65536,"request_body_target_updates":166}
+== benign-browse-v1 [worker] rule29: {"backend_url":"http://127.0.0.1:13000","rule_engine":"On","blocking_paranoia":1,"detection_paranoia":1,"max_body_bytes":13107200,"max_inspected_bytes":131072,"engine_time_budget_ms":2000,"rules_dir":"/home/vboxuser/kortex-shield/engine/crs","listen_addr":"127.0.0.1:8098","events_file":"/tmp/kx-t3p-ev-worker.jsonl","audit_log":"/tmp/kx-t3p-aud-worker.log","allowed_methods":"GET HEAD POST OPTIONS","max_inflight_body":8,"max_inflight_body_large":2,"body_lane_threshold":65536,"request_body_target_updates":166}
+== diff benign-browse-v1:
+samples compared: 774 (a=774 b=774)
+status counts a: {200: 650, 403: 124}
+status counts b: {200: 650, 403: 124}
+status diffs: 0
+== benign-hard-v0 [inprocess] rule29: {"backend_url":"http://127.0.0.1:13000","rule_engine":"On","blocking_paranoia":1,"detection_paranoia":1,"max_body_bytes":13107200,"max_inspected_bytes":131072,"engine_time_budget_ms":2000,"rules_dir":"/home/vboxuser/kortex-shield/engine/crs","listen_addr":"127.0.0.1:8097","events_file":"/tmp/kx-t3p-ev-inprocess.jsonl","audit_log":"/tmp/kx-t3p-aud-inprocess.log","allowed_methods":"GET HEAD POST OPTIONS","max_inflight_body":8,"max_inflight_body_large":2,"body_lane_threshold":65536,"request_body_target_updates":166}
+== benign-hard-v0 [worker] rule29: {"backend_url":"http://127.0.0.1:13000","rule_engine":"On","blocking_paranoia":1,"detection_paranoia":1,"max_body_bytes":13107200,"max_inspected_bytes":131072,"engine_time_budget_ms":2000,"rules_dir":"/home/vboxuser/kortex-shield/engine/crs","listen_addr":"127.0.0.1:8098","events_file":"/tmp/kx-t3p-ev-worker.jsonl","audit_log":"/tmp/kx-t3p-aud-worker.log","allowed_methods":"GET HEAD POST OPTIONS","max_inflight_body":8,"max_inflight_body_large":2,"body_lane_threshold":65536,"request_body_target_updates":166}
+== diff benign-hard-v0:
+samples compared: 180 (a=180 b=180)
+status counts a: {200: 158, 403: 22}
+status counts b: {200: 158, 403: 22}
+status diffs: 0
