@@ -44,6 +44,10 @@ type Proxy struct {
 	// kills counts worker processes killed at the time budget (T3; zero
 	// while inspection runs in-process).
 	kills atomic.Int64
+	// worker mode state (T3)
+	wpool       *pool
+	fair        *fairness
+	trustedNets []*net.IPNet
 }
 
 func buildWAF(cfg *Config) (coraza.WAF, error) {
@@ -89,16 +93,33 @@ func newCorazaDebugLogger(path, level string) debuglog.Logger {
 	}).WithOutput(w)
 }
 
+// poolHolder holds the worker pool created in buildHandler (worker mode).
+var poolHolder *pool
+
 func buildHandler(cfg *Config) http.Handler {
 	waf, err := buildWAF(cfg)
 	if err != nil {
 		panic(fmt.Sprintf("kortex-engine: WAF build failed: %v", err))
 	}
+	if cfg.WorkerMode {
+		size := cfg.WorkerPool
+		if size <= 0 {
+			size = int(cfg.MaxInflightBodyLarge)
+		}
+		wp, err := newPool(size, cfg.WorkerSpares)
+		if err != nil {
+			panic(fmt.Sprintf("kortex-engine: worker pool spawn failed: %v", err))
+		}
+		poolHolder = wp
+	}
 	p := &Proxy{
-		cfg:    cfg,
-		waf:    waf,
-		events: newEventLogger(cfg.EventsFile),
-		client: &http.Client{Timeout: 60 * time.Second},
+		cfg:         cfg,
+		waf:         waf,
+		events:      newEventLogger(cfg.EventsFile),
+		fair:        newFairness(cfg.ClientMaxInflight, cfg.ClientPenaltyMS, cfg.ClientPenaltyMax),
+		wpool:       poolHolder,
+		trustedNets: parseTrustedProxies(cfg.TrustedProxies),
+		client:      &http.Client{Timeout: 60 * time.Second},
 	}
 	return p
 }
@@ -234,6 +255,15 @@ func (p *Proxy) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 				return
 			}
 		}
+	}
+	if p.cfg.WorkerMode && bodyBearing {
+		// worker mode (T3): inspection runs in a killable subprocess;
+		// the slot is bounded by the budget (kill releases it). Mark the
+		// slot as launched so the outer defer does not double-release:
+		// workerServe owns the release on every path.
+		procLaunched = true
+		p.workerServe(w, r, sampleID, start, body, inflight)
+		return
 	}
 	// phase 2 runs even without a body: query-string ARGS are evaluated by
 	// phase-2 rules (e.g. 942100). ProcessRequestBody is a single-shot call

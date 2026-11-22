@@ -127,8 +127,18 @@ func (p *Proxy) adminStats(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 	w.Header().Set("Content-Type", "application/json")
+	kills := p.kills.Load()
+	penalised := p.fair.penalisedCount()
+	wtotal, wbusy, widle, wkills, wrecycled := 0, 0, 0, 0, 0
+	if p.wpool != nil {
+		wtotal, wbusy, widle, wkills, wrecycled = p.wpool.stats()
+		kills = int64(wkills)
+	}
 	fmt.Fprintf(w, `{"inflight_small":%d,"inflight_large":%d,`+
-		`"abandoned_running":%d,"kills":%d,"overloads":%d}`+"\n",
+		`"abandoned_running":%d,"kills":%d,"overloads":%d,`+
+		`"penalised_clients":%d,`+
+		`"workers":{"pool":%d,"busy":%d,"spares":%d,"recycled":%d}}`+"\n",
 		p.inflightSmall.Load(), p.inflightLarge.Load(),
-		p.abandonedRunning.Load(), p.kills.Load(), p.overloads.Load())
+		p.abandonedRunning.Load(), kills, p.overloads.Load(),
+		penalised, wtotal, wbusy, widle, wrecycled)
 }

@@ -4,17 +4,18 @@
 // a loopback-only admin endpoint.
 //
 // Configuration is environment-only (docs/block-discriminator.md):
-//   KORTEX_BACKEND_URL            required, upstream (stub backend)
-//   KORTEX_RULES_DIR              default crs
-//   KORTEX_RULE_ENGINE            On | DetectionOnly (default On)
-//   KORTEX_BLOCKING_PARANOIA      default 1
-//   KORTEX_DETECTION_PARANOIA     default 1
-//   KORTEX_MAX_BODY_BYTES         default 13107200
-//   KORTEX_MAX_INSPECTED_BYTES    default 131072
-//   KORTEX_ENGINE_TIME_BUDGET_MS  default 2000 (0 = expire immediately)
-//   KORTEX_LISTEN_ADDR            default :8080
-//   KORTEX_EVENTS_FILE            default kortex-events.jsonl
-//   KORTEX_AUDIT_LOG              default audit.log
+//
+//	KORTEX_BACKEND_URL            required, upstream (stub backend)
+//	KORTEX_RULES_DIR              default crs
+//	KORTEX_RULE_ENGINE            On | DetectionOnly (default On)
+//	KORTEX_BLOCKING_PARANOIA      default 1
+//	KORTEX_DETECTION_PARANOIA     default 1
+//	KORTEX_MAX_BODY_BYTES         default 13107200
+//	KORTEX_MAX_INSPECTED_BYTES    default 131072
+//	KORTEX_ENGINE_TIME_BUDGET_MS  default 2000 (0 = expire immediately)
+//	KORTEX_LISTEN_ADDR            default :8080
+//	KORTEX_EVENTS_FILE            default kortex-events.jsonl
+//	KORTEX_AUDIT_LOG              default audit.log
 package main
 
 import (
@@ -26,6 +27,12 @@ import (
 )
 
 func main() {
+	// worker-child mode (T3): the parent spawns this binary with
+	// --kortex-worker-child; run the inspection loop and exit
+	if len(os.Args) > 1 && os.Args[1] == "--kortex-worker-child" {
+		workerMain()
+		return
+	}
 	cfg := loadConfig()
 	if cfg.BackendURL == "" {
 		fmt.Fprintln(os.Stderr, "kortex-engine: KORTEX_BACKEND_URL is required")

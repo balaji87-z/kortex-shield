@@ -33,9 +33,12 @@ func workerEnv(extra map[string]string) map[string]string {
 	return e
 }
 
-func stats(t *testing.T, srv string) map[string]any {
+func stats(t *testing.T, srvURL string) map[string]any {
 	t.Helper()
-	resp := get(t, srv, "/__kortex/stats", nil, "")
+	resp, err := (&http.Client{Timeout: 10 * time.Second}).Get(srvURL + "/__kortex/stats")
+	if err != nil {
+		t.Fatalf("stats get: %v", err)
+	}
 	b, _ := io.ReadAll(resp.Body)
 	var s map[string]any
 	if err := json.Unmarshal(b, &s); err != nil {
@@ -127,6 +130,7 @@ func TestT3cSpareAvailableAfterKill(t *testing.T) {
 	srv, _ := newEnv(t, workerEnv(map[string]string{
 		"KORTEX_ENGINE_TIME_BUDGET_MS": "300",
 		"KORTEX_TEST_HOLD_BODY_MS":     "5000",
+		"KORTEX_CLIENT_PENALTY_MS":     "0", // this test measures the spare, not fairness
 	}))
 	go bodyPost(t, srv.URL, "t3c-kill", 2048, map[string]string{"X-Kortex-Test-Hold": "1"})
 	waitFor(t, func() bool { return stats(t, srv.URL)["kills"].(float64) >= 1 }, 5*time.Second, "kill")
@@ -233,9 +237,7 @@ func TestT3gBoundedCPUAfterKill(t *testing.T) {
 		s, _ := strconv.Atoi(string(f[14]))
 		return u + s
 	}
-	c0 := cpu
-	_ = c0
-	c0 = cpu()
+	c0 := cpu()
 	time.Sleep(1200 * time.Millisecond)
 	c1 := cpu()
 	if c1-c0 > 15 { // 15 ticks = 150 ms of CPU in 1.2 s wall
