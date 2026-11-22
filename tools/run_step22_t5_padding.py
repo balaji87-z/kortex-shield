@@ -25,8 +25,18 @@ def padding_text(n, seed=7):
     s = " ".join(out)
     return s[:n]
 
+def padding_urlsafe(n, seed=7):
+    """Alphanumeric padding: percent-encoding does not expand it, so the
+    ENCODED body length stays ~= k (needed for the 120000 B cells to stay
+    below the 131072 B inspected limit)."""
+    rnd = random.Random(seed)
+    alpha = "abcdefghijklmnopqrstuvwxyz0123456789"
+    return "".join(rnd.choice(alpha) for _ in range(n))
+
 def make_body(payload, k, pos, ct):
     pad = padding_text(k)
+    if ct in ("urlencoded", "application/x-www-form-urlencoded"):
+        pad = padding_urlsafe(k)
     if ct == "text/plain":
         return (pad + payload) if pos == "before" else (payload + pad)
     if ct in ("urlencoded", "application/x-www-form-urlencoded"):
