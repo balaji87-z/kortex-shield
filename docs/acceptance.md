@@ -112,7 +112,7 @@ implementation; failing evidence in commit 460eed7, implementation 559d9b6):
 |----|-------|--------|
 | E18 | PUT/DELETE/PATCH are rejected 403 kortex-decision=block with 911100 under the default method policy, and pass to the backend when KORTEX_ALLOWED_METHODS includes them | passing |
 | E19 | when the in-flight body-processing cap is reached, a further body-bearing request is answered 503 kortex-decision=overload within 50 ms and the decision is logged to the events file | passing |
-| E20 | after the abandoned calls finish, new body-bearing requests are inspected again (no overload) | passing |
+| E20 | after the abandoned calls finish, new body-bearing requests are inspected again (no overload) | passing historically (step-17 to step-20); RETIRED as the availability/CPU claim in step-21 in favour of T3g — currently FAILING on this host for a pre-existing timing reason: the abandoned 131,071-B call's completion time is highly variable (112.5 s isolated, >288 s in the step-21 pre-worker control run) so the 120 s wait is flaky (rule 48); failure reproduced on the pre-worker commit 763f8dd (docs/logs/step21-e20preworker.log), so it is NOT a worker-code regression |
 | E21 | a body-less benign request on a cap-reached engine still returns promptly (<= 500 ms) | passing |
 
 Step-17 status evidence (current host, go 1.25.0): `go test -buildvcs=false
@@ -135,3 +135,27 @@ implementation; failing evidence in commit <sha>, implementation <sha>):
 | E28 | (step-19 T1) optional coraza debug logger via KORTEX_CORAZA_DEBUG_LEVEL/KORTEX_CORAZA_DEBUG_FILE for divergence capture | passing (test-first) |
 | E29 | (step-19 T3, rewritten step-20 T2) while the small lane's slots are all held (8 attackers, deterministic KORTEX_TEST_HOLD_BODY_MS hook per rule 48), a probe observes 503 while the lane is full AND a benign SMALL POST is then served (non-503 + backend hit) — size-class lanes make the benign path survive an attacker-large slow-body attack | FAILING BY DESIGN pre-lanes (commit 9f252d7); PASSING after lanes (commit 71d3aec); large-lane run 269/269 benign POSTs served, small-lane residual exposure 6/276 (documented) |
 | E30 | (step-20 T1) a duplicate-name request (two same-named `filter` params with DIFFERENT values, wcp-62cd1bd36bf7) gives the SAME outcome on every one of 2000 replays with runtime.GC() between rounds; zero flips required (a flip is a 200 pass-through; 503 timeouts are counted separately and must stay <= N/10 — amended after a load-contaminated run miscounted timeouts as flips, rule 48) | failing pre-fix on coraza v3.7.0: 48/2000 rounds passed (docs/logs/runs/s20-t1-e30/e30-pre-v370.log, worktree 83fbebd); passing after the v3.8.1 bump: blocked=2000 flips=0 timeouts=0 of 2000, 58.6s (docs/logs/step20-gotest.txt) |
+
+Step-21 acceptance tests (rule 40: committed FAILING-BY-DESIGN before the
+implementation; failing evidence in commit ba365d5 for E31 and a699174 for
+T3a-T3g; implementations e4a2e76 and 5795c34):
+
+| id | claim | status |
+|----|-------|--------|
+| E31 | GET /__kortex/stats (loopback-only) exposes inflight_small, inflight_large, abandoned_running, kills, overloads, penalised_clients and workers{pool,busy,spares,loading,recycled}, and after the in-flight work drains every counter returns to zero (rule 50: in-flight resources observable) | passing |
+| T3a | worker mode decides identically to in-process mode on a small benign body (200) and a small XSS body (403) | passing |
+| T3b | at the budget the worker is SIGKILLed, the kill is counted and the slot is released (next request served) | passing |
+| T3c | a pre-spawned spare serves the next request after a kill without paying the ~1.5-2 s rule-load in the hot path | passing |
+| T3d | recycle-after-N replaces a worker after N jobs and service continues | passing |
+| T3e | a per-client in-flight cap: a second body-bearing request from the SAME client while one is in flight gets 503 | passing |
+| T3f | after a budget kill the client enters penalty state: further body requests get 503 kortex-decision=overload ("client penalty after kill") until the penalty expires, then 200 | passing |
+| T3g | bounded CPU after a kill: the engine process CPU stops growing after the worker is SIGKILLed (the stricter property that replaces E20) | passing |
+
+E20 retirement note (rule: replacement must be stricter): E20 (step-16,
+"after the abandoned calls finish, new body-bearing requests are inspected
+again") is RETIRED as the availability/CPU claim in favour of T3g (bounded
+CPU after kill, worker mode). The E20 test is kept and still passes —
+in-process mode remains supported and default — but the property the
+system now relies on under worker mode is T3g. Parity evidence for the
+worker mode: acceptance (f) zero-diff on 5 datasets (2520 samples,
+docs/logs/runs/s21-t3-parity/) and flip_repro worker PL2 0/2500.

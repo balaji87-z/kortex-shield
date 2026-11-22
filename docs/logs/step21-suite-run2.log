@@ -1,0 +1,27 @@
+warning: both GOPATH and GOROOT are the same directory (/home/vboxuser/go); see https://go.dev/wiki/InstallTroubleshooting
+--- FAIL: TestE20OverloadRecovery (139.56s)
+    step17_test.go:204: E20: abandoned call did not finish within 120s
+kortex-engine: events open failed: open /tmp/TestE16BodyProcessingBoundedByTimeBudget2432429325/001/kortex-events.jsonl: no such file or directory
+kortex-engine: events open failed: open /tmp/TestE17AbandonedCallOwnsTransaction1650506158/001/kortex-events.jsonl: no such file or directory
+kortex-engine: events open failed: open /tmp/TestE19OverloadCapImmediate4266536602/001/kortex-events.jsonl: no such file or directory
+kortex-engine: events open failed: open /tmp/TestE20OverloadRecovery4226707041/001/kortex-events.jsonl: no such file or directory
+kortex-engine: events open failed: open /tmp/TestE21BenignPromptOnCapReachedEngine2208881636/001/kortex-events.jsonl: no such file or directory
+worker: audit touch failed: open /tmp/TestT3bWorkerKilledAtBudgetSlotReleased4249025373/001/audit.log: no such file or directory
+worker: rule load failed: invalid WAF config from audit log: open /tmp/TestT3bWorkerKilledAtBudgetSlotReleased4249025373/001/audit.log: no such file or directory
+worker: rule load failed: invalid WAF config from audit log: open /tmp/TestT3cSpareAvailableAfterKill1388974531/001/audit.log: no such file or directory
+worker: audit touch failed: open /tmp/TestT3dWorkerRecycleAfterN4091797030/001/audit.log: no such file or directory
+worker: rule load failed: invalid WAF config from audit log: open /tmp/TestT3dWorkerRecycleAfterN4091797030/001/audit.log: no such file or directory
+FAIL
+FAIL	kortexshield/engine	809.342s
+FAIL
+exit=1
+SUITE-DONE
+
+# NOTA: este fichero es la RUN 2 de la suite completa (post-codigo worker,
+# host en calma relativa, load 1.8-5.6): solo falla E20 (139.56s, llamada
+# abandonada no termina en 120s). La RUN 1 (1641.9s, load 9-11) tuvo 4 FAIL
+# (E20 + cascada T3c/T3f/T3g); su log fue sobreescrito por la run 2, los
+# numeros se citan en reports/step-21.md. Re-runs discriminadoras: lote T3
+# 7/7 dos veces, T3c solo 3/3, T3b+T3c 3/3 (/tmp logs de sesion).
+# E20 tambien falla en el commit PRE-worker 763f8dd (288.33s sin terminar):
+# docs/logs/step21-e20preworker.log — varianza preexistente, no regresion.

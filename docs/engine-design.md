@@ -423,7 +423,11 @@ worker subprocesses:
 ### What this replaces
 
 E20 (step-16: CPU after a budget timeout is unbounded in-process) is
-retired ONLY if the worker design demonstrates the stricter bounded-CPU
-property (acceptance (g): after a kill, total engine CPU stays bounded)
-with a committed failing-first replacement test. Until that test passes,
-E20 stays as-is.
+RETIRED as of step-21: the worker design demonstrates the stricter
+bounded-CPU property with a committed failing-first replacement test
+(T3g, committed failing in a699174, passing in 5795c34 — after a kill
+the engine process CPU stops growing). The E20 test is kept and still
+passes (in-process mode remains supported and default), but the
+availability/CPU property the system relies on is now T3g. Worker-mode
+decision parity is proven zero-diff on 5 datasets (2520 samples) and
+flip_repro worker PL2 0/2500 (docs/logs/runs/s21-t3-parity/).

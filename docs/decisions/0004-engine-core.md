@@ -118,3 +118,27 @@ standing notes: (a) the modsec-connector comparison has not been re-run
 since step-13 (step-13 evidence stands); (b) the small-lane starvation
 residual is a known, measured exposure, not a decision reversal trigger.
 Reversal triggers unchanged.
+
+## Status update (step-21, 2026-11-22)
+
+STAYS ACCEPTED. Step-21 additions:
+
+1. The step-20 "JSON+protobuf inspection gap" is RETIRED: it was a
+   canary-script classification artifact (blocked = status==403); the
+   sample in question blocks 403 given a sufficient budget (PROVEN,
+   docs/logs/step21-t1b-483cfc.txt). The CT matrix (9 CTs x 4 cases,
+   engine+connector) shows zero attacker-chosen-CT evasion cells.
+2. Body inspection can now run in killable worker subprocesses
+   (KORTEX_WORKER_MODE=on; in-process remains default): the budget
+   kills the worker (bounded CPU, T3g) instead of leaving an unbounded
+   in-process call. Decision parity zero-diff on 5 frozen datasets
+   (2520 samples) + flip_repro 0/2500. Per-client fairness (in-flight
+   cap + penalty after kill) bounds a single address's ability to hold
+   body-processing slots; state is observable at /__kortex/stats.
+3. Exposure note: the per-client cap (default 4) sits ABOVE the large
+   lane cap (2), so a single-address large-body attack is bounded by
+   the lane cap first (measured: 2 kills + 6 overloads from one
+   address; 4 kills over 2 clients from eight addresses). The
+   small-lane starvation residual 6/276 (step-20) is unchanged.
+
+Reversal triggers unchanged.
