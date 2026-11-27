@@ -7,6 +7,7 @@ import (
 	"net/http"
 	"os"
 	"strconv"
+	"syscall"
 	"testing"
 	"time"
 )
@@ -216,108 +217,107 @@ func TestT3fClientPenaltyAfterKill(t *testing.T) {
 	}
 }
 
-// T3g: bounded CPU after a kill — the engine process CPU stops growing
-// once the worker is killed (the in-process design kept burning CPU on
-// the abandoned call; E20's property, now enforced structurally).
+// pidExists probes one PID directly with signal 0 (no process listing).
+// Only ESRCH means "no such process"; a zombie that has not been reaped
+// still exists and is reported as existing.
+func pidExists(pid int) bool {
+	return syscall.Kill(pid, 0) != syscall.ESRCH
+}
+
+// selfCPU is the user+system CPU time consumed so far by this process
+// (all threads). Under `go test` the engine runs in-process, so this is
+// the engine parent's own CPU; worker children are not included.
+func selfCPU() (time.Duration, error) {
+	var ru syscall.Rusage
+	if err := syscall.Getrusage(syscall.RUSAGE_SELF, &ru); err != nil {
+		return 0, err
+	}
+	return time.Duration(ru.Utime.Nano() + ru.Stime.Nano()), nil
+}
+
+// T3g: bounded CPU after a kill. The test owns everything it measures:
+// the engine spawns exactly one worker (pool 1, no spare) through
+// newPool/spawnWorker, the test records that worker's PID, a held request
+// drives it into the budget kill, and then
+//  1. that PID no longer exists (probed directly by PID), and
+//  2. the parent's own CPU time does not keep growing after the kill.
+//
+// The hold hook sleeps, so the worker is idle when it is killed: (1) shows
+// the process is gone, not that a spinning inspection was interrupted.
 func TestT3gBoundedCPUAfterKill(t *testing.T) {
 	srv, _ := newEnv(t, workerEnv(map[string]string{
 		"KORTEX_ENGINE_TIME_BUDGET_MS": "300",
 		"KORTEX_TEST_HOLD_BODY_MS":     "5000",
-		"KORTEX_WORKER_POOL":           "2", // + 1 spare = 3 children
+		"KORTEX_WORKER_POOL":           "1",
+		"KORTEX_WORKER_SPARES":         "0",
 	}))
-	isPID := func(s string) bool {
-		for _, c := range s {
-			if c < '0' || c > '9' {
-				return false
-			}
-		}
-		return s != ""
+	wp := poolHolder
+	if wp == nil {
+		t.Fatalf("T3g: worker mode did not create a pool")
 	}
-	// snapshot the worker children (the engine runs in-process; workers are
-	// child processes of this test binary)
-	children := func() map[int]bool {
-		out := map[int]bool{}
-		entries, _ := os.ReadDir("/proc")
-		for _, e := range entries {
-			if !isPID(e.Name()) || e.Name() == strconv.Itoa(os.Getpid()) {
-				continue
-			}
-			b, err := os.ReadFile("/proc/" + e.Name() + "/stat")
-			if err != nil {
-				continue
-			}
-			f := bytes.Fields(bytes.SplitN(b, []byte(") "), 2)[1])
-			if len(f) > 1 && string(f[1]) == strconv.Itoa(os.Getpid()) {
-				pid, _ := strconv.Atoi(e.Name())
-				out[pid] = true
-			}
+	t.Cleanup(wp.close)
+	idlePIDs := func() []int {
+		wp.mu.Lock()
+		defer wp.mu.Unlock()
+		var pids []int
+		for _, wk := range wp.idle {
+			pids = append(pids, wk.cmd.Pid)
 		}
-		return out
+		return pids
 	}
-	treeCPU := func() int {
-		total := 0
-		for _, pid := range append([]int{os.Getpid()}, func() []int {
-			var ks []int
-			for p := range children() {
-				ks = append(ks, p)
-			}
-			return ks
-		}()...) {
-			b, err := os.ReadFile("/proc/" + strconv.Itoa(pid) + "/stat")
-			if err != nil {
-				continue
-			}
-			f := bytes.Fields(bytes.SplitN(b, []byte(") "), 2)[1])
-			u, _ := strconv.Atoi(string(f[11]))
-			s, _ := strconv.Atoi(string(f[12]))
-			total += u + s
+	pids := idlePIDs()
+	if len(pids) != 1 {
+		t.Fatalf("T3g: want exactly 1 worker spawned by this test, got pids %v", pids)
+	}
+	pid := pids[0]
+	// the probe must report the live worker as existing, otherwise "gone"
+	// below would prove nothing
+	if !pidExists(pid) {
+		t.Fatalf("T3g: worker pid %d not found before the kill", pid)
+	}
+	killsBefore := stats(t, srv.URL)["kills"].(float64)
+
+	// the only worker takes the held job and is killed at the 300 ms budget
+	if code := bodyPost(t, srv.URL, "t3g-kill", 2048, map[string]string{"X-Kortex-Test-Hold": "1"}); code != 503 {
+		t.Fatalf("T3g: held request want 503 at the budget, got %d", code)
+	}
+	if k := stats(t, srv.URL)["kills"].(float64); k != killsBefore+1 {
+		t.Fatalf("T3g: want exactly 1 budget kill, kills went %v -> %v", killsBefore, k)
+	}
+	waitFor(t, func() bool { return !pidExists(pid) }, 5*time.Second, "killed worker pid gone")
+
+	// parent CPU over a quiet window right after the kill: no requests and
+	// no stats polling in the window. The replacement worker loads its
+	// rules during it, but in its own process.
+	const window = 1200 * time.Millisecond
+	const maxGrowth = 150 * time.Millisecond // 12.5% of one core; an abandoned in-process call burns ~100%
+	c0, err := selfCPU()
+	if err != nil {
+		t.Logf("T3g: parent CPU time not readable (%v); PID-gone check only", err)
+	} else {
+		time.Sleep(window)
+		c1, err := selfCPU()
+		if err != nil {
+			t.Fatalf("T3g: parent CPU time readable before the window but not after: %v", err)
 		}
-		return total
+		t.Logf("T3g: killed worker pid %d; parent CPU %v -> %v (+%v) over %v after the kill", pid, c0, c1, c1-c0, window)
+		if c1-c0 > maxGrowth {
+			t.Fatalf("T3g: parent CPU grew by %v in %v after the kill (limit %v)", c1-c0, window, maxGrowth)
+		}
 	}
-	before := children() // snapshot BEFORE the kill (the replacement gets a new pid)
-	go bodyPost(t, srv.URL, "t3g-kill", 2048, map[string]string{"X-Kortex-Test-Hold": "1"})
-	waitFor(t, func() bool { return stats(t, srv.URL)["kills"].(float64) >= 1 }, 5*time.Second, "kill")
-	// the killed worker PID must no longer exist, and the pool must be
-	// whole again (a replacement child with a NEW pid). The replacement's
-	// rule load is bounded by design (~1.5-2 s CPU); the bounded-CPU
-	// property is measured AFTER it completes, in steady state.
+	if pidExists(pid) {
+		t.Fatalf("T3g: killed worker pid %d exists again after the CPU window", pid)
+	}
+
+	// the pool is whole again with a NEW worker and nothing is left in flight
 	waitFor(t, func() bool {
-		after := children()
-		killed := []int{}
-		for pid := range before {
-			if !after[pid] {
-				killed = append(killed, pid)
-			}
-		}
-		if len(killed) == 0 {
-			return false
-		}
-		for _, pid := range killed {
-			if _, err := os.Stat("/proc/" + strconv.Itoa(pid)); err == nil {
-				t.Errorf("T3g: killed worker pid %d still exists", pid)
-				return false
-			}
-		}
-		return true
-	}, 15*time.Second, "killed worker pid gone")
-	// wait for the replacement to finish its (bounded) rule load before
-	// measuring steady-state CPU: the pool counts a worker only once its
-	// rule load completed (spawnWorker returns), so pool==before count and
-	// busy==0 means the pool is back to steady state
-	waitFor(t, func() bool {
-		w := stats(t, srv.URL)["workers"].(map[string]any)
-		return w["busy"].(float64) == 0 && w["pool"].(float64) == 3
-	}, 15*time.Second, "replacement worker ready")
-	c0 := treeCPU()
-	time.Sleep(1200 * time.Millisecond)
-	c1 := treeCPU()
-	if c1-c0 > 15 { // 15 ticks = 150 ms of CPU in 1.2 s wall, whole tree
-		t.Fatalf("T3g: process-tree CPU grew by %d ticks after the kill and replacement (unbounded CPU)", c1-c0)
+		s := stats(t, srv.URL)
+		w := s["workers"].(map[string]any)
+		return w["pool"].(float64) == 1 && w["busy"].(float64) == 0 && s["inflight_small"].(float64) == 0
+	}, 15*time.Second, "replacement worker ready, nothing in flight")
+	if now := idlePIDs(); len(now) != 1 || now[0] == pid {
+		t.Fatalf("T3g: want one replacement worker with a new pid, got %v (killed pid %d)", now, pid)
 	}
-	waitFor(t, func() bool {
-		w := stats(t, srv.URL)["workers"].(map[string]any)
-		return w["busy"].(float64) == 0
-	}, 2*time.Second, "no busy workers after kill")
 }
 
 // T3h (step-22 design risk (a)): the per-client in-flight cap must default
