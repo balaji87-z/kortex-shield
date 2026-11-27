@@ -62,12 +62,14 @@ func parseTrustedProxies(spec string) []*net.IPNet {
 }
 
 // fairness tracks per-client in-flight jobs and penalty deadlines.
-// Step-22 design risk (a): the per-client cap is PER LANE and defaults to
+// Step-22 design risk (a): the per-client cap is PER LANE and is at most
 // floor(lane_cap/2) (at least 1), so one client cannot hold a whole lane.
-// An explicit KORTEX_CLIENT_MAX_INFLIGHT overrides both lanes.
+// KORTEX_CLIENT_MAX_INFLIGHT can lower the cap but never raise it above
+// half a lane. In-flight jobs are counted per lane, so a job in one lane
+// does not use up the client's allowance in the other.
 type fairness struct {
 	mu        sync.Mutex
-	inflight  map[string]int
+	inflight  map[string]laneCount
 	penalty   map[string]time.Time
 	maxSmall  int
 	maxLarge  int
@@ -75,53 +77,94 @@ type fairness struct {
 	maxEntrys int
 }
 
-func newFairness(maxInflight, penaltyMS, maxEntries, smallCap, largeCap int) *fairness {
-	maxSmall, maxLarge := maxInflight, maxInflight
-	if maxInflight <= 0 {
-		maxSmall = smallCap / 2
-		if maxSmall < 1 {
-			maxSmall = 1
-		}
-		maxLarge = largeCap / 2
-		if maxLarge < 1 {
-			maxLarge = 1
-		}
+// laneCount is one client's in-flight jobs in each lane.
+type laneCount struct{ small, large int }
+
+// clientLaneCap is the per-client cap in force for a lane: half the lane
+// cap (floor, at least 1), or the configured value when that is lower.
+// configured <= 0 means "not set". A lane cap of 1 still yields 1: "at
+// least 1" wins over "at most half" there.
+func clientLaneCap(configured, laneCap int) int {
+	half := laneCap / 2
+	if half < 1 {
+		half = 1
 	}
+	if configured > 0 && configured < half {
+		return configured
+	}
+	return half
+}
+
+func newFairness(maxInflight, penaltyMS, maxEntries, smallCap, largeCap int) *fairness {
 	return &fairness{
-		inflight:  map[string]int{},
+		inflight:  map[string]laneCount{},
 		penalty:   map[string]time.Time{},
-		maxSmall:  maxSmall,
-		maxLarge:  maxLarge,
+		maxSmall:  clientLaneCap(maxInflight, smallCap),
+		maxLarge:  clientLaneCap(maxInflight, largeCap),
 		penaltyMS: penaltyMS,
 		maxEntrys: maxEntries,
 	}
 }
 
-// acquire reports whether the client may start another body job now.
-// lane is "small" or "large" (the request's size-class lane).
+// caps returns the per-client caps in force (small lane, large lane).
+func (f *fairness) caps() (small, large int) {
+	return f.maxSmall, f.maxLarge
+}
+
+// acquire reports whether the client may start another body job in the
+// given lane now. lane is "small" or "large" (the request's size class).
 func (f *fairness) acquire(key, lane string) bool {
 	f.mu.Lock()
 	defer f.mu.Unlock()
 	f.sweepLocked()
-	max := f.maxSmall
+	c := f.inflight[key]
 	if lane == "large" {
-		max = f.maxLarge
+		if c.large >= f.maxLarge {
+			return false
+		}
+		c.large++
+	} else {
+		if c.small >= f.maxSmall {
+			return false
+		}
+		c.small++
 	}
-	if max > 0 && f.inflight[key] >= max {
-		return false
-	}
-	f.inflight[key]++
+	f.inflight[key] = c
 	return true
 }
 
-func (f *fairness) releaseC(key string) {
+// release gives back one job acquired for the same client and lane.
+func (f *fairness) release(key, lane string) {
 	f.mu.Lock()
 	defer f.mu.Unlock()
-	if f.inflight[key] > 1 {
-		f.inflight[key]--
-	} else {
-		delete(f.inflight, key)
+	c, ok := f.inflight[key]
+	if !ok {
+		return
 	}
+	if lane == "large" {
+		if c.large > 0 {
+			c.large--
+		}
+	} else if c.small > 0 {
+		c.small--
+	}
+	if c == (laneCount{}) {
+		delete(f.inflight, key)
+	} else {
+		f.inflight[key] = c
+	}
+}
+
+// inflightTotals sums the per-client in-flight jobs over all clients, per
+// lane (served on /__kortex/stats).
+func (f *fairness) inflightTotals() (small, large int) {
+	f.mu.Lock()
+	defer f.mu.Unlock()
+	for _, c := range f.inflight {
+		small += c.small
+		large += c.large
+	}
+	return small, large
 }
 
 // penalise marks a client after a budget kill.

@@ -253,7 +253,7 @@ func (p *Proxy) workerServe(w http.ResponseWriter, r *http.Request, sampleID str
 		p.overload(w, r, sampleID, start, "per-client in-flight cap")
 		return
 	}
-	defer p.fair.releaseC(key)
+	defer p.fair.release(key, lane)
 	blocked, status, ruleIDs, err := p.wpool.inspect(p, sampleID, r, start, body)
 	switch {
 	case err == errKilled:

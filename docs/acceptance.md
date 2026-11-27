@@ -152,17 +152,21 @@ T3a-T3g; implementations e4a2e76 and 5795c34):
 | T3g | bounded CPU after a kill: the engine process CPU stops growing after the worker is SIGKILLed (the stricter property that replaces E20) | passing |
 | T3h | per-client in-flight cap defaults to floor(lane_cap/2) per lane (at least 1), so one client cannot hold a whole lane; large lane cap=2 -> per-client large cap=1, second concurrent large-body request from the same client gets 503 "per-client in-flight cap" | passing |
 
-Step-22 per-client cap follow-up (rule 40: tests committed BEFORE the fix;
-failing evidence docs/logs/step22-t3i-t3m-failing.log). T3k is a coverage
-test for behaviour that already existed, so it passes before the fix:
+Step-22 per-client cap follow-up (rule 40: tests committed BEFORE the fix
+in 20f3e8a; failing evidence docs/logs/step22-t3i-t3m-failing.log; the fix
+is the next commit, full-suite evidence
+docs/logs/step22-t3i-t3m-suite-after-fix.log: 42 passing, 5 skipped for
+KORTEX_TEST_WCP_BODY unset, 0 failing, macOS arm64 go1.27.4). T3k is a
+coverage test for behaviour that already existed, so it passed before the
+fix:
 
 | id | claim | status |
 |----|-------|--------|
-| T3i | an explicit KORTEX_CLIENT_MAX_INFLIGHT is clamped to floor(lane_cap/2) (at least 1) on the large lane: with the override at 4 and large lane cap 2, the second concurrent large-body request from the same client gets 503 "per-client in-flight cap" | failing |
-| T3j | the same clamp on the small lane: with the override at 6 and small lane cap 8, four concurrent small-body requests from one client are admitted and the fifth gets 503 "per-client in-flight cap" | failing |
+| T3i | an explicit KORTEX_CLIENT_MAX_INFLIGHT is clamped to floor(lane_cap/2) (at least 1) on the large lane: with the override at 4 and large lane cap 2, the second concurrent large-body request from the same client gets 503 "per-client in-flight cap" | passing (failing in 20f3e8a) |
+| T3j | the same clamp on the small lane: with the override at 6 and small lane cap 8, four concurrent small-body requests from one client are admitted and the fifth gets 503 "per-client in-flight cap" | passing (failing in 20f3e8a) |
 | T3k | with no override the small-lane per-client cap is exactly 4 (floor(8/2)): four concurrent small-body requests from one client are admitted, the fifth gets 503 "per-client in-flight cap" | passing (coverage only, not test-first) |
-| T3l | per-client in-flight jobs are counted per lane: a client with one small job in flight may start a large one, a second large one is still refused, and client_inflight_small / client_inflight_large on /__kortex/stats return to zero (rule 50) | failing |
-| T3m | /__kortex/config shows worker_mode, the configured client_max_inflight and the effective client_max_inflight_small / client_max_inflight_large (rule 29) | failing |
+| T3l | per-client in-flight jobs are counted per lane: a client with one small job in flight may start a large one, a second large one is still refused, and client_inflight_small / client_inflight_large on /__kortex/stats return to zero (rule 50) | passing (failing in 20f3e8a) |
+| T3m | /__kortex/config shows worker_mode, the configured client_max_inflight and the effective client_max_inflight_small / client_max_inflight_large (rule 29) | passing (failing in 20f3e8a) |
 
 E20 retirement note (rule: replacement must be stricter): E20 (step-16,
 "after the abandoned calls finish, new body-bearing requests are inspected

@@ -18,24 +18,30 @@ func isLoopback(remoteAddr string) bool {
 	return ip != nil && ip.IsLoopback()
 }
 
-// adminConfig serves /__kortex/config on loopback only.
-func adminConfig(cfg *Config) http.HandlerFunc {
+// adminConfig serves /__kortex/config on loopback only. The per-client
+// caps are read from the fairness state itself, i.e. the values in force
+// after clamping, not the configured ones; they only act in worker mode.
+func adminConfig(cfg *Config, fair *fairness) http.HandlerFunc {
 	return func(w http.ResponseWriter, r *http.Request) {
 		if !isLoopback(r.RemoteAddr) {
 			http.Error(w, "forbidden", http.StatusForbidden)
 			return
 		}
 		w.Header().Set("Content-Type", "application/json")
+		clientSmall, clientLarge := fair.caps()
 		fmt.Fprintf(w, `{"backend_url":%q,"rule_engine":%q,"blocking_paranoia":%d,`+
 			`"detection_paranoia":%d,"max_body_bytes":%d,"max_inspected_bytes":%d,`+
 			`"engine_time_budget_ms":%d,"rules_dir":%q,"listen_addr":%q,`+
 			`"events_file":%q,"audit_log":%q,"allowed_methods":%q,`+
 			`"max_inflight_body":%d,"max_inflight_body_large":%d,"body_lane_threshold":%d,`+
+			`"worker_mode":%t,"client_max_inflight":%d,`+
+			`"client_max_inflight_small":%d,"client_max_inflight_large":%d,`+
 			`"request_body_target_updates":%d}`+"\n",
 			cfg.BackendURL, cfg.RuleEngine, cfg.BlockingParanoia, cfg.DetectionParanoia,
 			cfg.MaxBodyBytes, cfg.MaxInspectedBytes, cfg.EngineTimeBudgetMS, cfg.RulesDir,
 			cfg.ListenAddr, cfg.EventsFile, cfg.AuditLog, cfg.AllowedMethods, cfg.MaxInflightBody,
 			cfg.MaxInflightBodyLarge, cfg.BodyLaneThreshold,
+			cfg.WorkerMode, cfg.ClientMaxInflight, clientSmall, clientLarge,
 			len(cfg.RequestBodyTargetIDs))
 	}
 }
@@ -129,6 +135,7 @@ func (p *Proxy) adminStats(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("Content-Type", "application/json")
 	kills := p.kills.Load()
 	penalised := p.fair.penalisedCount()
+	clientSmall, clientLarge := p.fair.inflightTotals()
 	wtotal, wbusy, widle, wkills, wrecycled := 0, 0, 0, 0, 0
 	if p.wpool != nil {
 		wtotal, wbusy, widle, wkills, wrecycled = p.wpool.stats()
@@ -137,8 +144,9 @@ func (p *Proxy) adminStats(w http.ResponseWriter, r *http.Request) {
 	fmt.Fprintf(w, `{"inflight_small":%d,"inflight_large":%d,`+
 		`"abandoned_running":%d,"kills":%d,"overloads":%d,`+
 		`"penalised_clients":%d,`+
+		`"client_inflight_small":%d,"client_inflight_large":%d,`+
 		`"workers":{"pool":%d,"busy":%d,"spares":%d,"recycled":%d}}`+"\n",
 		p.inflightSmall.Load(), p.inflightLarge.Load(),
 		p.abandonedRunning.Load(), kills, p.overloads.Load(),
-		penalised, wtotal, wbusy, widle, wrecycled)
+		penalised, clientSmall, clientLarge, wtotal, wbusy, widle, wrecycled)
 }

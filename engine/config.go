@@ -29,7 +29,7 @@ type Config struct {
 	WorkerPool         int    // service workers (default: MaxInflightBodyLarge)
 	WorkerSpares       int    // pre-spawned spares (default 1)
 	WorkerRecycleAfter int    // recycle a worker after N jobs (0 = never)
-	ClientMaxInflight  int    // per-client body-job cap; 0 = derive floor(lane_cap/2) per lane (small 4, large 1)
+	ClientMaxInflight  int    // per-client body-job cap per lane; 0 = floor(lane_cap/2), at least 1 (small 4, large 1); a higher value is clamped to that
 	ClientPenaltyMS    int    // penalty duration after a kill (default 10000)
 	ClientPenaltyMax   int    // penalty map cap (default 4096)
 	TrustedProxies     string // comma-separated CIDRs; empty = XFF ignored

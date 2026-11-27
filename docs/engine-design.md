@@ -405,10 +405,21 @@ worker subprocesses:
   (KORTEX_TRUSTED_PROXIES, comma-separated CIDRs, default EMPTY) may
   re-derive the client as the FIRST untrusted X-Forwarded-For hop. With
   the default (no trusted proxies) XFF is ignored entirely.
-- In-flight limit per client: a client may hold at most
-  KORTEX_CLIENT_MAX_INFLIGHT (default 2) body-processing jobs at once;
-  excess body requests are answered 503 kortex-decision=overload with
-  reason "per-client in-flight cap".
+- In-flight limit per client, per lane: a client may hold at most
+  floor(lane_cap/2) (at least 1) body-processing jobs in each lane at
+  once. With the default lane caps (small 8, large 2) that is 4 small
+  and 1 large. KORTEX_CLIENT_MAX_INFLIGHT (default 0 = not set) can
+  lower the cap on both lanes; a value above half a lane is clamped to
+  half that lane, so an override can never let one client fill a lane
+  (T3i, T3j). The one exception is a lane whose cap is 1: its
+  per-client cap is also 1 ("at least 1"), so one client fills it. Jobs
+  are counted per lane, so a small job in flight does not block the
+  client's large job (T3l). Excess body requests are answered 503
+  kortex-decision=overload with reason "per-client in-flight cap". The
+  caps in force are shown on /__kortex/config as
+  client_max_inflight_small and client_max_inflight_large, next to the
+  configured client_max_inflight and worker_mode (T3m); they act only
+  in worker mode.
 - Penalty state: after a budget kill, the client's address is put in a
   penalty map for KORTEX_CLIENT_PENALTY_MS (default 10000); while
   penalised, the client's body-bearing requests are answered 503
@@ -418,7 +429,9 @@ worker subprocesses:
   map itself cannot be exhausted by address spoofing.
 - Fairness state is observable at /__kortex/stats (rule 50):
   per-lane in-flight, abandoned_running, workers {pool, busy, spares,
-  loading}, kills, overloads, penalised_clients.
+  loading}, kills, overloads, penalised_clients, and the per-client
+  in-flight jobs summed over all clients per lane (client_inflight_small,
+  client_inflight_large).
 
 ### Design risk (b): single peer address, no trusted proxies (step-22 T2)
 
@@ -439,8 +452,9 @@ as the FIRST untrusted X-Forwarded-For hop instead of the peer address;
 this isolates innocent users sharing one egress address. With no trusted
 proxies (the default), the shared-peer penalty is inherent and must be
 accepted or mitigated by shortening KORTEX_CLIENT_PENALTY_MS. The
-per-client cap default is floor(lane_cap/2) per lane, at least 1
-(design risk (a), T3h), so one client cannot hold a whole lane.
+per-client cap is at most floor(lane_cap/2) per lane, at least 1
+(design risk (a), T3h-T3j), so one client cannot hold a whole lane
+of cap 2 or more, with or without a KORTEX_CLIENT_MAX_INFLIGHT override.
 
 ### What this replaces
 

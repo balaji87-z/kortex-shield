@@ -130,7 +130,7 @@ func (p *Proxy) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 	sampleID := r.Header.Get("X-Kortex-Sample-Id")
 
 	if r.URL.Path == "/__kortex/config" {
-		adminConfig(p.cfg)(w, r)
+		adminConfig(p.cfg, p.fair)(w, r)
 		return
 	}
 	if r.URL.Path == "/__kortex/stats" {
