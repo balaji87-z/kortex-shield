@@ -2,6 +2,13 @@
 """Step-22 T2: worker-mode attack cells with benign traffic, stats sampling
 and whole-process-tree CPU accounting.
 
+NOTE (engine change 5dfdd19): the KORTEX_CLIENT_MAX_INFLIGHT=2 set by every
+cell here is now clamped per lane to floor(lane_cap/2). With the default
+lane caps (small 8, large 2) one client gets 2 small jobs as before but only
+1 large job (it was 2), and the two lanes are now counted separately instead
+of sharing one count. Results from this script will not match the recorded
+step-22 T2 runs (docs/logs/runs/s22-t2-cells), which predate that change.
+
 One cell = one engine process, one attack shape, one address mode, 300 s.
 Attackers loop body POSTs with the deterministic hold hook (rule 48):
 X-Kortex-Test-Hold: 1 + KORTEX_TEST_HOLD_BODY_MS makes every attack request
