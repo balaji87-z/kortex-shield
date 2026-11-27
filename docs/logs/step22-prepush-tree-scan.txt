@@ -1,0 +1,133 @@
+# step-22 prepush scan of the whole tracked tree at a2b2477 (1049 files), script version: the commit that adds this file
+# method: throwaway clone, index = tree of a2b2477, HEAD = unborn branch, so every tracked file is a staged addition; then tools/prepush_scan.sh (staged mode, default limits)
+# host: macOS 27.0 arm64, Python 3.15.2, git version 2.56.1
+# exit status: 1
+# --- stderr (findings; counts only)
+prepush: FAIL: BODY_DUMP data/attacks-ct-v0/manifest.jsonl reason=json-body-field records=280 keys=body
+prepush: FAIL: BODY_DUMP data/attacks-v0/candidates.jsonl reason=json-body-field records=527 keys=body
+prepush: FAIL: BODY_DUMP data/attacks-v0/manifest.jsonl reason=json-body-field records=527 keys=body
+prepush: FAIL: BODY_DUMP data/benign-browse-v0/candidates.jsonl reason=json-body-field records=79 keys=body
+prepush: FAIL: CRED_SHAPES data/benign-browse-v0/candidates.jsonl bearer_header=80,email=30,jwt=80
+prepush: FAIL: BODY_DUMP data/benign-browse-v0/manifest.jsonl reason=json-body-field records=79 keys=body
+prepush: FAIL: CRED_SHAPES data/benign-browse-v0/manifest.jsonl bearer_header=80,email=30,jwt=80
+prepush: FAIL: BODY_DUMP data/benign-browse-v1/candidates.jsonl reason=json-body-field records=240 keys=body
+prepush: FAIL: CRED_SHAPES data/benign-browse-v1/candidates.jsonl bearer_header=345,email=90,jwt=345
+prepush: FAIL: BODY_DUMP data/benign-browse-v1/manifest.jsonl reason=json-body-field records=240 keys=body
+prepush: FAIL: CRED_SHAPES data/benign-browse-v1/manifest.jsonl bearer_header=345,email=90,jwt=345
+prepush: FAIL: BODY_DUMP data/benign-hard-v0/candidates.jsonl reason=json-body-field records=90 keys=body
+prepush: FAIL: CRED_SHAPES data/benign-hard-v0/candidates.jsonl email=47
+prepush: FAIL: BODY_DUMP data/benign-hard-v0/manifest.jsonl reason=json-body-field records=90 keys=body
+prepush: FAIL: CRED_SHAPES data/benign-hard-v0/manifest.jsonl email=47
+prepush: FAIL: BODY_DUMP data/encoding-diff-v0/manifest.jsonl reason=json-body-field records=96 keys=body
+prepush: FAIL: BODY_DUMP data/smoke/manifest.jsonl reason=json-body-field records=1 keys=body
+prepush: FAIL: CRED_SHAPES docs/baseline-v0.1.md email=1
+prepush: FAIL: CRED_SHAPES docs/logs/runs/coraza-benign-wcp-v0-pl1-default/audit.jsonl email=1,google_api_key=31,jwt=1
+prepush: FAIL: CRED_SHAPES docs/logs/runs/coraza-benign-wcp-v0-pl2-default/audit.jsonl.gz aws_access_key=2,email=1,google_api_key=47,jwt=13
+prepush: FAIL: CRED_SHAPES docs/logs/runs/coraza-benign-wcp-v1-pl1-default/audit.jsonl aws_access_key=1,google_api_key=14
+prepush: FAIL: CRED_SHAPES docs/logs/runs/coraza-benign-wcp-v1-pl2-default/audit.jsonl.gz aws_access_key=7,google_api_key=19,jwt=4
+prepush: FAIL: CRED_SHAPES docs/logs/runs/s17-t4-engine-benign-wcp-v0-pl1/audit.jsonl google_api_key=26,jwt=1
+prepush: FAIL: CRED_SHAPES docs/logs/runs/s17-t4-engine-benign-wcp-v0-pl2/audit.jsonl.gz aws_access_key=2,google_api_key=42,jwt=13,mapbox_token=1
+prepush: FAIL: CRED_SHAPES docs/logs/runs/s18-t4-engine-benign-wcp-v0-post-pl1/audit.jsonl google_api_key=25
+prepush: FAIL: CRED_SHAPES docs/logs/runs/s18-t4-engine-benign-wcp-v0-post-pl2/audit.jsonl.gz aws_access_key=2,google_api_key=42,jwt=13,mapbox_token=1
+prepush: FAIL: CRED_SHAPES docs/logs/runs/s18-t4-engine-benign-wcp-v0-v2-pl1/audit.jsonl google_api_key=26,jwt=1
+prepush: FAIL: CRED_SHAPES docs/logs/runs/s18-t4-engine-benign-wcp-v0-v2-pl2/audit.jsonl.gz aws_access_key=2,google_api_key=42,jwt=13,mapbox_token=1
+prepush: FAIL: BODY_DUMP docs/logs/runs/s19-a3-replay/audit.log reason=json-body-field records=66 keys=body
+prepush: FAIL: CRED_SHAPES docs/logs/runs/s19-a3-replay/audit.log email=2,google_api_key=1
+prepush: FAIL: BODY_DUMP docs/logs/runs/s19-t2-slow-replay/audit.log reason=json-body-field records=6 keys=body
+prepush: FAIL: CRED_SHAPES docs/logs/runs/s19-t4-benign-wcp-v1-post-r1-pl1/audit.jsonl aws_access_key=1,google_api_key=13
+prepush: FAIL: CRED_SHAPES docs/logs/runs/s19-t4-benign-wcp-v1-post-r1-pl2/audit.jsonl.gz aws_access_key=7,google_api_key=18,jwt=4
+prepush: FAIL: CRED_SHAPES docs/logs/runs/s19-t4-benign-wcp-v1-post-r2-pl1/audit.jsonl aws_access_key=1,google_api_key=13
+prepush: FAIL: CRED_SHAPES docs/logs/runs/s19-t4-benign-wcp-v1-post-r2-pl2/audit.jsonl.gz aws_access_key=7,google_api_key=18,jwt=4
+prepush: FAIL: CRED_SHAPES docs/logs/runs/s19-t4-benign-wcp-v1-pre-r1-pl1/audit.jsonl aws_access_key=1,google_api_key=13
+prepush: FAIL: CRED_SHAPES docs/logs/runs/s19-t4-benign-wcp-v1-pre-r1-pl2/audit.jsonl.gz aws_access_key=7,google_api_key=18,jwt=4
+prepush: FAIL: CRED_SHAPES docs/logs/runs/s19-t4-benign-wcp-v1-pre-r2-pl1/audit.jsonl aws_access_key=1,google_api_key=13
+prepush: FAIL: CRED_SHAPES docs/logs/runs/s19-t4-benign-wcp-v1-pre-r2-pl2/audit.jsonl.gz aws_access_key=7,google_api_key=18,jwt=4
+prepush: FAIL: BODY_DUMP docs/logs/runs/s20-t1-dupargs/audit-engine-v370-pl1.log.gz reason=json-body-field records=2320 keys=body
+prepush: FAIL: BODY_DUMP docs/logs/runs/s20-t1-dupargs/audit-engine-v370-pl2.log.gz reason=json-body-field records=3200 keys=body
+prepush: FAIL: BODY_DUMP docs/logs/runs/s20-t1-dupargs/audit-engine-v381-pl1.log.gz reason=json-body-field records=2320 keys=body
+prepush: FAIL: BODY_DUMP docs/logs/runs/s20-t1-dupargs/audit-engine-v381-pl2.log.gz reason=json-body-field records=3200 keys=body
+prepush: FAIL: CRED_SHAPES docs/logs/runs/s20-t4a-canary-connector/audit-connector.log google_api_key=1
+prepush: FAIL: BODY_DUMP docs/logs/runs/s20-t4a-canary-engine/audit.log reason=json-body-field records=99 keys=body
+prepush: FAIL: CRED_SHAPES docs/logs/runs/s20-t4a-canary-engine/audit.log email=2,google_api_key=1
+prepush: FAIL: BODY_DUMP docs/logs/runs/s21-t4-bigbodies/audit-41-pl1.log reason=json-body-field records=28 keys=body
+prepush: FAIL: BODY_DUMP docs/logs/runs/s21-t4-bigbodies/audit-41-pl2.log reason=json-body-field records=41 keys=body
+prepush: FAIL: BODY_DUMP docs/logs/runs/s21-t4-bigbodies/manifest-41.jsonl reason=json-body-field records=41 keys=body
+prepush: FAIL: CRED_SHAPES docs/logs/runs/s21-t4-bigbodies/manifest-derived-nobodies.jsonl google_api_key=7,jwt=6
+prepush: FAIL: CRED_SHAPES docs/logs/wcp-baseline-breakdown.json email=72,jwt=4
+prepush: FAIL: CRED_SHAPES engine/crs/owasp-crs/rules/REQUEST-932-APPLICATION-ATTACK-RCE.conf email=1
+prepush: FAIL: CRED_SHAPES engine/crs/owasp-crs/rules/REQUEST-934-APPLICATION-ATTACK-GENERIC.conf email=2
+prepush: FAIL: CRED_SHAPES engine/crs/owasp-crs/rules/REQUEST-942-APPLICATION-ATTACK-SQLI.conf email=2
+prepush: FAIL: CRED_SHAPES reports/step-05.md email=1
+prepush: FAIL: CRED_SHAPES reports/step-18.md mapbox_token=1
+prepush: FAIL: CRED_SHAPES tests/test_build_benign_wcp.py mapbox_token=2
+prepush: FAIL: CRED_SHAPES tools/build_benign_hard.py email=3
+prepush: BLOCKED, 1049 staged path(s) scanned (fix the findings above; counts only, values never printed)
+# --- stdout (notes)
+prepush: large file: docs/logs/runs/coraza-benign-wcp-v0-pl1-default/audit.jsonl (2741491 bytes)
+prepush: large file: docs/logs/runs/coraza-benign-wcp-v0-pl1-default/outcomes.jsonl (3358688 bytes)
+prepush: large file: docs/logs/runs/coraza-benign-wcp-v0-pl1-default/responses.jsonl (2749704 bytes)
+prepush: large file: docs/logs/runs/coraza-benign-wcp-v0-pl2-default/audit.jsonl.gz (1379115 bytes)
+prepush: large file: docs/logs/runs/coraza-benign-wcp-v0-pl2-default/outcomes.jsonl (3758383 bytes)
+prepush: large file: docs/logs/runs/coraza-benign-wcp-v0-pl2-default/responses.jsonl (2739101 bytes)
+prepush: large file: docs/logs/runs/coraza-benign-wcp-v1-pl1-default/audit.jsonl (1332799 bytes)
+prepush: large file: docs/logs/runs/coraza-benign-wcp-v1-pl1-default/outcomes.jsonl (1678153 bytes)
+prepush: large file: docs/logs/runs/coraza-benign-wcp-v1-pl1-default/responses.jsonl (1374967 bytes)
+prepush: large file: docs/logs/runs/coraza-benign-wcp-v1-pl2-default/outcomes.jsonl (1874771 bytes)
+prepush: large file: docs/logs/runs/coraza-benign-wcp-v1-pl2-default/responses.jsonl (1369115 bytes)
+prepush: large file: docs/logs/runs/s17-t4-engine-benign-wcp-v0-pl1/audit.jsonl (1714441 bytes)
+prepush: large file: docs/logs/runs/s17-t4-engine-benign-wcp-v0-pl1/outcomes.jsonl (3309369 bytes)
+prepush: large file: docs/logs/runs/s17-t4-engine-benign-wcp-v0-pl1/responses.jsonl (2746326 bytes)
+prepush: large file: docs/logs/runs/s17-t4-engine-benign-wcp-v0-pl2/audit.jsonl.gz (1400838 bytes)
+prepush: large file: docs/logs/runs/s17-t4-engine-benign-wcp-v0-pl2/outcomes.jsonl (3699695 bytes)
+prepush: large file: docs/logs/runs/s17-t4-engine-benign-wcp-v0-pl2/responses.jsonl (2731289 bytes)
+prepush: large file: docs/logs/runs/s18-t4-engine-attacks-v0-post-pl2/audit.jsonl (1260397 bytes)
+prepush: large file: docs/logs/runs/s18-t4-engine-attacks-v0-pre-pl2/audit.jsonl (1228794 bytes)
+prepush: large file: docs/logs/runs/s18-t4-engine-attacks-v0-v2-pl2/audit.jsonl (1260397 bytes)
+prepush: large file: docs/logs/runs/s18-t4-engine-benign-browse-v1-post-pl2/audit.jsonl (1304511 bytes)
+prepush: large file: docs/logs/runs/s18-t4-engine-benign-browse-v1-pre-pl2/audit.jsonl (1272908 bytes)
+prepush: large file: docs/logs/runs/s18-t4-engine-benign-browse-v1-v2-pl2/audit.jsonl (1304511 bytes)
+prepush: large file: docs/logs/runs/s18-t4-engine-benign-hard-v0-post-pl2/audit.jsonl (1350588 bytes)
+prepush: large file: docs/logs/runs/s18-t4-engine-benign-hard-v0-pre-pl2/audit.jsonl (1318985 bytes)
+prepush: large file: docs/logs/runs/s18-t4-engine-benign-hard-v0-v2-pl2/audit.jsonl (1350588 bytes)
+prepush: large file: docs/logs/runs/s18-t4-engine-benign-wcp-v0-post-pl1/audit.jsonl (1903796 bytes)
+prepush: large file: docs/logs/runs/s18-t4-engine-benign-wcp-v0-post-pl1/outcomes.jsonl (3314535 bytes)
+prepush: large file: docs/logs/runs/s18-t4-engine-benign-wcp-v0-post-pl1/responses.jsonl (2754335 bytes)
+prepush: large file: docs/logs/runs/s18-t4-engine-benign-wcp-v0-post-pl2/audit.jsonl.gz (1414247 bytes)
+prepush: large file: docs/logs/runs/s18-t4-engine-benign-wcp-v0-post-pl2/outcomes.jsonl (3728475 bytes)
+prepush: large file: docs/logs/runs/s18-t4-engine-benign-wcp-v0-post-pl2/responses.jsonl (2732290 bytes)
+prepush: large file: docs/logs/runs/s18-t4-engine-benign-wcp-v0-v2-pl1/audit.jsonl (1806668 bytes)
+prepush: large file: docs/logs/runs/s18-t4-engine-benign-wcp-v0-v2-pl1/outcomes.jsonl (3314375 bytes)
+prepush: large file: docs/logs/runs/s18-t4-engine-benign-wcp-v0-v2-pl1/responses.jsonl (2745468 bytes)
+prepush: large file: docs/logs/runs/s18-t4-engine-benign-wcp-v0-v2-pl2/audit.jsonl.gz (1412867 bytes)
+prepush: large file: docs/logs/runs/s18-t4-engine-benign-wcp-v0-v2-pl2/outcomes.jsonl (3727257 bytes)
+prepush: large file: docs/logs/runs/s18-t4-engine-benign-wcp-v0-v2-pl2/responses.jsonl (2731380 bytes)
+prepush: large file: docs/logs/runs/s19-flip-trace/audit.log (1106488 bytes)
+prepush: large file: docs/logs/runs/s19-t2-slow-replay/audit.log (4378361 bytes)
+prepush: large file: docs/logs/runs/s19-t3-availability/events.jsonl (1423996 bytes)
+prepush: large file: docs/logs/runs/s19-t4-benign-wcp-v1-post-r1-pl1/outcomes.jsonl (1656528 bytes)
+prepush: large file: docs/logs/runs/s19-t4-benign-wcp-v1-post-r1-pl1/responses.jsonl (1372111 bytes)
+prepush: large file: docs/logs/runs/s19-t4-benign-wcp-v1-post-r1-pl2/outcomes.jsonl (1859090 bytes)
+prepush: large file: docs/logs/runs/s19-t4-benign-wcp-v1-post-r1-pl2/responses.jsonl (1365465 bytes)
+prepush: large file: docs/logs/runs/s19-t4-benign-wcp-v1-post-r2-pl1/outcomes.jsonl (1656528 bytes)
+prepush: large file: docs/logs/runs/s19-t4-benign-wcp-v1-post-r2-pl1/responses.jsonl (1372530 bytes)
+prepush: large file: docs/logs/runs/s19-t4-benign-wcp-v1-post-r2-pl2/outcomes.jsonl (1859298 bytes)
+prepush: large file: docs/logs/runs/s19-t4-benign-wcp-v1-post-r2-pl2/responses.jsonl (1365462 bytes)
+prepush: large file: docs/logs/runs/s19-t4-benign-wcp-v1-pre-r1-pl1/outcomes.jsonl (1654533 bytes)
+prepush: large file: docs/logs/runs/s19-t4-benign-wcp-v1-pre-r1-pl1/responses.jsonl (1370849 bytes)
+prepush: large file: docs/logs/runs/s19-t4-benign-wcp-v1-pre-r1-pl2/outcomes.jsonl (1845849 bytes)
+prepush: large file: docs/logs/runs/s19-t4-benign-wcp-v1-pre-r1-pl2/responses.jsonl (1365282 bytes)
+prepush: large file: docs/logs/runs/s19-t4-benign-wcp-v1-pre-r2-pl1/outcomes.jsonl (1654524 bytes)
+prepush: large file: docs/logs/runs/s19-t4-benign-wcp-v1-pre-r2-pl1/responses.jsonl (1370840 bytes)
+prepush: large file: docs/logs/runs/s19-t4-benign-wcp-v1-pre-r2-pl2/outcomes.jsonl (1845839 bytes)
+prepush: large file: docs/logs/runs/s19-t4-benign-wcp-v1-pre-r2-pl2/responses.jsonl (1365224 bytes)
+prepush: large file: docs/logs/runs/s20-t1-dupargs/events-engine-v381-pl1.jsonl (3429776 bytes)
+prepush: large file: docs/logs/runs/s20-t1-dupargs/events-engine-v381-pl2.jsonl (4201408 bytes)
+prepush: large file: docs/logs/runs/s20-t1-flip-v381/audit-pl2.log (29594475 bytes)
+prepush: large file: docs/logs/runs/s20-t1-flip-v381/events-pl2.jsonl (1271425 bytes)
+prepush: large file: docs/logs/runs/s20-t2-large-lane/events.jsonl (2252481 bytes)
+prepush: large file: docs/logs/runs/s20-t2-small-lane/events.jsonl (2576756 bytes)
+prepush: large file: docs/logs/runs/s20-t4a-canary-engine/audit.log (1128983 bytes)
+prepush: large file: docs/logs/runs/s21-t3-parity/benign-wcp-v1-inprocess/responses.jsonl (1373265 bytes)
+prepush: large file: docs/logs/runs/s21-t3-parity/benign-wcp-v1-worker/responses.jsonl (1373504 bytes)
+prepush: large file: docs/logs/wcp-baseline-breakdown.json (7379959 bytes)
+prepush: large file: libnss3_2%3a3.98-1ubuntu0.3_amd64.deb (1444912 bytes)
