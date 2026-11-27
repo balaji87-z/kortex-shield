@@ -3,6 +3,11 @@ import importlib.util
 import sys
 from pathlib import Path
 
+import pytest
+
+# tools/record_benign.py imports playwright at module level
+pytest.importorskip("playwright")
+
 TOOL = Path(__file__).resolve().parents[1] / "tools" / "record_benign.py"
 spec = importlib.util.spec_from_file_location("record_benign", TOOL)
 mod = importlib.util.module_from_spec(spec)
