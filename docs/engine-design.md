@@ -163,6 +163,31 @@ Invalid percent sequences and overlong UTF-8 in the query or urlencoded body
 write `would_reject` events (kortex-events.jsonl) and never block — log-only
 by design in this step.
 
+## Content-Encoding on request bodies (step-22 follow-up, documented BEFORE the code and the run)
+
+Measured in step 22 (T5 cells A-C, F-K): neither the engine nor the Coraza
+connector decodes a request body sent with Content-Encoding, and the rules
+do not see an attack inside the compressed bytes (cell K: the compressed
+canary without the header passes at PL1). The only barrier was CRS 920450,
+which refuses the header itself; in DetectionOnly mode, or with that rule
+removed, a compressed attack body would be forwarded uninspected.
+
+Design: the engine refuses such a request on its own. A request that has a
+body and a Content-Encoding header with any coding other than `identity`
+(case-insensitive, any element of a comma list, any repeat of the header) is
+answered `415 kortex-decision=content-encoding`, is not inspected, takes no
+body lane slot and never reaches the backend. An event row
+(decision `content-encoding`, status 415) is written. The check does not
+depend on the rule engine mode or the paranoia level. A request without a
+body is left to the rules. The engine does not decode: decoding needs its
+own size and time limits (decompression bombs) and is not attempted here.
+
+Difference from the reference (rule 39, DESIGN): on these requests the
+connector answers 403 through CRS 920450 and the engine answers 415. The
+criterion (rule 41) is "an encoded body never reaches the backend, in either
+rule-engine mode"; tests E33 and E34, and the T5 encoding cells re-run after
+the change.
+
 ## Testing
 
 Test-first per rule 37/40: E1-E9 in engine/engine_test.go were committed
