@@ -1,8 +1,10 @@
 #!/bin/bash
 # Step-22 T4: re-run the 402-sample big-body manifest (PL1 and PL2) with
 # durable audit logs, so per-sample rule ids and size bands can be
-# attributed. Manifest: docs/logs/runs/s21-t4-bigbodies/manifest-41.jsonl is
-# the 41-block set; the full 402 set is the gzipped derived manifest.
+# attributed. The 41-block set is listed (ids, sizes, content types; the
+# body-bearing manifest-41.jsonl was removed, rule 51) in
+# docs/logs/runs/s21-t4-bigbodies/manifest-41.index.jsonl; the full 402 set
+# is the derived manifest without bodies below.
 set -u
 cd "$(dirname "$0")/.."
 UA="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/158.0.0.0 Safari/537.36"

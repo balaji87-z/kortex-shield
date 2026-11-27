@@ -1,0 +1,28 @@
+{"sample_id": "wcp-d024c7575cb9", "content_type": "application/csp-report", "body_bytes": 2078, "status": 0, "rule_ids": ["932235", "949110"]}
+{"sample_id": "wcp-c5cc5b1ae151", "content_type": "text/plain;charset=UTF-8", "body_bytes": 15714, "status": 0, "rule_ids": ["932370", "949110"]}
+{"sample_id": "wcp-dcde020d1614", "content_type": "text/plain;charset=UTF-8", "body_bytes": 1487, "status": 0, "rule_ids": ["942550", "949110"]}
+{"sample_id": "wcp-04a2e0361cfd", "content_type": "text/plain;charset=UTF-8", "body_bytes": 300, "status": 0, "rule_ids": ["942550", "949110"]}
+{"sample_id": "wcp-424f893739e2", "content_type": "application/x-www-form-urlencoded", "body_bytes": 959, "status": 0, "rule_ids": ["932125", "932370", "949110"]}
+{"sample_id": "wcp-5f172b6f65e7", "content_type": "application/x-www-form-urlencoded", "body_bytes": 863, "status": 0, "rule_ids": ["932125", "932370", "949110"]}
+{"sample_id": "wcp-f3552250e714", "content_type": "text/plain;charset=UTF-8", "body_bytes": 3800, "status": 0, "rule_ids": ["933120", "949110"]}
+{"sample_id": "wcp-22f30228f623", "content_type": "text/plain;charset=UTF-8", "body_bytes": 14690, "status": 0, "rule_ids": ["932370", "949110"]}
+{"sample_id": "wcp-c0cd47515055", "content_type": "text/plain;charset=UTF-8", "body_bytes": 2951, "status": 0, "rule_ids": ["932370", "949110"]}
+{"sample_id": "wcp-37b682f6ce60", "content_type": "text/plain;charset=UTF-8", "body_bytes": 3115, "status": 0, "rule_ids": ["932370", "949110"]}
+{"sample_id": "wcp-d29b3421cd90", "content_type": "text/plain;charset=UTF-8", "body_bytes": 9840, "status": 0, "rule_ids": ["932370", "949110"]}
+{"sample_id": "wcp-40a0394e0268", "content_type": "text/plain;charset=UTF-8", "body_bytes": 9767, "status": 0, "rule_ids": ["932370", "949110"]}
+{"sample_id": "wcp-7ffa92142a17", "content_type": "text/plain;charset=UTF-8", "body_bytes": 9465, "status": 0, "rule_ids": ["932370", "949110"]}
+{"sample_id": "wcp-be280b51ae11", "content_type": "application/x-www-form-urlencoded", "body_bytes": 732, "status": 0, "rule_ids": ["932370", "949110"]}
+{"sample_id": "wcp-b3ffad98fa1b", "content_type": "text/plain;charset=UTF-8", "body_bytes": 2077, "status": 0, "rule_ids": ["932235", "949110"]}
+{"sample_id": "wcp-0a3479018afc", "content_type": "application/x-www-form-urlencoded", "body_bytes": 1652, "status": 0, "rule_ids": ["932370", "949110"]}
+{"sample_id": "wcp-44151f6a19a4", "content_type": "application/x-www-form-urlencoded", "body_bytes": 829, "status": 0, "rule_ids": ["932125", "932370", "949110"]}
+{"sample_id": "wcp-bde436dbb645", "content_type": "application/x-www-form-urlencoded", "body_bytes": 892, "status": 0, "rule_ids": ["932125", "932370", "949110"]}
+{"sample_id": "wcp-b5776eacd5b5", "content_type": "text/plain;charset=UTF-8", "body_bytes": 1994, "status": 0, "rule_ids": ["933120", "949110"]}
+{"sample_id": "wcp-5af39b82adff", "content_type": "text/plain;charset=UTF-8", "body_bytes": 2950, "status": 0, "rule_ids": ["933120", "949110"]}
+{"sample_id": "wcp-bbc448294fcd", "content_type": "application/x-www-form-urlencoded", "body_bytes": 1317, "status": 0, "rule_ids": ["932125", "932370", "949110"]}
+{"sample_id": "wcp-bcebfe2fff7a", "content_type": "text/plain;charset=UTF-8", "body_bytes": 9730, "status": 0, "rule_ids": ["932370", "949110"]}
+{"sample_id": "wcp-e53e5a8e46b5", "content_type": "text/plain;charset=UTF-8", "body_bytes": 1056, "status": 0, "rule_ids": ["942550", "949110"]}
+{"sample_id": "wcp-89785f453ee5", "content_type": "text/plain;charset=UTF-8", "body_bytes": 2062, "status": 0, "rule_ids": ["932235", "949110"]}
+{"sample_id": "wcp-2feaf4151664", "content_type": "text/plain;charset=UTF-8", "body_bytes": 6022, "status": 0, "rule_ids": ["932235", "949110"]}
+{"sample_id": "wcp-f34df15a6669", "content_type": "application/x-www-form-urlencoded", "body_bytes": 1614, "status": 0, "rule_ids": ["932235", "949110"]}
+{"sample_id": "wcp-bb0de7f91b1f", "content_type": "application/x-www-form-urlencoded", "body_bytes": 7592, "status": 0, "rule_ids": ["932235", "949110"]}
+{"sample_id": "wcp-7c00131a3c32", "content_type": "application/x-www-form-urlencoded; charset=UTF-8", "body_bytes": 74, "status": 0, "rule_ids": ["932370", "932380", "949110"]}
