@@ -1,0 +1,29 @@
+# step-22 fragment check: do rule-match messages on wcp records quote fragments of WCP request bodies? Counts only.
+# tool: tools/step22_fragment_check.py (see its docstring for how the source of a match is decided; the WCP bodies were not consulted)
+# host: macOS 27.0 arm64, Python 3.15.2
+$ .venv/bin/python tools/step22_fragment_check.py    # every tracked file at e3aeb91
+docs/logs/runs/s17-t4-engine-benign-wcp-v0-pl1/audit.jsonl	wcp_records=2186	matched_data_msgs=1	body=1	query=0	other=0	unknown=0	body_ids=1
+docs/logs/runs/s17-t4-engine-benign-wcp-v0-pl2/audit.jsonl.gz	wcp_records=8904	matched_data_msgs=1	body=1	query=0	other=0	unknown=0	body_ids=1
+docs/logs/runs/s18-t4-engine-benign-wcp-v0-post-pl1/audit.jsonl	wcp_records=2337	matched_data_msgs=1	body=1	query=0	other=0	unknown=0	body_ids=1
+docs/logs/runs/s18-t4-engine-benign-wcp-v0-post-pl2/audit.jsonl.gz	wcp_records=8929	matched_data_msgs=1	body=1	query=0	other=0	unknown=0	body_ids=1
+docs/logs/runs/s18-t4-engine-benign-wcp-v0-v2-pl1/audit.jsonl	wcp_records=2249	matched_data_msgs=1	body=1	query=0	other=0	unknown=0	body_ids=1
+docs/logs/runs/s18-t4-engine-benign-wcp-v0-v2-pl2/audit.jsonl.gz	wcp_records=8930	matched_data_msgs=1	body=1	query=0	other=0	unknown=0	body_ids=1
+docs/logs/runs/s19-flip-trace/audit.log	wcp_records=212	matched_data_msgs=298	body=0	query=298	other=0	unknown=0	body_ids=0
+docs/logs/runs/s19-t4-benign-wcp-v1-post-r1-pl1/audit.jsonl	wcp_records=1117	matched_data_msgs=2	body=1	query=1	other=0	unknown=0	body_ids=1
+docs/logs/runs/s19-t4-benign-wcp-v1-post-r1-pl2/audit.jsonl.gz	wcp_records=4461	matched_data_msgs=2	body=1	query=1	other=0	unknown=0	body_ids=1
+docs/logs/runs/s19-t4-benign-wcp-v1-post-r2-pl1/audit.jsonl	wcp_records=1117	matched_data_msgs=2	body=1	query=1	other=0	unknown=0	body_ids=1
+docs/logs/runs/s19-t4-benign-wcp-v1-post-r2-pl2/audit.jsonl.gz	wcp_records=4462	matched_data_msgs=2	body=1	query=1	other=0	unknown=0	body_ids=1
+docs/logs/runs/s19-t4-benign-wcp-v1-pre-r1-pl1/audit.jsonl	wcp_records=1089	matched_data_msgs=2	body=1	query=1	other=0	unknown=0	body_ids=1
+docs/logs/runs/s19-t4-benign-wcp-v1-pre-r1-pl2/audit.jsonl.gz	wcp_records=4449	matched_data_msgs=2	body=1	query=1	other=0	unknown=0	body_ids=1
+docs/logs/runs/s19-t4-benign-wcp-v1-pre-r2-pl1/audit.jsonl	wcp_records=1089	matched_data_msgs=2	body=1	query=1	other=0	unknown=0	body_ids=1
+docs/logs/runs/s19-t4-benign-wcp-v1-pre-r2-pl2/audit.jsonl.gz	wcp_records=4449	matched_data_msgs=2	body=1	query=1	other=0	unknown=0	body_ids=1
+docs/logs/runs/s20-t1-flip-v381/audit-pl2.log	wcp_records=5656	matched_data_msgs=8484	body=0	query=8484	other=0	unknown=0	body_ids=0
+docs/logs/runs/s20-t4a-canary-connector/audit-connector.log	wcp_records=100	matched_data_msgs=392	body=392	query=0	other=0	unknown=0	body_ids=99
+# 1051 file(s) checked; 17 have matched data on wcp records; 15 of them quote body fragments
+$ .venv/bin/python tools/step22_fragment_check.py e3aeb91^:<path> ...    # the five audit logs removed in e3aeb91, read from history
+e3aeb91^:docs/logs/runs/s19-t2-slow-replay/audit.log	wcp_records=6	matched_data_msgs=102	body=93	query=0	other=9	unknown=0	body_ids=6
+e3aeb91^:docs/logs/runs/s20-t4a-canary-engine/audit.log	wcp_records=99	matched_data_msgs=393	body=393	query=0	other=0	unknown=0	body_ids=98
+e3aeb91^:docs/logs/runs/s21-t4-bigbodies/audit-41-pl1.log	wcp_records=28	matched_data_msgs=33	body=32	query=0	other=1	unknown=0	body_ids=26
+e3aeb91^:docs/logs/runs/s21-t4-bigbodies/audit-41-pl2.log	wcp_records=41	matched_data_msgs=198	body=171	query=11	other=16	unknown=0	body_ids=39
+# 5 file(s) checked; 4 have matched data on wcp records; 4 of them quote body fragments
+# e3aeb91^:docs/logs/runs/s19-a3-replay/audit.log has no matched data on its wcp records, so it prints no row

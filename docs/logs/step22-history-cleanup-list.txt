@@ -1,33 +1,36 @@
 # step-22 history cleanup list: paths to remove when origin/main history is rewritten.
-# Source: docs/logs/step22-prepush-tree-scan-v2.txt (tools/prepush_scan.sh over the tree of a694448).
-# Included: the 6 files holding request bodies of wcp samples, and every file under docs/logs with credential shapes (23); 2 files are both, so 27 paths.
-# Columns: path, wcp_body_records (records with a non-empty request body and a wcp- sample id), cred_shapes (lines matched per shape; - = none).
-# Counts only; no value was read out or printed. Whether any shape is a live credential is UNVERIFIED.
+# Sources: docs/logs/step22-prepush-tree-scan-v2.txt (tools/prepush_scan.sh over the tree of a694448) and docs/logs/step22-fragment-check.txt (tools/step22_fragment_check.py).
+# Included: the 6 files that held request bodies of wcp samples (removed from the tree in e3aeb91, still in history), and every file under docs/logs with credential shapes (23); 2 files are both, so 27 paths.
+# Columns: path, wcp_body_records (records with a non-empty request body and a wcp- sample id), wcp_body_fragment_msgs (rule-match messages on wcp records whose matched data comes from the request body), cred_shapes (lines matched per shape; - = none).
+# Counts only; no value was read out or printed. Whether any shape is a live credential is UNVERIFIED. wcp_body_fragment_msgs is inferred from each audit record (variable name, query string, method or Content-Length), not by comparison with the WCP bodies.
+# Fragment check result: 15 files still in the tree quote body fragments, all of them already listed below; no path was added by the check.
+# Fragment check, clean (not listed): docs/logs/runs/s19-flip-trace/audit.log matched_data_msgs=298 wcp_body_fragment_msgs=0
+# Fragment check, clean (not listed): docs/logs/runs/s20-t1-flip-v381/audit-pl2.log matched_data_msgs=8484 wcp_body_fragment_msgs=0
 # Not included: paths that exist only in older commits, own-dataset files under data/, and the s20-t1-dupargs audit logs (bodies of own attack samples).
-docs/logs/runs/coraza-benign-wcp-v0-pl1-default/audit.jsonl	wcp_body_records=0	cred_shapes=email=1,google_api_key=31,jwt=1
-docs/logs/runs/coraza-benign-wcp-v0-pl2-default/audit.jsonl.gz	wcp_body_records=0	cred_shapes=aws_access_key=2,email=1,google_api_key=47,jwt=13
-docs/logs/runs/coraza-benign-wcp-v1-pl1-default/audit.jsonl	wcp_body_records=0	cred_shapes=aws_access_key=1,google_api_key=14
-docs/logs/runs/coraza-benign-wcp-v1-pl2-default/audit.jsonl.gz	wcp_body_records=0	cred_shapes=aws_access_key=7,google_api_key=19,jwt=4
-docs/logs/runs/s17-t4-engine-benign-wcp-v0-pl1/audit.jsonl	wcp_body_records=0	cred_shapes=google_api_key=26,jwt=1
-docs/logs/runs/s17-t4-engine-benign-wcp-v0-pl2/audit.jsonl.gz	wcp_body_records=0	cred_shapes=aws_access_key=2,google_api_key=42,jwt=13,mapbox_token=1
-docs/logs/runs/s18-t4-engine-benign-wcp-v0-post-pl1/audit.jsonl	wcp_body_records=0	cred_shapes=google_api_key=25
-docs/logs/runs/s18-t4-engine-benign-wcp-v0-post-pl2/audit.jsonl.gz	wcp_body_records=0	cred_shapes=aws_access_key=2,google_api_key=42,jwt=13,mapbox_token=1
-docs/logs/runs/s18-t4-engine-benign-wcp-v0-v2-pl1/audit.jsonl	wcp_body_records=0	cred_shapes=google_api_key=26,jwt=1
-docs/logs/runs/s18-t4-engine-benign-wcp-v0-v2-pl2/audit.jsonl.gz	wcp_body_records=0	cred_shapes=aws_access_key=2,google_api_key=42,jwt=13,mapbox_token=1
-docs/logs/runs/s19-a3-replay/audit.log	wcp_body_records=66	cred_shapes=email=2,google_api_key=1
-docs/logs/runs/s19-t2-slow-replay/audit.log	wcp_body_records=6	cred_shapes=-
-docs/logs/runs/s19-t4-benign-wcp-v1-post-r1-pl1/audit.jsonl	wcp_body_records=0	cred_shapes=aws_access_key=1,google_api_key=13
-docs/logs/runs/s19-t4-benign-wcp-v1-post-r1-pl2/audit.jsonl.gz	wcp_body_records=0	cred_shapes=aws_access_key=7,google_api_key=18,jwt=4
-docs/logs/runs/s19-t4-benign-wcp-v1-post-r2-pl1/audit.jsonl	wcp_body_records=0	cred_shapes=aws_access_key=1,google_api_key=13
-docs/logs/runs/s19-t4-benign-wcp-v1-post-r2-pl2/audit.jsonl.gz	wcp_body_records=0	cred_shapes=aws_access_key=7,google_api_key=18,jwt=4
-docs/logs/runs/s19-t4-benign-wcp-v1-pre-r1-pl1/audit.jsonl	wcp_body_records=0	cred_shapes=aws_access_key=1,google_api_key=13
-docs/logs/runs/s19-t4-benign-wcp-v1-pre-r1-pl2/audit.jsonl.gz	wcp_body_records=0	cred_shapes=aws_access_key=7,google_api_key=18,jwt=4
-docs/logs/runs/s19-t4-benign-wcp-v1-pre-r2-pl1/audit.jsonl	wcp_body_records=0	cred_shapes=aws_access_key=1,google_api_key=13
-docs/logs/runs/s19-t4-benign-wcp-v1-pre-r2-pl2/audit.jsonl.gz	wcp_body_records=0	cred_shapes=aws_access_key=7,google_api_key=18,jwt=4
-docs/logs/runs/s20-t4a-canary-connector/audit-connector.log	wcp_body_records=0	cred_shapes=google_api_key=1
-docs/logs/runs/s20-t4a-canary-engine/audit.log	wcp_body_records=99	cred_shapes=email=2,google_api_key=1
-docs/logs/runs/s21-t4-bigbodies/audit-41-pl1.log	wcp_body_records=28	cred_shapes=-
-docs/logs/runs/s21-t4-bigbodies/audit-41-pl2.log	wcp_body_records=41	cred_shapes=-
-docs/logs/runs/s21-t4-bigbodies/manifest-41.jsonl	wcp_body_records=41	cred_shapes=-
-docs/logs/runs/s21-t4-bigbodies/manifest-derived-nobodies.jsonl	wcp_body_records=0	cred_shapes=google_api_key=7,jwt=6
-docs/logs/wcp-baseline-breakdown.json	wcp_body_records=0	cred_shapes=email=72,jwt=4
+docs/logs/runs/coraza-benign-wcp-v0-pl1-default/audit.jsonl	wcp_body_records=0	wcp_body_fragment_msgs=0	cred_shapes=email=1,google_api_key=31,jwt=1
+docs/logs/runs/coraza-benign-wcp-v0-pl2-default/audit.jsonl.gz	wcp_body_records=0	wcp_body_fragment_msgs=0	cred_shapes=aws_access_key=2,email=1,google_api_key=47,jwt=13
+docs/logs/runs/coraza-benign-wcp-v1-pl1-default/audit.jsonl	wcp_body_records=0	wcp_body_fragment_msgs=0	cred_shapes=aws_access_key=1,google_api_key=14
+docs/logs/runs/coraza-benign-wcp-v1-pl2-default/audit.jsonl.gz	wcp_body_records=0	wcp_body_fragment_msgs=0	cred_shapes=aws_access_key=7,google_api_key=19,jwt=4
+docs/logs/runs/s17-t4-engine-benign-wcp-v0-pl1/audit.jsonl	wcp_body_records=0	wcp_body_fragment_msgs=1	cred_shapes=google_api_key=26,jwt=1
+docs/logs/runs/s17-t4-engine-benign-wcp-v0-pl2/audit.jsonl.gz	wcp_body_records=0	wcp_body_fragment_msgs=1	cred_shapes=aws_access_key=2,google_api_key=42,jwt=13,mapbox_token=1
+docs/logs/runs/s18-t4-engine-benign-wcp-v0-post-pl1/audit.jsonl	wcp_body_records=0	wcp_body_fragment_msgs=1	cred_shapes=google_api_key=25
+docs/logs/runs/s18-t4-engine-benign-wcp-v0-post-pl2/audit.jsonl.gz	wcp_body_records=0	wcp_body_fragment_msgs=1	cred_shapes=aws_access_key=2,google_api_key=42,jwt=13,mapbox_token=1
+docs/logs/runs/s18-t4-engine-benign-wcp-v0-v2-pl1/audit.jsonl	wcp_body_records=0	wcp_body_fragment_msgs=1	cred_shapes=google_api_key=26,jwt=1
+docs/logs/runs/s18-t4-engine-benign-wcp-v0-v2-pl2/audit.jsonl.gz	wcp_body_records=0	wcp_body_fragment_msgs=1	cred_shapes=aws_access_key=2,google_api_key=42,jwt=13,mapbox_token=1
+docs/logs/runs/s19-a3-replay/audit.log	wcp_body_records=66	wcp_body_fragment_msgs=0	cred_shapes=email=2,google_api_key=1
+docs/logs/runs/s19-t2-slow-replay/audit.log	wcp_body_records=6	wcp_body_fragment_msgs=93	cred_shapes=-
+docs/logs/runs/s19-t4-benign-wcp-v1-post-r1-pl1/audit.jsonl	wcp_body_records=0	wcp_body_fragment_msgs=1	cred_shapes=aws_access_key=1,google_api_key=13
+docs/logs/runs/s19-t4-benign-wcp-v1-post-r1-pl2/audit.jsonl.gz	wcp_body_records=0	wcp_body_fragment_msgs=1	cred_shapes=aws_access_key=7,google_api_key=18,jwt=4
+docs/logs/runs/s19-t4-benign-wcp-v1-post-r2-pl1/audit.jsonl	wcp_body_records=0	wcp_body_fragment_msgs=1	cred_shapes=aws_access_key=1,google_api_key=13
+docs/logs/runs/s19-t4-benign-wcp-v1-post-r2-pl2/audit.jsonl.gz	wcp_body_records=0	wcp_body_fragment_msgs=1	cred_shapes=aws_access_key=7,google_api_key=18,jwt=4
+docs/logs/runs/s19-t4-benign-wcp-v1-pre-r1-pl1/audit.jsonl	wcp_body_records=0	wcp_body_fragment_msgs=1	cred_shapes=aws_access_key=1,google_api_key=13
+docs/logs/runs/s19-t4-benign-wcp-v1-pre-r1-pl2/audit.jsonl.gz	wcp_body_records=0	wcp_body_fragment_msgs=1	cred_shapes=aws_access_key=7,google_api_key=18,jwt=4
+docs/logs/runs/s19-t4-benign-wcp-v1-pre-r2-pl1/audit.jsonl	wcp_body_records=0	wcp_body_fragment_msgs=1	cred_shapes=aws_access_key=1,google_api_key=13
+docs/logs/runs/s19-t4-benign-wcp-v1-pre-r2-pl2/audit.jsonl.gz	wcp_body_records=0	wcp_body_fragment_msgs=1	cred_shapes=aws_access_key=7,google_api_key=18,jwt=4
+docs/logs/runs/s20-t4a-canary-connector/audit-connector.log	wcp_body_records=0	wcp_body_fragment_msgs=392	cred_shapes=google_api_key=1
+docs/logs/runs/s20-t4a-canary-engine/audit.log	wcp_body_records=99	wcp_body_fragment_msgs=393	cred_shapes=email=2,google_api_key=1
+docs/logs/runs/s21-t4-bigbodies/audit-41-pl1.log	wcp_body_records=28	wcp_body_fragment_msgs=32	cred_shapes=-
+docs/logs/runs/s21-t4-bigbodies/audit-41-pl2.log	wcp_body_records=41	wcp_body_fragment_msgs=171	cred_shapes=-
+docs/logs/runs/s21-t4-bigbodies/manifest-41.jsonl	wcp_body_records=41	wcp_body_fragment_msgs=0	cred_shapes=-
+docs/logs/runs/s21-t4-bigbodies/manifest-derived-nobodies.jsonl	wcp_body_records=0	wcp_body_fragment_msgs=0	cred_shapes=google_api_key=7,jwt=6
+docs/logs/wcp-baseline-breakdown.json	wcp_body_records=0	wcp_body_fragment_msgs=0	cred_shapes=email=72,jwt=4
