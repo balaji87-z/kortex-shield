@@ -1,0 +1,49 @@
+# step-22 T3i-T3m, BEFORE the fix (engine code at fae6a70; tests in engine/fairness_test.go)
+# host: macOS 27.0 arm64, go version go1.27.4 darwin/arm64
+# load average at start: { 1.27 1.44 1.53 }
+$ cd engine && go test -count=1 -v -run 'TestT3[i-m]' .
+=== RUN   TestT3iExplicitCapClampedToHalfLargeLane
+    fairness_test.go:149: T3i: request t3i-2 want 503 from the per-client cap, got 200
+--- FAIL: TestT3iExplicitCapClampedToHalfLargeLane (3.76s)
+=== RUN   TestT3jExplicitCapClampedToHalfSmallLane
+    fairness_test.go:158: t3j: request t3j-fifth want 503 from the per-client cap, got 200
+--- FAIL: TestT3jExplicitCapClampedToHalfSmallLane (3.20s)
+=== RUN   TestT3kDefaultSmallLaneCapIsFour
+--- PASS: TestT3kDefaultSmallLaneCapIsFour (3.20s)
+=== RUN   TestT3lPerClientCountIsPerLane
+    fairness_test.go:182: T3l: large job refused ("per-client in-flight cap") while the client only had a small job in flight
+--- FAIL: TestT3lPerClientCountIsPerLane (3.17s)
+=== RUN   TestT3mConfigShowsEffectivePerClientCaps
+=== RUN   TestT3mConfigShowsEffectivePerClientCaps/default_lanes,_no_override
+    fairness_test.go:251: field "client_max_inflight" missing or not a number in map[allowed_methods:GET HEAD POST OPTIONS audit_log:/var/folders/nq/sk_8btb16995njvp54fs72180000gs/T/TestT3mConfigShowsEffectivePerClientCapsdefault_lanes,_no_overr2630696268/001/audit.log backend_url:http://127.0.0.1:49593 blocking_paranoia:1 body_lane_threshold:65536 detection_paranoia:1 engine_time_budget_ms:2000 e
+=== RUN   TestT3mConfigShowsEffectivePerClientCaps/override_below_half_is_kept
+    fairness_test.go:251: field "client_max_inflight" missing or not a number in map[allowed_methods:GET HEAD POST OPTIONS audit_log:/var/folders/nq/sk_8btb16995njvp54fs72180000gs/T/TestT3mConfigShowsEffectivePerClientCapsoverride_below_half_is_4193193375/001/audit.log backend_url:http://127.0.0.1:49596 blocking_paranoia:1 body_lane_threshold:65536 detection_paranoia:1 engine_time_budget_ms:2000 e
+=== RUN   TestT3mConfigShowsEffectivePerClientCaps/override_4_clamped_on_the_large_lane
+    fairness_test.go:251: field "client_max_inflight" missing or not a number in map[allowed_methods:GET HEAD POST OPTIONS audit_log:/var/folders/nq/sk_8btb16995njvp54fs72180000gs/T/TestT3mConfigShowsEffectivePerClientCapsoverride_4_clamped_on_t197885220/001/audit.log backend_url:http://127.0.0.1:49599 blocking_paranoia:1 body_lane_threshold:65536 detection_paranoia:1 engine_time_budget_ms:2000 ev
+=== RUN   TestT3mConfigShowsEffectivePerClientCaps/override_6_clamped_on_both_lanes
+    fairness_test.go:251: field "client_max_inflight" missing or not a number in map[allowed_methods:GET HEAD POST OPTIONS audit_log:/var/folders/nq/sk_8btb16995njvp54fs72180000gs/T/TestT3mConfigShowsEffectivePerClientCapsoverride_6_clamped_on_b189191099/001/audit.log backend_url:http://127.0.0.1:49603 blocking_paranoia:1 body_lane_threshold:65536 detection_paranoia:1 engine_time_budget_ms:2000 ev
+=== RUN   TestT3mConfigShowsEffectivePerClientCaps/lanes_20/6,_no_override
+    fairness_test.go:251: field "client_max_inflight" missing or not a number in map[allowed_methods:GET HEAD POST OPTIONS audit_log:/var/folders/nq/sk_8btb16995njvp54fs72180000gs/T/TestT3mConfigShowsEffectivePerClientCapslanes_206,_no_override2934921535/001/audit.log backend_url:http://127.0.0.1:49606 blocking_paranoia:1 body_lane_threshold:65536 detection_paranoia:1 engine_time_budget_ms:2000 ev
+=== RUN   TestT3mConfigShowsEffectivePerClientCaps/lanes_20/6,_override_2_kept
+    fairness_test.go:251: field "client_max_inflight" missing or not a number in map[allowed_methods:GET HEAD POST OPTIONS audit_log:/var/folders/nq/sk_8btb16995njvp54fs72180000gs/T/TestT3mConfigShowsEffectivePerClientCapslanes_206,_override_2_3495500131/001/audit.log backend_url:http://127.0.0.1:49609 blocking_paranoia:1 body_lane_threshold:65536 detection_paranoia:1 engine_time_budget_ms:2000 ev
+=== RUN   TestT3mConfigShowsEffectivePerClientCaps/lanes_3/3,_override_9_clamped_to_floor(3/2)
+    fairness_test.go:251: field "client_max_inflight" missing or not a number in map[allowed_methods:GET HEAD POST OPTIONS audit_log:/var/folders/nq/sk_8btb16995njvp54fs72180000gs/T/TestT3mConfigShowsEffectivePerClientCapslanes_33,_override_9_c1072454717/001/audit.log backend_url:http://127.0.0.1:49612 blocking_paranoia:1 body_lane_threshold:65536 detection_paranoia:1 engine_time_budget_ms:2000 ev
+=== RUN   TestT3mConfigShowsEffectivePerClientCaps/lanes_1/1:_at_least_1
+    fairness_test.go:251: field "client_max_inflight" missing or not a number in map[allowed_methods:GET HEAD POST OPTIONS audit_log:/var/folders/nq/sk_8btb16995njvp54fs72180000gs/T/TestT3mConfigShowsEffectivePerClientCapslanes_11_at_least_13322481955/001/audit.log backend_url:http://127.0.0.1:49615 blocking_paranoia:1 body_lane_threshold:65536 detection_paranoia:1 engine_time_budget_ms:2000 event
+=== RUN   TestT3mConfigShowsEffectivePerClientCaps/worker_mode_is_reported
+    fairness_test.go:268: T3m: want worker_mode=true in worker mode
+--- FAIL: TestT3mConfigShowsEffectivePerClientCaps (0.12s)
+    --- FAIL: TestT3mConfigShowsEffectivePerClientCaps/default_lanes,_no_override (0.02s)
+    --- FAIL: TestT3mConfigShowsEffectivePerClientCaps/override_below_half_is_kept (0.01s)
+    --- FAIL: TestT3mConfigShowsEffectivePerClientCaps/override_4_clamped_on_the_large_lane (0.01s)
+    --- FAIL: TestT3mConfigShowsEffectivePerClientCaps/override_6_clamped_on_both_lanes (0.01s)
+    --- FAIL: TestT3mConfigShowsEffectivePerClientCaps/lanes_20/6,_no_override (0.01s)
+    --- FAIL: TestT3mConfigShowsEffectivePerClientCaps/lanes_20/6,_override_2_kept (0.01s)
+    --- FAIL: TestT3mConfigShowsEffectivePerClientCaps/lanes_3/3,_override_9_clamped_to_floor(3/2) (0.01s)
+    --- FAIL: TestT3mConfigShowsEffectivePerClientCaps/lanes_1/1:_at_least_1 (0.01s)
+    --- FAIL: TestT3mConfigShowsEffectivePerClientCaps/worker_mode_is_reported (0.04s)
+FAIL
+FAIL	kortexshield/engine	13.839s
+FAIL
+# load average at end: { 1.89 1.58 1.58 }
+# lines cut at 400 characters (T3m dumps the whole config map)
