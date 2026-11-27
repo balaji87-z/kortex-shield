@@ -1,0 +1,11 @@
+# Step-22 T2 attack cells, re-run after the per-lane per-client clamp (5dfdd19), in a Linux container
+== host: Darwin 27.0.0 arm64; docker client 29.10.1 server 29.5.2 linux/arm64 kernel 6.8.0-117-generic
+== image: python:3.12-alpine@sha256:c5ba3deef00c7758561a0f03c26f44f10589263d40e732b8748e0d1f38f6dd89 python@sha256:c5ba3deef00c7758561a0f03c26f44f10589263d40e732b8748e0d1f38f6dd89 id sha256:c5ba3deef00c7758561a0f03c26f44f10589263d40e732b8748e0d1f38f6dd89
+== engine: linux/arm64 sha256 185014ed0061d120094d74969fdd1ca4fcf3771b69c01661efd7bdc01cdff75c built from 50e21a3df216993939237cdc9df550dcd0bc6323 with go version go1.27.4 darwin/arm64
+== VM: 8 cpus, 8307408896 bytes memory, Ubuntu 24.04.4 LTS
+== in container: Linux 6.8.0-117-generic aarch64; Python 3.12.16; cpus 8; load 4.83 4.71 2.21 2/208 12
+cell mixed-one: preflight=[200, 200] post 301/301 {200: 301} get 301/301 {200: 301} kills=75 overloads=2298728 minpool=1 cpu=576.2s recovery=1.0s
+cell mixed-eight: preflight=[200, 200] post 294/301 {503: 7, 200: 294} get 301/301 {200: 301} kills=200 overloads=1761481 minpool=0 cpu=561.6s recovery=2.5s
+killstorm: kills=80 (0.67/s) minpool=0 minidle=0 cpu=214.8s
+== load at end: 7.77 7.62 5.40 2/190 3293
+== image digest used: python@sha256:c5ba3deef00c7758561a0f03c26f44f10589263d40e732b8748e0d1f38f6dd89

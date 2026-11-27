@@ -1,0 +1,40 @@
+== docs/logs/runs/s22-t2-cells
+   large-one: pl=1 300 s preflight=not recorded benign POST 200: 301/301 (statuses not recorded) benign GET 200: 301/301 (statuses not recorded)
+       benign POST ms p50=9.0 p99=42.1 max=45.9; kills=24 overloads=276 min_pool=3 max_busy=2 penalised_max=1 cpu_s=6.4 recovery_s=7.2 load 2.04833984375->1.14453125
+       attack_status={'503': 301} effective caps: client_max_inflight=not recorded small=not recorded large=not recorded worker_mode=not recorded
+   large-eight: pl=1 300 s preflight=not recorded benign POST 200: 301/301 (statuses not recorded) benign GET 200: 301/301 (statuses not recorded)
+       benign POST ms p50=13.0 p99=72.9 max=498.9; kills=181 overloads=2217 min_pool=2 max_busy=3 penalised_max=8 cpu_s=16.9 recovery_s=12.3 load 1.14453125->1.89013671875
+       attack_status={'503': 2406} effective caps: client_max_inflight=not recorded small=not recorded large=not recorded worker_mode=not recorded
+   small-one: pl=2 300 s preflight=not recorded benign POST 200: 0/301 (statuses not recorded) benign GET 200: 0/301 (statuses not recorded)
+       benign POST ms p50=6.7 p99=32.8 max=43.0; kills=24 overloads=276 min_pool=3 max_busy=1 penalised_max=1 cpu_s=10.4 recovery_s=None load 1.89013671875->1.51123046875
+       attack_status={'503': 301} effective caps: client_max_inflight=not recorded small=not recorded large=not recorded worker_mode=not recorded
+   small-eight: pl=2 300 s preflight=not recorded benign POST 200: 0/300 (statuses not recorded) benign GET 200: 0/300 (statuses not recorded)
+       benign POST ms p50=5.9 p99=2001.5 max=2010.5; kills=192 overloads=2216 min_pool=0 max_busy=4 penalised_max=8 cpu_s=14.0 recovery_s=None load 1.791015625->1.646484375
+       attack_status={'503': 2401} effective caps: client_max_inflight=not recorded small=not recorded large=not recorded worker_mode=not recorded
+   mixed-one: pl=1 300 s preflight=not recorded benign POST 200: 105/301 (statuses not recorded) benign GET 200: 105/301 (statuses not recorded)
+       benign POST ms p50=0.2 p99=121.3 max=160.6; kills=18 overloads=65451 min_pool=2 max_busy=2 penalised_max=1 cpu_s=217.8 recovery_s=None load 1.646484375->0.173828125
+       attack_status={'503': 65603, '-1': 30092} effective caps: client_max_inflight=not recorded small=not recorded large=not recorded worker_mode=not recorded
+   mixed-eight: pl=1 300 s preflight=not recorded benign POST 200: 275/300 (statuses not recorded) benign GET 200: 300/300 (statuses not recorded)
+       benign POST ms p50=23.6 p99=2070.0 max=5159.1; kills=196 overloads=403046 min_pool=0 max_busy=4 penalised_max=8 cpu_s=673.8 recovery_s=10.2 load 0.3203125->6.2998046875
+       attack_status={'503': 404897} effective caps: client_max_inflight=not recorded small=not recorded large=not recorded worker_mode=not recorded
+   killstorm: 120 s, kills=80 (0.67/s) overloads=140929 min_pool=0 min_spares_idle=0 cpu_s=214.7 attack_status={'503': 141061} load_end=10.7001953125
+== docs/logs/runs/s22-t2-cells-v2
+   large-one: pl=1 300 s preflight=[200, 200] benign POST 200: 301/301 {'200': 301} benign GET 200: 301/301 {'200': 301}
+       benign POST ms p50=5.6 p99=8.4 max=53.1; kills=24 overloads=276 min_pool=3 max_busy=1 penalised_max=1 cpu_s=2.7 recovery_s=8.2 load 0.0->0.0
+       attack_status={'503': 300} effective caps: client_max_inflight=2 small=2 large=1 worker_mode=True
+   large-eight: pl=1 300 s preflight=[200, 200] benign POST 200: 301/301 {'200': 301} benign GET 200: 301/301 {'200': 301}
+       benign POST ms p50=7.7 p99=50.7 max=81.3; kills=172 overloads=2228 min_pool=2 max_busy=3 penalised_max=8 cpu_s=4.9 recovery_s=8.2 load 0.0->0.0
+       attack_status={'503': 2408} effective caps: client_max_inflight=2 small=2 large=1 worker_mode=True
+   small-one: pl=2 300 s preflight=[200, 200] benign POST 200: 300/300 {'200': 300} benign GET 200: 300/300 {'200': 300}
+       benign POST ms p50=7.6 p99=11.4 max=51.8; kills=24 overloads=276 min_pool=3 max_busy=2 penalised_max=1 cpu_s=3.2 recovery_s=4.1 load 0.0->0.0
+       attack_status={'503': 301} effective caps: client_max_inflight=2 small=2 large=1 worker_mode=True
+   small-eight: pl=2 300 s preflight=[200, 200] benign POST 200: 291/300 {'503': 9, '200': 291} benign GET 200: 300/300 {'200': 300}
+       benign POST ms p50=9.7 p99=2002.6 max=2005.4; kills=192 overloads=2217 min_pool=0 max_busy=4 penalised_max=8 cpu_s=5.4 recovery_s=5.1 load 0.0->0.146484375
+       attack_status={'503': 2403} effective caps: client_max_inflight=2 small=2 large=1 worker_mode=True
+   mixed-one: pl=1 300 s preflight=[200, 200] benign POST 200: 301/301 {'200': 301} benign GET 200: 301/301 {'200': 301}
+       benign POST ms p50=2.3 p99=6.5 max=44.0; kills=75 overloads=2298728 min_pool=1 max_busy=4 penalised_max=1 cpu_s=576.2 recovery_s=1.0 load 4.52197265625->9.09521484375
+       attack_status={'503': 2301309} effective caps: client_max_inflight=2 small=2 large=1 worker_mode=True
+   mixed-eight: pl=1 300 s preflight=[200, 200] benign POST 200: 294/301 {'503': 7, '200': 294} benign GET 200: 301/301 {'200': 301}
+       benign POST ms p50=4.5 p99=2002.1 max=2019.7; kills=200 overloads=1761481 min_pool=0 max_busy=4 penalised_max=8 cpu_s=561.6 recovery_s=2.5 load 9.09521484375->7.8994140625
+       attack_status={'503': 1764104} effective caps: client_max_inflight=2 small=2 large=1 worker_mode=True
+   killstorm: 120 s, kills=80 (0.67/s) overloads=794983 min_pool=0 min_spares_idle=0 cpu_s=214.8 attack_status={'503': 795236} load_end=7.76904296875

@@ -1,0 +1,8 @@
+rule29: {"backend_url": "http://127.0.0.1:13000", "rule_engine": "On", "blocking_paranoia": 1, "detection_paranoia": 1, "max_body_bytes": 13107200, "max_inspected_bytes": 131072, "engine_time_budget_ms": 300, "rules_dir": "/work/crs", "listen_addr": "127.0.0.1:8098", "events_file": "/tmp/kx-s22demo-ev.jsonl", "audit_log": "/tmp/kx-s22demo-aud.log", "allowed_methods": "GET HEAD POST OPTIONS", "max_inflight_body": 8, "max_inflight_body_large": 2, "body_lane_threshold": 65536, "worker_mode": true, "client_max_inflight": 0, "client_max_inflight_small": 4, "client_max_inflight_large": 1, "request_body_target_updates": 166}
+0) innocent POST from 127.0.0.2 before any kill -> 200
+1) held 131071-byte request from 127.0.0.2 (budget 300 ms) -> 503
+   stats: {"inflight_small": 0, "inflight_large": 0, "abandoned_running": 0, "kills": 1, "overloads": 0, "penalised_clients": 1, "client_inflight_small": 0, "client_inflight_large": 0, "workers": {"pool": 2, "busy": 0, "spares": 2, "recycled": 0}}
+2) innocent POST from the SAME address 127.0.0.2 -> 503
+3) innocent POST from a DIFFERENT address 127.0.0.5 -> 200
+4) innocent POST from 127.0.0.2 after 3000 ms + 1 s -> 200
+   stats: {"inflight_small": 0, "inflight_large": 0, "abandoned_running": 0, "kills": 1, "overloads": 1, "penalised_clients": 0, "client_inflight_small": 0, "client_inflight_large": 0, "workers": {"pool": 3, "busy": 0, "spares": 3, "recycled": 0}}

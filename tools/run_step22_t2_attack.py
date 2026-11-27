@@ -6,8 +6,13 @@ NOTE (engine change 5dfdd19): the KORTEX_CLIENT_MAX_INFLIGHT=2 set by every
 cell here is now clamped per lane to floor(lane_cap/2). With the default
 lane caps (small 8, large 2) one client gets 2 small jobs as before but only
 1 large job (it was 2), and the two lanes are now counted separately instead
-of sharing one count. Results from this script will not match the recorded
-step-22 T2 runs (docs/logs/runs/s22-t2-cells), which predate that change.
+of sharing one count. Results from this script will not match the first
+recorded step-22 T2 runs (docs/logs/runs/s22-t2-cells), which predate that
+change and used a benign probe that PL2 blocks by itself (see BENIGN_URL).
+Engine binary, rules directory and output directory come from
+KORTEX_T2_ENGINE, KORTEX_T2_RULES and KORTEX_T2_OUT. Linux only (/proc, and
+source addresses 127.0.0.2-10): tools/run_step22_t2_container.sh runs it in
+a container on hosts that are not Linux.
 
 One cell = one engine process, one attack shape, one address mode, 300 s.
 Attackers loop body POSTs with the deterministic hold hook (rule 48):
@@ -24,9 +29,45 @@ import time
 import urllib.request
 from collections import Counter
 
-ENGINE = "/tmp/kortex-engine"
-RULES = os.path.abspath("engine/crs")
-OUT = "docs/logs/runs/s22-t2-cells"
+ENGINE = os.environ.get("KORTEX_T2_ENGINE", "/tmp/kortex-engine")
+RULES = os.path.abspath(os.environ.get("KORTEX_T2_RULES", "engine/crs"))
+OUT = os.environ.get("KORTEX_T2_OUT", "docs/logs/runs/s22-t2-cells")
+
+# Benign probe shape. The recorded step-22 cells (docs/logs/runs/s22-t2-cells)
+# sent the benign requests with a numeric-IP Host and no User-Agent; at PL2
+# that request is itself blocked 403 on an idle engine (CRS 920350 + 920320,
+# docs/logs/step22-t2-benign-shape-DIAGNOSTIC.txt), so "benign served" could
+# never be 200 in the PL2 cells. The probe now goes to "localhost" with a
+# browser User-Agent, every cell sends it once BEFORE the attack starts
+# (benign_preflight must be 200/200) and the statuses are recorded.
+BENIGN_URL = "http://localhost:8098/"
+BENIGN_UA = ("Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 "
+             "(KHTML, like Gecko) Chrome/158.0.0.0 Safari/537.36")
+BENIGN_GET_HDRS = {"User-Agent": BENIGN_UA}
+
+
+def effective_config(url):
+    """Rule 29: the running engine's own view of its configuration."""
+    try:
+        st, body = http(url.rstrip("/") + "/__kortex/config", timeout=5)
+        return json.loads(body) if st == 200 else None
+    except Exception:
+        return None
+
+
+def preflight(benign_body, benign_hdrs, src):
+    """Benign POST and GET on the idle engine, before any attacker starts."""
+    out = []
+    for kind in ("post", "get"):
+        try:
+            if kind == "post":
+                st, _ = raw_post(BENIGN_URL, benign_body, benign_hdrs, src, timeout=15)
+            else:
+                st, _ = raw_get(BENIGN_URL + "/?q=benign", src, timeout=15)
+        except Exception:
+            st = -1
+        out.append(st)
+    return out
 
 LARGE = 131071
 SMALL = 32768
@@ -75,7 +116,7 @@ def raw_post(url, body, headers, src, timeout=30):
 
 
 def raw_get(url, src, timeout=30):
-    return http(url, src=src, timeout=timeout, method="GET")
+    return http(url, headers=BENIGN_GET_HDRS, src=src, timeout=timeout, method="GET")
 
 
 def tree_cpu_ticks(pid):
@@ -160,7 +201,7 @@ def run_cell(name, pl, attack_size, n_attackers, duration=300, budget_ms=2000,
     attack_hdrs = {"Content-Type": "text/plain", "X-Kortex-Test-Hold": "1",
                    "X-Kortex-Sample-Id": f"s22-{name}-atk"}
     benign_body = json.dumps({"k": "v", "n": 1}).encode()
-    benign_hdrs = {"Content-Type": "application/json",
+    benign_hdrs = {"Content-Type": "application/json", "User-Agent": BENIGN_UA,
                    "X-Kortex-Sample-Id": f"s22-{name}-benign"}
     if n_attackers == 1:
         addrs = ["127.0.0.2"]
@@ -189,13 +230,13 @@ def run_cell(name, pl, attack_size, n_attackers, duration=300, budget_ms=2000,
             next_t += 1.0
             t0 = time.time()
             try:
-                st, _ = raw_post(url, benign_body, benign_hdrs, benign_src, timeout=30)
+                st, _ = raw_post(BENIGN_URL, benign_body, benign_hdrs, benign_src, timeout=30)
                 results["benign_post"].append((st, round((time.time() - t0) * 1000, 1)))
             except Exception as e:
                 results["benign_post"].append((-1, round((time.time() - t0) * 1000, 1)))
             t0 = time.time()
             try:
-                st, _ = raw_get(url + "/?q=benign", benign_src, timeout=30)
+                st, _ = raw_get(BENIGN_URL + "/?q=benign", benign_src, timeout=30)
                 results["benign_get"].append((st, round((time.time() - t0) * 1000, 1)))
             except Exception:
                 results["benign_get"].append((-1, round((time.time() - t0) * 1000, 1)))
@@ -203,6 +244,8 @@ def run_cell(name, pl, attack_size, n_attackers, duration=300, budget_ms=2000,
             if delay > 0:
                 time.sleep(delay)
 
+    config = effective_config(url)
+    pre = preflight(benign_body, benign_hdrs, benign_src)
     samples = []
     cpu0 = tree_cpu_ticks(proc.pid)
     t_start = time.time()
@@ -238,7 +281,7 @@ def run_cell(name, pl, attack_size, n_attackers, duration=300, budget_ms=2000,
             s["t"] = round(time.time() - attack_end, 1)
             rec_samples.append(s)
         try:
-            st, _ = raw_post(url, benign_body, benign_hdrs, benign_src, timeout=15)
+            st, _ = raw_post(BENIGN_URL, benign_body, benign_hdrs, benign_src, timeout=15)
         except Exception:
             st = -1
         ok = (st == 200 and s and s["workers"]["pool"] >= conf_pool
@@ -264,6 +307,10 @@ def run_cell(name, pl, attack_size, n_attackers, duration=300, budget_ms=2000,
         "benign_post_ok": sum(1 for st, _ in results["benign_post"] if st == 200),
         "benign_get_n": len(results["benign_get"]),
         "benign_get_ok": sum(1 for st, _ in results["benign_get"] if st == 200),
+        "benign_preflight_post_get": pre,
+        "benign_post_status": dict(Counter(st for st, _ in results["benign_post"])),
+        "benign_get_status": dict(Counter(st for st, _ in results["benign_get"])),
+        "effective_config": config,
         "benign_post_ms": sorted(m for _, m in results["benign_post"]),
         "benign_get_ms": sorted(m for _, m in results["benign_get"]),
         "attack_status": dict(results["attack_status"]),
@@ -282,8 +329,9 @@ def run_cell(name, pl, attack_size, n_attackers, duration=300, budget_ms=2000,
     }
     with open(f"{OUT}/cell-{name}.json", "w") as f:
         json.dump(out, f, indent=1)
-    print(f"cell {name}: post {out['benign_post_ok']}/{out['benign_post_n']} "
-          f"get {out['benign_get_ok']}/{out['benign_get_n']} kills={out['kills_total']} "
+    print(f"cell {name}: preflight={pre} post {out['benign_post_ok']}/{out['benign_post_n']} "
+          f"{out['benign_post_status']} get {out['benign_get_ok']}/{out['benign_get_n']} "
+          f"{out['benign_get_status']} kills={out['kills_total']} "
           f"overloads={out['overloads_total']} minpool={out['min_pool']} "
           f"cpu={out['cpu_seconds']}s recovery={out['recovery_s']}s", flush=True)
 
@@ -325,7 +373,7 @@ def run_mixed(name, pl, n_addrs, duration=300):
             time.sleep(0.5)
     url = "http://127.0.0.1:8098/"
     benign_body = json.dumps({"k": "v", "n": 1}).encode()
-    benign_hdrs = {"Content-Type": "application/json",
+    benign_hdrs = {"Content-Type": "application/json", "User-Agent": BENIGN_UA,
                    "X-Kortex-Sample-Id": f"s22-{name}-benign"}
     if n_addrs == 1:
         large_addrs = ["127.0.0.2"] * 4
@@ -354,13 +402,13 @@ def run_mixed(name, pl, n_addrs, duration=300):
             next_t += 1.0
             t0 = time.time()
             try:
-                st, _ = raw_post(url, benign_body, benign_hdrs, "127.0.0.10", timeout=30)
+                st, _ = raw_post(BENIGN_URL, benign_body, benign_hdrs, "127.0.0.10", timeout=30)
                 results["benign_post"].append((st, round((time.time() - t0) * 1000, 1)))
             except Exception:
                 results["benign_post"].append((-1, round((time.time() - t0) * 1000, 1)))
             t0 = time.time()
             try:
-                st, _ = raw_get(url + "/?q=benign", "127.0.0.10", timeout=30)
+                st, _ = raw_get(BENIGN_URL + "/?q=benign", "127.0.0.10", timeout=30)
                 results["benign_get"].append((st, round((time.time() - t0) * 1000, 1)))
             except Exception:
                 results["benign_get"].append((-1, round((time.time() - t0) * 1000, 1)))
@@ -368,6 +416,8 @@ def run_mixed(name, pl, n_addrs, duration=300):
             if delay > 0:
                 time.sleep(delay)
 
+    config = effective_config(url)
+    pre = preflight(benign_body, benign_hdrs, "127.0.0.10")
     samples = []
     cpu0 = tree_cpu_ticks(proc.pid)
     t_start = time.time()
@@ -403,7 +453,7 @@ def run_mixed(name, pl, n_addrs, duration=300):
             s["t"] = round(time.time() - attack_end, 1)
             rec_samples.append(s)
         try:
-            st, _ = raw_post(url, benign_body, benign_hdrs, "127.0.0.10", timeout=15)
+            st, _ = raw_post(BENIGN_URL, benign_body, benign_hdrs, "127.0.0.10", timeout=15)
         except Exception:
             st = -1
         ok = (st == 200 and s and s["workers"]["pool"] >= 4
@@ -428,6 +478,10 @@ def run_mixed(name, pl, n_addrs, duration=300):
         "benign_post_ok": sum(1 for st, _ in results["benign_post"] if st == 200),
         "benign_get_n": len(results["benign_get"]),
         "benign_get_ok": sum(1 for st, _ in results["benign_get"] if st == 200),
+        "benign_preflight_post_get": pre,
+        "benign_post_status": dict(Counter(st for st, _ in results["benign_post"])),
+        "benign_get_status": dict(Counter(st for st, _ in results["benign_get"])),
+        "effective_config": config,
         "benign_post_ms": sorted(m for _, m in results["benign_post"]),
         "benign_get_ms": sorted(m for _, m in results["benign_get"]),
         "attack_status": dict(results["attack_status"]),
@@ -445,8 +499,9 @@ def run_mixed(name, pl, n_addrs, duration=300):
     }
     with open(f"{OUT}/cell-{name}.json", "w") as f:
         json.dump(out, f, indent=1)
-    print(f"cell {name}: post {out['benign_post_ok']}/{out['benign_post_n']} "
-          f"get {out['benign_get_ok']}/{out['benign_get_n']} kills={out['kills_total']} "
+    print(f"cell {name}: preflight={pre} post {out['benign_post_ok']}/{out['benign_post_n']} "
+          f"{out['benign_post_status']} get {out['benign_get_ok']}/{out['benign_get_n']} "
+          f"{out['benign_get_status']} kills={out['kills_total']} "
           f"overloads={out['overloads_total']} minpool={out['min_pool']} "
           f"cpu={out['cpu_seconds']}s recovery={out['recovery_s']}s", flush=True)
 
@@ -488,6 +543,7 @@ def kill_storm(duration=120):
         except Exception:
             time.sleep(0.5)
     url = "http://127.0.0.1:8098/"
+    config = effective_config(url)
     body = b"x" * 64
     hdrs = {"Content-Type": "text/plain", "X-Kortex-Test-Hold": "1",
             "X-Kortex-Sample-Id": "s22-killstorm"}
@@ -532,6 +588,7 @@ def kill_storm(duration=120):
     CLK = os.sysconf("SC_CLK_TCK")
     out = {
         "duration_s": duration, "attack_status": dict(statuses),
+        "effective_config": config,
         "kills_total": samples[-1]["kills"] if samples else None,
         "overloads_total": samples[-1]["overloads"] if samples else None,
         "kills_per_s": round((samples[-1]["kills"] / duration), 2) if samples else None,
@@ -566,6 +623,14 @@ if __name__ == "__main__":
         run_mixed("mixed-eight", 1, 8)
         kill_storm()
     elif which == "storm":
+        kill_storm()
+    elif which == "mixed-one":
+        run_mixed("mixed-one", 1, 1)
+    elif which == "mixed-eight":
+        run_mixed("mixed-eight", 1, 8)
+    elif which == "rest":  # the cells after the four single-shape ones
+        run_mixed("mixed-one", 1, 1)
+        run_mixed("mixed-eight", 1, 8)
         kill_storm()
     else:
         for name, pl, size, n in cells:

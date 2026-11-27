@@ -1,0 +1,19 @@
+# Step-22 T2 attack cells, re-run after the per-lane per-client clamp (5dfdd19), in a Linux container
+== host: Darwin 27.0.0 arm64; docker client 29.10.1 server 29.5.2 linux/arm64 kernel 6.8.0-117-generic
+== image: python:3.12-alpine@sha256:c5ba3deef00c7758561a0f03c26f44f10589263d40e732b8748e0d1f38f6dd89 python@sha256:c5ba3deef00c7758561a0f03c26f44f10589263d40e732b8748e0d1f38f6dd89 id sha256:c5ba3deef00c7758561a0f03c26f44f10589263d40e732b8748e0d1f38f6dd89
+== engine: linux/arm64 sha256 185014ed0061d120094d74969fdd1ca4fcf3771b69c01661efd7bdc01cdff75c built from 50e21a3df216993939237cdc9df550dcd0bc6323 with go version go1.27.4 darwin/arm64
+== VM: 8 cpus, 8307408896 bytes memory, Ubuntu 24.04.4 LTS
+== in container: Linux 6.8.0-117-generic aarch64; Python 3.12.16; cpus 8; load 0.00 0.00 0.00 1/210 13
+cell large-one: preflight=[200, 200] post 301/301 {200: 301} get 301/301 {200: 301} kills=24 overloads=276 minpool=3 cpu=2.7s recovery=8.2s
+cell large-eight: preflight=[200, 200] post 301/301 {200: 301} get 301/301 {200: 301} kills=172 overloads=2228 minpool=2 cpu=4.9s recovery=8.2s
+cell small-one: preflight=[200, 200] post 300/300 {200: 300} get 300/300 {200: 300} kills=24 overloads=276 minpool=3 cpu=3.2s recovery=4.1s
+cell small-eight: preflight=[200, 200] post 291/300 {503: 9, 200: 291} get 300/300 {200: 300} kills=192 overloads=2217 minpool=0 cpu=5.4s recovery=5.1s
+Traceback (most recent call last):
+  File "/repo/tools/run_step22_t2_attack.py", line 622, in <module>
+    run_mixed("mixed-one", 1, 1)
+  File "/repo/tools/run_step22_t2_attack.py", line 481, in run_mixed
+    "benign_preflight_post_get": pre,
+                                 ^^^
+NameError: name 'pre' is not defined
+== load at end: 8.47 5.25 2.26 2/191 4890
+== image digest used: python@sha256:c5ba3deef00c7758561a0f03c26f44f10589263d40e732b8748e0d1f38f6dd89
