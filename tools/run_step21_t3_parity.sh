@@ -1,6 +1,7 @@
 #!/bin/bash
 # Step-21 T3: decision parity worker-mode vs in-process on 5 datasets (PL1)
 # + flip_repro at PL2 in worker mode. Zero-diff is the acceptance bar.
+# Diff tool note: deny_status and inconsistent are compared only when both run directories already have an outcomes.jsonl; otherwise the tool prints NOT MEASURED.
 set -u
 cd "$(dirname "$0")/.."
 UA="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/158.0.0.0 Safari/537.36"

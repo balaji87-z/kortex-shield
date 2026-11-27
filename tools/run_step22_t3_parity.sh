@@ -1,8 +1,11 @@
 #!/bin/bash
 # Step-22 T3: decision parity in-process vs worker mode on benign-wcp-v0
-# and benign-wcp-v1, PL1 and PL2. Per-id blocked set + worst-case set
-# (blocked + deny_status + inconsistent + error) compared; differing ids
-# listed with rule ids (rule 32/39).
+# and benign-wcp-v1, PL1 and PL2. tools/step21_engine_diff.py compares, per
+# sample id, the status and the worst-case set (blocked + deny_status +
+# inconsistent + error; a sample with no status counts as error) and lists
+# the differing ids (rule 32/39). It does not print rule ids.
+# Diff tool note: deny_status and inconsistent are compared only when both run directories already have an outcomes.jsonl; otherwise the tool prints NOT MEASURED.
+# This script does not produce outcomes.jsonl.
 set -u
 cd "$(dirname "$0")/.."
 UA="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/158.0.0.0 Safari/537.36"
