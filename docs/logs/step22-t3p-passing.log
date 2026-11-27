@@ -1,0 +1,33 @@
+# step-22 follow-up: T3p after the implementation, with the other penalty and stats tests
+# 2026-11-27T19:19:45Z, go version go1.27.4 darwin/arm64
+$ cd engine && go test -buildvcs=false -count=1 -v -run '^(TestT3pPenalisedClientRefusedBeforeInspection|TestT3fClientPenaltyAfterKill|TestE31.*|TestT3m.*)$' ./...
+=== RUN   TestT3mConfigShowsEffectivePerClientCaps
+=== RUN   TestT3mConfigShowsEffectivePerClientCaps/default_lanes,_no_override
+=== RUN   TestT3mConfigShowsEffectivePerClientCaps/override_below_half_is_kept
+=== RUN   TestT3mConfigShowsEffectivePerClientCaps/override_4_clamped_on_the_large_lane
+=== RUN   TestT3mConfigShowsEffectivePerClientCaps/override_6_clamped_on_both_lanes
+=== RUN   TestT3mConfigShowsEffectivePerClientCaps/lanes_20/6,_no_override
+=== RUN   TestT3mConfigShowsEffectivePerClientCaps/lanes_20/6,_override_2_kept
+=== RUN   TestT3mConfigShowsEffectivePerClientCaps/lanes_3/3,_override_9_clamped_to_floor(3/2)
+=== RUN   TestT3mConfigShowsEffectivePerClientCaps/lanes_1/1:_at_least_1
+=== RUN   TestT3mConfigShowsEffectivePerClientCaps/worker_mode_is_reported
+--- PASS: TestT3mConfigShowsEffectivePerClientCaps (0.18s)
+    --- PASS: TestT3mConfigShowsEffectivePerClientCaps/default_lanes,_no_override (0.05s)
+    --- PASS: TestT3mConfigShowsEffectivePerClientCaps/override_below_half_is_kept (0.01s)
+    --- PASS: TestT3mConfigShowsEffectivePerClientCaps/override_4_clamped_on_the_large_lane (0.01s)
+    --- PASS: TestT3mConfigShowsEffectivePerClientCaps/override_6_clamped_on_both_lanes (0.01s)
+    --- PASS: TestT3mConfigShowsEffectivePerClientCaps/lanes_20/6,_no_override (0.01s)
+    --- PASS: TestT3mConfigShowsEffectivePerClientCaps/lanes_20/6,_override_2_kept (0.01s)
+    --- PASS: TestT3mConfigShowsEffectivePerClientCaps/lanes_3/3,_override_9_clamped_to_floor(3/2) (0.01s)
+    --- PASS: TestT3mConfigShowsEffectivePerClientCaps/lanes_1/1:_at_least_1 (0.01s)
+    --- PASS: TestT3mConfigShowsEffectivePerClientCaps/worker_mode_is_reported (0.06s)
+=== RUN   TestE31StatsEndpointObservableAndReturnsToZero
+--- PASS: TestE31StatsEndpointObservableAndReturnsToZero (0.52s)
+=== RUN   TestT3fClientPenaltyAfterKill
+--- PASS: TestT3fClientPenaltyAfterKill (1.29s)
+=== RUN   TestT3pPenalisedClientRefusedBeforeInspection
+--- PASS: TestT3pPenalisedClientRefusedBeforeInspection (0.46s)
+PASS
+worker: rule load failed: invalid WAF config from audit log: open /var/folders/nq/sk_8btb16995njvp54fs72180000gs/T/TestT3pPenalisedClientRefusedBeforeInspection3374256302/001/audit.log: no such file or directory
+ok  	kortexshield/engine	2.776s
+# exit status of go test: 0

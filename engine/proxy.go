@@ -41,6 +41,9 @@ type Proxy struct {
 	abandonedRunning atomic.Int64
 	// overloads counts 503 kortex-decision=overload responses served.
 	overloads atomic.Int64
+	// refusedEarly counts overload answers given before a transaction was
+	// created (penalised clients, T3p); they are part of overloads too.
+	refusedEarly atomic.Int64
 	// kills counts worker processes killed at the time budget (T3; zero
 	// while inspection runs in-process).
 	kills atomic.Int64
@@ -143,6 +146,14 @@ func (p *Proxy) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 	// rule engine mode (E33; docs/engine-design.md).
 	if r.Body != nil && r.ContentLength != 0 && encodedBody(r.Header) {
 		p.unsupportedEncoding(w, r, sampleID, start)
+		return
+	}
+
+	// A penalised client is refused before any inspection work (T3p): the
+	// answer cannot depend on the rules or on the body.
+	if p.cfg.WorkerMode && r.Body != nil && r.ContentLength != 0 && p.fair.penalised(clientKey(r, p.trustedNets)) {
+		p.refusedEarly.Add(1)
+		p.overload(w, r, sampleID, start, "client penalty after kill")
 		return
 	}
 

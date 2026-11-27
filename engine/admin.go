@@ -143,10 +143,10 @@ func (p *Proxy) adminStats(w http.ResponseWriter, r *http.Request) {
 	}
 	fmt.Fprintf(w, `{"inflight_small":%d,"inflight_large":%d,`+
 		`"abandoned_running":%d,"kills":%d,"overloads":%d,`+
-		`"penalised_clients":%d,`+
+		`"refused_before_inspection":%d,"penalised_clients":%d,`+
 		`"client_inflight_small":%d,"client_inflight_large":%d,`+
 		`"workers":{"pool":%d,"busy":%d,"spares":%d,"recycled":%d}}`+"\n",
 		p.inflightSmall.Load(), p.inflightLarge.Load(),
 		p.abandonedRunning.Load(), kills, p.overloads.Load(),
-		penalised, clientSmall, clientLarge, wtotal, wbusy, widle, wrecycled)
+		p.refusedEarly.Load(), penalised, clientSmall, clientLarge, wtotal, wbusy, widle, wrecycled)
 }
