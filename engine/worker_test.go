@@ -6,7 +6,9 @@ import (
 	"io"
 	"net/http"
 	"os"
+	"os/exec"
 	"strconv"
+	"strings"
 	"syscall"
 	"testing"
 	"time"
@@ -244,7 +246,19 @@ func selfCPU() (time.Duration, error) {
 //
 // The hold hook sleeps, so the worker is idle when it is killed: (1) shows
 // the process is gone, not that a spinning inspection was interrupted.
+//
+// (2) reads the CPU time of the whole process, so the checks run in a fresh
+// copy of the test binary that runs nothing else. In the shared test process
+// any work another test left running would be counted as parent CPU (T3n).
 func TestT3gBoundedCPUAfterKill(t *testing.T) {
+	if os.Getenv(t3gOwnProcessEnv) == "" {
+		out, err := runT3gInOwnProcess()
+		t.Logf("T3g in its own process:\n%s", out)
+		if err != nil || !strings.Contains(out, "--- PASS: TestT3gBoundedCPUAfterKill") {
+			t.Fatalf("T3g failed in its own process: %v", err)
+		}
+		return
+	}
 	srv, _ := newEnv(t, workerEnv(map[string]string{
 		"KORTEX_ENGINE_TIME_BUDGET_MS": "300",
 		"KORTEX_TEST_HOLD_BODY_MS":     "5000",
@@ -291,6 +305,20 @@ func TestT3gBoundedCPUAfterKill(t *testing.T) {
 	// rules during it, but in its own process.
 	const window = 1200 * time.Millisecond
 	const maxGrowth = 150 * time.Millisecond // 12.5% of one core; an abandoned in-process call burns ~100%
+	if os.Getenv(t3gCanaryEnv) != "" {
+		// canary (T3o): parent work during the window, which (2) must catch
+		stop := make(chan struct{})
+		defer close(stop)
+		go func() {
+			for {
+				select {
+				case <-stop:
+					return
+				default:
+				}
+			}
+		}()
+	}
 	c0, err := selfCPU()
 	if err != nil {
 		t.Logf("T3g: parent CPU time not readable (%v); PID-gone check only", err)
@@ -317,6 +345,37 @@ func TestT3gBoundedCPUAfterKill(t *testing.T) {
 	}, 15*time.Second, "replacement worker ready, nothing in flight")
 	if now := idlePIDs(); len(now) != 1 || now[0] == pid {
 		t.Fatalf("T3g: want one replacement worker with a new pid, got %v (killed pid %d)", now, pid)
+	}
+}
+
+const (
+	t3gOwnProcessEnv = "KORTEX_T3G_OWN_PROCESS"
+	t3gCanaryEnv     = "KORTEX_T3G_CANARY_BUSY_PARENT"
+)
+
+// runT3gInOwnProcess re-runs this test binary with only T3g selected.
+func runT3gInOwnProcess(extraEnv ...string) (string, error) {
+	cmd := exec.Command(os.Args[0], "-test.run", "^TestT3gBoundedCPUAfterKill$", "-test.v", "-test.count=1")
+	cmd.Env = append(append(os.Environ(), t3gOwnProcessEnv+"=1"), extraEnv...)
+	out, err := cmd.CombinedOutput()
+	return string(out), err
+}
+
+// T3o: canary for T3g (rule 47). The same run with one goroutine of the
+// parent spinning during the CPU window must fail on the CPU limit;
+// otherwise a pass of T3g would say nothing about parent CPU.
+func TestT3oT3gCanaryCatchesBusyParent(t *testing.T) {
+	out, err := runT3gInOwnProcess(t3gCanaryEnv + "=1")
+	if err == nil || !strings.Contains(out, "T3g: parent CPU grew by") {
+		t.Fatalf("T3o: T3g did not fail on the CPU limit with a busy parent (err %v):\n%s", err, out)
+	}
+	if strings.Contains(out, "CPU time not readable") {
+		t.Fatalf("T3o: parent CPU time was not readable, the CPU check did not run:\n%s", out)
+	}
+	for _, line := range strings.Split(out, "\n") {
+		if strings.Contains(line, "T3g: parent CPU grew by") {
+			t.Logf("T3o: with a busy parent T3g failed as it must: %s", strings.TrimSpace(line))
+		}
 	}
 }
 

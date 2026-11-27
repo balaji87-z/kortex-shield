@@ -167,7 +167,8 @@ fix:
 | T3k | with no override the small-lane per-client cap is exactly 4 (floor(8/2)): four concurrent small-body requests from one client are admitted, the fifth gets 503 "per-client in-flight cap" | passing (coverage only, not test-first) |
 | T3l | per-client in-flight jobs are counted per lane: a client with one small job in flight may start a large one, a second large one is still refused, and client_inflight_small / client_inflight_large on /__kortex/stats return to zero (rule 50) | passing (failing in 20f3e8a) |
 | T3m | /__kortex/config shows worker_mode, the configured client_max_inflight and the effective client_max_inflight_small / client_max_inflight_large (rule 29) | passing (failing in 20f3e8a) |
-| T3n | T3g's CPU check counts only the engine parent after the kill: with an unrelated goroutine of the test process spinning (what the wcp-fixture tests E16-E21 leave behind), T3g still passes | failing (docs/logs/step22-t3n-failing.log) |
+| T3n | T3g's CPU check counts only the engine parent after the kill: with an unrelated goroutine of the test process spinning (what the wcp-fixture tests E16-E21 leave behind), T3g still passes | passing (failing in bec12db, docs/logs/step22-t3n-failing.log; passing log docs/logs/step22-t3n-passing.log) |
+| T3o | canary for T3g (rule 47): the same T3g run with one goroutine of the parent spinning during the CPU window fails on the 150 ms limit | passing (added with the T3n fix) |
 
 E20 retirement note (rule: replacement must be stricter): E20 (step-16,
 "after the abandoned calls finish, new body-bearing requests are inspected

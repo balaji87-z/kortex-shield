@@ -1,0 +1,26 @@
+# step-22 follow-up: T3g in its own process, T3n and the canary T3o after the fix. No fixture needed.
+# 2026-11-27T19:09:40Z, go version go1.27.4 darwin/arm64, load at start: load averages: 19.87 15.80 11.00
+$ cd engine && go test -buildvcs=false -count=1 -v -run '^(TestT3gBoundedCPUAfterKill|TestT3nT3gIgnoresOtherTestsCPU|TestT3oT3gCanaryCatchesBusyParent)$' ./...
+=== RUN   TestT3gBoundedCPUAfterKill
+    worker_test.go:256: T3g in its own process:
+        === RUN   TestT3gBoundedCPUAfterKill
+            worker_test.go:331: T3g: killed worker pid 73434; parent CPU 100.081ms -> 100.216ms (+135µs) over 1.2s after the kill
+        --- PASS: TestT3gBoundedCPUAfterKill (1.70s)
+        PASS
+--- PASS: TestT3gBoundedCPUAfterKill (1.71s)
+=== RUN   TestT3oT3gCanaryCatchesBusyParent
+    worker_test.go:377: T3o: with a busy parent T3g failed as it must: worker_test.go:333: T3g: parent CPU grew by 1.101553s in 1.2s after the kill (limit 150ms)
+--- PASS: TestT3oT3gCanaryCatchesBusyParent (1.69s)
+=== RUN   TestT3nT3gIgnoresOtherTestsCPU
+=== RUN   TestT3nT3gIgnoresOtherTestsCPU/T3g
+    worker_test.go:256: T3g in its own process:
+        === RUN   TestT3gBoundedCPUAfterKill
+            worker_test.go:331: T3g: killed worker pid 73544; parent CPU 98.214ms -> 98.452ms (+238µs) over 1.2s after the kill
+        --- PASS: TestT3gBoundedCPUAfterKill (1.76s)
+        PASS
+--- PASS: TestT3nT3gIgnoresOtherTestsCPU (1.77s)
+    --- PASS: TestT3nT3gIgnoresOtherTestsCPU/T3g (1.77s)
+PASS
+ok  	kortexshield/engine	5.465s
+# exit status of go test: 0
+# load at end: load averages: 20.60 16.02 11.11
