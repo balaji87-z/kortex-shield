@@ -443,8 +443,17 @@ state (KORTEX_CLIENT_PENALTY_MS, default 10000 ms) and its body-bearing
 requests are answered 503 kortex-decision=overload "client penalty after
 kill" until the penalty expires, even for innocent clients sharing the
 address. Measured in the step-22 T2 cells: under an 8-address PL2
-small-body attack, penalised_clients reached 8 and the pool never
-re-stocked within the recovery watch (small-eight recovery=None).
+small-body attack, penalised_clients reached 8 and the pool dropped to 0
+during the attack. Correction (step-22, PROVEN by
+docs/logs/step22-t2-benign-shape-DIAGNOSTIC.txt): the earlier wording
+"the pool never re-stocked within the recovery watch (small-eight
+recovery=None)" was wrong. The recorded recovery samples show pool 4,
+penalised_clients 0 and no in-flight work 7.6 s after the attack ended;
+recovery stayed None only because the cell's benign probe (numeric-IP
+Host, no User-Agent) is itself blocked 403 at PL2 on an idle engine, so
+its "status 200" condition could never be met. For the same reason the
+0/301 and 0/300 benign counts of the two PL2 small cells do not measure
+starvation.
 
 Configuration guidance: if the engine sits behind a trusted proxy, set
 KORTEX_TRUSTED_PROXIES to the proxy's CIDR(s) so the client is derived

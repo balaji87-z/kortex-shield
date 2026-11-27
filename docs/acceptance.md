@@ -176,3 +176,27 @@ in-process mode remains supported and default — but the property the
 system now relies on under worker mode is T3g. Parity evidence for the
 worker mode: acceptance (f) zero-diff on 5 datasets (2520 samples,
 docs/logs/runs/s21-t3-parity/) and flip_repro worker PL2 0/2500.
+
+Step-22 run evidence (no new acceptance ids beyond T3h-T3m above; host
+changed to macOS arm64, see docs/baseline-v1.7.md):
+
+- Worker-mode parity extended to the two wcp datasets at PL1 and PL2:
+  0 status diffs and 0 worst-case-set diffs on 60,000 samples
+  (docs/logs/step22-t3-parity.txt). Replays must go to `localhost`: a
+  numeric-IP Host adds CRS 920350 (+3) to every request
+  (docs/logs/step22-numeric-host.txt).
+- T3e/T3f/T3h-T3m behaviour observed under attack in a Linux container
+  (docs/logs/step22-t2-cells-summary.txt, docs/logs/runs/s22-t2-penalty-demo/demo.txt).
+- Full suite on this host, docs/logs/step22-final-go-test.log:
+  42 PASS, 5 SKIP (fixture tests), 0 FAIL,
+  `ok kortexshield/engine 48.056s`; docs/logs/step22-final-pytest.log: 181 passed, 4 skipped.
+- With the recorded wcp fixture (docs/logs/step22-final-go-test-with-fixture.log):
+  45 PASS, 2 FAIL (E20, T3g), exit status 1. E20 also fails alone on this
+  host ("abandoned call did not finish within 120s"), so "The E20 test is
+  kept and still passes" above does not hold here. T3g passes alone and fails when a
+  fixture test ran before it in the same test process (PROVEN for E19,
+  docs/logs/step22-t3g-fixture-DIAGNOSTIC.log: alone +125 µs PASS, after
+  E19 +1.218 s FAIL): it reads the CPU of the whole test process, which
+  then includes the abandoned in-process calls of those tests. T3g's status
+  "passing" above is for runs without the fixture on this host. Neither
+  test was changed (rule 5); see reports/step-22.md, Questions.

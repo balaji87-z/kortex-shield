@@ -1,0 +1,35 @@
+# DIAGNOSTIC (rule 34): why TestT3gBoundedCPUAfterKill failed in the with-fixture suite run (docs/logs/step22-final-go-test-with-fixture.log). No baseline or parity number comes from this file.
+# 2026-11-27T18:32:52Z, go version go1.27.4 darwin/arm64, load at start: load averages: 4.83 7.03 7.44
+## A: T3g alone, fixture env set
+$ cd engine && KORTEX_TEST_WCP_BODY=$PWD/../out/step14-t5/wcp-80a49c991b2d.body go test -buildvcs=false -count=1 -timeout 300s -v -run '^TestT3gBoundedCPUAfterKill$' ./...
+=== RUN   TestT3gBoundedCPUAfterKill
+    worker_test.go:303: T3g: killed worker pid 63276; parent CPU 118.337ms -> 118.462ms (+125µs) over 1.2s after the kill
+--- PASS: TestT3gBoundedCPUAfterKill (1.66s)
+PASS
+ok  	kortexshield/engine	2.000s
+# exit status of go test: 0
+# load: load averages: 4.44 6.91 7.39
+## B: E19 (leaves one abandoned in-process call on the wcp body running in the test process) then T3g, fixture env set
+$ cd engine && KORTEX_TEST_WCP_BODY=$PWD/../out/step14-t5/wcp-80a49c991b2d.body go test -buildvcs=false -count=1 -timeout 300s -v -run '^(TestE19OverloadCapImmediate|TestT3gBoundedCPUAfterKill)$' ./...
+=== RUN   TestE19OverloadCapImmediate
+--- PASS: TestE19OverloadCapImmediate (0.27s)
+=== RUN   TestT3gBoundedCPUAfterKill
+    worker_test.go:303: T3g: killed worker pid 63299; parent CPU 735.017ms -> 1.952854s (+1.217837s) over 1.2s after the kill
+    worker_test.go:305: T3g: parent CPU grew by 1.217837s in 1.2s after the kill (limit 150ms)
+--- FAIL: TestT3gBoundedCPUAfterKill (1.61s)
+FAIL
+FAIL	kortexshield/engine	2.093s
+FAIL
+# exit status of go test: 1
+# load at end: load averages: 4.44 6.91 7.39
+## C: E20 alone, fixture env set (is the E20 failure independent of the rest of the suite?)
+# 2026-11-27T18:33:14Z, load at start: load averages: 3.68 6.62 7.28
+$ cd engine && KORTEX_TEST_WCP_BODY=$PWD/../out/step14-t5/wcp-80a49c991b2d.body go test -buildvcs=false -count=1 -timeout 300s -v -run '^TestE20OverloadRecovery$' ./...
+=== RUN   TestE20OverloadRecovery
+    step17_test.go:204: E20: abandoned call did not finish within 120s
+--- FAIL: TestE20OverloadRecovery (120.69s)
+FAIL
+FAIL	kortexshield/engine	120.918s
+FAIL
+# exit status of go test: 1
+# load at end: load averages: 1.98 4.99 6.54
