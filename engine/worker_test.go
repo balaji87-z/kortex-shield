@@ -320,6 +320,32 @@ func TestT3gBoundedCPUAfterKill(t *testing.T) {
 	}
 }
 
+// T3n: T3g's CPU check must measure the engine parent after the kill, not
+// work that another test left running in the test process. With the wcp
+// fixture set, E16-E21 each leave an abandoned in-process call burning a
+// core, and T3g then fails although the kill left nothing behind
+// (docs/logs/step22-t3g-fixture-DIAGNOSTIC.log). Here one goroutine spins
+// for the whole test, which is that situation without the fixture and
+// without timing luck (rule 48), and T3g must still pass.
+func TestT3nT3gIgnoresOtherTestsCPU(t *testing.T) {
+	stop := make(chan struct{})
+	done := make(chan struct{})
+	go func() {
+		defer close(done)
+		for {
+			select {
+			case <-stop:
+				return
+			default:
+			}
+		}
+	}()
+	defer func() { close(stop); <-done }()
+	if !t.Run("T3g", TestT3gBoundedCPUAfterKill) {
+		t.Fatalf("T3n: T3g failed while an unrelated goroutine of the test process was busy")
+	}
+}
+
 // T3h (step-22 design risk (a)): the per-client in-flight cap must default
 // to floor(lane_cap/2) (at least 1) PER LANE, so one client cannot hold a
 // whole lane. Large lane cap is 2 -> per-client large cap 1: the second

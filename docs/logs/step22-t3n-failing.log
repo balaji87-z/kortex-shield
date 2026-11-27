@@ -1,0 +1,19 @@
+# step-22 follow-up: T3n committed FAILING before the T3g fix (rules 40, 48). No fixture needed.
+# 2026-11-27T19:08:47Z, go version go1.27.4 darwin/arm64, load at start: load averages: 23.39 15.28 10.51
+$ cd engine && go test -buildvcs=false -count=1 -v -run '^(TestT3gBoundedCPUAfterKill|TestT3nT3gIgnoresOtherTestsCPU)$' ./...
+=== RUN   TestT3gBoundedCPUAfterKill
+    worker_test.go:303: T3g: killed worker pid 70468; parent CPU 96.56ms -> 96.661ms (+101µs) over 1.2s after the kill
+--- PASS: TestT3gBoundedCPUAfterKill (1.65s)
+=== RUN   TestT3nT3gIgnoresOtherTestsCPU
+=== RUN   TestT3nT3gIgnoresOtherTestsCPU/T3g
+    worker_test.go:303: T3g: killed worker pid 70582; parent CPU 559.093ms -> 1.756363s (+1.19727s) over 1.2s after the kill
+    worker_test.go:305: T3g: parent CPU grew by 1.19727s in 1.2s after the kill (limit 150ms)
+=== NAME  TestT3nT3gIgnoresOtherTestsCPU
+    worker_test.go:345: T3n: T3g failed while an unrelated goroutine of the test process was busy
+--- FAIL: TestT3nT3gIgnoresOtherTestsCPU (1.64s)
+    --- FAIL: TestT3nT3gIgnoresOtherTestsCPU/T3g (1.64s)
+FAIL
+FAIL	kortexshield/engine	3.598s
+FAIL
+# exit status of go test: 1
+# load at end: load averages: 22.16 15.16 10.49
