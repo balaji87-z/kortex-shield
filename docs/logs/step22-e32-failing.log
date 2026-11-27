@@ -1,0 +1,10 @@
+# step-22 follow-up: E32 committed FAILING before the fix (rule 40)
+# 2026-11-27T19:11:25Z, go version go1.27.4 darwin/arm64, load at start: load averages: 8.93 13.18 10.54
+$ cd engine && go test -buildvcs=false -count=1 -v -run '^TestE32Phase1MatchInAuditLog$' ./...
+=== RUN   TestE32Phase1MatchInAuditLog
+    step22_test.go:43: E32: the audit entry names 942100 (phase 2) but not 920350 (phase 1)
+--- FAIL: TestE32Phase1MatchInAuditLog (0.04s)
+FAIL
+FAIL	kortexshield/engine	0.491s
+FAIL
+# exit status of go test: 1
