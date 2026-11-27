@@ -138,6 +138,14 @@ func (p *Proxy) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
+	// A body under a Content-Encoding is opaque to the rules and is not
+	// decoded here, so it is refused before any inspection, whatever the
+	// rule engine mode (E33; docs/engine-design.md).
+	if r.Body != nil && r.ContentLength != 0 && encodedBody(r.Header) {
+		p.unsupportedEncoding(w, r, sampleID, start)
+		return
+	}
+
 	// engine phases
 	tx := p.waf.NewTransaction()
 	var abandoned atomic.Bool
@@ -409,6 +417,32 @@ func (p *Proxy) limit(w http.ResponseWriter, r *http.Request, sampleID string, s
 	w.Header().Set("Connection", "close")
 	w.WriteHeader(http.StatusRequestEntityTooLarge)
 	fmt.Fprint(w, "413 kortex-decision=limit\n")
+	if f, ok := w.(http.Flusher); ok {
+		f.Flush()
+	}
+}
+
+// encodedBody reports whether any Content-Encoding header names a coding
+// other than identity.
+func encodedBody(h http.Header) bool {
+	for _, v := range h.Values("Content-Encoding") {
+		for _, coding := range strings.Split(v, ",") {
+			if c := strings.TrimSpace(coding); c != "" && !strings.EqualFold(c, "identity") {
+				return true
+			}
+		}
+	}
+	return false
+}
+
+func (p *Proxy) unsupportedEncoding(w http.ResponseWriter, r *http.Request, sampleID string, start time.Time) {
+	p.events.log(sampleID, "content-encoding", http.StatusUnsupportedMediaType, start,
+		"body with a Content-Encoding other than identity is not inspected and not forwarded")
+	// same mid-stream hazard as limit(): the client may still be sending
+	p.drainRequestBody(r)
+	w.Header().Set("Connection", "close")
+	w.WriteHeader(http.StatusUnsupportedMediaType)
+	fmt.Fprint(w, "415 kortex-decision=content-encoding\n")
 	if f, ok := w.(http.Flusher); ok {
 		f.Flush()
 	}

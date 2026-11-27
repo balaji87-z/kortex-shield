@@ -1,0 +1,10 @@
+# step-22 follow-up: E33 and E34 after the implementation
+# 2026-11-27T19:15:16Z, go version go1.27.4 darwin/arm64
+$ cd engine && go test -buildvcs=false -count=1 -v -run '^(TestE33ContentEncodedBodyRefused|TestE34ContentEncodingRefusalIsNarrow)$' ./...
+=== RUN   TestE33ContentEncodedBodyRefused
+--- PASS: TestE33ContentEncodedBodyRefused (0.13s)
+=== RUN   TestE34ContentEncodingRefusalIsNarrow
+--- PASS: TestE34ContentEncodingRefusalIsNarrow (0.04s)
+PASS
+ok  	kortexshield/engine	0.485s
+# exit status of go test: 0
