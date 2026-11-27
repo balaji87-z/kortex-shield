@@ -194,14 +194,19 @@ func TestE20OverloadRecovery(t *testing.T) {
 	})
 	e19StartOccupy(t, srv, "e20-occupier")
 	// poll until the occupier's abandoned call has finished (event row),
-	// then a new body-bearing request must be inspected (not overload)
-	deadline := time.Now().Add(120 * time.Second)
+	// then a new body-bearing request must be inspected (not overload).
+	// The call cannot be stopped in-process and its duration is host
+	// dependent: 260 to 280 s on the step-22 host
+	// (docs/logs/step22-e20-timing.txt), so the wait is 480 s and the suite
+	// needs -timeout 900s when the fixture is set.
+	const e20Wait = 480 * time.Second
+	deadline := time.Now().Add(e20Wait)
 	for {
 		if strings.Contains(e19Events(t), "abandoned-body-processing-finished") {
 			break
 		}
 		if time.Now().After(deadline) {
-			t.Fatalf("E20: abandoned call did not finish within 120s")
+			t.Fatalf("E20: abandoned call did not finish within %s", e20Wait)
 		}
 		time.Sleep(500 * time.Millisecond)
 	}

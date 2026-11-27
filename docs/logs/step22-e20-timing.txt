@@ -1,0 +1,44 @@
+# Step-22: duration of E20's abandoned in-process call (fixture 481798 bytes, sha256 5c718716a795c0414b7c2500ebc1816dee4172ba094832f15bb6e1f5de2f2480; not committed)
+== host: Darwin 27.0.0 arm64; go version go1.27.4 darwin/arm64; 12 cpus; 2026-11-27T18:55:00Z
+== engine binary sha256 3739a11b4e5e12e2dfb41325390a5ddc27da568066adb7c4a579d3d48c07adb9 built from 6e2b666d3c862af592f5168c3642dad49a42f29f with go version go1.27.4 darwin/arm64
+== e20-timing rule29 2026-11-27T18:55:01Z load: load averages: 4.19 7.68 6.84: {"backend_url":"http://127.0.0.1:13000","rule_engine":"On","blocking_paranoia":1,"detection_paranoia":1,"max_body_bytes":13107200,"max_inspected_bytes":13107200,"engine_time_budget_ms":200,"rules_dir":"/Users/ivan/work/kortex-shield-dev/engine/crs","listen_addr":"127.0.0.1:8097","events_file":"/Users/ivan/work/kortex-shield-dev/out/s22-e20-timing-1.events.jsonl","audit_log":"/Users/ivan/work/kortex-shield-dev/out/s22-e20-timing-1.audit.log","allowed_methods":"GET HEAD POST OPTIONS","max_inflight_body":1,"max_inflight_body_large":2,"body_lane_threshold":13107200,"worker_mode":false,"client_max_inflight":0,"client_max_inflight_small":1,"client_max_inflight_large":1,"request_body_target_updates":166}
+== repeat 1: occupier answered 503; abandoned call finished=yes after 260 s wall (1 s polling; limit 1800 s); engine process CPU time 4:17.50; next body-bearing request -> 200
+   load averages: 4.19 7.68 6.84 (start); load averages: 5.55 6.55 6.50 (end)
+   event rows (sample id, decision, status, elapsed_ms, reason only):
+     {'ts': '2026-11-27T18:55:01.533225Z', 'sample_id': '', 'decision': 'pass', 'status': 0, 'elapsed_ms': 1.561, 'reason': 'forwarding'}
+     {'ts': '2026-11-27T18:55:01.77629Z', 'sample_id': 'e20-timing-1', 'decision': 'timeout', 'status': 503, 'elapsed_ms': 202.039, 'reason': 'time budget expired in body processing'}
+     {'ts': '2026-11-27T18:59:20.253062Z', 'sample_id': 'e20-timing-1', 'decision': 'abandoned-body-processing-finished', 'status': 0, 'elapsed_ms': 258678.767, 'reason': 'elapsed_ms=258678 interrupted=true rule_id=949110 status=403'}
+     {'ts': '2026-11-27T18:59:21.170781Z', 'sample_id': 'e20-timing-1-after', 'decision': 'pass', 'status': 0, 'elapsed_ms': 0.644, 'reason': 'forwarding'}
+== repeat 2: occupier answered 503; abandoned call finished=yes after 264 s wall (1 s polling; limit 1800 s); engine process CPU time 4:19.99; next body-bearing request -> 200
+   load averages: 5.55 6.55 6.50 (start); load averages: 11.60 8.49 7.28 (end)
+   event rows (sample id, decision, status, elapsed_ms, reason only):
+     {'ts': '2026-11-27T18:59:22.793425Z', 'sample_id': '', 'decision': 'pass', 'status': 0, 'elapsed_ms': 1.948, 'reason': 'forwarding'}
+     {'ts': '2026-11-27T18:59:23.022955Z', 'sample_id': 'e20-timing-2', 'decision': 'timeout', 'status': 503, 'elapsed_ms': 202.04, 'reason': 'time budget expired in body processing'}
+     {'ts': '2026-11-27T19:03:45.725594Z', 'sample_id': 'e20-timing-2', 'decision': 'abandoned-body-processing-finished', 'status': 0, 'elapsed_ms': 262903.415, 'reason': 'elapsed_ms=262903 interrupted=true rule_id=949110 status=403'}
+     {'ts': '2026-11-27T19:03:46.599328Z', 'sample_id': 'e20-timing-2-after', 'decision': 'pass', 'status': 0, 'elapsed_ms': 1.156, 'reason': 'forwarding'}
+== repeat 3: occupier answered 503; abandoned call finished=yes after 280 s wall (1 s polling; limit 1800 s); engine process CPU time 4:31.70; next body-bearing request -> 200
+   load averages: 11.60 8.49 7.28 (start); load averages: 20.65 14.23 10.03 (end)
+   event rows (sample id, decision, status, elapsed_ms, reason only):
+     {'ts': '2026-11-27T19:03:48.243772Z', 'sample_id': '', 'decision': 'pass', 'status': 0, 'elapsed_ms': 0.91, 'reason': 'forwarding'}
+     {'ts': '2026-11-27T19:03:48.462607Z', 'sample_id': 'e20-timing-3', 'decision': 'timeout', 'status': 503, 'elapsed_ms': 201.106, 'reason': 'time budget expired in body processing'}
+     {'ts': '2026-11-27T19:08:27.108916Z', 'sample_id': 'e20-timing-3', 'decision': 'abandoned-body-processing-finished', 'status': 0, 'elapsed_ms': 278846.071, 'reason': 'elapsed_ms=278846 interrupted=true rule_id=949110 status=403'}
+     {'ts': '2026-11-27T19:08:28.054376Z', 'sample_id': 'e20-timing-3-after', 'decision': 'pass', 'status': 0, 'elapsed_ms': 2.533, 'reason': 'forwarding'}
+   note on the three repeats above: (1) port 13000 was answered by the compose "target" container (Juice Shop), started as a dependency of the ModSecurity/connector run going on at the same time, not by tools/stub_backend.py; the backend only serves the "next body-bearing request" check (200) and takes no part in the abandoned call. (2) the script file was edited while it ran, so bash failed on a later line after the third repeat ("syntax error near unexpected token" in the driver output); the three repeats had completed and logged before that. (3) that run and a 200-replay diagnostic ran on the same machine during repeats 2 and 3 (see the load figures).
+# Step-22: duration of E20's abandoned in-process call (fixture 481798 bytes, sha256 5c718716a795c0414b7c2500ebc1816dee4172ba094832f15bb6e1f5de2f2480; not committed)
+== host: Darwin 27.0.0 arm64; go version go1.27.4 darwin/arm64; 12 cpus; 2026-11-27T19:08:47Z
+== DIAGNOSTIC engine binary out/kortex-engine-DIAGNOSTIC-coraza370 sha256 0f0b4e96a8e587b9e66777ff0379084ccbef06d5b107b7d4fa49cb57171cde02 (DIAGNOSTIC: engine/ with only go.mod changed to coraza v3.7.0, built by tools/run_step22_t3_diag.sh)
+== e20-timing rule29 2026-11-27T19:08:48Z load: load averages: 23.39 15.28 10.51: {"backend_url":"http://127.0.0.1:13002","rule_engine":"On","blocking_paranoia":1,"detection_paranoia":1,"max_body_bytes":13107200,"max_inspected_bytes":13107200,"engine_time_budget_ms":200,"rules_dir":"/Users/ivan/work/kortex-shield-dev/engine/crs","listen_addr":"127.0.0.1:8097","events_file":"/Users/ivan/work/kortex-shield-dev/out/s22-e20-timing-1.events.jsonl","audit_log":"/Users/ivan/work/kortex-shield-dev/out/s22-e20-timing-1.audit.log","allowed_methods":"GET HEAD POST OPTIONS","max_inflight_body":1,"max_inflight_body_large":2,"body_lane_threshold":13107200,"worker_mode":false,"client_max_inflight":0,"client_max_inflight_small":1,"client_max_inflight_large":1,"request_body_target_updates":166}
+== repeat 1: occupier answered 503; abandoned call finished=yes after 267 s wall (1 s polling; limit 1800 s); engine process CPU time 4:23.68; next body-bearing request -> 200
+   load averages: 23.39 15.28 10.51 (start); load averages: 7.20 11.18 10.07 (end)
+   event rows (sample id, decision, status, elapsed_ms, reason only):
+     {'ts': '2026-11-27T19:08:48.985116Z', 'sample_id': '', 'decision': 'pass', 'status': 0, 'elapsed_ms': 0.668, 'reason': 'forwarding'}
+     {'ts': '2026-11-27T19:08:49.214668Z', 'sample_id': 'e20-timing-1', 'decision': 'timeout', 'status': 503, 'elapsed_ms': 200.195, 'reason': 'time budget expired in body processing'}
+     {'ts': '2026-11-27T19:13:15.778899Z', 'sample_id': 'e20-timing-1', 'decision': 'abandoned-body-processing-finished', 'status': 0, 'elapsed_ms': 266763.41, 'reason': 'elapsed_ms=266763 interrupted=true rule_id=949110 status=403'}
+     {'ts': '2026-11-27T19:13:16.346914Z', 'sample_id': 'e20-timing-1-after', 'decision': 'pass', 'status': 0, 'elapsed_ms': 0.83, 'reason': 'forwarding'}
+== repeat 2: occupier answered 503; abandoned call finished=yes after 266 s wall (1 s polling; limit 1800 s); engine process CPU time 4:22.14; next body-bearing request -> 200
+   load averages: 7.20 11.18 10.07 (start); load averages: 10.12 9.29 9.41 (end)
+   event rows (sample id, decision, status, elapsed_ms, reason only):
+     {'ts': '2026-11-27T19:13:17.964755Z', 'sample_id': '', 'decision': 'pass', 'status': 0, 'elapsed_ms': 0.604, 'reason': 'forwarding'}
+     {'ts': '2026-11-27T19:13:18.180752Z', 'sample_id': 'e20-timing-2', 'decision': 'timeout', 'status': 503, 'elapsed_ms': 200.173, 'reason': 'time budget expired in body processing'}
+     {'ts': '2026-11-27T19:17:43.721734Z', 'sample_id': 'e20-timing-2', 'decision': 'abandoned-body-processing-finished', 'status': 0, 'elapsed_ms': 265740.929, 'reason': 'elapsed_ms=265740 interrupted=true rule_id=949110 status=403'}
+     {'ts': '2026-11-27T19:17:43.986516Z', 'sample_id': 'e20-timing-2-after', 'decision': 'pass', 'status': 0, 'elapsed_ms': 1.204, 'reason': 'forwarding'}
