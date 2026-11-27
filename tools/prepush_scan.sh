@@ -26,12 +26,14 @@
 # the size check only; archives are not opened. A file over the size limit
 # is still read for the other checks unless it is over 100 MB.
 #
-# Body-dump allowlist: our own datasets, by path only (BODY_ALLOW below):
-#   data/attacks-*  data/benign-browse-*  data/benign-hard-*
+# Body-dump allowlist, by path only:
+#   our own datasets (BODY_ALLOW):  data/attacks-*  data/benign-browse-*  data/benign-hard-*
+#   one exact directory (BODY_ALLOW_DIRS), files directly in it only:
+#     docs/logs/runs/s20-t1-dupargs   audit logs of our own attack samples
 # An allowed file is reported in a note instead of failing. The allowlist
-# covers the body-dump check only, never size or credential shapes, and it
-# never applies to a path under docs/logs/, a path containing "wcp", or a
-# file whose body-bearing records have "wcp-" sample ids.
+# covers the body-dump check only, never size or credential shapes. It never
+# applies to a path containing "wcp" or to a file whose body-bearing records
+# have "wcp-" sample ids, and nothing else under docs/logs/ is ever allowed.
 set -euo pipefail
 export PREPUSH_MAX_BYTES="${PREPUSH_MAX_BYTES:-$((5 * 1024 * 1024))}"
 export PREPUSH_WARN_BYTES="${PREPUSH_WARN_BYTES:-$((1 * 1024 * 1024))}"
@@ -64,6 +66,7 @@ BODY_NAMES = (".body", ".body.gz", ".har", ".har.gz")
 BODY_KEYS = {"body", "request_body", "raw_body", "body_b64", "request_body_b64",
              "postData", "post_data"}
 BODY_ALLOW = ("data/attacks-*", "data/benign-browse-*", "data/benign-hard-*")
+BODY_ALLOW_DIRS = ("docs/logs/runs/s20-t1-dupargs",)
 RAW_REQUEST = re.compile(r"\A(?:POST|PUT|PATCH|DELETE) \S+ HTTP/1\.[01]\r?\n")
 HEADER_END = re.compile(r"\r?\n\r?\n")
 CRED_SHAPES = {
@@ -229,10 +232,16 @@ def body_dump(path, text):
 
 
 def body_allowed(path, wcp_ids):
-    """True when a body-bearing file is one of our own datasets by path."""
-    if path.startswith("docs/logs/") or "wcp" in path.lower() or wcp_ids:
-        return False
-    return any(fnmatch.fnmatchcase(path, pattern + "/*") for pattern in BODY_ALLOW)
+    """Why a body-bearing file is allowed by its path, or None."""
+    if "wcp" in path.lower() or wcp_ids:
+        return None
+    if os.path.dirname(path) in BODY_ALLOW_DIRS:
+        return "own attack-sample logs"
+    if path.startswith("docs/logs/"):
+        return None
+    if any(fnmatch.fnmatchcase(path, pattern + "/*") for pattern in BODY_ALLOW):
+        return "own dataset"
+    return None
 
 
 def has_email(line):
@@ -274,8 +283,9 @@ def main():
             continue
         text = text_of(path, reader.read(sha))
         why, wcp_ids = body_dump(path, text)
-        if why and body_allowed(path, wcp_ids):
-            note(f"body fields allowed by path (own dataset): {path} {why}")
+        allowed = body_allowed(path, wcp_ids) if why else None
+        if allowed:
+            note(f"body fields allowed by path ({allowed}): {path} {why}")
         elif why:
             deny(f"BODY_DUMP {path} {why}")
         hits = cred_shapes(text)

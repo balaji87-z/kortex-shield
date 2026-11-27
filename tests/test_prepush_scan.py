@@ -296,6 +296,62 @@ def test_wcp_sample_id_in_an_audit_entry_header_is_counted(repo):
     assert "BODY_DUMP data/benign-hard-v9/audit.log reason=json-body-field records=1 keys=body wcp_ids=1" in out
 
 
+# --- the one exact docs/logs directory with own attack-sample logs ---------------
+
+DUPARGS = "docs/logs/runs/s20-t1-dupargs"
+OWN_AUDIT = jsonl({"transaction": {"request": {
+    "headers": {"X-Kortex-Sample-Id": ["sqli-0001"]}, "body": DUMMY_BODY}}})
+
+
+def test_dupargs_directory_is_allowed_and_reported(repo):
+    name = f"{DUPARGS}/audit-engine-dummy.log.gz"
+    stage(repo, name, gzip.compress(OWN_AUDIT.encode()))
+    code, out = scan(repo)
+    assert code == 0, out
+    assert (f"prepush: body fields allowed by path (own attack-sample logs): {name} "
+            "reason=json-body-field records=1 keys=body") in out
+    assert DUMMY_BODY not in out
+
+
+@pytest.mark.parametrize("name", [
+    f"{DUPARGS}/sub/audit.log",                     # a subdirectory, not the directory itself
+    f"{DUPARGS}-2/audit.log",                       # a sibling with the same prefix
+    "docs/logs/runs/s20-t1-dupargs.log",            # a file with the directory's name
+    "docs/logs/runs/s20-t1-flip-v381/audit.log",    # any other run directory
+    f"copy/{DUPARGS}/audit.log",                    # the same path elsewhere
+    "docs/logs/audit.log",
+])
+def test_nothing_else_under_docs_logs_is_allowed(repo, name):
+    stage(repo, name, OWN_AUDIT)
+    code, out = scan(repo)
+    assert code == 1
+    assert f"FAIL: BODY_DUMP {name}" in out
+
+
+def test_dupargs_directory_does_not_allow_wcp_sample_ids(repo):
+    entry = {"transaction": {"request": {
+        "headers": {"X-Kortex-Sample-Id": ["wcp-000000000000"]}, "body": DUMMY_BODY}}}
+    stage(repo, f"{DUPARGS}/audit.log", jsonl(entry))
+    code, out = scan(repo)
+    assert code == 1
+    assert f"FAIL: BODY_DUMP {DUPARGS}/audit.log reason=json-body-field records=1 keys=body wcp_ids=1" in out
+
+
+def test_dupargs_directory_does_not_allow_a_wcp_file_name(repo):
+    stage(repo, f"{DUPARGS}/audit-wcp.log", OWN_AUDIT)
+    code, out = scan(repo)
+    assert code == 1
+    assert f"FAIL: BODY_DUMP {DUPARGS}/audit-wcp.log" in out
+
+
+def test_dupargs_directory_still_gets_size_and_credential_checks(repo):
+    stage(repo, f"{DUPARGS}/audit.log", OWN_AUDIT + FAKE["slack_token"] + "\n" + "x" * 2000)
+    code, out = scan(repo, PREPUSH_MAX_BYTES="1000")
+    assert code == 1
+    assert f"FAIL: SIZE {DUPARGS}/audit.log" in out
+    assert f"FAIL: CRED_SHAPES {DUPARGS}/audit.log slack_token=1" in out
+
+
 def test_allowlist_does_not_cover_credential_shapes(repo):
     stage(repo, "data/attacks-v9/manifest.jsonl",
           jsonl({"id": "sqli-0001", "body": DUMMY_BODY, "note": FAKE["aws_access_key"]}))
