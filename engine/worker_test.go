@@ -219,6 +219,56 @@ func TestT3fClientPenaltyAfterKill(t *testing.T) {
 	}
 }
 
+// T3p: a client in penalty state is refused before any inspection work. Its
+// body request gets the same 503 overload answer, and the refusal is counted
+// in refused_before_inspection on /__kortex/stats, which only the check
+// ahead of the transaction increments. A body-less request from the same
+// client is still served. Found in step 22: refusals of penalised clients
+// ran the phase-1 rules and read the whole body first, and the mixed attack
+// cells spent 560 to 576 CPU-seconds on about two million refusals.
+func TestT3pPenalisedClientRefusedBeforeInspection(t *testing.T) {
+	srv, _ := newEnv(t, workerEnv(map[string]string{
+		"KORTEX_ENGINE_TIME_BUDGET_MS": "300",
+		"KORTEX_TEST_HOLD_BODY_MS":     "5000",
+		"KORTEX_CLIENT_PENALTY_MS":     "5000",
+	}))
+	counter := func() float64 {
+		v, ok := stats(t, srv.URL)["refused_before_inspection"].(float64)
+		if !ok {
+			t.Fatalf("T3p: /__kortex/stats has no refused_before_inspection counter")
+		}
+		return v
+	}
+	if n := counter(); n != 0 {
+		t.Fatalf("T3p: refused_before_inspection starts at %v, want 0", n)
+	}
+	go bodyPost(t, srv.URL, "t3p-kill", 2048, map[string]string{"X-Kortex-Test-Hold": "1"})
+	waitFor(t, func() bool { return stats(t, srv.URL)["kills"].(float64) >= 1 }, 5*time.Second, "kill")
+	waitFor(t, func() bool {
+		return stats(t, srv.URL)["penalised_clients"].(float64) >= 1
+	}, 2*time.Second, "penalty applied")
+	if n := counter(); n != 0 {
+		t.Fatalf("T3p: the killed request itself was counted as refused before inspection (%v)", n)
+	}
+	if code := bodyPost(t, srv.URL, "t3p-penalised", 1024, nil); code != 503 {
+		t.Fatalf("T3p: penalised client want 503, got %d", code)
+	}
+	if n := counter(); n != 1 {
+		t.Fatalf("T3p: refused_before_inspection = %v after one penalised body request, want 1", n)
+	}
+	resp, err := (&http.Client{Timeout: 10 * time.Second}).Get(srv.URL + "/")
+	if err != nil {
+		t.Fatalf("T3p: body-less request: %v", err)
+	}
+	resp.Body.Close()
+	if resp.StatusCode != 200 {
+		t.Fatalf("T3p: body-less request from the penalised client want 200, got %d", resp.StatusCode)
+	}
+	if n := counter(); n != 1 {
+		t.Fatalf("T3p: a body-less request changed refused_before_inspection to %v", n)
+	}
+}
+
 // pidExists probes one PID directly with signal 0 (no process listing).
 // Only ESRCH means "no such process"; a zombie that has not been reaped
 // still exists and is reported as existing.

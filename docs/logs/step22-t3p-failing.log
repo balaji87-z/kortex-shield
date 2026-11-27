@@ -1,0 +1,12 @@
+# step-22 follow-up: T3p committed FAILING before the implementation (rules 37, 40)
+# 2026-11-27T19:19:19Z, go version go1.27.4 darwin/arm64
+$ cd engine && go test -buildvcs=false -count=1 -v -run '^(TestT3pPenalisedClientRefusedBeforeInspection|TestT3fClientPenaltyAfterKill)$' ./...
+=== RUN   TestT3fClientPenaltyAfterKill
+--- PASS: TestT3fClientPenaltyAfterKill (1.29s)
+=== RUN   TestT3pPenalisedClientRefusedBeforeInspection
+    worker_test.go:238: T3p: /__kortex/stats has no refused_before_inspection counter
+--- FAIL: TestT3pPenalisedClientRefusedBeforeInspection (0.12s)
+FAIL
+FAIL	kortexshield/engine	1.846s
+FAIL
+# exit status of go test: 1

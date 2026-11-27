@@ -172,6 +172,7 @@ fix:
 | T3m | /__kortex/config shows worker_mode, the configured client_max_inflight and the effective client_max_inflight_small / client_max_inflight_large (rule 29) | passing (failing in 20f3e8a) |
 | T3n | T3g's CPU check counts only the engine parent after the kill: with an unrelated goroutine of the test process spinning (what the wcp-fixture tests E16-E21 leave behind), T3g still passes | passing (failing in bec12db, docs/logs/step22-t3n-failing.log; passing log docs/logs/step22-t3n-passing.log) |
 | T3o | canary for T3g (rule 47): the same T3g run with one goroutine of the parent spinning during the CPU window fails on the 150 ms limit | passing (added with the T3n fix) |
+| T3p | (step-22 follow-up) a penalised client's body request is refused before any inspection: 503 overload, counted in refused_before_inspection on /__kortex/stats (0 before, 1 after one such request); the killed request and a body-less request from the same client do not count, and the body-less request is served | failing (docs/logs/step22-t3p-failing.log) |
 
 E20 retirement note (rule: replacement must be stricter): E20 (step-16,
 "after the abandoned calls finish, new body-bearing requests are inspected

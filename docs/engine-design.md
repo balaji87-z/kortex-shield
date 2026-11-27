@@ -458,6 +458,31 @@ worker subprocesses:
   in-flight jobs summed over all clients per lane (client_inflight_small,
   client_inflight_large).
 
+### Refusing a penalised client before inspection (step-22 follow-up, documented BEFORE the code and the run)
+
+Measured in the step-22 T2 cells: the engine tree spent 576.2 CPU-seconds
+in the 300 s mixed-one cell (2,298,728 overloads) and 561.6 in mixed-eight
+(1,761,481). A penalised client's body request was refused only in
+workerServe, after the parent had created a transaction, evaluated the
+phase-1 rules, taken a lane slot, read the whole body and written it into
+the transaction. None of that work can change the answer.
+
+Design: in worker mode, a body-bearing request from a client in penalty
+state is refused at the top of the handler, before the transaction exists:
+same answer (503 kortex-decision=overload, reason "client penalty after
+kill"), same event row, same overloads counter, plus the new counter
+refused_before_inspection on /__kortex/stats. The request body is drained
+with the existing bound before the answer, as on every refusal. Body-less
+requests are not affected. The later check in workerServe stays, for a
+client that is penalised while its request is already in the handler.
+
+This is not a rate limit: an attacker that keeps opening connections still
+costs an accept, a header parse and a 503. What it removes is the rule
+evaluation and body handling per refused request. Visible difference: a
+penalised client's body request that the rules would have blocked gets 503
+instead of 403. Test T3p; effect measured by re-running the mixed cells and
+the kill storm (CPU-seconds, same container, same script).
+
 ### Design risk (b): single peer address, no trusted proxies (step-22 T2)
 
 With the default KORTEX_TRUSTED_PROXIES empty, client identity is the
