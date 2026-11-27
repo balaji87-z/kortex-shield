@@ -143,7 +143,7 @@ T3a-T3g; implementations e4a2e76 and 5795c34):
 | id | claim | status |
 |----|-------|--------|
 | E31 | GET /__kortex/stats (loopback-only) exposes inflight_small, inflight_large, abandoned_running, kills, overloads, penalised_clients and workers{pool,busy,spares,loading,recycled}, and after the in-flight work drains every counter returns to zero (rule 50: in-flight resources observable) | passing |
-| E32 | (step-22) a rule that matches in phase 1 (920350 on a numeric Host) is named in the request's audit entry next to the phase-2 rule (942100), as in the connector's audit log | failing (docs/logs/step22-e32-failing.log) |
+| E32 | (step-22) a rule that matches in phase 1 (920350 on a numeric Host) is named in the request's audit entry next to the phase-2 rule (942100), as in the connector's audit log | passing (failing in 5b47a00, docs/logs/step22-e32-failing.log; passing log docs/logs/step22-e32-passing.log) |
 | T3a | worker mode decides identically to in-process mode on a small benign body (200) and a small XSS body (403) | passing |
 | T3b | at the budget the worker is SIGKILLed, the kill is counted and the slot is released (next request served) | passing |
 | T3c | a pre-spawned spare serves the next request after a kill without paying the ~1.5-2 s rule-load in the hot path | passing |

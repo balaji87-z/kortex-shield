@@ -616,3 +616,24 @@ With the proxy layer aligned (client_max_body_size 0 on both engines):
   grep of rule 900220 where activated.
 - Reference: https://coreruleset.org/docs/prepare/#environment-variables and
   the in-image scripts quoted above.
+
+## Step-22: engine default actions for all phases (documented BEFORE the run, rule 17)
+
+- What: the engine's generated configuration (engine/config.go) gains
+  `SecDefaultAction "phase:N,log,auditlog,pass"` for N = 1 to 5, before the
+  rule Include. These are lines 98-102 of the connector image's
+  /opt/coraza/config/crs-setup.conf (read from the running container
+  2026-11-27 with `grep -n ^SecDefaultAction`).
+- Why: the engine set no SecDefaultAction, so only phase 2 had coraza's
+  built-in default (log, auditlog). CRS rules that match in phase 1 (920350
+  numeric Host, 920450 restricted header, 920320 missing User-Agent, ...)
+  scored and appeared on the block page, but were missing from the audit
+  entry, while the connector's audit log has them (step-22 report, T5:
+  920450 message on 15 of 15 connector cells, 0 of 15 engine cells). Test
+  E32 (failing in 5b47a00).
+- Expected effect: audit entries and the rule-id sets derived from them
+  gain phase-1 rule ids. No status may change: the disruptive action stays
+  with CRS 949110 (deny) and `pass` is the default in every phase already.
+  Checked after the change by replaying benign-wcp-v1 at PL1 and PL2 and
+  comparing statuses per id with the step-22 parity run.
+- Reference: https://coraza.io/docs/seclang/directives/#secdefaultaction

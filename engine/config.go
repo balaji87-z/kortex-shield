@@ -97,7 +97,9 @@ func loadConfig() *Config {
 
 // directives renders the SecLang config: engine settings, the CRS setup
 // SecActions mirroring the pinned container's activated crs-setup.conf
-// (ids 900000, 900001, 900110), audit directives, the rule Include, and the
+// (ids 900000, 900001, 900110), audit directives, the default actions of the
+// connector image's crs-setup.conf (so a match in any phase reaches the
+// audit entry, E32), the rule Include, and the
 // step-18 T4 REQUEST_BODY target updates (which must come after the Include:
 // SecRuleUpdateTargetById addresses already-loaded rules).
 func (c *Config) directives() (string, error) {
@@ -122,6 +124,12 @@ SecAuditLogRelevantStatus "^(?:4|5)"
 SecAuditLog %s
 SecAuditLogFormat JSON
 SecAuditLogType Serial
+
+SecDefaultAction "phase:1,log,auditlog,pass"
+SecDefaultAction "phase:2,log,auditlog,pass"
+SecDefaultAction "phase:3,log,auditlog,pass"
+SecDefaultAction "phase:4,log,auditlog,pass"
+SecDefaultAction "phase:5,log,auditlog,pass"
 
 SecAction "id:900000,phase:1,nolog,pass,t:none,setvar:tx.blocking_paranoia_level=%d"
 SecAction "id:900001,phase:1,nolog,pass,t:none,setvar:tx.detection_paranoia_level=%d"

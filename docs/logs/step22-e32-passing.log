@@ -1,0 +1,8 @@
+# step-22 follow-up: E32 after the fix
+# 2026-11-27T19:13:12Z, go version go1.27.4 darwin/arm64
+$ cd engine && go test -buildvcs=false -count=1 -v -run '^TestE32Phase1MatchInAuditLog$' ./...
+=== RUN   TestE32Phase1MatchInAuditLog
+--- PASS: TestE32Phase1MatchInAuditLog (0.05s)
+PASS
+ok  	kortexshield/engine	0.233s
+# exit status of go test: 0
