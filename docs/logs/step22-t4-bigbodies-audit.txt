@@ -1,0 +1,84 @@
+# Step-22 T4: big-body audited re-run (402 benign wcp samples, in-process, budget 120 s)
+== host: Darwin 27.0.0 arm64; Python 3.15.2; load at start: load averages: 1.19 1.81 2.06
+== manifest rebuilt: 402/402 ids found in the frozen manifests, missing 0 []
+== engine binary sha256 3739a11b4e5e12e2dfb41325390a5ddc27da568066adb7c4a579d3d48c07adb9 built from 50e21a3df216993939237cdc9df550dcd0bc6323 with go version go1.27.4 darwin/arm64
+== bigbodies-pl1 rule29 2026-11-27T17:29:47Z load: load averages: 1.19 1.81 2.06: {"backend_url":"http://127.0.0.1:13000","rule_engine":"On","blocking_paranoia":1,"detection_paranoia":1,"max_body_bytes":13107200,"max_inspected_bytes":131072,"engine_time_budget_ms":120000,"rules_dir":"/Users/ivan/work/kortex-shield-dev/engine/crs","listen_addr":"127.0.0.1:8099","events_file":"/Users/ivan/work/kortex-shield-dev/out/s22-t4-bigbodies-pl1.events.jsonl","audit_log":"/Users/ivan/work/kortex-shield-dev/out/s22-t4-bigbodies-pl1.audit.log","allowed_methods":"GET HEAD POST OPTIONS","max_inflight_body":8,"max_inflight_body_large":2,"body_lane_threshold":65536,"worker_mode":false,"client_max_inflight":0,"client_max_inflight_small":4,"client_max_inflight_large":1,"request_body_target_updates":166}
+== bigbodies-pl1 stats after run: {"inflight_small":0,"inflight_large":0,"abandoned_running":0,"kills":0,"overloads":0,"penalised_clients":0,"client_inflight_small":0,"client_inflight_large":0,"workers":{"pool":0,"busy":0,"spares":0,"recycled":0}}
+crs_audit: 256 audit entr(ies) -> out/s22-t4-bigbodies-pl1/audit.jsonl
+waf_block: 207
+waf_deny_status: 49
+waf_pass: 146
+docs/logs/runs/s22-t4-bigbodies-audit/bigbodies-pl1/audit.index.jsonl: 256 records, 256 with a body, 12336685 body bytes in the source
+== bigbodies-pl2 rule29 2026-11-27T17:30:49Z load: load averages: 1.90 1.86 2.06: {"backend_url":"http://127.0.0.1:13000","rule_engine":"On","blocking_paranoia":2,"detection_paranoia":2,"max_body_bytes":13107200,"max_inspected_bytes":131072,"engine_time_budget_ms":120000,"rules_dir":"/Users/ivan/work/kortex-shield-dev/engine/crs","listen_addr":"127.0.0.1:8099","events_file":"/Users/ivan/work/kortex-shield-dev/out/s22-t4-bigbodies-pl2.events.jsonl","audit_log":"/Users/ivan/work/kortex-shield-dev/out/s22-t4-bigbodies-pl2.audit.log","allowed_methods":"GET HEAD POST OPTIONS","max_inflight_body":8,"max_inflight_body_large":2,"body_lane_threshold":65536,"worker_mode":false,"client_max_inflight":0,"client_max_inflight_small":4,"client_max_inflight_large":1,"request_body_target_updates":166}
+== bigbodies-pl2 stats after run: {"inflight_small":0,"inflight_large":0,"abandoned_running":0,"kills":0,"overloads":0,"penalised_clients":0,"client_inflight_small":0,"client_inflight_large":0,"workers":{"pool":0,"busy":0,"spares":0,"recycled":0}}
+crs_audit: 335 audit entr(ies) -> out/s22-t4-bigbodies-pl2/audit.jsonl
+waf_block: 286
+waf_deny_status: 49
+waf_pass: 67
+docs/logs/runs/s22-t4-bigbodies-audit/bigbodies-pl2/audit.index.jsonl: 335 records, 335 with a body, 14615314 body bytes in the source
+
+== PL1: n=402 (rows in responses 402, in outcomes 402)
+   load average start [1.19, 1.81, 2.06] end [1.9, 1.86, 2.06] (rule 38)
+   status: {200: 97, 400: 49, 403: 207, 413: 49}
+   outcome: {'waf_block': 207, 'waf_deny_status': 49, 'waf_pass': 146}
+   blocked 207/402; worst case (blocked + deny_status + inconsistent + error) 256/402; best case (blocked only) 207/402
+   elapsed ms: min=0.5 p50=111.5 p95=491.5 p99=597.5 max=695.4
+   over 2000 ms (would be 503 at the default 2 s budget): 0/402
+   band <64K: n=318 status={200: 94, 400: 41, 403: 183} p50=123.1 max=515.0
+       waf_block 183/318; rule hits top 10: 921150=86, 942100=80, 920270=74, 932130=67, 941100=50, 942540=49, 941310=38, 932370=37, 932235=34, 942550=31
+       families (per rule hit): rce=258, sqli=205, protocol=202, xss=108, other=100; sole-rule blocks: (multi)=144, 942550=12, 932370=5, 932130=4, 942290=3, (none)=3, 942100=3, 921150=2, 921130=2, 943110=1
+       status 400 by rule ids: 200007=39, 200002=2
+   band 64K-<128K: n=42 status={200: 3, 400: 8, 403: 24, 413: 7} p50=459.8 max=695.4
+       waf_block 24/42; rule hits top 10: 921150=21, 920270=17, 932130=17, 941310=17, 942100=17, 942540=17, 941100=12, 932230=11, 932250=11, 933100=9
+       families (per rule hit): rce=56, protocol=43, sqli=41, xss=33, other=22; sole-rule blocks: (multi)=23, 921150=1
+       status 400 by rule ids: 200007=8
+   band >=128K: n=42 status={413: 42} p50=1.3 max=5.4
+       waf_block 0/42; rule hits top 10: (none)
+       families (per rule hit): (none); sole-rule blocks: (none)
+   by content type (n, status):
+     text/plain: n=124 {200: 32, 400: 4, 403: 78, 413: 10}
+     application/json: n=123 {200: 32, 400: 44, 403: 36, 413: 11}
+     (none): n=44 {403: 36, 413: 8}
+     multipart/form-data: n=42 {200: 14, 403: 11, 413: 17}
+     application/x-www-form-urlencoded: n=32 {200: 15, 403: 15, 413: 2}
+     application/vnd.chrome.uma: n=30 {403: 29, 413: 1}
+     application/reports+json: n=3 {200: 3}
+     text/xml: n=1 {200: 1}
+     application/atom+xml: n=1 {400: 1}
+     application/x-protobuffer: n=1 {403: 1}
+     application/x-ndjson: n=1 {403: 1}
+   status vs the step-21 run (worker mode, other host), per id: 0 differ of 402
+
+== PL2: n=402 (rows in responses 402, in outcomes 402)
+   load average start [1.9, 1.86, 2.06] end [1.93, 1.88, 2.04] (rule 38)
+   status: {200: 18, 400: 49, 403: 286, 413: 49}
+   outcome: {'waf_block': 286, 'waf_deny_status': 49, 'waf_pass': 67}
+   blocked 286/402; worst case (blocked + deny_status + inconsistent + error) 335/402; best case (blocked only) 286/402
+   elapsed ms: min=0.7 p50=217.1 p95=911.5 p99=1109.5 max=1240.3
+   over 2000 ms (would be 503 at the default 2 s budget): 0/402
+   band <64K: n=318 status={200: 17, 400: 41, 403: 260} p50=235.8 max=946.9
+       waf_block 260/318; rule hits top 10: 942430=238, 942200=214, 942370=196, 942330=169, 932200=166, 941340=155, 931130=151, 942520=146, 942340=128, 942440=125
+       families (per rule hit): sqli=1886, rce=772, xss=427, protocol=419, other=253; sole-rule blocks: (multi)=243, 931130=12, 942200=2, 920230=2, 942430=1
+       status 400 by rule ids: 200007=39, 200002=2
+   band 64K-<128K: n=42 status={200: 1, 400: 8, 403: 26, 413: 7} p50=794.3 max=1240.3
+       waf_block 26/42; rule hits top 10: 942200=26, 942330=26, 942370=26, 942430=26, 932240=25, 941340=25, 942520=24, 932200=24, 921150=21, 942131=21
+       families (per rule hit): sqli=312, rce=150, xss=93, protocol=82, other=33; sole-rule blocks: (multi)=26
+       status 400 by rule ids: 200007=8
+   band >=128K: n=42 status={413: 42} p50=1.6 max=5.7
+       waf_block 0/42; rule hits top 10: (none)
+       families (per rule hit): (none); sole-rule blocks: (none)
+   by content type (n, status):
+     text/plain: n=124 {400: 4, 403: 110, 413: 10}
+     application/json: n=123 {200: 3, 400: 44, 403: 65, 413: 11}
+     (none): n=44 {403: 36, 413: 8}
+     multipart/form-data: n=42 {200: 13, 403: 12, 413: 17}
+     application/x-www-form-urlencoded: n=32 {200: 2, 403: 28, 413: 2}
+     application/vnd.chrome.uma: n=30 {403: 29, 413: 1}
+     application/reports+json: n=3 {403: 3}
+     text/xml: n=1 {403: 1}
+     application/atom+xml: n=1 {400: 1}
+     application/x-protobuffer: n=1 {403: 1}
+     application/x-ndjson: n=1 {403: 1}
+   status vs the step-21 run (worker mode, other host), per id: 1 differ of 402
+     wcp-43ad8735b4fe: step-21=403 step-22=200 size=19545
+== load at end: load averages: 1.93 1.88 2.04

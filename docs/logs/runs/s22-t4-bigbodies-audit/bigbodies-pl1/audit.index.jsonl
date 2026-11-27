@@ -1,0 +1,256 @@
+{"sample_id": "wcp-1b959fe63f56", "content_type": "text/plain", "body_bytes": 29314, "status": 0, "rule_ids": ["920270", "921150", "932130", "933180", "941160", "942100", "942190", "949110"]}
+{"sample_id": "wcp-7bc8f3cd3995", "content_type": "text/plain;charset=UTF-8", "body_bytes": 16458, "status": 0, "rule_ids": ["930120", "932125", "932230", "932235", "932250", "949110"]}
+{"sample_id": "wcp-267f5b566c92", "content_type": "text/plain;charset=UTF-8", "body_bytes": 17398, "status": 0, "rule_ids": ["921150", "932235", "949110"]}
+{"sample_id": "wcp-ef480bab89bd", "content_type": "application/vnd.chrome.uma", "body_bytes": 73131, "status": 0, "rule_ids": ["920270", "921150", "933100", "941100", "941310", "942100", "942540", "949110"]}
+{"sample_id": "wcp-374b75846763", "content_type": "text/plain;charset=UTF-8", "body_bytes": 21330, "status": 0, "rule_ids": ["921150", "949110"]}
+{"sample_id": "wcp-5813184bcebe", "content_type": "text/plain;charset=UTF-8", "body_bytes": 82716, "status": 0, "rule_ids": ["921150", "949110"]}
+{"sample_id": "wcp-ed6aa1362a7e", "content_type": "application/json", "body_bytes": 29817, "status": 0, "rule_ids": ["932230", "932235", "932250", "932340", "932370", "949110"]}
+{"sample_id": "wcp-82f508a89f65", "content_type": "text/plain;charset=UTF-8", "body_bytes": 108872, "status": 0, "rule_ids": ["200007"]}
+{"sample_id": "wcp-6df016d113c6", "content_type": "text/plain;charset=UTF-8", "body_bytes": 44907, "status": 0, "rule_ids": ["921150", "932130", "949110"]}
+{"sample_id": "wcp-2574cf69006b", "content_type": "text/plain;charset=UTF-8", "body_bytes": 114324, "status": 0, "rule_ids": ["200007"]}
+{"sample_id": "wcp-973b355a27d3", "content_type": "text/plain;charset=UTF-8", "body_bytes": 67141, "status": 0, "rule_ids": ["921150", "942550", "949110"]}
+{"sample_id": "wcp-4908f4ab4075", "content_type": "text/plain;charset=UTF-8", "body_bytes": 30355, "status": 0, "rule_ids": ["921150", "942550", "949110"]}
+{"sample_id": "wcp-384ae4521001", "content_type": "application/json", "body_bytes": 51079, "status": 0, "rule_ids": ["200007"]}
+{"sample_id": "wcp-8aa4b0b85a6f", "content_type": "application/vnd.chrome.uma", "body_bytes": 117392, "status": 0, "rule_ids": ["920270", "921150", "932130", "932230", "932250", "933100", "941100", "941310", "942100", "942540", "949110"]}
+{"sample_id": "wcp-a8c8319c82f4", "content_type": "text/plain;charset=UTF-8", "body_bytes": 36574, "status": 0, "rule_ids": ["932130", "941170", "941210", "949110"]}
+{"sample_id": "wcp-fbc72bba5161", "content_type": "text/plain", "body_bytes": 54636, "status": 0, "rule_ids": ["920270", "921150", "932130", "932270", "933180", "941100", "941310", "942100", "942540", "949110"]}
+{"sample_id": "wcp-30a175f5816b", "content_type": "multipart/form-data; boundary=----WebKitFormBoundaryYXOBhVT3pydSt8CA", "body_bytes": 16643, "status": 0, "rule_ids": ["930120", "932125", "932270", "949110"]}
+{"sample_id": "wcp-963df6975596", "content_type": "multipart/form-data; boundary=----WebKitFormBoundaryZmR33AzzvO0L8Azx", "body_bytes": 17692, "status": 0, "rule_ids": ["930120", "932125", "932270", "949110"]}
+{"sample_id": "wcp-6674143b31e6", "content_type": "multipart/form-data; boundary=----WebKitFormBoundary3NYsyvrwZBuB2yIT", "body_bytes": 27007, "status": 0, "rule_ids": ["930120", "932125", "932270", "942550", "949110"]}
+{"sample_id": "wcp-c44b438cb48e", "content_type": "text/plain", "body_bytes": 17614, "status": 0, "rule_ids": ["930120", "932235", "932380", "949110"]}
+{"sample_id": "wcp-aec2a2311eb9", "content_type": "application/json", "body_bytes": 106006, "status": 0, "rule_ids": ["200007"]}
+{"sample_id": "wcp-c5a8f314dba0", "content_type": "text/plain", "body_bytes": 16959, "status": 0, "rule_ids": ["920270", "921150", "942100", "942190", "949110"]}
+{"sample_id": "wcp-45fbe93294c4", "content_type": "text/plain", "body_bytes": 18379, "status": 0, "rule_ids": ["942550", "949110"]}
+{"sample_id": "wcp-1218a1e32d14", "content_type": "application/vnd.chrome.uma", "body_bytes": 36517, "status": 0, "rule_ids": ["920270", "921150", "942100", "942540", "949110"]}
+{"sample_id": "wcp-e43c5bc2a3ee", "content_type": "application/json", "body_bytes": 29715, "status": 0, "rule_ids": ["200007"]}
+{"sample_id": "wcp-a4c72d6815ef", "content_type": "application/json", "body_bytes": 37663, "status": 0, "rule_ids": ["200007"]}
+{"sample_id": "wcp-d28a3a47e730", "content_type": "application/json", "body_bytes": 36957, "status": 0, "rule_ids": ["200007"]}
+{"sample_id": "wcp-865ef19dcf21", "content_type": "application/x-www-form-urlencoded", "body_bytes": 18551, "status": 0, "rule_ids": ["932370", "949110"]}
+{"sample_id": "wcp-cab5ab355d5f", "content_type": "text/plain", "body_bytes": 27118, "status": 0, "rule_ids": ["920270", "921150", "932130", "932330", "942100", "942190", "942540", "943110", "949110"]}
+{"sample_id": "wcp-181b4adf8b79", "content_type": "text/plain;charset=UTF-8", "body_bytes": 18780, "status": 0, "rule_ids": ["942550", "949110"]}
+{"sample_id": "wcp-74262f43ae70", "content_type": "text/plain", "body_bytes": 20579, "status": 0, "rule_ids": ["932370", "949110"]}
+{"sample_id": "wcp-de8021cfbd94", "content_type": "application/atom+xml;type=entry;charset=utf-8", "body_bytes": 26755, "status": 0, "rule_ids": ["200007"]}
+{"sample_id": "wcp-2ec9a3436296", "content_type": "application/json", "body_bytes": 58505, "status": 0, "rule_ids": ["200007"]}
+{"sample_id": "wcp-575fcdb54486", "content_type": "text/plain", "body_bytes": 35392, "status": 0, "rule_ids": ["920270", "921150", "932130", "933135", "941100", "942100", "949110"]}
+{"sample_id": "wcp-d8168da0a4a9", "content_type": "application/json", "body_bytes": 55029, "status": 0, "rule_ids": ["932230", "932235", "932250", "932370", "942290", "949110"]}
+{"sample_id": "wcp-bb078256d30c", "content_type": "application/vnd.chrome.uma", "body_bytes": 48439, "status": 0, "rule_ids": ["920270", "921150", "932130", "933100", "941310", "942100", "942540", "949110"]}
+{"sample_id": "wcp-b8413a5f9033", "content_type": "multipart/form-data; boundary=----WebKitFormBoundaryI946F5Ie2rb85FlN", "body_bytes": 17449, "status": 0, "rule_ids": ["930120", "932125", "932235", "932270", "942550", "949110"]}
+{"sample_id": "wcp-695f6eda725e", "content_type": "application/json", "body_bytes": 20215, "status": 0, "rule_ids": ["932230", "932235", "932250", "932260", "932340", "932370", "942290", "949110"]}
+{"sample_id": "wcp-9c64a497211b", "content_type": "application/json", "body_bytes": 20471, "status": 0, "rule_ids": ["932230", "932235", "932250", "932260", "932340", "932370", "942290", "949110"]}
+{"sample_id": "wcp-3eb108030623", "content_type": "application/json", "body_bytes": 20168, "status": 0, "rule_ids": ["932230", "932235", "932250", "932260", "932340", "932370", "942290", "949110"]}
+{"sample_id": "wcp-0ae25faebbcd", "content_type": "application/json", "body_bytes": 20725, "status": 0, "rule_ids": ["932370", "942290", "949110"]}
+{"sample_id": "wcp-210bb461fc4a", "content_type": "text/plain;charset=UTF-8", "body_bytes": 26718, "status": 0, "rule_ids": ["930100", "930110", "930120", "949110"]}
+{"sample_id": "wcp-f980139c042c", "content_type": "application/json", "body_bytes": 45817, "status": 0, "rule_ids": ["921130", "932235", "932260", "932270", "941100", "941130", "941160", "941170", "941190", "941210", "941260", "941270", "941280", "941370", "949110"]}
+{"sample_id": "wcp-b6414928592d", "content_type": "application/vnd.chrome.uma", "body_bytes": 95744, "status": 0, "rule_ids": ["920270", "921150", "932130", "932230", "932250", "933100", "941310", "942100", "942540", "949110"]}
+{"sample_id": "wcp-761237feb7cd", "content_type": null, "body_bytes": 32018, "status": 0, "rule_ids": ["920270", "920640", "921150", "932130", "933180", "941100", "941310", "942100", "942540", "949110"]}
+{"sample_id": "wcp-59d2055aa263", "content_type": "text/plain;charset=UTF-8", "body_bytes": 27054, "status": 0, "rule_ids": ["921150", "932370", "942550", "949110"]}
+{"sample_id": "wcp-f4749d522705", "content_type": "text/plain;charset=UTF-8", "body_bytes": 35778, "status": 0, "rule_ids": ["942550", "949110"]}
+{"sample_id": "wcp-042d40f331b3", "content_type": "application/json", "body_bytes": 48646, "status": 0, "rule_ids": ["200007"]}
+{"sample_id": "wcp-5110801b9d2b", "content_type": "application/json", "body_bytes": 54257, "status": 0, "rule_ids": ["200007"]}
+{"sample_id": "wcp-223072029082", "content_type": "application/json", "body_bytes": 67610, "status": 0, "rule_ids": ["200007"]}
+{"sample_id": "wcp-4de889209502", "content_type": "application/json", "body_bytes": 53910, "status": 0, "rule_ids": ["200007"]}
+{"sample_id": "wcp-ce387745a393", "content_type": "application/vnd.chrome.uma", "body_bytes": 101743, "status": 0, "rule_ids": ["920270", "921150", "932130", "932230", "932250", "933100", "941100", "941310", "942100", "942540", "949110"]}
+{"sample_id": "wcp-0948bbf4a0c5", "content_type": "application/json", "body_bytes": 55575, "status": 0, "rule_ids": ["932230", "932235", "932250", "932370", "942290", "949110"]}
+{"sample_id": "wcp-1ac73149b249", "content_type": "text/plain;charset=UTF-8", "body_bytes": 20675, "status": 0, "rule_ids": ["932370", "942550", "949110"]}
+{"sample_id": "wcp-5ca920dc1cad", "content_type": "application/json", "body_bytes": 16421, "status": 0, "rule_ids": ["932160", "942290", "949110"]}
+{"sample_id": "wcp-1494e619e46e", "content_type": "application/json", "body_bytes": 37323, "status": 0, "rule_ids": ["200007"]}
+{"sample_id": "wcp-992d34c674b8", "content_type": "application/x-protobuffer", "body_bytes": 18013, "status": 0, "rule_ids": ["921150", "949110"]}
+{"sample_id": "wcp-ca5bb77e6862", "content_type": "text/plain;charset=UTF-8", "body_bytes": 23725, "status": 0, "rule_ids": ["942550", "949110"]}
+{"sample_id": "wcp-1ac6d04dac2d", "content_type": "application/vnd.chrome.uma", "body_bytes": 94623, "status": 0, "rule_ids": ["920270", "921150", "932130", "932230", "932250", "933100", "941100", "941310", "942100", "942540", "949110"]}
+{"sample_id": "wcp-2e39e9b3376a", "content_type": null, "body_bytes": 114518, "status": 0, "rule_ids": ["920270", "920640", "921150", "932130", "933180", "933210", "941100", "941310", "942100", "942190", "942540", "949110"]}
+{"sample_id": "wcp-82c5eb2e6e37", "content_type": "application/vnd.chrome.uma", "body_bytes": 47052, "status": 0, "rule_ids": ["920270", "921150", "933100", "941310", "942100", "949110"]}
+{"sample_id": "wcp-d78ed61a684c", "content_type": "application/json", "body_bytes": 55225, "status": 0, "rule_ids": ["932230", "932235", "932250", "932370", "942100", "942290", "949110"]}
+{"sample_id": "wcp-2aa3d2f0e349", "content_type": "application/json", "body_bytes": 23667, "status": 0, "rule_ids": ["942290", "949110"]}
+{"sample_id": "wcp-67bddb445b60", "content_type": null, "body_bytes": 84782, "status": 0, "rule_ids": ["920270", "920640", "921150", "932130", "932340", "941310", "942100", "942190", "942540", "949110"]}
+{"sample_id": "wcp-d3e3c0aed5a2", "content_type": "application/json", "body_bytes": 59008, "status": 0, "rule_ids": ["200007"]}
+{"sample_id": "wcp-f1c826ba42c2", "content_type": "application/json", "body_bytes": 45609, "status": 0, "rule_ids": ["200007"]}
+{"sample_id": "wcp-304ffebcb9d6", "content_type": "application/json", "body_bytes": 57855, "status": 0, "rule_ids": ["200007"]}
+{"sample_id": "wcp-a384f906df77", "content_type": "application/json", "body_bytes": 60310, "status": 0, "rule_ids": ["200007"]}
+{"sample_id": "wcp-f55a8ddcbb93", "content_type": "application/json", "body_bytes": 38532, "status": 0, "rule_ids": ["200007"]}
+{"sample_id": "wcp-a82d4cec1730", "content_type": "application/json", "body_bytes": 49007, "status": 0, "rule_ids": ["200007"]}
+{"sample_id": "wcp-f092a6419dfe", "content_type": "application/json", "body_bytes": 58675, "status": 0, "rule_ids": ["200007"]}
+{"sample_id": "wcp-c3973d934a50", "content_type": "application/json", "body_bytes": 58754, "status": 0, "rule_ids": ["200007"]}
+{"sample_id": "wcp-59ff9b575065", "content_type": "text/plain;charset=UTF-8", "body_bytes": 23483, "status": 0, "rule_ids": ["921150", "932370", "949110"]}
+{"sample_id": "wcp-1585a584340e", "content_type": "text/plain;charset=UTF-8", "body_bytes": 26433, "status": 0, "rule_ids": ["921150", "932370", "949110"]}
+{"sample_id": "wcp-9958e07b65ec", "content_type": "application/json", "body_bytes": 52893, "status": 0, "rule_ids": ["200007"]}
+{"sample_id": "wcp-b2265d00ad49", "content_type": "application/json", "body_bytes": 29490, "status": 0, "rule_ids": ["932370", "949110"]}
+{"sample_id": "wcp-de2470a736a9", "content_type": "multipart/form-data; boundary=----WebKitFormBoundaryG16dKrSYQdkGkouR", "body_bytes": 18348, "status": 0, "rule_ids": ["930120", "932125", "932230", "932235", "932250", "942190", "942550", "949110"]}
+{"sample_id": "wcp-5b56f13e0257", "content_type": "application/json", "body_bytes": 23853, "status": 0, "rule_ids": ["932230", "932235", "932250", "932340", "932370", "942290", "949110"]}
+{"sample_id": "wcp-779bec37b748", "content_type": null, "body_bytes": 96343, "status": 0, "rule_ids": ["920270", "920640", "921150", "932130", "932330", "933135", "933180", "933210", "941100", "941310", "942100", "942190", "942290", "942540", "949110"]}
+{"sample_id": "wcp-612bb4b2f337", "content_type": "text/plain;charset=UTF-8", "body_bytes": 21679, "status": 0, "rule_ids": ["942190", "942550", "949110"]}
+{"sample_id": "wcp-a53aaf4330b0", "content_type": "application/json", "body_bytes": 56344, "status": 0, "rule_ids": ["932230", "932235", "932250", "932340", "932370", "942290", "949110"]}
+{"sample_id": "wcp-afc8b48ae5c6", "content_type": "application/json", "body_bytes": 56424, "status": 0, "rule_ids": ["932230", "932235", "932250", "932340", "932370", "942290", "949110"]}
+{"sample_id": "wcp-4344c19cd600", "content_type": "application/x-www-form-urlencoded", "body_bytes": 29787, "status": 0, "rule_ids": ["921130", "930120", "932120", "932270", "933150", "942100", "949110"]}
+{"sample_id": "wcp-8262e83c4dad", "content_type": "text/plain", "body_bytes": 29333, "status": 0, "rule_ids": ["920270", "921150", "932130", "933135", "941310", "942100", "949110"]}
+{"sample_id": "wcp-5f3577bfdb08", "content_type": "text/plain", "body_bytes": 76746, "status": 0, "rule_ids": ["920270", "921150", "932125", "932130", "932340", "933180", "933210", "941100", "941310", "942100", "942190", "942540", "949110"]}
+{"sample_id": "wcp-0b370c7b8c59", "content_type": "text/plain", "body_bytes": 42762, "status": 0, "rule_ids": ["920270", "921150", "932130", "933180", "941100", "942100", "942540", "949110"]}
+{"sample_id": "wcp-d924e9c71df7", "content_type": "text/plain", "body_bytes": 67208, "status": 0, "rule_ids": ["920270", "921150", "932125", "932130", "932230", "932250", "933180", "933210", "941100", "941310", "942100", "942190", "949110"]}
+{"sample_id": "wcp-c568bd474b0c", "content_type": "text/plain", "body_bytes": 25693, "status": 0, "rule_ids": ["920270", "921150", "932125", "932130", "933180", "941100", "942100", "942190", "942540", "943110", "949110"]}
+{"sample_id": "wcp-2588aeb3afd7", "content_type": "application/json", "body_bytes": 48801, "status": 0, "rule_ids": ["932235", "932370", "949110"]}
+{"sample_id": "wcp-026be893f064", "content_type": null, "body_bytes": 63080, "status": 0, "rule_ids": ["920270", "920640", "921150", "932130", "933210", "941100", "941310", "942100", "942540", "949110"]}
+{"sample_id": "wcp-61053c225249", "content_type": "text/plain", "body_bytes": 17509, "status": 0, "rule_ids": ["920270", "921150", "932130", "941100", "942100", "949110"]}
+{"sample_id": "wcp-6088b404e9c1", "content_type": "text/plain", "body_bytes": 92363, "status": 0, "rule_ids": ["920270", "921150", "932130", "932370", "933180", "933210", "941100", "941310", "942100", "942540", "949110"]}
+{"sample_id": "wcp-0b687811acc2", "content_type": "application/vnd.chrome.uma", "body_bytes": 60471, "status": 0, "rule_ids": ["920270", "921150", "932130", "933100", "941100", "942100", "942540", "949110"]}
+{"sample_id": "wcp-6189ce0ec035", "content_type": null, "body_bytes": 23041, "status": 0, "rule_ids": ["920270", "920640", "921150", "932130", "933135", "933210", "941100", "941310", "942100", "942540", "949110"]}
+{"sample_id": "wcp-4651aaa9eebd", "content_type": "text/plain;charset=UTF-8", "body_bytes": 36706, "status": 0, "rule_ids": ["921150", "932235", "932370", "932380", "942550", "949110"]}
+{"sample_id": "wcp-29c117555f45", "content_type": "application/vnd.chrome.uma", "body_bytes": 96060, "status": 0, "rule_ids": ["920270", "921150", "932130", "932230", "932250", "933100", "941100", "941310", "942100", "942540", "949110"]}
+{"sample_id": "wcp-086bd0a418e1", "content_type": "application/json", "body_bytes": 56040, "status": 0, "rule_ids": ["932230", "932235", "932250", "932370", "942290", "949110"]}
+{"sample_id": "wcp-7e5ceb4f9676", "content_type": "application/json", "body_bytes": 56012, "status": 0, "rule_ids": ["932230", "932235", "932250", "932370", "942290", "949110"]}
+{"sample_id": "wcp-ff3f6004e85d", "content_type": "application/x-ndjson", "body_bytes": 79300, "status": 0, "rule_ids": ["921150", "932235", "932370", "941370", "949110"]}
+{"sample_id": "wcp-d194059d5304", "content_type": "text/plain;charset=UTF-8", "body_bytes": 28472, "status": 0, "rule_ids": ["942550", "949110"]}
+{"sample_id": "wcp-ce84b050a36e", "content_type": "text/plain", "body_bytes": 41212, "status": 0, "rule_ids": ["942550", "949110"]}
+{"sample_id": "wcp-a128a9a77cab", "content_type": "application/json", "body_bytes": 24496, "status": 0, "rule_ids": ["949110"]}
+{"sample_id": "wcp-06ad8c32ca39", "content_type": "application/vnd.chrome.uma", "body_bytes": 44966, "status": 0, "rule_ids": ["920270", "921150", "942100", "942540", "949110"]}
+{"sample_id": "wcp-4b18ee1099fe", "content_type": null, "body_bytes": 37969, "status": 0, "rule_ids": ["920270", "920640", "921150", "932130", "942100", "942540", "949110"]}
+{"sample_id": "wcp-d85cc9cc1eaf", "content_type": null, "body_bytes": 42807, "status": 0, "rule_ids": ["920270", "920640", "921150", "932130", "933180", "942100", "942190", "949110"]}
+{"sample_id": "wcp-80ac391ff743", "content_type": null, "body_bytes": 77188, "status": 0, "rule_ids": ["920270", "920640", "921150", "932130", "933180", "941100", "941310", "942100", "949110"]}
+{"sample_id": "wcp-f0d96d6f366c", "content_type": null, "body_bytes": 65116, "status": 0, "rule_ids": ["920270", "920640", "921150", "932130", "933180", "933210", "941100", "942100", "942540", "949110"]}
+{"sample_id": "wcp-ee9c629f370d", "content_type": null, "body_bytes": 37969, "status": 0, "rule_ids": ["920270", "920640", "921150", "932130", "942100", "942540", "949110"]}
+{"sample_id": "wcp-a27f7bc70592", "content_type": null, "body_bytes": 78602, "status": 0, "rule_ids": ["920270", "920640", "921150", "932130", "933135", "933180", "941100", "942100", "942540", "949110"]}
+{"sample_id": "wcp-b576388384fe", "content_type": null, "body_bytes": 78602, "status": 0, "rule_ids": ["920270", "920640", "921150", "932130", "933135", "933180", "941100", "942100", "942540", "949110"]}
+{"sample_id": "wcp-a79133b0dfa4", "content_type": null, "body_bytes": 44938, "status": 0, "rule_ids": ["920270", "920640", "921150", "932130", "933210", "941100", "942100", "942540", "949110"]}
+{"sample_id": "wcp-98543617b69c", "content_type": null, "body_bytes": 44938, "status": 0, "rule_ids": ["920270", "920640", "921150", "932130", "933210", "941100", "942100", "942540", "949110"]}
+{"sample_id": "wcp-be36beba3000", "content_type": null, "body_bytes": 44938, "status": 0, "rule_ids": ["920270", "920640", "921150", "932130", "933210", "941100", "942100", "942540", "949110"]}
+{"sample_id": "wcp-77d218895d4f", "content_type": "text/plain;charset=UTF-8", "body_bytes": 22068, "status": 0, "rule_ids": ["921150", "930120", "932370", "949110"]}
+{"sample_id": "wcp-6dd6046be63d", "content_type": "text/plain;charset=UTF-8", "body_bytes": 55964, "status": 0, "rule_ids": ["921150", "932370", "949110"]}
+{"sample_id": "wcp-0a022627c932", "content_type": "text/plain;charset=UTF-8", "body_bytes": 56842, "status": 0, "rule_ids": ["921150", "932370", "949110"]}
+{"sample_id": "wcp-aacff88c572e", "content_type": "text/plain;charset=UTF-8", "body_bytes": 29127, "status": 0, "rule_ids": ["932235", "932380", "949110"]}
+{"sample_id": "wcp-daa9aa3c3f67", "content_type": "text/plain;charset=UTF-8", "body_bytes": 58268, "status": 0, "rule_ids": ["932235", "932380", "949110"]}
+{"sample_id": "wcp-443028a510c1", "content_type": "text/plain;charset=UTF-8", "body_bytes": 57856, "status": 0, "rule_ids": ["932235", "932380", "942550", "949110"]}
+{"sample_id": "wcp-25a5af9ede86", "content_type": "text/plain;charset=UTF-8", "body_bytes": 19380, "status": 0, "rule_ids": ["932235", "932380", "949110"]}
+{"sample_id": "wcp-879ea30a8bd9", "content_type": "application/json", "body_bytes": 16438, "status": 0, "rule_ids": ["942290", "949110"]}
+{"sample_id": "wcp-34b4b3cd7a49", "content_type": "application/vnd.chrome.uma", "body_bytes": 70149, "status": 0, "rule_ids": ["920270", "921150", "932130", "933100", "941100", "941310", "942100", "942540", "949110"]}
+{"sample_id": "wcp-d59456e8fb61", "content_type": "multipart/form-data; boundary=----WebKitFormBoundaryJonCI9GJmOwnB7R1", "body_bytes": 18648, "status": 0, "rule_ids": ["930120", "932125", "942550", "949110"]}
+{"sample_id": "wcp-c44cbb42250d", "content_type": "application/x-www-form-urlencoded", "body_bytes": 51009, "status": 0, "rule_ids": ["921130", "930120", "932270", "942100", "949110"]}
+{"sample_id": "wcp-eff090212922", "content_type": "text/plain;charset=UTF-8", "body_bytes": 73283, "status": 0, "rule_ids": ["932230", "932235", "932250", "932370", "941160", "949110"]}
+{"sample_id": "wcp-ca89c6c37786", "content_type": "application/json", "body_bytes": 21861, "status": 0, "rule_ids": ["942100", "949110"]}
+{"sample_id": "wcp-45a01536ade9", "content_type": "application/json", "body_bytes": 28768, "status": 0, "rule_ids": ["942100", "949110"]}
+{"sample_id": "wcp-a05f7d8b2b83", "content_type": "application/json", "body_bytes": 43344, "status": 0, "rule_ids": ["943110", "949110"]}
+{"sample_id": "wcp-b379af383ec9", "content_type": "text/plain", "body_bytes": 113325, "status": 0, "rule_ids": ["920270", "921150", "932130", "933210", "942100", "942190", "942540", "949110"]}
+{"sample_id": "wcp-5351ae72fce8", "content_type": "text/plain", "body_bytes": 90248, "status": 0, "rule_ids": ["920270", "921150", "932130", "933135", "933180", "941100", "941310", "942100", "943110", "949110"]}
+{"sample_id": "wcp-72321fa36f1e", "content_type": "application/json", "body_bytes": 33819, "status": 0, "rule_ids": ["932130", "949110"]}
+{"sample_id": "wcp-10d5fb3fdf24", "content_type": "application/vnd.chrome.uma", "body_bytes": 68575, "status": 0, "rule_ids": ["920270", "921150", "941100", "942100", "942540", "949110"]}
+{"sample_id": "wcp-f8ba3db5e5c3", "content_type": "application/vnd.chrome.uma", "body_bytes": 117046, "status": 0, "rule_ids": ["920270", "921150", "932130", "932230", "932250", "933100", "941310", "942100", "942540", "949110"]}
+{"sample_id": "wcp-632ba8e03c23", "content_type": "application/vnd.chrome.uma", "body_bytes": 43481, "status": 0, "rule_ids": ["920270", "921150", "941100", "941310", "942100", "942540", "949110"]}
+{"sample_id": "wcp-7b1acc4d9ab2", "content_type": "text/plain", "body_bytes": 27111, "status": 0, "rule_ids": ["920270", "921150", "932130", "933135", "941100", "942100", "942190", "949110"]}
+{"sample_id": "wcp-7146c0fbfb5d", "content_type": "application/vnd.chrome.uma", "body_bytes": 65871, "status": 0, "rule_ids": ["920270", "921150", "933100", "941100", "941310", "942100", "942540", "949110"]}
+{"sample_id": "wcp-86ff61c9b59b", "content_type": "application/json", "body_bytes": 30761, "status": 0, "rule_ids": ["200007"]}
+{"sample_id": "wcp-a7df309616e4", "content_type": "application/json", "body_bytes": 22535, "status": 0, "rule_ids": ["932130", "949110"]}
+{"sample_id": "wcp-ca53fe491bd3", "content_type": "text/plain", "body_bytes": 92044, "status": 0, "rule_ids": ["920270", "921150", "932130", "932230", "932250", "932270", "933180", "933210", "941100", "942100", "942190", "942540", "949110"]}
+{"sample_id": "wcp-b26bccc55ead", "content_type": "text/plain;charset=UTF-8", "body_bytes": 19288, "status": 0, "rule_ids": ["942550", "949110"]}
+{"sample_id": "wcp-f07c1019b1f0", "content_type": "text/plain;charset=UTF-8", "body_bytes": 19134, "status": 0, "rule_ids": ["942550", "949110"]}
+{"sample_id": "wcp-6cb4183a70df", "content_type": "application/json", "body_bytes": 49598, "status": 0, "rule_ids": ["200007"]}
+{"sample_id": "wcp-263410fc7d99", "content_type": "text/plain;charset=UTF-8", "body_bytes": 41408, "status": 0, "rule_ids": ["932235", "932380", "949110"]}
+{"sample_id": "wcp-961ed128b4fd", "content_type": "application/x-www-form-urlencoded", "body_bytes": 57715, "status": 0, "rule_ids": ["921130", "930120", "932270", "932380", "942100", "949110"]}
+{"sample_id": "wcp-a5e28f4434b9", "content_type": "text/plain", "body_bytes": 95304, "status": 0, "rule_ids": ["920270", "921150", "932130", "933180", "941100", "941310", "942100", "942190", "949110"]}
+{"sample_id": "wcp-85f580ea686a", "content_type": "application/vnd.chrome.uma", "body_bytes": 75111, "status": 0, "rule_ids": ["920270", "921150", "932130", "933100", "941100", "941310", "942100", "942540", "949110"]}
+{"sample_id": "wcp-881180c423d1", "content_type": "text/plain;charset=UTF-8", "body_bytes": 23141, "status": 0, "rule_ids": ["932230", "932250", "949110"]}
+{"sample_id": "wcp-ad4f2f95d41a", "content_type": "text/plain;charset=UTF-8", "body_bytes": 23001, "status": 0, "rule_ids": ["932130", "932230", "932250", "949110"]}
+{"sample_id": "wcp-f629330e2a5d", "content_type": "text/plain;charset=UTF-8", "body_bytes": 30171, "status": 0, "rule_ids": ["932125", "932130", "949110"]}
+{"sample_id": "wcp-b7674c654a64", "content_type": "text/plain;charset=UTF-8", "body_bytes": 19313, "status": 0, "rule_ids": ["932130", "949110"]}
+{"sample_id": "wcp-b5b4b927f898", "content_type": "application/json", "body_bytes": 91170, "status": 0, "rule_ids": ["200007"]}
+{"sample_id": "wcp-9a7f66920a40", "content_type": "application/vnd.chrome.uma", "body_bytes": 68652, "status": 0, "rule_ids": ["920270", "921150", "932130", "933100", "941100", "942100", "942540", "949110"]}
+{"sample_id": "wcp-e2fa2d2572dd", "content_type": "text/plain;charset=UTF-8", "body_bytes": 22034, "status": 0, "rule_ids": ["933150", "949110"]}
+{"sample_id": "wcp-2a3c9a7fe44a", "content_type": "application/vnd.chrome.uma", "body_bytes": 87820, "status": 0, "rule_ids": ["920270", "921150", "941310", "942100", "942190", "942540", "949110"]}
+{"sample_id": "wcp-f2f338cf3e7a", "content_type": null, "body_bytes": 17056, "status": 0, "rule_ids": ["920270", "920640", "921150", "941310", "942100", "949110"]}
+{"sample_id": "wcp-db4724a9ce16", "content_type": "application/json", "body_bytes": 32085, "status": 0, "rule_ids": ["921130", "949110"]}
+{"sample_id": "wcp-25c4aee82dba", "content_type": "application/json", "body_bytes": 27101, "status": 0, "rule_ids": ["949110"]}
+{"sample_id": "wcp-376b3b37ef12", "content_type": "application/json", "body_bytes": 55990, "status": 0, "rule_ids": ["200007"]}
+{"sample_id": "wcp-ef1d0324c278", "content_type": "application/json", "body_bytes": 52373, "status": 0, "rule_ids": ["200007"]}
+{"sample_id": "wcp-5c5cf613f9e2", "content_type": "application/json", "body_bytes": 36936, "status": 0, "rule_ids": ["200007"]}
+{"sample_id": "wcp-11fed88b4d9e", "content_type": null, "body_bytes": 38449, "status": 0, "rule_ids": ["920270", "920640", "921150", "932130", "942100", "949110"]}
+{"sample_id": "wcp-cc309784b6f5", "content_type": "text/plain;charset=UTF-8", "body_bytes": 29983, "status": 0, "rule_ids": ["930100", "930110", "949110"]}
+{"sample_id": "wcp-1a27304814ac", "content_type": "application/vnd.chrome.uma", "body_bytes": 89231, "status": 0, "rule_ids": ["920270", "921150", "932130", "933180", "941100", "941310", "942100", "942190", "942540", "949110"]}
+{"sample_id": "wcp-f2ff4437bc93", "content_type": "application/json; charset=UTF-8", "body_bytes": 96858, "status": 0, "rule_ids": ["932130", "932140", "932235", "933210", "934100", "941100", "941160", "941180", "942151", "949110"]}
+{"sample_id": "wcp-10372ec01f4c", "content_type": "application/json", "body_bytes": 52051, "status": 0, "rule_ids": ["921130", "932235", "932260", "934170", "941130", "941170", "949110"]}
+{"sample_id": "wcp-2fc8e076e5b8", "content_type": "text/plain;charset=UTF-8", "body_bytes": 22208, "status": 0, "rule_ids": ["930100", "930110", "932235", "932380", "942151", "949110"]}
+{"sample_id": "wcp-f78d7afa532c", "content_type": "application/json", "body_bytes": 63377, "status": 0, "rule_ids": ["200007"]}
+{"sample_id": "wcp-377307dc2a53", "content_type": null, "body_bytes": 104575, "status": 0, "rule_ids": ["920270", "920640", "921150", "932130", "932270", "932340", "933135", "933210", "941100", "941310", "942100", "942540", "949110"]}
+{"sample_id": "wcp-2895d7e869c5", "content_type": "application/json", "body_bytes": 68672, "status": 0, "rule_ids": ["200002"]}
+{"sample_id": "wcp-3c71da0d0860", "content_type": "application/vnd.chrome.uma", "body_bytes": 93443, "status": 0, "rule_ids": ["920270", "921150", "932130", "933135", "933180", "941100", "941310", "942100", "942190", "942290", "942540", "949110"]}
+{"sample_id": "wcp-2ce2a8b6ec6a", "content_type": "multipart/form-data; boundary=----WebKitFormBoundaryVueJS3hl1DxjWFqn", "body_bytes": 18008, "status": 0, "rule_ids": ["930120", "932270", "942550", "949110"]}
+{"sample_id": "wcp-15b4743caffb", "content_type": null, "body_bytes": 18015, "status": 0, "rule_ids": ["920270", "920640", "921150", "932130", "941100", "941310", "942540", "949110"]}
+{"sample_id": "wcp-73aa47db4972", "content_type": null, "body_bytes": 18135, "status": 0, "rule_ids": ["920270", "920640", "921150", "949110"]}
+{"sample_id": "wcp-3652ad4d5180", "content_type": "application/json", "body_bytes": 25762, "status": 0, "rule_ids": ["932370", "949110"]}
+{"sample_id": "wcp-4c3f34ac5069", "content_type": "application/x-www-form-urlencoded", "body_bytes": 17100, "status": 0, "rule_ids": ["921130", "949110"]}
+{"sample_id": "wcp-1fb41c02160a", "content_type": null, "body_bytes": 107088, "status": 0, "rule_ids": ["920270", "920640", "921150", "932125", "932130", "932380", "933180", "933210", "941100", "941310", "942100", "942190", "942540", "949110"]}
+{"sample_id": "wcp-00a2fb72773a", "content_type": "text/plain; charset=utf-8", "body_bytes": 26948, "status": 0, "rule_ids": ["932230", "932250", "942290", "949110"]}
+{"sample_id": "wcp-aae6846746cf", "content_type": "text/plain", "body_bytes": 26514, "status": 0, "rule_ids": ["920270", "921150", "932125", "932130", "932370", "933210", "941100", "941310", "942100", "949110"]}
+{"sample_id": "wcp-5fe26a0ce013", "content_type": "text/plain;charset=UTF-8", "body_bytes": 125257, "status": 0, "rule_ids": ["200007"]}
+{"sample_id": "wcp-5ca478bf0dd3", "content_type": "text/plain;charset=UTF-8", "body_bytes": 80582, "status": 0, "rule_ids": ["921150", "932130", "949110"]}
+{"sample_id": "wcp-a859f816a4eb", "content_type": "multipart/form-data; boundary=----WebKitFormBoundaryX3AwHvZN7U3CqLMZ", "body_bytes": 27298, "status": 0, "rule_ids": ["930120", "932125", "932270", "942550", "949110"]}
+{"sample_id": "wcp-79b19b84cbb0", "content_type": "multipart/form-data; boundary=----WebKitFormBoundary0Z7sg4BJdA8wnrcI", "body_bytes": 21160, "status": 0, "rule_ids": ["930120", "932125", "932270", "942550", "949110"]}
+{"sample_id": "wcp-7e91c2bc07cd", "content_type": "text/plain", "body_bytes": 20946, "status": 0, "rule_ids": ["942550", "949110"]}
+{"sample_id": "wcp-21fd6362d9ed", "content_type": "application/vnd.chrome.uma", "body_bytes": 62580, "status": 0, "rule_ids": ["920270", "921150", "941310", "942100", "942540", "949110"]}
+{"sample_id": "wcp-36d484cbcf60", "content_type": "application/json", "body_bytes": 36266, "status": 0, "rule_ids": ["200007"]}
+{"sample_id": "wcp-e49027a3df9a", "content_type": "text/plain;charset=UTF-8", "body_bytes": 22964, "status": 0, "rule_ids": ["932370", "941100", "941130", "941160", "941170", "942550", "949110"]}
+{"sample_id": "wcp-5cd2b35fc685", "content_type": "application/x-www-form-urlencoded", "body_bytes": 17551, "status": 0, "rule_ids": ["942550", "949110"]}
+{"sample_id": "wcp-aa27a078e23b", "content_type": "application/json", "body_bytes": 20000, "status": 0, "rule_ids": ["932230", "932235", "932250", "932260", "932340", "932370", "942290", "949110"]}
+{"sample_id": "wcp-da89dcc166ee", "content_type": "application/x-www-form-urlencoded", "body_bytes": 30898, "status": 0, "rule_ids": ["921130", "930120", "932125", "932370", "942100", "949110"]}
+{"sample_id": "wcp-4613c117483b", "content_type": "application/json", "body_bytes": 34465, "status": 0, "rule_ids": ["200007"]}
+{"sample_id": "wcp-f8437dee8121", "content_type": "application/x-www-form-urlencoded", "body_bytes": 26752, "status": 0, "rule_ids": ["942100", "949110"]}
+{"sample_id": "wcp-e1e79907f4de", "content_type": "application/json", "body_bytes": 22914, "status": 0, "rule_ids": ["930120", "949110"]}
+{"sample_id": "wcp-d98bfa52b5db", "content_type": "application/json", "body_bytes": 42748, "status": 0, "rule_ids": ["200007"]}
+{"sample_id": "wcp-149e7ec6d1d6", "content_type": "application/vnd.chrome.uma", "body_bytes": 107243, "status": 0, "rule_ids": ["920270", "921150", "932130", "932230", "932250", "933100", "941310", "942100", "942540", "949110"]}
+{"sample_id": "wcp-5d3fca6ceb20", "content_type": "application/vnd.chrome.uma", "body_bytes": 112195, "status": 0, "rule_ids": ["920270", "921150", "932130", "932230", "932250", "933100", "941310", "942100", "942540", "949110"]}
+{"sample_id": "wcp-dfbc5a91ad4a", "content_type": "application/vnd.chrome.uma", "body_bytes": 23440, "status": 0, "rule_ids": ["920270", "921150", "942100", "949110"]}
+{"sample_id": "wcp-87dfaf27cb98", "content_type": null, "body_bytes": 58657, "status": 0, "rule_ids": ["920270", "920640", "921150", "932130", "933135", "933180", "933210", "941100", "941310", "942100", "942540", "949110"]}
+{"sample_id": "wcp-c9d0346a54f9", "content_type": "text/plain", "body_bytes": 59901, "status": 0, "rule_ids": ["920270", "921150", "932130", "941100", "941310", "942100", "942540", "949110"]}
+{"sample_id": "wcp-110f4d43062e", "content_type": "text/plain", "body_bytes": 16812, "status": 0, "rule_ids": ["920270", "921150", "932130", "941310", "942100", "942540", "949110"]}
+{"sample_id": "wcp-196751acebf0", "content_type": "application/json", "body_bytes": 54744, "status": 0, "rule_ids": ["200007"]}
+{"sample_id": "wcp-adb0c4ff63e2", "content_type": "application/json", "body_bytes": 43253, "status": 0, "rule_ids": ["200007"]}
+{"sample_id": "wcp-759a09a61e46", "content_type": "application/json", "body_bytes": 48929, "status": 0, "rule_ids": ["200007"]}
+{"sample_id": "wcp-38021621f5b6", "content_type": "multipart/form-data; boundary=----WebKitFormBoundaryKdvfhiUKDdxpZ3LJ", "body_bytes": 18565, "status": 0, "rule_ids": ["930120", "932125", "932230", "932235", "932250", "942190", "942550", "949110"]}
+{"sample_id": "wcp-98d14608181d", "content_type": "text/plain;charset=UTF-8", "body_bytes": 43751, "status": 0, "rule_ids": ["932370", "942550", "949110"]}
+{"sample_id": "wcp-2772e83687b1", "content_type": "text/plain", "body_bytes": 102785, "status": 0, "rule_ids": ["920270", "921150", "932130", "932340", "933180", "933210", "941100", "941310", "942100", "942190", "942540", "949110"]}
+{"sample_id": "wcp-25bb84d33bda", "content_type": "application/vnd.chrome.uma", "body_bytes": 95596, "status": 0, "rule_ids": ["920270", "921150", "932130", "932230", "932250", "933100", "941310", "942100", "942540", "949110"]}
+{"sample_id": "wcp-fc79fc130b43", "content_type": "application/vnd.chrome.uma", "body_bytes": 66300, "status": 0, "rule_ids": ["920270", "921150", "941100", "941310", "942100", "949110"]}
+{"sample_id": "wcp-25cb3b8b7f0e", "content_type": "application/json", "body_bytes": 56384, "status": 0, "rule_ids": ["932230", "932235", "932250", "932340", "932370", "942290", "949110"]}
+{"sample_id": "wcp-7cd554e35dfd", "content_type": "text/plain;charset=UTF-8", "body_bytes": 73721, "status": 0, "rule_ids": ["200007"]}
+{"sample_id": "wcp-985c244a476a", "content_type": "text/plain", "body_bytes": 70064, "status": 0, "rule_ids": ["920270", "921150", "932130", "932340", "932370", "933135", "941100", "941310", "942100", "942190", "942540", "949110"]}
+{"sample_id": "wcp-517c8fd79ac0", "content_type": "application/x-www-form-urlencoded", "body_bytes": 32440, "status": 0, "rule_ids": ["921130", "930120", "932270", "942100", "949110"]}
+{"sample_id": "wcp-89d29d4ff98a", "content_type": "application/vnd.chrome.uma", "body_bytes": 61922, "status": 0, "rule_ids": ["920270", "921150", "932230", "932250", "933100", "941310", "942100", "942540", "949110"]}
+{"sample_id": "wcp-7f0b8d026a4b", "content_type": "application/json; charset=utf-8", "body_bytes": 37743, "status": 0, "rule_ids": ["200007"]}
+{"sample_id": "wcp-ee587398f879", "content_type": null, "body_bytes": 77188, "status": 0, "rule_ids": ["920270", "920640", "921150", "932130", "933180", "941100", "941310", "942100", "949110"]}
+{"sample_id": "wcp-750ecf183bc7", "content_type": null, "body_bytes": 37969, "status": 0, "rule_ids": ["920270", "920640", "921150", "932130", "942100", "942540", "949110"]}
+{"sample_id": "wcp-d7a41176ac2e", "content_type": null, "body_bytes": 37969, "status": 0, "rule_ids": ["920270", "920640", "921150", "932130", "942100", "942540", "949110"]}
+{"sample_id": "wcp-33198095348b", "content_type": null, "body_bytes": 42807, "status": 0, "rule_ids": ["920270", "920640", "921150", "932130", "933180", "942100", "942190", "949110"]}
+{"sample_id": "wcp-bee6af24c6e8", "content_type": null, "body_bytes": 37969, "status": 0, "rule_ids": ["920270", "920640", "921150", "932130", "942100", "942540", "949110"]}
+{"sample_id": "wcp-6afbb034d8aa", "content_type": null, "body_bytes": 81162, "status": 0, "rule_ids": ["920270", "920640", "921150", "932130", "942100", "942540", "949110"]}
+{"sample_id": "wcp-dc13832f23e3", "content_type": "text/plain;charset=UTF-8", "body_bytes": 58577, "status": 0, "rule_ids": ["932235", "932380", "949110"]}
+{"sample_id": "wcp-1ebd8f99383b", "content_type": "text/plain;charset=UTF-8", "body_bytes": 59642, "status": 0, "rule_ids": ["932235", "932380", "942550", "949110"]}
+{"sample_id": "wcp-db2eea0367ec", "content_type": null, "body_bytes": 61488, "status": 0, "rule_ids": ["920270", "920640", "921150", "932130", "933135", "933180", "941310", "942100", "942190", "942540", "949110"]}
+{"sample_id": "wcp-102e8077ff10", "content_type": "text/plain", "body_bytes": 48470, "status": 0, "rule_ids": ["920270", "921150", "932130", "933210", "941100", "941310", "942100", "942190", "949110"]}
+{"sample_id": "wcp-3f074613de2e", "content_type": "application/json", "body_bytes": 21872, "status": 0, "rule_ids": ["200002"]}
+{"sample_id": "wcp-7418563b6b60", "content_type": "text/plain", "body_bytes": 34240, "status": 0, "rule_ids": ["920270", "921150", "932130", "932380", "933135", "942100", "949110"]}
+{"sample_id": "wcp-e4efdf2b6a59", "content_type": "application/json", "body_bytes": 16401, "status": 0, "rule_ids": ["942290", "949110"]}
+{"sample_id": "wcp-b5730d42e9ca", "content_type": "application/json; charset=UTF-8", "body_bytes": 25443, "status": 0, "rule_ids": ["942550", "949110"]}
+{"sample_id": "wcp-7ac5e510d251", "content_type": "application/json", "body_bytes": 31378, "status": 0, "rule_ids": ["200007"]}
+{"sample_id": "wcp-cd301bd712b2", "content_type": null, "body_bytes": 71135, "status": 0, "rule_ids": ["920270", "920640", "921150", "932130", "932380", "933135", "941100", "942100", "942190", "949110"]}
+{"sample_id": "wcp-9fc0f4046a4f", "content_type": "text/plain", "body_bytes": 53670, "status": 0, "rule_ids": ["920270", "921150", "932130", "932380", "941100", "941310", "942100", "942540", "949110"]}
+{"sample_id": "wcp-436b68124cbc", "content_type": "application/json", "body_bytes": 38740, "status": 0, "rule_ids": ["200007"]}
+{"sample_id": "wcp-2e583dc76a63", "content_type": "text/plain", "body_bytes": 19775, "status": 0, "rule_ids": ["920270", "921150", "932130", "933180", "941100", "941310", "949110"]}
+{"sample_id": "wcp-830d9d4ec89a", "content_type": "text/plain;charset=UTF-8", "body_bytes": 27726, "status": 0, "rule_ids": ["932130", "949110"]}
+{"sample_id": "wcp-e8a94c3f8bc1", "content_type": "text/plain;charset=UTF-8", "body_bytes": 30957, "status": 0, "rule_ids": ["921130", "930100", "930110", "932235", "949110"]}
+{"sample_id": "wcp-3586499bc09d", "content_type": "application/json", "body_bytes": 40188, "status": 0, "rule_ids": ["200007"]}
+{"sample_id": "wcp-0efc37929d08", "content_type": "application/json", "body_bytes": 48003, "status": 0, "rule_ids": ["200007"]}
+{"sample_id": "wcp-998ed9eb8a8d", "content_type": "application/json", "body_bytes": 19144, "status": 0, "rule_ids": ["200007"]}
+{"sample_id": "wcp-4c11cbdc40f4", "content_type": "application/json", "body_bytes": 41612, "status": 0, "rule_ids": ["200007"]}
+{"sample_id": "wcp-a9f769451724", "content_type": "text/plain", "body_bytes": 33011, "status": 0, "rule_ids": ["932125", "949110"]}
+{"sample_id": "wcp-3f95dd7f7998", "content_type": "application/json", "body_bytes": 114339, "status": 0, "rule_ids": ["200007"]}
+{"sample_id": "wcp-464f59067651", "content_type": "application/vnd.chrome.uma", "body_bytes": 108786, "status": 0, "rule_ids": ["920270", "921150", "941100", "941310", "942100", "942190", "942540", "949110"]}
+{"sample_id": "wcp-14580a9fe0af", "content_type": null, "body_bytes": 55008, "status": 0, "rule_ids": ["920270", "920640", "921150", "932130", "932380", "933180", "941100", "942100", "942540", "949110"]}
+{"sample_id": "wcp-123479ec1b68", "content_type": "application/json", "body_bytes": 60333, "status": 0, "rule_ids": ["200007"]}
+{"sample_id": "wcp-8ee6e1924b44", "content_type": "text/plain;charset=UTF-8", "body_bytes": 54096, "status": 0, "rule_ids": ["942550", "949110"]}
+{"sample_id": "wcp-372b95be6295", "content_type": "multipart/form-data; boundary=----WebKitFormBoundary0EAwQ8Y8QVnW2hiy", "body_bytes": 17574, "status": 0, "rule_ids": ["932270", "942550", "949110"]}
+{"sample_id": "wcp-79962d18808b", "content_type": "application/x-www-form-urlencoded", "body_bytes": 29873, "status": 0, "rule_ids": ["932270", "949110"]}
+{"sample_id": "wcp-3c0781f8a525", "content_type": "application/json", "body_bytes": 27302, "status": 0, "rule_ids": ["921130", "932235", "932260", "934170", "941130", "941170", "949110"]}
+{"sample_id": "wcp-a01f72758b1b", "content_type": null, "body_bytes": 115111, "status": 0, "rule_ids": ["920270", "920640", "921150", "932125", "932130", "932340", "933135", "933210", "941100", "941310", "942100", "942540", "949110"]}
+{"sample_id": "wcp-32ecc02a0996", "content_type": "application/x-www-form-urlencoded", "body_bytes": 79113, "status": 0, "rule_ids": ["932230", "932235", "932250", "932370", "949110"]}
+{"sample_id": "wcp-e87edc238b1e", "content_type": "application/x-www-form-urlencoded", "body_bytes": 30837, "status": 0, "rule_ids": ["932370", "949110"]}
+{"sample_id": "wcp-81f2f8b2c3e0", "content_type": null, "body_bytes": 129630, "status": 0, "rule_ids": ["920270", "920640", "921150", "932130", "932270", "932340", "933180", "941100", "941310", "942100", "942540", "949110"]}
+{"sample_id": "wcp-d489b35c65e4", "content_type": "application/x-www-form-urlencoded; charset=UTF-8", "body_bytes": 60157, "status": 0, "rule_ids": ["932370", "942550", "949110"]}
+{"sample_id": "wcp-401873dbb8f9", "content_type": "application/x-www-form-urlencoded", "body_bytes": 50995, "status": 0, "rule_ids": ["932230", "932250", "932370", "932380", "941100", "941160", "949110"]}
+{"sample_id": "wcp-8a066952dfcb", "content_type": "application/x-www-form-urlencoded", "body_bytes": 19852, "status": 0, "rule_ids": ["949110"]}
+{"sample_id": "wcp-bac37676b4b3", "content_type": null, "body_bytes": 17917, "status": 0, "rule_ids": ["920270", "920640", "921150", "941100", "941310", "942100", "949110"]}
+{"sample_id": "wcp-d62670428911", "content_type": null, "body_bytes": 31930, "status": 0, "rule_ids": ["920270", "920640", "921150", "932130", "933210", "941100", "942100", "942540", "949110"]}
