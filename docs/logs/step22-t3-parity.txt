@@ -1,0 +1,151 @@
+# Step-22 T3: in-process vs worker parity on the wcp datasets
+== host: Darwin 27.0.0 arm64; Python 3.15.2; load at start: load averages: 1.97 2.20 2.05
+== benign-wcp-v0 manifest sha256 c8ce11f26406df96d55e5a1cc6186bcbf648cb29bd628081dd834c6ccf1329d1 (frozen: c8ce11f26406df96d55e5a1cc6186bcbf648cb29bd628081dd834c6ccf1329d1)
+== benign-wcp-v1 manifest sha256 049b7dea33aac475c4ef7f05c8644da610ad311a84862ef3b88d33a37dc8b5c0 (frozen: 049b7dea33aac475c4ef7f05c8644da610ad311a84862ef3b88d33a37dc8b5c0)
+== engine binary sha256 3739a11b4e5e12e2dfb41325390a5ddc27da568066adb7c4a579d3d48c07adb9 built from 50e21a3df216993939237cdc9df550dcd0bc6323 with go version go1.27.4 darwin/arm64
+== benign-wcp-v0-inprocess-pl1 rule29 2026-11-27T17:10:40Z load: load averages: 1.81 2.16 2.04: {"backend_url":"http://127.0.0.1:13000","rule_engine":"On","blocking_paranoia":1,"detection_paranoia":1,"max_body_bytes":13107200,"max_inspected_bytes":131072,"engine_time_budget_ms":2000,"rules_dir":"/Users/ivan/work/kortex-shield-dev/engine/crs","listen_addr":"127.0.0.1:8097","events_file":"/Users/ivan/work/kortex-shield-dev/out/s22-t3-benign-wcp-v0-inprocess-pl1.events.jsonl","audit_log":"/Users/ivan/work/kortex-shield-dev/out/s22-t3-benign-wcp-v0-inprocess-pl1.audit.log","allowed_methods":"GET HEAD POST OPTIONS","max_inflight_body":8,"max_inflight_body_large":2,"body_lane_threshold":65536,"worker_mode":false,"client_max_inflight":0,"client_max_inflight_small":4,"client_max_inflight_large":1,"request_body_target_updates":166}
+runner nonzero for benign-wcp-v0-inprocess-pl1 (sample errors); continuing
+== benign-wcp-v0-inprocess-pl1 stats after run: {"inflight_small":0,"inflight_large":0,"abandoned_running":0,"kills":0,"overloads":0,"penalised_clients":0,"client_inflight_small":0,"client_inflight_large":0,"workers":{"pool":0,"busy":0,"spares":0,"recycled":0}}
+crs_audit: 2251 audit entr(ies) -> out/s22-t3-benign-wcp-v0-inprocess-pl1/audit.jsonl
+error: 1
+waf_block: 2193
+waf_deny_status: 58
+waf_pass: 17748
+docs/logs/runs/s22-t3-parity/benign-wcp-v0-inprocess-pl1/audit.index.jsonl: 2251 records, 1828 with a body, 13861868 body bytes in the source
+== benign-wcp-v0-worker-pl1 rule29 2026-11-27T17:12:56Z load: load averages: 1.65 1.98 1.98: {"backend_url":"http://127.0.0.1:13000","rule_engine":"On","blocking_paranoia":1,"detection_paranoia":1,"max_body_bytes":13107200,"max_inspected_bytes":131072,"engine_time_budget_ms":2000,"rules_dir":"/Users/ivan/work/kortex-shield-dev/engine/crs","listen_addr":"127.0.0.1:8098","events_file":"/Users/ivan/work/kortex-shield-dev/out/s22-t3-benign-wcp-v0-worker-pl1.events.jsonl","audit_log":"/Users/ivan/work/kortex-shield-dev/out/s22-t3-benign-wcp-v0-worker-pl1.audit.log","allowed_methods":"GET HEAD POST OPTIONS","max_inflight_body":8,"max_inflight_body_large":2,"body_lane_threshold":65536,"worker_mode":true,"client_max_inflight":0,"client_max_inflight_small":4,"client_max_inflight_large":1,"request_body_target_updates":166}
+runner nonzero for benign-wcp-v0-worker-pl1 (sample errors); continuing
+== benign-wcp-v0-worker-pl1 stats after run: {"inflight_small":0,"inflight_large":0,"abandoned_running":0,"kills":0,"overloads":0,"penalised_clients":0,"client_inflight_small":0,"client_inflight_large":0,"workers":{"pool":4,"busy":0,"spares":4,"recycled":0}}
+crs_audit: 2251 audit entr(ies) -> out/s22-t3-benign-wcp-v0-worker-pl1/audit.jsonl
+error: 1
+waf_block: 2193
+waf_deny_status: 58
+waf_pass: 17748
+docs/logs/runs/s22-t3-parity/benign-wcp-v0-worker-pl1/audit.index.jsonl: 2251 records, 1828 with a body, 13861868 body bytes in the source
+== diff benign-wcp-v0 PL1 (a=inprocess b=worker):
+samples compared: 20000 (a=20000 b=20000 only-a=0 only-b=0)
+status counts a: {200: 17716, 400: 58, 403: 2193, 413: 32, None: 1}
+status counts b: {200: 17716, 400: 58, 403: 2193, 413: 32, None: 1}
+status diffs: 0
+no status in a (counted as error): 1
+  wcp-6b0bf5e43122
+no status in b (counted as error): 1
+  wcp-6b0bf5e43122
+worst-case set a: 2252/20000 (error=1 blocked=2193 deny_status=58 inconsistent=0)
+worst-case set b: 2252/20000 (error=1 blocked=2193 deny_status=58 inconsistent=0)
+worst-case set diffs: 0 (only-a 0 only-b 0)
+== benign-wcp-v1-inprocess-pl1 rule29 2026-11-27T17:15:13Z load: load averages: 2.17 1.99 1.98: {"backend_url":"http://127.0.0.1:13000","rule_engine":"On","blocking_paranoia":1,"detection_paranoia":1,"max_body_bytes":13107200,"max_inspected_bytes":131072,"engine_time_budget_ms":2000,"rules_dir":"/Users/ivan/work/kortex-shield-dev/engine/crs","listen_addr":"127.0.0.1:8097","events_file":"/Users/ivan/work/kortex-shield-dev/out/s22-t3-benign-wcp-v1-inprocess-pl1.events.jsonl","audit_log":"/Users/ivan/work/kortex-shield-dev/out/s22-t3-benign-wcp-v1-inprocess-pl1.audit.log","allowed_methods":"GET HEAD POST OPTIONS","max_inflight_body":8,"max_inflight_body_large":2,"body_lane_threshold":65536,"worker_mode":false,"client_max_inflight":0,"client_max_inflight_small":4,"client_max_inflight_large":1,"request_body_target_updates":166}
+== benign-wcp-v1-inprocess-pl1 stats after run: {"inflight_small":0,"inflight_large":0,"abandoned_running":0,"kills":0,"overloads":0,"penalised_clients":0,"client_inflight_small":0,"client_inflight_large":0,"workers":{"pool":0,"busy":0,"spares":0,"recycled":0}}
+crs_audit: 1116 audit entr(ies) -> out/s22-t3-benign-wcp-v1-inprocess-pl1/audit.jsonl
+waf_block: 1091
+waf_deny_status: 25
+waf_pass: 8884
+docs/logs/runs/s22-t3-parity/benign-wcp-v1-inprocess-pl1/audit.index.jsonl: 1116 records, 899 with a body, 6538056 body bytes in the source
+== benign-wcp-v1-worker-pl1 rule29 2026-11-27T17:16:20Z load: load averages: 1.76 1.91 1.95: {"backend_url":"http://127.0.0.1:13000","rule_engine":"On","blocking_paranoia":1,"detection_paranoia":1,"max_body_bytes":13107200,"max_inspected_bytes":131072,"engine_time_budget_ms":2000,"rules_dir":"/Users/ivan/work/kortex-shield-dev/engine/crs","listen_addr":"127.0.0.1:8098","events_file":"/Users/ivan/work/kortex-shield-dev/out/s22-t3-benign-wcp-v1-worker-pl1.events.jsonl","audit_log":"/Users/ivan/work/kortex-shield-dev/out/s22-t3-benign-wcp-v1-worker-pl1.audit.log","allowed_methods":"GET HEAD POST OPTIONS","max_inflight_body":8,"max_inflight_body_large":2,"body_lane_threshold":65536,"worker_mode":true,"client_max_inflight":0,"client_max_inflight_small":4,"client_max_inflight_large":1,"request_body_target_updates":166}
+== benign-wcp-v1-worker-pl1 stats after run: {"inflight_small":0,"inflight_large":0,"abandoned_running":0,"kills":0,"overloads":0,"penalised_clients":0,"client_inflight_small":0,"client_inflight_large":0,"workers":{"pool":4,"busy":0,"spares":4,"recycled":0}}
+crs_audit: 1116 audit entr(ies) -> out/s22-t3-benign-wcp-v1-worker-pl1/audit.jsonl
+waf_block: 1091
+waf_deny_status: 25
+waf_pass: 8884
+docs/logs/runs/s22-t3-parity/benign-wcp-v1-worker-pl1/audit.index.jsonl: 1116 records, 899 with a body, 6538056 body bytes in the source
+== diff benign-wcp-v1 PL1 (a=inprocess b=worker):
+samples compared: 10000 (a=10000 b=10000 only-a=0 only-b=0)
+status counts a: {200: 8867, 400: 25, 403: 1091, 413: 17}
+status counts b: {200: 8867, 400: 25, 403: 1091, 413: 17}
+status diffs: 0
+no status in a (counted as error): 0
+no status in b (counted as error): 0
+worst-case set a: 1116/10000 (error=0 blocked=1091 deny_status=25 inconsistent=0)
+worst-case set b: 1116/10000 (error=0 blocked=1091 deny_status=25 inconsistent=0)
+worst-case set diffs: 0 (only-a 0 only-b 0)
+== benign-wcp-v0-inprocess-pl2 rule29 2026-11-27T17:17:28Z load: load averages: 2.38 2.13 2.03: {"backend_url":"http://127.0.0.1:13000","rule_engine":"On","blocking_paranoia":2,"detection_paranoia":2,"max_body_bytes":13107200,"max_inspected_bytes":131072,"engine_time_budget_ms":2000,"rules_dir":"/Users/ivan/work/kortex-shield-dev/engine/crs","listen_addr":"127.0.0.1:8097","events_file":"/Users/ivan/work/kortex-shield-dev/out/s22-t3-benign-wcp-v0-inprocess-pl2.events.jsonl","audit_log":"/Users/ivan/work/kortex-shield-dev/out/s22-t3-benign-wcp-v0-inprocess-pl2.audit.log","allowed_methods":"GET HEAD POST OPTIONS","max_inflight_body":8,"max_inflight_body_large":2,"body_lane_threshold":65536,"worker_mode":false,"client_max_inflight":0,"client_max_inflight_small":4,"client_max_inflight_large":1,"request_body_target_updates":166}
+runner nonzero for benign-wcp-v0-inprocess-pl2 (sample errors); continuing
+== benign-wcp-v0-inprocess-pl2 stats after run: {"inflight_small":0,"inflight_large":0,"abandoned_running":0,"kills":0,"overloads":0,"penalised_clients":0,"client_inflight_small":0,"client_inflight_large":0,"workers":{"pool":0,"busy":0,"spares":0,"recycled":0}}
+crs_audit: 8934 audit entr(ies) -> out/s22-t3-benign-wcp-v0-inprocess-pl2/audit.jsonl
+inconsistent samples: wcp-67cb71cd0c38
+error: 1
+inconsistent: 1
+waf_block: 8875
+waf_deny_status: 58
+waf_pass: 11065
+docs/logs/runs/s22-t3-parity/benign-wcp-v0-inprocess-pl2/audit.index.jsonl: 8934 records, 4705 with a body, 20521115 body bytes in the source
+== benign-wcp-v0-worker-pl2 rule29 2026-11-27T17:21:36Z load: load averages: 3.20 2.92 2.40: {"backend_url":"http://127.0.0.1:13000","rule_engine":"On","blocking_paranoia":2,"detection_paranoia":2,"max_body_bytes":13107200,"max_inspected_bytes":131072,"engine_time_budget_ms":2000,"rules_dir":"/Users/ivan/work/kortex-shield-dev/engine/crs","listen_addr":"127.0.0.1:8098","events_file":"/Users/ivan/work/kortex-shield-dev/out/s22-t3-benign-wcp-v0-worker-pl2.events.jsonl","audit_log":"/Users/ivan/work/kortex-shield-dev/out/s22-t3-benign-wcp-v0-worker-pl2.audit.log","allowed_methods":"GET HEAD POST OPTIONS","max_inflight_body":8,"max_inflight_body_large":2,"body_lane_threshold":65536,"worker_mode":true,"client_max_inflight":0,"client_max_inflight_small":4,"client_max_inflight_large":1,"request_body_target_updates":166}
+runner nonzero for benign-wcp-v0-worker-pl2 (sample errors); continuing
+== benign-wcp-v0-worker-pl2 stats after run: {"inflight_small":0,"inflight_large":0,"abandoned_running":0,"kills":0,"overloads":0,"penalised_clients":0,"client_inflight_small":0,"client_inflight_large":0,"workers":{"pool":4,"busy":0,"spares":4,"recycled":0}}
+crs_audit: 8934 audit entr(ies) -> out/s22-t3-benign-wcp-v0-worker-pl2/audit.jsonl
+inconsistent samples: wcp-67cb71cd0c38
+error: 1
+inconsistent: 1
+waf_block: 8875
+waf_deny_status: 58
+waf_pass: 11065
+docs/logs/runs/s22-t3-parity/benign-wcp-v0-worker-pl2/audit.index.jsonl: 8934 records, 4705 with a body, 20521115 body bytes in the source
+== diff benign-wcp-v0 PL2 (a=inprocess b=worker):
+samples compared: 20000 (a=20000 b=20000 only-a=0 only-b=0)
+status counts a: {200: 11033, 400: 58, 403: 8876, 413: 32, None: 1}
+status counts b: {200: 11033, 400: 58, 403: 8876, 413: 32, None: 1}
+status diffs: 0
+no status in a (counted as error): 1
+  wcp-6b0bf5e43122
+no status in b (counted as error): 1
+  wcp-6b0bf5e43122
+worst-case set a: 8935/20000 (error=1 blocked=8875 deny_status=58 inconsistent=1)
+worst-case set b: 8935/20000 (error=1 blocked=8875 deny_status=58 inconsistent=1)
+worst-case set diffs: 0 (only-a 0 only-b 0)
+== benign-wcp-v1-inprocess-pl2 rule29 2026-11-27T17:25:44Z load: load averages: 2.28 2.50 2.33: {"backend_url":"http://127.0.0.1:13000","rule_engine":"On","blocking_paranoia":2,"detection_paranoia":2,"max_body_bytes":13107200,"max_inspected_bytes":131072,"engine_time_budget_ms":2000,"rules_dir":"/Users/ivan/work/kortex-shield-dev/engine/crs","listen_addr":"127.0.0.1:8097","events_file":"/Users/ivan/work/kortex-shield-dev/out/s22-t3-benign-wcp-v1-inprocess-pl2.events.jsonl","audit_log":"/Users/ivan/work/kortex-shield-dev/out/s22-t3-benign-wcp-v1-inprocess-pl2.audit.log","allowed_methods":"GET HEAD POST OPTIONS","max_inflight_body":8,"max_inflight_body_large":2,"body_lane_threshold":65536,"worker_mode":false,"client_max_inflight":0,"client_max_inflight_small":4,"client_max_inflight_large":1,"request_body_target_updates":166}
+== benign-wcp-v1-inprocess-pl2 stats after run: {"inflight_small":0,"inflight_large":0,"abandoned_running":0,"kills":0,"overloads":0,"penalised_clients":0,"client_inflight_small":0,"client_inflight_large":0,"workers":{"pool":0,"busy":0,"spares":0,"recycled":0}}
+crs_audit: 4463 audit entr(ies) -> out/s22-t3-benign-wcp-v1-inprocess-pl2/audit.jsonl
+waf_block: 4438
+waf_deny_status: 25
+waf_pass: 5537
+docs/logs/runs/s22-t3-parity/benign-wcp-v1-inprocess-pl2/audit.index.jsonl: 4463 records, 2285 with a body, 9857146 body bytes in the source
+== benign-wcp-v1-worker-pl2 rule29 2026-11-27T17:27:45Z load: load averages: 1.44 2.10 2.19: {"backend_url":"http://127.0.0.1:13000","rule_engine":"On","blocking_paranoia":2,"detection_paranoia":2,"max_body_bytes":13107200,"max_inspected_bytes":131072,"engine_time_budget_ms":2000,"rules_dir":"/Users/ivan/work/kortex-shield-dev/engine/crs","listen_addr":"127.0.0.1:8098","events_file":"/Users/ivan/work/kortex-shield-dev/out/s22-t3-benign-wcp-v1-worker-pl2.events.jsonl","audit_log":"/Users/ivan/work/kortex-shield-dev/out/s22-t3-benign-wcp-v1-worker-pl2.audit.log","allowed_methods":"GET HEAD POST OPTIONS","max_inflight_body":8,"max_inflight_body_large":2,"body_lane_threshold":65536,"worker_mode":true,"client_max_inflight":0,"client_max_inflight_small":4,"client_max_inflight_large":1,"request_body_target_updates":166}
+== benign-wcp-v1-worker-pl2 stats after run: {"inflight_small":0,"inflight_large":0,"abandoned_running":0,"kills":0,"overloads":0,"penalised_clients":0,"client_inflight_small":0,"client_inflight_large":0,"workers":{"pool":4,"busy":0,"spares":4,"recycled":0}}
+crs_audit: 4463 audit entr(ies) -> out/s22-t3-benign-wcp-v1-worker-pl2/audit.jsonl
+waf_block: 4438
+waf_deny_status: 25
+waf_pass: 5537
+docs/logs/runs/s22-t3-parity/benign-wcp-v1-worker-pl2/audit.index.jsonl: 4463 records, 2285 with a body, 9857146 body bytes in the source
+== diff benign-wcp-v1 PL2 (a=inprocess b=worker):
+samples compared: 10000 (a=10000 b=10000 only-a=0 only-b=0)
+status counts a: {200: 5520, 400: 25, 403: 4438, 413: 17}
+status counts b: {200: 5520, 400: 25, 403: 4438, 413: 17}
+status diffs: 0
+no status in a (counted as error): 0
+no status in b (counted as error): 0
+worst-case set a: 4463/10000 (error=0 blocked=4438 deny_status=25 inconsistent=0)
+worst-case set b: 4463/10000 (error=0 blocked=4438 deny_status=25 inconsistent=0)
+worst-case set diffs: 0 (only-a 0 only-b 0)
+== load at end: load averages: 1.21 1.82 2.07
+
+== rate table (benign-labelled external traffic; every block is a potential false positive)
+benign-wcp-v0 PL1 inprocess: n=20000 waf_block=2193 waf_deny_status=58 inconsistent=0 error=1 waf_pass=17748 other=0
+    FP rate best case (errors, deny_status, inconsistent not flagged) 2193/20000 = 10.96%; worst case (all flagged) 2252/20000 = 11.26%
+    rule 18: 2251 audit entries; rule ids in >=20% of them: 949110=2193, 932370=466
+benign-wcp-v0 PL1 worker: n=20000 waf_block=2193 waf_deny_status=58 inconsistent=0 error=1 waf_pass=17748 other=0
+    FP rate best case (errors, deny_status, inconsistent not flagged) 2193/20000 = 10.96%; worst case (all flagged) 2252/20000 = 11.26%
+    rule 18: 2251 audit entries; rule ids in >=20% of them: 949110=2193, 932370=466
+benign-wcp-v0 PL1 rule-id sets, in-process vs worker: 0 ids differ of 20000
+benign-wcp-v0 PL2 inprocess: n=20000 waf_block=8875 waf_deny_status=58 inconsistent=1 error=1 waf_pass=11065 other=0
+    FP rate best case (errors, deny_status, inconsistent not flagged) 8875/20000 = 44.38%; worst case (all flagged) 8935/20000 = 44.67%
+    rule 18: 8934 audit entries; rule ids in >=20% of them: 949110=8876, 931130=5854, 942430=4994, 942200=4275, 942370=3245, 942340=3091, 942330=1919, 932200=1836
+benign-wcp-v0 PL2 worker: n=20000 waf_block=8875 waf_deny_status=58 inconsistent=1 error=1 waf_pass=11065 other=0
+    FP rate best case (errors, deny_status, inconsistent not flagged) 8875/20000 = 44.38%; worst case (all flagged) 8935/20000 = 44.67%
+    rule 18: 8934 audit entries; rule ids in >=20% of them: 949110=8876, 931130=5854, 942430=4994, 942200=4275, 942370=3245, 942340=3091, 942330=1919, 932200=1836
+benign-wcp-v0 PL2 rule-id sets, in-process vs worker: 2 ids differ of 20000
+    wcp-7b0477d1157b: only in-process [] only worker ['942130']
+    wcp-f754e70f73bd: only in-process ['942130'] only worker []
+benign-wcp-v1 PL1 inprocess: n=10000 waf_block=1091 waf_deny_status=25 inconsistent=0 error=0 waf_pass=8884 other=0
+    FP rate best case (errors, deny_status, inconsistent not flagged) 1091/10000 = 10.91%; worst case (all flagged) 1116/10000 = 11.16%
+    rule 18: 1116 audit entries; rule ids in >=20% of them: 949110=1091
+benign-wcp-v1 PL1 worker: n=10000 waf_block=1091 waf_deny_status=25 inconsistent=0 error=0 waf_pass=8884 other=0
+    FP rate best case (errors, deny_status, inconsistent not flagged) 1091/10000 = 10.91%; worst case (all flagged) 1116/10000 = 11.16%
+    rule 18: 1116 audit entries; rule ids in >=20% of them: 949110=1091
+benign-wcp-v1 PL1 rule-id sets, in-process vs worker: 0 ids differ of 10000
+benign-wcp-v1 PL2 inprocess: n=10000 waf_block=4438 waf_deny_status=25 inconsistent=0 error=0 waf_pass=5537 other=0
+    FP rate best case (errors, deny_status, inconsistent not flagged) 4438/10000 = 44.38%; worst case (all flagged) 4463/10000 = 44.63%
+    rule 18: 4463 audit entries; rule ids in >=20% of them: 949110=4438, 931130=2931, 942430=2466, 942200=2073, 942370=1558, 942340=1456, 942330=930, 932200=905
+benign-wcp-v1 PL2 worker: n=10000 waf_block=4438 waf_deny_status=25 inconsistent=0 error=0 waf_pass=5537 other=0
+    FP rate best case (errors, deny_status, inconsistent not flagged) 4438/10000 = 44.38%; worst case (all flagged) 4463/10000 = 44.63%
+    rule 18: 4463 audit entries; rule ids in >=20% of them: 949110=4438, 931130=2931, 942430=2466, 942200=2073, 942370=1558, 942340=1456, 942330=930, 932200=905
+benign-wcp-v1 PL2 rule-id sets, in-process vs worker: 1 ids differ of 10000
+    wcp-bc05c8d4eb28: only in-process [] only worker ['942130']
