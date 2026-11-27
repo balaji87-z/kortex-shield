@@ -5,8 +5,11 @@ Same design as step-21 T1a (XSS + SQLi canaries, payload before/after
 padding, 3 content types, 3 reps) but with the new k values. 120000 B of
 padding keeps the total below KORTEX_MAX_INSPECTED_BYTES (131072).
 
-Usage: run_step22_t5_padding.py --engine URL --out FILE
-Writes one JSON line per request: {cell..., status, rule_ids}.
+Usage: run_step22_t5_padding.py --engine URL --pl N --out FILE
+--pl is the paranoia level the engine at URL was started with; it only
+labels the rows (the level is engine-side config), so run once per level.
+Writes one JSON line per request: {cell..., status}. Rule ids per sample id
+come from the engine audit log (tools/step22_body_index.py).
 """
 import argparse, json, random, sys, time, urllib.parse, urllib.request
 
@@ -69,12 +72,11 @@ def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--engine", required=True)
     ap.add_argument("--out", required=True)
+    ap.add_argument("--pl", type=int, required=True, choices=(1, 2))
     ap.add_argument("--reps", type=int, default=3)
     args = ap.parse_args()
     rows = []
-    for pl in (1, 2):
-        # paranoia via headers is not possible; PL is engine-side config.
-        # The caller runs the script once per PL against a PL-configured engine.
+    for pl in (args.pl,):
         for k in (8, 32, 120000):
             for payload_name, payload in (("xss", XSS), ("sqli", SQLI)):
                 for pos in ("before", "after"):

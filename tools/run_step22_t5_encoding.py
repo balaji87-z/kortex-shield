@@ -22,9 +22,9 @@ SQLI = 'admin" or "1"="1"#'
 def make_raw(payload, ct):
     if ct == "text/plain":
         return "note " + payload
-    if ct == "urlencoded":
+    if ct in ("urlencoded", "application/x-www-form-urlencoded"):
         return "q=" + urllib.parse.quote(payload, safe="")
-    if ct == "json":
+    if ct in ("json", "application/json"):
         return json.dumps({"note": payload})
     raise ValueError(ct)
 
@@ -32,7 +32,9 @@ def chunked_send(host_port, path, body_bytes, headers, sample_id, chunk_size=7, 
     """Send a request with a hand-rolled chunked body."""
     c = http.client.HTTPConnection(host_port, timeout=timeout)
     try:
-        c.putrequest("POST", path)
+        # skip_host: http.client adds its own Host header; a second one makes
+        # the Go server answer 400 and close, which the client sees as a reset.
+        c.putrequest("POST", path, skip_host=True, skip_accept_encoding=True)
         c.putheader("Host", host_port)
         c.putheader("Content-Type", headers.get("Content-Type", "text/plain"))
         c.putheader("Transfer-Encoding", "chunked")
@@ -71,8 +73,8 @@ def main():
     u = urlsplit(args.engine)
     base = u.netloc
     rows = []
-    def rec(cell, payload_name, ct, variant, r, note=""):
-        r.update({"cell": cell, "payload": payload_name, "ct": ct,
+    def rec(cell, payload_name, ct, variant, r, sample_id, note=""):
+        r.update({"id": sample_id, "cell": cell, "payload": payload_name, "ct": ct,
                   "variant": variant, "note": note})
         rows.append(r)
         print(json.dumps(r), flush=True)
@@ -81,19 +83,20 @@ def main():
             raw = make_raw(payload, ct).encode()
             gz = gzip.compress(raw)
             df = zlib.compress(raw)
-            sid = f"t5b-{pname}-{ct.split('/')[0].replace('x-www-form-urlencoded','url')}"
+            short = {"text/plain": "plain", "application/x-www-form-urlencoded": "url", "application/json": "json"}[ct]
+            sid = f"t5b-{pname}-{short}"
             # A: gzip + header
             rec("A", pname, ct, "gzip+header",
-                normal_send(args.engine, gz, {"Content-Type": ct, "Content-Encoding": "gzip"}, sid + "-A"))
+                normal_send(args.engine, gz, {"Content-Type": ct, "Content-Encoding": "gzip"}, sid + "-A"), sid + "-A")
             # B: deflate + header
             rec("B", pname, ct, "deflate+header",
-                normal_send(args.engine, df, {"Content-Type": ct, "Content-Encoding": "deflate"}, sid + "-B"))
+                normal_send(args.engine, df, {"Content-Type": ct, "Content-Encoding": "deflate"}, sid + "-B"), sid + "-B")
             # C: gzip, no header
             rec("C", pname, ct, "gzip-noheader",
-                normal_send(args.engine, gz, {"Content-Type": ct}, sid + "-C"))
+                normal_send(args.engine, gz, {"Content-Type": ct}, sid + "-C"), sid + "-C")
             # D: raw control
             rec("D", pname, ct, "raw",
-                normal_send(args.engine, raw, {"Content-Type": ct}, sid + "-D"))
+                normal_send(args.engine, raw, {"Content-Type": ct}, sid + "-D"), sid + "-D")
             # E: chunked, payload split across chunk boundary (2 offsets)
             for off in (4, 9):
                 # split point inside the payload string
@@ -105,7 +108,7 @@ def main():
                 chunked_body = first + second  # boundary handled by chunking below
                 r = chunked_send(base, "/", chunked_body, {"Content-Type": ct},
                                  sid + f"-E{off}", chunk_size=max(1, idx))
-                rec("E", pname, ct, f"chunked-split@{off}", r)
+                rec("E", pname, ct, f"chunked-split@{off}", r, sid + f"-E{off}")
     with open(args.out, "w") as f:
         for r in rows:
             f.write(json.dumps(r) + "\n")

@@ -1,0 +1,5 @@
+{"sample_id": "t5d-benign-F-gzip", "content_type": "text/plain", "body_bytes": 99, "status": 0, "rule_ids": ["920270", "949110"]}
+{"sample_id": "t5d-benign-F-deflate", "content_type": "text/plain", "body_bytes": 87, "status": 0, "rule_ids": ["920270", "949110"]}
+{"sample_id": "t5d-xss-H", "content_type": "text/plain", "body_bytes": 32, "status": 0, "rule_ids": ["941100", "941110", "941160", "941390", "949110"]}
+{"sample_id": "t5d-sqli-H", "content_type": "text/plain", "body_bytes": 23, "status": 0, "rule_ids": ["942100", "949110"]}
+{"sample_id": "t5d-benign-I-header-only", "content_type": "text/plain", "body_bytes": 48, "status": 0, "rule_ids": ["949110"]}

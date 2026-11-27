@@ -1,0 +1,286 @@
+# Step-22 T5 connector side (ghcr.io/coreruleset/coraza-crs, pinned digest in deploy/compose.yml)
+== host: Darwin 27.0.0 arm64; docker server 29.5.2 linux/arm64; load at start: load averages: 6.95 9.43 8.71
+== padding-pl1 rule29/28 2026-11-27T18:21:55Z
+   image: ghcr.io/coreruleset/coraza-crs:4.25.2-nginx-lts@sha256:bfbfe70b4445c1ef1dc389c2de12cfdb194c9616746c33dc8a7131461c28f4a6 id sha256:bfbfe70b4445c1ef1dc389c2de12cfdb194c9616746c33dc8a7131461c28f4a6 platform linux/arm64
+   env: E=On B=1 P=1 D=1 CT=[] body=[nofiles=131072 total=13107200]
+   crs-setup: tx.blocking_paranoia_level=1 tx.detection_paranoia_level=1 tx.crs_setup_version=4252
+   ruleset: ver:'OWASP_CRS/4.25.2 in /opt/coraza/owasp-crs/rules (27 .conf files)
+TOTAL 108 blocked403=108 passed200=0 failclosed(400/413/503)=0 other=0
+docs/logs/runs/s22-t5-connector/padding-pl1.audit.index.jsonl: 108 records, 0 with a body, 0 body bytes in the source
+== connector padding-pl1: 108 requests
+   status counts: {403: 108}
+   k=8: {403: 36}
+   k=32: {403: 36}
+   k=120000: {403: 36}
+   PASSED (evasion candidates): 0
+   (120000, 'sqli', 'json'): status 403 payload-detected=6
+       rules [942100] x6
+   (120000, 'sqli', 'plain'): status 403 policy-only=6
+       rules [920420] x6
+   (120000, 'sqli', 'x-www-form-u'): status 403 payload-detected=6
+       rules [942100] x6
+   (120000, 'xss', 'json'): status 403 payload-detected=6
+       rules [941100,941110,941160,941390] x6
+   (120000, 'xss', 'plain'): status 403 payload-detected=6
+       rules [920420,941100,941110,941160,941390] x6
+   (120000, 'xss', 'x-www-form-u'): status 403 payload-detected=6
+       rules [941100,941110,941160,941390] x6
+   (32, 'sqli', 'json'): status 403 payload-detected=6
+       rules [942100] x6
+   (32, 'sqli', 'plain'): status 403 policy-only=6
+       rules [920420] x6
+   (32, 'sqli', 'x-www-form-u'): status 403 payload-detected=6
+       rules [942100] x6
+   (32, 'xss', 'json'): status 403 payload-detected=6
+       rules [941100,941110,941160,941390] x6
+   (32, 'xss', 'plain'): status 403 payload-detected=6
+       rules [920420,941100,941110,941160,941390] x6
+   (32, 'xss', 'x-www-form-u'): status 403 payload-detected=6
+       rules [941100,941110,941160,941390] x6
+   (8, 'sqli', 'json'): status 403 payload-detected=6
+       rules [942100] x6
+   (8, 'sqli', 'plain'): status 403 policy-only=6
+       rules [920420] x6
+   (8, 'sqli', 'x-www-form-u'): status 403 payload-detected=6
+       rules [942100] x6
+   (8, 'xss', 'json'): status 403 payload-detected=6
+       rules [941100,941110,941160,941390] x6
+   (8, 'xss', 'plain'): status 403 payload-detected=6
+       rules [920420,941100,941110,941160,941390] x6
+   (8, 'xss', 'x-www-form-u'): status 403 payload-detected=6
+       rules [941100,941110,941160,941390] x6
+== padding-pl2 rule29/28 2026-11-27T18:22:44Z
+   image: ghcr.io/coreruleset/coraza-crs:4.25.2-nginx-lts@sha256:bfbfe70b4445c1ef1dc389c2de12cfdb194c9616746c33dc8a7131461c28f4a6 id sha256:bfbfe70b4445c1ef1dc389c2de12cfdb194c9616746c33dc8a7131461c28f4a6 platform linux/arm64
+   env: E=On B=2 P=2 D=2 CT=[] body=[nofiles=131072 total=13107200]
+   crs-setup: tx.blocking_paranoia_level=2 tx.detection_paranoia_level=2 tx.crs_setup_version=4252
+   ruleset: ver:'OWASP_CRS/4.25.2 in /opt/coraza/owasp-crs/rules (27 .conf files)
+TOTAL 108 blocked403=108 passed200=0 failclosed(400/413/503)=0 other=0
+docs/logs/runs/s22-t5-connector/padding-pl2.audit.index.jsonl: 108 records, 0 with a body, 0 body bytes in the source
+== connector padding-pl2: 108 requests
+   status counts: {403: 108}
+   k=8: {403: 36}
+   k=32: {403: 36}
+   k=120000: {403: 36}
+   PASSED (evasion candidates): 0
+   (120000, 'sqli', 'json'): status 403 payload-detected=6
+       rules [932240,942100,942130,942180,942300,942330,942370,942390,942440,942520,942521] x3
+       rules [932240,942100,942130,942180,942300,942330,942370,942390,942520,942521] x3
+   (120000, 'sqli', 'plain'): status 403 payload-detected=6
+       rules [920420,942180,942300,942330,942440] x3
+       rules [920420,942300,942330] x3
+   (120000, 'sqli', 'x-www-form-u'): status 403 payload-detected=6
+       rules [932240,942100,942130,942180,942300,942330,942370,942390,942520,942521] x6
+   (120000, 'xss', 'json'): status 403 payload-detected=6
+       rules [941100,941110,941160,941320,941390,942131,942520] x6
+   (120000, 'xss', 'plain'): status 403 payload-detected=6
+       rules [920420,941100,941110,941160,941320,941390,942131,942520] x6
+   (120000, 'xss', 'x-www-form-u'): status 403 payload-detected=6
+       rules [941100,941110,941160,941320,941390,942131,942520] x6
+   (32, 'sqli', 'json'): status 403 payload-detected=6
+       rules [932240,942100,942130,942180,942300,942330,942370,942390,942440,942520,942521] x3
+       rules [932240,942100,942130,942180,942300,942330,942370,942390,942520,942521] x3
+   (32, 'sqli', 'plain'): status 403 payload-detected=6
+       rules [920420,942180,942300,942330,942440] x3
+       rules [920420,942300,942330] x3
+   (32, 'sqli', 'x-www-form-u'): status 403 payload-detected=6
+       rules [932240,942100,942130,942180,942300,942330,942370,942390,942520,942521] x6
+   (32, 'xss', 'json'): status 403 payload-detected=6
+       rules [941100,941110,941160,941320,941390,942131,942520] x6
+   (32, 'xss', 'plain'): status 403 payload-detected=6
+       rules [920420,941100,941110,941160,941320,941390,942131,942520] x6
+   (32, 'xss', 'x-www-form-u'): status 403 payload-detected=6
+       rules [941100,941110,941160,941320,941390,942131,942520] x6
+   (8, 'sqli', 'json'): status 403 payload-detected=6
+       rules [932240,942100,942130,942180,942300,942330,942370,942390,942440,942520,942521] x3
+       rules [932240,942100,942130,942180,942300,942330,942370,942390,942520,942521] x3
+   (8, 'sqli', 'plain'): status 403 payload-detected=6
+       rules [920420,942180,942300,942330,942440] x3
+       rules [920420,942300,942330] x3
+   (8, 'sqli', 'x-www-form-u'): status 403 payload-detected=6
+       rules [932240,942100,942130,942180,942300,942330,942370,942390,942520,942521] x6
+   (8, 'xss', 'json'): status 403 payload-detected=6
+       rules [941100,941110,941160,941320,941390,942131,942520] x6
+   (8, 'xss', 'plain'): status 403 payload-detected=6
+       rules [920420,941100,941110,941160,941320,941390,942131,942520] x6
+   (8, 'xss', 'x-www-form-u'): status 403 payload-detected=6
+       rules [941100,941110,941160,941320,941390,942131,942520] x6
+== encoding-pl1 rule29/28 2026-11-27T18:23:50Z
+   image: ghcr.io/coreruleset/coraza-crs:4.25.2-nginx-lts@sha256:bfbfe70b4445c1ef1dc389c2de12cfdb194c9616746c33dc8a7131461c28f4a6 id sha256:bfbfe70b4445c1ef1dc389c2de12cfdb194c9616746c33dc8a7131461c28f4a6 platform linux/arm64
+   env: E=On B=1 P=1 D=1 CT=[] body=[nofiles=131072 total=13107200]
+   crs-setup: tx.blocking_paranoia_level=1 tx.detection_paranoia_level=1 tx.crs_setup_version=4252
+   ruleset: ver:'OWASP_CRS/4.25.2 in /opt/coraza/owasp-crs/rules (27 .conf files)
+STATUS COUNTS: Counter({403: 30, 400: 6})
+docs/logs/runs/s22-t5-connector/encoding-pl1.audit.index.jsonl: 36 records, 0 with a body, 0 body bytes in the source
+== connector encoding-pl1: 36 requests
+   cell ('A', 'json', 'sqli'): {400: 1}
+   cell ('A', 'json', 'xss'): {400: 1}
+   cell ('A', 'plain', 'sqli'): {403: 1}
+   cell ('A', 'plain', 'xss'): {403: 1}
+   cell ('A', 'x-www-form-u', 'sqli'): {403: 1}
+   cell ('A', 'x-www-form-u', 'xss'): {403: 1}
+   cell ('B', 'json', 'sqli'): {400: 1}
+   cell ('B', 'json', 'xss'): {400: 1}
+   cell ('B', 'plain', 'sqli'): {403: 1}
+   cell ('B', 'plain', 'xss'): {403: 1}
+   cell ('B', 'x-www-form-u', 'sqli'): {403: 1}
+   cell ('B', 'x-www-form-u', 'xss'): {403: 1}
+   cell ('C', 'json', 'sqli'): {400: 1}
+   cell ('C', 'json', 'xss'): {400: 1}
+   cell ('C', 'plain', 'sqli'): {403: 1}
+   cell ('C', 'plain', 'xss'): {403: 1}
+   cell ('C', 'x-www-form-u', 'sqli'): {403: 1}
+   cell ('C', 'x-www-form-u', 'xss'): {403: 1}
+   cell ('D', 'json', 'sqli'): {403: 1}
+   cell ('D', 'json', 'xss'): {403: 1}
+   cell ('D', 'plain', 'sqli'): {403: 1}
+   cell ('D', 'plain', 'xss'): {403: 1}
+   cell ('D', 'x-www-form-u', 'sqli'): {403: 1}
+   cell ('D', 'x-www-form-u', 'xss'): {403: 1}
+   cell ('E', 'json', 'sqli'): {403: 2}
+   cell ('E', 'json', 'xss'): {403: 2}
+   cell ('E', 'plain', 'sqli'): {403: 2}
+   cell ('E', 'plain', 'xss'): {403: 2}
+   cell ('E', 'x-www-form-u', 'sqli'): {403: 2}
+   cell ('E', 'x-www-form-u', 'xss'): {403: 2}
+   PASSED (evasion candidates): 0
+   ('A', 'gzip+header', 'sqli', 'json'): status 400 policy-only=1
+       rules [920450] x1
+   ('A', 'gzip+header', 'sqli', 'plain'): status 403 policy-only=1
+       rules [920270,920420,920450] x1
+   ('A', 'gzip+header', 'sqli', 'x-www-form-u'): status 403 policy-only=1
+       rules [920270,920450] x1
+   ('A', 'gzip+header', 'xss', 'json'): status 400 policy-only=1
+       rules [920450] x1
+   ('A', 'gzip+header', 'xss', 'plain'): status 403 policy-only=1
+       rules [920270,920420,920450,921150] x1
+   ('A', 'gzip+header', 'xss', 'x-www-form-u'): status 403 policy-only=1
+       rules [920270,920450] x1
+   ('B', 'deflate+header', 'sqli', 'json'): status 400 policy-only=1
+       rules [920450] x1
+   ('B', 'deflate+header', 'sqli', 'plain'): status 403 policy-only=1
+       rules [920270,920420,920450] x1
+   ('B', 'deflate+header', 'sqli', 'x-www-form-u'): status 403 policy-only=1
+       rules [920270,920450] x1
+   ('B', 'deflate+header', 'xss', 'json'): status 400 policy-only=1
+       rules [920450] x1
+   ('B', 'deflate+header', 'xss', 'plain'): status 403 policy-only=1
+       rules [920270,920420,920450,921150] x1
+   ('B', 'deflate+header', 'xss', 'x-www-form-u'): status 403 policy-only=1
+       rules [920270,920450] x1
+   ('C', 'gzip-noheader', 'sqli', 'json'): status 400 no-check-rule=1
+       rules [] x1
+   ('C', 'gzip-noheader', 'sqli', 'plain'): status 403 policy-only=1
+       rules [920270,920420] x1
+   ('C', 'gzip-noheader', 'sqli', 'x-www-form-u'): status 403 policy-only=1
+       rules [920270] x1
+   ('C', 'gzip-noheader', 'xss', 'json'): status 400 no-check-rule=1
+       rules [] x1
+   ('C', 'gzip-noheader', 'xss', 'plain'): status 403 policy-only=1
+       rules [920270,920420,921150] x1
+   ('C', 'gzip-noheader', 'xss', 'x-www-form-u'): status 403 policy-only=1
+       rules [920270] x1
+   ('D', 'raw', 'sqli', 'json'): status 403 payload-detected=1
+       rules [942100] x1
+   ('D', 'raw', 'sqli', 'plain'): status 403 policy-only=1
+       rules [920420] x1
+   ('D', 'raw', 'sqli', 'x-www-form-u'): status 403 payload-detected=1
+       rules [942100] x1
+   ('D', 'raw', 'xss', 'json'): status 403 payload-detected=1
+       rules [941100,941110,941160,941390] x1
+   ('D', 'raw', 'xss', 'plain'): status 403 payload-detected=1
+       rules [920420,941100,941110,941160,941390] x1
+   ('D', 'raw', 'xss', 'x-www-form-u'): status 403 payload-detected=1
+       rules [941100,941110,941160,941390] x1
+   ('E', 'chunked-split@4', 'sqli', 'json'): status 403 payload-detected=1
+       rules [942100] x1
+   ('E', 'chunked-split@4', 'sqli', 'plain'): status 403 policy-only=1
+       rules [920420] x1
+   ('E', 'chunked-split@4', 'sqli', 'x-www-form-u'): status 403 payload-detected=1
+       rules [942100] x1
+   ('E', 'chunked-split@4', 'xss', 'json'): status 403 payload-detected=1
+       rules [941100,941110,941160,941390] x1
+   ('E', 'chunked-split@4', 'xss', 'plain'): status 403 payload-detected=1
+       rules [920420,941100,941110,941160,941390] x1
+   ('E', 'chunked-split@4', 'xss', 'x-www-form-u'): status 403 payload-detected=1
+       rules [941100,941110,941160,941390] x1
+   ('E', 'chunked-split@9', 'sqli', 'json'): status 403 payload-detected=1
+       rules [942100] x1
+   ('E', 'chunked-split@9', 'sqli', 'plain'): status 403 policy-only=1
+       rules [920420] x1
+   ('E', 'chunked-split@9', 'sqli', 'x-www-form-u'): status 403 payload-detected=1
+       rules [942100] x1
+   ('E', 'chunked-split@9', 'xss', 'json'): status 403 payload-detected=1
+       rules [941100,941110,941160,941390] x1
+   ('E', 'chunked-split@9', 'xss', 'plain'): status 403 payload-detected=1
+       rules [920420,941100,941110,941160,941390] x1
+   ('E', 'chunked-split@9', 'xss', 'x-www-form-u'): status 403 payload-detected=1
+       rules [941100,941110,941160,941390] x1
+   body bytes the engine recorded per sample (raw control of the same payload and content type in brackets):
+     t5b-xss-plain-A gzip+header: 0 [0]
+     t5b-xss-plain-B deflate+header: 0 [0]
+     t5b-xss-plain-C gzip-noheader: 0 [0]
+     t5b-xss-plain-E4 chunked-split@4: 0 [0]
+     t5b-xss-plain-E9 chunked-split@9: 0 [0]
+     t5b-xss-url-A gzip+header: 0 [0]
+     t5b-xss-url-B deflate+header: 0 [0]
+     t5b-xss-url-C gzip-noheader: 0 [0]
+     t5b-xss-url-E4 chunked-split@4: 0 [0]
+     t5b-xss-url-E9 chunked-split@9: 0 [0]
+     t5b-xss-json-A gzip+header: 0 [0]
+     t5b-xss-json-B deflate+header: 0 [0]
+     t5b-xss-json-C gzip-noheader: 0 [0]
+     t5b-xss-json-E4 chunked-split@4: 0 [0]
+     t5b-xss-json-E9 chunked-split@9: 0 [0]
+     t5b-sqli-plain-A gzip+header: 0 [0]
+     t5b-sqli-plain-B deflate+header: 0 [0]
+     t5b-sqli-plain-C gzip-noheader: 0 [0]
+     t5b-sqli-plain-E4 chunked-split@4: 0 [0]
+     t5b-sqli-plain-E9 chunked-split@9: 0 [0]
+     t5b-sqli-url-A gzip+header: 0 [0]
+     t5b-sqli-url-B deflate+header: 0 [0]
+     t5b-sqli-url-C gzip-noheader: 0 [0]
+     t5b-sqli-url-E4 chunked-split@4: 0 [0]
+     t5b-sqli-url-E9 chunked-split@9: 0 [0]
+     t5b-sqli-json-A gzip+header: 0 [0]
+     t5b-sqli-json-B deflate+header: 0 [0]
+     t5b-sqli-json-C gzip-noheader: 0 [0]
+     t5b-sqli-json-E4 chunked-split@4: 0 [0]
+     t5b-sqli-json-E9 chunked-split@9: 0 [0]
+# DIAGNOSTIC (rule 34): compressed-body inspection cells F/G/H, never a baseline number
+== DIAGNOSTIC-encoding-pl1 rule29/28 2026-11-27T18:24:02Z
+   image: ghcr.io/coreruleset/coraza-crs:4.25.2-nginx-lts@sha256:bfbfe70b4445c1ef1dc389c2de12cfdb194c9616746c33dc8a7131461c28f4a6 id sha256:bfbfe70b4445c1ef1dc389c2de12cfdb194c9616746c33dc8a7131461c28f4a6 platform linux/arm64
+   env: E=On B=1 P=1 D=1 CT=[] body=[nofiles=131072 total=13107200]
+   crs-setup: tx.blocking_paranoia_level=1 tx.detection_paranoia_level=1 tx.crs_setup_version=4252
+   ruleset: ver:'OWASP_CRS/4.25.2 in /opt/coraza/owasp-crs/rules (27 .conf files)
+docs/logs/runs/s22-t5-connector/DIAGNOSTIC-encoding-pl1.audit.index.jsonl: 6 records, 0 with a body, 0 body bytes in the source
+== connector DIAGNOSTIC-encoding-pl1: 8 requests
+   cell ('F', 'plain', 'benign'): {403: 2}
+   cell ('G', 'plain', 'sqli'): {None: 1}
+   cell ('G', 'plain', 'xss'): {None: 1}
+   cell ('H', 'plain', 'sqli'): {403: 1}
+   cell ('H', 'plain', 'xss'): {403: 1}
+   cell ('I', 'plain', 'benign'): {403: 1}
+   cell ('J', 'plain', 'benign'): {403: 1}
+   PASSED (evasion candidates): 0
+   ('F', 'deflate+header', 'benign', 'plain'): status 403 policy-only=1
+       rules [920270,920420,920450] x1
+   ('F', 'gzip+header', 'benign', 'plain'): status 403 policy-only=1
+       rules [920270,920420,920450] x1
+   ('G', 'clean-deflate+header', 'sqli', 'plain'): status None no-audit-entry=1
+       rules [] x1
+   ('G', 'clean-deflate+header', 'xss', 'plain'): status None no-audit-entry=1
+       rules [] x1
+   ('H', 'raw', 'sqli', 'plain'): status 403 policy-only=1
+       rules [920420] x1
+   ('H', 'raw', 'xss', 'plain'): status 403 payload-detected=1
+       rules [920420,941100,941110,941160,941390] x1
+   ('I', 'ce-header-uncompressed-body', 'benign', 'plain'): status 403 policy-only=1
+       rules [920420,920450] x1
+   ('J', 'raw', 'benign', 'plain'): status 403 policy-only=1
+       rules [920420] x1
+   block pages that list rule 920450 among the matched rules: 0 []
+   body bytes the engine recorded per sample (raw control of the same payload and content type in brackets):
+     t5d-benign-F-gzip gzip+header: 0 [0]
+     t5d-benign-F-deflate deflate+header: 0 [0]
+     t5d-benign-I-header-only ce-header-uncompressed-body: 0 [0]
+== load at end: load averages: 6.11 8.33 8.37

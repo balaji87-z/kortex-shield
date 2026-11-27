@@ -1,0 +1,108 @@
+{"sample_id": "t5a-pl1-k8-xss-before-plain-r1", "content_type": "text/plain", "body_bytes": 35, "status": 0, "rule_ids": ["941100", "941110", "941160", "941390", "949110"]}
+{"sample_id": "t5a-pl1-k8-xss-before-plain-r2", "content_type": "text/plain", "body_bytes": 35, "status": 0, "rule_ids": ["941100", "941110", "941160", "941390", "949110"]}
+{"sample_id": "t5a-pl1-k8-xss-before-plain-r3", "content_type": "text/plain", "body_bytes": 35, "status": 0, "rule_ids": ["941100", "941110", "941160", "941390", "949110"]}
+{"sample_id": "t5a-pl1-k8-xss-before-url-r1", "content_type": "application/x-www-form-urlencoded", "body_bytes": 55, "status": 0, "rule_ids": ["941100", "941110", "941160", "941390", "949110"]}
+{"sample_id": "t5a-pl1-k8-xss-before-url-r2", "content_type": "application/x-www-form-urlencoded", "body_bytes": 55, "status": 0, "rule_ids": ["941100", "941110", "941160", "941390", "949110"]}
+{"sample_id": "t5a-pl1-k8-xss-before-url-r3", "content_type": "application/x-www-form-urlencoded", "body_bytes": 55, "status": 0, "rule_ids": ["941100", "941110", "941160", "941390", "949110"]}
+{"sample_id": "t5a-pl1-k8-xss-before-json-r1", "content_type": "application/json", "body_bytes": 48, "status": 0, "rule_ids": ["941100", "941110", "941160", "941390", "949110"]}
+{"sample_id": "t5a-pl1-k8-xss-before-json-r2", "content_type": "application/json", "body_bytes": 48, "status": 0, "rule_ids": ["941100", "941110", "941160", "941390", "949110"]}
+{"sample_id": "t5a-pl1-k8-xss-before-json-r3", "content_type": "application/json", "body_bytes": 48, "status": 0, "rule_ids": ["941100", "941110", "941160", "941390", "949110"]}
+{"sample_id": "t5a-pl1-k8-xss-after-plain-r1", "content_type": "text/plain", "body_bytes": 35, "status": 0, "rule_ids": ["941100", "941110", "941160", "941390", "949110"]}
+{"sample_id": "t5a-pl1-k8-xss-after-plain-r2", "content_type": "text/plain", "body_bytes": 35, "status": 0, "rule_ids": ["941100", "941110", "941160", "941390", "949110"]}
+{"sample_id": "t5a-pl1-k8-xss-after-plain-r3", "content_type": "text/plain", "body_bytes": 35, "status": 0, "rule_ids": ["941100", "941110", "941160", "941390", "949110"]}
+{"sample_id": "t5a-pl1-k8-xss-after-url-r1", "content_type": "application/x-www-form-urlencoded", "body_bytes": 55, "status": 0, "rule_ids": ["941100", "941110", "941160", "941390", "949110"]}
+{"sample_id": "t5a-pl1-k8-xss-after-url-r2", "content_type": "application/x-www-form-urlencoded", "body_bytes": 55, "status": 0, "rule_ids": ["941100", "941110", "941160", "941390", "949110"]}
+{"sample_id": "t5a-pl1-k8-xss-after-url-r3", "content_type": "application/x-www-form-urlencoded", "body_bytes": 55, "status": 0, "rule_ids": ["941100", "941110", "941160", "941390", "949110"]}
+{"sample_id": "t5a-pl1-k8-xss-after-json-r1", "content_type": "application/json", "body_bytes": 48, "status": 0, "rule_ids": ["941100", "941110", "941160", "941390", "949110"]}
+{"sample_id": "t5a-pl1-k8-xss-after-json-r2", "content_type": "application/json", "body_bytes": 48, "status": 0, "rule_ids": ["941100", "941110", "941160", "941390", "949110"]}
+{"sample_id": "t5a-pl1-k8-xss-after-json-r3", "content_type": "application/json", "body_bytes": 48, "status": 0, "rule_ids": ["941100", "941110", "941160", "941390", "949110"]}
+{"sample_id": "t5a-pl1-k8-sqli-before-plain-r1", "content_type": "text/plain", "body_bytes": 26, "status": 0, "rule_ids": ["942100", "949110"]}
+{"sample_id": "t5a-pl1-k8-sqli-before-plain-r2", "content_type": "text/plain", "body_bytes": 26, "status": 0, "rule_ids": ["942100", "949110"]}
+{"sample_id": "t5a-pl1-k8-sqli-before-plain-r3", "content_type": "text/plain", "body_bytes": 26, "status": 0, "rule_ids": ["942100", "949110"]}
+{"sample_id": "t5a-pl1-k8-sqli-before-url-r1", "content_type": "application/x-www-form-urlencoded", "body_bytes": 46, "status": 0, "rule_ids": ["942100", "949110"]}
+{"sample_id": "t5a-pl1-k8-sqli-before-url-r2", "content_type": "application/x-www-form-urlencoded", "body_bytes": 46, "status": 0, "rule_ids": ["942100", "949110"]}
+{"sample_id": "t5a-pl1-k8-sqli-before-url-r3", "content_type": "application/x-www-form-urlencoded", "body_bytes": 46, "status": 0, "rule_ids": ["942100", "949110"]}
+{"sample_id": "t5a-pl1-k8-sqli-before-json-r1", "content_type": "application/json", "body_bytes": 43, "status": 0, "rule_ids": ["942100", "949110"]}
+{"sample_id": "t5a-pl1-k8-sqli-before-json-r2", "content_type": "application/json", "body_bytes": 43, "status": 0, "rule_ids": ["942100", "949110"]}
+{"sample_id": "t5a-pl1-k8-sqli-before-json-r3", "content_type": "application/json", "body_bytes": 43, "status": 0, "rule_ids": ["942100", "949110"]}
+{"sample_id": "t5a-pl1-k8-sqli-after-plain-r1", "content_type": "text/plain", "body_bytes": 26, "status": 0, "rule_ids": ["942100", "949110"]}
+{"sample_id": "t5a-pl1-k8-sqli-after-plain-r2", "content_type": "text/plain", "body_bytes": 26, "status": 0, "rule_ids": ["942100", "949110"]}
+{"sample_id": "t5a-pl1-k8-sqli-after-plain-r3", "content_type": "text/plain", "body_bytes": 26, "status": 0, "rule_ids": ["942100", "949110"]}
+{"sample_id": "t5a-pl1-k8-sqli-after-url-r1", "content_type": "application/x-www-form-urlencoded", "body_bytes": 46, "status": 0, "rule_ids": ["942100", "949110"]}
+{"sample_id": "t5a-pl1-k8-sqli-after-url-r2", "content_type": "application/x-www-form-urlencoded", "body_bytes": 46, "status": 0, "rule_ids": ["942100", "949110"]}
+{"sample_id": "t5a-pl1-k8-sqli-after-url-r3", "content_type": "application/x-www-form-urlencoded", "body_bytes": 46, "status": 0, "rule_ids": ["942100", "949110"]}
+{"sample_id": "t5a-pl1-k8-sqli-after-json-r1", "content_type": "application/json", "body_bytes": 43, "status": 0, "rule_ids": ["942100", "949110"]}
+{"sample_id": "t5a-pl1-k8-sqli-after-json-r2", "content_type": "application/json", "body_bytes": 43, "status": 0, "rule_ids": ["942100", "949110"]}
+{"sample_id": "t5a-pl1-k8-sqli-after-json-r3", "content_type": "application/json", "body_bytes": 43, "status": 0, "rule_ids": ["942100", "949110"]}
+{"sample_id": "t5a-pl1-k32-xss-before-plain-r1", "content_type": "text/plain", "body_bytes": 59, "status": 0, "rule_ids": ["941100", "941110", "941160", "941390", "949110"]}
+{"sample_id": "t5a-pl1-k32-xss-before-plain-r2", "content_type": "text/plain", "body_bytes": 59, "status": 0, "rule_ids": ["941100", "941110", "941160", "941390", "949110"]}
+{"sample_id": "t5a-pl1-k32-xss-before-plain-r3", "content_type": "text/plain", "body_bytes": 59, "status": 0, "rule_ids": ["941100", "941110", "941160", "941390", "949110"]}
+{"sample_id": "t5a-pl1-k32-xss-before-url-r1", "content_type": "application/x-www-form-urlencoded", "body_bytes": 79, "status": 0, "rule_ids": ["941100", "941110", "941160", "941390", "949110"]}
+{"sample_id": "t5a-pl1-k32-xss-before-url-r2", "content_type": "application/x-www-form-urlencoded", "body_bytes": 79, "status": 0, "rule_ids": ["941100", "941110", "941160", "941390", "949110"]}
+{"sample_id": "t5a-pl1-k32-xss-before-url-r3", "content_type": "application/x-www-form-urlencoded", "body_bytes": 79, "status": 0, "rule_ids": ["941100", "941110", "941160", "941390", "949110"]}
+{"sample_id": "t5a-pl1-k32-xss-before-json-r1", "content_type": "application/json", "body_bytes": 72, "status": 0, "rule_ids": ["941100", "941110", "941160", "941390", "949110"]}
+{"sample_id": "t5a-pl1-k32-xss-before-json-r2", "content_type": "application/json", "body_bytes": 72, "status": 0, "rule_ids": ["941100", "941110", "941160", "941390", "949110"]}
+{"sample_id": "t5a-pl1-k32-xss-before-json-r3", "content_type": "application/json", "body_bytes": 72, "status": 0, "rule_ids": ["941100", "941110", "941160", "941390", "949110"]}
+{"sample_id": "t5a-pl1-k32-xss-after-plain-r1", "content_type": "text/plain", "body_bytes": 59, "status": 0, "rule_ids": ["941100", "941110", "941160", "941390", "949110"]}
+{"sample_id": "t5a-pl1-k32-xss-after-plain-r2", "content_type": "text/plain", "body_bytes": 59, "status": 0, "rule_ids": ["941100", "941110", "941160", "941390", "949110"]}
+{"sample_id": "t5a-pl1-k32-xss-after-plain-r3", "content_type": "text/plain", "body_bytes": 59, "status": 0, "rule_ids": ["941100", "941110", "941160", "941390", "949110"]}
+{"sample_id": "t5a-pl1-k32-xss-after-url-r1", "content_type": "application/x-www-form-urlencoded", "body_bytes": 79, "status": 0, "rule_ids": ["941100", "941110", "941160", "941390", "949110"]}
+{"sample_id": "t5a-pl1-k32-xss-after-url-r2", "content_type": "application/x-www-form-urlencoded", "body_bytes": 79, "status": 0, "rule_ids": ["941100", "941110", "941160", "941390", "949110"]}
+{"sample_id": "t5a-pl1-k32-xss-after-url-r3", "content_type": "application/x-www-form-urlencoded", "body_bytes": 79, "status": 0, "rule_ids": ["941100", "941110", "941160", "941390", "949110"]}
+{"sample_id": "t5a-pl1-k32-xss-after-json-r1", "content_type": "application/json", "body_bytes": 72, "status": 0, "rule_ids": ["941100", "941110", "941160", "941390", "949110"]}
+{"sample_id": "t5a-pl1-k32-xss-after-json-r2", "content_type": "application/json", "body_bytes": 72, "status": 0, "rule_ids": ["941100", "941110", "941160", "941390", "949110"]}
+{"sample_id": "t5a-pl1-k32-xss-after-json-r3", "content_type": "application/json", "body_bytes": 72, "status": 0, "rule_ids": ["941100", "941110", "941160", "941390", "949110"]}
+{"sample_id": "t5a-pl1-k32-sqli-before-plain-r1", "content_type": "text/plain", "body_bytes": 50, "status": 0, "rule_ids": ["942100", "949110"]}
+{"sample_id": "t5a-pl1-k32-sqli-before-plain-r2", "content_type": "text/plain", "body_bytes": 50, "status": 0, "rule_ids": ["942100", "949110"]}
+{"sample_id": "t5a-pl1-k32-sqli-before-plain-r3", "content_type": "text/plain", "body_bytes": 50, "status": 0, "rule_ids": ["942100", "949110"]}
+{"sample_id": "t5a-pl1-k32-sqli-before-url-r1", "content_type": "application/x-www-form-urlencoded", "body_bytes": 70, "status": 0, "rule_ids": ["942100", "949110"]}
+{"sample_id": "t5a-pl1-k32-sqli-before-url-r2", "content_type": "application/x-www-form-urlencoded", "body_bytes": 70, "status": 0, "rule_ids": ["942100", "949110"]}
+{"sample_id": "t5a-pl1-k32-sqli-before-url-r3", "content_type": "application/x-www-form-urlencoded", "body_bytes": 70, "status": 0, "rule_ids": ["942100", "949110"]}
+{"sample_id": "t5a-pl1-k32-sqli-before-json-r1", "content_type": "application/json", "body_bytes": 67, "status": 0, "rule_ids": ["942100", "949110"]}
+{"sample_id": "t5a-pl1-k32-sqli-before-json-r2", "content_type": "application/json", "body_bytes": 67, "status": 0, "rule_ids": ["942100", "949110"]}
+{"sample_id": "t5a-pl1-k32-sqli-before-json-r3", "content_type": "application/json", "body_bytes": 67, "status": 0, "rule_ids": ["942100", "949110"]}
+{"sample_id": "t5a-pl1-k32-sqli-after-plain-r1", "content_type": "text/plain", "body_bytes": 50, "status": 0, "rule_ids": ["942100", "949110"]}
+{"sample_id": "t5a-pl1-k32-sqli-after-plain-r2", "content_type": "text/plain", "body_bytes": 50, "status": 0, "rule_ids": ["942100", "949110"]}
+{"sample_id": "t5a-pl1-k32-sqli-after-plain-r3", "content_type": "text/plain", "body_bytes": 50, "status": 0, "rule_ids": ["942100", "949110"]}
+{"sample_id": "t5a-pl1-k32-sqli-after-url-r1", "content_type": "application/x-www-form-urlencoded", "body_bytes": 70, "status": 0, "rule_ids": ["942100", "949110"]}
+{"sample_id": "t5a-pl1-k32-sqli-after-url-r2", "content_type": "application/x-www-form-urlencoded", "body_bytes": 70, "status": 0, "rule_ids": ["942100", "949110"]}
+{"sample_id": "t5a-pl1-k32-sqli-after-url-r3", "content_type": "application/x-www-form-urlencoded", "body_bytes": 70, "status": 0, "rule_ids": ["942100", "949110"]}
+{"sample_id": "t5a-pl1-k32-sqli-after-json-r1", "content_type": "application/json", "body_bytes": 67, "status": 0, "rule_ids": ["942100", "949110"]}
+{"sample_id": "t5a-pl1-k32-sqli-after-json-r2", "content_type": "application/json", "body_bytes": 67, "status": 0, "rule_ids": ["942100", "949110"]}
+{"sample_id": "t5a-pl1-k32-sqli-after-json-r3", "content_type": "application/json", "body_bytes": 67, "status": 0, "rule_ids": ["942100", "949110"]}
+{"sample_id": "t5a-pl1-k120000-xss-before-plain-r1", "content_type": "text/plain", "body_bytes": 120027, "status": 0, "rule_ids": ["941100", "941110", "941160", "941390", "949110"]}
+{"sample_id": "t5a-pl1-k120000-xss-before-plain-r2", "content_type": "text/plain", "body_bytes": 120027, "status": 0, "rule_ids": ["941100", "941110", "941160", "941390", "949110"]}
+{"sample_id": "t5a-pl1-k120000-xss-before-plain-r3", "content_type": "text/plain", "body_bytes": 120027, "status": 0, "rule_ids": ["941100", "941110", "941160", "941390", "949110"]}
+{"sample_id": "t5a-pl1-k120000-xss-before-url-r1", "content_type": "application/x-www-form-urlencoded", "body_bytes": 120047, "status": 0, "rule_ids": ["941100", "941110", "941160", "941390", "949110"]}
+{"sample_id": "t5a-pl1-k120000-xss-before-url-r2", "content_type": "application/x-www-form-urlencoded", "body_bytes": 120047, "status": 0, "rule_ids": ["941100", "941110", "941160", "941390", "949110"]}
+{"sample_id": "t5a-pl1-k120000-xss-before-url-r3", "content_type": "application/x-www-form-urlencoded", "body_bytes": 120047, "status": 0, "rule_ids": ["941100", "941110", "941160", "941390", "949110"]}
+{"sample_id": "t5a-pl1-k120000-xss-before-json-r1", "content_type": "application/json", "body_bytes": 120040, "status": 0, "rule_ids": ["941100", "941110", "941160", "941390", "949110"]}
+{"sample_id": "t5a-pl1-k120000-xss-before-json-r2", "content_type": "application/json", "body_bytes": 120040, "status": 0, "rule_ids": ["941100", "941110", "941160", "941390", "949110"]}
+{"sample_id": "t5a-pl1-k120000-xss-before-json-r3", "content_type": "application/json", "body_bytes": 120040, "status": 0, "rule_ids": ["941100", "941110", "941160", "941390", "949110"]}
+{"sample_id": "t5a-pl1-k120000-xss-after-plain-r1", "content_type": "text/plain", "body_bytes": 120027, "status": 0, "rule_ids": ["941100", "941110", "941160", "941390", "949110"]}
+{"sample_id": "t5a-pl1-k120000-xss-after-plain-r2", "content_type": "text/plain", "body_bytes": 120027, "status": 0, "rule_ids": ["941100", "941110", "941160", "941390", "949110"]}
+{"sample_id": "t5a-pl1-k120000-xss-after-plain-r3", "content_type": "text/plain", "body_bytes": 120027, "status": 0, "rule_ids": ["941100", "941110", "941160", "941390", "949110"]}
+{"sample_id": "t5a-pl1-k120000-xss-after-url-r1", "content_type": "application/x-www-form-urlencoded", "body_bytes": 120047, "status": 0, "rule_ids": ["941100", "941110", "941160", "941390", "949110"]}
+{"sample_id": "t5a-pl1-k120000-xss-after-url-r2", "content_type": "application/x-www-form-urlencoded", "body_bytes": 120047, "status": 0, "rule_ids": ["941100", "941110", "941160", "941390", "949110"]}
+{"sample_id": "t5a-pl1-k120000-xss-after-url-r3", "content_type": "application/x-www-form-urlencoded", "body_bytes": 120047, "status": 0, "rule_ids": ["941100", "941110", "941160", "941390", "949110"]}
+{"sample_id": "t5a-pl1-k120000-xss-after-json-r1", "content_type": "application/json", "body_bytes": 120040, "status": 0, "rule_ids": ["941100", "941110", "941160", "941390", "949110"]}
+{"sample_id": "t5a-pl1-k120000-xss-after-json-r2", "content_type": "application/json", "body_bytes": 120040, "status": 0, "rule_ids": ["941100", "941110", "941160", "941390", "949110"]}
+{"sample_id": "t5a-pl1-k120000-xss-after-json-r3", "content_type": "application/json", "body_bytes": 120040, "status": 0, "rule_ids": ["941100", "941110", "941160", "941390", "949110"]}
+{"sample_id": "t5a-pl1-k120000-sqli-before-plain-r1", "content_type": "text/plain", "body_bytes": 120018, "status": 0, "rule_ids": ["942100", "949110"]}
+{"sample_id": "t5a-pl1-k120000-sqli-before-plain-r2", "content_type": "text/plain", "body_bytes": 120018, "status": 0, "rule_ids": ["942100", "949110"]}
+{"sample_id": "t5a-pl1-k120000-sqli-before-plain-r3", "content_type": "text/plain", "body_bytes": 120018, "status": 0, "rule_ids": ["942100", "949110"]}
+{"sample_id": "t5a-pl1-k120000-sqli-before-url-r1", "content_type": "application/x-www-form-urlencoded", "body_bytes": 120038, "status": 0, "rule_ids": ["942100", "949110"]}
+{"sample_id": "t5a-pl1-k120000-sqli-before-url-r2", "content_type": "application/x-www-form-urlencoded", "body_bytes": 120038, "status": 0, "rule_ids": ["942100", "949110"]}
+{"sample_id": "t5a-pl1-k120000-sqli-before-url-r3", "content_type": "application/x-www-form-urlencoded", "body_bytes": 120038, "status": 0, "rule_ids": ["942100", "949110"]}
+{"sample_id": "t5a-pl1-k120000-sqli-before-json-r1", "content_type": "application/json", "body_bytes": 120035, "status": 0, "rule_ids": ["942100", "949110"]}
+{"sample_id": "t5a-pl1-k120000-sqli-before-json-r2", "content_type": "application/json", "body_bytes": 120035, "status": 0, "rule_ids": ["942100", "949110"]}
+{"sample_id": "t5a-pl1-k120000-sqli-before-json-r3", "content_type": "application/json", "body_bytes": 120035, "status": 0, "rule_ids": ["942100", "949110"]}
+{"sample_id": "t5a-pl1-k120000-sqli-after-plain-r1", "content_type": "text/plain", "body_bytes": 120018, "status": 0, "rule_ids": ["942100", "949110"]}
+{"sample_id": "t5a-pl1-k120000-sqli-after-plain-r2", "content_type": "text/plain", "body_bytes": 120018, "status": 0, "rule_ids": ["942100", "949110"]}
+{"sample_id": "t5a-pl1-k120000-sqli-after-plain-r3", "content_type": "text/plain", "body_bytes": 120018, "status": 0, "rule_ids": ["942100", "949110"]}
+{"sample_id": "t5a-pl1-k120000-sqli-after-url-r1", "content_type": "application/x-www-form-urlencoded", "body_bytes": 120038, "status": 0, "rule_ids": ["942100", "949110"]}
+{"sample_id": "t5a-pl1-k120000-sqli-after-url-r2", "content_type": "application/x-www-form-urlencoded", "body_bytes": 120038, "status": 0, "rule_ids": ["942100", "949110"]}
+{"sample_id": "t5a-pl1-k120000-sqli-after-url-r3", "content_type": "application/x-www-form-urlencoded", "body_bytes": 120038, "status": 0, "rule_ids": ["942100", "949110"]}
+{"sample_id": "t5a-pl1-k120000-sqli-after-json-r1", "content_type": "application/json", "body_bytes": 120035, "status": 0, "rule_ids": ["942100", "949110"]}
+{"sample_id": "t5a-pl1-k120000-sqli-after-json-r2", "content_type": "application/json", "body_bytes": 120035, "status": 0, "rule_ids": ["942100", "949110"]}
+{"sample_id": "t5a-pl1-k120000-sqli-after-json-r3", "content_type": "application/json", "body_bytes": 120035, "status": 0, "rule_ids": ["942100", "949110"]}

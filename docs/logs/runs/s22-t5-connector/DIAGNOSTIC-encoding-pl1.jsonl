@@ -1,0 +1,8 @@
+{"status": 403, "block_page_lists_920450": false, "id": "t5d-benign-F-gzip", "cell": "F", "payload": "benign", "ct": "text/plain", "variant": "gzip+header", "label": "DIAGNOSTIC"}
+{"status": 403, "block_page_lists_920450": false, "id": "t5d-benign-F-deflate", "cell": "F", "payload": "benign", "ct": "text/plain", "variant": "deflate+header", "label": "DIAGNOSTIC"}
+{"status": null, "error": "no NUL/CR/LF-free stream found; NOT MEASURED", "id": "t5d-xss-G", "cell": "G", "payload": "xss", "ct": "text/plain", "variant": "clean-deflate+header", "label": "DIAGNOSTIC"}
+{"status": 403, "block_page_lists_920450": false, "id": "t5d-xss-H", "cell": "H", "payload": "xss", "ct": "text/plain", "variant": "raw", "label": "DIAGNOSTIC"}
+{"status": null, "error": "no NUL/CR/LF-free stream found; NOT MEASURED", "id": "t5d-sqli-G", "cell": "G", "payload": "sqli", "ct": "text/plain", "variant": "clean-deflate+header", "label": "DIAGNOSTIC"}
+{"status": 403, "block_page_lists_920450": false, "id": "t5d-sqli-H", "cell": "H", "payload": "sqli", "ct": "text/plain", "variant": "raw", "label": "DIAGNOSTIC"}
+{"status": 403, "block_page_lists_920450": false, "id": "t5d-benign-I-header-only", "cell": "I", "payload": "benign", "ct": "text/plain", "variant": "ce-header-uncompressed-body", "label": "DIAGNOSTIC"}
+{"status": 403, "block_page_lists_920450": false, "id": "t5d-benign-J-control", "cell": "J", "payload": "benign", "ct": "text/plain", "variant": "raw", "label": "DIAGNOSTIC"}
