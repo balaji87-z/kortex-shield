@@ -57,8 +57,9 @@ def stage(repo, name, content):
 
 
 def scan(repo, *args, **env):
+    base = {k: v for k, v in os.environ.items() if not k.startswith("PREPUSH_")}
     proc = subprocess.run(["bash", str(SCRIPT), *args], cwd=repo, capture_output=True,
-                          text=True, env={**os.environ, **env})
+                          text=True, env={**base, **env})
     return proc.returncode, proc.stdout + proc.stderr
 
 
@@ -98,6 +99,25 @@ def test_file_at_the_size_limit_passes_and_large_file_gets_a_note(repo):
     code, out = scan(repo, PREPUSH_MAX_BYTES="1000", PREPUSH_WARN_BYTES="500")
     assert code == 0, out
     assert "prepush: large file: edge.txt (1000 bytes)" in out
+
+
+def test_default_size_limit_is_5_mb(repo):
+    five_mb = 5 * 1024 * 1024
+    stage(repo, "at-limit.txt", "x" * five_mb)
+    stage(repo, "over-limit.txt", "x" * (five_mb + 1))
+    code, out = scan(repo)
+    assert code == 1
+    assert f"FAIL: SIZE over-limit.txt {five_mb + 1} bytes is over the limit of {five_mb}" in out
+    assert "SIZE at-limit.txt" not in out
+    assert f"prepush: large file: at-limit.txt ({five_mb} bytes)" in out
+
+
+def test_oversized_file_still_gets_the_content_checks(repo):
+    stage(repo, "big-dump.jsonl", jsonl({"id": "s1", "body": DUMMY_BODY}) + "x" * 2000)
+    code, out = scan(repo, PREPUSH_MAX_BYTES="1000")
+    assert code == 1
+    assert "FAIL: SIZE big-dump.jsonl" in out
+    assert "FAIL: BODY_DUMP big-dump.jsonl reason=json-body-field records=1 keys=body" in out
 
 
 def test_size_limit_applies_to_files_whose_content_is_not_scanned(repo):
@@ -209,6 +229,89 @@ def test_source_code_mentioning_a_body_key_passes(repo):
     assert code == 0, out
 
 
+# --- body-dump allowlist: own datasets, by path only ---------------------------
+
+OWN = jsonl({"id": "sqli-0001", "method": "POST", "body": DUMMY_BODY})
+
+
+@pytest.mark.parametrize("name", [
+    "data/attacks-v9/manifest.jsonl",
+    "data/attacks-ct-v9/candidates.jsonl",
+    "data/benign-browse-v9/manifest.jsonl",
+    "data/benign-hard-v9/sub/manifest.jsonl",
+])
+def test_own_dataset_paths_are_allowed_and_reported(repo, name):
+    stage(repo, name, OWN)
+    code, out = scan(repo)
+    assert code == 0, out
+    assert f"prepush: body fields allowed by path (own dataset): {name} reason=json-body-field records=1" in out
+    assert DUMMY_BODY not in out
+
+
+@pytest.mark.parametrize("name", [
+    "data/encoding-diff-v0/manifest.jsonl",   # not one of the three families
+    "data/smoke/manifest.jsonl",
+    "data/attacks-v9.jsonl",                  # a file, not a dataset directory
+    "attacks-v9/manifest.jsonl",              # not under data/
+    "other/data/attacks-v9/manifest.jsonl",
+    "docs/logs/runs/x/manifest.jsonl",
+    "docs/logs/data/attacks-v9/manifest.jsonl",
+])
+def test_other_paths_are_not_allowed(repo, name):
+    stage(repo, name, OWN)
+    code, out = scan(repo)
+    assert code == 1
+    assert f"FAIL: BODY_DUMP {name}" in out
+
+
+@pytest.mark.parametrize("name", [
+    "data/attacks-wcp-v9/manifest.jsonl",
+    "data/benign-browse-v9/WCP-sample.jsonl",
+    "data/benign-hard-v9/from-wcp/manifest.jsonl",
+])
+def test_wcp_in_the_path_is_never_allowed(repo, name):
+    stage(repo, name, OWN)
+    code, out = scan(repo)
+    assert code == 1
+    assert f"FAIL: BODY_DUMP {name}" in out
+
+
+def test_wcp_sample_ids_are_never_allowed_even_on_an_allowed_path(repo):
+    stage(repo, "data/attacks-v9/manifest.jsonl", jsonl(
+        {"id": "sqli-0001", "body": DUMMY_BODY},
+        {"id": "wcp-000000000000", "body": DUMMY_BODY},
+    ))
+    code, out = scan(repo)
+    assert code == 1
+    assert ("FAIL: BODY_DUMP data/attacks-v9/manifest.jsonl reason=json-body-field "
+            "records=2 keys=body wcp_ids=1") in out
+
+
+def test_wcp_sample_id_in_an_audit_entry_header_is_counted(repo):
+    entry = {"transaction": {"request": {
+        "headers": {"X-Kortex-Sample-Id": ["wcp-000000000000"]}, "body": DUMMY_BODY}}}
+    stage(repo, "data/benign-hard-v9/audit.log", jsonl(entry))
+    code, out = scan(repo)
+    assert code == 1
+    assert "BODY_DUMP data/benign-hard-v9/audit.log reason=json-body-field records=1 keys=body wcp_ids=1" in out
+
+
+def test_allowlist_does_not_cover_credential_shapes(repo):
+    stage(repo, "data/attacks-v9/manifest.jsonl",
+          jsonl({"id": "sqli-0001", "body": DUMMY_BODY, "note": FAKE["aws_access_key"]}))
+    code, out = scan(repo)
+    assert code == 1
+    assert "body fields allowed by path (own dataset): data/attacks-v9/manifest.jsonl" in out
+    assert "FAIL: CRED_SHAPES data/attacks-v9/manifest.jsonl aws_access_key=1" in out
+
+
+def test_allowlist_does_not_cover_the_size_limit(repo):
+    stage(repo, "data/attacks-v9/manifest.jsonl", OWN + "x" * 2000)
+    code, out = scan(repo, PREPUSH_MAX_BYTES="1000")
+    assert code == 1
+    assert "FAIL: SIZE data/attacks-v9/manifest.jsonl" in out
+
+
 # --- staged paths only -------------------------------------------------------
 
 def test_untracked_body_dump_is_ignored(repo):
@@ -270,6 +373,19 @@ def test_credential_shape_is_rejected_by_count_without_printing_it(repo, kind):
     assert code == 1
     assert f"FAIL: CRED_SHAPES config.txt {kind}=1" in out
     assert FAKE[kind] not in out
+
+
+def test_email_shape_is_found_deep_inside_a_very_long_line(repo):
+    stage(repo, "long.txt", "x" * 300_000 + " " + FAKE["email"] + " " + "y" * 300_000 + "\n")
+    code, out = scan(repo)
+    assert code == 1
+    assert "FAIL: CRED_SHAPES long.txt email=1" in out
+
+
+def test_multi_megabyte_line_is_scanned_quickly(repo):
+    stage(repo, "one-line.txt", "x" * (2 * 1024 * 1024))
+    proc = subprocess.run(["bash", str(SCRIPT)], cwd=repo, capture_output=True, text=True, timeout=60)
+    assert proc.returncode == 0, proc.stdout + proc.stderr
 
 
 def test_this_test_file_and_the_script_hold_no_key_shaped_text(repo):
