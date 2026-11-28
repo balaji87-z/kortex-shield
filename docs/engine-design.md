@@ -987,3 +987,64 @@ Decisions (defaults for the step-24 questions; open to the instructor):
   rule "bare LF is accepted when it hides no framing problem". Fix: the
   CRLF view of the framing check looks for the request line as Go reads it
   and stops at the end of the head as Go reads it.
+
+### Found by the step-27 differential (written BEFORE the fixes; tests E64 to E66)
+
+- **The backend got another spelling of the request target than the rules
+  (BUG, E64).** Since step 25 the rules are given the target as the client
+  sent it (`r.RequestURI`), and the request was still forwarded as
+  `r.URL.RequestURI()`. Go escapes on output every path byte it would not
+  write itself: bytes 0x80 to 0xFF, `"`, `<`, `>`, `\`, `^`, a backtick,
+  `{`, `|`, `}`, `#`. So `/static/..\xC0\xAF..` was judged as raw bytes
+  and forwarded as `/static/..%C0%AF..`, the spelling CRS 930100 is
+  written for. At step 24 the rules still saw Go's form and blocked the
+  request; the step-25 change of the rules' view opened the gap, and the
+  step-27 differential found it by comparing the 61 old cases with their
+  step-24 result. Fix: forward what was judged. When Go's form of the path
+  and query differs from what was sent, the outgoing request carries the
+  path as sent (`URL.Opaque`, which Go's client writes as it stands) and
+  the query as sent. The rules' view does not change. An absolute-form
+  target is still forwarded in origin form (path and query as sent,
+  scheme and host dropped), as before.
+- **A target that cannot be forwarded unchanged is refused (E65).** Go's
+  client writes an opaque target that starts with `//` as an absolute URL,
+  so a path that starts with `//` and also holds a byte Go would escape
+  cannot go out as sent. The gate refuses it: `400
+  kortex-decision=framing`, event reason `target-not-forwardable`. The
+  same path without such a byte is forwarded unchanged, as before. Bare
+  net/http accepts such a target, so this is one more refusal the engine
+  makes and a backend does not (DESIGN: the engine forwards the bytes it
+  judged or refuses; criterion measured by E64 / E65).
+- **XML attribute values are not inspected with the setup the engine
+  mirrors (E66).** CRS v4.25.2 is the LTS line: its attack rules carry
+  the target `XML://@*` beside `XML:/*`, and rule 901181 removes it again
+  for every transaction unless `tx.crs_xml_attr_inspect` is set
+  (REQUEST-901-INITIALIZATION.conf, "XML attribute value inspection
+  (GHSA-6jp8-c2w2-x7wr)"; the opt-in is named there as id:900510 of
+  crs-setup.conf). The pinned images do not set it and the engine renders
+  the same setup, so a payload in an attribute is parsed by coraza's XML
+  processor and matched against nothing. Measured before this note
+  (DIAGNOSTIC, docs/logs/step27-DIAGNOSTIC-reference.txt): both pinned
+  images answer 200 to the same request and 403 to its element-text
+  control, so this is not a difference between the engine and the
+  reference (rule 39 does not apply). It is a bypass of A3's kind all the
+  same: a backend's XML parser yields the value. `KORTEX_XML_ATTR_INSPECT=on`
+  renders `SecAction "id:900510,phase:1,pass,nolog,setvar:tx.crs_xml_attr_inspect=1"`
+  (docs/baseline-config.md). Default off: the default configuration and
+  every baseline number stay as they are; the choice of the default is
+  the instructor's.
+- **`ovl-path-raw` after the fix: forwarded as sent, like the Coraza
+  connector image; the ModSecurity image blocks it.** Same DIAGNOSTIC
+  run: ModSecurity answers 403 with CRS 930110, the Coraza connector 200
+  with no audit entry; both block the percent-encoded spelling with
+  930100. HYPOTHESIS for the difference: 930110 runs `t:utf8toUnicode`
+  first, and coraza's version of it turns the overlong bytes C0 AF into
+  `%ufffd%ufffd` (shown by a probe of the engine's coraza copy, in the
+  same log), so no `/` appears for the rule to find; ModSecurity's
+  version is not read here. At step 24 the engine blocked the request
+  only because the rules were shown Go's `%C0%AF` spelling. With the fix
+  the engine stands with the Coraza reference on this request and differs
+  from ModSecurity by one request (UNEXPLAINED until the ModSecurity half
+  is shown; counted in the report). The other way to close E64, to judge
+  and forward Go's form, would block it; it changes what the rules see
+  (step 25, CRS suite) and is left as a question for the instructor.

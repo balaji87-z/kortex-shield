@@ -1,0 +1,49 @@
+# step-27 T5: tests E64 to E66 before the fix, engine 7616436f73666a3b5f458e922be40a4d80afeb67 plus the test file; 2026-11-28T17:13:47Z; go version go1.27.4 darwin/arm64
+# cd engine && go test -run 'TestE64|TestE65|TestE66' -count=1 -v .
+=== RUN   TestE64BackendGetsTheRequestTargetTheRulesWereGiven
+=== RUN   TestE64BackendGetsTheRequestTargetTheRulesWereGiven/inprocess
+    step27_forward_test.go:102: E64 e64-overlong-raw: sent "/static/..\xc0\xaf..\xc0\xafetc/passwd", the backend received "/static/..%C0%AF..%C0%AFetc/passwd"
+    step27_forward_test.go:102: E64 e64-utf8-raw: sent "/café/menu", the backend received "/caf%C3%A9/menu"
+    step27_forward_test.go:102: E64 e64-latin1-raw: sent "/caf\xe9/menu?x=\xe9", the backend received "/caf%E9/menu?x=\xe9"
+    step27_forward_test.go:102: E64 e64-quote: sent "/a\"b", the backend received "/a%22b"
+    step27_forward_test.go:102: E64 e64-braces: sent "/a{b}c", the backend received "/a%7Bb%7Dc"
+    step27_forward_test.go:102: E64 e64-caret: sent "/a^b", the backend received "/a%5Eb"
+    step27_forward_test.go:102: E64 e64-backtick: sent "/a`b", the backend received "/a%60b"
+    step27_forward_test.go:102: E64 e64-empty-query: sent "/aé?", the backend received "/a%C3%A9?"
+    step27_forward_test.go:102: E64 e64-absolute: sent "/café/menu?x=1", the backend received "/caf%C3%A9/menu?x=1"
+    step27_forward_test.go:105: inprocess: targets 11, forwarded in another spelling: 9
+=== RUN   TestE64BackendGetsTheRequestTargetTheRulesWereGiven/worker
+    step27_forward_test.go:102: E64 e64-overlong-raw: sent "/static/..\xc0\xaf..\xc0\xafetc/passwd", the backend received "/static/..%C0%AF..%C0%AFetc/passwd"
+    step27_forward_test.go:102: E64 e64-utf8-raw: sent "/café/menu", the backend received "/caf%C3%A9/menu"
+    step27_forward_test.go:102: E64 e64-latin1-raw: sent "/caf\xe9/menu?x=\xe9", the backend received "/caf%E9/menu?x=\xe9"
+    step27_forward_test.go:102: E64 e64-quote: sent "/a\"b", the backend received "/a%22b"
+    step27_forward_test.go:102: E64 e64-braces: sent "/a{b}c", the backend received "/a%7Bb%7Dc"
+    step27_forward_test.go:102: E64 e64-caret: sent "/a^b", the backend received "/a%5Eb"
+    step27_forward_test.go:102: E64 e64-backtick: sent "/a`b", the backend received "/a%60b"
+    step27_forward_test.go:102: E64 e64-empty-query: sent "/aé?", the backend received "/a%C3%A9?"
+    step27_forward_test.go:102: E64 e64-absolute: sent "/café/menu?x=1", the backend received "/caf%C3%A9/menu?x=1"
+    step27_forward_test.go:105: worker: targets 11, forwarded in another spelling: 9
+--- FAIL: TestE64BackendGetsTheRequestTargetTheRulesWereGiven (0.19s)
+    --- FAIL: TestE64BackendGetsTheRequestTargetTheRulesWereGiven/inprocess (0.06s)
+    --- FAIL: TestE64BackendGetsTheRequestTargetTheRulesWereGiven/worker (0.13s)
+=== RUN   TestE65UnforwardableTargetIsRefused
+    step27_forward_test.go:130: E65: the request reached the backend (as "//a/caf%C3%A9")
+--- FAIL: TestE65UnforwardableTargetIsRefused (0.01s)
+=== RUN   TestE66XMLAttributeInspectionSwitch
+=== RUN   TestE66XMLAttributeInspectionSwitch/off_(default)
+    step27_forward_test.go:184: E66: /__kortex/config must show "xml_attr_inspect":false, got {"backend_url":"http://127.0.0.1:52035","rule_engine":"On","blocking_paranoia":1,"detection_paranoia":1,"max_body_bytes":13107200,"max_inspected_bytes":131072,"engine_time_budget_ms":2000,"rules_dir":"crs","listen_addr":"127.0.0.1:0","events_file":"/var/folders/nq/sk_8btb16995njvp54fs72180000gs/T/TestE66XMLAttributeInspectionSwitchoff_(default)3694811906/001/kortex-events.jsonl","audit_log":"/var/folders/nq/sk_8btb16995njvp54fs72180000gs/T/TestE66XMLAttributeInspectionSwitchoff_(default)3694811906/001/audit.log","allowed_methods":"GET HEAD POST OPTIONS","max_inflight_body":8,"max_inflight_body_large":2,"body_lane_threshold":65536,"worker_mode":false,"client_max_inflight":0,"client_max_inflight_small":4,"client_max_inflight_large":1,"request_body_target_updates":165,"error_log":"","crs_test_setup":false,"head_timeout_ms":30000,"max_pending_heads":256}
+=== RUN   TestE66XMLAttributeInspectionSwitch/on
+    step27_forward_test.go:169: E66: payload in an attribute: want 403, got 200 "stub-ok"
+    step27_forward_test.go:172: E66: want kortex-decision=block with rule 941100 and no backend hit, got "stub-ok", backend hit true
+    step27_forward_test.go:184: E66: /__kortex/config must show "xml_attr_inspect":true, got {"backend_url":"http://127.0.0.1:52042","rule_engine":"On","blocking_paranoia":1,"detection_paranoia":1,"max_body_bytes":13107200,"max_inspected_bytes":131072,"engine_time_budget_ms":2000,"rules_dir":"crs","listen_addr":"127.0.0.1:0","events_file":"/var/folders/nq/sk_8btb16995njvp54fs72180000gs/T/TestE66XMLAttributeInspectionSwitchon1389014098/001/kortex-events.jsonl","audit_log":"/var/folders/nq/sk_8btb16995njvp54fs72180000gs/T/TestE66XMLAttributeInspectionSwitchon1389014098/001/audit.log","allowed_methods":"GET HEAD POST OPTIONS","max_inflight_body":8,"max_inflight_body_large":2,"body_lane_threshold":65536,"worker_mode":false,"client_max_inflight":0,"client_max_inflight_small":4,"client_max_inflight_large":1,"request_body_target_updates":165,"error_log":"","crs_test_setup":false,"head_timeout_ms":30000,"max_pending_heads":256}
+=== RUN   TestE66XMLAttributeInspectionSwitch/on,_worker_mode
+    step27_forward_test.go:169: E66: payload in an attribute: want 403, got 200 "stub-ok"
+    step27_forward_test.go:172: E66: want kortex-decision=block with rule 941100 and no backend hit, got "stub-ok", backend hit true
+    step27_forward_test.go:184: E66: /__kortex/config must show "xml_attr_inspect":true, got {"backend_url":"http://127.0.0.1:52049","rule_engine":"On","blocking_paranoia":1,"detection_paranoia":1,"max_body_bytes":13107200,"max_inspected_bytes":131072,"engine_time_budget_ms":2000,"rules_dir":"crs","listen_addr":"127.0.0.1:0","events_file":"/var/folders/nq/sk_8btb16995njvp54fs72180000gs/T/TestE66XMLAttributeInspectionSwitchon,_worker_mode2728685938/001/kortex-events.jsonl","audit_log":"/var/folders/nq/sk_8btb16995njvp54fs72180000gs/T/TestE66XMLAttributeInspectionSwitchon,_worker_mode2728685938/001/audit.log","allowed_methods":"GET HEAD POST OPTIONS","max_inflight_body":8,"max_inflight_body_large":2,"body_lane_threshold":65536,"worker_mode":true,"client_max_inflight":0,"client_max_inflight_small":4,"client_max_inflight_large":1,"request_body_target_updates":165,"error_log":"","crs_test_setup":false,"head_timeout_ms":30000,"max_pending_heads":256}
+--- FAIL: TestE66XMLAttributeInspectionSwitch (0.15s)
+    --- FAIL: TestE66XMLAttributeInspectionSwitch/off_(default) (0.01s)
+    --- FAIL: TestE66XMLAttributeInspectionSwitch/on (0.01s)
+    --- FAIL: TestE66XMLAttributeInspectionSwitch/on,_worker_mode (0.12s)
+FAIL
+FAIL	kortexshield/engine	0.715s
+FAIL

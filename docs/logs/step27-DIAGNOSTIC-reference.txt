@@ -1,0 +1,71 @@
+# Step-27 DIAGNOSTIC: xml-attr and ovl-path-raw against the pinned reference images, blocking, PL1
+== 2026-11-28T17:17:36Z, macOS 27.0 Darwin 27.0.0 arm64, git d22dc94ab512e4b9749eecb736b4bbaab7fd36d7
+== docker client 29.10.1 server 29.5.2 linux/arm64
+== modsec-DIAGNOSTIC 2026-11-28T17:17:38Z
+   image: owasp/modsecurity-crs:4.25.2-nginx-lts@sha256:6296ce685cb88ba4012998b935b25dabbd9e0ff326088c1149447102544de661 id sha256:6296ce685cb88ba4012998b935b25dabbd9e0ff326088c1149447102544de661
+   env: MODSEC_RULE_ENGINE=On CORAZA_RULE_ENGINE= BLOCKING_PARANOIA=1 PARANOIA=1 DETECTION_PARANOIA=1 BACKEND=http://stub-backend:3000
+   rules file: /opt/owasp-crs/rules/REQUEST-901-INITIALIZATION.conf
+   version string: ver:'OWASP_CRS/4.25.2
+   rule 901181 in it: 1
+   lines that set tx.crs_xml_attr_inspect, outside the rules directory:
+      /opt/owasp-crs/docs/CHANGES.md:29:- Fully opting out of XML attribute inspection (`tx.crs_xml_attr_inspect`) requires ModSecurity v2 >= v2.9.14, once <https://github.com/owasp-modsecurity/ModSecurity/issues/3591> is fixed upstream. Until then, `ctl:ruleRemoveTargetByTag` cannot remove the `XML://@*` target on ModSecurity v2, so rule 901181 cannot disable attribute inspection on that engine.
+   (end of list)
+   control (a query the image must block): GET /?control=' OR 1=1-- -> 403
+   control (a plain request the image must pass): GET /hello -> 200
+   modsec xml-control: 403   (the canary as element text)
+   modsec xml-attr: 200   (the canary as an attribute value)
+   modsec xml-sqli-control: 403   (an SQL injection payload as element text)
+   modsec xml-sqli-attr: 200   (the same payload as an attribute value)
+   modsec ovl-path-pct: 403   (path traversal with %C0%AF)
+   modsec ovl-path-raw: 403   (path traversal with raw bytes C0 AF)
+   rule ids per case, from the image's audit log (ids below 900000 and the CRS bookkeeping rules left out):
+      xml-control: 941100, 941110, 941160, 941390
+      xml-attr: no audit entry
+      xml-sqli-control: 942100, 942190, 942270, 942360
+      xml-sqli-attr: no audit entry
+      ovl-path-pct: 930100
+      ovl-path-raw: 930110
+== coraza-DIAGNOSTIC 2026-11-28T17:17:52Z
+   image: ghcr.io/coreruleset/coraza-crs:4.25.2-nginx-lts@sha256:bfbfe70b4445c1ef1dc389c2de12cfdb194c9616746c33dc8a7131461c28f4a6 id sha256:bfbfe70b4445c1ef1dc389c2de12cfdb194c9616746c33dc8a7131461c28f4a6
+   env: MODSEC_RULE_ENGINE= CORAZA_RULE_ENGINE=On BLOCKING_PARANOIA=1 PARANOIA=1 DETECTION_PARANOIA=1 BACKEND=stub-backend:3000
+   rules file: /opt/coraza/owasp-crs/rules/REQUEST-901-INITIALIZATION.conf
+   version string: ver:'OWASP_CRS/4.25.2
+   rule 901181 in it: 1
+   lines that set tx.crs_xml_attr_inspect, outside the rules directory:
+   (end of list)
+   control (a query the image must block): GET /?control=' OR 1=1-- -> 403
+   control (a plain request the image must pass): GET /hello -> 200
+   coraza xml-control: 403   (the canary as element text)
+   coraza xml-attr: 200   (the canary as an attribute value)
+   coraza xml-sqli-control: 403   (an SQL injection payload as element text)
+   coraza xml-sqli-attr: 200   (the same payload as an attribute value)
+   coraza ovl-path-pct: 403   (path traversal with %C0%AF)
+   coraza ovl-path-raw: 200   (path traversal with raw bytes C0 AF)
+   rule ids per case, from the image's audit log (ids below 900000 and the CRS bookkeeping rules left out):
+      xml-control: 941100, 941110, 941160, 941390
+      xml-attr: no audit entry
+      xml-sqli-control: 942100, 942190, 942270, 942360
+      xml-sqli-attr: no audit entry
+      ovl-path-pct: 930100
+      ovl-path-raw: no audit entry
+S27-REFERENCE-DIAG-DONE
+
+# DIAGNOSTIC probe, 2026-11-28T17:19Z: what coraza's t:utf8toUnicode (the engine's copy,
+# engine/third_party/coraza-v3.8.1-kortex) makes of an overlong sequence. CRS 930110, the
+# rule ModSecurity matched on ovl-path-raw, runs t:none,t:utf8toUnicode,t:urlDecodeUni,
+# t:removeNulls,t:cmdLine and then looks for ../ between separators.
+# Scratch test, written into internal/transformations/ for the run and removed again:
+#   func TestZZProbeUtf8ToUnicodeOverlong(t *testing.T) {
+#       for _, in := range []string{"/caf\xc3\xa9", "/static/..\xc0\xaf..\xc0\xafetc/passwd", "/a\xe0\x80\xafb"} {
+#           out, changed, err := utf8ToUnicode(in)
+#           t.Logf("utf8ToUnicode(%q) = %q changed=%v err=%v", in, out, changed, err)
+#       }
+#   }
+# cd engine/third_party/coraza-v3.8.1-kortex && go test ./internal/transformations/ -run TestZZProbeUtf8ToUnicodeOverlong -count=1 -v
+=== RUN   TestZZProbeUtf8ToUnicodeOverlong
+    zz_probe_test.go:10: utf8ToUnicode("/café") = "/caf%u00e9" changed=true err=<nil>
+    zz_probe_test.go:10: utf8ToUnicode("/static/..\xc0\xaf..\xc0\xafetc/passwd") = "/static/..%ufffd%ufffd..%ufffd%ufffdetc/passwd" changed=true err=<nil>
+    zz_probe_test.go:10: utf8ToUnicode("/a\xe0\x80\xafb") = "/a%ufffd%ufffd%ufffdb" changed=true err=<nil>
+--- PASS: TestZZProbeUtf8ToUnicodeOverlong (0.00s)
+PASS
+ok  	github.com/corazawaf/coraza/v3/internal/transformations	0.242s

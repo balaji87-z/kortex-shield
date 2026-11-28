@@ -1,0 +1,12 @@
+# step-27 T1: E63 (E45 with bare-LF line endings), engine d22dc94ab512e4b9749eecb736b4bbaab7fd36d7; 2026-11-28T17:14:08Z; go version go1.27.4 darwin/arm64
+# cd engine && go test -run 'TestE45|TestE63' -count=1 -v .
+=== RUN   TestE45ParserGateAgreesWithNetHTTPOnDamagedHeads
+    step24_test.go:428: heads compared 19257 (not sent, no blank line: 743; no answer from net/http: 0); net/http refused 11890 map[400:10815 417:421 501:654]; parserGate refused 11890; mismatches 0
+    step24_test.go:430: parserGate reasons: parser:content-length 542, parser:expect 421, parser:header-line 4276, parser:header-name 404, parser:host-duplicate 973, parser:host-malformed 311, parser:host-missing 322, parser:http-version 2364, parser:method 509, parser:request-line 419, parser:request-target 695, parser:transfer-encoding 654
+--- PASS: TestE45ParserGateAgreesWithNetHTTPOnDamagedHeads (1.62s)
+=== RUN   TestE63ParserGateAgreesWithNetHTTPOnDamagedHeadsWithBareLF
+    step27_e63_test.go:146: heads compared 19579 (not sent, no end of head: 421; no answer from net/http: 0); with a bare LF in the head 19170, of them ended by a blank line without CRLF CRLF 14832; net/http refused 11883 map[400:10803 417:405 501:673 505:2]; parserGate refused 11883; mismatches 0
+    step27_e63_test.go:148: parserGate reasons: parser:content-length 518, parser:expect 405, parser:header-line 4326, parser:header-name 393, parser:host-duplicate 1025, parser:host-malformed 287, parser:host-missing 294, parser:http-version 2418, parser:method 511, parser:request-line 397, parser:request-target 636, parser:transfer-encoding 673
+--- PASS: TestE63ParserGateAgreesWithNetHTTPOnDamagedHeadsWithBareLF (1.67s)
+PASS
+ok  	kortexshield/engine	3.526s

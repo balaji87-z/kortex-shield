@@ -733,3 +733,48 @@ With the proxy layer aligned (client_max_body_size 0 on both engines):
 - Expected effect on the dataset runs: none. The runner sends one request
   at a time, so at most one head is waiting.
 - No rule or inspection limit changes.
+
+## Step-27: XML attribute inspection as a switch (documented BEFORE the run, rule 17)
+
+- What: `KORTEX_XML_ATTR_INSPECT` (default off). `on` adds
+  `SecAction "id:900510,phase:1,pass,nolog,setvar:tx.crs_xml_attr_inspect=1"`
+  to the rendered CRS setup. The id is the one REQUEST-901-INITIALIZATION.conf
+  of CRS v4.25.2 names for the opt-in ("uncommenting id:900510 in
+  crs-setup.conf"); crs-setup.conf.example itself is not in this
+  repository, so the action is written here, not copied (the wording of
+  the upstream rule is UNVERIFIED). With it, rule 901181 no longer removes the target
+  `XML://@*` from the attack rules, so XML attribute values are inspected
+  like element text. Printed on `/__kortex/config` as `xml_attr_inspect`
+  and on the startup line.
+- Why: the step-27 differential forwards a payload placed in an XML
+  attribute (`xml-attr`); CRS documents the gap and the opt-in (advisory
+  GHSA-6jp8-c2w2-x7wr, text in REQUEST-901-INITIALIZATION.conf).
+- Default off: the activated crs-setup.conf of the pinned images does not
+  set it, and the engine mirrors that setup. No baseline run sets it. A run
+  with it on is DIAGNOSTIC (rule 34) until the instructor decides on the
+  default.
+- Not a rule-specific exclusion: nothing is removed; a target the ruleset
+  ships is left in place.
+- Under `KORTEX_CRS_TEST_SETUP=on` (the CRS regression suite, step 25) the
+  same variable is already set by rule 900511; the two rules can be
+  rendered together.
+- Reference: https://github.com/coreruleset/coreruleset/security/advisories/GHSA-6jp8-c2w2-x7wr
+  (read 2026-11-28) and the comment above rules 901180 / 901181 in
+  `engine/crs/owasp-crs/rules/REQUEST-901-INITIALIZATION.conf`. The two
+  disagree on the default: the advisory says the LTS gate ships enabled,
+  the rules file of v4.25.2 says "When `tx.crs_xml_attr_inspect` is not
+  set (LTS default), rule 901181 strips `XML://@*`", and rule 901180 sets
+  the variable to 0 when it is unset. What the engine and the two pinned
+  images do is measured (E66, docs/logs/step27-DIAGNOSTIC-reference.txt):
+  off unless set.
+
+## Step-27: the request target is forwarded as sent (documented BEFORE the run, rule 17)
+
+- What: no setting. A request whose path Go would re-encode on output is
+  forwarded with the path and query bytes the client sent; a target that
+  cannot be forwarded so (it starts with `//` and holds such a byte) is
+  refused with `400 kortex-decision=framing`, reason
+  `target-not-forwardable` (docs/engine-design.md, E64 / E65).
+- Expected effect on the dataset runs: none on status or rule ids: the
+  rules' view does not change, and the runner's stub backend answers 200
+  to any target. Checked per sample against the step-25 runs.

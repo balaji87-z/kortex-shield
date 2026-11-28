@@ -131,3 +131,50 @@ PL2, in-process; worker mode for T2 only).
 
 Application frameworks; HTTP/2; response parsing; timing; any rule or
 setting change in response to a result (rule 17).
+
+## Addendum (2026-11-28, written after the first run of T3 / T4 and BEFORE the changes it names)
+
+The first run (docs/logs/step27-parsing-diff-run1.txt, engine 7616436)
+gave three things to act on. This addendum fixes what is done about each
+before any code for it exists.
+
+1. `ovl-path-raw` (a step-23 case): blocked at step 24, forwarded now. The
+   rules have been given the request target as sent since step 25, and the
+   request is still forwarded with Go's re-encoded path: raw bytes C0 AF
+   are judged as raw bytes and reach the backend as `%C0%AF`. BUG in the
+   engine's request path, so it is fixed in this step, test first (T5:
+   E64, E65). The fix is to forward what was judged, not to judge another
+   form: the rules' view (step 25, CRS suite) does not change.
+2. `xml-attr`: a payload in an XML attribute value is forwarded. CRS
+   v4.25.2 (LTS) removes the attribute target from its attack rules unless
+   `tx.crs_xml_attr_inspect` is set (rules 901180 / 901181), and the setup
+   of the pinned images, which the engine mirrors, does not set it. This
+   plan said "no setting change in response to a result". Kept for the
+   default: the engine's default configuration does not change, and A3 is
+   reported on the default. Added, as a deviation from that sentence: a
+   switch `KORTEX_XML_ATTR_INSPECT`, off by default, documented in
+   docs/baseline-config.md before its first run (rule 17), test first
+   (E66). Runs with it on are DIAGNOSTIC (rule 34). Whether it becomes the
+   default is a question for the instructor.
+3. `blf-cr-only` was counted as a refusal without an event. The event is
+   there with an empty sample id: the id line is glued to the Host line by
+   the bare CR, so the engine cannot read it. A limit of the tool, not of
+   the engine; the tool now also takes the events without a sample id that
+   were written while the case was sent (unit test added). No engine
+   change.
+
+Added runs:
+
+- T5: the differential again on the fixed engine (the final reading), and
+  once more with `KORTEX_XML_ATTR_INSPECT=on` (DIAGNOSTIC).
+- DIAGNOSTIC: `xml-attr`, its control and `ovl-path-raw` sent to the two
+  pinned reference images (ModSecurity and the Coraza connector, CRS
+  v4.25.2, blocking, PL1), to say whether the engine differs from the
+  reference on them (rule 39) or shares the behaviour. (Run while this
+  addendum was being written, before any engine change:
+  docs/logs/step27-DIAGNOSTIC-reference.txt. Both images pass `xml-attr`;
+  ModSecurity blocks `ovl-path-raw` with 930110, the Coraza connector
+  passes it.)
+- The datasets after the last engine change (own datasets, wcp, the raw
+  runs of T2) are run again on the final engine; the runs on 7616436 are
+  replaced, not kept beside them.

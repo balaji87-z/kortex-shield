@@ -174,6 +174,10 @@ T3a-T3g; implementations e4a2e76 and 5795c34):
 | E60 | (step-27 T1) every mix of LF and CRLF line endings of four well-formed heads (88 heads, exhaustive) is answered within 3 s and decided as bare net/http decides it | passing (failing in 52b4b42: 66 of 88 not answered, 4 refused as `no-request-line`; passing log as E57) |
 | E61 | (step-27 T1) a connection with an unfinished head does not delay another connection: with one such connection open and the head limit at its default 30 s, a second request is served within 3 s; `/__kortex/stats` shows `pending_heads` 1 while it is open and 0 after it is closed (rule 50) | passing (failing in 52b4b42: no answer in 3 s; passing log as E57) |
 | E62 | (step-27 T1) connections waiting in the gate are capped: with `KORTEX_MAX_PENDING_HEADS=2` and two unfinished heads open, the next connection gets `503 kortex-decision=overload` at once and one `overload` event with reason `pending-heads`; after the two are closed `pending_heads` is 0 and a request is served; the cap is on `/__kortex/config` (`max_pending_heads`) | passing (failing in 52b4b42: no answer in 3 s; passing log as E57) |
+| E63 | (step-27 T1) E45 for heads with bare-LF line endings: the five heads of E45, the same kinds of damage, then every CRLF turned into LF with probability 1/2 (seed 27, 20,000 heads); every head whose end `headEnd` finds is sent to bare net/http; `parserGate` refuses exactly the heads net/http refuses | passing on first run (a test of the E59 / E60 behaviour, no engine change: 19,579 heads compared, 14,832 of them ended by a blank line without CRLF CRLF, 0 decided differently; docs/logs/step27-e63.log) |
+| E64 | (step-27 T5) the backend is sent the request target the rules were given: 11 targets (two controls; raw bytes C0 AF, raw UTF-8, raw Latin-1, `"`, `{}`, `^`, a backtick, an empty query, an absolute-form target), in-process and worker; every one is forwarded and arrives byte for byte | failing (9 of 11 arrive in another spelling, both modes: docs/logs/step27-e64-e66-failing.log) |
+| E65 | (step-27 T5) a target the engine cannot forward byte for byte (it starts with `//` and holds a byte Go would escape) is refused: `400 kortex-decision=framing`, one event, reason `target-not-forwardable`; `//a/b?q=1` is forwarded unchanged | failing (forwarded as `//a/caf%C3%A9`; log as E64) |
+| E66 | (step-27 T5) `KORTEX_XML_ATTR_INSPECT=on` makes the rules inspect XML attribute values (CRS `tx.crs_xml_attr_inspect=1`): a payload in an attribute is blocked by 941100, in-process and worker; off (the default) it is forwarded; the payload as element text is blocked either way (canary); harmless attributes pass; `/__kortex/config` shows `xml_attr_inspect` | failing (the switch does not exist: forwarded with it on; log as E64) |
 | T3a | worker mode decides identically to in-process mode on a small benign body (200) and a small XSS body (403) | passing |
 | T3b | at the budget the worker is SIGKILLed, the kill is counted and the slot is released (next request served) | passing |
 | T3c | a pre-spawned spare serves the next request after a kill without paying the ~1.5-2 s rule-load in the hot path | passing |
@@ -364,7 +368,7 @@ reports/step-26.md):
   docs/logs/runs/s26-reach/, s26-engine/, s26-baseline/.
 - Final suites: docs/logs/step26-t6-go-test.log, step26-t6-pytest.log.
 
-Step-27 run evidence (new ids E57 to E62, all failing first; reports/step-27.md):
+Step-27 run evidence (new ids E57 to E66; E57 to E62 and E64 to E66 failing first, E63 a test of behaviour already fixed; reports/step-27.md):
 
 - E57 to E62: docs/logs/step27-e57-e60-failing.log (E61, E62 at its end) ->
   docs/logs/step27-e57-e62-passing.log; ten repeats
