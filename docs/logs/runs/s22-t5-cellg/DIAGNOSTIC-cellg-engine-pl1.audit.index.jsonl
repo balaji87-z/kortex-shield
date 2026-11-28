@@ -1,0 +1,5 @@
+{"sample_id": "t5g-e-pl1-xss-G", "content_type": "text/plain", "body_bytes": 139, "status": 0, "rule_ids": ["949110"]}
+{"sample_id": "t5g-e-pl1-xss-H", "content_type": "text/plain", "body_bytes": 83, "status": 0, "rule_ids": ["941100", "941110", "941160", "941390", "949110"]}
+{"sample_id": "t5g-e-pl1-sqli-G", "content_type": "text/plain", "body_bytes": 111, "status": 0, "rule_ids": ["949110"]}
+{"sample_id": "t5g-e-pl1-sqli-H", "content_type": "text/plain", "body_bytes": 64, "status": 0, "rule_ids": ["942100", "949110"]}
+{"sample_id": "t5g-e-pl1-benign-G0", "content_type": "text/plain", "body_bytes": 139, "status": 0, "rule_ids": ["949110"]}

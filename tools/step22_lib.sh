@@ -9,7 +9,10 @@ ENGINE_BIN=out/kortex-engine
 # header is a numeric IP address, +3) would otherwise match every request and
 # turn any single warning-level match into a block.
 BASE=http://localhost
-STUB_PORT=13000
+# 13000 is also the host port of the compose "target" service: while those
+# containers are up, set STUB_PORT to another port or the engine's backend
+# would be Juice Shop, not the stub.
+STUB_PORT=${STUB_PORT:-13000}
 PY=.venv/bin/python
 
 sha256_of() { if command -v sha256sum >/dev/null; then sha256sum "$1" | awk '{print $1}'; else shasum -a 256 "$1" | awk '{print $1}'; fi; }

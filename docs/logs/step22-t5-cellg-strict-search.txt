@@ -1,0 +1,6 @@
+# Step-22 follow-up F3: search for a compressed canary with no byte below 32 (tools/step22_cellg_strict_search.py; run 2026-11-27 on the step-22 host as out/s22b/search_clean.py, the same code without the header comment; 200 s per canary, seed 1)
+$ python3 tools/step22_cellg_strict_search.py sqli
+{"sqli": {"tries": 4437694, "found": false}}
+$ python3 tools/step22_cellg_strict_search.py xss
+{"xss": {"tries": 4183142, "found": false}}
+# total tries: 8620836; each try compresses one text at 2 levels x 4 strategies

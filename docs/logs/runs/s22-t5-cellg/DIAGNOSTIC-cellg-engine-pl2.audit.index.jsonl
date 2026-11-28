@@ -1,0 +1,8 @@
+{"sample_id": "t5g-e-pl2-xss-G", "content_type": "text/plain", "body_bytes": 139, "status": 0, "rule_ids": ["920271", "949110"]}
+{"sample_id": "t5g-e-pl2-xss-K", "content_type": "text/plain", "body_bytes": 139, "status": 0, "rule_ids": ["920271", "949110"]}
+{"sample_id": "t5g-e-pl2-xss-H", "content_type": "text/plain", "body_bytes": 83, "status": 0, "rule_ids": ["941100", "941110", "941160", "941320", "941390", "942131", "942520", "949110"]}
+{"sample_id": "t5g-e-pl2-sqli-G", "content_type": "text/plain", "body_bytes": 111, "status": 0, "rule_ids": ["920271", "932200", "949110"]}
+{"sample_id": "t5g-e-pl2-sqli-K", "content_type": "text/plain", "body_bytes": 111, "status": 0, "rule_ids": ["920271", "932200", "949110"]}
+{"sample_id": "t5g-e-pl2-sqli-H", "content_type": "text/plain", "body_bytes": 64, "status": 0, "rule_ids": ["932240", "942100", "942130", "942180", "942300", "942330", "942370", "942390", "942440", "942520", "942521", "949110"]}
+{"sample_id": "t5g-e-pl2-benign-G0", "content_type": "text/plain", "body_bytes": 139, "status": 0, "rule_ids": ["920271", "942131", "942440", "949110"]}
+{"sample_id": "t5g-e-pl2-benign-K0", "content_type": "text/plain", "body_bytes": 139, "status": 0, "rule_ids": ["920271", "942131", "942440", "949110"]}

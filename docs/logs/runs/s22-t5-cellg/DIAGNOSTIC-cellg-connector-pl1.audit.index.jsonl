@@ -1,0 +1,8 @@
+{"sample_id": "t5g-c-pl1-xss-G", "content_type": "text/plain", "body_bytes": 0, "status": 403, "rule_ids": ["920420", "920450", "949110"]}
+{"sample_id": "t5g-c-pl1-xss-K", "content_type": "text/plain", "body_bytes": 0, "status": 403, "rule_ids": ["920420", "949110"]}
+{"sample_id": "t5g-c-pl1-xss-H", "content_type": "text/plain", "body_bytes": 0, "status": 403, "rule_ids": ["920420", "941100", "941110", "941160", "941390", "949110"]}
+{"sample_id": "t5g-c-pl1-sqli-G", "content_type": "text/plain", "body_bytes": 0, "status": 403, "rule_ids": ["920420", "920450", "949110"]}
+{"sample_id": "t5g-c-pl1-sqli-K", "content_type": "text/plain", "body_bytes": 0, "status": 403, "rule_ids": ["920420", "949110"]}
+{"sample_id": "t5g-c-pl1-sqli-H", "content_type": "text/plain", "body_bytes": 0, "status": 403, "rule_ids": ["920420", "949110"]}
+{"sample_id": "t5g-c-pl1-benign-G0", "content_type": "text/plain", "body_bytes": 0, "status": 403, "rule_ids": ["920420", "920450", "949110"]}
+{"sample_id": "t5g-c-pl1-benign-K0", "content_type": "text/plain", "body_bytes": 0, "status": 403, "rule_ids": ["920420", "949110"]}

@@ -1,0 +1,83 @@
+# Step-22 T5b DIAGNOSTIC cell G, connector side (rule 34: never a baseline or parity number)
+== host: Darwin 27.0.0 arm64; docker server 29.5.2 linux/arm64; load at start: load averages: 4.89 5.79 7.28
+== DIAGNOSTIC-cellg-connector-pl1 rule29/28 2026-11-27T19:28:53Z
+   image: ghcr.io/coreruleset/coraza-crs:4.25.2-nginx-lts@sha256:bfbfe70b4445c1ef1dc389c2de12cfdb194c9616746c33dc8a7131461c28f4a6 id sha256:bfbfe70b4445c1ef1dc389c2de12cfdb194c9616746c33dc8a7131461c28f4a6 platform linux/arm64
+   env: E=On B=1 P=1 D=1 CT=[] body=[nofiles=131072 total=13107200]
+   crs-setup: tx.blocking_paranoia_level=1 tx.detection_paranoia_level=1 tx.crs_setup_version=4252
+   ruleset: ver:'OWASP_CRS/4.25.2 in /opt/coraza/owasp-crs/rules (27 .conf files)
+docs/logs/runs/s22-t5-cellg/DIAGNOSTIC-cellg-connector-pl1.audit.index.jsonl: 8 records, 0 with a body, 0 body bytes in the source
+== DIAGNOSTIC-cellg-connector-pl1: 8 requests
+   cell ('G', 'plain', 'sqli'): {403: 1}
+   cell ('G', 'plain', 'xss'): {403: 1}
+   cell ('G0', 'plain', 'benign'): {403: 1}
+   cell ('H', 'plain', 'sqli'): {403: 1}
+   cell ('H', 'plain', 'xss'): {403: 1}
+   cell ('K', 'plain', 'sqli'): {403: 1}
+   cell ('K', 'plain', 'xss'): {403: 1}
+   cell ('K0', 'plain', 'benign'): {403: 1}
+   PASSED (evasion candidates): 0
+   ('G', 'clean-deflate+header', 'sqli', 'plain'): status 403 policy-only=1
+       rules [920420,920450] x1
+   ('G', 'clean-deflate+header', 'xss', 'plain'): status 403 policy-only=1
+       rules [920420,920450] x1
+   ('G0', 'clean-deflate+header', 'benign', 'plain'): status 403 policy-only=1
+       rules [920420,920450] x1
+   ('H', 'raw', 'sqli', 'plain'): status 403 policy-only=1
+       rules [920420] x1
+   ('H', 'raw', 'xss', 'plain'): status 403 payload-detected=1
+       rules [920420,941100,941110,941160,941390] x1
+   ('K', 'clean-deflate-no-header', 'sqli', 'plain'): status 403 policy-only=1
+       rules [920420] x1
+   ('K', 'clean-deflate-no-header', 'xss', 'plain'): status 403 policy-only=1
+       rules [920420] x1
+   ('K0', 'clean-deflate-no-header', 'benign', 'plain'): status 403 policy-only=1
+       rules [920420] x1
+   block pages that list rule 920450 among the matched rules: 0 []
+   body bytes the engine recorded per sample (raw control of the same payload and content type in brackets):
+     t5g-c-pl1-xss-G clean-deflate+header: 0 [0]
+     t5g-c-pl1-xss-K clean-deflate-no-header: 0 [0]
+     t5g-c-pl1-sqli-G clean-deflate+header: 0 [0]
+     t5g-c-pl1-sqli-K clean-deflate-no-header: 0 [0]
+     t5g-c-pl1-benign-G0 clean-deflate+header: 0 [None]
+     t5g-c-pl1-benign-K0 clean-deflate-no-header: 0 [None]
+== DIAGNOSTIC-cellg-connector-pl2 rule29/28 2026-11-27T19:29:05Z
+   image: ghcr.io/coreruleset/coraza-crs:4.25.2-nginx-lts@sha256:bfbfe70b4445c1ef1dc389c2de12cfdb194c9616746c33dc8a7131461c28f4a6 id sha256:bfbfe70b4445c1ef1dc389c2de12cfdb194c9616746c33dc8a7131461c28f4a6 platform linux/arm64
+   env: E=On B=2 P=2 D=2 CT=[] body=[nofiles=131072 total=13107200]
+   crs-setup: tx.blocking_paranoia_level=2 tx.detection_paranoia_level=2 tx.crs_setup_version=4252
+   ruleset: ver:'OWASP_CRS/4.25.2 in /opt/coraza/owasp-crs/rules (27 .conf files)
+docs/logs/runs/s22-t5-cellg/DIAGNOSTIC-cellg-connector-pl2.audit.index.jsonl: 8 records, 0 with a body, 0 body bytes in the source
+== DIAGNOSTIC-cellg-connector-pl2: 8 requests
+   cell ('G', 'plain', 'sqli'): {403: 1}
+   cell ('G', 'plain', 'xss'): {403: 1}
+   cell ('G0', 'plain', 'benign'): {403: 1}
+   cell ('H', 'plain', 'sqli'): {403: 1}
+   cell ('H', 'plain', 'xss'): {403: 1}
+   cell ('K', 'plain', 'sqli'): {403: 1}
+   cell ('K', 'plain', 'xss'): {403: 1}
+   cell ('K0', 'plain', 'benign'): {403: 1}
+   PASSED (evasion candidates): 0
+   ('G', 'clean-deflate+header', 'sqli', 'plain'): status 403 policy-only=1
+       rules [920271,920420,920450,932200] x1
+   ('G', 'clean-deflate+header', 'xss', 'plain'): status 403 policy-only=1
+       rules [920271,920420,920450] x1
+   ('G0', 'clean-deflate+header', 'benign', 'plain'): status 403 payload-detected=1
+       rules [920271,920420,920450,942131,942440] x1
+   ('H', 'raw', 'sqli', 'plain'): status 403 payload-detected=1
+       rules [920420,942300,942330,942440] x1
+   ('H', 'raw', 'xss', 'plain'): status 403 payload-detected=1
+       rules [920420,941100,941110,941160,941320,941390,942131,942520] x1
+   ('K', 'clean-deflate-no-header', 'sqli', 'plain'): status 403 policy-only=1
+       rules [920271,920420,932200] x1
+   ('K', 'clean-deflate-no-header', 'xss', 'plain'): status 403 policy-only=1
+       rules [920271,920420] x1
+   ('K0', 'clean-deflate-no-header', 'benign', 'plain'): status 403 payload-detected=1
+       rules [920271,920420,942131,942440] x1
+   block pages that list rule 920450 among the matched rules: 0 []
+   body bytes the engine recorded per sample (raw control of the same payload and content type in brackets):
+     t5g-c-pl2-xss-G clean-deflate+header: 0 [0]
+     t5g-c-pl2-xss-K clean-deflate-no-header: 0 [0]
+     t5g-c-pl2-sqli-G clean-deflate+header: 0 [0]
+     t5g-c-pl2-sqli-K clean-deflate-no-header: 0 [0]
+     t5g-c-pl2-benign-G0 clean-deflate+header: 0 [None]
+     t5g-c-pl2-benign-K0 clean-deflate-no-header: 0 [None]
+== load at end: load averages: 4.18 5.55 7.15
