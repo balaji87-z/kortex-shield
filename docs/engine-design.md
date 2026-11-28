@@ -706,6 +706,9 @@ engine's own code:
    no rule evaluation. 17 of the 61 T5 cases end here. This is fail-closed
    behaviour that the engine does not announce; kortex_eval sees a bare
    status. Not changed in step 23 (see the report's questions).
+   **Changed in step 24:** the gate at (1) now refuses these heads itself
+   (reason `parser:<class>`), so nothing is left for net/http to refuse
+   here; see "Step-24 additions" below.
 3. The handler's own checks (engine/proxy.go): 415 content-encoding, 413
    limit, 503 overload, 503 timeout (which also covers a body the engine
    cannot read, for example a malformed chunk: reason `body-read-error`).

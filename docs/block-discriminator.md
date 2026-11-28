@@ -9,7 +9,7 @@ classified without guessing:
 |----------|--------|-------------|---------|
 | block    | 403    | `403 kortex-decision=block rules=<ids>` | CRS matched a disruptive rule in blocking mode |
 | limit    | 413    | `413 kortex-decision=limit` | body above max inspected (131,072) or max total (13,107,200) bytes; rejected before the engine |
-| framing  | 400    | `400 kortex-decision=framing` | duplicate/conflicting Content-Length, Transfer-Encoding with Content-Length, or a raw NUL in the request line; rejected before the engine |
+| framing  | 400    | `400 kortex-decision=framing` | duplicate/conflicting Content-Length, Transfer-Encoding with Content-Length, or a raw NUL in the request line; since step 24 also every request head that Go's HTTP parser would refuse (event reason `parser:<class>`: unparsable Content-Length, unsupported or repeated Transfer-Encoding, invalid request target, request line, method, HTTP version, missing / duplicate / malformed Host, malformed header line, name or value, more than 500 header lines, an Expect other than 100-continue); rejected before the engine |
 | timeout  | 503    | `503 kortex-decision=timeout` | per-request engine time budget (2,000 ms) exceeded |
 | overload | 503 | `503 kortex-decision=overload` | concurrent in-flight body-processing cap reached IN THE REQUEST'S SIZE-CLASS LANE (step-20 T2): small lane (Content-Length <= KORTEX_SMALL_BODY_BYTES, default 65536; cap KORTEX_MAX_INFLIGHT_BODY_SMALL, default 4) or large lane (cap KORTEX_MAX_INFLIGHT_BODY, default 8). A saturated large lane does not consume small-lane capacity. Capacity decision, not a WAF decision (step-17 T3) |
 | pass     | backend status | — | request inspected and forwarded |
@@ -46,9 +46,17 @@ Notes
 - Encoding checks (invalid percent sequences, overlong UTF-8 in query or
   urlencoded body) are LOG-ONLY: they write `would_reject` events to
   kortex-events.jsonl and never block.
-- The framing gate runs on the raw connection before any HTTP parser; the
-  engine answers `Connection: close` so every request is the first on its
-  connection and is always gated.
+- The framing gate runs on the raw connection before any HTTP parser.
+  Keep-alive is off on the engine's server (step 24, E48), so the connection
+  is closed after every answer, every request is the first on its
+  connection and is always gated. Before step 24 this relied on the
+  handler's `Connection: close`, which `OPTIONS *` and the `/__kortex/`
+  admin paths did not send.
+- Since step 24 the gate reads header lines the way Go's parser does as
+  well as by CRLF, so a framing header after a bare LF is seen (E46), and
+  it refuses with the framing marker what net/http would otherwise answer
+  itself with a bare 400, 501, 505, 417 or 431 (E42). `OPTIONS *` is still
+  answered 200 by net/http itself, uninspected and not forwarded.
 - Detection blocks must not depend on the content-type allow-list (criterion
   C4, decision 0002 addendum): the engine does not implement a content-type
   allow-list at all; CRS rules decide.

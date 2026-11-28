@@ -1,0 +1,32 @@
+{
+  "base_url": "http://localhost:8097",
+  "started_utc": "2026-11-28T04:58:44+00:00",
+  "ended_utc": "2026-11-28T04:58:45+00:00",
+  "load_avg_start": [
+    6.26,
+    4.12,
+    3.09
+  ],
+  "load_avg_end": [
+    6.26,
+    4.12,
+    3.09
+  ],
+  "git_commit": "40e451981abc7ec16b5dd12b99fb278b2b570ebf",
+  "manifest_sha256": "65bdfc69022c5b026815acacd033d1e005fadc9c2e7000745614bd903a01d78b",
+  "default_user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/158.0.0.0 Safari/537.36",
+  "labels": {
+    "engine": "kortex",
+    "mode": "inprocess",
+    "paranoia": "2",
+    "step24": "main"
+  },
+  "total_samples": 180,
+  "responses_ok": 180,
+  "blocked": 78,
+  "error_count": 0,
+  "block_rule": {
+    "block_status": 403,
+    "block_marker": "kortex-decision=block"
+  }
+}

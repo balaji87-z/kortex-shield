@@ -1,0 +1,954 @@
+{"sample_id": "sqli-01f86083-q", "content_type": null, "body_bytes": 0, "status": 0, "rule_ids": ["920350", "942100", "949110"]}
+{"sample_id": "sqli-01f86083-login", "content_type": "application/json", "body_bytes": 33, "status": 0, "rule_ids": ["920350", "942100", "949110"]}
+{"sample_id": "sqli-91485dbb-q", "content_type": null, "body_bytes": 0, "status": 0, "rule_ids": ["920350", "942100", "949110"]}
+{"sample_id": "sqli-91485dbb-login", "content_type": "application/json", "body_bytes": 33, "status": 0, "rule_ids": ["920350", "942100", "949110"]}
+{"sample_id": "sqli-f7e4e972-q", "content_type": null, "body_bytes": 0, "status": 0, "rule_ids": ["920350", "942100", "949110"]}
+{"sample_id": "sqli-f7e4e972-login", "content_type": "application/json", "body_bytes": 33, "status": 0, "rule_ids": ["920350", "942100", "949110"]}
+{"sample_id": "sqli-15a7e30e-q", "content_type": null, "body_bytes": 0, "status": 0, "rule_ids": ["920350", "942100", "949110"]}
+{"sample_id": "sqli-15a7e30e-login", "content_type": "application/json", "body_bytes": 33, "status": 0, "rule_ids": ["920350", "942100", "949110"]}
+{"sample_id": "sqli-8da41213-q", "content_type": null, "body_bytes": 0, "status": 0, "rule_ids": ["920350", "942100", "949110"]}
+{"sample_id": "sqli-8da41213-login", "content_type": "application/json", "body_bytes": 39, "status": 0, "rule_ids": ["920350", "942100", "949110"]}
+{"sample_id": "sqli-b0c12141-q", "content_type": null, "body_bytes": 0, "status": 0, "rule_ids": ["920350", "942100", "949110"]}
+{"sample_id": "sqli-b0c12141-login", "content_type": "application/json", "body_bytes": 39, "status": 0, "rule_ids": ["920350", "942100", "949110"]}
+{"sample_id": "sqli-2bf1c713-q", "content_type": null, "body_bytes": 0, "status": 0, "rule_ids": ["920350", "942100", "949110"]}
+{"sample_id": "sqli-2bf1c713-login", "content_type": "application/json", "body_bytes": 39, "status": 0, "rule_ids": ["920350", "942100", "949110"]}
+{"sample_id": "sqli-daa646a8-q", "content_type": null, "body_bytes": 0, "status": 0, "rule_ids": ["920350", "942100", "949110"]}
+{"sample_id": "sqli-daa646a8-login", "content_type": "application/json", "body_bytes": 39, "status": 0, "rule_ids": ["920350", "942100", "949110"]}
+{"sample_id": "sqli-0933fb66-q", "content_type": null, "body_bytes": 0, "status": 0, "rule_ids": ["920350", "942100", "949110"]}
+{"sample_id": "sqli-0933fb66-login", "content_type": "application/json", "body_bytes": 35, "status": 0, "rule_ids": ["920350", "942100", "949110"]}
+{"sample_id": "sqli-7f62f3e0-q", "content_type": null, "body_bytes": 0, "status": 0, "rule_ids": ["920350", "942100", "949110"]}
+{"sample_id": "sqli-7f62f3e0-login", "content_type": "application/json", "body_bytes": 35, "status": 0, "rule_ids": ["920350", "942100", "949110"]}
+{"sample_id": "sqli-06acab32-q", "content_type": null, "body_bytes": 0, "status": 0, "rule_ids": ["920350", "942100", "949110"]}
+{"sample_id": "sqli-06acab32-login", "content_type": "application/json", "body_bytes": 35, "status": 0, "rule_ids": ["920350", "942100", "949110"]}
+{"sample_id": "sqli-ed725292-q", "content_type": null, "body_bytes": 0, "status": 0, "rule_ids": ["920350", "942100", "949110"]}
+{"sample_id": "sqli-ed725292-login", "content_type": "application/json", "body_bytes": 35, "status": 0, "rule_ids": ["920350", "942100", "949110"]}
+{"sample_id": "sqli-85738caa-q", "content_type": null, "body_bytes": 0, "status": 0, "rule_ids": ["920350", "942100", "949110"]}
+{"sample_id": "sqli-85738caa-login", "content_type": "application/json", "body_bytes": 43, "status": 0, "rule_ids": ["920350", "942100", "949110"]}
+{"sample_id": "sqli-57e105b4-q", "content_type": null, "body_bytes": 0, "status": 0, "rule_ids": ["920350", "942100", "949110"]}
+{"sample_id": "sqli-57e105b4-login", "content_type": "application/json", "body_bytes": 43, "status": 0, "rule_ids": ["920350", "942100", "949110"]}
+{"sample_id": "sqli-1c13e2dc-q", "content_type": null, "body_bytes": 0, "status": 0, "rule_ids": ["920350", "942100", "949110"]}
+{"sample_id": "sqli-1c13e2dc-login", "content_type": "application/json", "body_bytes": 43, "status": 0, "rule_ids": ["920350", "942100", "949110"]}
+{"sample_id": "sqli-07a2ed1e-q", "content_type": null, "body_bytes": 0, "status": 0, "rule_ids": ["920350", "942100", "949110"]}
+{"sample_id": "sqli-07a2ed1e-login", "content_type": "application/json", "body_bytes": 43, "status": 0, "rule_ids": ["920350", "942100", "949110"]}
+{"sample_id": "sqli-1e018b13-q", "content_type": null, "body_bytes": 0, "status": 0, "rule_ids": ["920350", "942100", "949110"]}
+{"sample_id": "sqli-1e018b13-login", "content_type": "application/json", "body_bytes": 42, "status": 0, "rule_ids": ["920350", "942100", "949110"]}
+{"sample_id": "sqli-b33dd8e9-q", "content_type": null, "body_bytes": 0, "status": 0, "rule_ids": ["920350", "942100", "949110"]}
+{"sample_id": "sqli-b33dd8e9-login", "content_type": "application/json", "body_bytes": 41, "status": 0, "rule_ids": ["920350", "942100", "949110"]}
+{"sample_id": "sqli-cba0a4a7-q", "content_type": null, "body_bytes": 0, "status": 0, "rule_ids": ["920350", "942100", "949110"]}
+{"sample_id": "sqli-cba0a4a7-login", "content_type": "application/json", "body_bytes": 43, "status": 0, "rule_ids": ["920350", "942100", "949110"]}
+{"sample_id": "sqli-ee9c0ef9-q", "content_type": null, "body_bytes": 0, "status": 0, "rule_ids": ["920350", "942100", "949110"]}
+{"sample_id": "sqli-ee9c0ef9-login", "content_type": "application/json", "body_bytes": 42, "status": 0, "rule_ids": ["920350", "942100", "949110"]}
+{"sample_id": "sqli-d5e8c63e-q", "content_type": null, "body_bytes": 0, "status": 0, "rule_ids": ["920350", "942100", "949110"]}
+{"sample_id": "sqli-d5e8c63e-login", "content_type": "application/json", "body_bytes": 41, "status": 0, "rule_ids": ["920350", "942100", "949110"]}
+{"sample_id": "sqli-e0ed04bd-q", "content_type": null, "body_bytes": 0, "status": 0, "rule_ids": ["920350", "942100", "949110"]}
+{"sample_id": "sqli-e0ed04bd-login", "content_type": "application/json", "body_bytes": 45, "status": 0, "rule_ids": ["920350", "942100", "949110"]}
+{"sample_id": "sqli-43c36ec3-q", "content_type": null, "body_bytes": 0, "status": 0, "rule_ids": ["920350", "942100", "949110"]}
+{"sample_id": "sqli-43c36ec3-login", "content_type": "application/json", "body_bytes": 49, "status": 0, "rule_ids": ["920350", "942100", "949110"]}
+{"sample_id": "sqli-382abb8b-q", "content_type": null, "body_bytes": 0, "status": 0, "rule_ids": ["920350", "942100", "949110"]}
+{"sample_id": "sqli-382abb8b-login", "content_type": "application/json", "body_bytes": 45, "status": 0, "rule_ids": ["920350", "942100", "949110"]}
+{"sample_id": "sqli-0ee59083-q", "content_type": null, "body_bytes": 0, "status": 0, "rule_ids": ["920350", "942100", "949110"]}
+{"sample_id": "sqli-0ee59083-login", "content_type": "application/json", "body_bytes": 49, "status": 0, "rule_ids": ["920350", "942100", "949110"]}
+{"sample_id": "sqli-fb72118c-q", "content_type": null, "body_bytes": 0, "status": 0, "rule_ids": ["920350", "942100", "949110"]}
+{"sample_id": "sqli-fb72118c-login", "content_type": "application/json", "body_bytes": 53, "status": 0, "rule_ids": ["920350", "942100", "949110"]}
+{"sample_id": "sqli-ef11b83d-q", "content_type": null, "body_bytes": 0, "status": 0, "rule_ids": ["920350", "942100", "949110"]}
+{"sample_id": "sqli-ef11b83d-login", "content_type": "application/json", "body_bytes": 39, "status": 0, "rule_ids": ["920350", "942100", "949110"]}
+{"sample_id": "sqli-8ac6dee6-q", "content_type": null, "body_bytes": 0, "status": 0, "rule_ids": ["920350", "942100", "949110"]}
+{"sample_id": "sqli-8ac6dee6-login", "content_type": "application/json", "body_bytes": 38, "status": 0, "rule_ids": ["920350", "942100", "949110"]}
+{"sample_id": "sqli-43319db8-q", "content_type": null, "body_bytes": 0, "status": 0, "rule_ids": ["920350", "942100", "949110"]}
+{"sample_id": "sqli-43319db8-login", "content_type": "application/json", "body_bytes": 46, "status": 0, "rule_ids": ["920350", "942100", "949110"]}
+{"sample_id": "sqli-4cab31b0-q", "content_type": null, "body_bytes": 0, "status": 0, "rule_ids": ["920350", "942100", "949110"]}
+{"sample_id": "sqli-4cab31b0-login", "content_type": "application/json", "body_bytes": 49, "status": 0, "rule_ids": ["920350", "942100", "949110"]}
+{"sample_id": "sqli-59730505-q", "content_type": null, "body_bytes": 0, "status": 0, "rule_ids": ["920350", "942100", "949110"]}
+{"sample_id": "sqli-59730505-login", "content_type": "application/json", "body_bytes": 48, "status": 0, "rule_ids": ["920350", "942100", "949110"]}
+{"sample_id": "sqli-eaaf5ffe-q", "content_type": null, "body_bytes": 0, "status": 0, "rule_ids": ["920350", "942100", "949110"]}
+{"sample_id": "sqli-eaaf5ffe-login", "content_type": "application/json", "body_bytes": 49, "status": 0, "rule_ids": ["920350", "942100", "949110"]}
+{"sample_id": "sqli-9da50fbb-q", "content_type": null, "body_bytes": 0, "status": 0, "rule_ids": ["920350", "942100", "949110"]}
+{"sample_id": "sqli-9da50fbb-login", "content_type": "application/json", "body_bytes": 50, "status": 0, "rule_ids": ["920350", "942100", "949110"]}
+{"sample_id": "sqli-087af73e-q", "content_type": null, "body_bytes": 0, "status": 0, "rule_ids": ["920350", "942100", "949110"]}
+{"sample_id": "sqli-087af73e-login", "content_type": "application/json", "body_bytes": 43, "status": 0, "rule_ids": ["920350", "942100", "949110"]}
+{"sample_id": "sqli-0c0a9d6b-q", "content_type": null, "body_bytes": 0, "status": 0, "rule_ids": ["920350", "942100", "949110"]}
+{"sample_id": "sqli-0c0a9d6b-login", "content_type": "application/json", "body_bytes": 45, "status": 0, "rule_ids": ["920350", "942100", "949110"]}
+{"sample_id": "sqli-eb04843f-q", "content_type": null, "body_bytes": 0, "status": 0, "rule_ids": ["920350", "942100", "949110"]}
+{"sample_id": "sqli-eb04843f-login", "content_type": "application/json", "body_bytes": 44, "status": 0, "rule_ids": ["920350", "942100", "949110"]}
+{"sample_id": "sqli-f01dcc76-q", "content_type": null, "body_bytes": 0, "status": 0, "rule_ids": ["920350", "942100", "949110"]}
+{"sample_id": "sqli-f01dcc76-login", "content_type": "application/json", "body_bytes": 45, "status": 0, "rule_ids": ["920350", "942100", "949110"]}
+{"sample_id": "sqli-546a50b0-q", "content_type": null, "body_bytes": 0, "status": 0, "rule_ids": ["920350", "942100", "949110"]}
+{"sample_id": "sqli-546a50b0-login", "content_type": "application/json", "body_bytes": 48, "status": 0, "rule_ids": ["920350", "942100", "949110"]}
+{"sample_id": "sqli-2efece91-q", "content_type": null, "body_bytes": 0, "status": 0, "rule_ids": ["920350", "942100", "949110"]}
+{"sample_id": "sqli-2efece91-login", "content_type": "application/json", "body_bytes": 51, "status": 0, "rule_ids": ["920350", "942100", "949110"]}
+{"sample_id": "sqli-338068f1-q", "content_type": null, "body_bytes": 0, "status": 0, "rule_ids": ["920350", "942100", "949110"]}
+{"sample_id": "sqli-338068f1-login", "content_type": "application/json", "body_bytes": 50, "status": 0, "rule_ids": ["920350", "942100", "949110"]}
+{"sample_id": "sqli-fc1121b9-q", "content_type": null, "body_bytes": 0, "status": 0, "rule_ids": ["920350", "942100", "949110"]}
+{"sample_id": "sqli-fc1121b9-login", "content_type": "application/json", "body_bytes": 51, "status": 0, "rule_ids": ["920350", "942100", "949110"]}
+{"sample_id": "sqli-2e454259-q", "content_type": null, "body_bytes": 0, "status": 0, "rule_ids": ["920350", "942100", "949110"]}
+{"sample_id": "sqli-2e454259-login", "content_type": "application/json", "body_bytes": 47, "status": 0, "rule_ids": ["920350", "942100", "949110"]}
+{"sample_id": "sqli-cd3b28b4-q", "content_type": null, "body_bytes": 0, "status": 0, "rule_ids": ["920350", "942100", "949110"]}
+{"sample_id": "sqli-cd3b28b4-login", "content_type": "application/json", "body_bytes": 50, "status": 0, "rule_ids": ["920350", "942100", "949110"]}
+{"sample_id": "sqli-29b1b8df-q", "content_type": null, "body_bytes": 0, "status": 0, "rule_ids": ["920350", "942100", "949110"]}
+{"sample_id": "sqli-29b1b8df-login", "content_type": "application/json", "body_bytes": 49, "status": 0, "rule_ids": ["920350", "942100", "949110"]}
+{"sample_id": "sqli-bd5671f5-q", "content_type": null, "body_bytes": 0, "status": 0, "rule_ids": ["920350", "942100", "949110"]}
+{"sample_id": "sqli-bd5671f5-login", "content_type": "application/json", "body_bytes": 50, "status": 0, "rule_ids": ["920350", "942100", "949110"]}
+{"sample_id": "sqli-d26c64e1-q", "content_type": null, "body_bytes": 0, "status": 0, "rule_ids": ["920350", "942100", "942190", "949110"]}
+{"sample_id": "sqli-d26c64e1-login", "content_type": "application/json", "body_bytes": 104, "status": 0, "rule_ids": ["920350", "942100", "942190", "949110"]}
+{"sample_id": "sqli-27f94926-q", "content_type": null, "body_bytes": 0, "status": 0, "rule_ids": ["920350", "942100", "949110"]}
+{"sample_id": "sqli-27f94926-login", "content_type": "application/json", "body_bytes": 40, "status": 0, "rule_ids": ["920350", "942100", "949110"]}
+{"sample_id": "sqli-beca71f8-q", "content_type": null, "body_bytes": 0, "status": 0, "rule_ids": ["920350", "942100", "949110"]}
+{"sample_id": "sqli-beca71f8-login", "content_type": "application/json", "body_bytes": 39, "status": 0, "rule_ids": ["920350", "942100", "949110"]}
+{"sample_id": "sqli-a77cd69b-q", "content_type": null, "body_bytes": 0, "status": 0, "rule_ids": ["920350", "942100", "949110"]}
+{"sample_id": "sqli-a77cd69b-login", "content_type": "application/json", "body_bytes": 50, "status": 0, "rule_ids": ["920350", "942100", "949110"]}
+{"sample_id": "sqli-1db92de8-q", "content_type": null, "body_bytes": 0, "status": 0, "rule_ids": ["920350", "942100", "949110"]}
+{"sample_id": "sqli-1db92de8-login", "content_type": "application/json", "body_bytes": 54, "status": 0, "rule_ids": ["920350", "942100", "949110"]}
+{"sample_id": "sqli-6e47f23b-q", "content_type": null, "body_bytes": 0, "status": 0, "rule_ids": ["920350", "942100", "949110"]}
+{"sample_id": "sqli-6e47f23b-login", "content_type": "application/json", "body_bytes": 53, "status": 0, "rule_ids": ["920350", "942100", "949110"]}
+{"sample_id": "sqli-f0b4d8ab-q", "content_type": null, "body_bytes": 0, "status": 0, "rule_ids": ["920350", "942100", "949110"]}
+{"sample_id": "sqli-f0b4d8ab-login", "content_type": "application/json", "body_bytes": 54, "status": 0, "rule_ids": ["920350", "942100", "949110"]}
+{"sample_id": "sqli-ef753d10-q", "content_type": null, "body_bytes": 0, "status": 0, "rule_ids": ["920350", "942100", "949110"]}
+{"sample_id": "sqli-ef753d10-login", "content_type": "application/json", "body_bytes": 54, "status": 0, "rule_ids": ["920350", "942100", "949110"]}
+{"sample_id": "sqli-0c1567f5-q", "content_type": null, "body_bytes": 0, "status": 0, "rule_ids": ["920350", "942100", "949110"]}
+{"sample_id": "sqli-0c1567f5-login", "content_type": "application/json", "body_bytes": 44, "status": 0, "rule_ids": ["920350", "942100", "949110"]}
+{"sample_id": "sqli-bd571692-q", "content_type": null, "body_bytes": 0, "status": 0, "rule_ids": ["920350", "942100", "949110"]}
+{"sample_id": "sqli-bd571692-login", "content_type": "application/json", "body_bytes": 46, "status": 0, "rule_ids": ["920350", "942100", "949110"]}
+{"sample_id": "sqli-ebf229cf-q", "content_type": null, "body_bytes": 0, "status": 0, "rule_ids": ["920350", "942100", "949110"]}
+{"sample_id": "sqli-ebf229cf-login", "content_type": "application/json", "body_bytes": 45, "status": 0, "rule_ids": ["920350", "942100", "949110"]}
+{"sample_id": "sqli-1d273014-q", "content_type": null, "body_bytes": 0, "status": 0, "rule_ids": ["920350", "942100", "949110"]}
+{"sample_id": "sqli-1d273014-login", "content_type": "application/json", "body_bytes": 46, "status": 0, "rule_ids": ["920350", "942100", "949110"]}
+{"sample_id": "sqli-a2035700-q", "content_type": null, "body_bytes": 0, "status": 0, "rule_ids": ["920350", "942100", "949110"]}
+{"sample_id": "sqli-a2035700-login", "content_type": "application/json", "body_bytes": 52, "status": 0, "rule_ids": ["920350", "942100", "949110"]}
+{"sample_id": "sqli-32d32940-q", "content_type": null, "body_bytes": 0, "status": 0, "rule_ids": ["920350", "942100", "949110"]}
+{"sample_id": "sqli-32d32940-login", "content_type": "application/json", "body_bytes": 56, "status": 0, "rule_ids": ["920350", "942100", "949110"]}
+{"sample_id": "sqli-c6072953-q", "content_type": null, "body_bytes": 0, "status": 0, "rule_ids": ["920350", "942100", "949110"]}
+{"sample_id": "sqli-c6072953-login", "content_type": "application/json", "body_bytes": 55, "status": 0, "rule_ids": ["920350", "942100", "949110"]}
+{"sample_id": "sqli-bde4f6b2-q", "content_type": null, "body_bytes": 0, "status": 0, "rule_ids": ["920350", "942100", "949110"]}
+{"sample_id": "sqli-bde4f6b2-login", "content_type": "application/json", "body_bytes": 56, "status": 0, "rule_ids": ["920350", "942100", "949110"]}
+{"sample_id": "sqli-180d12ba-q", "content_type": null, "body_bytes": 0, "status": 0, "rule_ids": ["920350", "942100", "949110"]}
+{"sample_id": "sqli-180d12ba-login", "content_type": "application/json", "body_bytes": 51, "status": 0, "rule_ids": ["920350", "942100", "949110"]}
+{"sample_id": "sqli-c9fe3605-q", "content_type": null, "body_bytes": 0, "status": 0, "rule_ids": ["920350", "942100", "949110"]}
+{"sample_id": "sqli-c9fe3605-login", "content_type": "application/json", "body_bytes": 55, "status": 0, "rule_ids": ["920350", "942100", "949110"]}
+{"sample_id": "sqli-8c187a93-q", "content_type": null, "body_bytes": 0, "status": 0, "rule_ids": ["920350", "942100", "949110"]}
+{"sample_id": "sqli-8c187a93-login", "content_type": "application/json", "body_bytes": 54, "status": 0, "rule_ids": ["920350", "942100", "949110"]}
+{"sample_id": "sqli-906b8603-q", "content_type": null, "body_bytes": 0, "status": 0, "rule_ids": ["920350", "942100", "949110"]}
+{"sample_id": "sqli-906b8603-login", "content_type": "application/json", "body_bytes": 55, "status": 0, "rule_ids": ["920350", "942100", "949110"]}
+{"sample_id": "sqli-0242727b-q", "content_type": null, "body_bytes": 0, "status": 0, "rule_ids": ["920350", "942100", "942190", "949110"]}
+{"sample_id": "sqli-0242727b-login", "content_type": "application/json", "body_bytes": 108, "status": 0, "rule_ids": ["920350", "942100", "942190", "949110"]}
+{"sample_id": "xss-7f4d1894-q", "content_type": null, "body_bytes": 0, "status": 0, "rule_ids": ["920350", "941100", "941120", "941390", "949110"]}
+{"sample_id": "xss-7f4d1894-login", "content_type": "application/json", "body_bytes": 70, "status": 0, "rule_ids": ["920350", "941100", "941120", "941390", "949110"]}
+{"sample_id": "xss-f0c0732b-q", "content_type": null, "body_bytes": 0, "status": 0, "rule_ids": ["920350", "941100", "941120", "941160", "941390", "949110"]}
+{"sample_id": "xss-f0c0732b-login", "content_type": "application/json", "body_bytes": 77, "status": 0, "rule_ids": ["920350", "941100", "941120", "941160", "941390", "949110"]}
+{"sample_id": "xss-f1accc6d-q", "content_type": null, "body_bytes": 0, "status": 0, "rule_ids": ["920350", "941100", "941120", "941160", "941290", "941390", "949110"]}
+{"sample_id": "xss-f1accc6d-login", "content_type": "application/json", "body_bytes": 95, "status": 0, "rule_ids": ["920350", "941100", "941120", "941160", "941290", "941390", "949110"]}
+{"sample_id": "xss-d4e13aed-q", "content_type": null, "body_bytes": 0, "status": 0, "rule_ids": ["920350", "941100", "941120", "941160", "941390", "949110"]}
+{"sample_id": "xss-d4e13aed-login", "content_type": "application/json", "body_bytes": 114, "status": 0, "rule_ids": ["920350", "941100", "941120", "941160", "941390", "949110"]}
+{"sample_id": "xss-b96414cd-q", "content_type": null, "body_bytes": 0, "status": 0, "rule_ids": ["920350", "941100", "941120", "941160", "941390", "949110"]}
+{"sample_id": "xss-b96414cd-login", "content_type": "application/json", "body_bytes": 77, "status": 0, "rule_ids": ["920350", "941100", "941120", "941160", "941390", "949110"]}
+{"sample_id": "xss-cdfc822b-q", "content_type": null, "body_bytes": 0, "status": 0, "rule_ids": ["920350", "941100", "941120", "941160", "941390", "949110"]}
+{"sample_id": "xss-cdfc822b-login", "content_type": "application/json", "body_bytes": 86, "status": 0, "rule_ids": ["920350", "941100", "941120", "941160", "941390", "949110"]}
+{"sample_id": "xss-86175abd-q", "content_type": null, "body_bytes": 0, "status": 0, "rule_ids": ["920350", "941100", "941120", "941160", "941390", "949110"]}
+{"sample_id": "xss-86175abd-login", "content_type": "application/json", "body_bytes": 69, "status": 0, "rule_ids": ["920350", "941100", "941120", "941160", "941390", "949110"]}
+{"sample_id": "xss-80ef8944-q", "content_type": null, "body_bytes": 0, "status": 0, "rule_ids": ["920350", "941100", "941120", "941160", "941390", "949110"]}
+{"sample_id": "xss-80ef8944-login", "content_type": "application/json", "body_bytes": 70, "status": 0, "rule_ids": ["920350", "941100", "941120", "941160", "941390", "949110"]}
+{"sample_id": "xss-592b0302-q", "content_type": null, "body_bytes": 0, "status": 0, "rule_ids": ["920350", "941100", "941120", "941390", "949110"]}
+{"sample_id": "xss-592b0302-login", "content_type": "application/json", "body_bytes": 90, "status": 0, "rule_ids": ["920350", "941100", "941120", "941390", "949110"]}
+{"sample_id": "xss-d1a21513-q", "content_type": null, "body_bytes": 0, "status": 0, "rule_ids": ["920350", "941100", "941120", "941160", "941390", "949110"]}
+{"sample_id": "xss-d1a21513-login", "content_type": "application/json", "body_bytes": 70, "status": 0, "rule_ids": ["920350", "941100", "941120", "941160", "941390", "949110"]}
+{"sample_id": "xss-8663ea87-q", "content_type": null, "body_bytes": 0, "status": 0, "rule_ids": ["920350", "941100", "941120", "941160", "941390", "949110"]}
+{"sample_id": "xss-8663ea87-login", "content_type": "application/json", "body_bytes": 69, "status": 0, "rule_ids": ["920350", "941100", "941120", "941160", "941390", "949110"]}
+{"sample_id": "xss-eab727ef-q", "content_type": null, "body_bytes": 0, "status": 0, "rule_ids": ["920350", "941100", "941120", "941160", "941390", "949110"]}
+{"sample_id": "xss-eab727ef-login", "content_type": "application/json", "body_bytes": 68, "status": 0, "rule_ids": ["920350", "941100", "941120", "941160", "941390", "949110"]}
+{"sample_id": "xss-91619a9c-q", "content_type": null, "body_bytes": 0, "status": 0, "rule_ids": ["920350", "941120", "941390", "949110"]}
+{"sample_id": "xss-91619a9c-login", "content_type": "application/json", "body_bytes": 107, "status": 0, "rule_ids": ["920350", "941120", "941390", "949110"]}
+{"sample_id": "xss-d2afb95b-q", "content_type": null, "body_bytes": 0, "status": 0, "rule_ids": ["920350", "941120", "941390", "949110"]}
+{"sample_id": "xss-d2afb95b-login", "content_type": "application/json", "body_bytes": 110, "status": 0, "rule_ids": ["920350", "941120", "941390", "949110"]}
+{"sample_id": "xss-ff482ddc-q", "content_type": null, "body_bytes": 0, "status": 0, "rule_ids": ["920350", "941100", "941120", "941160", "941390", "949110"]}
+{"sample_id": "xss-ff482ddc-login", "content_type": "application/json", "body_bytes": 77, "status": 0, "rule_ids": ["920350", "941100", "941120", "941160", "941390", "949110"]}
+{"sample_id": "xss-d3134f8d-q", "content_type": null, "body_bytes": 0, "status": 0, "rule_ids": ["920350", "941100", "941120", "941160", "941390", "949110"]}
+{"sample_id": "xss-d3134f8d-login", "content_type": "application/json", "body_bytes": 93, "status": 0, "rule_ids": ["920350", "941100", "941120", "941160", "941390", "949110"]}
+{"sample_id": "xss-3e687de5-q", "content_type": null, "body_bytes": 0, "status": 0, "rule_ids": ["920350", "941100", "941120", "941160", "941390", "949110"]}
+{"sample_id": "xss-3e687de5-login", "content_type": "application/json", "body_bytes": 95, "status": 0, "rule_ids": ["920350", "941100", "941120", "941160", "941390", "949110"]}
+{"sample_id": "xss-278f59ea-q", "content_type": null, "body_bytes": 0, "status": 0, "rule_ids": ["920350", "941100", "941120", "941160", "941390", "949110"]}
+{"sample_id": "xss-278f59ea-login", "content_type": "application/json", "body_bytes": 78, "status": 0, "rule_ids": ["920350", "941100", "941120", "941160", "941390", "949110"]}
+{"sample_id": "xss-57ccd0f3-q", "content_type": null, "body_bytes": 0, "status": 0, "rule_ids": ["920350", "941100", "941120", "941160", "941390", "949110"]}
+{"sample_id": "xss-57ccd0f3-login", "content_type": "application/json", "body_bytes": 83, "status": 0, "rule_ids": ["920350", "941100", "941120", "941160", "941390", "949110"]}
+{"sample_id": "xss-6a803568-q", "content_type": null, "body_bytes": 0, "status": 0, "rule_ids": ["920350", "941100", "941120", "941390", "949110"]}
+{"sample_id": "xss-6a803568-login", "content_type": "application/json", "body_bytes": 86, "status": 0, "rule_ids": ["920350", "941100", "941120", "941390", "949110"]}
+{"sample_id": "xss-cbb95965-q", "content_type": null, "body_bytes": 0, "status": 0, "rule_ids": ["920350", "941100", "941120", "941390", "949110"]}
+{"sample_id": "xss-cbb95965-login", "content_type": "application/json", "body_bytes": 87, "status": 0, "rule_ids": ["920350", "941100", "941120", "941390", "949110"]}
+{"sample_id": "xss-aebc9837-q", "content_type": null, "body_bytes": 0, "status": 0, "rule_ids": ["920350", "932235", "941100", "941120", "941160", "941390", "949110"]}
+{"sample_id": "xss-aebc9837-login", "content_type": "application/json", "body_bytes": 78, "status": 0, "rule_ids": ["920350", "932235", "941100", "941120", "941160", "941390", "949110"]}
+{"sample_id": "xss-b42ad76d-q", "content_type": null, "body_bytes": 0, "status": 0, "rule_ids": ["920350", "941120", "941390", "949110"]}
+{"sample_id": "xss-b42ad76d-login", "content_type": "application/json", "body_bytes": 110, "status": 0, "rule_ids": ["920350", "941120", "941390", "949110"]}
+{"sample_id": "xss-93e4a741-q", "content_type": null, "body_bytes": 0, "status": 0, "rule_ids": ["920350", "941100", "941120", "941390", "949110"]}
+{"sample_id": "xss-93e4a741-login", "content_type": "application/json", "body_bytes": 93, "status": 0, "rule_ids": ["920350", "941100", "941120", "941390", "949110"]}
+{"sample_id": "xss-7569dc90-q", "content_type": null, "body_bytes": 0, "status": 0, "rule_ids": ["920350", "941100", "941120", "941160", "941390", "949110"]}
+{"sample_id": "xss-7569dc90-login", "content_type": "application/json", "body_bytes": 78, "status": 0, "rule_ids": ["920350", "941100", "941120", "941160", "941390", "949110"]}
+{"sample_id": "xss-cc8ef211-q", "content_type": null, "body_bytes": 0, "status": 0, "rule_ids": ["920350", "941100", "941120", "941160", "941390", "949110"]}
+{"sample_id": "xss-cc8ef211-login", "content_type": "application/json", "body_bytes": 77, "status": 0, "rule_ids": ["920350", "941100", "941120", "941160", "941390", "949110"]}
+{"sample_id": "xss-8be5f253-q", "content_type": null, "body_bytes": 0, "status": 0, "rule_ids": ["920350", "941100", "941120", "941160", "941390", "949110"]}
+{"sample_id": "xss-8be5f253-login", "content_type": "application/json", "body_bytes": 76, "status": 0, "rule_ids": ["920350", "941100", "941120", "941160", "941390", "949110"]}
+{"sample_id": "xss-a9cff41f-q", "content_type": null, "body_bytes": 0, "status": 0, "rule_ids": ["920350", "941100", "941120", "941160", "941390", "949110"]}
+{"sample_id": "xss-a9cff41f-login", "content_type": "application/json", "body_bytes": 85, "status": 0, "rule_ids": ["920350", "941100", "941120", "941160", "941390", "949110"]}
+{"sample_id": "xss-21b186ed-q", "content_type": null, "body_bytes": 0, "status": 0, "rule_ids": ["920350", "941100", "941120", "941160", "941390", "949110"]}
+{"sample_id": "xss-21b186ed-login", "content_type": "application/json", "body_bytes": 77, "status": 0, "rule_ids": ["920350", "941100", "941120", "941160", "941390", "949110"]}
+{"sample_id": "xss-e83460a7-q", "content_type": null, "body_bytes": 0, "status": 0, "rule_ids": ["920350", "941100", "941120", "941160", "941390", "949110"]}
+{"sample_id": "xss-e83460a7-login", "content_type": "application/json", "body_bytes": 72, "status": 0, "rule_ids": ["920350", "941100", "941120", "941160", "941390", "949110"]}
+{"sample_id": "xss-c067b172-q", "content_type": null, "body_bytes": 0, "status": 0, "rule_ids": ["920350", "941100", "941120", "941160", "941390", "949110"]}
+{"sample_id": "xss-c067b172-login", "content_type": "application/json", "body_bytes": 145, "status": 0, "rule_ids": ["920350", "941100", "941120", "941160", "941390", "949110"]}
+{"sample_id": "xss-d1e93037-q", "content_type": null, "body_bytes": 0, "status": 0, "rule_ids": ["920350", "941100", "941120", "941160", "941390", "949110"]}
+{"sample_id": "xss-d1e93037-login", "content_type": "application/json", "body_bytes": 133, "status": 0, "rule_ids": ["920350", "941100", "941120", "941160", "941390", "949110"]}
+{"sample_id": "xss-29a20782-q", "content_type": null, "body_bytes": 0, "status": 0, "rule_ids": ["920350", "941100", "941120", "941390", "949110"]}
+{"sample_id": "xss-29a20782-login", "content_type": "application/json", "body_bytes": 83, "status": 0, "rule_ids": ["920350", "941100", "941120", "941390", "949110"]}
+{"sample_id": "xss-9983a0d9-q", "content_type": null, "body_bytes": 0, "status": 0, "rule_ids": ["920350", "941100", "941120", "941160", "941390", "949110"]}
+{"sample_id": "xss-9983a0d9-login", "content_type": "application/json", "body_bytes": 69, "status": 0, "rule_ids": ["920350", "941100", "941120", "941160", "941390", "949110"]}
+{"sample_id": "xss-de71d05a-q", "content_type": null, "body_bytes": 0, "status": 0, "rule_ids": ["920350", "941100", "941120", "941160", "941390", "949110"]}
+{"sample_id": "xss-de71d05a-login", "content_type": "application/json", "body_bytes": 87, "status": 0, "rule_ids": ["920350", "941100", "941120", "941160", "941390", "949110"]}
+{"sample_id": "xss-4480b291-q", "content_type": null, "body_bytes": 0, "status": 0, "rule_ids": ["920350", "941100", "941120", "941390", "949110"]}
+{"sample_id": "xss-4480b291-login", "content_type": "application/json", "body_bytes": 74, "status": 0, "rule_ids": ["920350", "941100", "941120", "941390", "949110"]}
+{"sample_id": "xss-3a3f12a6-q", "content_type": null, "body_bytes": 0, "status": 0, "rule_ids": ["920350", "941100", "941120", "941160", "941390", "949110"]}
+{"sample_id": "xss-3a3f12a6-login", "content_type": "application/json", "body_bytes": 86, "status": 0, "rule_ids": ["920350", "941100", "941120", "941160", "941390", "949110"]}
+{"sample_id": "xss-90e4fc28-q", "content_type": null, "body_bytes": 0, "status": 0, "rule_ids": ["920350", "941100", "941120", "941160", "941390", "949110"]}
+{"sample_id": "xss-90e4fc28-login", "content_type": "application/json", "body_bytes": 68, "status": 0, "rule_ids": ["920350", "941100", "941120", "941160", "941390", "949110"]}
+{"sample_id": "xss-b6e82b95-q", "content_type": null, "body_bytes": 0, "status": 0, "rule_ids": ["920350", "941100", "941120", "941160", "941390", "949110"]}
+{"sample_id": "xss-b6e82b95-login", "content_type": "application/json", "body_bytes": 102, "status": 0, "rule_ids": ["920350", "941100", "941120", "941160", "941390", "949110"]}
+{"sample_id": "xss-f87bb641-q", "content_type": null, "body_bytes": 0, "status": 0, "rule_ids": ["920350", "941120", "941390", "949110"]}
+{"sample_id": "xss-f87bb641-login", "content_type": "application/json", "body_bytes": 107, "status": 0, "rule_ids": ["920350", "941120", "941390", "949110"]}
+{"sample_id": "xss-a60ebce8-q", "content_type": null, "body_bytes": 0, "status": 0, "rule_ids": ["920350", "941100", "941120", "941160", "941390", "949110"]}
+{"sample_id": "xss-a60ebce8-login", "content_type": "application/json", "body_bytes": 77, "status": 0, "rule_ids": ["920350", "941100", "941120", "941160", "941390", "949110"]}
+{"sample_id": "xss-2a3cdb17-q", "content_type": null, "body_bytes": 0, "status": 0, "rule_ids": ["920350", "941100", "941120", "941160", "941390", "949110"]}
+{"sample_id": "xss-2a3cdb17-login", "content_type": "application/json", "body_bytes": 91, "status": 0, "rule_ids": ["920350", "941100", "941120", "941160", "941390", "949110"]}
+{"sample_id": "xss-1ad3ebcb-q", "content_type": null, "body_bytes": 0, "status": 0, "rule_ids": ["920350", "941100", "941120", "941160", "941390", "949110"]}
+{"sample_id": "xss-1ad3ebcb-login", "content_type": "application/json", "body_bytes": 85, "status": 0, "rule_ids": ["920350", "941100", "941120", "941160", "941390", "949110"]}
+{"sample_id": "xss-5306eb06-q", "content_type": null, "body_bytes": 0, "status": 0, "rule_ids": ["920350", "941100", "941120", "941390", "949110"]}
+{"sample_id": "xss-5306eb06-login", "content_type": "application/json", "body_bytes": 86, "status": 0, "rule_ids": ["920350", "941100", "941120", "941390", "949110"]}
+{"sample_id": "xss-7de0a002-q", "content_type": null, "body_bytes": 0, "status": 0, "rule_ids": ["920350", "941100", "941120", "941160", "941390", "949110"]}
+{"sample_id": "xss-7de0a002-login", "content_type": "application/json", "body_bytes": 87, "status": 0, "rule_ids": ["920350", "941100", "941120", "941160", "941390", "949110"]}
+{"sample_id": "xss-a714c5ce-q", "content_type": null, "body_bytes": 0, "status": 0, "rule_ids": ["920350", "941100", "941120", "941390", "949110"]}
+{"sample_id": "xss-a714c5ce-login", "content_type": "application/json", "body_bytes": 74, "status": 0, "rule_ids": ["920350", "941100", "941120", "941390", "949110"]}
+{"sample_id": "xss-0e29f8fb-q", "content_type": null, "body_bytes": 0, "status": 0, "rule_ids": ["920350", "941100", "941120", "941160", "941390", "949110"]}
+{"sample_id": "xss-0e29f8fb-login", "content_type": "application/json", "body_bytes": 78, "status": 0, "rule_ids": ["920350", "941100", "941120", "941160", "941390", "949110"]}
+{"sample_id": "xss-ffb57ed3-q", "content_type": null, "body_bytes": 0, "status": 0, "rule_ids": ["920350", "941120", "941390", "949110"]}
+{"sample_id": "xss-ffb57ed3-login", "content_type": "application/json", "body_bytes": 107, "status": 0, "rule_ids": ["920350", "941120", "941390", "949110"]}
+{"sample_id": "xss-d8382dde-q", "content_type": null, "body_bytes": 0, "status": 0, "rule_ids": ["920350", "941100", "941120", "941160", "941390", "949110"]}
+{"sample_id": "xss-d8382dde-login", "content_type": "application/json", "body_bytes": 86, "status": 0, "rule_ids": ["920350", "941100", "941120", "941160", "941390", "949110"]}
+{"sample_id": "xss-502e9e4b-q", "content_type": null, "body_bytes": 0, "status": 0, "rule_ids": ["920350", "941100", "941120", "941160", "941390", "949110"]}
+{"sample_id": "xss-502e9e4b-login", "content_type": "application/json", "body_bytes": 83, "status": 0, "rule_ids": ["920350", "941100", "941120", "941160", "941390", "949110"]}
+{"sample_id": "xss-74165ee6-q", "content_type": null, "body_bytes": 0, "status": 0, "rule_ids": ["920350", "941100", "941120", "941160", "941390", "949110"]}
+{"sample_id": "xss-74165ee6-login", "content_type": "application/json", "body_bytes": 69, "status": 0, "rule_ids": ["920350", "941100", "941120", "941160", "941390", "949110"]}
+{"sample_id": "xss-c34c5de0-q", "content_type": null, "body_bytes": 0, "status": 0, "rule_ids": ["920350", "941100", "941120", "941160", "941390", "949110"]}
+{"sample_id": "xss-c34c5de0-login", "content_type": "application/json", "body_bytes": 78, "status": 0, "rule_ids": ["920350", "941100", "941120", "941160", "941390", "949110"]}
+{"sample_id": "xss-5487f4d8-q", "content_type": null, "body_bytes": 0, "status": 0, "rule_ids": ["920350", "941100", "941120", "941160", "941390", "949110"]}
+{"sample_id": "xss-5487f4d8-login", "content_type": "application/json", "body_bytes": 76, "status": 0, "rule_ids": ["920350", "941100", "941120", "941160", "941390", "949110"]}
+{"sample_id": "xss-e5de81bb-q", "content_type": null, "body_bytes": 0, "status": 0, "rule_ids": ["920350", "941100", "941120", "941160", "941390", "949110"]}
+{"sample_id": "xss-e5de81bb-login", "content_type": "application/json", "body_bytes": 73, "status": 0, "rule_ids": ["920350", "941100", "941120", "941160", "941390", "949110"]}
+{"sample_id": "xss-b4c4c170-q", "content_type": null, "body_bytes": 0, "status": 0, "rule_ids": ["920350", "941100", "941120", "941160", "941390", "949110"]}
+{"sample_id": "xss-b4c4c170-login", "content_type": "application/json", "body_bytes": 70, "status": 0, "rule_ids": ["920350", "941100", "941120", "941160", "941390", "949110"]}
+{"sample_id": "xss-eb4cfe84-q", "content_type": null, "body_bytes": 0, "status": 0, "rule_ids": ["920350", "941100", "941120", "941390", "949110"]}
+{"sample_id": "xss-eb4cfe84-login", "content_type": "application/json", "body_bytes": 88, "status": 0, "rule_ids": ["920350", "941100", "941120", "941390", "949110"]}
+{"sample_id": "xss-084ae1ec-q", "content_type": null, "body_bytes": 0, "status": 0, "rule_ids": ["920350", "941100", "941120", "941160", "941390", "949110"]}
+{"sample_id": "xss-084ae1ec-login", "content_type": "application/json", "body_bytes": 81, "status": 0, "rule_ids": ["920350", "941100", "941120", "941160", "941390", "949110"]}
+{"sample_id": "xss-38383969-q", "content_type": null, "body_bytes": 0, "status": 0, "rule_ids": ["920350", "941100", "941120", "941160", "941390", "949110"]}
+{"sample_id": "xss-38383969-login", "content_type": "application/json", "body_bytes": 82, "status": 0, "rule_ids": ["920350", "941100", "941120", "941160", "941390", "949110"]}
+{"sample_id": "xss-881166b0-q", "content_type": null, "body_bytes": 0, "status": 0, "rule_ids": ["920350", "941100", "941120", "941390", "949110"]}
+{"sample_id": "xss-881166b0-login", "content_type": "application/json", "body_bytes": 89, "status": 0, "rule_ids": ["920350", "941100", "941120", "941390", "949110"]}
+{"sample_id": "xss-242d3f2a-q", "content_type": null, "body_bytes": 0, "status": 0, "rule_ids": ["920350", "941100", "941120", "941160", "941390", "949110"]}
+{"sample_id": "xss-242d3f2a-login", "content_type": "application/json", "body_bytes": 88, "status": 0, "rule_ids": ["920350", "941100", "941120", "941160", "941390", "949110"]}
+{"sample_id": "xss-cbc87996-q", "content_type": null, "body_bytes": 0, "status": 0, "rule_ids": ["920350", "941100", "941120", "941160", "941390", "949110"]}
+{"sample_id": "xss-cbc87996-login", "content_type": "application/json", "body_bytes": 72, "status": 0, "rule_ids": ["920350", "941100", "941120", "941160", "941390", "949110"]}
+{"sample_id": "xss-6f6d3854-q", "content_type": null, "body_bytes": 0, "status": 0, "rule_ids": ["920350", "941100", "941120", "941160", "941390", "949110"]}
+{"sample_id": "xss-6f6d3854-login", "content_type": "application/json", "body_bytes": 89, "status": 0, "rule_ids": ["920350", "941100", "941120", "941160", "941390", "949110"]}
+{"sample_id": "xss-75a48f8c-q", "content_type": null, "body_bytes": 0, "status": 0, "rule_ids": ["920350", "941100", "941120", "941160", "941390", "949110"]}
+{"sample_id": "xss-75a48f8c-login", "content_type": "application/json", "body_bytes": 104, "status": 0, "rule_ids": ["920350", "941100", "941120", "941160", "941390", "949110"]}
+{"sample_id": "xss-d052c743-q", "content_type": null, "body_bytes": 0, "status": 0, "rule_ids": ["920350", "941100", "941120", "941160", "941390", "949110"]}
+{"sample_id": "xss-d052c743-login", "content_type": "application/json", "body_bytes": 84, "status": 0, "rule_ids": ["920350", "941100", "941120", "941160", "941390", "949110"]}
+{"sample_id": "xss-f5ea9dbe-q", "content_type": null, "body_bytes": 0, "status": 0, "rule_ids": ["920350", "941100", "941120", "941390", "949110"]}
+{"sample_id": "xss-f5ea9dbe-login", "content_type": "application/json", "body_bytes": 86, "status": 0, "rule_ids": ["920350", "941100", "941120", "941390", "949110"]}
+{"sample_id": "xss-82774b52-q", "content_type": null, "body_bytes": 0, "status": 0, "rule_ids": ["920350", "941120", "941390", "949110"]}
+{"sample_id": "xss-82774b52-login", "content_type": "application/json", "body_bytes": 103, "status": 0, "rule_ids": ["920350", "941120", "941390", "949110"]}
+{"sample_id": "xss-5f84aa4b-q", "content_type": null, "body_bytes": 0, "status": 0, "rule_ids": ["920350", "941100", "941120", "941160", "941390", "949110"]}
+{"sample_id": "xss-5f84aa4b-login", "content_type": "application/json", "body_bytes": 72, "status": 0, "rule_ids": ["920350", "941100", "941120", "941160", "941390", "949110"]}
+{"sample_id": "xss-7fcd03b6-q", "content_type": null, "body_bytes": 0, "status": 0, "rule_ids": ["920350", "941100", "941120", "941160", "941390", "949110"]}
+{"sample_id": "xss-7fcd03b6-login", "content_type": "application/json", "body_bytes": 91, "status": 0, "rule_ids": ["920350", "941100", "941120", "941160", "941390", "949110"]}
+{"sample_id": "xss-745a23da-q", "content_type": null, "body_bytes": 0, "status": 0, "rule_ids": ["920350", "941100", "941120", "941390", "949110"]}
+{"sample_id": "xss-745a23da-login", "content_type": "application/json", "body_bytes": 79, "status": 0, "rule_ids": ["920350", "941100", "941120", "941390", "949110"]}
+{"sample_id": "xss-f5f42e41-q", "content_type": null, "body_bytes": 0, "status": 0, "rule_ids": ["920350", "941100", "941120", "941390", "949110"]}
+{"sample_id": "xss-f5f42e41-login", "content_type": "application/json", "body_bytes": 76, "status": 0, "rule_ids": ["920350", "941100", "941120", "941390", "949110"]}
+{"sample_id": "xss-f6546f20-q", "content_type": null, "body_bytes": 0, "status": 0, "rule_ids": ["920350", "941100", "941120", "941160", "941390", "949110"]}
+{"sample_id": "xss-f6546f20-login", "content_type": "application/json", "body_bytes": 73, "status": 0, "rule_ids": ["920350", "941100", "941120", "941160", "941390", "949110"]}
+{"sample_id": "xss-4b80e311-q", "content_type": null, "body_bytes": 0, "status": 0, "rule_ids": ["920350", "941100", "941120", "941160", "941390", "949110"]}
+{"sample_id": "xss-4b80e311-login", "content_type": "application/json", "body_bytes": 70, "status": 0, "rule_ids": ["920350", "941100", "941120", "941160", "941390", "949110"]}
+{"sample_id": "xss-91df1d57-q", "content_type": null, "body_bytes": 0, "status": 0, "rule_ids": ["920350", "941100", "941120", "941160", "941390", "949110"]}
+{"sample_id": "xss-91df1d57-login", "content_type": "application/json", "body_bytes": 96, "status": 0, "rule_ids": ["920350", "941100", "941120", "941160", "941390", "949110"]}
+{"sample_id": "xss-2aae35b7-q", "content_type": null, "body_bytes": 0, "status": 0, "rule_ids": ["920350", "941100", "941120", "941160", "941390", "949110"]}
+{"sample_id": "xss-2aae35b7-login", "content_type": "application/json", "body_bytes": 90, "status": 0, "rule_ids": ["920350", "941100", "941120", "941160", "941390", "949110"]}
+{"sample_id": "xss-2a14e8d0-q", "content_type": null, "body_bytes": 0, "status": 0, "rule_ids": ["920350", "941100", "941120", "941160", "941390", "949110"]}
+{"sample_id": "xss-2a14e8d0-login", "content_type": "application/json", "body_bytes": 97, "status": 0, "rule_ids": ["920350", "941100", "941120", "941160", "941390", "949110"]}
+{"sample_id": "xss-8d826f6d-q", "content_type": null, "body_bytes": 0, "status": 0, "rule_ids": ["920350", "941100", "941120", "941160", "941390", "949110"]}
+{"sample_id": "xss-8d826f6d-login", "content_type": "application/json", "body_bytes": 92, "status": 0, "rule_ids": ["920350", "941100", "941120", "941160", "941390", "949110"]}
+{"sample_id": "xss-78390f73-q", "content_type": null, "body_bytes": 0, "status": 0, "rule_ids": ["920350", "941100", "941120", "941160", "941390", "949110"]}
+{"sample_id": "xss-78390f73-login", "content_type": "application/json", "body_bytes": 96, "status": 0, "rule_ids": ["920350", "941100", "941120", "941160", "941390", "949110"]}
+{"sample_id": "xss-088208c1-q", "content_type": null, "body_bytes": 0, "status": 0, "rule_ids": ["920350", "941100", "941120", "941160", "941390", "949110"]}
+{"sample_id": "xss-088208c1-login", "content_type": "application/json", "body_bytes": 80, "status": 0, "rule_ids": ["920350", "941100", "941120", "941160", "941390", "949110"]}
+{"sample_id": "xss-2660e630-q", "content_type": null, "body_bytes": 0, "status": 0, "rule_ids": ["920350", "941100", "941120", "941160", "941390", "949110"]}
+{"sample_id": "xss-2660e630-login", "content_type": "application/json", "body_bytes": 76, "status": 0, "rule_ids": ["920350", "941100", "941120", "941160", "941390", "949110"]}
+{"sample_id": "xss-e0e52a03-q", "content_type": null, "body_bytes": 0, "status": 0, "rule_ids": ["920350", "941100", "941120", "941160", "941390", "949110"]}
+{"sample_id": "xss-e0e52a03-login", "content_type": "application/json", "body_bytes": 62, "status": 0, "rule_ids": ["920350", "941100", "941120", "941160", "941390", "949110"]}
+{"sample_id": "xss-f3801f1d-q", "content_type": null, "body_bytes": 0, "status": 0, "rule_ids": ["920350", "941100", "941120", "941160", "941390", "949110"]}
+{"sample_id": "xss-f3801f1d-login", "content_type": "application/json", "body_bytes": 94, "status": 0, "rule_ids": ["920350", "941100", "941120", "941160", "941390", "949110"]}
+{"sample_id": "xss-6f7f8fa9-q", "content_type": null, "body_bytes": 0, "status": 0, "rule_ids": ["920350", "941100", "941120", "941390", "949110"]}
+{"sample_id": "xss-6f7f8fa9-login", "content_type": "application/json", "body_bytes": 74, "status": 0, "rule_ids": ["920350", "941100", "941120", "941390", "949110"]}
+{"sample_id": "xss-1cd6a027-q", "content_type": null, "body_bytes": 0, "status": 0, "rule_ids": ["920350", "941100", "941120", "941160", "941390", "949110"]}
+{"sample_id": "xss-1cd6a027-login", "content_type": "application/json", "body_bytes": 95, "status": 0, "rule_ids": ["920350", "941100", "941120", "941160", "941390", "949110"]}
+{"sample_id": "xss-29c9c344-q", "content_type": null, "body_bytes": 0, "status": 0, "rule_ids": ["920350", "941100", "941120", "941160", "941390", "949110"]}
+{"sample_id": "xss-29c9c344-login", "content_type": "application/json", "body_bytes": 68, "status": 0, "rule_ids": ["920350", "941100", "941120", "941160", "941390", "949110"]}
+{"sample_id": "xss-9f8d9f0e-q", "content_type": null, "body_bytes": 0, "status": 0, "rule_ids": ["920350", "941100", "941120", "941160", "941390", "949110"]}
+{"sample_id": "xss-9f8d9f0e-login", "content_type": "application/json", "body_bytes": 66, "status": 0, "rule_ids": ["920350", "941100", "941120", "941160", "941390", "949110"]}
+{"sample_id": "xss-8b2284ba-q", "content_type": null, "body_bytes": 0, "status": 0, "rule_ids": ["920350", "941100", "941120", "941160", "941390", "949110"]}
+{"sample_id": "xss-8b2284ba-login", "content_type": "application/json", "body_bytes": 81, "status": 0, "rule_ids": ["920350", "941100", "941120", "941160", "941390", "949110"]}
+{"sample_id": "xss-2e32506e-q", "content_type": null, "body_bytes": 0, "status": 0, "rule_ids": ["920350", "941100", "941120", "941390", "949110"]}
+{"sample_id": "xss-2e32506e-login", "content_type": "application/json", "body_bytes": 76, "status": 0, "rule_ids": ["920350", "941100", "941120", "941390", "949110"]}
+{"sample_id": "xss-af82232c-q", "content_type": null, "body_bytes": 0, "status": 0, "rule_ids": ["920350", "941100", "941120", "941160", "941390", "949110"]}
+{"sample_id": "xss-af82232c-login", "content_type": "application/json", "body_bytes": 84, "status": 0, "rule_ids": ["920350", "941100", "941120", "941160", "941390", "949110"]}
+{"sample_id": "xss-c2e816dc-q", "content_type": null, "body_bytes": 0, "status": 0, "rule_ids": ["920350", "941100", "941120", "941160", "941390", "949110"]}
+{"sample_id": "xss-c2e816dc-login", "content_type": "application/json", "body_bytes": 93, "status": 0, "rule_ids": ["920350", "941100", "941120", "941160", "941390", "949110"]}
+{"sample_id": "xss-1bac262c-q", "content_type": null, "body_bytes": 0, "status": 0, "rule_ids": ["920350", "941100", "941120", "941160", "941390", "949110"]}
+{"sample_id": "xss-1bac262c-login", "content_type": "application/json", "body_bytes": 68, "status": 0, "rule_ids": ["920350", "941100", "941120", "941160", "941390", "949110"]}
+{"sample_id": "xss-acc2137b-q", "content_type": null, "body_bytes": 0, "status": 0, "rule_ids": ["920350", "941100", "941120", "941160", "941390", "949110"]}
+{"sample_id": "xss-acc2137b-login", "content_type": "application/json", "body_bytes": 74, "status": 0, "rule_ids": ["920350", "941100", "941120", "941160", "941390", "949110"]}
+{"sample_id": "xss-a788104b-q", "content_type": null, "body_bytes": 0, "status": 0, "rule_ids": ["920350", "941100", "941120", "941160", "941390", "949110"]}
+{"sample_id": "xss-a788104b-login", "content_type": "application/json", "body_bytes": 71, "status": 0, "rule_ids": ["920350", "941100", "941120", "941160", "941390", "949110"]}
+{"sample_id": "xss-5a5e7614-q", "content_type": null, "body_bytes": 0, "status": 0, "rule_ids": ["920350", "941100", "941120", "941160", "941390", "949110"]}
+{"sample_id": "xss-5a5e7614-login", "content_type": "application/json", "body_bytes": 75, "status": 0, "rule_ids": ["920350", "941100", "941120", "941160", "941390", "949110"]}
+{"sample_id": "xss-b9e35e85-q", "content_type": null, "body_bytes": 0, "status": 0, "rule_ids": ["920350", "941100", "941120", "941390", "949110"]}
+{"sample_id": "xss-b9e35e85-login", "content_type": "application/json", "body_bytes": 90, "status": 0, "rule_ids": ["920350", "941100", "941120", "941390", "949110"]}
+{"sample_id": "xss-2729f09f-q", "content_type": null, "body_bytes": 0, "status": 0, "rule_ids": ["920350", "941100", "941120", "941160", "941390", "949110"]}
+{"sample_id": "xss-2729f09f-login", "content_type": "application/json", "body_bytes": 76, "status": 0, "rule_ids": ["920350", "941100", "941120", "941160", "941390", "949110"]}
+{"sample_id": "xss-c2b4f18b-q", "content_type": null, "body_bytes": 0, "status": 0, "rule_ids": ["920350", "941100", "941120", "941160", "941390", "949110"]}
+{"sample_id": "xss-c2b4f18b-login", "content_type": "application/json", "body_bytes": 71, "status": 0, "rule_ids": ["920350", "941100", "941120", "941160", "941390", "949110"]}
+{"sample_id": "xss-b5345992-q", "content_type": null, "body_bytes": 0, "status": 0, "rule_ids": ["920350", "941100", "941120", "941160", "941390", "949110"]}
+{"sample_id": "xss-b5345992-login", "content_type": "application/json", "body_bytes": 72, "status": 0, "rule_ids": ["920350", "941100", "941120", "941160", "941390", "949110"]}
+{"sample_id": "xss-c6be9cd0-q", "content_type": null, "body_bytes": 0, "status": 0, "rule_ids": ["920350", "941100", "941120", "941160", "941390", "949110"]}
+{"sample_id": "xss-c6be9cd0-login", "content_type": "application/json", "body_bytes": 89, "status": 0, "rule_ids": ["920350", "941100", "941120", "941160", "941390", "949110"]}
+{"sample_id": "xss-41a77ac0-q", "content_type": null, "body_bytes": 0, "status": 0, "rule_ids": ["920350", "941100", "941120", "941160", "941190", "941390", "949110"]}
+{"sample_id": "xss-41a77ac0-login", "content_type": "application/json", "body_bytes": 141, "status": 0, "rule_ids": ["920350", "941100", "941120", "941160", "941190", "941390", "949110"]}
+{"sample_id": "xss-e164ffc8-q", "content_type": null, "body_bytes": 0, "status": 0, "rule_ids": ["920350", "941100", "941120", "941160", "941190", "941390", "949110"]}
+{"sample_id": "xss-e164ffc8-login", "content_type": "application/json", "body_bytes": 139, "status": 0, "rule_ids": ["920350", "941100", "941120", "941160", "941190", "941390", "949110"]}
+{"sample_id": "xss-784791cd-q", "content_type": null, "body_bytes": 0, "status": 0, "rule_ids": ["920350", "941100", "941120", "941160", "941190", "941390", "949110"]}
+{"sample_id": "xss-784791cd-login", "content_type": "application/json", "body_bytes": 139, "status": 0, "rule_ids": ["920350", "941100", "941120", "941160", "941190", "941390", "949110"]}
+{"sample_id": "xss-e5b21eaa-q", "content_type": null, "body_bytes": 0, "status": 0, "rule_ids": ["920350", "941100", "941120", "941160", "941190", "941390", "949110"]}
+{"sample_id": "xss-e5b21eaa-login", "content_type": "application/json", "body_bytes": 139, "status": 0, "rule_ids": ["920350", "941100", "941120", "941160", "941190", "941390", "949110"]}
+{"sample_id": "xss-800032a2-q", "content_type": null, "body_bytes": 0, "status": 0, "rule_ids": ["920350", "941100", "941120", "941160", "941190", "941390", "949110"]}
+{"sample_id": "xss-800032a2-login", "content_type": "application/json", "body_bytes": 138, "status": 0, "rule_ids": ["920350", "941100", "941120", "941160", "941190", "941390", "949110"]}
+{"sample_id": "xss-690d2cf3-q", "content_type": null, "body_bytes": 0, "status": 0, "rule_ids": ["920350", "941100", "941120", "941160", "941190", "941390", "949110"]}
+{"sample_id": "xss-690d2cf3-login", "content_type": "application/json", "body_bytes": 144, "status": 0, "rule_ids": ["920350", "941100", "941120", "941160", "941190", "941390", "949110"]}
+{"sample_id": "xss-ce5bd2e0-q", "content_type": null, "body_bytes": 0, "status": 0, "rule_ids": ["920350", "941100", "941120", "941160", "941190", "941390", "949110"]}
+{"sample_id": "xss-ce5bd2e0-login", "content_type": "application/json", "body_bytes": 136, "status": 0, "rule_ids": ["920350", "941100", "941120", "941160", "941190", "941390", "949110"]}
+{"sample_id": "xss-7b6aff1e-q", "content_type": null, "body_bytes": 0, "status": 0, "rule_ids": ["920350", "941100", "941120", "941160", "941190", "941390", "949110"]}
+{"sample_id": "xss-7b6aff1e-login", "content_type": "application/json", "body_bytes": 152, "status": 0, "rule_ids": ["920350", "941100", "941120", "941160", "941190", "941390", "949110"]}
+{"sample_id": "xss-6e36fe5f-q", "content_type": null, "body_bytes": 0, "status": 0, "rule_ids": ["920350", "941100", "941120", "941160", "941190", "941390", "949110"]}
+{"sample_id": "xss-6e36fe5f-login", "content_type": "application/json", "body_bytes": 162, "status": 0, "rule_ids": ["920350", "941100", "941120", "941160", "941190", "941390", "949110"]}
+{"sample_id": "xss-18234958-q", "content_type": null, "body_bytes": 0, "status": 0, "rule_ids": ["920350", "941100", "941120", "941160", "941190", "941390", "949110"]}
+{"sample_id": "xss-18234958-login", "content_type": "application/json", "body_bytes": 162, "status": 0, "rule_ids": ["920350", "941100", "941120", "941160", "941190", "941390", "949110"]}
+{"sample_id": "xss-d3c7470e-q", "content_type": null, "body_bytes": 0, "status": 0, "rule_ids": ["920350", "941100", "941120", "941160", "941190", "941390", "949110"]}
+{"sample_id": "xss-d3c7470e-login", "content_type": "application/json", "body_bytes": 154, "status": 0, "rule_ids": ["920350", "941100", "941120", "941160", "941190", "941390", "949110"]}
+{"sample_id": "xss-be8ca25b-q", "content_type": null, "body_bytes": 0, "status": 0, "rule_ids": ["920350", "941100", "941120", "941160", "941190", "941390", "949110"]}
+{"sample_id": "xss-be8ca25b-login", "content_type": "application/json", "body_bytes": 162, "status": 0, "rule_ids": ["920350", "941100", "941120", "941160", "941190", "941390", "949110"]}
+{"sample_id": "xss-f02146d5-q", "content_type": null, "body_bytes": 0, "status": 0, "rule_ids": ["920350", "941100", "941120", "941160", "941190", "941390", "949110"]}
+{"sample_id": "xss-f02146d5-login", "content_type": "application/json", "body_bytes": 162, "status": 0, "rule_ids": ["920350", "941100", "941120", "941160", "941190", "941390", "949110"]}
+{"sample_id": "xss-c3c1d615-q", "content_type": null, "body_bytes": 0, "status": 0, "rule_ids": ["920350", "941100", "941120", "941160", "941190", "941390", "949110"]}
+{"sample_id": "xss-c3c1d615-login", "content_type": "application/json", "body_bytes": 152, "status": 0, "rule_ids": ["920350", "941100", "941120", "941160", "941190", "941390", "949110"]}
+{"sample_id": "xss-c1d13dea-q", "content_type": null, "body_bytes": 0, "status": 0, "rule_ids": ["920350", "941100", "941120", "941160", "941190", "941390", "949110"]}
+{"sample_id": "xss-c1d13dea-login", "content_type": "application/json", "body_bytes": 202, "status": 0, "rule_ids": ["920350", "941100", "941120", "941160", "941190", "941390", "949110"]}
+{"sample_id": "xss-5dd022df-q", "content_type": null, "body_bytes": 0, "status": 0, "rule_ids": ["920350", "921130", "941100", "941120", "941160", "941190", "941390", "949110"]}
+{"sample_id": "xss-5dd022df-login", "content_type": "application/json", "body_bytes": 196, "status": 0, "rule_ids": ["920350", "921130", "941100", "941120", "941160", "941190", "941390", "949110"]}
+{"sample_id": "xss-13d35b8f-q", "content_type": null, "body_bytes": 0, "status": 0, "rule_ids": ["920350", "941100", "941120", "941160", "941190", "941390", "949110"]}
+{"sample_id": "xss-13d35b8f-login", "content_type": "application/json", "body_bytes": 218, "status": 0, "rule_ids": ["920350", "941100", "941120", "941160", "941190", "941390", "949110"]}
+{"sample_id": "xss-84f65a00-q", "content_type": null, "body_bytes": 0, "status": 0, "rule_ids": ["920350", "941100", "941120", "941160", "941190", "941390", "949110"]}
+{"sample_id": "xss-84f65a00-login", "content_type": "application/json", "body_bytes": 210, "status": 0, "rule_ids": ["920350", "941100", "941120", "941160", "941190", "941390", "949110"]}
+{"sample_id": "xss-b8a43c0e-q", "content_type": null, "body_bytes": 0, "status": 0, "rule_ids": ["920350", "941100", "941120", "941160", "941190", "941390", "949110"]}
+{"sample_id": "xss-b8a43c0e-login", "content_type": "application/json", "body_bytes": 216, "status": 0, "rule_ids": ["920350", "941100", "941120", "941160", "941190", "941390", "949110"]}
+{"sample_id": "xss-f47acdc3-q", "content_type": null, "body_bytes": 0, "status": 0, "rule_ids": ["920350", "941100", "941120", "941160", "941190", "941390", "949110"]}
+{"sample_id": "xss-f47acdc3-login", "content_type": "application/json", "body_bytes": 210, "status": 0, "rule_ids": ["920350", "941100", "941120", "941160", "941190", "941390", "949110"]}
+{"sample_id": "xss-d708ffc6-q", "content_type": null, "body_bytes": 0, "status": 0, "rule_ids": ["920350", "941100", "941120", "941160", "941190", "941390", "949110"]}
+{"sample_id": "xss-d708ffc6-login", "content_type": "application/json", "body_bytes": 208, "status": 0, "rule_ids": ["920350", "941100", "941120", "941160", "941190", "941390", "949110"]}
+{"sample_id": "xss-545d1ff8-q", "content_type": null, "body_bytes": 0, "status": 0, "rule_ids": ["920350", "941100", "941120", "941160", "941190", "941390", "949110"]}
+{"sample_id": "xss-545d1ff8-login", "content_type": "application/json", "body_bytes": 210, "status": 0, "rule_ids": ["920350", "941100", "941120", "941160", "941190", "941390", "949110"]}
+{"sample_id": "xss-b23d829b-q", "content_type": null, "body_bytes": 0, "status": 0, "rule_ids": ["920350", "941100", "941120", "941160", "941190", "941390", "949110"]}
+{"sample_id": "xss-b23d829b-login", "content_type": "application/json", "body_bytes": 125, "status": 0, "rule_ids": ["920350", "941100", "941120", "941160", "941190", "941390", "949110"]}
+{"sample_id": "xss-9d9144c5-q", "content_type": null, "body_bytes": 0, "status": 0, "rule_ids": ["920350", "941100", "941120", "941160", "941190", "941390", "949110"]}
+{"sample_id": "xss-9d9144c5-login", "content_type": "application/json", "body_bytes": 125, "status": 0, "rule_ids": ["920350", "941100", "941120", "941160", "941190", "941390", "949110"]}
+{"sample_id": "xss-6fe17b4c-q", "content_type": null, "body_bytes": 0, "status": 0, "rule_ids": ["920350", "941100", "941120", "941160", "941190", "941390", "949110"]}
+{"sample_id": "xss-6fe17b4c-login", "content_type": "application/json", "body_bytes": 131, "status": 0, "rule_ids": ["920350", "941100", "941120", "941160", "941190", "941390", "949110"]}
+{"sample_id": "xss-76eeafd9-q", "content_type": null, "body_bytes": 0, "status": 0, "rule_ids": ["920350", "941100", "941120", "941160", "941190", "941390", "949110"]}
+{"sample_id": "xss-76eeafd9-login", "content_type": "application/json", "body_bytes": 133, "status": 0, "rule_ids": ["920350", "941100", "941120", "941160", "941190", "941390", "949110"]}
+{"sample_id": "xss-a537e519-q", "content_type": null, "body_bytes": 0, "status": 0, "rule_ids": ["920350", "941100", "941120", "941160", "941190", "941390", "949110"]}
+{"sample_id": "xss-a537e519-login", "content_type": "application/json", "body_bytes": 129, "status": 0, "rule_ids": ["920350", "941100", "941120", "941160", "941190", "941390", "949110"]}
+{"sample_id": "xss-b41b5123-q", "content_type": null, "body_bytes": 0, "status": 0, "rule_ids": ["920350", "941100", "941120", "941160", "941190", "941390", "949110"]}
+{"sample_id": "xss-b41b5123-login", "content_type": "application/json", "body_bytes": 133, "status": 0, "rule_ids": ["920350", "941100", "941120", "941160", "941190", "941390", "949110"]}
+{"sample_id": "xss-56083d09-q", "content_type": null, "body_bytes": 0, "status": 0, "rule_ids": ["920350", "941100", "941120", "941160", "941190", "941390", "949110"]}
+{"sample_id": "xss-56083d09-login", "content_type": "application/json", "body_bytes": 129, "status": 0, "rule_ids": ["920350", "941100", "941120", "941160", "941190", "941390", "949110"]}
+{"sample_id": "xss-dc1919f8-q", "content_type": null, "body_bytes": 0, "status": 0, "rule_ids": ["920350", "941100", "941120", "941160", "941190", "941390", "949110"]}
+{"sample_id": "xss-dc1919f8-login", "content_type": "application/json", "body_bytes": 123, "status": 0, "rule_ids": ["920350", "941100", "941120", "941160", "941190", "941390", "949110"]}
+{"sample_id": "xss-d053b38d-q", "content_type": null, "body_bytes": 0, "status": 0, "rule_ids": ["920350", "941100", "941120", "941160", "941390", "949110"]}
+{"sample_id": "xss-d053b38d-login", "content_type": "application/json", "body_bytes": 70, "status": 0, "rule_ids": ["920350", "941100", "941120", "941160", "941390", "949110"]}
+{"sample_id": "xss-e02de37a-q", "content_type": null, "body_bytes": 0, "status": 0, "rule_ids": ["920350", "941100", "941120", "941160", "941390", "949110"]}
+{"sample_id": "xss-e02de37a-login", "content_type": "application/json", "body_bytes": 86, "status": 0, "rule_ids": ["920350", "941100", "941120", "941160", "941390", "949110"]}
+{"sample_id": "xss-51aa4552-q", "content_type": null, "body_bytes": 0, "status": 0, "rule_ids": ["920350", "941100", "941120", "941160", "941390", "949110"]}
+{"sample_id": "xss-51aa4552-login", "content_type": "application/json", "body_bytes": 80, "status": 0, "rule_ids": ["920350", "941100", "941120", "941160", "941390", "949110"]}
+{"sample_id": "xss-2cb0a90d-q", "content_type": null, "body_bytes": 0, "status": 0, "rule_ids": ["920350", "941100", "941120", "941160", "941390", "949110"]}
+{"sample_id": "xss-2cb0a90d-login", "content_type": "application/json", "body_bytes": 78, "status": 0, "rule_ids": ["920350", "941100", "941120", "941160", "941390", "949110"]}
+{"sample_id": "xss-9f48d70c-q", "content_type": null, "body_bytes": 0, "status": 0, "rule_ids": ["920350", "941100", "941120", "941160", "941390", "949110"]}
+{"sample_id": "xss-9f48d70c-login", "content_type": "application/json", "body_bytes": 62, "status": 0, "rule_ids": ["920350", "941100", "941120", "941160", "941390", "949110"]}
+{"sample_id": "xss-0fac60d6-q", "content_type": null, "body_bytes": 0, "status": 0, "rule_ids": ["920350", "941100", "941120", "941160", "941390", "949110"]}
+{"sample_id": "xss-0fac60d6-login", "content_type": "application/json", "body_bytes": 72, "status": 0, "rule_ids": ["920350", "941100", "941120", "941160", "941390", "949110"]}
+{"sample_id": "xss-7d3dfe65-q", "content_type": null, "body_bytes": 0, "status": 0, "rule_ids": ["920350", "941100", "941120", "941160", "941390", "949110"]}
+{"sample_id": "xss-7d3dfe65-login", "content_type": "application/json", "body_bytes": 79, "status": 0, "rule_ids": ["920350", "941100", "941120", "941160", "941390", "949110"]}
+{"sample_id": "xss-cdaeee46-q", "content_type": null, "body_bytes": 0, "status": 0, "rule_ids": ["920350", "941100", "941120", "941160", "941390", "949110"]}
+{"sample_id": "xss-cdaeee46-login", "content_type": "application/json", "body_bytes": 80, "status": 0, "rule_ids": ["920350", "941100", "941120", "941160", "941390", "949110"]}
+{"sample_id": "xss-9f53d233-q", "content_type": null, "body_bytes": 0, "status": 0, "rule_ids": ["920350", "941100", "941120", "941160", "941390", "949110"]}
+{"sample_id": "xss-9f53d233-login", "content_type": "application/json", "body_bytes": 74, "status": 0, "rule_ids": ["920350", "941100", "941120", "941160", "941390", "949110"]}
+{"sample_id": "xss-8f5b4e90-q", "content_type": null, "body_bytes": 0, "status": 0, "rule_ids": ["920350", "941100", "941120", "941160", "941390", "949110"]}
+{"sample_id": "xss-8f5b4e90-login", "content_type": "application/json", "body_bytes": 73, "status": 0, "rule_ids": ["920350", "941100", "941120", "941160", "941390", "949110"]}
+{"sample_id": "xss-52f2aa89-q", "content_type": null, "body_bytes": 0, "status": 0, "rule_ids": ["920350", "941100", "941120", "941160", "941390", "949110"]}
+{"sample_id": "xss-52f2aa89-login", "content_type": "application/json", "body_bytes": 75, "status": 0, "rule_ids": ["920350", "941100", "941120", "941160", "941390", "949110"]}
+{"sample_id": "xss-369d0b75-q", "content_type": null, "body_bytes": 0, "status": 0, "rule_ids": ["920350", "941100", "941120", "941160", "941390", "949110"]}
+{"sample_id": "xss-369d0b75-login", "content_type": "application/json", "body_bytes": 85, "status": 0, "rule_ids": ["920350", "941100", "941120", "941160", "941390", "949110"]}
+{"sample_id": "xss-e8287f4c-q", "content_type": null, "body_bytes": 0, "status": 0, "rule_ids": ["920350", "941100", "941120", "941160", "941390", "949110"]}
+{"sample_id": "xss-e8287f4c-login", "content_type": "application/json", "body_bytes": 68, "status": 0, "rule_ids": ["920350", "941100", "941120", "941160", "941390", "949110"]}
+{"sample_id": "xss-8febeed3-q", "content_type": null, "body_bytes": 0, "status": 0, "rule_ids": ["920350", "941100", "941120", "941390", "949110"]}
+{"sample_id": "xss-8febeed3-login", "content_type": "application/json", "body_bytes": 78, "status": 0, "rule_ids": ["920350", "941100", "941120", "941390", "949110"]}
+{"sample_id": "xss-f22c2acc-q", "content_type": null, "body_bytes": 0, "status": 0, "rule_ids": ["920350", "941100", "941120", "941390", "949110"]}
+{"sample_id": "xss-f22c2acc-login", "content_type": "application/json", "body_bytes": 80, "status": 0, "rule_ids": ["920350", "941100", "941120", "941390", "949110"]}
+{"sample_id": "xss-86e9f21a-q", "content_type": null, "body_bytes": 0, "status": 0, "rule_ids": ["920350", "941100", "941120", "941160", "941390", "949110"]}
+{"sample_id": "xss-86e9f21a-login", "content_type": "application/json", "body_bytes": 91, "status": 0, "rule_ids": ["920350", "941100", "941120", "941160", "941390", "949110"]}
+{"sample_id": "xss-db5beac3-q", "content_type": null, "body_bytes": 0, "status": 0, "rule_ids": ["920350", "941100", "941120", "941160", "941390", "949110"]}
+{"sample_id": "xss-db5beac3-login", "content_type": "application/json", "body_bytes": 88, "status": 0, "rule_ids": ["920350", "941100", "941120", "941160", "941390", "949110"]}
+{"sample_id": "xss-0750e19b-q", "content_type": null, "body_bytes": 0, "status": 0, "rule_ids": ["920350", "941100", "941120", "941160", "941390", "949110"]}
+{"sample_id": "xss-0750e19b-login", "content_type": "application/json", "body_bytes": 67, "status": 0, "rule_ids": ["920350", "941100", "941120", "941160", "941390", "949110"]}
+{"sample_id": "xss-05e1f920-q", "content_type": null, "body_bytes": 0, "status": 0, "rule_ids": ["920350", "941100", "941120", "941390", "949110"]}
+{"sample_id": "xss-05e1f920-login", "content_type": "application/json", "body_bytes": 84, "status": 0, "rule_ids": ["920350", "941100", "941120", "941390", "949110"]}
+{"sample_id": "xss-1f2fb582-q", "content_type": null, "body_bytes": 0, "status": 0, "rule_ids": ["920350", "941100", "941120", "941160", "941390", "949110"]}
+{"sample_id": "xss-1f2fb582-login", "content_type": "application/json", "body_bytes": 89, "status": 0, "rule_ids": ["920350", "941100", "941120", "941160", "941390", "949110"]}
+{"sample_id": "xss-f8e13922-q", "content_type": null, "body_bytes": 0, "status": 0, "rule_ids": ["920350", "941120", "941390", "949110"]}
+{"sample_id": "xss-f8e13922-login", "content_type": "application/json", "body_bytes": 102, "status": 0, "rule_ids": ["920350", "941120", "941390", "949110"]}
+{"sample_id": "xss-dac7698f-q", "content_type": null, "body_bytes": 0, "status": 0, "rule_ids": ["920350", "941100", "941120", "941160", "941390", "949110"]}
+{"sample_id": "xss-dac7698f-login", "content_type": "application/json", "body_bytes": 81, "status": 0, "rule_ids": ["920350", "941100", "941120", "941160", "941390", "949110"]}
+{"sample_id": "path-traversal-eefc2bbe-q", "content_type": null, "body_bytes": 0, "status": 0, "rule_ids": ["920350", "930120", "949110"]}
+{"sample_id": "path-traversal-eefc2bbe-login", "content_type": "application/json", "body_bytes": 122, "status": 0, "rule_ids": ["920350", "930120", "949110"]}
+{"sample_id": "path-traversal-fe7918f1-q", "content_type": null, "body_bytes": 0, "status": 0, "rule_ids": ["920350", "930120", "949110"]}
+{"sample_id": "path-traversal-fe7918f1-login", "content_type": "application/json", "body_bytes": 101, "status": 0, "rule_ids": ["920350", "930120", "949110"]}
+{"sample_id": "path-traversal-1e34832c-q", "content_type": null, "body_bytes": 0, "status": 0, "rule_ids": ["920350", "930120", "949110"]}
+{"sample_id": "path-traversal-1e34832c-login", "content_type": "application/json", "body_bytes": 158, "status": 0, "rule_ids": ["920350", "930120", "949110"]}
+{"sample_id": "path-traversal-3cb7d470-q", "content_type": null, "body_bytes": 0, "status": 0, "rule_ids": ["920350", "930100", "930120", "932160", "949110"]}
+{"sample_id": "path-traversal-3cb7d470-login", "content_type": "application/json", "body_bytes": 146, "status": 0, "rule_ids": ["920350", "930100", "930120", "932160", "949110"]}
+{"sample_id": "path-traversal-a605a9c3-q", "content_type": null, "body_bytes": 0, "status": 0, "rule_ids": ["920350", "930100", "930120", "932160", "949110"]}
+{"sample_id": "path-traversal-a605a9c3-login", "content_type": "application/json", "body_bytes": 157, "status": 0, "rule_ids": ["920350", "930100", "930120", "932160", "949110"]}
+{"sample_id": "path-traversal-f40c5704-q", "content_type": null, "body_bytes": 0, "status": 0, "rule_ids": ["920350", "930100", "930120", "932160", "949110"]}
+{"sample_id": "path-traversal-f40c5704-login", "content_type": "application/json", "body_bytes": 142, "status": 0, "rule_ids": ["920350", "930100", "930120", "932160", "949110"]}
+{"sample_id": "path-traversal-49514050-q", "content_type": null, "body_bytes": 0, "status": 0, "rule_ids": ["920350", "930100", "930120", "932160", "949110"]}
+{"sample_id": "path-traversal-49514050-login", "content_type": "application/json", "body_bytes": 112, "status": 0, "rule_ids": ["920350", "930100", "930120", "932160", "949110"]}
+{"sample_id": "path-traversal-f5154e9f-q", "content_type": null, "body_bytes": 0, "status": 0, "rule_ids": ["920350", "930100", "930120", "932160", "949110"]}
+{"sample_id": "path-traversal-f5154e9f-login", "content_type": "application/json", "body_bytes": 86, "status": 0, "rule_ids": ["920350", "930100", "930120", "932160", "949110"]}
+{"sample_id": "path-traversal-2ec2e042-q", "content_type": null, "body_bytes": 0, "status": 0, "rule_ids": ["920350", "930100", "930120", "932160", "949110"]}
+{"sample_id": "path-traversal-2ec2e042-login", "content_type": "application/json", "body_bytes": 146, "status": 0, "rule_ids": ["920350", "930100", "930120", "932160", "949110"]}
+{"sample_id": "path-traversal-cc25d69e-q", "content_type": null, "body_bytes": 0, "status": 0, "rule_ids": ["920270", "920350", "930100", "930120", "932160", "949110"]}
+{"sample_id": "path-traversal-cc25d69e-login", "content_type": "application/json", "body_bytes": 142, "status": 0, "rule_ids": ["920270", "920350", "930100", "930120", "932160", "949110"]}
+{"sample_id": "path-traversal-ad7735e3-q", "content_type": null, "body_bytes": 0, "status": 0, "rule_ids": ["920350", "930100", "930120", "932160", "949110"]}
+{"sample_id": "path-traversal-ad7735e3-login", "content_type": "application/json", "body_bytes": 74, "status": 0, "rule_ids": ["920350", "930100", "930120", "932160", "949110"]}
+{"sample_id": "path-traversal-ce5f3ea5-q", "content_type": null, "body_bytes": 0, "status": 0, "rule_ids": ["920350", "930120", "949110"]}
+{"sample_id": "path-traversal-ce5f3ea5-login", "content_type": "application/json", "body_bytes": 60, "status": 0, "rule_ids": ["920350", "930120", "949110"]}
+{"sample_id": "path-traversal-0e026d06-q", "content_type": null, "body_bytes": 0, "status": 0, "rule_ids": ["920350", "930100", "930120", "949110"]}
+{"sample_id": "path-traversal-0e026d06-login", "content_type": "application/json", "body_bytes": 73, "status": 0, "rule_ids": ["920350", "930100", "930120", "949110"]}
+{"sample_id": "path-traversal-41a67a71-q", "content_type": null, "body_bytes": 0, "status": 0, "rule_ids": ["920350", "930100", "930120", "932160", "949110"]}
+{"sample_id": "path-traversal-41a67a71-login", "content_type": "application/json", "body_bytes": 221, "status": 0, "rule_ids": ["920350", "930100", "930120", "932160", "949110"]}
+{"sample_id": "path-traversal-0dbb2aa4-q", "content_type": null, "body_bytes": 0, "status": 0, "rule_ids": ["920350", "930100", "930120", "932160", "949110"]}
+{"sample_id": "path-traversal-0dbb2aa4-login", "content_type": "application/json", "body_bytes": 188, "status": 0, "rule_ids": ["920350", "930100", "930120", "932160", "949110"]}
+{"sample_id": "path-traversal-9c1031d0-q", "content_type": null, "body_bytes": 0, "status": 0, "rule_ids": ["920350", "930100", "930120", "949110"]}
+{"sample_id": "path-traversal-9c1031d0-login", "content_type": "application/json", "body_bytes": 80, "status": 0, "rule_ids": ["920350", "930100", "930120", "949110"]}
+{"sample_id": "path-traversal-3b97c700-q", "content_type": null, "body_bytes": 0, "status": 0, "rule_ids": ["920350", "930120", "932160", "949110"]}
+{"sample_id": "path-traversal-3b97c700-login", "content_type": "application/json", "body_bytes": 63, "status": 0, "rule_ids": ["920350", "930120", "932160", "949110"]}
+{"sample_id": "path-traversal-58195129-q", "content_type": null, "body_bytes": 0, "status": 0, "rule_ids": ["920350", "930100", "930110", "949110"]}
+{"sample_id": "path-traversal-58195129-login", "content_type": "application/json", "body_bytes": 183, "status": 0, "rule_ids": ["920350", "930100", "930110", "949110"]}
+{"sample_id": "path-traversal-8aab46a5-q", "content_type": null, "body_bytes": 0, "status": 0, "rule_ids": ["920350", "930100", "930110", "949110"]}
+{"sample_id": "path-traversal-8aab46a5-login", "content_type": "application/json", "body_bytes": 156, "status": 0, "rule_ids": ["920350", "930100", "930110", "949110"]}
+{"sample_id": "path-traversal-fc39aefc-q", "content_type": null, "body_bytes": 0, "status": 0, "rule_ids": ["920270", "920350", "930100", "930110", "930120", "932160", "949110"]}
+{"sample_id": "path-traversal-fc39aefc-login", "content_type": "application/json", "body_bytes": 117, "status": 0, "rule_ids": ["920270", "920350", "930100", "930110", "930120", "932160", "949110"]}
+{"sample_id": "path-traversal-5a3a53f4-q", "content_type": null, "body_bytes": 0, "status": 0, "rule_ids": ["920350", "930100", "930110", "930120", "932160", "949110"]}
+{"sample_id": "path-traversal-5a3a53f4-login", "content_type": "application/json", "body_bytes": 86, "status": 0, "rule_ids": ["920350", "930100", "930110", "930120", "932160", "949110"]}
+{"sample_id": "path-traversal-112867bd-q", "content_type": null, "body_bytes": 0, "status": 0, "rule_ids": ["920270", "920350", "930100", "930110", "930120", "932160", "949110"]}
+{"sample_id": "path-traversal-112867bd-login", "content_type": "application/json", "body_bytes": 90, "status": 0, "rule_ids": ["920270", "920350", "930100", "930110", "930120", "932160", "949110"]}
+{"sample_id": "path-traversal-c6c1f692-q", "content_type": null, "body_bytes": 0, "status": 0, "rule_ids": ["920350", "930110", "930120", "932160", "949110"]}
+{"sample_id": "path-traversal-c6c1f692-login", "content_type": "application/json", "body_bytes": 50, "status": 0, "rule_ids": ["920350", "930110", "930120", "932160", "949110"]}
+{"sample_id": "path-traversal-202ebb1c-q", "content_type": null, "body_bytes": 0, "status": 0, "rule_ids": ["920350", "930110", "930120", "949110"]}
+{"sample_id": "path-traversal-202ebb1c-login", "content_type": "application/json", "body_bytes": 58, "status": 0, "rule_ids": ["920350", "930110", "930120", "949110"]}
+{"sample_id": "path-traversal-c3d8c36f-q", "content_type": null, "body_bytes": 0, "status": 0, "rule_ids": ["920350", "930100", "930110", "930120", "949110"]}
+{"sample_id": "path-traversal-c3d8c36f-login", "content_type": "application/json", "body_bytes": 94, "status": 0, "rule_ids": ["920350", "930100", "930110", "930120", "949110"]}
+{"sample_id": "path-traversal-22b9edbe-q", "content_type": null, "body_bytes": 0, "status": 0, "rule_ids": ["920350", "930100", "930110", "930120", "932160", "949110"]}
+{"sample_id": "path-traversal-22b9edbe-login", "content_type": "application/json", "body_bytes": 105, "status": 0, "rule_ids": ["920350", "930100", "930110", "930120", "932160", "949110"]}
+{"sample_id": "path-traversal-77e4f2e4-q", "content_type": null, "body_bytes": 0, "status": 0, "rule_ids": ["920350", "930100", "930110", "930120", "949110"]}
+{"sample_id": "path-traversal-77e4f2e4-login", "content_type": "application/json", "body_bytes": 97, "status": 0, "rule_ids": ["920350", "930100", "930110", "930120", "949110"]}
+{"sample_id": "path-traversal-e915e50e-q", "content_type": null, "body_bytes": 0, "status": 0, "rule_ids": ["920270", "920350", "930100", "930110", "930120", "932160", "949110"]}
+{"sample_id": "path-traversal-e915e50e-login", "content_type": "application/json", "body_bytes": 94, "status": 0, "rule_ids": ["920270", "920350", "930100", "930110", "930120", "932160", "949110"]}
+{"sample_id": "path-traversal-e6bfd29f-q", "content_type": null, "body_bytes": 0, "status": 0, "rule_ids": ["920350", "930110", "930120", "949110"]}
+{"sample_id": "path-traversal-e6bfd29f-login", "content_type": "application/json", "body_bytes": 57, "status": 0, "rule_ids": ["920350", "930110", "930120", "949110"]}
+{"sample_id": "path-traversal-f51c297b-q", "content_type": null, "body_bytes": 0, "status": 0, "rule_ids": ["920350", "930120", "949110"]}
+{"sample_id": "path-traversal-f51c297b-login", "content_type": "application/json", "body_bytes": 57, "status": 0, "rule_ids": ["920350", "930120", "949110"]}
+{"sample_id": "path-traversal-bd109e0b-q", "content_type": null, "body_bytes": 0, "status": 0, "rule_ids": ["920350", "930120", "949110"]}
+{"sample_id": "path-traversal-bd109e0b-login", "content_type": "application/json", "body_bytes": 78, "status": 0, "rule_ids": ["920350", "930120", "949110"]}
+{"sample_id": "path-traversal-c25ffee6-q", "content_type": null, "body_bytes": 0, "status": 0, "rule_ids": ["920350", "930100", "930120", "932160", "949110"]}
+{"sample_id": "path-traversal-c25ffee6-login", "content_type": "application/json", "body_bytes": 132, "status": 0, "rule_ids": ["920350", "930100", "930120", "932160", "949110"]}
+{"sample_id": "path-traversal-02057f3b-q", "content_type": null, "body_bytes": 0, "status": 0, "rule_ids": ["920350", "930100", "930120", "932160", "949110"]}
+{"sample_id": "path-traversal-02057f3b-login", "content_type": "application/json", "body_bytes": 125, "status": 0, "rule_ids": ["920350", "930100", "930120", "932160", "949110"]}
+{"sample_id": "path-traversal-265ec89e-q", "content_type": null, "body_bytes": 0, "status": 0, "rule_ids": ["920350", "930120", "949110"]}
+{"sample_id": "path-traversal-265ec89e-login", "content_type": "application/json", "body_bytes": 52, "status": 0, "rule_ids": ["920350", "930120", "949110"]}
+{"sample_id": "path-traversal-78c27340-q", "content_type": null, "body_bytes": 0, "status": 0, "rule_ids": ["920350", "930100", "930120", "932160", "949110"]}
+{"sample_id": "path-traversal-78c27340-login", "content_type": "application/json", "body_bytes": 95, "status": 0, "rule_ids": ["920350", "930100", "930120", "932160", "949110"]}
+{"sample_id": "path-traversal-cabb2702-q", "content_type": null, "body_bytes": 0, "status": 0, "rule_ids": ["920350", "930100", "930120", "949110"]}
+{"sample_id": "path-traversal-cabb2702-login", "content_type": "application/json", "body_bytes": 164, "status": 0, "rule_ids": ["920350", "930100", "930120", "949110"]}
+{"sample_id": "path-traversal-954e1190-q", "content_type": null, "body_bytes": 0, "status": 0, "rule_ids": ["920350", "930100", "930120", "932160", "949110"]}
+{"sample_id": "path-traversal-954e1190-login", "content_type": "application/json", "body_bytes": 149, "status": 0, "rule_ids": ["920350", "930100", "930120", "932160", "949110"]}
+{"sample_id": "path-traversal-6ab007f3-q", "content_type": null, "body_bytes": 0, "status": 0, "rule_ids": ["920350", "930120", "949110"]}
+{"sample_id": "path-traversal-6ab007f3-login", "content_type": "application/json", "body_bytes": 56, "status": 0, "rule_ids": ["920350", "930120", "949110"]}
+{"sample_id": "path-traversal-0375ce8f-q", "content_type": null, "body_bytes": 0, "status": 0, "rule_ids": ["920350", "930120", "932160", "949110"]}
+{"sample_id": "path-traversal-0375ce8f-login", "content_type": "application/json", "body_bytes": 104, "status": 0, "rule_ids": ["920350", "930120", "932160", "949110"]}
+{"sample_id": "path-traversal-c5d7df2b-q", "content_type": null, "body_bytes": 0, "status": 0, "rule_ids": ["920270", "920350", "930100", "930120", "932160", "949110"]}
+{"sample_id": "path-traversal-c5d7df2b-login", "content_type": "application/json", "body_bytes": 110, "status": 0, "rule_ids": ["920270", "920350", "930100", "930120", "932160", "949110"]}
+{"sample_id": "path-traversal-af15bb8b-q", "content_type": null, "body_bytes": 0, "status": 0, "rule_ids": ["920350", "930100", "930120", "949110"]}
+{"sample_id": "path-traversal-af15bb8b-login", "content_type": "application/json", "body_bytes": 66, "status": 0, "rule_ids": ["920350", "930100", "930120", "949110"]}
+{"sample_id": "path-traversal-855051ff-q", "content_type": null, "body_bytes": 0, "status": 0, "rule_ids": ["920350", "930100", "930120", "949110"]}
+{"sample_id": "path-traversal-855051ff-login", "content_type": "application/json", "body_bytes": 77, "status": 0, "rule_ids": ["920350", "930100", "930120", "949110"]}
+{"sample_id": "path-traversal-d620b317-q", "content_type": null, "body_bytes": 0, "status": 0, "rule_ids": ["920270", "920350", "930100", "930120", "932160", "949110"]}
+{"sample_id": "path-traversal-d620b317-login", "content_type": "application/json", "body_bytes": 103, "status": 0, "rule_ids": ["920270", "920350", "930100", "930120", "932160", "949110"]}
+{"sample_id": "path-traversal-556a4824-q", "content_type": null, "body_bytes": 0, "status": 0, "rule_ids": ["920270", "920350", "930100", "930120", "949110"]}
+{"sample_id": "path-traversal-556a4824-login", "content_type": "application/json", "body_bytes": 93, "status": 0, "rule_ids": ["920270", "920350", "930100", "930120", "949110"]}
+{"sample_id": "path-traversal-ce30ab12-q", "content_type": null, "body_bytes": 0, "status": 0, "rule_ids": ["920350", "930100", "930120", "949110"]}
+{"sample_id": "path-traversal-ce30ab12-login", "content_type": "application/json", "body_bytes": 52, "status": 0, "rule_ids": ["920350", "930100", "930120", "949110"]}
+{"sample_id": "path-traversal-df28cfba-q", "content_type": null, "body_bytes": 0, "status": 0, "rule_ids": ["920350", "930100", "930120", "949110"]}
+{"sample_id": "path-traversal-df28cfba-login", "content_type": "application/json", "body_bytes": 122, "status": 0, "rule_ids": ["920350", "930100", "930120", "949110"]}
+{"sample_id": "path-traversal-d183f7e6-q", "content_type": null, "body_bytes": 0, "status": 0, "rule_ids": ["920350", "930100", "930120", "949110"]}
+{"sample_id": "path-traversal-d183f7e6-login", "content_type": "application/json", "body_bytes": 110, "status": 0, "rule_ids": ["920350", "930100", "930120", "949110"]}
+{"sample_id": "path-traversal-77f07245-q", "content_type": null, "body_bytes": 0, "status": 0, "rule_ids": ["920350", "930100", "930120", "932160", "949110"]}
+{"sample_id": "path-traversal-77f07245-login", "content_type": "application/json", "body_bytes": 101, "status": 0, "rule_ids": ["920350", "930100", "930120", "932160", "949110"]}
+{"sample_id": "path-traversal-59dee6a2-q", "content_type": null, "body_bytes": 0, "status": 0, "rule_ids": ["920350", "930100", "930120", "949110"]}
+{"sample_id": "path-traversal-59dee6a2-login", "content_type": "application/json", "body_bytes": 98, "status": 0, "rule_ids": ["920350", "930100", "930120", "949110"]}
+{"sample_id": "path-traversal-bc4f4faf-q", "content_type": null, "body_bytes": 0, "status": 0, "rule_ids": ["920350", "930100", "930120", "932160", "949110"]}
+{"sample_id": "path-traversal-bc4f4faf-login", "content_type": "application/json", "body_bytes": 77, "status": 0, "rule_ids": ["920350", "930100", "930120", "932160", "949110"]}
+{"sample_id": "path-traversal-2bbcea92-q", "content_type": null, "body_bytes": 0, "status": 0, "rule_ids": ["920350", "930100", "930110", "930120", "932160", "949110"]}
+{"sample_id": "path-traversal-2bbcea92-login", "content_type": "application/json", "body_bytes": 92, "status": 0, "rule_ids": ["920350", "930100", "930110", "930120", "932160", "949110"]}
+{"sample_id": "path-traversal-f8eebd5c-q", "content_type": null, "body_bytes": 0, "status": 0, "rule_ids": ["920270", "920350", "930100", "930110", "930120", "932160", "949110"]}
+{"sample_id": "path-traversal-f8eebd5c-login", "content_type": "application/json", "body_bytes": 89, "status": 0, "rule_ids": ["920270", "920350", "930100", "930110", "930120", "932160", "949110"]}
+{"sample_id": "path-traversal-968adac1-q", "content_type": null, "body_bytes": 0, "status": 0, "rule_ids": ["920350", "930100", "930110", "930120", "932160", "949110"]}
+{"sample_id": "path-traversal-968adac1-login", "content_type": "application/json", "body_bytes": 71, "status": 0, "rule_ids": ["920350", "930100", "930110", "930120", "932160", "949110"]}
+{"sample_id": "path-traversal-44c7c3bf-q", "content_type": null, "body_bytes": 0, "status": 0, "rule_ids": ["920350", "930100", "930110", "930120", "932160", "949110"]}
+{"sample_id": "path-traversal-44c7c3bf-login", "content_type": "application/json", "body_bytes": 51, "status": 0, "rule_ids": ["920350", "930100", "930110", "930120", "932160", "949110"]}
+{"sample_id": "path-traversal-ea5fc3ed-q", "content_type": null, "body_bytes": 0, "status": 0, "rule_ids": ["920350", "930100", "930110", "930120", "949110"]}
+{"sample_id": "path-traversal-ea5fc3ed-login", "content_type": "application/json", "body_bytes": 48, "status": 0, "rule_ids": ["920350", "930100", "930110", "930120", "949110"]}
+{"sample_id": "path-traversal-35e699c5-q", "content_type": null, "body_bytes": 0, "status": 0, "rule_ids": ["920270", "920350", "930110", "930120", "949110"]}
+{"sample_id": "path-traversal-35e699c5-login", "content_type": "application/json", "body_bytes": 56, "status": 0, "rule_ids": ["920270", "920350", "930110", "930120", "949110"]}
+{"sample_id": "path-traversal-c85c8018-q", "content_type": null, "body_bytes": 0, "status": 0, "rule_ids": ["920350", "930100", "930120", "932160", "949110"]}
+{"sample_id": "path-traversal-c85c8018-login", "content_type": "application/json", "body_bytes": 65, "status": 0, "rule_ids": ["920350", "930100", "930120", "932160", "949110"]}
+{"sample_id": "path-traversal-ebac46cc-q", "content_type": null, "body_bytes": 0, "status": 0, "rule_ids": ["920350", "930120", "932160", "949110"]}
+{"sample_id": "path-traversal-ebac46cc-login", "content_type": "application/json", "body_bytes": 49, "status": 0, "rule_ids": ["920350", "930120", "932160", "949110"]}
+{"sample_id": "path-traversal-a9332b2c-q", "content_type": null, "body_bytes": 0, "status": 0, "rule_ids": ["920350", "930100", "930120", "949110"]}
+{"sample_id": "path-traversal-a9332b2c-login", "content_type": "application/json", "body_bytes": 78, "status": 0, "rule_ids": ["920350", "930100", "930120", "949110"]}
+{"sample_id": "path-traversal-a5ac30c4-q", "content_type": null, "body_bytes": 0, "status": 0, "rule_ids": ["920350", "930100", "930120", "949110"]}
+{"sample_id": "path-traversal-a5ac30c4-login", "content_type": "application/json", "body_bytes": 78, "status": 0, "rule_ids": ["920350", "930100", "930120", "949110"]}
+{"sample_id": "path-traversal-8126dd98-q", "content_type": null, "body_bytes": 0, "status": 0, "rule_ids": ["920350", "930120", "932160", "949110"]}
+{"sample_id": "path-traversal-8126dd98-login", "content_type": "application/json", "body_bytes": 49, "status": 0, "rule_ids": ["920350", "930120", "932160", "949110"]}
+{"sample_id": "path-traversal-74147b50-q", "content_type": null, "body_bytes": 0, "status": 0, "rule_ids": ["920350", "930100", "930110", "930120", "932160", "949110"]}
+{"sample_id": "path-traversal-74147b50-login", "content_type": "application/json", "body_bytes": 119, "status": 0, "rule_ids": ["920350", "930100", "930110", "930120", "932160", "949110"]}
+{"sample_id": "path-traversal-fc9e176c-q", "content_type": null, "body_bytes": 0, "status": 0, "rule_ids": ["920350", "930100", "930110", "930120", "949110"]}
+{"sample_id": "path-traversal-fc9e176c-login", "content_type": "application/json", "body_bytes": 130, "status": 0, "rule_ids": ["920350", "930100", "930110", "930120", "949110"]}
+{"sample_id": "path-traversal-d03902ac-q", "content_type": null, "body_bytes": 0, "status": 0, "rule_ids": ["920350", "930120", "932160", "949110"]}
+{"sample_id": "path-traversal-d03902ac-login", "content_type": "application/json", "body_bytes": 81, "status": 0, "rule_ids": ["920350", "930120", "932160", "949110"]}
+{"sample_id": "path-traversal-ed5630c7-q", "content_type": null, "body_bytes": 0, "status": 0, "rule_ids": ["920350", "930120", "949110"]}
+{"sample_id": "path-traversal-ed5630c7-login", "content_type": "application/json", "body_bytes": 48, "status": 0, "rule_ids": ["920350", "930120", "949110"]}
+{"sample_id": "path-traversal-0d2d78e8-q", "content_type": null, "body_bytes": 0, "status": 0, "rule_ids": ["920350", "930100", "930110", "930120", "932160", "949110"]}
+{"sample_id": "path-traversal-0d2d78e8-login", "content_type": "application/json", "body_bytes": 81, "status": 0, "rule_ids": ["920350", "930100", "930110", "930120", "932160", "949110"]}
+{"sample_id": "path-traversal-7cf79a80-q", "content_type": null, "body_bytes": 0, "status": 0, "rule_ids": ["920350", "930100", "930110", "930120", "949110"]}
+{"sample_id": "path-traversal-7cf79a80-login", "content_type": "application/json", "body_bytes": 58, "status": 0, "rule_ids": ["920350", "930100", "930110", "930120", "949110"]}
+{"sample_id": "path-traversal-55452f02-q", "content_type": null, "body_bytes": 0, "status": 0, "rule_ids": ["920270", "920350", "930100", "930110", "930120", "932160", "949110"]}
+{"sample_id": "path-traversal-55452f02-login", "content_type": "application/json", "body_bytes": 78, "status": 0, "rule_ids": ["920270", "920350", "930100", "930110", "930120", "932160", "949110"]}
+{"sample_id": "path-traversal-6ed0df54-q", "content_type": null, "body_bytes": 0, "status": 0, "rule_ids": ["920350", "930100", "930110", "930120", "932160", "949110"]}
+{"sample_id": "path-traversal-6ed0df54-login", "content_type": "application/json", "body_bytes": 62, "status": 0, "rule_ids": ["920350", "930100", "930110", "930120", "932160", "949110"]}
+{"sample_id": "path-traversal-1cbe93f2-q", "content_type": null, "body_bytes": 0, "status": 0, "rule_ids": ["920270", "920350", "930100", "930110", "930120", "932160", "949110"]}
+{"sample_id": "path-traversal-1cbe93f2-login", "content_type": "application/json", "body_bytes": 66, "status": 0, "rule_ids": ["920270", "920350", "930100", "930110", "930120", "932160", "949110"]}
+{"sample_id": "path-traversal-9cf3b78c-q", "content_type": null, "body_bytes": 0, "status": 0, "rule_ids": ["920350", "930100", "930110", "930120", "949110"]}
+{"sample_id": "path-traversal-9cf3b78c-login", "content_type": "application/json", "body_bytes": 46, "status": 0, "rule_ids": ["920350", "930100", "930110", "930120", "949110"]}
+{"sample_id": "path-traversal-e0599a3b-q", "content_type": null, "body_bytes": 0, "status": 0, "rule_ids": ["920350", "930100", "930110", "930120", "949110"]}
+{"sample_id": "path-traversal-e0599a3b-login", "content_type": "application/json", "body_bytes": 70, "status": 0, "rule_ids": ["920350", "930100", "930110", "930120", "949110"]}
+{"sample_id": "path-traversal-b905c4f6-q", "content_type": null, "body_bytes": 0, "status": 0, "rule_ids": ["920350", "930100", "930110", "930120", "932160", "949110"]}
+{"sample_id": "path-traversal-b905c4f6-login", "content_type": "application/json", "body_bytes": 57, "status": 0, "rule_ids": ["920350", "930100", "930110", "930120", "932160", "949110"]}
+{"sample_id": "path-traversal-c2df0d94-q", "content_type": null, "body_bytes": 0, "status": 0, "rule_ids": ["920350", "930100", "930110", "930120", "932160", "949110"]}
+{"sample_id": "path-traversal-c2df0d94-login", "content_type": "application/json", "body_bytes": 76, "status": 0, "rule_ids": ["920350", "930100", "930110", "930120", "932160", "949110"]}
+{"sample_id": "path-traversal-426bc4c5-q", "content_type": null, "body_bytes": 0, "status": 0, "rule_ids": ["920350", "930100", "930110", "930120", "949110"]}
+{"sample_id": "path-traversal-426bc4c5-login", "content_type": "application/json", "body_bytes": 48, "status": 0, "rule_ids": ["920350", "930100", "930110", "930120", "949110"]}
+{"sample_id": "path-traversal-1a4a7f32-q", "content_type": null, "body_bytes": 0, "status": 0, "rule_ids": ["920350", "930110", "930120", "932160", "949110"]}
+{"sample_id": "path-traversal-1a4a7f32-login", "content_type": "application/json", "body_bytes": 44, "status": 0, "rule_ids": ["920350", "930110", "930120", "932160", "949110"]}
+{"sample_id": "path-traversal-b5f8a2b3-q", "content_type": null, "body_bytes": 0, "status": 0, "rule_ids": ["920350", "930100", "930120", "949110"]}
+{"sample_id": "path-traversal-b5f8a2b3-login", "content_type": "application/json", "body_bytes": 50, "status": 0, "rule_ids": ["920350", "930100", "930120", "949110"]}
+{"sample_id": "path-traversal-95be70b6-q", "content_type": null, "body_bytes": 0, "status": 0, "rule_ids": ["920350", "930120", "932160", "949110"]}
+{"sample_id": "path-traversal-95be70b6-login", "content_type": "application/json", "body_bytes": 47, "status": 0, "rule_ids": ["920350", "930120", "932160", "949110"]}
+{"sample_id": "path-traversal-b3b121c8-q", "content_type": null, "body_bytes": 0, "status": 0, "rule_ids": ["920350", "930100", "930110", "930120", "932160", "949110"]}
+{"sample_id": "path-traversal-b3b121c8-login", "content_type": "application/json", "body_bytes": 61, "status": 0, "rule_ids": ["920350", "930100", "930110", "930120", "932160", "949110"]}
+{"sample_id": "path-traversal-cb5da8c1-q", "content_type": null, "body_bytes": 0, "status": 0, "rule_ids": ["920270", "920350", "930100", "930110", "930120", "949110"]}
+{"sample_id": "path-traversal-cb5da8c1-login", "content_type": "application/json", "body_bytes": 71, "status": 0, "rule_ids": ["920270", "920350", "930100", "930110", "930120", "949110"]}
+{"sample_id": "path-traversal-e2c554f4-q", "content_type": null, "body_bytes": 0, "status": 0, "rule_ids": ["920350", "930100", "930110", "930120", "932160", "949110"]}
+{"sample_id": "path-traversal-e2c554f4-login", "content_type": "application/json", "body_bytes": 53, "status": 0, "rule_ids": ["920350", "930100", "930110", "930120", "932160", "949110"]}
+{"sample_id": "path-traversal-1ec1b09a-q", "content_type": null, "body_bytes": 0, "status": 0, "rule_ids": ["920350", "930100", "930110", "930120", "949110"]}
+{"sample_id": "path-traversal-1ec1b09a-login", "content_type": "application/json", "body_bytes": 62, "status": 0, "rule_ids": ["920350", "930100", "930110", "930120", "949110"]}
+{"sample_id": "path-traversal-a6f73c2c-q", "content_type": null, "body_bytes": 0, "status": 0, "rule_ids": ["920350", "930100", "930110", "930120", "949110"]}
+{"sample_id": "path-traversal-a6f73c2c-login", "content_type": "application/json", "body_bytes": 50, "status": 0, "rule_ids": ["920350", "930100", "930110", "930120", "949110"]}
+{"sample_id": "path-traversal-1aa8d05b-q", "content_type": null, "body_bytes": 0, "status": 0, "rule_ids": ["920350", "930100", "930110", "930120", "949110"]}
+{"sample_id": "path-traversal-1aa8d05b-login", "content_type": "application/json", "body_bytes": 46, "status": 0, "rule_ids": ["920350", "930100", "930110", "930120", "949110"]}
+{"sample_id": "path-traversal-246edd55-q", "content_type": null, "body_bytes": 0, "status": 0, "rule_ids": ["920270", "920350", "930110", "930120", "932160", "949110"]}
+{"sample_id": "path-traversal-246edd55-login", "content_type": "application/json", "body_bytes": 58, "status": 0, "rule_ids": ["920270", "920350", "930110", "930120", "932160", "949110"]}
+{"sample_id": "path-traversal-9b9736eb-q", "content_type": null, "body_bytes": 0, "status": 0, "rule_ids": ["920350", "930110", "930120", "932160", "949110"]}
+{"sample_id": "path-traversal-9b9736eb-login", "content_type": "application/json", "body_bytes": 56, "status": 0, "rule_ids": ["920350", "930110", "930120", "932160", "949110"]}
+{"sample_id": "path-traversal-888e1684-q", "content_type": null, "body_bytes": 0, "status": 0, "rule_ids": ["920350", "930100", "930110", "930120", "949110"]}
+{"sample_id": "path-traversal-888e1684-login", "content_type": "application/json", "body_bytes": 68, "status": 0, "rule_ids": ["920350", "930100", "930110", "930120", "949110"]}
+{"sample_id": "path-traversal-40f93ab2-q", "content_type": null, "body_bytes": 0, "status": 0, "rule_ids": ["920350", "930100", "930110", "930120", "932160", "949110"]}
+{"sample_id": "path-traversal-40f93ab2-login", "content_type": "application/json", "body_bytes": 89, "status": 0, "rule_ids": ["920350", "930100", "930110", "930120", "932160", "949110"]}
+{"sample_id": "path-traversal-03feedbb-q", "content_type": null, "body_bytes": 0, "status": 0, "rule_ids": ["920350", "930100", "930110", "930120", "932160", "949110"]}
+{"sample_id": "path-traversal-03feedbb-login", "content_type": "application/json", "body_bytes": 73, "status": 0, "rule_ids": ["920350", "930100", "930110", "930120", "932160", "949110"]}
+{"sample_id": "path-traversal-efec4f01-q", "content_type": null, "body_bytes": 0, "status": 0, "rule_ids": ["920350", "930100", "930110", "930120", "932160", "949110"]}
+{"sample_id": "path-traversal-efec4f01-login", "content_type": "application/json", "body_bytes": 76, "status": 0, "rule_ids": ["920350", "930100", "930110", "930120", "932160", "949110"]}
+{"sample_id": "path-traversal-2d8e58ec-q", "content_type": null, "body_bytes": 0, "status": 0, "rule_ids": ["920350", "930100", "930110", "930120", "949110"]}
+{"sample_id": "path-traversal-2d8e58ec-login", "content_type": "application/json", "body_bytes": 48, "status": 0, "rule_ids": ["920350", "930100", "930110", "930120", "949110"]}
+{"sample_id": "path-traversal-660a2127-q", "content_type": null, "body_bytes": 0, "status": 0, "rule_ids": ["920350", "930100", "930110", "930120", "932160", "949110"]}
+{"sample_id": "path-traversal-660a2127-login", "content_type": "application/json", "body_bytes": 362, "status": 0, "rule_ids": ["920350", "930100", "930110", "930120", "932160", "949110"]}
+{"sample_id": "path-traversal-a6387677-q", "content_type": null, "body_bytes": 0, "status": 0, "rule_ids": ["920350", "930120", "932160", "949110"]}
+{"sample_id": "path-traversal-a6387677-login", "content_type": "application/json", "body_bytes": 83, "status": 0, "rule_ids": ["920350", "930120", "932160", "949110"]}
+{"sample_id": "path-traversal-f5e943b1-q", "content_type": null, "body_bytes": 0, "status": 0, "rule_ids": ["920350", "930100", "930110", "930120", "932160", "949110"]}
+{"sample_id": "path-traversal-f5e943b1-login", "content_type": "application/json", "body_bytes": 55, "status": 0, "rule_ids": ["920350", "930100", "930110", "930120", "932160", "949110"]}
+{"sample_id": "path-traversal-49ba5a53-q", "content_type": null, "body_bytes": 0, "status": 0, "rule_ids": ["920350", "930100", "930110", "930120", "949110"]}
+{"sample_id": "path-traversal-49ba5a53-login", "content_type": "application/json", "body_bytes": 520, "status": 0, "rule_ids": ["920350", "930100", "930110", "930120", "949110"]}
+{"sample_id": "path-traversal-4d27b100-q", "content_type": null, "body_bytes": 0, "status": 0, "rule_ids": ["920350", "930110", "930120", "932160", "949110"]}
+{"sample_id": "path-traversal-4d27b100-login", "content_type": "application/json", "body_bytes": 86, "status": 0, "rule_ids": ["920350", "930110", "930120", "932160", "949110"]}
+{"sample_id": "path-traversal-2e7e7151-q", "content_type": null, "body_bytes": 0, "status": 0, "rule_ids": ["920350", "930110", "930120", "949110"]}
+{"sample_id": "path-traversal-2e7e7151-login", "content_type": "application/json", "body_bytes": 65, "status": 0, "rule_ids": ["920350", "930110", "930120", "949110"]}
+{"sample_id": "path-traversal-7de090f7-q", "content_type": null, "body_bytes": 0, "status": 0, "rule_ids": ["920350", "930100", "930110", "930120", "932160", "949110"]}
+{"sample_id": "path-traversal-7de090f7-login", "content_type": "application/json", "body_bytes": 74, "status": 0, "rule_ids": ["920350", "930100", "930110", "930120", "932160", "949110"]}
+{"sample_id": "path-traversal-ac200248-q", "content_type": null, "body_bytes": 0, "status": 0, "rule_ids": ["920350", "930120", "949110"]}
+{"sample_id": "path-traversal-ac200248-login", "content_type": "application/json", "body_bytes": 123, "status": 0, "rule_ids": ["920350", "930120", "949110"]}
+{"sample_id": "path-traversal-fcb5c99f-q", "content_type": null, "body_bytes": 0, "status": 0, "rule_ids": ["920350", "930120", "949110"]}
+{"sample_id": "path-traversal-fcb5c99f-login", "content_type": "application/json", "body_bytes": 144, "status": 0, "rule_ids": ["920350", "930120", "949110"]}
+{"sample_id": "path-traversal-0e531fef-q", "content_type": null, "body_bytes": 0, "status": 0, "rule_ids": ["920350", "930100", "930120", "949110"]}
+{"sample_id": "path-traversal-0e531fef-login", "content_type": "application/json", "body_bytes": 114, "status": 0, "rule_ids": ["920350", "930100", "930120", "949110"]}
+{"sample_id": "path-traversal-4e2939e4-q", "content_type": null, "body_bytes": 0, "status": 0, "rule_ids": ["920350", "930100", "930120", "949110"]}
+{"sample_id": "path-traversal-4e2939e4-login", "content_type": "application/json", "body_bytes": 159, "status": 0, "rule_ids": ["920350", "930100", "930120", "949110"]}
+{"sample_id": "path-traversal-31f4ce27-q", "content_type": null, "body_bytes": 0, "status": 0, "rule_ids": ["920350", "930100", "930110", "930120", "949110"]}
+{"sample_id": "path-traversal-31f4ce27-login", "content_type": "application/json", "body_bytes": 75, "status": 0, "rule_ids": ["920350", "930100", "930110", "930120", "949110"]}
+{"sample_id": "path-traversal-c297aca7-q", "content_type": null, "body_bytes": 0, "status": 0, "rule_ids": ["920350", "930100", "930110", "930120", "949110"]}
+{"sample_id": "path-traversal-c297aca7-login", "content_type": "application/json", "body_bytes": 109, "status": 0, "rule_ids": ["920350", "930100", "930110", "930120", "949110"]}
+{"sample_id": "path-traversal-45ff84a1-q", "content_type": null, "body_bytes": 0, "status": 0, "rule_ids": ["920350", "930100", "930110", "930120", "932160", "949110"]}
+{"sample_id": "path-traversal-45ff84a1-login", "content_type": "application/json", "body_bytes": 111, "status": 0, "rule_ids": ["920350", "930100", "930110", "930120", "932160", "949110"]}
+{"sample_id": "path-traversal-8b3489f3-q", "content_type": null, "body_bytes": 0, "status": 0, "rule_ids": ["920350", "930100", "930110", "930120", "949110"]}
+{"sample_id": "path-traversal-8b3489f3-login", "content_type": "application/json", "body_bytes": 95, "status": 0, "rule_ids": ["920350", "930100", "930110", "930120", "949110"]}
+{"sample_id": "path-traversal-10822ca3-q", "content_type": null, "body_bytes": 0, "status": 0, "rule_ids": ["920350", "930100", "930120", "949110"]}
+{"sample_id": "path-traversal-10822ca3-login", "content_type": "application/json", "body_bytes": 109, "status": 0, "rule_ids": ["920350", "930100", "930120", "949110"]}
+{"sample_id": "path-traversal-5e589097-q", "content_type": null, "body_bytes": 0, "status": 0, "rule_ids": ["920350", "930100", "930120", "949110"]}
+{"sample_id": "path-traversal-5e589097-login", "content_type": "application/json", "body_bytes": 81, "status": 0, "rule_ids": ["920350", "930100", "930120", "949110"]}
+{"sample_id": "path-traversal-921f3d78-q", "content_type": null, "body_bytes": 0, "status": 0, "rule_ids": ["920350", "930100", "930120", "949110"]}
+{"sample_id": "path-traversal-921f3d78-login", "content_type": "application/json", "body_bytes": 147, "status": 0, "rule_ids": ["920350", "930100", "930120", "949110"]}
+{"sample_id": "path-traversal-d554c68f-q", "content_type": null, "body_bytes": 0, "status": 0, "rule_ids": ["920350", "930100", "930120", "949110"]}
+{"sample_id": "path-traversal-d554c68f-login", "content_type": "application/json", "body_bytes": 78, "status": 0, "rule_ids": ["920350", "930100", "930120", "949110"]}
+{"sample_id": "path-traversal-b600d361-q", "content_type": null, "body_bytes": 0, "status": 0, "rule_ids": ["920350", "930100", "930120", "949110"]}
+{"sample_id": "path-traversal-b600d361-login", "content_type": "application/json", "body_bytes": 147, "status": 0, "rule_ids": ["920350", "930100", "930120", "949110"]}
+{"sample_id": "path-traversal-464a82d3-q", "content_type": null, "body_bytes": 0, "status": 0, "rule_ids": ["920350", "930100", "930120", "949110"]}
+{"sample_id": "path-traversal-464a82d3-login", "content_type": "application/json", "body_bytes": 53, "status": 0, "rule_ids": ["920350", "930100", "930120", "949110"]}
+{"sample_id": "path-traversal-3cdd9309-q", "content_type": null, "body_bytes": 0, "status": 0, "rule_ids": ["920350", "930100", "930120", "949110"]}
+{"sample_id": "path-traversal-3cdd9309-login", "content_type": "application/json", "body_bytes": 95, "status": 0, "rule_ids": ["920350", "930100", "930120", "949110"]}
+{"sample_id": "path-traversal-f98e4c1a-q", "content_type": null, "body_bytes": 0, "status": 0, "rule_ids": ["920350", "930100", "930120", "949110"]}
+{"sample_id": "path-traversal-f98e4c1a-login", "content_type": "application/json", "body_bytes": 63, "status": 0, "rule_ids": ["920350", "930100", "930120", "949110"]}
+{"sample_id": "path-traversal-bb9e3e34-q", "content_type": null, "body_bytes": 0, "status": 0, "rule_ids": ["920350", "930100", "930110", "930120", "949110"]}
+{"sample_id": "path-traversal-bb9e3e34-login", "content_type": "application/json", "body_bytes": 49, "status": 0, "rule_ids": ["920350", "930100", "930110", "930120", "949110"]}
+{"sample_id": "path-traversal-69d119c8-q", "content_type": null, "body_bytes": 0, "status": 0, "rule_ids": ["920350", "930100", "930120", "949110"]}
+{"sample_id": "path-traversal-69d119c8-login", "content_type": "application/json", "body_bytes": 63, "status": 0, "rule_ids": ["920350", "930100", "930120", "949110"]}
+{"sample_id": "path-traversal-85bad5c4-q", "content_type": null, "body_bytes": 0, "status": 0, "rule_ids": ["920350", "930100", "930120", "949110"]}
+{"sample_id": "path-traversal-85bad5c4-login", "content_type": "application/json", "body_bytes": 95, "status": 0, "rule_ids": ["920350", "930100", "930120", "949110"]}
+{"sample_id": "path-traversal-3fe7f45d-q", "content_type": null, "body_bytes": 0, "status": 0, "rule_ids": ["920350", "930100", "930120", "949110"]}
+{"sample_id": "path-traversal-3fe7f45d-login", "content_type": "application/json", "body_bytes": 71, "status": 0, "rule_ids": ["920350", "930100", "930120", "949110"]}
+{"sample_id": "path-traversal-63ba4e05-q", "content_type": null, "body_bytes": 0, "status": 0, "rule_ids": ["920350", "930100", "930120", "949110"]}
+{"sample_id": "path-traversal-63ba4e05-login", "content_type": "application/json", "body_bytes": 71, "status": 0, "rule_ids": ["920350", "930100", "930120", "949110"]}
+{"sample_id": "path-traversal-3befd7c6-q", "content_type": null, "body_bytes": 0, "status": 0, "rule_ids": ["920350", "930100", "930120", "949110"]}
+{"sample_id": "path-traversal-3befd7c6-login", "content_type": "application/json", "body_bytes": 79, "status": 0, "rule_ids": ["920350", "930100", "930120", "949110"]}
+{"sample_id": "path-traversal-e23fc9bc-q", "content_type": null, "body_bytes": 0, "status": 0, "rule_ids": ["920350", "930120", "949110"]}
+{"sample_id": "path-traversal-e23fc9bc-login", "content_type": "application/json", "body_bytes": 79, "status": 0, "rule_ids": ["920350", "930120", "949110"]}
+{"sample_id": "path-traversal-0d78d089-q", "content_type": null, "body_bytes": 0, "status": 0, "rule_ids": ["920350", "930120", "949110"]}
+{"sample_id": "path-traversal-0d78d089-login", "content_type": "application/json", "body_bytes": 87, "status": 0, "rule_ids": ["920350", "930120", "949110"]}
+{"sample_id": "path-traversal-6c992828-q", "content_type": null, "body_bytes": 0, "status": 0, "rule_ids": ["920350", "930120", "949110"]}
+{"sample_id": "path-traversal-6c992828-login", "content_type": "application/json", "body_bytes": 63, "status": 0, "rule_ids": ["920350", "930120", "949110"]}
+{"sample_id": "path-traversal-5ce2fe33-q", "content_type": null, "body_bytes": 0, "status": 0, "rule_ids": ["920270", "920350", "930100", "930110", "930120", "932160", "949110"]}
+{"sample_id": "path-traversal-5ce2fe33-login", "content_type": "application/json", "body_bytes": 92, "status": 0, "rule_ids": ["920270", "920350", "930100", "930110", "930120", "932160", "949110"]}
+{"sample_id": "path-traversal-2aa7f02e-q", "content_type": null, "body_bytes": 0, "status": 0, "rule_ids": ["920350", "930100", "930110", "930120", "949110"]}
+{"sample_id": "path-traversal-2aa7f02e-login", "content_type": "application/json", "body_bytes": 54, "status": 0, "rule_ids": ["920350", "930100", "930110", "930120", "949110"]}
+{"sample_id": "path-traversal-3f214d96-q", "content_type": null, "body_bytes": 0, "status": 0, "rule_ids": ["920350", "930100", "930110", "930120", "949110"]}
+{"sample_id": "path-traversal-3f214d96-login", "content_type": "application/json", "body_bytes": 77, "status": 0, "rule_ids": ["920350", "930100", "930110", "930120", "949110"]}
+{"sample_id": "path-traversal-b42d537c-q", "content_type": null, "body_bytes": 0, "status": 0, "rule_ids": ["920350", "930100", "930110", "930120", "949110"]}
+{"sample_id": "path-traversal-b42d537c-login", "content_type": "application/json", "body_bytes": 61, "status": 0, "rule_ids": ["920350", "930100", "930110", "930120", "949110"]}
+{"sample_id": "path-traversal-a3e79262-q", "content_type": null, "body_bytes": 0, "status": 0, "rule_ids": ["920350", "930100", "930110", "930120", "949110"]}
+{"sample_id": "path-traversal-a3e79262-login", "content_type": "application/json", "body_bytes": 59, "status": 0, "rule_ids": ["920350", "930100", "930110", "930120", "949110"]}
+{"sample_id": "path-traversal-06a62f73-q", "content_type": null, "body_bytes": 0, "status": 0, "rule_ids": ["920350", "930100", "930110", "930120", "932160", "949110"]}
+{"sample_id": "path-traversal-06a62f73-login", "content_type": "application/json", "body_bytes": 51, "status": 0, "rule_ids": ["920350", "930100", "930110", "930120", "932160", "949110"]}
+{"sample_id": "path-traversal-46a3f2d2-q", "content_type": null, "body_bytes": 0, "status": 0, "rule_ids": ["920350", "930100", "930110", "930120", "949110"]}
+{"sample_id": "path-traversal-46a3f2d2-login", "content_type": "application/json", "body_bytes": 67, "status": 0, "rule_ids": ["920350", "930100", "930110", "930120", "949110"]}
+{"sample_id": "path-traversal-84095564-q", "content_type": null, "body_bytes": 0, "status": 0, "rule_ids": ["920350", "930100", "930110", "930120", "949110"]}
+{"sample_id": "path-traversal-84095564-login", "content_type": "application/json", "body_bytes": 60, "status": 0, "rule_ids": ["920350", "930100", "930110", "930120", "949110"]}
+{"sample_id": "path-traversal-d0149f94-q", "content_type": null, "body_bytes": 0, "status": 0, "rule_ids": ["920350", "930100", "930110", "930120", "949110"]}
+{"sample_id": "path-traversal-d0149f94-login", "content_type": "application/json", "body_bytes": 60, "status": 0, "rule_ids": ["920350", "930100", "930110", "930120", "949110"]}
+{"sample_id": "path-traversal-21e627ea-q", "content_type": null, "body_bytes": 0, "status": 0, "rule_ids": ["920350", "930100", "930110", "930120", "949110"]}
+{"sample_id": "path-traversal-21e627ea-login", "content_type": "application/json", "body_bytes": 493, "status": 0, "rule_ids": ["920350", "930100", "930110", "930120", "949110"]}
+{"sample_id": "path-traversal-80bdc10f-q", "content_type": null, "body_bytes": 0, "status": 0, "rule_ids": ["920350", "930100", "930110", "930120", "949110"]}
+{"sample_id": "path-traversal-80bdc10f-login", "content_type": "application/json", "body_bytes": 96, "status": 0, "rule_ids": ["920350", "930100", "930110", "930120", "949110"]}
+{"sample_id": "path-traversal-c4600888-q", "content_type": null, "body_bytes": 0, "status": 0, "rule_ids": ["920350", "930100", "930120", "949110"]}
+{"sample_id": "path-traversal-c4600888-login", "content_type": "application/json", "body_bytes": 135, "status": 0, "rule_ids": ["920350", "930100", "930120", "949110"]}
+{"sample_id": "path-traversal-c5c6e1f6-q", "content_type": null, "body_bytes": 0, "status": 0, "rule_ids": ["920350", "930100", "930110", "930120", "949110"]}
+{"sample_id": "path-traversal-c5c6e1f6-login", "content_type": "application/json", "body_bytes": 108, "status": 0, "rule_ids": ["920350", "930100", "930110", "930120", "949110"]}
+{"sample_id": "path-traversal-02ce8073-q", "content_type": null, "body_bytes": 0, "status": 0, "rule_ids": ["920350", "930100", "930120", "932160", "949110"]}
+{"sample_id": "path-traversal-02ce8073-login", "content_type": "application/json", "body_bytes": 104, "status": 0, "rule_ids": ["920350", "930100", "930120", "932160", "949110"]}
+{"sample_id": "path-traversal-5469dc82-q", "content_type": null, "body_bytes": 0, "status": 0, "rule_ids": ["920350", "930100", "930120", "932160", "949110"]}
+{"sample_id": "path-traversal-5469dc82-login", "content_type": "application/json", "body_bytes": 65, "status": 0, "rule_ids": ["920350", "930100", "930120", "932160", "949110"]}
+{"sample_id": "path-traversal-148b9157-q", "content_type": null, "body_bytes": 0, "status": 0, "rule_ids": ["920350", "930100", "930120", "932160", "949110"]}
+{"sample_id": "path-traversal-148b9157-login", "content_type": "application/json", "body_bytes": 137, "status": 0, "rule_ids": ["920350", "930100", "930120", "932160", "949110"]}
+{"sample_id": "path-traversal-cb7b9b6f-q", "content_type": null, "body_bytes": 0, "status": 0, "rule_ids": ["920350", "930100", "930120", "949110"]}
+{"sample_id": "path-traversal-cb7b9b6f-login", "content_type": "application/json", "body_bytes": 122, "status": 0, "rule_ids": ["920350", "930100", "930120", "949110"]}
+{"sample_id": "path-traversal-eb5f66f1-q", "content_type": null, "body_bytes": 0, "status": 0, "rule_ids": ["920350", "930120", "932160", "949110"]}
+{"sample_id": "path-traversal-eb5f66f1-login", "content_type": "application/json", "body_bytes": 51, "status": 0, "rule_ids": ["920350", "930120", "932160", "949110"]}
+{"sample_id": "path-traversal-9a36aadc-q", "content_type": null, "body_bytes": 0, "status": 0, "rule_ids": ["920350", "930100", "930110", "930120", "932160", "949110"]}
+{"sample_id": "path-traversal-9a36aadc-login", "content_type": "application/json", "body_bytes": 322, "status": 0, "rule_ids": ["920350", "930100", "930110", "930120", "932160", "949110"]}
+{"sample_id": "path-traversal-ff7ae830-q", "content_type": null, "body_bytes": 0, "status": 0, "rule_ids": ["920350", "930100", "930110", "930120", "932160", "949110"]}
+{"sample_id": "path-traversal-ff7ae830-login", "content_type": "application/json", "body_bytes": 316, "status": 0, "rule_ids": ["920350", "930100", "930110", "930120", "932160", "949110"]}
+{"sample_id": "path-traversal-465592dc-q", "content_type": null, "body_bytes": 0, "status": 0, "rule_ids": ["920350", "930100", "930110", "930120", "932160", "949110"]}
+{"sample_id": "path-traversal-465592dc-login", "content_type": "application/json", "body_bytes": 1080, "status": 0, "rule_ids": ["920350", "930100", "930110", "930120", "932160", "949110"]}
+{"sample_id": "path-traversal-eab693cd-q", "content_type": null, "body_bytes": 0, "status": 0, "rule_ids": ["920350", "930100", "930110", "930120", "932160", "949110"]}
+{"sample_id": "path-traversal-eab693cd-login", "content_type": "application/json", "body_bytes": 1071, "status": 0, "rule_ids": ["920350", "930100", "930110", "930120", "932160", "949110"]}
+{"sample_id": "path-traversal-1853a48a-q", "content_type": null, "body_bytes": 0, "status": 0, "rule_ids": ["920350", "930100", "930110", "930120", "949110"]}
+{"sample_id": "path-traversal-1853a48a-login", "content_type": "application/json", "body_bytes": 1074, "status": 0, "rule_ids": ["920350", "930100", "930110", "930120", "949110"]}
+{"sample_id": "path-traversal-25a80022-q", "content_type": null, "body_bytes": 0, "status": 0, "rule_ids": ["920350", "930120", "949110"]}
+{"sample_id": "path-traversal-25a80022-login", "content_type": "application/json", "body_bytes": 59, "status": 0, "rule_ids": ["920350", "930120", "949110"]}
+{"sample_id": "path-traversal-8cf36b00-q", "content_type": null, "body_bytes": 0, "status": 0, "rule_ids": ["920350", "930100", "930110", "930120", "932160", "949110"]}
+{"sample_id": "path-traversal-8cf36b00-login", "content_type": "application/json", "body_bytes": 66, "status": 0, "rule_ids": ["920350", "930100", "930110", "930120", "932160", "949110"]}
+{"sample_id": "path-traversal-7c976826-q", "content_type": null, "body_bytes": 0, "status": 0, "rule_ids": ["920350", "930100", "930110", "930120", "932160", "949110"]}
+{"sample_id": "path-traversal-7c976826-login", "content_type": "application/json", "body_bytes": 83, "status": 0, "rule_ids": ["920350", "930100", "930110", "930120", "932160", "949110"]}
+{"sample_id": "command-injection-fa5b7c24-q", "content_type": null, "body_bytes": 0, "status": 0, "rule_ids": ["920350", "932235", "932260", "932340", "932380", "949110"]}
+{"sample_id": "command-injection-fa5b7c24-login", "content_type": "application/json", "body_bytes": 41, "status": 0, "rule_ids": ["920350", "932235", "932260", "932340", "932380", "949110"]}
+{"sample_id": "command-injection-1e13eaeb-q", "content_type": null, "body_bytes": 0, "status": 0, "rule_ids": ["920350", "932235", "932260", "932340", "932380", "949110"]}
+{"sample_id": "command-injection-1e13eaeb-login", "content_type": "application/json", "body_bytes": 42, "status": 0, "rule_ids": ["920350", "932235", "932260", "932340", "932380", "949110"]}
+{"sample_id": "command-injection-a88d9403-q", "content_type": null, "body_bytes": 0, "status": 0, "rule_ids": ["920350", "932130", "932235", "949110"]}
+{"sample_id": "command-injection-a88d9403-login", "content_type": "application/json", "body_bytes": 99, "status": 0, "rule_ids": ["920350", "932130", "932235", "949110"]}
+{"sample_id": "command-injection-56d0de2b-q", "content_type": null, "body_bytes": 0, "status": 0, "rule_ids": ["920350", "932130", "932380", "949110"]}
+{"sample_id": "command-injection-56d0de2b-login", "content_type": "application/json", "body_bytes": 38, "status": 0, "rule_ids": ["920350", "932130", "932380", "949110"]}
+{"sample_id": "command-injection-fea31518-q", "content_type": null, "body_bytes": 0, "status": 0, "rule_ids": ["920350", "932130", "932235", "932260", "949110"]}
+{"sample_id": "command-injection-fea31518-login", "content_type": "application/json", "body_bytes": 99, "status": 0, "rule_ids": ["920350", "932130", "932235", "932260", "949110"]}
+{"sample_id": "command-injection-e328163e-q", "content_type": null, "body_bytes": 0, "status": 0, "rule_ids": ["920350", "932130", "932370", "933135", "949110"]}
+{"sample_id": "command-injection-e328163e-login", "content_type": "application/json", "body_bytes": 58, "status": 0, "rule_ids": ["920350", "932130", "932370", "933135", "949110"]}
+{"sample_id": "command-injection-db5bb626-q", "content_type": null, "body_bytes": 0, "status": 0, "rule_ids": ["920350", "932160", "949110"]}
+{"sample_id": "command-injection-db5bb626-login", "content_type": "application/json", "body_bytes": 47, "status": 0, "rule_ids": ["920350", "932160", "949110"]}
+{"sample_id": "command-injection-34ddbb96-q", "content_type": null, "body_bytes": 0, "status": 0, "rule_ids": ["920350", "932235", "949110"]}
+{"sample_id": "command-injection-34ddbb96-login", "content_type": "application/json", "body_bytes": 149, "status": 0, "rule_ids": ["920350", "932235", "949110"]}
+{"sample_id": "command-injection-18140e90-q", "content_type": null, "body_bytes": 0, "status": 0, "rule_ids": ["920350", "932130", "933135", "933160", "949110"]}
+{"sample_id": "command-injection-18140e90-login", "content_type": "application/json", "body_bytes": 47, "status": 0, "rule_ids": ["920350", "932130", "933135", "933160", "949110"]}
+{"sample_id": "command-injection-7bb541c1-q", "content_type": null, "body_bytes": 0, "status": 0, "rule_ids": ["920350", "932130", "933135", "942160", "949110"]}
+{"sample_id": "command-injection-7bb541c1-login", "content_type": "application/json", "body_bytes": 47, "status": 0, "rule_ids": ["920350", "932130", "933135", "942160", "949110"]}
+{"sample_id": "command-injection-ea885b41-q", "content_type": null, "body_bytes": 0, "status": 0, "rule_ids": ["920350", "932235", "949110"]}
+{"sample_id": "command-injection-ea885b41-login", "content_type": "application/json", "body_bytes": 76, "status": 0, "rule_ids": ["920350", "932235", "949110"]}
+{"sample_id": "command-injection-dc2932d5-q", "content_type": null, "body_bytes": 0, "status": 0, "rule_ids": ["920350", "932125", "932380", "949110"]}
+{"sample_id": "command-injection-dc2932d5-login", "content_type": "application/json", "body_bytes": 65, "status": 0, "rule_ids": ["920350", "932125", "932380", "949110"]}
+{"sample_id": "command-injection-1e054ad2-q", "content_type": null, "body_bytes": 0, "status": 0, "rule_ids": ["920350", "932125", "932380", "949110"]}
+{"sample_id": "command-injection-1e054ad2-login", "content_type": "application/json", "body_bytes": 45, "status": 0, "rule_ids": ["920350", "932125", "932380", "949110"]}
+{"sample_id": "command-injection-a647d1ef-q", "content_type": null, "body_bytes": 0, "status": 0, "rule_ids": ["920350", "932235", "933100", "933130", "933160", "949110"]}
+{"sample_id": "command-injection-a647d1ef-login", "content_type": "application/json", "body_bytes": 88, "status": 0, "rule_ids": ["920350", "932235", "933100", "933130", "933160", "949110"]}
+{"sample_id": "command-injection-f8e775db-q", "content_type": null, "body_bytes": 0, "status": 0, "rule_ids": ["920350", "932125", "932230", "932250", "949110"]}
+{"sample_id": "command-injection-f8e775db-login", "content_type": "application/json", "body_bytes": 39, "status": 0, "rule_ids": ["920350", "932125", "932230", "932250", "949110"]}
+{"sample_id": "command-injection-b5c67a4e-q", "content_type": null, "body_bytes": 0, "status": 0, "rule_ids": ["920350", "932125", "932230", "932250", "949110"]}
+{"sample_id": "command-injection-b5c67a4e-login", "content_type": "application/json", "body_bytes": 42, "status": 0, "rule_ids": ["920350", "932125", "932230", "932250", "949110"]}
+{"sample_id": "command-injection-42f6f224-q", "content_type": null, "body_bytes": 0, "status": 0, "rule_ids": ["920350", "932160", "949110"]}
+{"sample_id": "command-injection-42f6f224-login", "content_type": "application/json", "body_bytes": 57, "status": 0, "rule_ids": ["920350", "932160", "949110"]}
+{"sample_id": "command-injection-0d78fbef-q", "content_type": null, "body_bytes": 0, "status": 0, "rule_ids": ["920350", "932235", "932260", "932380", "949110"]}
+{"sample_id": "command-injection-0d78fbef-login", "content_type": "application/json", "body_bytes": 43, "status": 0, "rule_ids": ["920350", "932235", "932260", "932380", "949110"]}
+{"sample_id": "command-injection-1bff845a-q", "content_type": null, "body_bytes": 0, "status": 0, "rule_ids": ["920350", "932370", "932380", "949110"]}
+{"sample_id": "command-injection-1bff845a-login", "content_type": "application/json", "body_bytes": 144, "status": 0, "rule_ids": ["920350", "932370", "932380", "949110"]}
+{"sample_id": "command-injection-af3a5269-q", "content_type": null, "body_bytes": 0, "status": 0, "rule_ids": ["920350", "933160", "949110"]}
+{"sample_id": "command-injection-af3a5269-login", "content_type": "application/json", "body_bytes": 93, "status": 0, "rule_ids": ["920350", "933160", "949110"]}
+{"sample_id": "command-injection-d090c063-q", "content_type": null, "body_bytes": 0, "status": 0, "rule_ids": ["920350", "932235", "949110"]}
+{"sample_id": "command-injection-d090c063-login", "content_type": "application/json", "body_bytes": 83, "status": 0, "rule_ids": ["920350", "932235", "949110"]}
+{"sample_id": "command-injection-b336a991-q", "content_type": null, "body_bytes": 0, "status": 0, "rule_ids": ["920350", "932380", "949110"]}
+{"sample_id": "command-injection-b336a991-login", "content_type": "application/json", "body_bytes": 36, "status": 0, "rule_ids": ["920350", "932380", "949110"]}
+{"sample_id": "command-injection-ae105740-q", "content_type": null, "body_bytes": 0, "status": 0, "rule_ids": ["920350", "932125", "932380", "949110"]}
+{"sample_id": "command-injection-ae105740-login", "content_type": "application/json", "body_bytes": 41, "status": 0, "rule_ids": ["920350", "932125", "932380", "949110"]}
+{"sample_id": "command-injection-6f90bbaf-q", "content_type": null, "body_bytes": 0, "status": 0, "rule_ids": ["920350", "932160", "932230", "932235", "932250", "933160", "942100", "942151", "949110"]}
+{"sample_id": "command-injection-6f90bbaf-login", "content_type": "application/json", "body_bytes": 275, "status": 0, "rule_ids": ["920350", "932160", "932230", "932235", "932250", "933160", "942100", "942151", "949110"]}
+{"sample_id": "command-injection-cd3079a9-q", "content_type": null, "body_bytes": 0, "status": 0, "rule_ids": ["920350", "932235", "949110"]}
+{"sample_id": "command-injection-cd3079a9-login", "content_type": "application/json", "body_bytes": 41, "status": 0, "rule_ids": ["920350", "932235", "949110"]}
+{"sample_id": "command-injection-92cf7042-q", "content_type": null, "body_bytes": 0, "status": 0, "rule_ids": ["920350", "932125", "932230", "932250", "949110"]}
+{"sample_id": "command-injection-92cf7042-login", "content_type": "application/json", "body_bytes": 46, "status": 0, "rule_ids": ["920350", "932125", "932230", "932250", "949110"]}
+{"sample_id": "command-injection-b7d300d0-q", "content_type": null, "body_bytes": 0, "status": 0, "rule_ids": ["920350", "932160", "949110"]}
+{"sample_id": "command-injection-b7d300d0-login", "content_type": "application/json", "body_bytes": 59, "status": 0, "rule_ids": ["920350", "932160", "949110"]}
+{"sample_id": "command-injection-5290ab1a-q", "content_type": null, "body_bytes": 0, "status": 0, "rule_ids": ["920350", "932235", "932260", "949110"]}
+{"sample_id": "command-injection-5290ab1a-login", "content_type": "application/json", "body_bytes": 59, "status": 0, "rule_ids": ["920350", "932235", "932260", "949110"]}
+{"sample_id": "command-injection-6096d363-q", "content_type": null, "body_bytes": 0, "status": 0, "rule_ids": ["920350", "932235", "932260", "949110"]}
+{"sample_id": "command-injection-6096d363-login", "content_type": "application/json", "body_bytes": 59, "status": 0, "rule_ids": ["920350", "932235", "932260", "949110"]}
+{"sample_id": "command-injection-edd1a45b-q", "content_type": null, "body_bytes": 0, "status": 0, "rule_ids": ["920350", "932235", "949110"]}
+{"sample_id": "command-injection-edd1a45b-login", "content_type": "application/json", "body_bytes": 40, "status": 0, "rule_ids": ["920350", "932235", "949110"]}
+{"sample_id": "command-injection-55090590-q", "content_type": null, "body_bytes": 0, "status": 0, "rule_ids": ["920350", "932235", "949110"]}
+{"sample_id": "command-injection-55090590-login", "content_type": "application/json", "body_bytes": 41, "status": 0, "rule_ids": ["920350", "932235", "949110"]}
+{"sample_id": "command-injection-e1e36844-q", "content_type": null, "body_bytes": 0, "status": 0, "rule_ids": ["920350", "932235", "932260", "949110"]}
+{"sample_id": "command-injection-e1e36844-login", "content_type": "application/json", "body_bytes": 41, "status": 0, "rule_ids": ["920350", "932235", "932260", "949110"]}
+{"sample_id": "command-injection-c3325da2-q", "content_type": null, "body_bytes": 0, "status": 0, "rule_ids": ["920350", "932235", "932260", "949110"]}
+{"sample_id": "command-injection-c3325da2-login", "content_type": "application/json", "body_bytes": 83, "status": 0, "rule_ids": ["920350", "932235", "932260", "949110"]}
+{"sample_id": "command-injection-a2ff36ad-q", "content_type": null, "body_bytes": 0, "status": 0, "rule_ids": ["920350", "930120", "949110"]}
+{"sample_id": "command-injection-a2ff36ad-login", "content_type": "application/json", "body_bytes": 51, "status": 0, "rule_ids": ["920350", "930120", "949110"]}
+{"sample_id": "command-injection-946f7b8a-q", "content_type": null, "body_bytes": 0, "status": 0, "rule_ids": ["920350", "932160", "932171", "932235", "932370", "949110"]}
+{"sample_id": "command-injection-946f7b8a-login", "content_type": "application/json", "body_bytes": 154, "status": 0, "rule_ids": ["920350", "932160", "932171", "932235", "932370", "949110"]}
+{"sample_id": "command-injection-51c77066-q", "content_type": null, "body_bytes": 0, "status": 0, "rule_ids": ["920350", "932160", "932171", "932235", "932370", "949110"]}
+{"sample_id": "command-injection-51c77066-login", "content_type": "application/json", "body_bytes": 156, "status": 0, "rule_ids": ["920350", "932160", "932171", "932235", "932370", "949110"]}
+{"sample_id": "command-injection-bb18285d-q", "content_type": null, "body_bytes": 0, "status": 0, "rule_ids": ["920350", "932160", "932171", "932235", "932370", "949110"]}
+{"sample_id": "command-injection-bb18285d-login", "content_type": "application/json", "body_bytes": 114, "status": 0, "rule_ids": ["920350", "932160", "932171", "932235", "932370", "949110"]}
+{"sample_id": "command-injection-79141d7f-q", "content_type": null, "body_bytes": 0, "status": 0, "rule_ids": ["920350", "932160", "932171", "932235", "932370", "949110"]}
+{"sample_id": "command-injection-79141d7f-login", "content_type": "application/json", "body_bytes": 134, "status": 0, "rule_ids": ["920350", "932160", "932171", "932235", "932370", "949110"]}
+{"sample_id": "command-injection-124a2251-q", "content_type": null, "body_bytes": 0, "status": 0, "rule_ids": ["920350", "932160", "932171", "932235", "932370", "949110"]}
+{"sample_id": "command-injection-124a2251-login", "content_type": "application/json", "body_bytes": 129, "status": 0, "rule_ids": ["920350", "932160", "932171", "932235", "932370", "949110"]}
+{"sample_id": "command-injection-9edda7fb-q", "content_type": null, "body_bytes": 0, "status": 0, "rule_ids": ["920350", "930120", "932160", "932171", "932235", "932260", "932370", "949110"]}
+{"sample_id": "command-injection-9edda7fb-login", "content_type": "application/json", "body_bytes": 150, "status": 0, "rule_ids": ["920350", "930120", "932160", "932171", "932235", "932260", "932370", "949110"]}
+{"sample_id": "command-injection-4bfc8ea1-q", "content_type": null, "body_bytes": 0, "status": 0, "rule_ids": ["920350", "932160", "932171", "932235", "932260", "932370", "949110"]}
+{"sample_id": "command-injection-4bfc8ea1-login", "content_type": "application/json", "body_bytes": 136, "status": 0, "rule_ids": ["920350", "932160", "932171", "932235", "932260", "932370", "949110"]}
+{"sample_id": "command-injection-f5647ccd-q", "content_type": null, "body_bytes": 0, "status": 0, "rule_ids": ["920350", "932160", "932171", "932235", "932370", "949110"]}
+{"sample_id": "command-injection-f5647ccd-login", "content_type": "application/json", "body_bytes": 114, "status": 0, "rule_ids": ["920350", "932160", "932171", "932235", "932370", "949110"]}
+{"sample_id": "command-injection-cfb6b9f0-q", "content_type": null, "body_bytes": 0, "status": 0, "rule_ids": ["920350", "932171", "932235", "932260", "949110"]}
+{"sample_id": "command-injection-cfb6b9f0-login", "content_type": "application/json", "body_bytes": 98, "status": 0, "rule_ids": ["920350", "932171", "932235", "932260", "949110"]}
+{"sample_id": "command-injection-f04e590a-q", "content_type": null, "body_bytes": 0, "status": 0, "rule_ids": ["920350", "932160", "932171", "932235", "932260", "933160", "949110"]}
+{"sample_id": "command-injection-f04e590a-login", "content_type": "application/json", "body_bytes": 261, "status": 0, "rule_ids": ["920350", "932160", "932171", "932235", "932260", "933160", "949110"]}
+{"sample_id": "command-injection-2692182d-q", "content_type": null, "body_bytes": 0, "status": 0, "rule_ids": ["920350", "930120", "932125", "932230", "932250", "949110"]}
+{"sample_id": "command-injection-2692182d-login", "content_type": "application/json", "body_bytes": 51, "status": 0, "rule_ids": ["920350", "930120", "932125", "932230", "932250", "949110"]}
+{"sample_id": "command-injection-fb4c230b-q", "content_type": null, "body_bytes": 0, "status": 0, "rule_ids": ["920350", "933150", "949110"]}
+{"sample_id": "command-injection-fb4c230b-login", "content_type": "application/json", "body_bytes": 44, "status": 0, "rule_ids": ["920350", "933150", "949110"]}
+{"sample_id": "command-injection-ed39eccf-q", "content_type": null, "body_bytes": 0, "status": 0, "rule_ids": ["920350", "932125", "932380", "949110"]}
+{"sample_id": "command-injection-ed39eccf-login", "content_type": "application/json", "body_bytes": 40, "status": 0, "rule_ids": ["920350", "932125", "932380", "949110"]}
+{"sample_id": "command-injection-f132167b-q", "content_type": null, "body_bytes": 0, "status": 0, "rule_ids": ["920350", "932235", "933100", "933130", "949110"]}
+{"sample_id": "command-injection-f132167b-login", "content_type": "application/json", "body_bytes": 83, "status": 0, "rule_ids": ["920350", "932235", "933100", "933130", "949110"]}
+{"sample_id": "command-injection-816a2b9e-q", "content_type": null, "body_bytes": 0, "status": 0, "rule_ids": ["920350", "932160", "932230", "932235", "932250", "933160", "942100", "942151", "949110"]}
+{"sample_id": "command-injection-816a2b9e-login", "content_type": "application/json", "body_bytes": 274, "status": 0, "rule_ids": ["920350", "932160", "932230", "932235", "932250", "933160", "942100", "942151", "949110"]}
+{"sample_id": "command-injection-700a78dc-q", "content_type": null, "body_bytes": 0, "status": 0, "rule_ids": ["920350", "932235", "932380", "949110"]}
+{"sample_id": "command-injection-700a78dc-login", "content_type": "application/json", "body_bytes": 45, "status": 0, "rule_ids": ["920350", "932235", "932380", "949110"]}
+{"sample_id": "command-injection-ea3a62c7-q", "content_type": null, "body_bytes": 0, "status": 0, "rule_ids": ["920350", "932125", "932230", "932250", "949110"]}
+{"sample_id": "command-injection-ea3a62c7-login", "content_type": "application/json", "body_bytes": 39, "status": 0, "rule_ids": ["920350", "932125", "932230", "932250", "949110"]}
+{"sample_id": "command-injection-58bc2ebf-q", "content_type": null, "body_bytes": 0, "status": 0, "rule_ids": ["920350", "932125", "932230", "932250", "949110"]}
+{"sample_id": "command-injection-58bc2ebf-login", "content_type": "application/json", "body_bytes": 45, "status": 0, "rule_ids": ["920350", "932125", "932230", "932250", "949110"]}
+{"sample_id": "command-injection-c479cd7c-q", "content_type": null, "body_bytes": 0, "status": 0, "rule_ids": ["920350", "932125", "932230", "932250", "949110"]}
+{"sample_id": "command-injection-c479cd7c-login", "content_type": "application/json", "body_bytes": 44, "status": 0, "rule_ids": ["920350", "932125", "932230", "932250", "949110"]}
+{"sample_id": "command-injection-46b48038-q", "content_type": null, "body_bytes": 0, "status": 0, "rule_ids": ["920350", "932235", "932260", "949110"]}
+{"sample_id": "command-injection-46b48038-login", "content_type": "application/json", "body_bytes": 58, "status": 0, "rule_ids": ["920350", "932235", "932260", "949110"]}
+{"sample_id": "command-injection-cd9eace2-q", "content_type": null, "body_bytes": 0, "status": 0, "rule_ids": ["920350", "932370", "932380", "949110"]}
+{"sample_id": "command-injection-cd9eace2-login", "content_type": "application/json", "body_bytes": 144, "status": 0, "rule_ids": ["920350", "932370", "932380", "949110"]}
+{"sample_id": "command-injection-1f1f8630-q", "content_type": null, "body_bytes": 0, "status": 0, "rule_ids": ["920350", "932235", "949110"]}
+{"sample_id": "command-injection-1f1f8630-login", "content_type": "application/json", "body_bytes": 39, "status": 0, "rule_ids": ["920350", "932235", "949110"]}
+{"sample_id": "command-injection-207db018-q", "content_type": null, "body_bytes": 0, "status": 0, "rule_ids": ["920350", "933160", "949110"]}
+{"sample_id": "command-injection-207db018-login", "content_type": "application/json", "body_bytes": 93, "status": 0, "rule_ids": ["920350", "933160", "949110"]}
+{"sample_id": "command-injection-c71c45ea-q", "content_type": null, "body_bytes": 0, "status": 0, "rule_ids": ["920350", "930120", "949110"]}
+{"sample_id": "command-injection-c71c45ea-login", "content_type": "application/json", "body_bytes": 59, "status": 0, "rule_ids": ["920350", "930120", "949110"]}
+{"sample_id": "command-injection-10c56b09-q", "content_type": null, "body_bytes": 0, "status": 0, "rule_ids": ["920350", "932235", "932260", "949110"]}
+{"sample_id": "command-injection-10c56b09-login", "content_type": "application/json", "body_bytes": 40, "status": 0, "rule_ids": ["920350", "932235", "932260", "949110"]}
+{"sample_id": "command-injection-732afe75-q", "content_type": null, "body_bytes": 0, "status": 0, "rule_ids": ["920350", "932235", "932260", "949110"]}
+{"sample_id": "command-injection-732afe75-login", "content_type": "application/json", "body_bytes": 82, "status": 0, "rule_ids": ["920350", "932235", "932260", "949110"]}
+{"sample_id": "command-injection-4d7f211d-q", "content_type": null, "body_bytes": 0, "status": 0, "rule_ids": ["920350", "932130", "932370", "933135", "933160", "942151", "949110"]}
+{"sample_id": "command-injection-4d7f211d-login", "content_type": "application/json", "body_bytes": 61, "status": 0, "rule_ids": ["920350", "932130", "932370", "933135", "933160", "942151", "949110"]}
+{"sample_id": "command-injection-8d13c060-q", "content_type": null, "body_bytes": 0, "status": 0, "rule_ids": ["920350", "932160", "949110"]}
+{"sample_id": "command-injection-8d13c060-login", "content_type": "application/json", "body_bytes": 44, "status": 0, "rule_ids": ["920350", "932160", "949110"]}
+{"sample_id": "command-injection-34391f4a-q", "content_type": null, "body_bytes": 0, "status": 0, "rule_ids": ["920350", "930120", "932160", "941180", "949110"]}
+{"sample_id": "command-injection-34391f4a-login", "content_type": "application/json", "body_bytes": 71, "status": 0, "rule_ids": ["920350", "930120", "932160", "941180", "949110"]}
+{"sample_id": "command-injection-1f1e6154-q", "content_type": null, "body_bytes": 0, "status": 0, "rule_ids": ["920350", "930120", "932160", "941180", "949110"]}
+{"sample_id": "command-injection-1f1e6154-login", "content_type": "application/json", "body_bytes": 71, "status": 0, "rule_ids": ["920350", "930120", "932160", "941180", "949110"]}
+{"sample_id": "command-injection-75e251e0-q", "content_type": null, "body_bytes": 0, "status": 0, "rule_ids": ["920350", "932160", "941180", "949110"]}
+{"sample_id": "command-injection-75e251e0-login", "content_type": "application/json", "body_bytes": 61, "status": 0, "rule_ids": ["920350", "932160", "941180", "949110"]}
+{"sample_id": "command-injection-969b49fc-q", "content_type": null, "body_bytes": 0, "status": 0, "rule_ids": ["920350", "930120", "932160", "933100", "933160", "949110"]}
+{"sample_id": "command-injection-969b49fc-login", "content_type": "application/json", "body_bytes": 66, "status": 0, "rule_ids": ["920350", "930120", "932160", "933100", "933160", "949110"]}
+{"sample_id": "command-injection-add351b6-q", "content_type": null, "body_bytes": 0, "status": 0, "rule_ids": ["920350", "933100", "933160", "949110"]}
+{"sample_id": "command-injection-add351b6-login", "content_type": "application/json", "body_bytes": 113, "status": 0, "rule_ids": ["920350", "933100", "933160", "949110"]}
+{"sample_id": "command-injection-ea53985f-q", "content_type": null, "body_bytes": 0, "status": 0, "rule_ids": ["920350", "932235", "932260", "932380", "949110"]}
+{"sample_id": "command-injection-ea53985f-login", "content_type": "application/json", "body_bytes": 116, "status": 0, "rule_ids": ["920350", "932235", "932260", "932380", "949110"]}
+{"sample_id": "command-injection-77c3ff65-q", "content_type": null, "body_bytes": 0, "status": 0, "rule_ids": ["920350", "932235", "932260", "932380", "949110"]}
+{"sample_id": "command-injection-77c3ff65-login", "content_type": "application/json", "body_bytes": 116, "status": 0, "rule_ids": ["920350", "932235", "932260", "932380", "949110"]}
+{"sample_id": "command-injection-dae696ae-q", "content_type": null, "body_bytes": 0, "status": 0, "rule_ids": ["920350", "930120", "932160", "949110"]}
+{"sample_id": "command-injection-dae696ae-login", "content_type": "application/json", "body_bytes": 45, "status": 0, "rule_ids": ["920350", "930120", "932160", "949110"]}
+{"sample_id": "command-injection-e7ebbff9-q", "content_type": null, "body_bytes": 0, "status": 0, "rule_ids": ["920350", "932235", "949110"]}
+{"sample_id": "command-injection-e7ebbff9-login", "content_type": "application/json", "body_bytes": 302, "status": 0, "rule_ids": ["920350", "932235", "949110"]}
+{"sample_id": "command-injection-227cb8a4-q", "content_type": null, "body_bytes": 0, "status": 0, "rule_ids": ["920350", "933100", "933130", "933160", "949110"]}
+{"sample_id": "command-injection-227cb8a4-login", "content_type": "application/json", "body_bytes": 79, "status": 0, "rule_ids": ["920350", "933100", "933130", "933160", "949110"]}
+{"sample_id": "command-injection-bfc2c586-q", "content_type": null, "body_bytes": 0, "status": 0, "rule_ids": ["920350", "932160", "932230", "932250", "933160", "942100", "942151", "949110"]}
+{"sample_id": "command-injection-bfc2c586-login", "content_type": "application/json", "body_bytes": 272, "status": 0, "rule_ids": ["920350", "932160", "932230", "932250", "933160", "942100", "942151", "949110"]}
+{"sample_id": "command-injection-2926244f-q", "content_type": null, "body_bytes": 0, "status": 0, "rule_ids": ["920350", "941100", "941120", "941160", "941390", "949110"]}
+{"sample_id": "command-injection-2926244f-login", "content_type": "application/json", "body_bytes": 140, "status": 0, "rule_ids": ["920350", "941100", "941120", "941160", "941390", "949110"]}
+{"sample_id": "command-injection-2845163d-q", "content_type": null, "body_bytes": 0, "status": 0, "rule_ids": ["920350", "941100", "941110", "941160", "949110"]}
+{"sample_id": "command-injection-2845163d-login", "content_type": "application/json", "body_bytes": 112, "status": 0, "rule_ids": ["920350", "941100", "941110", "941160", "949110"]}
+{"sample_id": "command-injection-1b8cf3ce-q", "content_type": null, "body_bytes": 0, "status": 0, "rule_ids": ["920350", "933160", "934100", "941390", "949110"]}
+{"sample_id": "command-injection-1b8cf3ce-login", "content_type": "application/json", "body_bytes": 41, "status": 0, "rule_ids": ["920350", "933160", "934100", "941390", "949110"]}
+{"sample_id": "command-injection-66bd9e30-q", "content_type": null, "body_bytes": 0, "status": 0, "rule_ids": ["920350", "933160", "934100", "941390", "949110"]}
+{"sample_id": "command-injection-66bd9e30-login", "content_type": "application/json", "body_bytes": 42, "status": 0, "rule_ids": ["920350", "933160", "934100", "941390", "949110"]}
+{"sample_id": "command-injection-9465d631-q", "content_type": null, "body_bytes": 0, "status": 0, "rule_ids": ["920350", "933160", "934100", "941390", "949110"]}
+{"sample_id": "command-injection-9465d631-login", "content_type": "application/json", "body_bytes": 45, "status": 0, "rule_ids": ["920350", "933160", "934100", "941390", "949110"]}
+{"sample_id": "command-injection-c3c2229c-q", "content_type": null, "body_bytes": 0, "status": 0, "rule_ids": ["920350", "933160", "934100", "941390", "949110"]}
+{"sample_id": "command-injection-c3c2229c-login", "content_type": "application/json", "body_bytes": 46, "status": 0, "rule_ids": ["920350", "933160", "934100", "941390", "949110"]}
+{"sample_id": "command-injection-addd61c6-q", "content_type": null, "body_bytes": 0, "status": 0, "rule_ids": ["920350", "933160", "949110"]}
+{"sample_id": "command-injection-addd61c6-login", "content_type": "application/json", "body_bytes": 44, "status": 0, "rule_ids": ["920350", "933160", "949110"]}
+{"sample_id": "command-injection-c754be48-q", "content_type": null, "body_bytes": 0, "status": 0, "rule_ids": ["920350", "932250", "942100", "949110"]}
+{"sample_id": "command-injection-c754be48-login", "content_type": "application/json", "body_bytes": 43, "status": 0, "rule_ids": ["920350", "932250", "942100", "949110"]}
+{"sample_id": "command-injection-498d017a-q", "content_type": null, "body_bytes": 0, "status": 0, "rule_ids": ["920350", "932250", "949110"]}
+{"sample_id": "command-injection-498d017a-login", "content_type": "application/json", "body_bytes": 40, "status": 0, "rule_ids": ["920350", "932250", "949110"]}
+{"sample_id": "command-injection-e9f644e1-q", "content_type": null, "body_bytes": 0, "status": 0, "rule_ids": ["920350", "932160", "949110"]}
+{"sample_id": "command-injection-e9f644e1-login", "content_type": "application/json", "body_bytes": 55, "status": 0, "rule_ids": ["920350", "932160", "949110"]}
+{"sample_id": "command-injection-9a990e35-q", "content_type": null, "body_bytes": 0, "status": 0, "rule_ids": ["920350", "932260", "949110"]}
+{"sample_id": "command-injection-9a990e35-login", "content_type": "application/json", "body_bytes": 37, "status": 0, "rule_ids": ["920350", "932260", "949110"]}
+{"sample_id": "command-injection-86b08086-q", "content_type": null, "body_bytes": 0, "status": 0, "rule_ids": ["920350", "932260", "949110"]}
+{"sample_id": "command-injection-86b08086-login", "content_type": "application/json", "body_bytes": 41, "status": 0, "rule_ids": ["920350", "932260", "949110"]}
+{"sample_id": "command-injection-77a634bd-q", "content_type": null, "body_bytes": 0, "status": 0, "rule_ids": ["920350", "932260", "949110"]}
+{"sample_id": "command-injection-77a634bd-login", "content_type": "application/json", "body_bytes": 56, "status": 0, "rule_ids": ["920350", "932260", "949110"]}
+{"sample_id": "command-injection-ea60c612-q", "content_type": null, "body_bytes": 0, "status": 0, "rule_ids": ["920350", "933160", "949110"]}
+{"sample_id": "command-injection-ea60c612-login", "content_type": "application/json", "body_bytes": 39, "status": 0, "rule_ids": ["920350", "933160", "949110"]}
+{"sample_id": "command-injection-60df228e-q", "content_type": null, "body_bytes": 0, "status": 0, "rule_ids": ["920350", "933160", "949110"]}
+{"sample_id": "command-injection-60df228e-login", "content_type": "application/json", "body_bytes": 40, "status": 0, "rule_ids": ["920350", "933160", "949110"]}
+{"sample_id": "command-injection-ff901ca2-q", "content_type": null, "body_bytes": 0, "status": 0, "rule_ids": ["920350", "930120", "933160", "949110"]}
+{"sample_id": "command-injection-ff901ca2-login", "content_type": "application/json", "body_bytes": 57, "status": 0, "rule_ids": ["920350", "930120", "933160", "949110"]}
+{"sample_id": "command-injection-45de5149-q", "content_type": null, "body_bytes": 0, "status": 0, "rule_ids": ["920350", "930120", "933160", "949110"]}
+{"sample_id": "command-injection-45de5149-login", "content_type": "application/json", "body_bytes": 55, "status": 0, "rule_ids": ["920350", "930120", "933160", "949110"]}
+{"sample_id": "command-injection-5a312df6-q", "content_type": null, "body_bytes": 0, "status": 0, "rule_ids": ["920350", "933160", "949110"]}
+{"sample_id": "command-injection-5a312df6-login", "content_type": "application/json", "body_bytes": 44, "status": 0, "rule_ids": ["920350", "933160", "949110"]}
+{"sample_id": "command-injection-b810e30e-q", "content_type": null, "body_bytes": 0, "status": 0, "rule_ids": ["920350", "933160", "949110"]}
+{"sample_id": "command-injection-b810e30e-login", "content_type": "application/json", "body_bytes": 48, "status": 0, "rule_ids": ["920350", "933160", "949110"]}
+{"sample_id": "command-injection-1110a1fa-q", "content_type": null, "body_bytes": 0, "status": 0, "rule_ids": ["920350", "933160", "949110"]}
+{"sample_id": "command-injection-1110a1fa-login", "content_type": "application/json", "body_bytes": 47, "status": 0, "rule_ids": ["920350", "933160", "949110"]}
+{"sample_id": "command-injection-367ddb9a-q", "content_type": null, "body_bytes": 0, "status": 0, "rule_ids": ["920350", "932235", "932260", "949110"]}
+{"sample_id": "command-injection-367ddb9a-login", "content_type": "application/json", "body_bytes": 66, "status": 0, "rule_ids": ["920350", "932235", "932260", "949110"]}
+{"sample_id": "command-injection-73c83db8-q", "content_type": null, "body_bytes": 0, "status": 0, "rule_ids": ["920350", "930120", "949110"]}
+{"sample_id": "command-injection-73c83db8-login", "content_type": "application/json", "body_bytes": 60, "status": 0, "rule_ids": ["920350", "930120", "949110"]}
+{"sample_id": "command-injection-d62a0c50-q", "content_type": null, "body_bytes": 0, "status": 0, "rule_ids": ["920350", "932260", "949110"]}
+{"sample_id": "command-injection-d62a0c50-login", "content_type": "application/json", "body_bytes": 80, "status": 0, "rule_ids": ["920350", "932260", "949110"]}
+{"sample_id": "command-injection-cac9bc7d-q", "content_type": null, "body_bytes": 0, "status": 0, "rule_ids": ["920350", "932125", "932380", "949110"]}
+{"sample_id": "command-injection-cac9bc7d-login", "content_type": "application/json", "body_bytes": 45, "status": 0, "rule_ids": ["920350", "932125", "932380", "949110"]}
+{"sample_id": "command-injection-527d772a-q", "content_type": null, "body_bytes": 0, "status": 0, "rule_ids": ["920350", "932125", "932230", "932250", "949110"]}
+{"sample_id": "command-injection-527d772a-login", "content_type": "application/json", "body_bytes": 39, "status": 0, "rule_ids": ["920350", "932125", "932230", "932250", "949110"]}
+{"sample_id": "command-injection-9779023f-q", "content_type": null, "body_bytes": 0, "status": 0, "rule_ids": ["920350", "932125", "932230", "932250", "949110"]}
+{"sample_id": "command-injection-9779023f-login", "content_type": "application/json", "body_bytes": 43, "status": 0, "rule_ids": ["920350", "932125", "932230", "932250", "949110"]}
+{"sample_id": "command-injection-1497268f-q", "content_type": null, "body_bytes": 0, "status": 0, "rule_ids": ["920350", "932125", "932230", "932250", "949110"]}
+{"sample_id": "command-injection-1497268f-login", "content_type": "application/json", "body_bytes": 42, "status": 0, "rule_ids": ["920350", "932125", "932230", "932250", "949110"]}
+{"sample_id": "command-injection-d688eb0f-q", "content_type": null, "body_bytes": 0, "status": 0, "rule_ids": ["920350", "932125", "932230", "932250", "949110"]}
+{"sample_id": "command-injection-d688eb0f-login", "content_type": "application/json", "body_bytes": 44, "status": 0, "rule_ids": ["920350", "932125", "932230", "932250", "949110"]}
+{"sample_id": "command-injection-1798182e-q", "content_type": null, "body_bytes": 0, "status": 0, "rule_ids": ["920350", "930120", "932125", "932230", "932250", "949110"]}
+{"sample_id": "command-injection-1798182e-login", "content_type": "application/json", "body_bytes": 48, "status": 0, "rule_ids": ["920350", "930120", "932125", "932230", "932250", "949110"]}
+{"sample_id": "command-injection-b2ef13f6-q", "content_type": null, "body_bytes": 0, "status": 0, "rule_ids": ["920350", "932160", "949110"]}
+{"sample_id": "command-injection-b2ef13f6-login", "content_type": "application/json", "body_bytes": 57, "status": 0, "rule_ids": ["920350", "932160", "949110"]}
+{"sample_id": "command-injection-4f7c584c-q", "content_type": null, "body_bytes": 0, "status": 0, "rule_ids": ["920350", "932235", "932260", "949110"]}
+{"sample_id": "command-injection-4f7c584c-login", "content_type": "application/json", "body_bytes": 58, "status": 0, "rule_ids": ["920350", "932235", "932260", "949110"]}
+{"sample_id": "command-injection-31cfee6d-q", "content_type": null, "body_bytes": 0, "status": 0, "rule_ids": ["920350", "933160", "949110"]}
+{"sample_id": "command-injection-31cfee6d-login", "content_type": "application/json", "body_bytes": 93, "status": 0, "rule_ids": ["920350", "933160", "949110"]}
+{"sample_id": "command-injection-f7cd087c-q", "content_type": null, "body_bytes": 0, "status": 0, "rule_ids": ["920350", "932235", "932260", "949110"]}
+{"sample_id": "command-injection-f7cd087c-login", "content_type": "application/json", "body_bytes": 40, "status": 0, "rule_ids": ["920350", "932235", "932260", "949110"]}
+{"sample_id": "command-injection-634e01e6-q", "content_type": null, "body_bytes": 0, "status": 0, "rule_ids": ["920350", "932235", "932260", "949110"]}
+{"sample_id": "command-injection-634e01e6-login", "content_type": "application/json", "body_bytes": 76, "status": 0, "rule_ids": ["920350", "932235", "932260", "949110"]}
+{"sample_id": "command-injection-734d512f-q", "content_type": null, "body_bytes": 0, "status": 0, "rule_ids": ["920350", "932235", "932260", "949110"]}
+{"sample_id": "command-injection-734d512f-login", "content_type": "application/json", "body_bytes": 60, "status": 0, "rule_ids": ["920350", "932235", "932260", "949110"]}
+{"sample_id": "command-injection-05bbe7a8-q", "content_type": null, "body_bytes": 0, "status": 0, "rule_ids": ["920350", "932235", "932260", "949110"]}
+{"sample_id": "command-injection-05bbe7a8-login", "content_type": "application/json", "body_bytes": 59, "status": 0, "rule_ids": ["920350", "932235", "932260", "949110"]}
+{"sample_id": "command-injection-d0c42ef7-q", "content_type": null, "body_bytes": 0, "status": 0, "rule_ids": ["920350", "932235", "932260", "949110"]}
+{"sample_id": "command-injection-d0c42ef7-login", "content_type": "application/json", "body_bytes": 59, "status": 0, "rule_ids": ["920350", "932235", "932260", "949110"]}
+{"sample_id": "command-injection-8110abe4-q", "content_type": null, "body_bytes": 0, "status": 0, "rule_ids": ["920350", "932235", "949110"]}
+{"sample_id": "command-injection-8110abe4-login", "content_type": "application/json", "body_bytes": 41, "status": 0, "rule_ids": ["920350", "932235", "949110"]}
+{"sample_id": "command-injection-b42c67f8-q", "content_type": null, "body_bytes": 0, "status": 0, "rule_ids": ["920350", "933160", "949110"]}
+{"sample_id": "command-injection-b42c67f8-login", "content_type": "application/json", "body_bytes": 51, "status": 0, "rule_ids": ["920350", "933160", "949110"]}

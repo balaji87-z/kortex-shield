@@ -1,0 +1,341 @@
+# step-24 T4: own datasets on the step-24 engine, tables (runs: docs/logs/step24-own-datasets*.txt)
+# 2026-11-28T05:00:02Z git 40e451981abc7ec16b5dd12b99fb278b2b570ebf
+# .venv/bin/python tools/step24_own_summary.py docs/logs/runs/s24-own docs/logs/runs/s21-t3-parity
+
+== PL1: rates and counts per run
+attacks-v0-inprocess-pl1: requests 1054, distinct payloads 527; outcomes: waf_block 954, waf_pass 100
+    recall best case (only waf_block) 954/1054 = 90.51%; worst case (every outcome that is not a pass) 954/1054 = 90.51%  [IN-SAMPLE for the REQUEST_BODY target choice of step 18]
+    per family, blocked of requests: command-injection 224/300, path-traversal 298/300, sqli 132/154, xss 300/300
+    rule 18: 954 audit entries; rule ids in >=20% of them: 949110=954, 930120=318, 941390=310, 941120=302, 941100=290, 941160=250, 930100=234
+attacks-v0-worker-pl1: requests 1054, distinct payloads 527; outcomes: waf_block 954, waf_pass 100
+    recall best case (only waf_block) 954/1054 = 90.51%; worst case (every outcome that is not a pass) 954/1054 = 90.51%  [IN-SAMPLE for the REQUEST_BODY target choice of step 18]
+    per family, blocked of requests: command-injection 224/300, path-traversal 298/300, sqli 132/154, xss 300/300
+    rule 18: 954 audit entries; rule ids in >=20% of them: 949110=954, 930120=318, 941390=310, 941120=302, 941100=290, 941160=250, 930100=234
+attacks-ct-v0-inprocess-pl1: requests 320, distinct payloads 40; outcomes: waf_block 292, waf_pass 28
+    recall best case (only waf_block) 292/320 = 91.25%; worst case (every outcome that is not a pass) 292/320 = 91.25%  [IN-SAMPLE for the REQUEST_BODY target choice of step 18]
+    per family, blocked of requests: command-injection 59/80, path-traversal 80/80, sqli 73/80, xss 80/80
+    rule 18: 292 audit entries; rule ids in >=20% of them: 949110=292, 941390=88, 941120=80, 930120=80, 942100=72, 941100=72, 930100=72, 941160=64
+attacks-ct-v0-worker-pl1: requests 320, distinct payloads 40; outcomes: waf_block 292, waf_pass 28
+    recall best case (only waf_block) 292/320 = 91.25%; worst case (every outcome that is not a pass) 292/320 = 91.25%  [IN-SAMPLE for the REQUEST_BODY target choice of step 18]
+    per family, blocked of requests: command-injection 59/80, path-traversal 80/80, sqli 73/80, xss 80/80
+    rule 18: 292 audit entries; rule ids in >=20% of them: 949110=292, 941390=88, 941120=80, 930120=80, 942100=72, 941100=72, 930100=72, 941160=64
+encoding-diff-v0-inprocess-pl1: requests 192, distinct payloads 16; outcomes: error 10, waf_block 137, waf_pass 45
+    blocked 137 of 192; not passed 147 of 192 (chosen cases: counts, not a rate, rule 35)
+    per family, blocked of requests: command-injection 24/48, path-traversal 40/48, sqli 37/48, xss 36/48
+    rule 18: 137 audit entries; rule ids in >=20% of them: 949110=137, 930120=40, 942100=37, 941120=36, 941100=36, 941160=36, 930100=30
+encoding-diff-v0-worker-pl1: requests 192, distinct payloads 16; outcomes: error 10, waf_block 137, waf_pass 45
+    blocked 137 of 192; not passed 147 of 192 (chosen cases: counts, not a rate, rule 35)
+    per family, blocked of requests: command-injection 24/48, path-traversal 40/48, sqli 37/48, xss 36/48
+    rule 18: 137 audit entries; rule ids in >=20% of them: 949110=137, 930120=40, 942100=37, 941120=36, 941100=36, 941160=36, 930100=30
+benign-browse-v1-inprocess-pl1: requests 774, distinct endpoints 313; outcomes: waf_block 124, waf_pass 650
+    potential false positives (natural benign, held-out): best case (only waf_block) 124/774 = 16.02%; worst case (every outcome that is not a pass) 124/774 = 16.02%
+    rule 18: 124 audit entries; rule ids in >=20% of them: 949110=124, 911100=120
+benign-browse-v1-worker-pl1: requests 774, distinct endpoints 313; outcomes: waf_block 124, waf_pass 650
+    potential false positives (natural benign, held-out): best case (only waf_block) 124/774 = 16.02%; worst case (every outcome that is not a pass) 124/774 = 16.02%
+    rule 18: 124 audit entries; rule ids in >=20% of them: 949110=124, 911100=120
+benign-hard-v0-inprocess-pl1: requests 180, distinct endpoints 2; outcomes: waf_block 22, waf_pass 158
+    potential false positives (hard benign, held-out): best case (only waf_block) 22/180 = 12.22%; worst case (every outcome that is not a pass) 22/180 = 12.22%
+    rule 18: 22 audit entries; rule ids in >=20% of them: 949110=22, 932260=10, 942100=6, 932235=6
+benign-hard-v0-worker-pl1: requests 180, distinct endpoints 2; outcomes: waf_block 22, waf_pass 158
+    potential false positives (hard benign, held-out): best case (only waf_block) 22/180 = 12.22%; worst case (every outcome that is not a pass) 22/180 = 12.22%
+    rule 18: 22 audit entries; rule ids in >=20% of them: 949110=22, 932260=10, 942100=6, 932235=6
+
+== PL2: rates and counts per run
+attacks-v0-inprocess-pl2: requests 1054, distinct payloads 527; outcomes: waf_block 1024, waf_pass 30
+    recall best case (only waf_block) 1024/1054 = 97.15%; worst case (every outcome that is not a pass) 1024/1054 = 97.15%  [IN-SAMPLE for the REQUEST_BODY target choice of step 18]
+    per family, blocked of requests: command-injection 276/300, path-traversal 300/300, sqli 148/154, xss 300/300
+    rule 18: 1024 audit entries; rule ids in >=20% of them: 949110=1024, 930120=318, 941390=310, 941120=302, 942370=294, 941100=290, 942520=278, 941160=250, 932236=248, 941320=244, 930100=234
+attacks-v0-worker-pl2: requests 1054, distinct payloads 527; outcomes: waf_block 1024, waf_pass 30
+    recall best case (only waf_block) 1024/1054 = 97.15%; worst case (every outcome that is not a pass) 1024/1054 = 97.15%  [IN-SAMPLE for the REQUEST_BODY target choice of step 18]
+    per family, blocked of requests: command-injection 276/300, path-traversal 300/300, sqli 148/154, xss 300/300
+    rule 18: 1024 audit entries; rule ids in >=20% of them: 949110=1024, 930120=318, 941390=310, 941120=302, 942370=294, 941100=290, 942520=278, 941160=250, 932236=248, 941320=244, 930100=234
+attacks-ct-v0-inprocess-pl2: requests 320, distinct payloads 40; outcomes: waf_block 313, waf_pass 7
+    recall best case (only waf_block) 313/320 = 97.81%; worst case (every outcome that is not a pass) 313/320 = 97.81%  [IN-SAMPLE for the REQUEST_BODY target choice of step 18]
+    per family, blocked of requests: command-injection 73/80, path-traversal 80/80, sqli 80/80, xss 80/80
+    rule 18: 313 audit entries; rule ids in >=20% of them: 949110=313, 942520=128, 942370=104, 941390=88, 932240=80, 941120=80, 941320=80, 930120=80, 942430=73, 942100=72, 941100=72, 930100=72, 942180=64, 941160=64
+attacks-ct-v0-worker-pl2: requests 320, distinct payloads 40; outcomes: waf_block 313, waf_pass 7
+    recall best case (only waf_block) 313/320 = 97.81%; worst case (every outcome that is not a pass) 313/320 = 97.81%  [IN-SAMPLE for the REQUEST_BODY target choice of step 18]
+    per family, blocked of requests: command-injection 73/80, path-traversal 80/80, sqli 80/80, xss 80/80
+    rule 18: 313 audit entries; rule ids in >=20% of them: 949110=313, 942520=128, 942370=104, 941390=88, 932240=80, 941120=80, 941320=80, 930120=80, 942430=73, 942100=72, 941100=72, 930100=72, 942180=64, 941160=64
+encoding-diff-v0-inprocess-pl2: requests 192, distinct payloads 16; outcomes: error 10, waf_block 147, waf_pass 35
+    blocked 147 of 192; not passed 157 of 192 (chosen cases: counts, not a rate, rule 35)
+    per family, blocked of requests: command-injection 34/48, path-traversal 40/48, sqli 37/48, xss 36/48
+    rule 18: 147 audit entries; rule ids in >=20% of them: 949110=147, 942520=73, 942430=60, 942370=54, 920230=41, 930120=40, 942100=37, 942180=36, 941120=36, 941100=36, 941160=36, 930100=30
+encoding-diff-v0-worker-pl2: requests 192, distinct payloads 16; outcomes: error 10, waf_block 147, waf_pass 35
+    blocked 147 of 192; not passed 157 of 192 (chosen cases: counts, not a rate, rule 35)
+    per family, blocked of requests: command-injection 34/48, path-traversal 40/48, sqli 37/48, xss 36/48
+    rule 18: 147 audit entries; rule ids in >=20% of them: 949110=147, 942520=73, 942430=60, 942370=54, 920230=41, 930120=40, 942100=37, 942180=36, 941120=36, 941100=36, 941160=36, 930100=30
+benign-browse-v1-inprocess-pl2: requests 774, distinct endpoints 313; outcomes: waf_block 124, waf_pass 650
+    potential false positives (natural benign, held-out): best case (only waf_block) 124/774 = 16.02%; worst case (every outcome that is not a pass) 124/774 = 16.02%
+    rule 18: 124 audit entries; rule ids in >=20% of them: 949110=124, 911100=120
+benign-browse-v1-worker-pl2: requests 774, distinct endpoints 313; outcomes: waf_block 124, waf_pass 650
+    potential false positives (natural benign, held-out): best case (only waf_block) 124/774 = 16.02%; worst case (every outcome that is not a pass) 124/774 = 16.02%
+    rule 18: 124 audit entries; rule ids in >=20% of them: 949110=124, 911100=120
+benign-hard-v0-inprocess-pl2: requests 180, distinct endpoints 2; outcomes: waf_block 78, waf_pass 102
+    potential false positives (hard benign, held-out): best case (only waf_block) 78/180 = 43.33%; worst case (every outcome that is not a pass) 78/180 = 43.33%
+    rule 18: 78 audit entries; rule ids in >=20% of them: 949110=78, 932236=34, 931130=16
+benign-hard-v0-worker-pl2: requests 180, distinct endpoints 2; outcomes: waf_block 78, waf_pass 102
+    potential false positives (hard benign, held-out): best case (only waf_block) 78/180 = 43.33%; worst case (every outcome that is not a pass) 78/180 = 43.33%
+    rule 18: 78 audit entries; rule ids in >=20% of them: 949110=78, 932236=34, 931130=16
+
+== parity per sample id: in-process against worker (patched engine)
+attacks-v0 PL1
+    in-process against worker: 1054 sample ids; status differs in 0; worst-case set differs in 0; rule-id set differs in 0
+attacks-ct-v0 PL1
+    in-process against worker: 320 sample ids; status differs in 0; worst-case set differs in 0; rule-id set differs in 0
+encoding-diff-v0 PL1
+    in-process against worker: 192 sample ids; status differs in 0; worst-case set differs in 0; rule-id set differs in 0
+benign-browse-v1 PL1
+    in-process against worker: 774 sample ids; status differs in 0; worst-case set differs in 0; rule-id set differs in 0
+benign-hard-v0 PL1
+    in-process against worker: 180 sample ids; status differs in 0; worst-case set differs in 0; rule-id set differs in 0
+attacks-v0 PL2
+    in-process against worker: 1054 sample ids; status differs in 0; worst-case set differs in 0; rule-id set differs in 0
+attacks-ct-v0 PL2
+    in-process against worker: 320 sample ids; status differs in 0; worst-case set differs in 0; rule-id set differs in 0
+encoding-diff-v0 PL2
+    in-process against worker: 192 sample ids; status differs in 0; worst-case set differs in 0; rule-id set differs in 0
+benign-browse-v1 PL2
+    in-process against worker: 774 sample ids; status differs in 0; worst-case set differs in 0; rule-id set differs in 0
+benign-hard-v0 PL2
+    in-process against worker: 180 sample ids; status differs in 0; worst-case set differs in 0; rule-id set differs in 0
+
+== DIAGNOSTIC stock coraza v3.8.1 (same commit, replace dropped), in-process: counts, then per sample id against the patched in-process run
+attacks-v0-inprocess-pl1-DIAGNOSTIC-stock: requests 1054, distinct payloads 527; outcomes: waf_block 954, waf_pass 100
+    patched against stock: 1054 sample ids; status differs in 0; worst-case set differs in 0; rule-id set differs in 0
+attacks-ct-v0-inprocess-pl1-DIAGNOSTIC-stock: requests 320, distinct payloads 40; outcomes: waf_block 292, waf_pass 28
+    patched against stock: 320 sample ids; status differs in 0; worst-case set differs in 0; rule-id set differs in 0
+encoding-diff-v0-inprocess-pl1-DIAGNOSTIC-stock: requests 192, distinct payloads 16; outcomes: error 10, waf_block 137, waf_pass 45
+    patched against stock: 192 sample ids; status differs in 0; worst-case set differs in 0; rule-id set differs in 0
+benign-browse-v1-inprocess-pl1-DIAGNOSTIC-stock: requests 774, distinct endpoints 313; outcomes: waf_block 124, waf_pass 650
+    patched against stock: 774 sample ids; status differs in 0; worst-case set differs in 0; rule-id set differs in 0
+benign-hard-v0-inprocess-pl1-DIAGNOSTIC-stock: requests 180, distinct endpoints 2; outcomes: waf_block 22, waf_pass 158
+    patched against stock: 180 sample ids; status differs in 0; worst-case set differs in 0; rule-id set differs in 0
+attacks-v0-inprocess-pl2-DIAGNOSTIC-stock: requests 1054, distinct payloads 527; outcomes: waf_block 1024, waf_pass 30
+    patched against stock: 1054 sample ids; status differs in 0; worst-case set differs in 0; rule-id set differs in 0
+attacks-ct-v0-inprocess-pl2-DIAGNOSTIC-stock: requests 320, distinct payloads 40; outcomes: waf_block 313, waf_pass 7
+    patched against stock: 320 sample ids; status differs in 0; worst-case set differs in 0; rule-id set differs in 0
+encoding-diff-v0-inprocess-pl2-DIAGNOSTIC-stock: requests 192, distinct payloads 16; outcomes: error 10, waf_block 147, waf_pass 35
+    patched against stock: 192 sample ids; status differs in 0; worst-case set differs in 0; rule-id set differs in 0
+benign-browse-v1-inprocess-pl2-DIAGNOSTIC-stock: requests 774, distinct endpoints 313; outcomes: waf_block 124, waf_pass 650
+    patched against stock: 774 sample ids; status differs in 0; worst-case set differs in 0; rule-id set differs in 0
+benign-hard-v0-inprocess-pl2-DIAGNOSTIC-stock: requests 180, distinct endpoints 2; outcomes: waf_block 78, waf_pass 102
+    patched against stock: 180 sample ids; status differs in 0; worst-case set differs in 0; rule-id set differs in 0
+
+== DIAGNOSTIC numeric Host (requests to 127.0.0.1), patched engine, in-process, PL1: counts, then per sample id against the Host-localhost run
+attacks-v0-inprocess-pl1-DIAGNOSTIC-numeric-host: requests 1054, distinct payloads 527; outcomes: waf_block 954, waf_pass 100
+    Host localhost: audit entries 954, with rule 920350 (numeric Host): 0
+    Host 127.0.0.1: audit entries 954, with rule 920350 (numeric Host): 954
+    localhost against numeric: 1054 sample ids; status differs in 0; worst-case set differs in 0; rule-id set differs in 954
+      command-injection-05bbe7a8-login: status 403 / 403; outcome waf_block / waf_block; rule ids only in localhost [], only in numeric ['920350']
+      command-injection-05bbe7a8-q: status 403 / 403; outcome waf_block / waf_block; rule ids only in localhost [], only in numeric ['920350']
+      command-injection-0d78fbef-login: status 403 / 403; outcome waf_block / waf_block; rule ids only in localhost [], only in numeric ['920350']
+      command-injection-0d78fbef-q: status 403 / 403; outcome waf_block / waf_block; rule ids only in localhost [], only in numeric ['920350']
+      command-injection-10c56b09-login: status 403 / 403; outcome waf_block / waf_block; rule ids only in localhost [], only in numeric ['920350']
+      command-injection-10c56b09-q: status 403 / 403; outcome waf_block / waf_block; rule ids only in localhost [], only in numeric ['920350']
+      command-injection-1110a1fa-login: status 403 / 403; outcome waf_block / waf_block; rule ids only in localhost [], only in numeric ['920350']
+      command-injection-1110a1fa-q: status 403 / 403; outcome waf_block / waf_block; rule ids only in localhost [], only in numeric ['920350']
+      command-injection-124a2251-login: status 403 / 403; outcome waf_block / waf_block; rule ids only in localhost [], only in numeric ['920350']
+      command-injection-124a2251-q: status 403 / 403; outcome waf_block / waf_block; rule ids only in localhost [], only in numeric ['920350']
+      command-injection-1497268f-login: status 403 / 403; outcome waf_block / waf_block; rule ids only in localhost [], only in numeric ['920350']
+      command-injection-1497268f-q: status 403 / 403; outcome waf_block / waf_block; rule ids only in localhost [], only in numeric ['920350']
+      command-injection-1798182e-login: status 403 / 403; outcome waf_block / waf_block; rule ids only in localhost [], only in numeric ['920350']
+      command-injection-1798182e-q: status 403 / 403; outcome waf_block / waf_block; rule ids only in localhost [], only in numeric ['920350']
+      command-injection-18140e90-login: status 403 / 403; outcome waf_block / waf_block; rule ids only in localhost [], only in numeric ['920350']
+      command-injection-18140e90-q: status 403 / 403; outcome waf_block / waf_block; rule ids only in localhost [], only in numeric ['920350']
+      command-injection-1b8cf3ce-login: status 403 / 403; outcome waf_block / waf_block; rule ids only in localhost [], only in numeric ['920350']
+      command-injection-1b8cf3ce-q: status 403 / 403; outcome waf_block / waf_block; rule ids only in localhost [], only in numeric ['920350']
+      command-injection-1bff845a-login: status 403 / 403; outcome waf_block / waf_block; rule ids only in localhost [], only in numeric ['920350']
+      command-injection-1bff845a-q: status 403 / 403; outcome waf_block / waf_block; rule ids only in localhost [], only in numeric ['920350']
+      command-injection-1e054ad2-login: status 403 / 403; outcome waf_block / waf_block; rule ids only in localhost [], only in numeric ['920350']
+      command-injection-1e054ad2-q: status 403 / 403; outcome waf_block / waf_block; rule ids only in localhost [], only in numeric ['920350']
+      command-injection-1e13eaeb-login: status 403 / 403; outcome waf_block / waf_block; rule ids only in localhost [], only in numeric ['920350']
+      command-injection-1e13eaeb-q: status 403 / 403; outcome waf_block / waf_block; rule ids only in localhost [], only in numeric ['920350']
+      command-injection-1f1e6154-login: status 403 / 403; outcome waf_block / waf_block; rule ids only in localhost [], only in numeric ['920350']
+      command-injection-1f1e6154-q: status 403 / 403; outcome waf_block / waf_block; rule ids only in localhost [], only in numeric ['920350']
+      command-injection-1f1f8630-login: status 403 / 403; outcome waf_block / waf_block; rule ids only in localhost [], only in numeric ['920350']
+      command-injection-1f1f8630-q: status 403 / 403; outcome waf_block / waf_block; rule ids only in localhost [], only in numeric ['920350']
+      command-injection-207db018-login: status 403 / 403; outcome waf_block / waf_block; rule ids only in localhost [], only in numeric ['920350']
+      command-injection-207db018-q: status 403 / 403; outcome waf_block / waf_block; rule ids only in localhost [], only in numeric ['920350']
+      command-injection-227cb8a4-login: status 403 / 403; outcome waf_block / waf_block; rule ids only in localhost [], only in numeric ['920350']
+      command-injection-227cb8a4-q: status 403 / 403; outcome waf_block / waf_block; rule ids only in localhost [], only in numeric ['920350']
+      command-injection-2692182d-login: status 403 / 403; outcome waf_block / waf_block; rule ids only in localhost [], only in numeric ['920350']
+      command-injection-2692182d-q: status 403 / 403; outcome waf_block / waf_block; rule ids only in localhost [], only in numeric ['920350']
+      command-injection-2845163d-login: status 403 / 403; outcome waf_block / waf_block; rule ids only in localhost [], only in numeric ['920350']
+      command-injection-2845163d-q: status 403 / 403; outcome waf_block / waf_block; rule ids only in localhost [], only in numeric ['920350']
+      command-injection-2926244f-login: status 403 / 403; outcome waf_block / waf_block; rule ids only in localhost [], only in numeric ['920350']
+      command-injection-2926244f-q: status 403 / 403; outcome waf_block / waf_block; rule ids only in localhost [], only in numeric ['920350']
+      command-injection-31cfee6d-login: status 403 / 403; outcome waf_block / waf_block; rule ids only in localhost [], only in numeric ['920350']
+      command-injection-31cfee6d-q: status 403 / 403; outcome waf_block / waf_block; rule ids only in localhost [], only in numeric ['920350']
+      ... and 914 more ids (all in the run files)
+    step-21 run (stock coraza, 127.0.0.1) against today's numeric-Host run: status differs in 0 of 1054 sample ids
+    step-21 run (stock coraza, 127.0.0.1) against today's Host-localhost run: status differs in 0 of 1054 sample ids
+attacks-ct-v0-inprocess-pl1-DIAGNOSTIC-numeric-host: requests 320, distinct payloads 40; outcomes: waf_block 292, waf_pass 28
+    Host localhost: audit entries 292, with rule 920350 (numeric Host): 0
+    Host 127.0.0.1: audit entries 292, with rule 920350 (numeric Host): 292
+    localhost against numeric: 320 sample ids; status differs in 0; worst-case set differs in 0; rule-id set differs in 292
+      actv0-json-command-injection-05bbe7a8: status 403 / 403; outcome waf_block / waf_block; rule ids only in localhost [], only in numeric ['920350']
+      actv0-json-command-injection-1b8cf3ce: status 403 / 403; outcome waf_block / waf_block; rule ids only in localhost [], only in numeric ['920350']
+      actv0-json-command-injection-227cb8a4: status 403 / 403; outcome waf_block / waf_block; rule ids only in localhost [], only in numeric ['920350']
+      actv0-json-command-injection-77c3ff65: status 403 / 403; outcome waf_block / waf_block; rule ids only in localhost [], only in numeric ['920350']
+      actv0-json-command-injection-b810e30e: status 403 / 403; outcome waf_block / waf_block; rule ids only in localhost [], only in numeric ['920350']
+      actv0-json-command-injection-cfb6b9f0: status 403 / 403; outcome waf_block / waf_block; rule ids only in localhost [], only in numeric ['920350']
+      actv0-json-command-injection-dc2932d5: status 403 / 403; outcome waf_block / waf_block; rule ids only in localhost [], only in numeric ['920350']
+      actv0-json-path-traversal-1ec1b09a: status 403 / 403; outcome waf_block / waf_block; rule ids only in localhost [], only in numeric ['920350']
+      actv0-json-path-traversal-2aa7f02e: status 403 / 403; outcome waf_block / waf_block; rule ids only in localhost [], only in numeric ['920350']
+      actv0-json-path-traversal-556a4824: status 403 / 403; outcome waf_block / waf_block; rule ids only in localhost [], only in numeric ['920350']
+      actv0-json-path-traversal-921f3d78: status 403 / 403; outcome waf_block / waf_block; rule ids only in localhost [], only in numeric ['920350']
+      actv0-json-path-traversal-9a36aadc: status 403 / 403; outcome waf_block / waf_block; rule ids only in localhost [], only in numeric ['920350']
+      actv0-json-path-traversal-a605a9c3: status 403 / 403; outcome waf_block / waf_block; rule ids only in localhost [], only in numeric ['920350']
+      actv0-json-path-traversal-c5d7df2b: status 403 / 403; outcome waf_block / waf_block; rule ids only in localhost [], only in numeric ['920350']
+      actv0-json-path-traversal-d0149f94: status 403 / 403; outcome waf_block / waf_block; rule ids only in localhost [], only in numeric ['920350']
+      actv0-json-path-traversal-f51c297b: status 403 / 403; outcome waf_block / waf_block; rule ids only in localhost [], only in numeric ['920350']
+      actv0-json-path-traversal-f8eebd5c: status 403 / 403; outcome waf_block / waf_block; rule ids only in localhost [], only in numeric ['920350']
+      actv0-json-sqli-0933fb66: status 403 / 403; outcome waf_block / waf_block; rule ids only in localhost [], only in numeric ['920350']
+      actv0-json-sqli-6e47f23b: status 403 / 403; outcome waf_block / waf_block; rule ids only in localhost [], only in numeric ['920350']
+      actv0-json-sqli-8c187a93: status 403 / 403; outcome waf_block / waf_block; rule ids only in localhost [], only in numeric ['920350']
+      actv0-json-sqli-a2035700: status 403 / 403; outcome waf_block / waf_block; rule ids only in localhost [], only in numeric ['920350']
+      actv0-json-sqli-bd5671f5: status 403 / 403; outcome waf_block / waf_block; rule ids only in localhost [], only in numeric ['920350']
+      actv0-json-sqli-bde4f6b2: status 403 / 403; outcome waf_block / waf_block; rule ids only in localhost [], only in numeric ['920350']
+      actv0-json-sqli-c6072953: status 403 / 403; outcome waf_block / waf_block; rule ids only in localhost [], only in numeric ['920350']
+      actv0-json-sqli-daa646a8: status 403 / 403; outcome waf_block / waf_block; rule ids only in localhost [], only in numeric ['920350']
+      actv0-json-sqli-e0ed04bd: status 403 / 403; outcome waf_block / waf_block; rule ids only in localhost [], only in numeric ['920350']
+      actv0-json-xss-369d0b75: status 403 / 403; outcome waf_block / waf_block; rule ids only in localhost [], only in numeric ['920350']
+      actv0-json-xss-545d1ff8: status 403 / 403; outcome waf_block / waf_block; rule ids only in localhost [], only in numeric ['920350']
+      actv0-json-xss-56083d09: status 403 / 403; outcome waf_block / waf_block; rule ids only in localhost [], only in numeric ['920350']
+      actv0-json-xss-784791cd: status 403 / 403; outcome waf_block / waf_block; rule ids only in localhost [], only in numeric ['920350']
+      actv0-json-xss-84f65a00: status 403 / 403; outcome waf_block / waf_block; rule ids only in localhost [], only in numeric ['920350']
+      actv0-json-xss-8f5b4e90: status 403 / 403; outcome waf_block / waf_block; rule ids only in localhost [], only in numeric ['920350']
+      actv0-json-xss-9d9144c5: status 403 / 403; outcome waf_block / waf_block; rule ids only in localhost [], only in numeric ['920350']
+      actv0-json-xss-e0e52a03: status 403 / 403; outcome waf_block / waf_block; rule ids only in localhost [], only in numeric ['920350']
+      actv0-json-xss-eb4cfe84: status 403 / 403; outcome waf_block / waf_block; rule ids only in localhost [], only in numeric ['920350']
+      actv0-json-xss-ffb57ed3: status 403 / 403; outcome waf_block / waf_block; rule ids only in localhost [], only in numeric ['920350']
+      actv0-multipart-command-injection-05bbe7a8: status 403 / 403; outcome waf_block / waf_block; rule ids only in localhost [], only in numeric ['920350']
+      actv0-multipart-command-injection-1b8cf3ce: status 403 / 403; outcome waf_block / waf_block; rule ids only in localhost [], only in numeric ['920350']
+      actv0-multipart-command-injection-227cb8a4: status 403 / 403; outcome waf_block / waf_block; rule ids only in localhost [], only in numeric ['920350']
+      actv0-multipart-command-injection-77c3ff65: status 403 / 403; outcome waf_block / waf_block; rule ids only in localhost [], only in numeric ['920350']
+      ... and 252 more ids (all in the run files)
+    step-21 run (stock coraza, 127.0.0.1) against today's numeric-Host run: status differs in 0 of 320 sample ids
+    step-21 run (stock coraza, 127.0.0.1) against today's Host-localhost run: status differs in 0 of 320 sample ids
+encoding-diff-v0-inprocess-pl1-DIAGNOSTIC-numeric-host: requests 192, distinct payloads 16; outcomes: error 10, waf_block 137, waf_pass 45
+    Host localhost: audit entries 137, with rule 920350 (numeric Host): 0
+    Host 127.0.0.1: audit entries 137, with rule 920350 (numeric Host): 137
+    localhost against numeric: 192 sample ids; status differs in 0; worst-case set differs in 0; rule-id set differs in 137
+      encd-query-double-pct-command-injection-1b8cf3ce: status 403 / 403; outcome waf_block / waf_block; rule ids only in localhost [], only in numeric ['920350']
+      encd-query-double-pct-command-injection-227cb8a4: status 403 / 403; outcome waf_block / waf_block; rule ids only in localhost [], only in numeric ['920350']
+      encd-query-double-pct-path-traversal-1ec1b09a: status 403 / 403; outcome waf_block / waf_block; rule ids only in localhost [], only in numeric ['920350']
+      encd-query-double-pct-path-traversal-2aa7f02e: status 403 / 403; outcome waf_block / waf_block; rule ids only in localhost [], only in numeric ['920350']
+      encd-query-double-pct-path-traversal-556a4824: status 403 / 403; outcome waf_block / waf_block; rule ids only in localhost [], only in numeric ['920350']
+      encd-query-double-pct-path-traversal-921f3d78: status 403 / 403; outcome waf_block / waf_block; rule ids only in localhost [], only in numeric ['920350']
+      encd-query-double-pct-sqli-0933fb66: status 403 / 403; outcome waf_block / waf_block; rule ids only in localhost [], only in numeric ['920350']
+      encd-query-double-pct-sqli-6e47f23b: status 403 / 403; outcome waf_block / waf_block; rule ids only in localhost [], only in numeric ['920350']
+      encd-query-double-pct-sqli-8c187a93: status 403 / 403; outcome waf_block / waf_block; rule ids only in localhost [], only in numeric ['920350']
+      encd-query-double-pct-sqli-a2035700: status 403 / 403; outcome waf_block / waf_block; rule ids only in localhost [], only in numeric ['920350']
+      encd-query-double-pct-xss-369d0b75: status 403 / 403; outcome waf_block / waf_block; rule ids only in localhost [], only in numeric ['920350']
+      encd-query-double-pct-xss-545d1ff8: status 403 / 403; outcome waf_block / waf_block; rule ids only in localhost [], only in numeric ['920350']
+      encd-query-double-pct-xss-56083d09: status 403 / 403; outcome waf_block / waf_block; rule ids only in localhost [], only in numeric ['920350']
+      encd-query-double-pct-xss-784791cd: status 403 / 403; outcome waf_block / waf_block; rule ids only in localhost [], only in numeric ['920350']
+      encd-query-mixed-case-hex-command-injection-05bbe7a8: status 403 / 403; outcome waf_block / waf_block; rule ids only in localhost [], only in numeric ['920350']
+      encd-query-mixed-case-hex-command-injection-1b8cf3ce: status 403 / 403; outcome waf_block / waf_block; rule ids only in localhost [], only in numeric ['920350']
+      encd-query-mixed-case-hex-command-injection-227cb8a4: status 403 / 403; outcome waf_block / waf_block; rule ids only in localhost [], only in numeric ['920350']
+      encd-query-mixed-case-hex-path-traversal-1ec1b09a: status 403 / 403; outcome waf_block / waf_block; rule ids only in localhost [], only in numeric ['920350']
+      encd-query-mixed-case-hex-path-traversal-2aa7f02e: status 403 / 403; outcome waf_block / waf_block; rule ids only in localhost [], only in numeric ['920350']
+      encd-query-mixed-case-hex-path-traversal-556a4824: status 403 / 403; outcome waf_block / waf_block; rule ids only in localhost [], only in numeric ['920350']
+      encd-query-mixed-case-hex-path-traversal-921f3d78: status 403 / 403; outcome waf_block / waf_block; rule ids only in localhost [], only in numeric ['920350']
+      encd-query-mixed-case-hex-sqli-0933fb66: status 403 / 403; outcome waf_block / waf_block; rule ids only in localhost [], only in numeric ['920350']
+      encd-query-mixed-case-hex-sqli-6e47f23b: status 403 / 403; outcome waf_block / waf_block; rule ids only in localhost [], only in numeric ['920350']
+      encd-query-mixed-case-hex-sqli-8c187a93: status 403 / 403; outcome waf_block / waf_block; rule ids only in localhost [], only in numeric ['920350']
+      encd-query-mixed-case-hex-sqli-a2035700: status 403 / 403; outcome waf_block / waf_block; rule ids only in localhost [], only in numeric ['920350']
+      encd-query-mixed-case-hex-xss-369d0b75: status 403 / 403; outcome waf_block / waf_block; rule ids only in localhost [], only in numeric ['920350']
+      encd-query-mixed-case-hex-xss-545d1ff8: status 403 / 403; outcome waf_block / waf_block; rule ids only in localhost [], only in numeric ['920350']
+      encd-query-mixed-case-hex-xss-56083d09: status 403 / 403; outcome waf_block / waf_block; rule ids only in localhost [], only in numeric ['920350']
+      encd-query-mixed-case-hex-xss-784791cd: status 403 / 403; outcome waf_block / waf_block; rule ids only in localhost [], only in numeric ['920350']
+      encd-query-pct-u-command-injection-1b8cf3ce: status 403 / 403; outcome waf_block / waf_block; rule ids only in localhost [], only in numeric ['920350']
+      encd-query-pct-u-command-injection-227cb8a4: status 403 / 403; outcome waf_block / waf_block; rule ids only in localhost [], only in numeric ['920350']
+      encd-query-pct-u-path-traversal-1ec1b09a: status 403 / 403; outcome waf_block / waf_block; rule ids only in localhost [], only in numeric ['920350']
+      encd-query-pct-u-path-traversal-2aa7f02e: status 403 / 403; outcome waf_block / waf_block; rule ids only in localhost [], only in numeric ['920350']
+      encd-query-pct-u-path-traversal-556a4824: status 403 / 403; outcome waf_block / waf_block; rule ids only in localhost [], only in numeric ['920350']
+      encd-query-pct-u-path-traversal-921f3d78: status 403 / 403; outcome waf_block / waf_block; rule ids only in localhost [], only in numeric ['920350']
+      encd-query-pct-u-sqli-0933fb66: status 403 / 403; outcome waf_block / waf_block; rule ids only in localhost [], only in numeric ['920350']
+      encd-query-pct-u-sqli-6e47f23b: status 403 / 403; outcome waf_block / waf_block; rule ids only in localhost [], only in numeric ['920350']
+      encd-query-pct-u-sqli-8c187a93: status 403 / 403; outcome waf_block / waf_block; rule ids only in localhost [], only in numeric ['920350']
+      encd-query-pct-u-sqli-a2035700: status 403 / 403; outcome waf_block / waf_block; rule ids only in localhost [], only in numeric ['920350']
+      encd-query-pct-u-xss-369d0b75: status 403 / 403; outcome waf_block / waf_block; rule ids only in localhost [], only in numeric ['920350']
+      ... and 97 more ids (all in the run files)
+    step-21 run (stock coraza, 127.0.0.1) against today's numeric-Host run: status differs in 0 of 192 sample ids
+    step-21 run (stock coraza, 127.0.0.1) against today's Host-localhost run: status differs in 0 of 192 sample ids
+benign-browse-v1-inprocess-pl1-DIAGNOSTIC-numeric-host: requests 774, distinct endpoints 313; outcomes: waf_block 124, waf_pass 650
+    Host localhost: audit entries 124, with rule 920350 (numeric Host): 0
+    Host 127.0.0.1: audit entries 124, with rule 920350 (numeric Host): 124
+    localhost against numeric: 774 sample ids; status differs in 0; worst-case set differs in 0; rule-id set differs in 124
+      browse-078e1ae0a5d3: status 403 / 403; outcome waf_block / waf_block; rule ids only in localhost [], only in numeric ['920350']
+      browse-08fc57a73e65: status 403 / 403; outcome waf_block / waf_block; rule ids only in localhost [], only in numeric ['920350']
+      browse-09f6689d42b3: status 403 / 403; outcome waf_block / waf_block; rule ids only in localhost [], only in numeric ['920350']
+      browse-0c866582d3ae: status 403 / 403; outcome waf_block / waf_block; rule ids only in localhost [], only in numeric ['920350']
+      browse-0cdf50828f0a: status 403 / 403; outcome waf_block / waf_block; rule ids only in localhost [], only in numeric ['920350']
+      browse-10c55c49337d: status 403 / 403; outcome waf_block / waf_block; rule ids only in localhost [], only in numeric ['920350']
+      browse-1166e5d09e07: status 403 / 403; outcome waf_block / waf_block; rule ids only in localhost [], only in numeric ['920350']
+      browse-1194fe33083c: status 403 / 403; outcome waf_block / waf_block; rule ids only in localhost [], only in numeric ['920350']
+      browse-12965cda0090: status 403 / 403; outcome waf_block / waf_block; rule ids only in localhost [], only in numeric ['920350']
+      browse-159d3f4d221e: status 403 / 403; outcome waf_block / waf_block; rule ids only in localhost [], only in numeric ['920350']
+      browse-1661f189d441: status 403 / 403; outcome waf_block / waf_block; rule ids only in localhost [], only in numeric ['920350']
+      browse-1c4dbce2fc33: status 403 / 403; outcome waf_block / waf_block; rule ids only in localhost [], only in numeric ['920350']
+      browse-1c79ea8f9206: status 403 / 403; outcome waf_block / waf_block; rule ids only in localhost [], only in numeric ['920350']
+      browse-1d010dc43dc0: status 403 / 403; outcome waf_block / waf_block; rule ids only in localhost [], only in numeric ['920350']
+      browse-200d3fb770d5: status 403 / 403; outcome waf_block / waf_block; rule ids only in localhost [], only in numeric ['920350']
+      browse-21ad3506c829: status 403 / 403; outcome waf_block / waf_block; rule ids only in localhost [], only in numeric ['920350']
+      browse-225ad93dac26: status 403 / 403; outcome waf_block / waf_block; rule ids only in localhost [], only in numeric ['920350']
+      browse-27e9cbfcbd93: status 403 / 403; outcome waf_block / waf_block; rule ids only in localhost [], only in numeric ['920350']
+      browse-295328de9037: status 403 / 403; outcome waf_block / waf_block; rule ids only in localhost [], only in numeric ['920350']
+      browse-2cd9b535f204: status 403 / 403; outcome waf_block / waf_block; rule ids only in localhost [], only in numeric ['920350']
+      browse-30c0bdefd92c: status 403 / 403; outcome waf_block / waf_block; rule ids only in localhost [], only in numeric ['920350']
+      browse-32649d024f51: status 403 / 403; outcome waf_block / waf_block; rule ids only in localhost [], only in numeric ['920350']
+      browse-399040603b3b: status 403 / 403; outcome waf_block / waf_block; rule ids only in localhost [], only in numeric ['920350']
+      browse-3ca86b343842: status 403 / 403; outcome waf_block / waf_block; rule ids only in localhost [], only in numeric ['920350']
+      browse-3d051d60f706: status 403 / 403; outcome waf_block / waf_block; rule ids only in localhost [], only in numeric ['920350']
+      browse-3f0e1257cd50: status 403 / 403; outcome waf_block / waf_block; rule ids only in localhost [], only in numeric ['920350']
+      browse-3fbd730a4969: status 403 / 403; outcome waf_block / waf_block; rule ids only in localhost [], only in numeric ['920350']
+      browse-40f43fef19a3: status 403 / 403; outcome waf_block / waf_block; rule ids only in localhost [], only in numeric ['920350']
+      browse-4341c82e9cef: status 403 / 403; outcome waf_block / waf_block; rule ids only in localhost [], only in numeric ['920350']
+      browse-4507927f5aa0: status 403 / 403; outcome waf_block / waf_block; rule ids only in localhost [], only in numeric ['920350']
+      browse-46458213a52c: status 403 / 403; outcome waf_block / waf_block; rule ids only in localhost [], only in numeric ['920350']
+      browse-477fb91d98e0: status 403 / 403; outcome waf_block / waf_block; rule ids only in localhost [], only in numeric ['920350']
+      browse-48756ec30e29: status 403 / 403; outcome waf_block / waf_block; rule ids only in localhost [], only in numeric ['920350']
+      browse-49db4fbc2baa: status 403 / 403; outcome waf_block / waf_block; rule ids only in localhost [], only in numeric ['920350']
+      browse-4b09268ece20: status 403 / 403; outcome waf_block / waf_block; rule ids only in localhost [], only in numeric ['920350']
+      browse-4b0b628c2abe: status 403 / 403; outcome waf_block / waf_block; rule ids only in localhost [], only in numeric ['920350']
+      browse-4bfd716f3b6a: status 403 / 403; outcome waf_block / waf_block; rule ids only in localhost [], only in numeric ['920350']
+      browse-4c8a2247058f: status 403 / 403; outcome waf_block / waf_block; rule ids only in localhost [], only in numeric ['920350']
+      browse-4cbd123479ab: status 403 / 403; outcome waf_block / waf_block; rule ids only in localhost [], only in numeric ['920350']
+      browse-4d61911d8c06: status 403 / 403; outcome waf_block / waf_block; rule ids only in localhost [], only in numeric ['920350']
+      ... and 84 more ids (all in the run files)
+    step-21 run (stock coraza, 127.0.0.1) against today's numeric-Host run: status differs in 0 of 774 sample ids
+    step-21 run (stock coraza, 127.0.0.1) against today's Host-localhost run: status differs in 0 of 774 sample ids
+benign-hard-v0-inprocess-pl1-DIAGNOSTIC-numeric-host: requests 180, distinct endpoints 2; outcomes: waf_block 22, waf_pass 158
+    Host localhost: audit entries 22, with rule 920350 (numeric Host): 0
+    Host 127.0.0.1: audit entries 22, with rule 920350 (numeric Host): 22
+    localhost against numeric: 180 sample ids; status differs in 0; worst-case set differs in 0; rule-id set differs in 22
+      hardben-0dbf16f8-login: status 403 / 403; outcome waf_block / waf_block; rule ids only in localhost [], only in numeric ['920350']
+      hardben-0dbf16f8-q: status 403 / 403; outcome waf_block / waf_block; rule ids only in localhost [], only in numeric ['920350']
+      hardben-1cf6dcc9-login: status 403 / 403; outcome waf_block / waf_block; rule ids only in localhost [], only in numeric ['920350']
+      hardben-1cf6dcc9-q: status 403 / 403; outcome waf_block / waf_block; rule ids only in localhost [], only in numeric ['920350']
+      hardben-273b3ad4-login: status 403 / 403; outcome waf_block / waf_block; rule ids only in localhost [], only in numeric ['920350']
+      hardben-273b3ad4-q: status 403 / 403; outcome waf_block / waf_block; rule ids only in localhost [], only in numeric ['920350']
+      hardben-3513fbd1-login: status 403 / 403; outcome waf_block / waf_block; rule ids only in localhost [], only in numeric ['920350']
+      hardben-3513fbd1-q: status 403 / 403; outcome waf_block / waf_block; rule ids only in localhost [], only in numeric ['920350']
+      hardben-373c3b22-login: status 403 / 403; outcome waf_block / waf_block; rule ids only in localhost [], only in numeric ['920350']
+      hardben-373c3b22-q: status 403 / 403; outcome waf_block / waf_block; rule ids only in localhost [], only in numeric ['920350']
+      hardben-8e2de57c-login: status 403 / 403; outcome waf_block / waf_block; rule ids only in localhost [], only in numeric ['920350']
+      hardben-8e2de57c-q: status 403 / 403; outcome waf_block / waf_block; rule ids only in localhost [], only in numeric ['920350']
+      hardben-9b564fbd-login: status 403 / 403; outcome waf_block / waf_block; rule ids only in localhost [], only in numeric ['920350']
+      hardben-9b564fbd-q: status 403 / 403; outcome waf_block / waf_block; rule ids only in localhost [], only in numeric ['920350']
+      hardben-ac35b46d-login: status 403 / 403; outcome waf_block / waf_block; rule ids only in localhost [], only in numeric ['920350']
+      hardben-ac35b46d-q: status 403 / 403; outcome waf_block / waf_block; rule ids only in localhost [], only in numeric ['920350']
+      hardben-cd78392e-login: status 403 / 403; outcome waf_block / waf_block; rule ids only in localhost [], only in numeric ['920350']
+      hardben-cd78392e-q: status 403 / 403; outcome waf_block / waf_block; rule ids only in localhost [], only in numeric ['920350']
+      hardben-d85ddaae-login: status 403 / 403; outcome waf_block / waf_block; rule ids only in localhost [], only in numeric ['920350']
+      hardben-d85ddaae-q: status 403 / 403; outcome waf_block / waf_block; rule ids only in localhost [], only in numeric ['920350']
+      hardben-e45aeda9-login: status 403 / 403; outcome waf_block / waf_block; rule ids only in localhost [], only in numeric ['920350']
+      hardben-e45aeda9-q: status 403 / 403; outcome waf_block / waf_block; rule ids only in localhost [], only in numeric ['920350']
+    step-21 run (stock coraza, 127.0.0.1) against today's numeric-Host run: status differs in 0 of 180 sample ids
+    step-21 run (stock coraza, 127.0.0.1) against today's Host-localhost run: status differs in 0 of 180 sample ids
