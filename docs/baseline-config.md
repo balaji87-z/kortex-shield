@@ -705,3 +705,16 @@ With the proxy layer aligned (client_max_body_size 0 on both engines):
   setting was chosen with.
 - No rule exclusion and no setting is changed in response to a result of
   these runs (rule 17).
+
+## Step-27: head time limit as a setting (documented BEFORE the run, rule 17)
+
+- What: `KORTEX_HEAD_TIMEOUT_MS` (default 30000): how long the gate waits
+  for the end of a request head. The value was a constant of 30 s; the
+  default keeps it. Printed on `/__kortex/config` as `head_timeout_ms` and
+  on the startup line.
+- Why: the gate now answers and logs a head that does not end in time
+  (docs/engine-design.md, step 27), and a test of that must not wait 30 s
+  (rule 48: a failing-by-design test must fail deterministically).
+- No run of this step sets it; no rule or limit changes.
+- Reference: https://pkg.go.dev/net/http#Server (ReadHeaderTimeout, the
+  equivalent net/http setting).

@@ -928,3 +928,35 @@ in the engine, v3.7.0 in the image) do not change the result.
 
 The engine keeps coraza's default. What the tag would change on the other
 datasets is not measured.
+
+## Step-27 additions (2026-11-28): the gate answers what it used to leave unannounced
+
+Written before the code (docs/plan-step27-parsing.md). Probe of the
+step-26 engine, hand-written requests to the local engine:
+
+| request | engine before this step |
+|---|---|
+| `OPTIONS * HTTP/1.1` | `200`, empty body, from net/http itself; no rule ran, no event |
+| a head of 70,000 bytes | connection closed, no answer, no event |
+| a head whose blank line ends with a bare LF (`...\n\n` or `...\r\n\n`) | no answer; the gate waits for `\r\n\r\n` until its 30 s limit, then closes without an event |
+
+Decisions (defaults for the step-24 questions; open to the instructor):
+
+- `OPTIONS *` is refused by the gate: `400 kortex-decision=framing`, event
+  reason `parser:options-asterisk` (E57). The engine has nothing to forward
+  it as, and an answer no rule saw and no event records is the thing the
+  gate exists to prevent.
+- A head the gate cannot read is answered and logged (E58): more than
+  65,536 bytes gives reason `head-too-large`; no end of head within the
+  limit gives `head-timeout`. Both are `400 kortex-decision=framing` with
+  one `framing` event, then the connection is closed. The event's sample
+  id is read from what arrived, when the header was already there. The
+  limit is 30 s as before; `KORTEX_HEAD_TIMEOUT_MS` sets it and
+  `/__kortex/config` prints it (`head_timeout_ms`).
+- The end of the head is found the way Go's parser finds it (E59): the
+  first blank line, ended by LF or CRLF. Bare LF stays accepted when it
+  hides no framing problem (step 24); a head that ends with a bare-LF
+  blank line is now judged at once instead of after 30 s. The checks
+  already read the header block as Go does (step 24), so the gate and
+  net/http now also agree on where it ends.
+- Parser refusals keep the one status 400.
