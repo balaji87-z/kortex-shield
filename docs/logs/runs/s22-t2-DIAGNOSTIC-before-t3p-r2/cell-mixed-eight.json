@@ -1,0 +1,5837 @@
+{
+ "cell": "mixed-eight",
+ "pl": 1,
+ "attack": "mixed 4 large + 4 small",
+ "n_addrs": 8,
+ "duration_s": 300,
+ "benign_post_n": 301,
+ "benign_post_ok": 281,
+ "benign_get_n": 301,
+ "benign_get_ok": 301,
+ "benign_preflight_post_get": [
+  200,
+  200
+ ],
+ "benign_post_status": {
+  "503": 20,
+  "200": 281
+ },
+ "benign_get_status": {
+  "200": 301
+ },
+ "effective_config": {
+  "backend_url": "http://127.0.0.1:13000",
+  "rule_engine": "On",
+  "blocking_paranoia": 1,
+  "detection_paranoia": 1,
+  "max_body_bytes": 13107200,
+  "max_inspected_bytes": 131072,
+  "engine_time_budget_ms": 2000,
+  "rules_dir": "/work/crs",
+  "listen_addr": "127.0.0.1:8098",
+  "events_file": "/tmp/kx-s22-mixed-eight-events.jsonl",
+  "audit_log": "/tmp/kx-s22-mixed-eight-audit.log",
+  "allowed_methods": "GET HEAD POST OPTIONS",
+  "max_inflight_body": 8,
+  "max_inflight_body_large": 2,
+  "body_lane_threshold": 65536,
+  "worker_mode": true,
+  "client_max_inflight": 2,
+  "client_max_inflight_small": 2,
+  "client_max_inflight_large": 1,
+  "request_body_target_updates": 166
+ },
+ "benign_probe": "new",
+ "benign_post_ms": [
+  1.3,
+  1.3,
+  1.3,
+  1.3,
+  1.3,
+  1.5,
+  1.5,
+  1.6,
+  1.6,
+  1.6,
+  1.6,
+  1.6,
+  1.7,
+  1.7,
+  1.7,
+  1.7,
+  1.7,
+  1.7,
+  1.7,
+  1.7,
+  1.7,
+  1.7,
+  1.7,
+  1.7,
+  1.7,
+  1.8,
+  1.8,
+  1.8,
+  1.8,
+  1.8,
+  1.8,
+  1.8,
+  1.8,
+  1.8,
+  1.8,
+  1.8,
+  1.9,
+  1.9,
+  1.9,
+  1.9,
+  1.9,
+  1.9,
+  1.9,
+  1.9,
+  2.0,
+  2.0,
+  2.0,
+  2.0,
+  2.0,
+  2.0,
+  2.0,
+  2.0,
+  2.0,
+  2.0,
+  2.0,
+  2.0,
+  2.0,
+  2.0,
+  2.1,
+  2.1,
+  2.1,
+  2.1,
+  2.1,
+  2.1,
+  2.1,
+  2.1,
+  2.1,
+  2.1,
+  2.1,
+  2.1,
+  2.1,
+  2.1,
+  2.1,
+  2.2,
+  2.2,
+  2.2,
+  2.2,
+  2.2,
+  2.2,
+  2.2,
+  2.2,
+  2.2,
+  2.2,
+  2.2,
+  2.2,
+  2.2,
+  2.2,
+  2.2,
+  2.2,
+  2.3,
+  2.3,
+  2.3,
+  2.3,
+  2.3,
+  2.3,
+  2.3,
+  2.3,
+  2.3,
+  2.3,
+  2.3,
+  2.3,
+  2.4,
+  2.4,
+  2.4,
+  2.4,
+  2.4,
+  2.4,
+  2.4,
+  2.4,
+  2.4,
+  2.4,
+  2.4,
+  2.4,
+  2.4,
+  2.4,
+  2.4,
+  2.4,
+  2.5,
+  2.5,
+  2.5,
+  2.5,
+  2.5,
+  2.5,
+  2.5,
+  2.5,
+  2.5,
+  2.5,
+  2.5,
+  2.6,
+  2.6,
+  2.6,
+  2.6,
+  2.6,
+  2.6,
+  2.6,
+  2.7,
+  2.7,
+  2.7,
+  2.7,
+  2.7,
+  2.7,
+  2.7,
+  2.7,
+  2.7,
+  2.7,
+  2.7,
+  2.8,
+  2.8,
+  2.8,
+  2.8,
+  2.8,
+  2.8,
+  2.8,
+  2.8,
+  2.8,
+  2.8,
+  2.8,
+  2.9,
+  2.9,
+  2.9,
+  2.9,
+  2.9,
+  3.0,
+  3.0,
+  3.0,
+  3.0,
+  3.0,
+  3.1,
+  3.1,
+  3.1,
+  3.1,
+  3.1,
+  3.1,
+  3.1,
+  3.1,
+  3.1,
+  3.1,
+  3.2,
+  3.2,
+  3.2,
+  3.3,
+  3.3,
+  3.3,
+  3.3,
+  3.4,
+  3.4,
+  3.4,
+  3.7,
+  3.7,
+  3.7,
+  3.8,
+  3.9,
+  4.0,
+  4.1,
+  4.9,
+  5.1,
+  5.8,
+  6.6,
+  42.0,
+  42.0,
+  42.1,
+  42.2,
+  42.3,
+  42.5,
+  42.7,
+  42.9,
+  42.9,
+  42.9,
+  42.9,
+  43.0,
+  43.0,
+  43.1,
+  43.1,
+  43.1,
+  43.2,
+  43.3,
+  43.4,
+  43.5,
+  43.5,
+  43.6,
+  43.8,
+  43.8,
+  43.9,
+  44.0,
+  44.0,
+  44.1,
+  44.1,
+  44.1,
+  44.3,
+  44.5,
+  44.5,
+  44.8,
+  45.1,
+  45.2,
+  45.8,
+  47.8,
+  49.6,
+  51.9,
+  56.6,
+  56.7,
+  57.2,
+  60.8,
+  63.8,
+  68.8,
+  69.1,
+  75.1,
+  76.3,
+  79.1,
+  79.1,
+  90.7,
+  91.1,
+  1075.9,
+  1077.6,
+  1083.0,
+  1085.0,
+  1086.9,
+  1087.7,
+  1087.9,
+  1088.9,
+  1090.5,
+  1090.6,
+  1091.7,
+  1092.5,
+  1092.6,
+  1093.2,
+  1095.8,
+  1096.7,
+  1099.0,
+  1100.1,
+  1102.1,
+  1103.8,
+  1104.0,
+  1106.9,
+  1182.7,
+  1189.6,
+  1190.8,
+  1191.7,
+  1194.5,
+  1196.9,
+  1200.4,
+  1204.3,
+  2000.4,
+  2000.4,
+  2000.6,
+  2000.7,
+  2000.7,
+  2000.8,
+  2000.9,
+  2000.9,
+  2000.9,
+  2001.0,
+  2001.0,
+  2001.2,
+  2001.2,
+  2002.4,
+  2002.5,
+  2002.7,
+  2004.3,
+  2004.4,
+  2004.5,
+  2004.7
+ ],
+ "benign_get_ms": [
+  1.2,
+  1.3,
+  1.3,
+  1.4,
+  2.2,
+  2.6,
+  2.8,
+  4.0,
+  4.6,
+  4.8,
+  4.9,
+  5.0,
+  5.7,
+  5.9,
+  6.4,
+  7.4,
+  7.4,
+  8.3,
+  8.4,
+  9.0,
+  41.0,
+  41.1,
+  41.3,
+  41.4,
+  41.5,
+  41.5,
+  41.5,
+  41.5,
+  41.5,
+  41.6,
+  41.6,
+  41.6,
+  41.7,
+  41.7,
+  41.7,
+  41.7,
+  41.7,
+  41.7,
+  41.7,
+  41.7,
+  41.8,
+  41.8,
+  41.8,
+  41.9,
+  41.9,
+  41.9,
+  41.9,
+  41.9,
+  41.9,
+  41.9,
+  41.9,
+  41.9,
+  41.9,
+  41.9,
+  41.9,
+  41.9,
+  41.9,
+  41.9,
+  41.9,
+  42.0,
+  42.0,
+  42.0,
+  42.0,
+  42.0,
+  42.0,
+  42.0,
+  42.0,
+  42.0,
+  42.0,
+  42.0,
+  42.1,
+  42.1,
+  42.1,
+  42.1,
+  42.1,
+  42.1,
+  42.1,
+  42.1,
+  42.1,
+  42.2,
+  42.2,
+  42.2,
+  42.2,
+  42.2,
+  42.2,
+  42.2,
+  42.2,
+  42.3,
+  42.3,
+  42.3,
+  42.3,
+  42.3,
+  42.3,
+  42.3,
+  42.3,
+  42.3,
+  42.3,
+  42.3,
+  42.4,
+  42.4,
+  42.4,
+  42.4,
+  42.4,
+  42.4,
+  42.4,
+  42.4,
+  42.4,
+  42.4,
+  42.4,
+  42.4,
+  42.4,
+  42.4,
+  42.4,
+  42.5,
+  42.5,
+  42.5,
+  42.5,
+  42.6,
+  42.6,
+  42.6,
+  42.6,
+  42.6,
+  42.6,
+  42.6,
+  42.6,
+  42.6,
+  42.6,
+  42.6,
+  42.6,
+  42.6,
+  42.6,
+  42.6,
+  42.6,
+  42.7,
+  42.7,
+  42.7,
+  42.7,
+  42.7,
+  42.7,
+  42.7,
+  42.7,
+  42.7,
+  42.7,
+  42.7,
+  42.7,
+  42.8,
+  42.8,
+  42.8,
+  42.8,
+  42.8,
+  42.8,
+  42.8,
+  42.8,
+  42.8,
+  42.8,
+  42.8,
+  42.8,
+  42.8,
+  42.8,
+  42.8,
+  42.8,
+  42.8,
+  42.9,
+  42.9,
+  42.9,
+  42.9,
+  42.9,
+  42.9,
+  42.9,
+  42.9,
+  42.9,
+  42.9,
+  42.9,
+  42.9,
+  42.9,
+  42.9,
+  43.0,
+  43.0,
+  43.0,
+  43.0,
+  43.0,
+  43.0,
+  43.0,
+  43.0,
+  43.0,
+  43.0,
+  43.0,
+  43.1,
+  43.1,
+  43.1,
+  43.1,
+  43.1,
+  43.1,
+  43.1,
+  43.1,
+  43.1,
+  43.1,
+  43.1,
+  43.2,
+  43.2,
+  43.2,
+  43.2,
+  43.2,
+  43.2,
+  43.2,
+  43.2,
+  43.2,
+  43.2,
+  43.2,
+  43.2,
+  43.2,
+  43.2,
+  43.2,
+  43.2,
+  43.3,
+  43.3,
+  43.3,
+  43.3,
+  43.3,
+  43.3,
+  43.3,
+  43.4,
+  43.4,
+  43.4,
+  43.4,
+  43.4,
+  43.4,
+  43.4,
+  43.4,
+  43.4,
+  43.4,
+  43.4,
+  43.4,
+  43.4,
+  43.4,
+  43.4,
+  43.5,
+  43.5,
+  43.5,
+  43.5,
+  43.5,
+  43.5,
+  43.5,
+  43.5,
+  43.6,
+  43.6,
+  43.6,
+  43.6,
+  43.6,
+  43.6,
+  43.6,
+  43.6,
+  43.7,
+  43.7,
+  43.7,
+  43.7,
+  43.7,
+  43.8,
+  43.8,
+  43.8,
+  43.8,
+  43.9,
+  43.9,
+  43.9,
+  43.9,
+  43.9,
+  43.9,
+  44.0,
+  44.0,
+  44.0,
+  44.0,
+  44.0,
+  44.1,
+  44.1,
+  44.1,
+  44.2,
+  44.2,
+  44.2,
+  44.2,
+  44.3,
+  44.3,
+  44.3,
+  44.3,
+  44.4,
+  44.4,
+  44.4,
+  44.5,
+  44.6,
+  44.6,
+  44.6,
+  44.7,
+  44.7,
+  44.8,
+  45.2,
+  45.4,
+  46.3,
+  46.4,
+  46.5,
+  46.5,
+  46.7,
+  47.7
+ ],
+ "attack_status": {
+  "503": 2721959
+ },
+ "kills_total": 200,
+ "overloads_total": 2716063,
+ "min_pool": 0,
+ "min_spares_idle": 0,
+ "max_busy": 4,
+ "penalised_max": 8,
+ "cpu_ticks": 61258,
+ "cpu_seconds": 612.6,
+ "load_start": 0.0,
+ "load_end": 7.26416015625,
+ "recovery_s": 2.5,
+ "stats_samples": [
+  {
+   "inflight_small": 4,
+   "inflight_large": 2,
+   "abandoned_running": 0,
+   "kills": 0,
+   "overloads": 2,
+   "penalised_clients": 0,
+   "client_inflight_small": 4,
+   "client_inflight_large": 2,
+   "workers": {
+    "pool": 4,
+    "busy": 4,
+    "spares": 0,
+    "recycled": 0
+   },
+   "t": 0.0
+  },
+  {
+   "inflight_small": 5,
+   "inflight_large": 2,
+   "abandoned_running": 0,
+   "kills": 0,
+   "overloads": 8301,
+   "penalised_clients": 0,
+   "client_inflight_small": 5,
+   "client_inflight_large": 2,
+   "workers": {
+    "pool": 4,
+    "busy": 4,
+    "spares": 0,
+    "recycled": 0
+   },
+   "t": 1.0
+  },
+  {
+   "inflight_small": 3,
+   "inflight_large": 2,
+   "abandoned_running": 0,
+   "kills": 4,
+   "overloads": 16889,
+   "penalised_clients": 4,
+   "client_inflight_small": 2,
+   "client_inflight_large": 2,
+   "workers": {
+    "pool": 0,
+    "busy": 0,
+    "spares": 0,
+    "recycled": 0
+   },
+   "t": 2.0
+  },
+  {
+   "inflight_small": 4,
+   "inflight_large": 2,
+   "abandoned_running": 0,
+   "kills": 4,
+   "overloads": 28124,
+   "penalised_clients": 4,
+   "client_inflight_small": 3,
+   "client_inflight_large": 2,
+   "workers": {
+    "pool": 4,
+    "busy": 4,
+    "spares": 0,
+    "recycled": 0
+   },
+   "t": 3.0
+  },
+  {
+   "inflight_small": 3,
+   "inflight_large": 2,
+   "abandoned_running": 0,
+   "kills": 4,
+   "overloads": 39440,
+   "penalised_clients": 4,
+   "client_inflight_small": 3,
+   "client_inflight_large": 2,
+   "workers": {
+    "pool": 4,
+    "busy": 4,
+    "spares": 0,
+    "recycled": 0
+   },
+   "t": 4.0
+  },
+  {
+   "inflight_small": 0,
+   "inflight_large": 0,
+   "abandoned_running": 0,
+   "kills": 8,
+   "overloads": 48184,
+   "penalised_clients": 8,
+   "client_inflight_small": 0,
+   "client_inflight_large": 0,
+   "workers": {
+    "pool": 4,
+    "busy": 0,
+    "spares": 4,
+    "recycled": 0
+   },
+   "t": 5.0
+  },
+  {
+   "inflight_small": 0,
+   "inflight_large": 0,
+   "abandoned_running": 0,
+   "kills": 8,
+   "overloads": 56635,
+   "penalised_clients": 8,
+   "client_inflight_small": 0,
+   "client_inflight_large": 0,
+   "workers": {
+    "pool": 4,
+    "busy": 0,
+    "spares": 4,
+    "recycled": 0
+   },
+   "t": 6.0
+  },
+  {
+   "inflight_small": 0,
+   "inflight_large": 0,
+   "abandoned_running": 0,
+   "kills": 8,
+   "overloads": 65322,
+   "penalised_clients": 8,
+   "client_inflight_small": 0,
+   "client_inflight_large": 0,
+   "workers": {
+    "pool": 4,
+    "busy": 0,
+    "spares": 4,
+    "recycled": 0
+   },
+   "t": 7.0
+  },
+  {
+   "inflight_small": 2,
+   "inflight_large": 1,
+   "abandoned_running": 0,
+   "kills": 8,
+   "overloads": 73516,
+   "penalised_clients": 8,
+   "client_inflight_small": 0,
+   "client_inflight_large": 0,
+   "workers": {
+    "pool": 4,
+    "busy": 0,
+    "spares": 4,
+    "recycled": 0
+   },
+   "t": 8.0
+  },
+  {
+   "inflight_small": 0,
+   "inflight_large": 0,
+   "abandoned_running": 0,
+   "kills": 8,
+   "overloads": 82075,
+   "penalised_clients": 8,
+   "client_inflight_small": 0,
+   "client_inflight_large": 0,
+   "workers": {
+    "pool": 4,
+    "busy": 0,
+    "spares": 4,
+    "recycled": 0
+   },
+   "t": 9.0
+  },
+  {
+   "inflight_small": 1,
+   "inflight_large": 0,
+   "abandoned_running": 0,
+   "kills": 8,
+   "overloads": 90542,
+   "penalised_clients": 8,
+   "client_inflight_small": 0,
+   "client_inflight_large": 0,
+   "workers": {
+    "pool": 4,
+    "busy": 0,
+    "spares": 4,
+    "recycled": 0
+   },
+   "t": 10.0
+  },
+  {
+   "inflight_small": 0,
+   "inflight_large": 1,
+   "abandoned_running": 0,
+   "kills": 8,
+   "overloads": 99265,
+   "penalised_clients": 8,
+   "client_inflight_small": 0,
+   "client_inflight_large": 0,
+   "workers": {
+    "pool": 4,
+    "busy": 0,
+    "spares": 4,
+    "recycled": 0
+   },
+   "t": 11.0
+  },
+  {
+   "inflight_small": 3,
+   "inflight_large": 2,
+   "abandoned_running": 0,
+   "kills": 8,
+   "overloads": 108132,
+   "penalised_clients": 4,
+   "client_inflight_small": 3,
+   "client_inflight_large": 2,
+   "workers": {
+    "pool": 4,
+    "busy": 4,
+    "spares": 0,
+    "recycled": 0
+   },
+   "t": 12.0
+  },
+  {
+   "inflight_small": 3,
+   "inflight_large": 2,
+   "abandoned_running": 0,
+   "kills": 8,
+   "overloads": 118911,
+   "penalised_clients": 4,
+   "client_inflight_small": 3,
+   "client_inflight_large": 2,
+   "workers": {
+    "pool": 4,
+    "busy": 4,
+    "spares": 0,
+    "recycled": 0
+   },
+   "t": 13.0
+  },
+  {
+   "inflight_small": 2,
+   "inflight_large": 0,
+   "abandoned_running": 0,
+   "kills": 12,
+   "overloads": 128438,
+   "penalised_clients": 8,
+   "client_inflight_small": 1,
+   "client_inflight_large": 0,
+   "workers": {
+    "pool": 0,
+    "busy": 0,
+    "spares": 0,
+    "recycled": 0
+   },
+   "t": 14.0
+  },
+  {
+   "inflight_small": 3,
+   "inflight_large": 2,
+   "abandoned_running": 0,
+   "kills": 12,
+   "overloads": 136943,
+   "penalised_clients": 4,
+   "client_inflight_small": 3,
+   "client_inflight_large": 2,
+   "workers": {
+    "pool": 4,
+    "busy": 4,
+    "spares": 0,
+    "recycled": 0
+   },
+   "t": 15.0
+  },
+  {
+   "inflight_small": 3,
+   "inflight_large": 2,
+   "abandoned_running": 0,
+   "kills": 12,
+   "overloads": 144727,
+   "penalised_clients": 4,
+   "client_inflight_small": 3,
+   "client_inflight_large": 2,
+   "workers": {
+    "pool": 4,
+    "busy": 4,
+    "spares": 0,
+    "recycled": 0
+   },
+   "t": 16.0
+  },
+  {
+   "inflight_small": 1,
+   "inflight_large": 1,
+   "abandoned_running": 0,
+   "kills": 16,
+   "overloads": 150816,
+   "penalised_clients": 8,
+   "client_inflight_small": 0,
+   "client_inflight_large": 0,
+   "workers": {
+    "pool": 4,
+    "busy": 0,
+    "spares": 4,
+    "recycled": 0
+   },
+   "t": 17.0
+  },
+  {
+   "inflight_small": 0,
+   "inflight_large": 0,
+   "abandoned_running": 0,
+   "kills": 16,
+   "overloads": 156788,
+   "penalised_clients": 8,
+   "client_inflight_small": 0,
+   "client_inflight_large": 0,
+   "workers": {
+    "pool": 4,
+    "busy": 0,
+    "spares": 4,
+    "recycled": 0
+   },
+   "t": 18.0
+  },
+  {
+   "inflight_small": 0,
+   "inflight_large": 0,
+   "abandoned_running": 0,
+   "kills": 16,
+   "overloads": 164085,
+   "penalised_clients": 8,
+   "client_inflight_small": 0,
+   "client_inflight_large": 0,
+   "workers": {
+    "pool": 4,
+    "busy": 0,
+    "spares": 4,
+    "recycled": 0
+   },
+   "t": 19.0
+  },
+  {
+   "inflight_small": 0,
+   "inflight_large": 1,
+   "abandoned_running": 0,
+   "kills": 16,
+   "overloads": 171250,
+   "penalised_clients": 8,
+   "client_inflight_small": 0,
+   "client_inflight_large": 0,
+   "workers": {
+    "pool": 4,
+    "busy": 0,
+    "spares": 4,
+    "recycled": 0
+   },
+   "t": 20.0
+  },
+  {
+   "inflight_small": 0,
+   "inflight_large": 1,
+   "abandoned_running": 0,
+   "kills": 16,
+   "overloads": 178276,
+   "penalised_clients": 8,
+   "client_inflight_small": 0,
+   "client_inflight_large": 0,
+   "workers": {
+    "pool": 4,
+    "busy": 0,
+    "spares": 4,
+    "recycled": 0
+   },
+   "t": 21.0
+  },
+  {
+   "inflight_small": 0,
+   "inflight_large": 0,
+   "abandoned_running": 0,
+   "kills": 16,
+   "overloads": 185185,
+   "penalised_clients": 8,
+   "client_inflight_small": 0,
+   "client_inflight_large": 0,
+   "workers": {
+    "pool": 4,
+    "busy": 0,
+    "spares": 4,
+    "recycled": 0
+   },
+   "t": 22.0
+  },
+  {
+   "inflight_small": 0,
+   "inflight_large": 0,
+   "abandoned_running": 0,
+   "kills": 16,
+   "overloads": 191965,
+   "penalised_clients": 8,
+   "client_inflight_small": 0,
+   "client_inflight_large": 0,
+   "workers": {
+    "pool": 4,
+    "busy": 0,
+    "spares": 4,
+    "recycled": 0
+   },
+   "t": 23.0
+  },
+  {
+   "inflight_small": 3,
+   "inflight_large": 2,
+   "abandoned_running": 0,
+   "kills": 16,
+   "overloads": 198781,
+   "penalised_clients": 4,
+   "client_inflight_small": 3,
+   "client_inflight_large": 2,
+   "workers": {
+    "pool": 4,
+    "busy": 4,
+    "spares": 0,
+    "recycled": 0
+   },
+   "t": 24.0
+  },
+  {
+   "inflight_small": 3,
+   "inflight_large": 2,
+   "abandoned_running": 0,
+   "kills": 16,
+   "overloads": 208487,
+   "penalised_clients": 4,
+   "client_inflight_small": 3,
+   "client_inflight_large": 2,
+   "workers": {
+    "pool": 4,
+    "busy": 4,
+    "spares": 0,
+    "recycled": 0
+   },
+   "t": 25.0
+  },
+  {
+   "inflight_small": 2,
+   "inflight_large": 0,
+   "abandoned_running": 0,
+   "kills": 20,
+   "overloads": 218128,
+   "penalised_clients": 8,
+   "client_inflight_small": 1,
+   "client_inflight_large": 0,
+   "workers": {
+    "pool": 0,
+    "busy": 0,
+    "spares": 0,
+    "recycled": 0
+   },
+   "t": 26.0
+  },
+  {
+   "inflight_small": 4,
+   "inflight_large": 2,
+   "abandoned_running": 0,
+   "kills": 20,
+   "overloads": 229219,
+   "penalised_clients": 4,
+   "client_inflight_small": 3,
+   "client_inflight_large": 2,
+   "workers": {
+    "pool": 4,
+    "busy": 4,
+    "spares": 0,
+    "recycled": 0
+   },
+   "t": 27.0
+  },
+  {
+   "inflight_small": 3,
+   "inflight_large": 2,
+   "abandoned_running": 0,
+   "kills": 20,
+   "overloads": 240004,
+   "penalised_clients": 4,
+   "client_inflight_small": 3,
+   "client_inflight_large": 2,
+   "workers": {
+    "pool": 4,
+    "busy": 4,
+    "spares": 0,
+    "recycled": 0
+   },
+   "t": 28.0
+  },
+  {
+   "inflight_small": 0,
+   "inflight_large": 0,
+   "abandoned_running": 0,
+   "kills": 24,
+   "overloads": 248198,
+   "penalised_clients": 8,
+   "client_inflight_small": 0,
+   "client_inflight_large": 0,
+   "workers": {
+    "pool": 4,
+    "busy": 0,
+    "spares": 4,
+    "recycled": 0
+   },
+   "t": 29.0
+  },
+  {
+   "inflight_small": 0,
+   "inflight_large": 1,
+   "abandoned_running": 0,
+   "kills": 24,
+   "overloads": 256362,
+   "penalised_clients": 8,
+   "client_inflight_small": 0,
+   "client_inflight_large": 0,
+   "workers": {
+    "pool": 4,
+    "busy": 0,
+    "spares": 4,
+    "recycled": 0
+   },
+   "t": 30.0
+  },
+  {
+   "inflight_small": 0,
+   "inflight_large": 0,
+   "abandoned_running": 0,
+   "kills": 24,
+   "overloads": 264628,
+   "penalised_clients": 8,
+   "client_inflight_small": 0,
+   "client_inflight_large": 0,
+   "workers": {
+    "pool": 4,
+    "busy": 0,
+    "spares": 4,
+    "recycled": 0
+   },
+   "t": 31.0
+  },
+  {
+   "inflight_small": 1,
+   "inflight_large": 2,
+   "abandoned_running": 0,
+   "kills": 24,
+   "overloads": 272528,
+   "penalised_clients": 8,
+   "client_inflight_small": 0,
+   "client_inflight_large": 0,
+   "workers": {
+    "pool": 4,
+    "busy": 0,
+    "spares": 4,
+    "recycled": 0
+   },
+   "t": 32.0
+  },
+  {
+   "inflight_small": 0,
+   "inflight_large": 1,
+   "abandoned_running": 0,
+   "kills": 24,
+   "overloads": 279727,
+   "penalised_clients": 8,
+   "client_inflight_small": 0,
+   "client_inflight_large": 0,
+   "workers": {
+    "pool": 4,
+    "busy": 0,
+    "spares": 4,
+    "recycled": 0
+   },
+   "t": 33.0
+  },
+  {
+   "inflight_small": 0,
+   "inflight_large": 0,
+   "abandoned_running": 0,
+   "kills": 24,
+   "overloads": 287041,
+   "penalised_clients": 8,
+   "client_inflight_small": 0,
+   "client_inflight_large": 0,
+   "workers": {
+    "pool": 4,
+    "busy": 0,
+    "spares": 4,
+    "recycled": 0
+   },
+   "t": 34.0
+  },
+  {
+   "inflight_small": 0,
+   "inflight_large": 0,
+   "abandoned_running": 0,
+   "kills": 24,
+   "overloads": 294240,
+   "penalised_clients": 8,
+   "client_inflight_small": 0,
+   "client_inflight_large": 0,
+   "workers": {
+    "pool": 4,
+    "busy": 0,
+    "spares": 4,
+    "recycled": 0
+   },
+   "t": 35.1
+  },
+  {
+   "inflight_small": 2,
+   "inflight_large": 2,
+   "abandoned_running": 0,
+   "kills": 24,
+   "overloads": 301620,
+   "penalised_clients": 4,
+   "client_inflight_small": 2,
+   "client_inflight_large": 2,
+   "workers": {
+    "pool": 4,
+    "busy": 4,
+    "spares": 0,
+    "recycled": 0
+   },
+   "t": 36.1
+  },
+  {
+   "inflight_small": 3,
+   "inflight_large": 2,
+   "abandoned_running": 0,
+   "kills": 24,
+   "overloads": 311119,
+   "penalised_clients": 4,
+   "client_inflight_small": 3,
+   "client_inflight_large": 2,
+   "workers": {
+    "pool": 4,
+    "busy": 4,
+    "spares": 0,
+    "recycled": 0
+   },
+   "t": 37.1
+  },
+  {
+   "inflight_small": 2,
+   "inflight_large": 0,
+   "abandoned_running": 0,
+   "kills": 28,
+   "overloads": 319817,
+   "penalised_clients": 8,
+   "client_inflight_small": 1,
+   "client_inflight_large": 0,
+   "workers": {
+    "pool": 0,
+    "busy": 0,
+    "spares": 0,
+    "recycled": 0
+   },
+   "t": 38.1
+  },
+  {
+   "inflight_small": 3,
+   "inflight_large": 2,
+   "abandoned_running": 0,
+   "kills": 28,
+   "overloads": 327900,
+   "penalised_clients": 4,
+   "client_inflight_small": 3,
+   "client_inflight_large": 2,
+   "workers": {
+    "pool": 4,
+    "busy": 4,
+    "spares": 0,
+    "recycled": 0
+   },
+   "t": 39.1
+  },
+  {
+   "inflight_small": 3,
+   "inflight_large": 2,
+   "abandoned_running": 0,
+   "kills": 28,
+   "overloads": 335777,
+   "penalised_clients": 4,
+   "client_inflight_small": 3,
+   "client_inflight_large": 2,
+   "workers": {
+    "pool": 4,
+    "busy": 4,
+    "spares": 0,
+    "recycled": 0
+   },
+   "t": 40.1
+  },
+  {
+   "inflight_small": 0,
+   "inflight_large": 0,
+   "abandoned_running": 0,
+   "kills": 32,
+   "overloads": 342354,
+   "penalised_clients": 8,
+   "client_inflight_small": 0,
+   "client_inflight_large": 0,
+   "workers": {
+    "pool": 4,
+    "busy": 0,
+    "spares": 4,
+    "recycled": 0
+   },
+   "t": 41.1
+  },
+  {
+   "inflight_small": 0,
+   "inflight_large": 1,
+   "abandoned_running": 0,
+   "kills": 32,
+   "overloads": 348970,
+   "penalised_clients": 8,
+   "client_inflight_small": 0,
+   "client_inflight_large": 0,
+   "workers": {
+    "pool": 4,
+    "busy": 0,
+    "spares": 4,
+    "recycled": 0
+   },
+   "t": 42.1
+  },
+  {
+   "inflight_small": 0,
+   "inflight_large": 0,
+   "abandoned_running": 0,
+   "kills": 32,
+   "overloads": 355541,
+   "penalised_clients": 8,
+   "client_inflight_small": 0,
+   "client_inflight_large": 0,
+   "workers": {
+    "pool": 4,
+    "busy": 0,
+    "spares": 4,
+    "recycled": 0
+   },
+   "t": 43.1
+  },
+  {
+   "inflight_small": 0,
+   "inflight_large": 0,
+   "abandoned_running": 0,
+   "kills": 32,
+   "overloads": 361937,
+   "penalised_clients": 8,
+   "client_inflight_small": 0,
+   "client_inflight_large": 0,
+   "workers": {
+    "pool": 4,
+    "busy": 0,
+    "spares": 4,
+    "recycled": 0
+   },
+   "t": 44.1
+  },
+  {
+   "inflight_small": 1,
+   "inflight_large": 0,
+   "abandoned_running": 0,
+   "kills": 32,
+   "overloads": 369158,
+   "penalised_clients": 8,
+   "client_inflight_small": 0,
+   "client_inflight_large": 0,
+   "workers": {
+    "pool": 4,
+    "busy": 0,
+    "spares": 4,
+    "recycled": 0
+   },
+   "t": 45.1
+  },
+  {
+   "inflight_small": 3,
+   "inflight_large": 1,
+   "abandoned_running": 0,
+   "kills": 32,
+   "overloads": 376332,
+   "penalised_clients": 8,
+   "client_inflight_small": 0,
+   "client_inflight_large": 0,
+   "workers": {
+    "pool": 4,
+    "busy": 0,
+    "spares": 4,
+    "recycled": 0
+   },
+   "t": 46.1
+  },
+  {
+   "inflight_small": 0,
+   "inflight_large": 0,
+   "abandoned_running": 0,
+   "kills": 32,
+   "overloads": 383711,
+   "penalised_clients": 8,
+   "client_inflight_small": 0,
+   "client_inflight_large": 0,
+   "workers": {
+    "pool": 4,
+    "busy": 0,
+    "spares": 4,
+    "recycled": 0
+   },
+   "t": 47.1
+  },
+  {
+   "inflight_small": 2,
+   "inflight_large": 2,
+   "abandoned_running": 0,
+   "kills": 32,
+   "overloads": 391110,
+   "penalised_clients": 4,
+   "client_inflight_small": 2,
+   "client_inflight_large": 2,
+   "workers": {
+    "pool": 4,
+    "busy": 4,
+    "spares": 0,
+    "recycled": 0
+   },
+   "t": 48.1
+  },
+  {
+   "inflight_small": 3,
+   "inflight_large": 2,
+   "abandoned_running": 0,
+   "kills": 32,
+   "overloads": 400706,
+   "penalised_clients": 4,
+   "client_inflight_small": 3,
+   "client_inflight_large": 2,
+   "workers": {
+    "pool": 4,
+    "busy": 4,
+    "spares": 0,
+    "recycled": 0
+   },
+   "t": 49.1
+  },
+  {
+   "inflight_small": 1,
+   "inflight_large": 0,
+   "abandoned_running": 0,
+   "kills": 36,
+   "overloads": 409835,
+   "penalised_clients": 8,
+   "client_inflight_small": 1,
+   "client_inflight_large": 0,
+   "workers": {
+    "pool": 0,
+    "busy": 0,
+    "spares": 0,
+    "recycled": 0
+   },
+   "t": 50.1
+  },
+  {
+   "inflight_small": 3,
+   "inflight_large": 2,
+   "abandoned_running": 0,
+   "kills": 36,
+   "overloads": 418890,
+   "penalised_clients": 4,
+   "client_inflight_small": 3,
+   "client_inflight_large": 2,
+   "workers": {
+    "pool": 4,
+    "busy": 4,
+    "spares": 0,
+    "recycled": 0
+   },
+   "t": 51.1
+  },
+  {
+   "inflight_small": 3,
+   "inflight_large": 2,
+   "abandoned_running": 0,
+   "kills": 36,
+   "overloads": 428148,
+   "penalised_clients": 4,
+   "client_inflight_small": 3,
+   "client_inflight_large": 2,
+   "workers": {
+    "pool": 4,
+    "busy": 4,
+    "spares": 0,
+    "recycled": 0
+   },
+   "t": 52.1
+  },
+  {
+   "inflight_small": 1,
+   "inflight_large": 1,
+   "abandoned_running": 0,
+   "kills": 40,
+   "overloads": 435269,
+   "penalised_clients": 8,
+   "client_inflight_small": 0,
+   "client_inflight_large": 0,
+   "workers": {
+    "pool": 4,
+    "busy": 0,
+    "spares": 4,
+    "recycled": 0
+   },
+   "t": 53.1
+  },
+  {
+   "inflight_small": 0,
+   "inflight_large": 0,
+   "abandoned_running": 0,
+   "kills": 40,
+   "overloads": 442681,
+   "penalised_clients": 8,
+   "client_inflight_small": 0,
+   "client_inflight_large": 0,
+   "workers": {
+    "pool": 4,
+    "busy": 0,
+    "spares": 4,
+    "recycled": 0
+   },
+   "t": 54.1
+  },
+  {
+   "inflight_small": 0,
+   "inflight_large": 0,
+   "abandoned_running": 0,
+   "kills": 40,
+   "overloads": 450035,
+   "penalised_clients": 8,
+   "client_inflight_small": 0,
+   "client_inflight_large": 0,
+   "workers": {
+    "pool": 4,
+    "busy": 0,
+    "spares": 4,
+    "recycled": 0
+   },
+   "t": 55.1
+  },
+  {
+   "inflight_small": 1,
+   "inflight_large": 0,
+   "abandoned_running": 0,
+   "kills": 40,
+   "overloads": 457414,
+   "penalised_clients": 8,
+   "client_inflight_small": 0,
+   "client_inflight_large": 0,
+   "workers": {
+    "pool": 4,
+    "busy": 0,
+    "spares": 4,
+    "recycled": 0
+   },
+   "t": 56.1
+  },
+  {
+   "inflight_small": 0,
+   "inflight_large": 0,
+   "abandoned_running": 0,
+   "kills": 40,
+   "overloads": 464991,
+   "penalised_clients": 8,
+   "client_inflight_small": 0,
+   "client_inflight_large": 0,
+   "workers": {
+    "pool": 4,
+    "busy": 0,
+    "spares": 4,
+    "recycled": 0
+   },
+   "t": 57.1
+  },
+  {
+   "inflight_small": 0,
+   "inflight_large": 0,
+   "abandoned_running": 0,
+   "kills": 40,
+   "overloads": 472303,
+   "penalised_clients": 8,
+   "client_inflight_small": 0,
+   "client_inflight_large": 0,
+   "workers": {
+    "pool": 4,
+    "busy": 0,
+    "spares": 4,
+    "recycled": 0
+   },
+   "t": 58.1
+  },
+  {
+   "inflight_small": 0,
+   "inflight_large": 0,
+   "abandoned_running": 0,
+   "kills": 40,
+   "overloads": 479426,
+   "penalised_clients": 8,
+   "client_inflight_small": 0,
+   "client_inflight_large": 0,
+   "workers": {
+    "pool": 4,
+    "busy": 0,
+    "spares": 4,
+    "recycled": 0
+   },
+   "t": 59.1
+  },
+  {
+   "inflight_small": 3,
+   "inflight_large": 2,
+   "abandoned_running": 0,
+   "kills": 40,
+   "overloads": 486920,
+   "penalised_clients": 4,
+   "client_inflight_small": 2,
+   "client_inflight_large": 2,
+   "workers": {
+    "pool": 4,
+    "busy": 4,
+    "spares": 0,
+    "recycled": 0
+   },
+   "t": 60.1
+  },
+  {
+   "inflight_small": 3,
+   "inflight_large": 2,
+   "abandoned_running": 0,
+   "kills": 40,
+   "overloads": 496413,
+   "penalised_clients": 4,
+   "client_inflight_small": 3,
+   "client_inflight_large": 2,
+   "workers": {
+    "pool": 4,
+    "busy": 4,
+    "spares": 0,
+    "recycled": 0
+   },
+   "t": 61.1
+  },
+  {
+   "inflight_small": 1,
+   "inflight_large": 0,
+   "abandoned_running": 0,
+   "kills": 44,
+   "overloads": 505726,
+   "penalised_clients": 8,
+   "client_inflight_small": 1,
+   "client_inflight_large": 0,
+   "workers": {
+    "pool": 0,
+    "busy": 0,
+    "spares": 0,
+    "recycled": 0
+   },
+   "t": 62.1
+  },
+  {
+   "inflight_small": 3,
+   "inflight_large": 2,
+   "abandoned_running": 0,
+   "kills": 44,
+   "overloads": 515185,
+   "penalised_clients": 4,
+   "client_inflight_small": 3,
+   "client_inflight_large": 2,
+   "workers": {
+    "pool": 4,
+    "busy": 4,
+    "spares": 0,
+    "recycled": 0
+   },
+   "t": 63.1
+  },
+  {
+   "inflight_small": 3,
+   "inflight_large": 2,
+   "abandoned_running": 0,
+   "kills": 44,
+   "overloads": 524796,
+   "penalised_clients": 4,
+   "client_inflight_small": 3,
+   "client_inflight_large": 2,
+   "workers": {
+    "pool": 4,
+    "busy": 4,
+    "spares": 0,
+    "recycled": 0
+   },
+   "t": 64.1
+  },
+  {
+   "inflight_small": 0,
+   "inflight_large": 0,
+   "abandoned_running": 0,
+   "kills": 48,
+   "overloads": 532023,
+   "penalised_clients": 8,
+   "client_inflight_small": 0,
+   "client_inflight_large": 0,
+   "workers": {
+    "pool": 4,
+    "busy": 0,
+    "spares": 4,
+    "recycled": 0
+   },
+   "t": 65.1
+  },
+  {
+   "inflight_small": 0,
+   "inflight_large": 0,
+   "abandoned_running": 0,
+   "kills": 48,
+   "overloads": 538901,
+   "penalised_clients": 8,
+   "client_inflight_small": 0,
+   "client_inflight_large": 0,
+   "workers": {
+    "pool": 4,
+    "busy": 0,
+    "spares": 4,
+    "recycled": 0
+   },
+   "t": 66.1
+  },
+  {
+   "inflight_small": 0,
+   "inflight_large": 0,
+   "abandoned_running": 0,
+   "kills": 48,
+   "overloads": 546177,
+   "penalised_clients": 8,
+   "client_inflight_small": 0,
+   "client_inflight_large": 0,
+   "workers": {
+    "pool": 4,
+    "busy": 0,
+    "spares": 4,
+    "recycled": 0
+   },
+   "t": 67.1
+  },
+  {
+   "inflight_small": 1,
+   "inflight_large": 1,
+   "abandoned_running": 0,
+   "kills": 48,
+   "overloads": 553352,
+   "penalised_clients": 8,
+   "client_inflight_small": 0,
+   "client_inflight_large": 0,
+   "workers": {
+    "pool": 4,
+    "busy": 0,
+    "spares": 4,
+    "recycled": 0
+   },
+   "t": 68.1
+  },
+  {
+   "inflight_small": 1,
+   "inflight_large": 0,
+   "abandoned_running": 0,
+   "kills": 48,
+   "overloads": 560492,
+   "penalised_clients": 8,
+   "client_inflight_small": 0,
+   "client_inflight_large": 0,
+   "workers": {
+    "pool": 4,
+    "busy": 0,
+    "spares": 4,
+    "recycled": 0
+   },
+   "t": 69.1
+  },
+  {
+   "inflight_small": 0,
+   "inflight_large": 0,
+   "abandoned_running": 0,
+   "kills": 48,
+   "overloads": 567680,
+   "penalised_clients": 8,
+   "client_inflight_small": 0,
+   "client_inflight_large": 0,
+   "workers": {
+    "pool": 4,
+    "busy": 0,
+    "spares": 4,
+    "recycled": 0
+   },
+   "t": 70.1
+  },
+  {
+   "inflight_small": 0,
+   "inflight_large": 0,
+   "abandoned_running": 0,
+   "kills": 48,
+   "overloads": 574957,
+   "penalised_clients": 8,
+   "client_inflight_small": 0,
+   "client_inflight_large": 0,
+   "workers": {
+    "pool": 4,
+    "busy": 0,
+    "spares": 4,
+    "recycled": 0
+   },
+   "t": 71.1
+  },
+  {
+   "inflight_small": 3,
+   "inflight_large": 2,
+   "abandoned_running": 0,
+   "kills": 48,
+   "overloads": 582490,
+   "penalised_clients": 4,
+   "client_inflight_small": 2,
+   "client_inflight_large": 2,
+   "workers": {
+    "pool": 4,
+    "busy": 4,
+    "spares": 0,
+    "recycled": 0
+   },
+   "t": 72.1
+  },
+  {
+   "inflight_small": 4,
+   "inflight_large": 2,
+   "abandoned_running": 0,
+   "kills": 48,
+   "overloads": 591929,
+   "penalised_clients": 4,
+   "client_inflight_small": 3,
+   "client_inflight_large": 2,
+   "workers": {
+    "pool": 4,
+    "busy": 4,
+    "spares": 0,
+    "recycled": 0
+   },
+   "t": 73.1
+  },
+  {
+   "inflight_small": 0,
+   "inflight_large": 0,
+   "abandoned_running": 0,
+   "kills": 52,
+   "overloads": 600978,
+   "penalised_clients": 8,
+   "client_inflight_small": 0,
+   "client_inflight_large": 0,
+   "workers": {
+    "pool": 2,
+    "busy": 0,
+    "spares": 2,
+    "recycled": 0
+   },
+   "t": 74.1
+  },
+  {
+   "inflight_small": 3,
+   "inflight_large": 2,
+   "abandoned_running": 0,
+   "kills": 52,
+   "overloads": 612439,
+   "penalised_clients": 4,
+   "client_inflight_small": 3,
+   "client_inflight_large": 2,
+   "workers": {
+    "pool": 4,
+    "busy": 4,
+    "spares": 0,
+    "recycled": 0
+   },
+   "t": 75.1
+  },
+  {
+   "inflight_small": 3,
+   "inflight_large": 2,
+   "abandoned_running": 0,
+   "kills": 52,
+   "overloads": 623564,
+   "penalised_clients": 4,
+   "client_inflight_small": 3,
+   "client_inflight_large": 2,
+   "workers": {
+    "pool": 4,
+    "busy": 4,
+    "spares": 0,
+    "recycled": 0
+   },
+   "t": 76.1
+  },
+  {
+   "inflight_small": 0,
+   "inflight_large": 1,
+   "abandoned_running": 0,
+   "kills": 56,
+   "overloads": 630839,
+   "penalised_clients": 8,
+   "client_inflight_small": 0,
+   "client_inflight_large": 0,
+   "workers": {
+    "pool": 4,
+    "busy": 0,
+    "spares": 4,
+    "recycled": 0
+   },
+   "t": 77.1
+  },
+  {
+   "inflight_small": 0,
+   "inflight_large": 0,
+   "abandoned_running": 0,
+   "kills": 56,
+   "overloads": 638304,
+   "penalised_clients": 8,
+   "client_inflight_small": 0,
+   "client_inflight_large": 0,
+   "workers": {
+    "pool": 4,
+    "busy": 0,
+    "spares": 4,
+    "recycled": 0
+   },
+   "t": 78.1
+  },
+  {
+   "inflight_small": 0,
+   "inflight_large": 0,
+   "abandoned_running": 0,
+   "kills": 56,
+   "overloads": 645712,
+   "penalised_clients": 8,
+   "client_inflight_small": 0,
+   "client_inflight_large": 0,
+   "workers": {
+    "pool": 4,
+    "busy": 0,
+    "spares": 4,
+    "recycled": 0
+   },
+   "t": 79.1
+  },
+  {
+   "inflight_small": 2,
+   "inflight_large": 2,
+   "abandoned_running": 0,
+   "kills": 56,
+   "overloads": 653106,
+   "penalised_clients": 8,
+   "client_inflight_small": 0,
+   "client_inflight_large": 0,
+   "workers": {
+    "pool": 4,
+    "busy": 0,
+    "spares": 4,
+    "recycled": 0
+   },
+   "t": 80.1
+  },
+  {
+   "inflight_small": 0,
+   "inflight_large": 0,
+   "abandoned_running": 0,
+   "kills": 56,
+   "overloads": 661520,
+   "penalised_clients": 8,
+   "client_inflight_small": 0,
+   "client_inflight_large": 0,
+   "workers": {
+    "pool": 4,
+    "busy": 0,
+    "spares": 4,
+    "recycled": 0
+   },
+   "t": 81.1
+  },
+  {
+   "inflight_small": 0,
+   "inflight_large": 0,
+   "abandoned_running": 0,
+   "kills": 56,
+   "overloads": 670160,
+   "penalised_clients": 8,
+   "client_inflight_small": 0,
+   "client_inflight_large": 0,
+   "workers": {
+    "pool": 4,
+    "busy": 0,
+    "spares": 4,
+    "recycled": 0
+   },
+   "t": 82.1
+  },
+  {
+   "inflight_small": 0,
+   "inflight_large": 0,
+   "abandoned_running": 0,
+   "kills": 56,
+   "overloads": 678845,
+   "penalised_clients": 8,
+   "client_inflight_small": 0,
+   "client_inflight_large": 0,
+   "workers": {
+    "pool": 4,
+    "busy": 0,
+    "spares": 4,
+    "recycled": 0
+   },
+   "t": 83.1
+  },
+  {
+   "inflight_small": 2,
+   "inflight_large": 2,
+   "abandoned_running": 0,
+   "kills": 56,
+   "overloads": 687584,
+   "penalised_clients": 4,
+   "client_inflight_small": 2,
+   "client_inflight_large": 2,
+   "workers": {
+    "pool": 4,
+    "busy": 4,
+    "spares": 0,
+    "recycled": 0
+   },
+   "t": 84.1
+  },
+  {
+   "inflight_small": 3,
+   "inflight_large": 2,
+   "abandoned_running": 0,
+   "kills": 56,
+   "overloads": 698870,
+   "penalised_clients": 4,
+   "client_inflight_small": 3,
+   "client_inflight_large": 2,
+   "workers": {
+    "pool": 4,
+    "busy": 4,
+    "spares": 0,
+    "recycled": 0
+   },
+   "t": 85.1
+  },
+  {
+   "inflight_small": 1,
+   "inflight_large": 1,
+   "abandoned_running": 0,
+   "kills": 60,
+   "overloads": 709789,
+   "penalised_clients": 6,
+   "client_inflight_small": 1,
+   "client_inflight_large": 1,
+   "workers": {
+    "pool": 4,
+    "busy": 2,
+    "spares": 2,
+    "recycled": 0
+   },
+   "t": 86.1
+  },
+  {
+   "inflight_small": 3,
+   "inflight_large": 2,
+   "abandoned_running": 0,
+   "kills": 60,
+   "overloads": 721158,
+   "penalised_clients": 4,
+   "client_inflight_small": 3,
+   "client_inflight_large": 2,
+   "workers": {
+    "pool": 4,
+    "busy": 4,
+    "spares": 0,
+    "recycled": 0
+   },
+   "t": 87.1
+  },
+  {
+   "inflight_small": 2,
+   "inflight_large": 1,
+   "abandoned_running": 0,
+   "kills": 62,
+   "overloads": 732699,
+   "penalised_clients": 6,
+   "client_inflight_small": 2,
+   "client_inflight_large": 1,
+   "workers": {
+    "pool": 2,
+    "busy": 2,
+    "spares": 0,
+    "recycled": 0
+   },
+   "t": 88.1
+  },
+  {
+   "inflight_small": 0,
+   "inflight_large": 0,
+   "abandoned_running": 0,
+   "kills": 64,
+   "overloads": 741084,
+   "penalised_clients": 8,
+   "client_inflight_small": 0,
+   "client_inflight_large": 0,
+   "workers": {
+    "pool": 4,
+    "busy": 0,
+    "spares": 4,
+    "recycled": 0
+   },
+   "t": 89.1
+  },
+  {
+   "inflight_small": 0,
+   "inflight_large": 1,
+   "abandoned_running": 0,
+   "kills": 64,
+   "overloads": 749404,
+   "penalised_clients": 8,
+   "client_inflight_small": 0,
+   "client_inflight_large": 0,
+   "workers": {
+    "pool": 4,
+    "busy": 0,
+    "spares": 4,
+    "recycled": 0
+   },
+   "t": 90.1
+  },
+  {
+   "inflight_small": 0,
+   "inflight_large": 0,
+   "abandoned_running": 0,
+   "kills": 64,
+   "overloads": 757595,
+   "penalised_clients": 8,
+   "client_inflight_small": 0,
+   "client_inflight_large": 0,
+   "workers": {
+    "pool": 4,
+    "busy": 0,
+    "spares": 4,
+    "recycled": 0
+   },
+   "t": 91.1
+  },
+  {
+   "inflight_small": 0,
+   "inflight_large": 0,
+   "abandoned_running": 0,
+   "kills": 64,
+   "overloads": 764762,
+   "penalised_clients": 8,
+   "client_inflight_small": 0,
+   "client_inflight_large": 0,
+   "workers": {
+    "pool": 4,
+    "busy": 0,
+    "spares": 4,
+    "recycled": 0
+   },
+   "t": 92.1
+  },
+  {
+   "inflight_small": 0,
+   "inflight_large": 0,
+   "abandoned_running": 0,
+   "kills": 64,
+   "overloads": 772327,
+   "penalised_clients": 8,
+   "client_inflight_small": 0,
+   "client_inflight_large": 0,
+   "workers": {
+    "pool": 4,
+    "busy": 0,
+    "spares": 4,
+    "recycled": 0
+   },
+   "t": 93.1
+  },
+  {
+   "inflight_small": 0,
+   "inflight_large": 0,
+   "abandoned_running": 0,
+   "kills": 64,
+   "overloads": 779780,
+   "penalised_clients": 8,
+   "client_inflight_small": 0,
+   "client_inflight_large": 0,
+   "workers": {
+    "pool": 4,
+    "busy": 0,
+    "spares": 4,
+    "recycled": 0
+   },
+   "t": 94.1
+  },
+  {
+   "inflight_small": 0,
+   "inflight_large": 0,
+   "abandoned_running": 0,
+   "kills": 64,
+   "overloads": 786170,
+   "penalised_clients": 8,
+   "client_inflight_small": 0,
+   "client_inflight_large": 0,
+   "workers": {
+    "pool": 4,
+    "busy": 0,
+    "spares": 4,
+    "recycled": 0
+   },
+   "t": 95.1
+  },
+  {
+   "inflight_small": 2,
+   "inflight_large": 2,
+   "abandoned_running": 0,
+   "kills": 64,
+   "overloads": 792802,
+   "penalised_clients": 4,
+   "client_inflight_small": 2,
+   "client_inflight_large": 2,
+   "workers": {
+    "pool": 4,
+    "busy": 4,
+    "spares": 0,
+    "recycled": 0
+   },
+   "t": 96.1
+  },
+  {
+   "inflight_small": 3,
+   "inflight_large": 2,
+   "abandoned_running": 0,
+   "kills": 64,
+   "overloads": 803360,
+   "penalised_clients": 4,
+   "client_inflight_small": 3,
+   "client_inflight_large": 2,
+   "workers": {
+    "pool": 4,
+    "busy": 4,
+    "spares": 0,
+    "recycled": 0
+   },
+   "t": 97.1
+  },
+  {
+   "inflight_small": 2,
+   "inflight_large": 2,
+   "abandoned_running": 0,
+   "kills": 68,
+   "overloads": 813771,
+   "penalised_clients": 4,
+   "client_inflight_small": 2,
+   "client_inflight_large": 2,
+   "workers": {
+    "pool": 4,
+    "busy": 4,
+    "spares": 0,
+    "recycled": 0
+   },
+   "t": 98.1
+  },
+  {
+   "inflight_small": 4,
+   "inflight_large": 2,
+   "abandoned_running": 0,
+   "kills": 68,
+   "overloads": 825130,
+   "penalised_clients": 4,
+   "client_inflight_small": 3,
+   "client_inflight_large": 2,
+   "workers": {
+    "pool": 4,
+    "busy": 4,
+    "spares": 0,
+    "recycled": 0
+   },
+   "t": 99.1
+  },
+  {
+   "inflight_small": 0,
+   "inflight_large": 1,
+   "abandoned_running": 0,
+   "kills": 72,
+   "overloads": 836383,
+   "penalised_clients": 8,
+   "client_inflight_small": 0,
+   "client_inflight_large": 0,
+   "workers": {
+    "pool": 0,
+    "busy": 0,
+    "spares": 0,
+    "recycled": 0
+   },
+   "t": 100.1
+  },
+  {
+   "inflight_small": 0,
+   "inflight_large": 0,
+   "abandoned_running": 0,
+   "kills": 72,
+   "overloads": 844940,
+   "penalised_clients": 8,
+   "client_inflight_small": 0,
+   "client_inflight_large": 0,
+   "workers": {
+    "pool": 4,
+    "busy": 0,
+    "spares": 4,
+    "recycled": 0
+   },
+   "t": 101.1
+  },
+  {
+   "inflight_small": 0,
+   "inflight_large": 0,
+   "abandoned_running": 0,
+   "kills": 72,
+   "overloads": 853726,
+   "penalised_clients": 8,
+   "client_inflight_small": 0,
+   "client_inflight_large": 0,
+   "workers": {
+    "pool": 4,
+    "busy": 0,
+    "spares": 4,
+    "recycled": 0
+   },
+   "t": 102.1
+  },
+  {
+   "inflight_small": 1,
+   "inflight_large": 0,
+   "abandoned_running": 0,
+   "kills": 72,
+   "overloads": 862554,
+   "penalised_clients": 8,
+   "client_inflight_small": 0,
+   "client_inflight_large": 0,
+   "workers": {
+    "pool": 4,
+    "busy": 0,
+    "spares": 4,
+    "recycled": 0
+   },
+   "t": 103.1
+  },
+  {
+   "inflight_small": 0,
+   "inflight_large": 0,
+   "abandoned_running": 0,
+   "kills": 72,
+   "overloads": 871207,
+   "penalised_clients": 8,
+   "client_inflight_small": 0,
+   "client_inflight_large": 0,
+   "workers": {
+    "pool": 4,
+    "busy": 0,
+    "spares": 4,
+    "recycled": 0
+   },
+   "t": 104.1
+  },
+  {
+   "inflight_small": 0,
+   "inflight_large": 0,
+   "abandoned_running": 0,
+   "kills": 72,
+   "overloads": 880151,
+   "penalised_clients": 8,
+   "client_inflight_small": 0,
+   "client_inflight_large": 0,
+   "workers": {
+    "pool": 4,
+    "busy": 0,
+    "spares": 4,
+    "recycled": 0
+   },
+   "t": 105.1
+  },
+  {
+   "inflight_small": 0,
+   "inflight_large": 0,
+   "abandoned_running": 0,
+   "kills": 72,
+   "overloads": 888953,
+   "penalised_clients": 8,
+   "client_inflight_small": 0,
+   "client_inflight_large": 0,
+   "workers": {
+    "pool": 4,
+    "busy": 0,
+    "spares": 4,
+    "recycled": 0
+   },
+   "t": 106.1
+  },
+  {
+   "inflight_small": 0,
+   "inflight_large": 0,
+   "abandoned_running": 0,
+   "kills": 72,
+   "overloads": 897653,
+   "penalised_clients": 8,
+   "client_inflight_small": 0,
+   "client_inflight_large": 0,
+   "workers": {
+    "pool": 4,
+    "busy": 0,
+    "spares": 4,
+    "recycled": 0
+   },
+   "t": 107.1
+  },
+  {
+   "inflight_small": 2,
+   "inflight_large": 2,
+   "abandoned_running": 0,
+   "kills": 72,
+   "overloads": 906910,
+   "penalised_clients": 4,
+   "client_inflight_small": 2,
+   "client_inflight_large": 2,
+   "workers": {
+    "pool": 4,
+    "busy": 4,
+    "spares": 0,
+    "recycled": 0
+   },
+   "t": 108.1
+  },
+  {
+   "inflight_small": 3,
+   "inflight_large": 2,
+   "abandoned_running": 0,
+   "kills": 72,
+   "overloads": 918277,
+   "penalised_clients": 4,
+   "client_inflight_small": 3,
+   "client_inflight_large": 2,
+   "workers": {
+    "pool": 4,
+    "busy": 4,
+    "spares": 0,
+    "recycled": 0
+   },
+   "t": 109.1
+  },
+  {
+   "inflight_small": 2,
+   "inflight_large": 2,
+   "abandoned_running": 0,
+   "kills": 76,
+   "overloads": 928949,
+   "penalised_clients": 4,
+   "client_inflight_small": 2,
+   "client_inflight_large": 2,
+   "workers": {
+    "pool": 4,
+    "busy": 4,
+    "spares": 0,
+    "recycled": 0
+   },
+   "t": 110.1
+  },
+  {
+   "inflight_small": 3,
+   "inflight_large": 2,
+   "abandoned_running": 0,
+   "kills": 76,
+   "overloads": 937818,
+   "penalised_clients": 4,
+   "client_inflight_small": 3,
+   "client_inflight_large": 2,
+   "workers": {
+    "pool": 4,
+    "busy": 4,
+    "spares": 0,
+    "recycled": 0
+   },
+   "t": 111.2
+  },
+  {
+   "inflight_small": 2,
+   "inflight_large": 1,
+   "abandoned_running": 0,
+   "kills": 80,
+   "overloads": 946320,
+   "penalised_clients": 8,
+   "client_inflight_small": 1,
+   "client_inflight_large": 0,
+   "workers": {
+    "pool": 0,
+    "busy": 0,
+    "spares": 0,
+    "recycled": 0
+   },
+   "t": 112.2
+  },
+  {
+   "inflight_small": 1,
+   "inflight_large": 0,
+   "abandoned_running": 0,
+   "kills": 80,
+   "overloads": 954864,
+   "penalised_clients": 8,
+   "client_inflight_small": 0,
+   "client_inflight_large": 0,
+   "workers": {
+    "pool": 4,
+    "busy": 0,
+    "spares": 4,
+    "recycled": 0
+   },
+   "t": 113.2
+  },
+  {
+   "inflight_small": 0,
+   "inflight_large": 0,
+   "abandoned_running": 0,
+   "kills": 80,
+   "overloads": 963389,
+   "penalised_clients": 8,
+   "client_inflight_small": 0,
+   "client_inflight_large": 0,
+   "workers": {
+    "pool": 4,
+    "busy": 0,
+    "spares": 4,
+    "recycled": 0
+   },
+   "t": 114.2
+  },
+  {
+   "inflight_small": 1,
+   "inflight_large": 1,
+   "abandoned_running": 0,
+   "kills": 80,
+   "overloads": 971702,
+   "penalised_clients": 8,
+   "client_inflight_small": 0,
+   "client_inflight_large": 0,
+   "workers": {
+    "pool": 4,
+    "busy": 0,
+    "spares": 4,
+    "recycled": 0
+   },
+   "t": 115.2
+  },
+  {
+   "inflight_small": 0,
+   "inflight_large": 0,
+   "abandoned_running": 0,
+   "kills": 80,
+   "overloads": 979715,
+   "penalised_clients": 8,
+   "client_inflight_small": 0,
+   "client_inflight_large": 0,
+   "workers": {
+    "pool": 4,
+    "busy": 0,
+    "spares": 4,
+    "recycled": 0
+   },
+   "t": 116.2
+  },
+  {
+   "inflight_small": 1,
+   "inflight_large": 1,
+   "abandoned_running": 0,
+   "kills": 80,
+   "overloads": 987734,
+   "penalised_clients": 8,
+   "client_inflight_small": 0,
+   "client_inflight_large": 0,
+   "workers": {
+    "pool": 4,
+    "busy": 0,
+    "spares": 4,
+    "recycled": 0
+   },
+   "t": 117.2
+  },
+  {
+   "inflight_small": 0,
+   "inflight_large": 0,
+   "abandoned_running": 0,
+   "kills": 80,
+   "overloads": 996699,
+   "penalised_clients": 8,
+   "client_inflight_small": 0,
+   "client_inflight_large": 0,
+   "workers": {
+    "pool": 4,
+    "busy": 0,
+    "spares": 4,
+    "recycled": 0
+   },
+   "t": 118.2
+  },
+  {
+   "inflight_small": 0,
+   "inflight_large": 1,
+   "abandoned_running": 0,
+   "kills": 80,
+   "overloads": 1005404,
+   "penalised_clients": 8,
+   "client_inflight_small": 0,
+   "client_inflight_large": 0,
+   "workers": {
+    "pool": 4,
+    "busy": 0,
+    "spares": 4,
+    "recycled": 0
+   },
+   "t": 119.2
+  },
+  {
+   "inflight_small": 2,
+   "inflight_large": 2,
+   "abandoned_running": 0,
+   "kills": 80,
+   "overloads": 1014556,
+   "penalised_clients": 4,
+   "client_inflight_small": 2,
+   "client_inflight_large": 2,
+   "workers": {
+    "pool": 4,
+    "busy": 4,
+    "spares": 0,
+    "recycled": 0
+   },
+   "t": 120.2
+  },
+  {
+   "inflight_small": 3,
+   "inflight_large": 2,
+   "abandoned_running": 0,
+   "kills": 80,
+   "overloads": 1026209,
+   "penalised_clients": 4,
+   "client_inflight_small": 3,
+   "client_inflight_large": 2,
+   "workers": {
+    "pool": 4,
+    "busy": 4,
+    "spares": 0,
+    "recycled": 0
+   },
+   "t": 121.2
+  },
+  {
+   "inflight_small": 3,
+   "inflight_large": 2,
+   "abandoned_running": 0,
+   "kills": 84,
+   "overloads": 1036911,
+   "penalised_clients": 4,
+   "client_inflight_small": 3,
+   "client_inflight_large": 2,
+   "workers": {
+    "pool": 4,
+    "busy": 4,
+    "spares": 0,
+    "recycled": 0
+   },
+   "t": 122.2
+  },
+  {
+   "inflight_small": 3,
+   "inflight_large": 2,
+   "abandoned_running": 0,
+   "kills": 84,
+   "overloads": 1048296,
+   "penalised_clients": 4,
+   "client_inflight_small": 3,
+   "client_inflight_large": 2,
+   "workers": {
+    "pool": 4,
+    "busy": 4,
+    "spares": 0,
+    "recycled": 0
+   },
+   "t": 123.2
+  },
+  {
+   "inflight_small": 1,
+   "inflight_large": 0,
+   "abandoned_running": 0,
+   "kills": 88,
+   "overloads": 1059714,
+   "penalised_clients": 8,
+   "client_inflight_small": 1,
+   "client_inflight_large": 0,
+   "workers": {
+    "pool": 0,
+    "busy": 0,
+    "spares": 0,
+    "recycled": 0
+   },
+   "t": 124.2
+  },
+  {
+   "inflight_small": 2,
+   "inflight_large": 1,
+   "abandoned_running": 0,
+   "kills": 88,
+   "overloads": 1068319,
+   "penalised_clients": 8,
+   "client_inflight_small": 0,
+   "client_inflight_large": 0,
+   "workers": {
+    "pool": 4,
+    "busy": 0,
+    "spares": 4,
+    "recycled": 0
+   },
+   "t": 125.2
+  },
+  {
+   "inflight_small": 0,
+   "inflight_large": 0,
+   "abandoned_running": 0,
+   "kills": 88,
+   "overloads": 1076797,
+   "penalised_clients": 8,
+   "client_inflight_small": 0,
+   "client_inflight_large": 0,
+   "workers": {
+    "pool": 4,
+    "busy": 0,
+    "spares": 4,
+    "recycled": 0
+   },
+   "t": 126.2
+  },
+  {
+   "inflight_small": 0,
+   "inflight_large": 0,
+   "abandoned_running": 0,
+   "kills": 88,
+   "overloads": 1085334,
+   "penalised_clients": 8,
+   "client_inflight_small": 0,
+   "client_inflight_large": 0,
+   "workers": {
+    "pool": 4,
+    "busy": 0,
+    "spares": 4,
+    "recycled": 0
+   },
+   "t": 127.2
+  },
+  {
+   "inflight_small": 0,
+   "inflight_large": 2,
+   "abandoned_running": 0,
+   "kills": 88,
+   "overloads": 1093882,
+   "penalised_clients": 8,
+   "client_inflight_small": 0,
+   "client_inflight_large": 0,
+   "workers": {
+    "pool": 4,
+    "busy": 0,
+    "spares": 4,
+    "recycled": 0
+   },
+   "t": 128.2
+  },
+  {
+   "inflight_small": 0,
+   "inflight_large": 0,
+   "abandoned_running": 0,
+   "kills": 88,
+   "overloads": 1102356,
+   "penalised_clients": 8,
+   "client_inflight_small": 0,
+   "client_inflight_large": 0,
+   "workers": {
+    "pool": 4,
+    "busy": 0,
+    "spares": 4,
+    "recycled": 0
+   },
+   "t": 129.2
+  },
+  {
+   "inflight_small": 1,
+   "inflight_large": 1,
+   "abandoned_running": 0,
+   "kills": 88,
+   "overloads": 1110937,
+   "penalised_clients": 8,
+   "client_inflight_small": 0,
+   "client_inflight_large": 0,
+   "workers": {
+    "pool": 4,
+    "busy": 0,
+    "spares": 4,
+    "recycled": 0
+   },
+   "t": 130.2
+  },
+  {
+   "inflight_small": 1,
+   "inflight_large": 0,
+   "abandoned_running": 0,
+   "kills": 88,
+   "overloads": 1119624,
+   "penalised_clients": 8,
+   "client_inflight_small": 0,
+   "client_inflight_large": 0,
+   "workers": {
+    "pool": 4,
+    "busy": 0,
+    "spares": 4,
+    "recycled": 0
+   },
+   "t": 131.2
+  },
+  {
+   "inflight_small": 2,
+   "inflight_large": 2,
+   "abandoned_running": 0,
+   "kills": 88,
+   "overloads": 1128773,
+   "penalised_clients": 4,
+   "client_inflight_small": 2,
+   "client_inflight_large": 2,
+   "workers": {
+    "pool": 4,
+    "busy": 4,
+    "spares": 0,
+    "recycled": 0
+   },
+   "t": 132.2
+  },
+  {
+   "inflight_small": 4,
+   "inflight_large": 2,
+   "abandoned_running": 0,
+   "kills": 88,
+   "overloads": 1140155,
+   "penalised_clients": 4,
+   "client_inflight_small": 3,
+   "client_inflight_large": 2,
+   "workers": {
+    "pool": 4,
+    "busy": 4,
+    "spares": 0,
+    "recycled": 0
+   },
+   "t": 133.2
+  },
+  {
+   "inflight_small": 3,
+   "inflight_large": 2,
+   "abandoned_running": 0,
+   "kills": 92,
+   "overloads": 1150624,
+   "penalised_clients": 4,
+   "client_inflight_small": 3,
+   "client_inflight_large": 2,
+   "workers": {
+    "pool": 4,
+    "busy": 4,
+    "spares": 0,
+    "recycled": 0
+   },
+   "t": 134.2
+  },
+  {
+   "inflight_small": 3,
+   "inflight_large": 2,
+   "abandoned_running": 0,
+   "kills": 92,
+   "overloads": 1161889,
+   "penalised_clients": 4,
+   "client_inflight_small": 3,
+   "client_inflight_large": 2,
+   "workers": {
+    "pool": 4,
+    "busy": 4,
+    "spares": 0,
+    "recycled": 0
+   },
+   "t": 135.2
+  },
+  {
+   "inflight_small": 2,
+   "inflight_large": 1,
+   "abandoned_running": 0,
+   "kills": 96,
+   "overloads": 1173047,
+   "penalised_clients": 8,
+   "client_inflight_small": 1,
+   "client_inflight_large": 0,
+   "workers": {
+    "pool": 0,
+    "busy": 0,
+    "spares": 0,
+    "recycled": 0
+   },
+   "t": 136.2
+  },
+  {
+   "inflight_small": 0,
+   "inflight_large": 0,
+   "abandoned_running": 0,
+   "kills": 96,
+   "overloads": 1181823,
+   "penalised_clients": 8,
+   "client_inflight_small": 0,
+   "client_inflight_large": 0,
+   "workers": {
+    "pool": 4,
+    "busy": 0,
+    "spares": 4,
+    "recycled": 0
+   },
+   "t": 137.2
+  },
+  {
+   "inflight_small": 0,
+   "inflight_large": 0,
+   "abandoned_running": 0,
+   "kills": 96,
+   "overloads": 1190547,
+   "penalised_clients": 8,
+   "client_inflight_small": 0,
+   "client_inflight_large": 0,
+   "workers": {
+    "pool": 4,
+    "busy": 0,
+    "spares": 4,
+    "recycled": 0
+   },
+   "t": 138.2
+  },
+  {
+   "inflight_small": 0,
+   "inflight_large": 0,
+   "abandoned_running": 0,
+   "kills": 96,
+   "overloads": 1199394,
+   "penalised_clients": 8,
+   "client_inflight_small": 0,
+   "client_inflight_large": 0,
+   "workers": {
+    "pool": 4,
+    "busy": 0,
+    "spares": 4,
+    "recycled": 0
+   },
+   "t": 139.2
+  },
+  {
+   "inflight_small": 0,
+   "inflight_large": 0,
+   "abandoned_running": 0,
+   "kills": 96,
+   "overloads": 1208126,
+   "penalised_clients": 8,
+   "client_inflight_small": 0,
+   "client_inflight_large": 0,
+   "workers": {
+    "pool": 4,
+    "busy": 0,
+    "spares": 4,
+    "recycled": 0
+   },
+   "t": 140.2
+  },
+  {
+   "inflight_small": 0,
+   "inflight_large": 0,
+   "abandoned_running": 0,
+   "kills": 96,
+   "overloads": 1216720,
+   "penalised_clients": 8,
+   "client_inflight_small": 0,
+   "client_inflight_large": 0,
+   "workers": {
+    "pool": 4,
+    "busy": 0,
+    "spares": 4,
+    "recycled": 0
+   },
+   "t": 141.2
+  },
+  {
+   "inflight_small": 0,
+   "inflight_large": 0,
+   "abandoned_running": 0,
+   "kills": 96,
+   "overloads": 1225588,
+   "penalised_clients": 8,
+   "client_inflight_small": 0,
+   "client_inflight_large": 0,
+   "workers": {
+    "pool": 4,
+    "busy": 0,
+    "spares": 4,
+    "recycled": 0
+   },
+   "t": 142.2
+  },
+  {
+   "inflight_small": 0,
+   "inflight_large": 0,
+   "abandoned_running": 0,
+   "kills": 96,
+   "overloads": 1234316,
+   "penalised_clients": 8,
+   "client_inflight_small": 0,
+   "client_inflight_large": 0,
+   "workers": {
+    "pool": 4,
+    "busy": 0,
+    "spares": 4,
+    "recycled": 0
+   },
+   "t": 143.2
+  },
+  {
+   "inflight_small": 2,
+   "inflight_large": 2,
+   "abandoned_running": 0,
+   "kills": 96,
+   "overloads": 1243531,
+   "penalised_clients": 4,
+   "client_inflight_small": 2,
+   "client_inflight_large": 2,
+   "workers": {
+    "pool": 4,
+    "busy": 4,
+    "spares": 0,
+    "recycled": 0
+   },
+   "t": 144.2
+  },
+  {
+   "inflight_small": 4,
+   "inflight_large": 2,
+   "abandoned_running": 0,
+   "kills": 96,
+   "overloads": 1255073,
+   "penalised_clients": 4,
+   "client_inflight_small": 3,
+   "client_inflight_large": 2,
+   "workers": {
+    "pool": 4,
+    "busy": 4,
+    "spares": 0,
+    "recycled": 0
+   },
+   "t": 145.2
+  },
+  {
+   "inflight_small": 3,
+   "inflight_large": 2,
+   "abandoned_running": 0,
+   "kills": 100,
+   "overloads": 1265894,
+   "penalised_clients": 4,
+   "client_inflight_small": 3,
+   "client_inflight_large": 2,
+   "workers": {
+    "pool": 4,
+    "busy": 4,
+    "spares": 0,
+    "recycled": 0
+   },
+   "t": 146.2
+  },
+  {
+   "inflight_small": 3,
+   "inflight_large": 2,
+   "abandoned_running": 0,
+   "kills": 100,
+   "overloads": 1277562,
+   "penalised_clients": 4,
+   "client_inflight_small": 3,
+   "client_inflight_large": 2,
+   "workers": {
+    "pool": 4,
+    "busy": 4,
+    "spares": 0,
+    "recycled": 0
+   },
+   "t": 147.2
+  },
+  {
+   "inflight_small": 3,
+   "inflight_large": 2,
+   "abandoned_running": 0,
+   "kills": 104,
+   "overloads": 1288399,
+   "penalised_clients": 8,
+   "client_inflight_small": 0,
+   "client_inflight_large": 0,
+   "workers": {
+    "pool": 2,
+    "busy": 0,
+    "spares": 2,
+    "recycled": 0
+   },
+   "t": 148.2
+  },
+  {
+   "inflight_small": 0,
+   "inflight_large": 0,
+   "abandoned_running": 0,
+   "kills": 104,
+   "overloads": 1297079,
+   "penalised_clients": 8,
+   "client_inflight_small": 0,
+   "client_inflight_large": 0,
+   "workers": {
+    "pool": 4,
+    "busy": 0,
+    "spares": 4,
+    "recycled": 0
+   },
+   "t": 149.2
+  },
+  {
+   "inflight_small": 0,
+   "inflight_large": 0,
+   "abandoned_running": 0,
+   "kills": 104,
+   "overloads": 1306001,
+   "penalised_clients": 8,
+   "client_inflight_small": 0,
+   "client_inflight_large": 0,
+   "workers": {
+    "pool": 4,
+    "busy": 0,
+    "spares": 4,
+    "recycled": 0
+   },
+   "t": 150.2
+  },
+  {
+   "inflight_small": 0,
+   "inflight_large": 0,
+   "abandoned_running": 0,
+   "kills": 104,
+   "overloads": 1314302,
+   "penalised_clients": 8,
+   "client_inflight_small": 0,
+   "client_inflight_large": 0,
+   "workers": {
+    "pool": 4,
+    "busy": 0,
+    "spares": 4,
+    "recycled": 0
+   },
+   "t": 151.2
+  },
+  {
+   "inflight_small": 0,
+   "inflight_large": 0,
+   "abandoned_running": 0,
+   "kills": 104,
+   "overloads": 1322935,
+   "penalised_clients": 8,
+   "client_inflight_small": 0,
+   "client_inflight_large": 0,
+   "workers": {
+    "pool": 4,
+    "busy": 0,
+    "spares": 4,
+    "recycled": 0
+   },
+   "t": 152.2
+  },
+  {
+   "inflight_small": 0,
+   "inflight_large": 0,
+   "abandoned_running": 0,
+   "kills": 104,
+   "overloads": 1331495,
+   "penalised_clients": 8,
+   "client_inflight_small": 0,
+   "client_inflight_large": 0,
+   "workers": {
+    "pool": 4,
+    "busy": 0,
+    "spares": 4,
+    "recycled": 0
+   },
+   "t": 153.2
+  },
+  {
+   "inflight_small": 0,
+   "inflight_large": 1,
+   "abandoned_running": 0,
+   "kills": 104,
+   "overloads": 1340067,
+   "penalised_clients": 8,
+   "client_inflight_small": 0,
+   "client_inflight_large": 0,
+   "workers": {
+    "pool": 4,
+    "busy": 0,
+    "spares": 4,
+    "recycled": 0
+   },
+   "t": 154.2
+  },
+  {
+   "inflight_small": 0,
+   "inflight_large": 0,
+   "abandoned_running": 0,
+   "kills": 104,
+   "overloads": 1348634,
+   "penalised_clients": 8,
+   "client_inflight_small": 0,
+   "client_inflight_large": 0,
+   "workers": {
+    "pool": 4,
+    "busy": 0,
+    "spares": 4,
+    "recycled": 0
+   },
+   "t": 155.2
+  },
+  {
+   "inflight_small": 2,
+   "inflight_large": 2,
+   "abandoned_running": 0,
+   "kills": 104,
+   "overloads": 1357577,
+   "penalised_clients": 4,
+   "client_inflight_small": 2,
+   "client_inflight_large": 2,
+   "workers": {
+    "pool": 4,
+    "busy": 4,
+    "spares": 0,
+    "recycled": 0
+   },
+   "t": 156.2
+  },
+  {
+   "inflight_small": 3,
+   "inflight_large": 2,
+   "abandoned_running": 0,
+   "kills": 104,
+   "overloads": 1368929,
+   "penalised_clients": 4,
+   "client_inflight_small": 3,
+   "client_inflight_large": 2,
+   "workers": {
+    "pool": 4,
+    "busy": 4,
+    "spares": 0,
+    "recycled": 0
+   },
+   "t": 157.2
+  },
+  {
+   "inflight_small": 3,
+   "inflight_large": 2,
+   "abandoned_running": 0,
+   "kills": 108,
+   "overloads": 1379789,
+   "penalised_clients": 4,
+   "client_inflight_small": 3,
+   "client_inflight_large": 2,
+   "workers": {
+    "pool": 4,
+    "busy": 4,
+    "spares": 0,
+    "recycled": 0
+   },
+   "t": 158.2
+  },
+  {
+   "inflight_small": 3,
+   "inflight_large": 2,
+   "abandoned_running": 0,
+   "kills": 108,
+   "overloads": 1391103,
+   "penalised_clients": 4,
+   "client_inflight_small": 3,
+   "client_inflight_large": 2,
+   "workers": {
+    "pool": 4,
+    "busy": 4,
+    "spares": 0,
+    "recycled": 0
+   },
+   "t": 159.2
+  },
+  {
+   "inflight_small": 0,
+   "inflight_large": 0,
+   "abandoned_running": 0,
+   "kills": 112,
+   "overloads": 1401996,
+   "penalised_clients": 8,
+   "client_inflight_small": 0,
+   "client_inflight_large": 0,
+   "workers": {
+    "pool": 2,
+    "busy": 0,
+    "spares": 2,
+    "recycled": 0
+   },
+   "t": 160.2
+  },
+  {
+   "inflight_small": 0,
+   "inflight_large": 0,
+   "abandoned_running": 0,
+   "kills": 112,
+   "overloads": 1410843,
+   "penalised_clients": 8,
+   "client_inflight_small": 0,
+   "client_inflight_large": 0,
+   "workers": {
+    "pool": 4,
+    "busy": 0,
+    "spares": 4,
+    "recycled": 0
+   },
+   "t": 161.2
+  },
+  {
+   "inflight_small": 0,
+   "inflight_large": 0,
+   "abandoned_running": 0,
+   "kills": 112,
+   "overloads": 1419687,
+   "penalised_clients": 8,
+   "client_inflight_small": 0,
+   "client_inflight_large": 0,
+   "workers": {
+    "pool": 4,
+    "busy": 0,
+    "spares": 4,
+    "recycled": 0
+   },
+   "t": 162.2
+  },
+  {
+   "inflight_small": 0,
+   "inflight_large": 0,
+   "abandoned_running": 0,
+   "kills": 112,
+   "overloads": 1428656,
+   "penalised_clients": 8,
+   "client_inflight_small": 0,
+   "client_inflight_large": 0,
+   "workers": {
+    "pool": 4,
+    "busy": 0,
+    "spares": 4,
+    "recycled": 0
+   },
+   "t": 163.2
+  },
+  {
+   "inflight_small": 0,
+   "inflight_large": 0,
+   "abandoned_running": 0,
+   "kills": 112,
+   "overloads": 1437481,
+   "penalised_clients": 8,
+   "client_inflight_small": 0,
+   "client_inflight_large": 0,
+   "workers": {
+    "pool": 4,
+    "busy": 0,
+    "spares": 4,
+    "recycled": 0
+   },
+   "t": 164.2
+  },
+  {
+   "inflight_small": 0,
+   "inflight_large": 0,
+   "abandoned_running": 0,
+   "kills": 112,
+   "overloads": 1446180,
+   "penalised_clients": 8,
+   "client_inflight_small": 0,
+   "client_inflight_large": 0,
+   "workers": {
+    "pool": 4,
+    "busy": 0,
+    "spares": 4,
+    "recycled": 0
+   },
+   "t": 165.2
+  },
+  {
+   "inflight_small": 0,
+   "inflight_large": 1,
+   "abandoned_running": 0,
+   "kills": 112,
+   "overloads": 1455074,
+   "penalised_clients": 8,
+   "client_inflight_small": 0,
+   "client_inflight_large": 0,
+   "workers": {
+    "pool": 4,
+    "busy": 0,
+    "spares": 4,
+    "recycled": 0
+   },
+   "t": 166.2
+  },
+  {
+   "inflight_small": 1,
+   "inflight_large": 0,
+   "abandoned_running": 0,
+   "kills": 112,
+   "overloads": 1463908,
+   "penalised_clients": 8,
+   "client_inflight_small": 0,
+   "client_inflight_large": 0,
+   "workers": {
+    "pool": 4,
+    "busy": 0,
+    "spares": 4,
+    "recycled": 0
+   },
+   "t": 167.2
+  },
+  {
+   "inflight_small": 2,
+   "inflight_large": 2,
+   "abandoned_running": 0,
+   "kills": 112,
+   "overloads": 1473228,
+   "penalised_clients": 4,
+   "client_inflight_small": 2,
+   "client_inflight_large": 2,
+   "workers": {
+    "pool": 4,
+    "busy": 4,
+    "spares": 0,
+    "recycled": 0
+   },
+   "t": 168.2
+  },
+  {
+   "inflight_small": 3,
+   "inflight_large": 2,
+   "abandoned_running": 0,
+   "kills": 112,
+   "overloads": 1484674,
+   "penalised_clients": 4,
+   "client_inflight_small": 3,
+   "client_inflight_large": 2,
+   "workers": {
+    "pool": 4,
+    "busy": 4,
+    "spares": 0,
+    "recycled": 0
+   },
+   "t": 169.2
+  },
+  {
+   "inflight_small": 3,
+   "inflight_large": 2,
+   "abandoned_running": 0,
+   "kills": 116,
+   "overloads": 1495324,
+   "penalised_clients": 4,
+   "client_inflight_small": 3,
+   "client_inflight_large": 2,
+   "workers": {
+    "pool": 4,
+    "busy": 4,
+    "spares": 0,
+    "recycled": 0
+   },
+   "t": 170.2
+  },
+  {
+   "inflight_small": 3,
+   "inflight_large": 2,
+   "abandoned_running": 0,
+   "kills": 116,
+   "overloads": 1506783,
+   "penalised_clients": 4,
+   "client_inflight_small": 3,
+   "client_inflight_large": 2,
+   "workers": {
+    "pool": 4,
+    "busy": 4,
+    "spares": 0,
+    "recycled": 0
+   },
+   "t": 171.2
+  },
+  {
+   "inflight_small": 0,
+   "inflight_large": 0,
+   "abandoned_running": 0,
+   "kills": 120,
+   "overloads": 1517671,
+   "penalised_clients": 8,
+   "client_inflight_small": 0,
+   "client_inflight_large": 0,
+   "workers": {
+    "pool": 2,
+    "busy": 0,
+    "spares": 2,
+    "recycled": 0
+   },
+   "t": 172.2
+  },
+  {
+   "inflight_small": 1,
+   "inflight_large": 1,
+   "abandoned_running": 0,
+   "kills": 120,
+   "overloads": 1526374,
+   "penalised_clients": 8,
+   "client_inflight_small": 0,
+   "client_inflight_large": 0,
+   "workers": {
+    "pool": 4,
+    "busy": 0,
+    "spares": 4,
+    "recycled": 0
+   },
+   "t": 173.2
+  },
+  {
+   "inflight_small": 0,
+   "inflight_large": 0,
+   "abandoned_running": 0,
+   "kills": 120,
+   "overloads": 1535237,
+   "penalised_clients": 8,
+   "client_inflight_small": 0,
+   "client_inflight_large": 0,
+   "workers": {
+    "pool": 4,
+    "busy": 0,
+    "spares": 4,
+    "recycled": 0
+   },
+   "t": 174.2
+  },
+  {
+   "inflight_small": 0,
+   "inflight_large": 0,
+   "abandoned_running": 0,
+   "kills": 120,
+   "overloads": 1544034,
+   "penalised_clients": 8,
+   "client_inflight_small": 0,
+   "client_inflight_large": 0,
+   "workers": {
+    "pool": 4,
+    "busy": 0,
+    "spares": 4,
+    "recycled": 0
+   },
+   "t": 175.2
+  },
+  {
+   "inflight_small": 0,
+   "inflight_large": 0,
+   "abandoned_running": 0,
+   "kills": 120,
+   "overloads": 1552863,
+   "penalised_clients": 8,
+   "client_inflight_small": 0,
+   "client_inflight_large": 0,
+   "workers": {
+    "pool": 4,
+    "busy": 0,
+    "spares": 4,
+    "recycled": 0
+   },
+   "t": 176.2
+  },
+  {
+   "inflight_small": 0,
+   "inflight_large": 0,
+   "abandoned_running": 0,
+   "kills": 120,
+   "overloads": 1561742,
+   "penalised_clients": 8,
+   "client_inflight_small": 0,
+   "client_inflight_large": 0,
+   "workers": {
+    "pool": 4,
+    "busy": 0,
+    "spares": 4,
+    "recycled": 0
+   },
+   "t": 177.2
+  },
+  {
+   "inflight_small": 0,
+   "inflight_large": 0,
+   "abandoned_running": 0,
+   "kills": 120,
+   "overloads": 1570538,
+   "penalised_clients": 8,
+   "client_inflight_small": 0,
+   "client_inflight_large": 0,
+   "workers": {
+    "pool": 4,
+    "busy": 0,
+    "spares": 4,
+    "recycled": 0
+   },
+   "t": 178.2
+  },
+  {
+   "inflight_small": 0,
+   "inflight_large": 0,
+   "abandoned_running": 0,
+   "kills": 120,
+   "overloads": 1579568,
+   "penalised_clients": 8,
+   "client_inflight_small": 0,
+   "client_inflight_large": 0,
+   "workers": {
+    "pool": 4,
+    "busy": 0,
+    "spares": 4,
+    "recycled": 0
+   },
+   "t": 179.2
+  },
+  {
+   "inflight_small": 2,
+   "inflight_large": 2,
+   "abandoned_running": 0,
+   "kills": 120,
+   "overloads": 1588913,
+   "penalised_clients": 4,
+   "client_inflight_small": 2,
+   "client_inflight_large": 2,
+   "workers": {
+    "pool": 4,
+    "busy": 4,
+    "spares": 0,
+    "recycled": 0
+   },
+   "t": 180.2
+  },
+  {
+   "inflight_small": 3,
+   "inflight_large": 2,
+   "abandoned_running": 0,
+   "kills": 120,
+   "overloads": 1600261,
+   "penalised_clients": 4,
+   "client_inflight_small": 3,
+   "client_inflight_large": 2,
+   "workers": {
+    "pool": 4,
+    "busy": 4,
+    "spares": 0,
+    "recycled": 0
+   },
+   "t": 181.2
+  },
+  {
+   "inflight_small": 3,
+   "inflight_large": 2,
+   "abandoned_running": 0,
+   "kills": 124,
+   "overloads": 1611205,
+   "penalised_clients": 4,
+   "client_inflight_small": 3,
+   "client_inflight_large": 2,
+   "workers": {
+    "pool": 4,
+    "busy": 4,
+    "spares": 0,
+    "recycled": 0
+   },
+   "t": 182.2
+  },
+  {
+   "inflight_small": 3,
+   "inflight_large": 2,
+   "abandoned_running": 0,
+   "kills": 124,
+   "overloads": 1622545,
+   "penalised_clients": 4,
+   "client_inflight_small": 3,
+   "client_inflight_large": 2,
+   "workers": {
+    "pool": 4,
+    "busy": 4,
+    "spares": 0,
+    "recycled": 0
+   },
+   "t": 183.2
+  },
+  {
+   "inflight_small": 0,
+   "inflight_large": 0,
+   "abandoned_running": 0,
+   "kills": 128,
+   "overloads": 1633327,
+   "penalised_clients": 8,
+   "client_inflight_small": 0,
+   "client_inflight_large": 0,
+   "workers": {
+    "pool": 4,
+    "busy": 0,
+    "spares": 4,
+    "recycled": 0
+   },
+   "t": 184.2
+  },
+  {
+   "inflight_small": 0,
+   "inflight_large": 0,
+   "abandoned_running": 0,
+   "kills": 128,
+   "overloads": 1641711,
+   "penalised_clients": 8,
+   "client_inflight_small": 0,
+   "client_inflight_large": 0,
+   "workers": {
+    "pool": 4,
+    "busy": 0,
+    "spares": 4,
+    "recycled": 0
+   },
+   "t": 185.2
+  },
+  {
+   "inflight_small": 1,
+   "inflight_large": 0,
+   "abandoned_running": 0,
+   "kills": 128,
+   "overloads": 1650154,
+   "penalised_clients": 8,
+   "client_inflight_small": 0,
+   "client_inflight_large": 0,
+   "workers": {
+    "pool": 4,
+    "busy": 0,
+    "spares": 4,
+    "recycled": 0
+   },
+   "t": 186.2
+  },
+  {
+   "inflight_small": 0,
+   "inflight_large": 1,
+   "abandoned_running": 0,
+   "kills": 128,
+   "overloads": 1658464,
+   "penalised_clients": 8,
+   "client_inflight_small": 0,
+   "client_inflight_large": 0,
+   "workers": {
+    "pool": 4,
+    "busy": 0,
+    "spares": 4,
+    "recycled": 0
+   },
+   "t": 187.2
+  },
+  {
+   "inflight_small": 0,
+   "inflight_large": 0,
+   "abandoned_running": 0,
+   "kills": 128,
+   "overloads": 1666919,
+   "penalised_clients": 8,
+   "client_inflight_small": 0,
+   "client_inflight_large": 0,
+   "workers": {
+    "pool": 4,
+    "busy": 0,
+    "spares": 4,
+    "recycled": 0
+   },
+   "t": 188.2
+  },
+  {
+   "inflight_small": 0,
+   "inflight_large": 0,
+   "abandoned_running": 0,
+   "kills": 128,
+   "overloads": 1675581,
+   "penalised_clients": 8,
+   "client_inflight_small": 0,
+   "client_inflight_large": 0,
+   "workers": {
+    "pool": 4,
+    "busy": 0,
+    "spares": 4,
+    "recycled": 0
+   },
+   "t": 189.2
+  },
+  {
+   "inflight_small": 0,
+   "inflight_large": 0,
+   "abandoned_running": 0,
+   "kills": 128,
+   "overloads": 1684349,
+   "penalised_clients": 8,
+   "client_inflight_small": 0,
+   "client_inflight_large": 0,
+   "workers": {
+    "pool": 4,
+    "busy": 0,
+    "spares": 4,
+    "recycled": 0
+   },
+   "t": 190.2
+  },
+  {
+   "inflight_small": 0,
+   "inflight_large": 0,
+   "abandoned_running": 0,
+   "kills": 128,
+   "overloads": 1693157,
+   "penalised_clients": 8,
+   "client_inflight_small": 0,
+   "client_inflight_large": 0,
+   "workers": {
+    "pool": 4,
+    "busy": 0,
+    "spares": 4,
+    "recycled": 0
+   },
+   "t": 191.2
+  },
+  {
+   "inflight_small": 2,
+   "inflight_large": 2,
+   "abandoned_running": 0,
+   "kills": 128,
+   "overloads": 1702571,
+   "penalised_clients": 4,
+   "client_inflight_small": 2,
+   "client_inflight_large": 2,
+   "workers": {
+    "pool": 4,
+    "busy": 4,
+    "spares": 0,
+    "recycled": 0
+   },
+   "t": 192.2
+  },
+  {
+   "inflight_small": 3,
+   "inflight_large": 2,
+   "abandoned_running": 0,
+   "kills": 128,
+   "overloads": 1714044,
+   "penalised_clients": 4,
+   "client_inflight_small": 3,
+   "client_inflight_large": 2,
+   "workers": {
+    "pool": 4,
+    "busy": 4,
+    "spares": 0,
+    "recycled": 0
+   },
+   "t": 193.3
+  },
+  {
+   "inflight_small": 3,
+   "inflight_large": 2,
+   "abandoned_running": 0,
+   "kills": 132,
+   "overloads": 1724878,
+   "penalised_clients": 4,
+   "client_inflight_small": 2,
+   "client_inflight_large": 2,
+   "workers": {
+    "pool": 4,
+    "busy": 4,
+    "spares": 0,
+    "recycled": 0
+   },
+   "t": 194.3
+  },
+  {
+   "inflight_small": 3,
+   "inflight_large": 2,
+   "abandoned_running": 0,
+   "kills": 132,
+   "overloads": 1736209,
+   "penalised_clients": 4,
+   "client_inflight_small": 3,
+   "client_inflight_large": 2,
+   "workers": {
+    "pool": 4,
+    "busy": 4,
+    "spares": 0,
+    "recycled": 0
+   },
+   "t": 195.3
+  },
+  {
+   "inflight_small": 1,
+   "inflight_large": 0,
+   "abandoned_running": 0,
+   "kills": 136,
+   "overloads": 1747033,
+   "penalised_clients": 8,
+   "client_inflight_small": 1,
+   "client_inflight_large": 0,
+   "workers": {
+    "pool": 4,
+    "busy": 0,
+    "spares": 4,
+    "recycled": 0
+   },
+   "t": 196.3
+  },
+  {
+   "inflight_small": 0,
+   "inflight_large": 1,
+   "abandoned_running": 0,
+   "kills": 136,
+   "overloads": 1755883,
+   "penalised_clients": 8,
+   "client_inflight_small": 0,
+   "client_inflight_large": 0,
+   "workers": {
+    "pool": 4,
+    "busy": 0,
+    "spares": 4,
+    "recycled": 0
+   },
+   "t": 197.3
+  },
+  {
+   "inflight_small": 1,
+   "inflight_large": 1,
+   "abandoned_running": 0,
+   "kills": 136,
+   "overloads": 1764770,
+   "penalised_clients": 8,
+   "client_inflight_small": 0,
+   "client_inflight_large": 0,
+   "workers": {
+    "pool": 4,
+    "busy": 0,
+    "spares": 4,
+    "recycled": 0
+   },
+   "t": 198.3
+  },
+  {
+   "inflight_small": 1,
+   "inflight_large": 1,
+   "abandoned_running": 0,
+   "kills": 136,
+   "overloads": 1773681,
+   "penalised_clients": 8,
+   "client_inflight_small": 0,
+   "client_inflight_large": 0,
+   "workers": {
+    "pool": 4,
+    "busy": 0,
+    "spares": 4,
+    "recycled": 0
+   },
+   "t": 199.3
+  },
+  {
+   "inflight_small": 0,
+   "inflight_large": 2,
+   "abandoned_running": 0,
+   "kills": 136,
+   "overloads": 1782497,
+   "penalised_clients": 8,
+   "client_inflight_small": 0,
+   "client_inflight_large": 0,
+   "workers": {
+    "pool": 4,
+    "busy": 0,
+    "spares": 4,
+    "recycled": 0
+   },
+   "t": 200.3
+  },
+  {
+   "inflight_small": 1,
+   "inflight_large": 0,
+   "abandoned_running": 0,
+   "kills": 136,
+   "overloads": 1791429,
+   "penalised_clients": 8,
+   "client_inflight_small": 0,
+   "client_inflight_large": 0,
+   "workers": {
+    "pool": 4,
+    "busy": 0,
+    "spares": 4,
+    "recycled": 0
+   },
+   "t": 201.3
+  },
+  {
+   "inflight_small": 0,
+   "inflight_large": 0,
+   "abandoned_running": 0,
+   "kills": 136,
+   "overloads": 1799737,
+   "penalised_clients": 8,
+   "client_inflight_small": 0,
+   "client_inflight_large": 0,
+   "workers": {
+    "pool": 4,
+    "busy": 0,
+    "spares": 4,
+    "recycled": 0
+   },
+   "t": 202.3
+  },
+  {
+   "inflight_small": 0,
+   "inflight_large": 1,
+   "abandoned_running": 0,
+   "kills": 136,
+   "overloads": 1808546,
+   "penalised_clients": 8,
+   "client_inflight_small": 0,
+   "client_inflight_large": 0,
+   "workers": {
+    "pool": 4,
+    "busy": 0,
+    "spares": 4,
+    "recycled": 0
+   },
+   "t": 203.3
+  },
+  {
+   "inflight_small": 2,
+   "inflight_large": 2,
+   "abandoned_running": 0,
+   "kills": 136,
+   "overloads": 1817966,
+   "penalised_clients": 4,
+   "client_inflight_small": 2,
+   "client_inflight_large": 2,
+   "workers": {
+    "pool": 4,
+    "busy": 4,
+    "spares": 0,
+    "recycled": 0
+   },
+   "t": 204.3
+  },
+  {
+   "inflight_small": 3,
+   "inflight_large": 2,
+   "abandoned_running": 0,
+   "kills": 136,
+   "overloads": 1829486,
+   "penalised_clients": 4,
+   "client_inflight_small": 3,
+   "client_inflight_large": 2,
+   "workers": {
+    "pool": 4,
+    "busy": 4,
+    "spares": 0,
+    "recycled": 0
+   },
+   "t": 205.3
+  },
+  {
+   "inflight_small": 3,
+   "inflight_large": 2,
+   "abandoned_running": 0,
+   "kills": 140,
+   "overloads": 1840445,
+   "penalised_clients": 4,
+   "client_inflight_small": 3,
+   "client_inflight_large": 2,
+   "workers": {
+    "pool": 4,
+    "busy": 4,
+    "spares": 0,
+    "recycled": 0
+   },
+   "t": 206.3
+  },
+  {
+   "inflight_small": 3,
+   "inflight_large": 2,
+   "abandoned_running": 0,
+   "kills": 140,
+   "overloads": 1851906,
+   "penalised_clients": 4,
+   "client_inflight_small": 3,
+   "client_inflight_large": 2,
+   "workers": {
+    "pool": 4,
+    "busy": 4,
+    "spares": 0,
+    "recycled": 0
+   },
+   "t": 207.3
+  },
+  {
+   "inflight_small": 0,
+   "inflight_large": 0,
+   "abandoned_running": 0,
+   "kills": 144,
+   "overloads": 1862819,
+   "penalised_clients": 8,
+   "client_inflight_small": 0,
+   "client_inflight_large": 0,
+   "workers": {
+    "pool": 4,
+    "busy": 0,
+    "spares": 4,
+    "recycled": 0
+   },
+   "t": 208.3
+  },
+  {
+   "inflight_small": 0,
+   "inflight_large": 1,
+   "abandoned_running": 0,
+   "kills": 144,
+   "overloads": 1871748,
+   "penalised_clients": 8,
+   "client_inflight_small": 0,
+   "client_inflight_large": 0,
+   "workers": {
+    "pool": 4,
+    "busy": 0,
+    "spares": 4,
+    "recycled": 0
+   },
+   "t": 209.3
+  },
+  {
+   "inflight_small": 0,
+   "inflight_large": 0,
+   "abandoned_running": 0,
+   "kills": 144,
+   "overloads": 1880495,
+   "penalised_clients": 8,
+   "client_inflight_small": 0,
+   "client_inflight_large": 0,
+   "workers": {
+    "pool": 4,
+    "busy": 0,
+    "spares": 4,
+    "recycled": 0
+   },
+   "t": 210.3
+  },
+  {
+   "inflight_small": 1,
+   "inflight_large": 2,
+   "abandoned_running": 0,
+   "kills": 144,
+   "overloads": 1889271,
+   "penalised_clients": 8,
+   "client_inflight_small": 0,
+   "client_inflight_large": 0,
+   "workers": {
+    "pool": 4,
+    "busy": 0,
+    "spares": 4,
+    "recycled": 0
+   },
+   "t": 211.3
+  },
+  {
+   "inflight_small": 0,
+   "inflight_large": 1,
+   "abandoned_running": 0,
+   "kills": 144,
+   "overloads": 1897692,
+   "penalised_clients": 8,
+   "client_inflight_small": 0,
+   "client_inflight_large": 0,
+   "workers": {
+    "pool": 4,
+    "busy": 0,
+    "spares": 4,
+    "recycled": 0
+   },
+   "t": 212.3
+  },
+  {
+   "inflight_small": 0,
+   "inflight_large": 0,
+   "abandoned_running": 0,
+   "kills": 144,
+   "overloads": 1906360,
+   "penalised_clients": 8,
+   "client_inflight_small": 0,
+   "client_inflight_large": 0,
+   "workers": {
+    "pool": 4,
+    "busy": 0,
+    "spares": 4,
+    "recycled": 0
+   },
+   "t": 213.3
+  },
+  {
+   "inflight_small": 0,
+   "inflight_large": 0,
+   "abandoned_running": 0,
+   "kills": 144,
+   "overloads": 1914826,
+   "penalised_clients": 8,
+   "client_inflight_small": 0,
+   "client_inflight_large": 0,
+   "workers": {
+    "pool": 4,
+    "busy": 0,
+    "spares": 4,
+    "recycled": 0
+   },
+   "t": 214.3
+  },
+  {
+   "inflight_small": 0,
+   "inflight_large": 0,
+   "abandoned_running": 0,
+   "kills": 144,
+   "overloads": 1923247,
+   "penalised_clients": 8,
+   "client_inflight_small": 0,
+   "client_inflight_large": 0,
+   "workers": {
+    "pool": 4,
+    "busy": 0,
+    "spares": 4,
+    "recycled": 0
+   },
+   "t": 215.3
+  },
+  {
+   "inflight_small": 2,
+   "inflight_large": 2,
+   "abandoned_running": 0,
+   "kills": 144,
+   "overloads": 1932444,
+   "penalised_clients": 4,
+   "client_inflight_small": 2,
+   "client_inflight_large": 2,
+   "workers": {
+    "pool": 4,
+    "busy": 4,
+    "spares": 0,
+    "recycled": 0
+   },
+   "t": 216.3
+  },
+  {
+   "inflight_small": 3,
+   "inflight_large": 2,
+   "abandoned_running": 0,
+   "kills": 144,
+   "overloads": 1943916,
+   "penalised_clients": 4,
+   "client_inflight_small": 3,
+   "client_inflight_large": 2,
+   "workers": {
+    "pool": 4,
+    "busy": 4,
+    "spares": 0,
+    "recycled": 0
+   },
+   "t": 217.3
+  },
+  {
+   "inflight_small": 3,
+   "inflight_large": 2,
+   "abandoned_running": 0,
+   "kills": 148,
+   "overloads": 1954597,
+   "penalised_clients": 4,
+   "client_inflight_small": 3,
+   "client_inflight_large": 2,
+   "workers": {
+    "pool": 4,
+    "busy": 4,
+    "spares": 0,
+    "recycled": 0
+   },
+   "t": 218.3
+  },
+  {
+   "inflight_small": 3,
+   "inflight_large": 2,
+   "abandoned_running": 0,
+   "kills": 148,
+   "overloads": 1966098,
+   "penalised_clients": 4,
+   "client_inflight_small": 3,
+   "client_inflight_large": 2,
+   "workers": {
+    "pool": 4,
+    "busy": 4,
+    "spares": 0,
+    "recycled": 0
+   },
+   "t": 219.3
+  },
+  {
+   "inflight_small": 1,
+   "inflight_large": 1,
+   "abandoned_running": 0,
+   "kills": 152,
+   "overloads": 1976758,
+   "penalised_clients": 8,
+   "client_inflight_small": 1,
+   "client_inflight_large": 0,
+   "workers": {
+    "pool": 4,
+    "busy": 0,
+    "spares": 4,
+    "recycled": 0
+   },
+   "t": 220.3
+  },
+  {
+   "inflight_small": 0,
+   "inflight_large": 0,
+   "abandoned_running": 0,
+   "kills": 152,
+   "overloads": 1985378,
+   "penalised_clients": 8,
+   "client_inflight_small": 0,
+   "client_inflight_large": 0,
+   "workers": {
+    "pool": 4,
+    "busy": 0,
+    "spares": 4,
+    "recycled": 0
+   },
+   "t": 221.3
+  },
+  {
+   "inflight_small": 0,
+   "inflight_large": 0,
+   "abandoned_running": 0,
+   "kills": 152,
+   "overloads": 1994200,
+   "penalised_clients": 8,
+   "client_inflight_small": 0,
+   "client_inflight_large": 0,
+   "workers": {
+    "pool": 4,
+    "busy": 0,
+    "spares": 4,
+    "recycled": 0
+   },
+   "t": 222.3
+  },
+  {
+   "inflight_small": 0,
+   "inflight_large": 0,
+   "abandoned_running": 0,
+   "kills": 152,
+   "overloads": 2002966,
+   "penalised_clients": 8,
+   "client_inflight_small": 0,
+   "client_inflight_large": 0,
+   "workers": {
+    "pool": 4,
+    "busy": 0,
+    "spares": 4,
+    "recycled": 0
+   },
+   "t": 223.3
+  },
+  {
+   "inflight_small": 0,
+   "inflight_large": 0,
+   "abandoned_running": 0,
+   "kills": 152,
+   "overloads": 2011837,
+   "penalised_clients": 8,
+   "client_inflight_small": 0,
+   "client_inflight_large": 0,
+   "workers": {
+    "pool": 4,
+    "busy": 0,
+    "spares": 4,
+    "recycled": 0
+   },
+   "t": 224.3
+  },
+  {
+   "inflight_small": 0,
+   "inflight_large": 0,
+   "abandoned_running": 0,
+   "kills": 152,
+   "overloads": 2020715,
+   "penalised_clients": 8,
+   "client_inflight_small": 0,
+   "client_inflight_large": 0,
+   "workers": {
+    "pool": 4,
+    "busy": 0,
+    "spares": 4,
+    "recycled": 0
+   },
+   "t": 225.3
+  },
+  {
+   "inflight_small": 0,
+   "inflight_large": 0,
+   "abandoned_running": 0,
+   "kills": 152,
+   "overloads": 2029497,
+   "penalised_clients": 8,
+   "client_inflight_small": 0,
+   "client_inflight_large": 0,
+   "workers": {
+    "pool": 4,
+    "busy": 0,
+    "spares": 4,
+    "recycled": 0
+   },
+   "t": 226.3
+  },
+  {
+   "inflight_small": 1,
+   "inflight_large": 0,
+   "abandoned_running": 0,
+   "kills": 152,
+   "overloads": 2038370,
+   "penalised_clients": 8,
+   "client_inflight_small": 0,
+   "client_inflight_large": 0,
+   "workers": {
+    "pool": 4,
+    "busy": 0,
+    "spares": 4,
+    "recycled": 0
+   },
+   "t": 227.3
+  },
+  {
+   "inflight_small": 2,
+   "inflight_large": 2,
+   "abandoned_running": 0,
+   "kills": 152,
+   "overloads": 2047746,
+   "penalised_clients": 4,
+   "client_inflight_small": 2,
+   "client_inflight_large": 2,
+   "workers": {
+    "pool": 4,
+    "busy": 4,
+    "spares": 0,
+    "recycled": 0
+   },
+   "t": 228.3
+  },
+  {
+   "inflight_small": 4,
+   "inflight_large": 2,
+   "abandoned_running": 0,
+   "kills": 152,
+   "overloads": 2059105,
+   "penalised_clients": 4,
+   "client_inflight_small": 3,
+   "client_inflight_large": 2,
+   "workers": {
+    "pool": 4,
+    "busy": 4,
+    "spares": 0,
+    "recycled": 0
+   },
+   "t": 229.3
+  },
+  {
+   "inflight_small": 2,
+   "inflight_large": 2,
+   "abandoned_running": 0,
+   "kills": 156,
+   "overloads": 2070076,
+   "penalised_clients": 4,
+   "client_inflight_small": 2,
+   "client_inflight_large": 2,
+   "workers": {
+    "pool": 4,
+    "busy": 4,
+    "spares": 0,
+    "recycled": 0
+   },
+   "t": 230.3
+  },
+  {
+   "inflight_small": 3,
+   "inflight_large": 2,
+   "abandoned_running": 0,
+   "kills": 156,
+   "overloads": 2081375,
+   "penalised_clients": 4,
+   "client_inflight_small": 3,
+   "client_inflight_large": 2,
+   "workers": {
+    "pool": 4,
+    "busy": 4,
+    "spares": 0,
+    "recycled": 0
+   },
+   "t": 231.3
+  },
+  {
+   "inflight_small": 2,
+   "inflight_large": 0,
+   "abandoned_running": 0,
+   "kills": 160,
+   "overloads": 2091730,
+   "penalised_clients": 8,
+   "client_inflight_small": 1,
+   "client_inflight_large": 0,
+   "workers": {
+    "pool": 4,
+    "busy": 0,
+    "spares": 4,
+    "recycled": 0
+   },
+   "t": 232.3
+  },
+  {
+   "inflight_small": 0,
+   "inflight_large": 0,
+   "abandoned_running": 0,
+   "kills": 160,
+   "overloads": 2100619,
+   "penalised_clients": 8,
+   "client_inflight_small": 0,
+   "client_inflight_large": 0,
+   "workers": {
+    "pool": 4,
+    "busy": 0,
+    "spares": 4,
+    "recycled": 0
+   },
+   "t": 233.3
+  },
+  {
+   "inflight_small": 1,
+   "inflight_large": 0,
+   "abandoned_running": 0,
+   "kills": 160,
+   "overloads": 2109392,
+   "penalised_clients": 8,
+   "client_inflight_small": 0,
+   "client_inflight_large": 0,
+   "workers": {
+    "pool": 4,
+    "busy": 0,
+    "spares": 4,
+    "recycled": 0
+   },
+   "t": 234.3
+  },
+  {
+   "inflight_small": 0,
+   "inflight_large": 1,
+   "abandoned_running": 0,
+   "kills": 160,
+   "overloads": 2118234,
+   "penalised_clients": 8,
+   "client_inflight_small": 0,
+   "client_inflight_large": 0,
+   "workers": {
+    "pool": 4,
+    "busy": 0,
+    "spares": 4,
+    "recycled": 0
+   },
+   "t": 235.3
+  },
+  {
+   "inflight_small": 0,
+   "inflight_large": 0,
+   "abandoned_running": 0,
+   "kills": 160,
+   "overloads": 2127152,
+   "penalised_clients": 8,
+   "client_inflight_small": 0,
+   "client_inflight_large": 0,
+   "workers": {
+    "pool": 4,
+    "busy": 0,
+    "spares": 4,
+    "recycled": 0
+   },
+   "t": 236.3
+  },
+  {
+   "inflight_small": 0,
+   "inflight_large": 0,
+   "abandoned_running": 0,
+   "kills": 160,
+   "overloads": 2135856,
+   "penalised_clients": 8,
+   "client_inflight_small": 0,
+   "client_inflight_large": 0,
+   "workers": {
+    "pool": 4,
+    "busy": 0,
+    "spares": 4,
+    "recycled": 0
+   },
+   "t": 237.3
+  },
+  {
+   "inflight_small": 0,
+   "inflight_large": 0,
+   "abandoned_running": 0,
+   "kills": 160,
+   "overloads": 2144809,
+   "penalised_clients": 8,
+   "client_inflight_small": 0,
+   "client_inflight_large": 0,
+   "workers": {
+    "pool": 4,
+    "busy": 0,
+    "spares": 4,
+    "recycled": 0
+   },
+   "t": 238.3
+  },
+  {
+   "inflight_small": 0,
+   "inflight_large": 0,
+   "abandoned_running": 0,
+   "kills": 160,
+   "overloads": 2153635,
+   "penalised_clients": 8,
+   "client_inflight_small": 0,
+   "client_inflight_large": 0,
+   "workers": {
+    "pool": 4,
+    "busy": 0,
+    "spares": 4,
+    "recycled": 0
+   },
+   "t": 239.3
+  },
+  {
+   "inflight_small": 3,
+   "inflight_large": 2,
+   "abandoned_running": 0,
+   "kills": 160,
+   "overloads": 2163134,
+   "penalised_clients": 4,
+   "client_inflight_small": 2,
+   "client_inflight_large": 2,
+   "workers": {
+    "pool": 4,
+    "busy": 4,
+    "spares": 0,
+    "recycled": 0
+   },
+   "t": 240.3
+  },
+  {
+   "inflight_small": 3,
+   "inflight_large": 2,
+   "abandoned_running": 0,
+   "kills": 160,
+   "overloads": 2174670,
+   "penalised_clients": 4,
+   "client_inflight_small": 3,
+   "client_inflight_large": 2,
+   "workers": {
+    "pool": 4,
+    "busy": 4,
+    "spares": 0,
+    "recycled": 0
+   },
+   "t": 241.3
+  },
+  {
+   "inflight_small": 2,
+   "inflight_large": 2,
+   "abandoned_running": 0,
+   "kills": 164,
+   "overloads": 2185542,
+   "penalised_clients": 4,
+   "client_inflight_small": 2,
+   "client_inflight_large": 2,
+   "workers": {
+    "pool": 4,
+    "busy": 4,
+    "spares": 0,
+    "recycled": 0
+   },
+   "t": 242.3
+  },
+  {
+   "inflight_small": 3,
+   "inflight_large": 2,
+   "abandoned_running": 0,
+   "kills": 164,
+   "overloads": 2196791,
+   "penalised_clients": 4,
+   "client_inflight_small": 3,
+   "client_inflight_large": 2,
+   "workers": {
+    "pool": 4,
+    "busy": 4,
+    "spares": 0,
+    "recycled": 0
+   },
+   "t": 243.3
+  },
+  {
+   "inflight_small": 0,
+   "inflight_large": 0,
+   "abandoned_running": 0,
+   "kills": 168,
+   "overloads": 2207402,
+   "penalised_clients": 8,
+   "client_inflight_small": 0,
+   "client_inflight_large": 0,
+   "workers": {
+    "pool": 4,
+    "busy": 0,
+    "spares": 4,
+    "recycled": 0
+   },
+   "t": 244.3
+  },
+  {
+   "inflight_small": 1,
+   "inflight_large": 1,
+   "abandoned_running": 0,
+   "kills": 168,
+   "overloads": 2215764,
+   "penalised_clients": 8,
+   "client_inflight_small": 0,
+   "client_inflight_large": 0,
+   "workers": {
+    "pool": 4,
+    "busy": 0,
+    "spares": 4,
+    "recycled": 0
+   },
+   "t": 245.3
+  },
+  {
+   "inflight_small": 0,
+   "inflight_large": 2,
+   "abandoned_running": 0,
+   "kills": 168,
+   "overloads": 2224298,
+   "penalised_clients": 8,
+   "client_inflight_small": 0,
+   "client_inflight_large": 0,
+   "workers": {
+    "pool": 4,
+    "busy": 0,
+    "spares": 4,
+    "recycled": 0
+   },
+   "t": 246.3
+  },
+  {
+   "inflight_small": 1,
+   "inflight_large": 2,
+   "abandoned_running": 0,
+   "kills": 168,
+   "overloads": 2232618,
+   "penalised_clients": 8,
+   "client_inflight_small": 0,
+   "client_inflight_large": 0,
+   "workers": {
+    "pool": 4,
+    "busy": 0,
+    "spares": 4,
+    "recycled": 0
+   },
+   "t": 247.3
+  },
+  {
+   "inflight_small": 0,
+   "inflight_large": 0,
+   "abandoned_running": 0,
+   "kills": 168,
+   "overloads": 2240977,
+   "penalised_clients": 8,
+   "client_inflight_small": 0,
+   "client_inflight_large": 0,
+   "workers": {
+    "pool": 4,
+    "busy": 0,
+    "spares": 4,
+    "recycled": 0
+   },
+   "t": 248.3
+  },
+  {
+   "inflight_small": 0,
+   "inflight_large": 0,
+   "abandoned_running": 0,
+   "kills": 168,
+   "overloads": 2249276,
+   "penalised_clients": 8,
+   "client_inflight_small": 0,
+   "client_inflight_large": 0,
+   "workers": {
+    "pool": 4,
+    "busy": 0,
+    "spares": 4,
+    "recycled": 0
+   },
+   "t": 249.3
+  },
+  {
+   "inflight_small": 0,
+   "inflight_large": 0,
+   "abandoned_running": 0,
+   "kills": 168,
+   "overloads": 2258046,
+   "penalised_clients": 8,
+   "client_inflight_small": 0,
+   "client_inflight_large": 0,
+   "workers": {
+    "pool": 4,
+    "busy": 0,
+    "spares": 4,
+    "recycled": 0
+   },
+   "t": 250.3
+  },
+  {
+   "inflight_small": 1,
+   "inflight_large": 1,
+   "abandoned_running": 0,
+   "kills": 168,
+   "overloads": 2266841,
+   "penalised_clients": 8,
+   "client_inflight_small": 0,
+   "client_inflight_large": 0,
+   "workers": {
+    "pool": 4,
+    "busy": 0,
+    "spares": 4,
+    "recycled": 0
+   },
+   "t": 251.3
+  },
+  {
+   "inflight_small": 2,
+   "inflight_large": 2,
+   "abandoned_running": 0,
+   "kills": 168,
+   "overloads": 2275651,
+   "penalised_clients": 4,
+   "client_inflight_small": 2,
+   "client_inflight_large": 2,
+   "workers": {
+    "pool": 4,
+    "busy": 4,
+    "spares": 0,
+    "recycled": 0
+   },
+   "t": 252.3
+  },
+  {
+   "inflight_small": 3,
+   "inflight_large": 2,
+   "abandoned_running": 0,
+   "kills": 168,
+   "overloads": 2285496,
+   "penalised_clients": 4,
+   "client_inflight_small": 3,
+   "client_inflight_large": 2,
+   "workers": {
+    "pool": 4,
+    "busy": 4,
+    "spares": 0,
+    "recycled": 0
+   },
+   "t": 253.3
+  },
+  {
+   "inflight_small": 2,
+   "inflight_large": 2,
+   "abandoned_running": 0,
+   "kills": 172,
+   "overloads": 2294485,
+   "penalised_clients": 4,
+   "client_inflight_small": 2,
+   "client_inflight_large": 2,
+   "workers": {
+    "pool": 4,
+    "busy": 4,
+    "spares": 0,
+    "recycled": 0
+   },
+   "t": 254.3
+  },
+  {
+   "inflight_small": 3,
+   "inflight_large": 2,
+   "abandoned_running": 0,
+   "kills": 172,
+   "overloads": 2305367,
+   "penalised_clients": 4,
+   "client_inflight_small": 3,
+   "client_inflight_large": 2,
+   "workers": {
+    "pool": 4,
+    "busy": 4,
+    "spares": 0,
+    "recycled": 0
+   },
+   "t": 255.3
+  },
+  {
+   "inflight_small": 0,
+   "inflight_large": 0,
+   "abandoned_running": 0,
+   "kills": 176,
+   "overloads": 2314995,
+   "penalised_clients": 8,
+   "client_inflight_small": 0,
+   "client_inflight_large": 0,
+   "workers": {
+    "pool": 4,
+    "busy": 0,
+    "spares": 4,
+    "recycled": 0
+   },
+   "t": 256.3
+  },
+  {
+   "inflight_small": 0,
+   "inflight_large": 0,
+   "abandoned_running": 0,
+   "kills": 176,
+   "overloads": 2323625,
+   "penalised_clients": 8,
+   "client_inflight_small": 0,
+   "client_inflight_large": 0,
+   "workers": {
+    "pool": 4,
+    "busy": 0,
+    "spares": 4,
+    "recycled": 0
+   },
+   "t": 257.3
+  },
+  {
+   "inflight_small": 0,
+   "inflight_large": 0,
+   "abandoned_running": 0,
+   "kills": 176,
+   "overloads": 2331976,
+   "penalised_clients": 8,
+   "client_inflight_small": 0,
+   "client_inflight_large": 0,
+   "workers": {
+    "pool": 4,
+    "busy": 0,
+    "spares": 4,
+    "recycled": 0
+   },
+   "t": 258.3
+  },
+  {
+   "inflight_small": 0,
+   "inflight_large": 1,
+   "abandoned_running": 0,
+   "kills": 176,
+   "overloads": 2340711,
+   "penalised_clients": 8,
+   "client_inflight_small": 0,
+   "client_inflight_large": 0,
+   "workers": {
+    "pool": 4,
+    "busy": 0,
+    "spares": 4,
+    "recycled": 0
+   },
+   "t": 259.3
+  },
+  {
+   "inflight_small": 0,
+   "inflight_large": 1,
+   "abandoned_running": 0,
+   "kills": 176,
+   "overloads": 2349350,
+   "penalised_clients": 8,
+   "client_inflight_small": 0,
+   "client_inflight_large": 0,
+   "workers": {
+    "pool": 4,
+    "busy": 0,
+    "spares": 4,
+    "recycled": 0
+   },
+   "t": 260.3
+  },
+  {
+   "inflight_small": 0,
+   "inflight_large": 1,
+   "abandoned_running": 0,
+   "kills": 176,
+   "overloads": 2358190,
+   "penalised_clients": 8,
+   "client_inflight_small": 0,
+   "client_inflight_large": 0,
+   "workers": {
+    "pool": 4,
+    "busy": 0,
+    "spares": 4,
+    "recycled": 0
+   },
+   "t": 261.3
+  },
+  {
+   "inflight_small": 0,
+   "inflight_large": 0,
+   "abandoned_running": 0,
+   "kills": 176,
+   "overloads": 2367024,
+   "penalised_clients": 8,
+   "client_inflight_small": 0,
+   "client_inflight_large": 0,
+   "workers": {
+    "pool": 4,
+    "busy": 0,
+    "spares": 4,
+    "recycled": 0
+   },
+   "t": 262.3
+  },
+  {
+   "inflight_small": 0,
+   "inflight_large": 1,
+   "abandoned_running": 0,
+   "kills": 176,
+   "overloads": 2375226,
+   "penalised_clients": 8,
+   "client_inflight_small": 0,
+   "client_inflight_large": 0,
+   "workers": {
+    "pool": 4,
+    "busy": 0,
+    "spares": 4,
+    "recycled": 0
+   },
+   "t": 263.3
+  },
+  {
+   "inflight_small": 2,
+   "inflight_large": 2,
+   "abandoned_running": 0,
+   "kills": 176,
+   "overloads": 2384911,
+   "penalised_clients": 4,
+   "client_inflight_small": 2,
+   "client_inflight_large": 2,
+   "workers": {
+    "pool": 4,
+    "busy": 4,
+    "spares": 0,
+    "recycled": 0
+   },
+   "t": 264.3
+  },
+  {
+   "inflight_small": 3,
+   "inflight_large": 2,
+   "abandoned_running": 0,
+   "kills": 176,
+   "overloads": 2396034,
+   "penalised_clients": 4,
+   "client_inflight_small": 3,
+   "client_inflight_large": 2,
+   "workers": {
+    "pool": 4,
+    "busy": 4,
+    "spares": 0,
+    "recycled": 0
+   },
+   "t": 265.3
+  },
+  {
+   "inflight_small": 2,
+   "inflight_large": 2,
+   "abandoned_running": 0,
+   "kills": 180,
+   "overloads": 2406679,
+   "penalised_clients": 4,
+   "client_inflight_small": 2,
+   "client_inflight_large": 2,
+   "workers": {
+    "pool": 4,
+    "busy": 4,
+    "spares": 0,
+    "recycled": 0
+   },
+   "t": 266.3
+  },
+  {
+   "inflight_small": 3,
+   "inflight_large": 2,
+   "abandoned_running": 0,
+   "kills": 180,
+   "overloads": 2418084,
+   "penalised_clients": 4,
+   "client_inflight_small": 3,
+   "client_inflight_large": 2,
+   "workers": {
+    "pool": 4,
+    "busy": 4,
+    "spares": 0,
+    "recycled": 0
+   },
+   "t": 267.3
+  },
+  {
+   "inflight_small": 0,
+   "inflight_large": 0,
+   "abandoned_running": 0,
+   "kills": 184,
+   "overloads": 2428588,
+   "penalised_clients": 8,
+   "client_inflight_small": 0,
+   "client_inflight_large": 0,
+   "workers": {
+    "pool": 4,
+    "busy": 0,
+    "spares": 4,
+    "recycled": 0
+   },
+   "t": 268.3
+  },
+  {
+   "inflight_small": 0,
+   "inflight_large": 0,
+   "abandoned_running": 0,
+   "kills": 184,
+   "overloads": 2437263,
+   "penalised_clients": 8,
+   "client_inflight_small": 0,
+   "client_inflight_large": 0,
+   "workers": {
+    "pool": 4,
+    "busy": 0,
+    "spares": 4,
+    "recycled": 0
+   },
+   "t": 269.3
+  },
+  {
+   "inflight_small": 1,
+   "inflight_large": 0,
+   "abandoned_running": 0,
+   "kills": 184,
+   "overloads": 2446041,
+   "penalised_clients": 8,
+   "client_inflight_small": 0,
+   "client_inflight_large": 0,
+   "workers": {
+    "pool": 4,
+    "busy": 0,
+    "spares": 4,
+    "recycled": 0
+   },
+   "t": 270.3
+  },
+  {
+   "inflight_small": 0,
+   "inflight_large": 0,
+   "abandoned_running": 0,
+   "kills": 184,
+   "overloads": 2454238,
+   "penalised_clients": 8,
+   "client_inflight_small": 0,
+   "client_inflight_large": 0,
+   "workers": {
+    "pool": 4,
+    "busy": 0,
+    "spares": 4,
+    "recycled": 0
+   },
+   "t": 271.3
+  },
+  {
+   "inflight_small": 0,
+   "inflight_large": 0,
+   "abandoned_running": 0,
+   "kills": 184,
+   "overloads": 2463023,
+   "penalised_clients": 8,
+   "client_inflight_small": 0,
+   "client_inflight_large": 0,
+   "workers": {
+    "pool": 4,
+    "busy": 0,
+    "spares": 4,
+    "recycled": 0
+   },
+   "t": 272.3
+  },
+  {
+   "inflight_small": 0,
+   "inflight_large": 0,
+   "abandoned_running": 0,
+   "kills": 184,
+   "overloads": 2471337,
+   "penalised_clients": 8,
+   "client_inflight_small": 0,
+   "client_inflight_large": 0,
+   "workers": {
+    "pool": 4,
+    "busy": 0,
+    "spares": 4,
+    "recycled": 0
+   },
+   "t": 273.3
+  },
+  {
+   "inflight_small": 0,
+   "inflight_large": 0,
+   "abandoned_running": 0,
+   "kills": 184,
+   "overloads": 2479763,
+   "penalised_clients": 8,
+   "client_inflight_small": 0,
+   "client_inflight_large": 0,
+   "workers": {
+    "pool": 4,
+    "busy": 0,
+    "spares": 4,
+    "recycled": 0
+   },
+   "t": 274.3
+  },
+  {
+   "inflight_small": 0,
+   "inflight_large": 1,
+   "abandoned_running": 0,
+   "kills": 184,
+   "overloads": 2488386,
+   "penalised_clients": 8,
+   "client_inflight_small": 0,
+   "client_inflight_large": 0,
+   "workers": {
+    "pool": 4,
+    "busy": 0,
+    "spares": 4,
+    "recycled": 0
+   },
+   "t": 275.3
+  },
+  {
+   "inflight_small": 2,
+   "inflight_large": 2,
+   "abandoned_running": 0,
+   "kills": 184,
+   "overloads": 2497537,
+   "penalised_clients": 4,
+   "client_inflight_small": 2,
+   "client_inflight_large": 2,
+   "workers": {
+    "pool": 4,
+    "busy": 4,
+    "spares": 0,
+    "recycled": 0
+   },
+   "t": 276.3
+  },
+  {
+   "inflight_small": 3,
+   "inflight_large": 2,
+   "abandoned_running": 0,
+   "kills": 184,
+   "overloads": 2508324,
+   "penalised_clients": 4,
+   "client_inflight_small": 3,
+   "client_inflight_large": 2,
+   "workers": {
+    "pool": 4,
+    "busy": 4,
+    "spares": 0,
+    "recycled": 0
+   },
+   "t": 277.3
+  },
+  {
+   "inflight_small": 2,
+   "inflight_large": 2,
+   "abandoned_running": 0,
+   "kills": 188,
+   "overloads": 2518983,
+   "penalised_clients": 4,
+   "client_inflight_small": 2,
+   "client_inflight_large": 2,
+   "workers": {
+    "pool": 4,
+    "busy": 4,
+    "spares": 0,
+    "recycled": 0
+   },
+   "t": 278.3
+  },
+  {
+   "inflight_small": 3,
+   "inflight_large": 2,
+   "abandoned_running": 0,
+   "kills": 188,
+   "overloads": 2530388,
+   "penalised_clients": 4,
+   "client_inflight_small": 3,
+   "client_inflight_large": 2,
+   "workers": {
+    "pool": 4,
+    "busy": 4,
+    "spares": 0,
+    "recycled": 0
+   },
+   "t": 279.3
+  },
+  {
+   "inflight_small": 1,
+   "inflight_large": 0,
+   "abandoned_running": 0,
+   "kills": 192,
+   "overloads": 2541116,
+   "penalised_clients": 8,
+   "client_inflight_small": 0,
+   "client_inflight_large": 0,
+   "workers": {
+    "pool": 4,
+    "busy": 0,
+    "spares": 4,
+    "recycled": 0
+   },
+   "t": 280.3
+  },
+  {
+   "inflight_small": 0,
+   "inflight_large": 0,
+   "abandoned_running": 0,
+   "kills": 192,
+   "overloads": 2549890,
+   "penalised_clients": 8,
+   "client_inflight_small": 0,
+   "client_inflight_large": 0,
+   "workers": {
+    "pool": 4,
+    "busy": 0,
+    "spares": 4,
+    "recycled": 0
+   },
+   "t": 281.3
+  },
+  {
+   "inflight_small": 0,
+   "inflight_large": 0,
+   "abandoned_running": 0,
+   "kills": 192,
+   "overloads": 2557548,
+   "penalised_clients": 8,
+   "client_inflight_small": 0,
+   "client_inflight_large": 0,
+   "workers": {
+    "pool": 4,
+    "busy": 0,
+    "spares": 4,
+    "recycled": 0
+   },
+   "t": 282.3
+  },
+  {
+   "inflight_small": 0,
+   "inflight_large": 1,
+   "abandoned_running": 0,
+   "kills": 192,
+   "overloads": 2566092,
+   "penalised_clients": 8,
+   "client_inflight_small": 0,
+   "client_inflight_large": 0,
+   "workers": {
+    "pool": 4,
+    "busy": 0,
+    "spares": 4,
+    "recycled": 0
+   },
+   "t": 283.3
+  },
+  {
+   "inflight_small": 0,
+   "inflight_large": 0,
+   "abandoned_running": 0,
+   "kills": 192,
+   "overloads": 2574851,
+   "penalised_clients": 8,
+   "client_inflight_small": 0,
+   "client_inflight_large": 0,
+   "workers": {
+    "pool": 4,
+    "busy": 0,
+    "spares": 4,
+    "recycled": 0
+   },
+   "t": 284.3
+  },
+  {
+   "inflight_small": 1,
+   "inflight_large": 1,
+   "abandoned_running": 0,
+   "kills": 192,
+   "overloads": 2583509,
+   "penalised_clients": 8,
+   "client_inflight_small": 0,
+   "client_inflight_large": 0,
+   "workers": {
+    "pool": 4,
+    "busy": 0,
+    "spares": 4,
+    "recycled": 0
+   },
+   "t": 285.3
+  },
+  {
+   "inflight_small": 1,
+   "inflight_large": 0,
+   "abandoned_running": 0,
+   "kills": 192,
+   "overloads": 2592233,
+   "penalised_clients": 8,
+   "client_inflight_small": 0,
+   "client_inflight_large": 0,
+   "workers": {
+    "pool": 4,
+    "busy": 0,
+    "spares": 4,
+    "recycled": 0
+   },
+   "t": 286.3
+  },
+  {
+   "inflight_small": 0,
+   "inflight_large": 0,
+   "abandoned_running": 0,
+   "kills": 192,
+   "overloads": 2600933,
+   "penalised_clients": 8,
+   "client_inflight_small": 0,
+   "client_inflight_large": 0,
+   "workers": {
+    "pool": 4,
+    "busy": 0,
+    "spares": 4,
+    "recycled": 0
+   },
+   "t": 287.3
+  },
+  {
+   "inflight_small": 2,
+   "inflight_large": 2,
+   "abandoned_running": 0,
+   "kills": 192,
+   "overloads": 2610523,
+   "penalised_clients": 4,
+   "client_inflight_small": 2,
+   "client_inflight_large": 2,
+   "workers": {
+    "pool": 4,
+    "busy": 4,
+    "spares": 0,
+    "recycled": 0
+   },
+   "t": 288.3
+  },
+  {
+   "inflight_small": 4,
+   "inflight_large": 2,
+   "abandoned_running": 0,
+   "kills": 192,
+   "overloads": 2621958,
+   "penalised_clients": 4,
+   "client_inflight_small": 3,
+   "client_inflight_large": 2,
+   "workers": {
+    "pool": 4,
+    "busy": 4,
+    "spares": 0,
+    "recycled": 0
+   },
+   "t": 289.3
+  },
+  {
+   "inflight_small": 3,
+   "inflight_large": 2,
+   "abandoned_running": 0,
+   "kills": 196,
+   "overloads": 2632672,
+   "penalised_clients": 4,
+   "client_inflight_small": 3,
+   "client_inflight_large": 2,
+   "workers": {
+    "pool": 4,
+    "busy": 4,
+    "spares": 0,
+    "recycled": 0
+   },
+   "t": 290.3
+  },
+  {
+   "inflight_small": 3,
+   "inflight_large": 2,
+   "abandoned_running": 0,
+   "kills": 196,
+   "overloads": 2644082,
+   "penalised_clients": 4,
+   "client_inflight_small": 3,
+   "client_inflight_large": 2,
+   "workers": {
+    "pool": 4,
+    "busy": 4,
+    "spares": 0,
+    "recycled": 0
+   },
+   "t": 291.3
+  },
+  {
+   "inflight_small": 0,
+   "inflight_large": 1,
+   "abandoned_running": 0,
+   "kills": 200,
+   "overloads": 2654818,
+   "penalised_clients": 8,
+   "client_inflight_small": 0,
+   "client_inflight_large": 0,
+   "workers": {
+    "pool": 4,
+    "busy": 0,
+    "spares": 4,
+    "recycled": 0
+   },
+   "t": 292.3
+  },
+  {
+   "inflight_small": 0,
+   "inflight_large": 0,
+   "abandoned_running": 0,
+   "kills": 200,
+   "overloads": 2663464,
+   "penalised_clients": 8,
+   "client_inflight_small": 0,
+   "client_inflight_large": 0,
+   "workers": {
+    "pool": 4,
+    "busy": 0,
+    "spares": 4,
+    "recycled": 0
+   },
+   "t": 293.3
+  },
+  {
+   "inflight_small": 0,
+   "inflight_large": 0,
+   "abandoned_running": 0,
+   "kills": 200,
+   "overloads": 2672191,
+   "penalised_clients": 8,
+   "client_inflight_small": 0,
+   "client_inflight_large": 0,
+   "workers": {
+    "pool": 4,
+    "busy": 0,
+    "spares": 4,
+    "recycled": 0
+   },
+   "t": 294.3
+  },
+  {
+   "inflight_small": 0,
+   "inflight_large": 1,
+   "abandoned_running": 0,
+   "kills": 200,
+   "overloads": 2680923,
+   "penalised_clients": 8,
+   "client_inflight_small": 0,
+   "client_inflight_large": 0,
+   "workers": {
+    "pool": 4,
+    "busy": 0,
+    "spares": 4,
+    "recycled": 0
+   },
+   "t": 295.3
+  },
+  {
+   "inflight_small": 0,
+   "inflight_large": 0,
+   "abandoned_running": 0,
+   "kills": 200,
+   "overloads": 2689696,
+   "penalised_clients": 8,
+   "client_inflight_small": 0,
+   "client_inflight_large": 0,
+   "workers": {
+    "pool": 4,
+    "busy": 0,
+    "spares": 4,
+    "recycled": 0
+   },
+   "t": 296.3
+  },
+  {
+   "inflight_small": 0,
+   "inflight_large": 2,
+   "abandoned_running": 0,
+   "kills": 200,
+   "overloads": 2698531,
+   "penalised_clients": 8,
+   "client_inflight_small": 0,
+   "client_inflight_large": 0,
+   "workers": {
+    "pool": 4,
+    "busy": 0,
+    "spares": 4,
+    "recycled": 0
+   },
+   "t": 297.3
+  },
+  {
+   "inflight_small": 0,
+   "inflight_large": 0,
+   "abandoned_running": 0,
+   "kills": 200,
+   "overloads": 2707232,
+   "penalised_clients": 8,
+   "client_inflight_small": 0,
+   "client_inflight_large": 0,
+   "workers": {
+    "pool": 4,
+    "busy": 0,
+    "spares": 4,
+    "recycled": 0
+   },
+   "t": 298.4
+  },
+  {
+   "inflight_small": 0,
+   "inflight_large": 0,
+   "abandoned_running": 0,
+   "kills": 200,
+   "overloads": 2716063,
+   "penalised_clients": 8,
+   "client_inflight_small": 0,
+   "client_inflight_large": 0,
+   "workers": {
+    "pool": 4,
+    "busy": 0,
+    "spares": 4,
+    "recycled": 0
+   },
+   "t": 299.4
+  }
+ ],
+ "recovery_samples": [
+  {
+   "inflight_small": 0,
+   "inflight_large": 0,
+   "abandoned_running": 0,
+   "kills": 200,
+   "overloads": 2721779,
+   "penalised_clients": 4,
+   "client_inflight_small": 0,
+   "client_inflight_large": 0,
+   "workers": {
+    "pool": 4,
+    "busy": 0,
+    "spares": 4,
+    "recycled": 0
+   },
+   "t": 1.0
+  },
+  {
+   "inflight_small": 0,
+   "inflight_large": 0,
+   "abandoned_running": 0,
+   "kills": 200,
+   "overloads": 2721779,
+   "penalised_clients": 4,
+   "client_inflight_small": 0,
+   "client_inflight_large": 0,
+   "workers": {
+    "pool": 4,
+    "busy": 0,
+    "spares": 4,
+    "recycled": 0
+   },
+   "t": 1.5
+  },
+  {
+   "inflight_small": 0,
+   "inflight_large": 0,
+   "abandoned_running": 0,
+   "kills": 200,
+   "overloads": 2721779,
+   "penalised_clients": 4,
+   "client_inflight_small": 0,
+   "client_inflight_large": 0,
+   "workers": {
+    "pool": 4,
+    "busy": 0,
+    "spares": 4,
+    "recycled": 0
+   },
+   "t": 2.0
+  },
+  {
+   "inflight_small": 0,
+   "inflight_large": 0,
+   "abandoned_running": 0,
+   "kills": 200,
+   "overloads": 2721779,
+   "penalised_clients": 0,
+   "client_inflight_small": 0,
+   "client_inflight_large": 0,
+   "workers": {
+    "pool": 4,
+    "busy": 0,
+    "spares": 4,
+    "recycled": 0
+   },
+   "t": 2.5
+  }
+ ]
+}

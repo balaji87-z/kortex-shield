@@ -1,0 +1,10 @@
+# Step-22 T2 DIAGNOSTIC (rule 34, never a baseline number): engine source 37074bf (37074bf763a9e1be4a49a780537573f19b47fde5), benign probe new
+# Step-22 T2 attack cells, re-run after the per-lane per-client clamp (5dfdd19), in a Linux container
+== host: Darwin 27.0.0 arm64; docker client 29.10.1 server 29.5.2 linux/arm64 kernel 6.8.0-117-generic
+== image: python:3.12-alpine@sha256:c5ba3deef00c7758561a0f03c26f44f10589263d40e732b8748e0d1f38f6dd89 python@sha256:c5ba3deef00c7758561a0f03c26f44f10589263d40e732b8748e0d1f38f6dd89 id sha256:c5ba3deef00c7758561a0f03c26f44f10589263d40e732b8748e0d1f38f6dd89
+== engine: linux/arm64 sha256 d904dc3da7a9042ff1a9f65546fa70a29cd5513ec7fa75bbbed8999484f7247b built from 37074bf763a9e1be4a49a780537573f19b47fde5 with go version go1.27.4 darwin/arm64
+== VM: 8 cpus, 8307408896 bytes memory, Ubuntu 24.04.4 LTS
+== in container: Linux 6.8.0-117-generic aarch64; Python 3.12.16; cpus 8; load 7.26 4.73 2.07 2/212 13
+cell mixed-eight: preflight=[200, 200] post 275/301 {503: 26, 200: 275} get 301/301 {200: 301} kills=200 overloads=3184201 minpool=0 cpu=254.0s recovery=2.5s
+== load at end: 6.00 5.63 3.22 2/197 1927
+== image digest used: python@sha256:c5ba3deef00c7758561a0f03c26f44f10589263d40e732b8748e0d1f38f6dd89

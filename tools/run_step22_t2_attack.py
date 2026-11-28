@@ -44,6 +44,13 @@ BENIGN_URL = "http://localhost:8098/"
 BENIGN_UA = ("Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 "
              "(KHTML, like Gecko) Chrome/158.0.0.0 Safari/537.36")
 BENIGN_GET_HDRS = {"User-Agent": BENIGN_UA}
+# DIAGNOSTIC only (rule 34): KORTEX_T2_OLD_PROBE=1 restores the probe of the
+# first recording (numeric-IP Host, no User-Agent) to test whether the probe
+# explains a difference between the two recordings.
+BENIGN_PROBE = "old" if os.environ.get("KORTEX_T2_OLD_PROBE") == "1" else "new"
+if BENIGN_PROBE == "old":
+    BENIGN_URL = "http://127.0.0.1:8098/"
+    BENIGN_GET_HDRS = {}
 
 
 def effective_config(url):
@@ -201,7 +208,7 @@ def run_cell(name, pl, attack_size, n_attackers, duration=300, budget_ms=2000,
     attack_hdrs = {"Content-Type": "text/plain", "X-Kortex-Test-Hold": "1",
                    "X-Kortex-Sample-Id": f"s22-{name}-atk"}
     benign_body = json.dumps({"k": "v", "n": 1}).encode()
-    benign_hdrs = {"Content-Type": "application/json", "User-Agent": BENIGN_UA,
+    benign_hdrs = {"Content-Type": "application/json", **BENIGN_GET_HDRS,
                    "X-Kortex-Sample-Id": f"s22-{name}-benign"}
     if n_attackers == 1:
         addrs = ["127.0.0.2"]
@@ -311,6 +318,7 @@ def run_cell(name, pl, attack_size, n_attackers, duration=300, budget_ms=2000,
         "benign_post_status": dict(Counter(st for st, _ in results["benign_post"])),
         "benign_get_status": dict(Counter(st for st, _ in results["benign_get"])),
         "effective_config": config,
+        "benign_probe": BENIGN_PROBE,
         "benign_post_ms": sorted(m for _, m in results["benign_post"]),
         "benign_get_ms": sorted(m for _, m in results["benign_get"]),
         "attack_status": dict(results["attack_status"]),
@@ -373,7 +381,7 @@ def run_mixed(name, pl, n_addrs, duration=300):
             time.sleep(0.5)
     url = "http://127.0.0.1:8098/"
     benign_body = json.dumps({"k": "v", "n": 1}).encode()
-    benign_hdrs = {"Content-Type": "application/json", "User-Agent": BENIGN_UA,
+    benign_hdrs = {"Content-Type": "application/json", **BENIGN_GET_HDRS,
                    "X-Kortex-Sample-Id": f"s22-{name}-benign"}
     if n_addrs == 1:
         large_addrs = ["127.0.0.2"] * 4
@@ -482,6 +490,7 @@ def run_mixed(name, pl, n_addrs, duration=300):
         "benign_post_status": dict(Counter(st for st, _ in results["benign_post"])),
         "benign_get_status": dict(Counter(st for st, _ in results["benign_get"])),
         "effective_config": config,
+        "benign_probe": BENIGN_PROBE,
         "benign_post_ms": sorted(m for _, m in results["benign_post"]),
         "benign_get_ms": sorted(m for _, m in results["benign_get"]),
         "attack_status": dict(results["attack_status"]),
@@ -589,6 +598,7 @@ def kill_storm(duration=120):
     out = {
         "duration_s": duration, "attack_status": dict(statuses),
         "effective_config": config,
+        "benign_probe": BENIGN_PROBE,
         "kills_total": samples[-1]["kills"] if samples else None,
         "overloads_total": samples[-1]["overloads"] if samples else None,
         "kills_per_s": round((samples[-1]["kills"] / duration), 2) if samples else None,
