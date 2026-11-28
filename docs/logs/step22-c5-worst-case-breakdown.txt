@@ -1,0 +1,24 @@
+# step-22 C5: worst case of the four C2 runs by class, 2026-11-28T03:18:14Z, at 39442705e42715337fe0004829fae2e617e2c59b plus tools/step22_worst_case_breakdown.py
+# runs: docs/logs/runs/s22-c2-outcomes/ (in-process engine, outcomes written by kortex_eval at 457de00)
+$ .venv/bin/python tools/step22_worst_case_breakdown.py docs/logs/runs/s22-c2-outcomes/benign-wcp-v{0,1}-inprocess-pl{1,2}
+docs/logs/runs/s22-c2-outcomes/benign-wcp-v0-inprocess-pl1: n=20000 worst case 2284/20000 = 11.42%
+    waf_block 2184 + deny_status 52 + inconsistent 0 + error 1 + 413 limit 28 + 415 content-encoding 19 + 400 framing 0 + 503 timeout 0 + 503 overload 0 = 2284
+    not in the worst case: pass 200 17716, other 0
+    check: worst case + pass 200 + other = 20000 of 20000
+    of the worst case, classified waf_pass by the outcomes file of this run: 0
+docs/logs/runs/s22-c2-outcomes/benign-wcp-v0-inprocess-pl2: n=20000 worst case 8967/20000 = 44.84%
+    waf_block 8866 + deny_status 52 + inconsistent 1 + error 1 + 413 limit 28 + 415 content-encoding 19 + 400 framing 0 + 503 timeout 0 + 503 overload 0 = 8967
+    not in the worst case: pass 200 11033, other 0
+    check: worst case + pass 200 + other = 20000 of 20000
+    of the worst case, classified waf_pass by the outcomes file of this run: 0
+docs/logs/runs/s22-c2-outcomes/benign-wcp-v1-inprocess-pl1: n=10000 worst case 1133/10000 = 11.33%
+    waf_block 1091 + deny_status 25 + inconsistent 0 + error 0 + 413 limit 17 + 415 content-encoding 0 + 400 framing 0 + 503 timeout 0 + 503 overload 0 = 1133
+    not in the worst case: pass 200 8867, other 0
+    check: worst case + pass 200 + other = 10000 of 10000
+    of the worst case, classified waf_pass by the outcomes file of this run: 0
+docs/logs/runs/s22-c2-outcomes/benign-wcp-v1-inprocess-pl2: n=10000 worst case 4480/10000 = 44.80%
+    waf_block 4438 + deny_status 25 + inconsistent 0 + error 0 + 413 limit 17 + 415 content-encoding 0 + 400 framing 0 + 503 timeout 0 + 503 overload 0 = 4480
+    not in the worst case: pass 200 5520, other 0
+    check: worst case + pass 200 + other = 10000 of 10000
+    of the worst case, classified waf_pass by the outcomes file of this run: 0
+# exit status: 0

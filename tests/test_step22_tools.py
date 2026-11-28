@@ -152,3 +152,33 @@ def test_t3_summary_counts_fail_closed_apart_from_blocks_and_in_the_worst_case()
     assert "waf_pass=79 other=0" in first
     assert "10/100 = 10.00%" in second            # best case: 403 blocks only
     assert "worst case (all flagged) 21/100 = 21.00%" in second
+
+
+def test_worst_case_breakdown_gives_every_sample_one_class():
+    wb = load("step22_worst_case_breakdown")
+
+    def resp(i, status, decision=None):
+        return {"id": i, "status": status, "engine_decision": decision}
+
+    responses = [resp("blk", 403, "block"), resp("deny", 400, "block"), resp("inc", 403, "block"),
+                 resp("err", None), resp("big", 413, "limit"), resp("gz", 415, "content-encoding"),
+                 resp("frm", 400, "framing"), resp("slow", 503, "timeout"), resp("full", 503, "overload"),
+                 resp("ok", 200), resp("app500", 500)]
+    # an outcomes file from before the 400/503 outcomes existed: frm, slow, full are waf_pass
+    outcomes = [{"id": "blk", "outcome": "waf_block"}, {"id": "deny", "outcome": "waf_deny_status"},
+                {"id": "inc", "outcome": "inconsistent"}, {"id": "err", "outcome": "error"},
+                {"id": "big", "outcome": "waf_fail_closed_413"}, {"id": "gz", "outcome": "waf_fail_closed_415"},
+                {"id": "frm", "outcome": "waf_pass"}, {"id": "slow", "outcome": "waf_pass"},
+                {"id": "full", "outcome": "waf_pass"}, {"id": "ok", "outcome": "waf_pass"},
+                {"id": "app500", "outcome": "waf_pass"}]
+    classes, as_pass = wb.breakdown(outcomes, responses)
+    assert classes == {"waf_block": 1, "deny_status": 1, "inconsistent": 1, "error": 1,
+                       "413 limit": 1, "415 content-encoding": 1, "400 framing": 1,
+                       "503 timeout": 1, "503 overload": 1, "pass 200": 1,
+                       "other (waf_pass, status 500)": 1}
+    assert {c: k for c, k in as_pass.items() if c in wb.WORST_CASE_CLASSES} == {
+        "400 framing": 1, "503 timeout": 1, "503 overload": 1}
+    text = "\n".join(wb.lines("run", outcomes, responses))
+    assert "run: n=11 worst case 9/11" in text
+    assert "check: worst case + pass 200 + other = 11 of 11" in text
+    assert "classified waf_pass by the outcomes file of this run: 3 [400 framing=1, 503 timeout=1, 503 overload=1]" in text
