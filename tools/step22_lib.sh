@@ -34,6 +34,7 @@ start_stub() {
 stop_stub() { [ -n "${STUB_PID:-}" ] && kill $STUB_PID 2>/dev/null; }
 
 # start_engine <tag> <mode inprocess|worker> <port> <pl> <budget_ms> <engine-log>
+# ENGINE_RULE_MODE (default On) sets KORTEX_RULE_ENGINE, e.g. DetectionOnly.
 # Audit and events files: out/s22-<tag>.audit.log / out/s22-<tag>.events.jsonl
 start_engine() {
   local tag=$1 mode=$2 port=$3 pl=$4 budget=$5 elog=$6 extra=""
@@ -42,7 +43,7 @@ start_engine() {
   ENGINE_EVENTS=out/s22-$tag.events.jsonl
   rm -f $ENGINE_AUDIT $ENGINE_EVENTS
   env KORTEX_BACKEND_URL=http://127.0.0.1:$STUB_PORT KORTEX_RULES_DIR=$PWD/engine/crs \
-    KORTEX_RULE_ENGINE=On KORTEX_BLOCKING_PARANOIA=$pl KORTEX_DETECTION_PARANOIA=$pl \
+    KORTEX_RULE_ENGINE=${ENGINE_RULE_MODE:-On} KORTEX_BLOCKING_PARANOIA=$pl KORTEX_DETECTION_PARANOIA=$pl \
     KORTEX_MAX_BODY_BYTES=13107200 KORTEX_MAX_INSPECTED_BYTES=131072 \
     KORTEX_MAX_INFLIGHT_BODY=8 KORTEX_MAX_INFLIGHT_BODY_LARGE=2 KORTEX_BODY_LANE_THRESHOLD=65536 \
     KORTEX_ENGINE_TIME_BUDGET_MS=$budget KORTEX_LISTEN_ADDR=127.0.0.1:$port \
