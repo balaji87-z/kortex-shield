@@ -13,7 +13,9 @@ The step-22 runs below ran on:
   (connector; same index digest as before, now its linux/arm64 variant)
 - Engine: coraza v3.8.1 + CRS 4.25.2 (engine/RULES.sha256 unchanged), built
   from 50e21a3; darwin/arm64 binary sha256 3739a11b...adb9, linux/arm64
-  binary sha256 185014ed...f75c. Engine code is unchanged by this baseline.
+  binary sha256 185014ed...f75c. Engine code is unchanged by this baseline
+  up to the section "Follow-up" at the end, which changes the engine
+  (37074bf) and replaces the numbers it names.
 
 Rule 29 was re-proven on this host: every run's `/__kortex/config` output is
 in its log (docs/logs/step22-*.txt), and the connector runs print the levels
@@ -183,12 +185,10 @@ payload split across a chunk boundary at two offsets (E).
   (restricted header). So a request carrying Content-Encoding is refused by
   header policy at PL1 whatever its bytes are — PROVEN for the header-only
   case by I vs J on the engine.
-- NOT MEASURED: a compressed canary whose bytes contain no NUL, CR or LF
-  (cell G). No such zlib stream was found for these two canaries, so the
-  claim "a compressed attack body is always blocked" rests on cell I
-  (header policy), not on a direct test. If 920450 were ever relaxed for
-  Content-Encoding, compressed bodies would be forwarded uninspected.
-- Audit-logging difference, UNEXPLAINED (rule 39), decisions unaffected:
+- Cell G (a compressed canary whose bytes contain no NUL, CR or LF) was
+  NOT MEASURED in the first pass and is measured in "Follow-up" below.
+- Audit-logging difference (classified BUG and fixed in "Follow-up", E32;
+  the text below is the first-pass finding), decisions unaffected:
   the connector's audit log carries a 920450 message on all 15 cells with a
   Content-Encoding header; the engine's audit log carries none, although
   its block page lists 920450 as matched. The same holds for 920350 in the
@@ -242,7 +242,8 @@ the attack (200/200 in all six) and records the benign statuses.
   30,092 attacker connection errors next to its 503s and benign POSTs
   failing in 0.2 ms; its cause was not recorded. Whether the improvement
   comes from the clamp, the host or the probe is NOT separated (the clamp,
-  the host and the probe all changed between the two recordings).
+  the host and the probe all changed between the two recordings). The
+  clamp and the probe are ruled out in "Follow-up" below.
 - Shared-address penalty (design risk (b)) demonstrated in the container
   (docs/logs/runs/s22-t2-penalty-demo/demo.txt): innocent POST 200 before;
   after one budget kill from 127.0.0.2 an innocent POST from the same
@@ -263,14 +264,170 @@ the attack (200/200 in all six) and records the benign statuses.
   audit index (ids, sizes, content types, status, rule ids).
 - History still holds the removed files and 23 files with credential shapes
   (docs/logs/step22-history-cleanup-list.txt, 27 paths). Not rewritten:
-  instructor decision pending.
-- docs/logs/wcp-baseline-breakdown.json (7.4 MB) is over the 5 MB limit and
-  its gzip fails the scan (email=72, jwt=4 shapes). Left as is: instructor
-  decision pending.
+  instructor decision pending. A dry run in a scratch clone is recorded in
+  docs/logs/step22-history-rewrite-dryrun.txt.
+- docs/logs/wcp-baseline-breakdown.json (7.4 MB, over the 5 MB limit,
+  email=72 and jwt=4 shapes) is removed from the tree and replaced by
+  docs/logs/wcp-baseline-breakdown-nopaths.json (same numbers, endpoint
+  keys hashed). It is still in history.
 
 ## Standing notes carried from v1.6
 
 - In-process mode remains the default; worker mode is opt-in.
-- modsec-connector comparison not re-run since step-13.
-- docs/logs/step22-t4-fp-decomposition.txt (FP decomposition from the
-  step-18/19 runs) still says "connector v0/v1 PL2: NOT MEASURED".
+- modsec-connector comparison: re-run on this host, see "Follow-up".
+- docs/logs/step22-t4-fp-decomposition.txt now has the connector PL2
+  decomposition, see "Follow-up".
+
+## Follow-up (same step, after the first push; engine at 37074bf)
+
+Evidence and commands: reports/step-22.md, sections F1 to F12. Extra image:
+`owasp/modsecurity-crs:4.25.2-nginx-lts@sha256:6296ce685cb88ba4012998b935b25dabbd9e0ff326088c1149447102544de661`
+(linux/arm64, libmodsecurity3 3.0.17). Engine binaries: darwin/arm64 sha256
+1214f20810f5... (parity re-run), linux/arm64 sha256 3ae37bb273ef... (T2 v3).
+
+### Engine changes (each test-first, docs/acceptance.md)
+
+- E32: `SecDefaultAction` for phases 1 to 5 in the generated config, as in
+  the connector image, so phase-1 matches (920350, 920450, 920320) reach
+  the audit log. This closes the "audit-logging difference" of the T5
+  section: BUG, fixed.
+- E33/E34: a request with a body and a Content-Encoding other than
+  identity is answered `415 kortex-decision=content-encoding` by the
+  engine, before inspection, in blocking and DetectionOnly mode. Not
+  decoded. DESIGN difference from the connector (403 there), criterion
+  measured below.
+- T3p: in worker mode a penalised client's body request is refused before
+  the transaction, the phase-1 rules, the lane slot and the body read;
+  counter `refused_before_inspection` on /__kortex/stats.
+- Tests: T3g runs in its own process (T3n, canary T3o); E20 waits 480 s.
+  Go suite 48 PASS / 5 SKIP without the fixture, 53 PASS / 0 SKIP / 0 FAIL
+  with it (`-timeout 900s`; E20 260.72 s); pytest 186 passed, 4 skipped.
+
+### Parity and false-positive figures with the changed engine
+
+docs/logs/step22-t3-parity-after-followup.txt,
+docs/logs/runs/s22-t3-parity-after-followup/. In-process against worker:
+0 status differences and 0 worst-case-set differences in 60,000 pairs;
+rule-id sets differ on 3 ids (v0 PL2; 942130 twice, 942120 once). These
+replace the table of the T3 section for the engine from 37074bf on:
+
+| dataset | PL | blocked | deny_status | inconsistent | error | 413 | 415 | best case | worst case (tool) | every answer other than 200 |
+|---|---|---|---|---|---|---|---|---|---|---|
+| benign-wcp-v0 | 1 | 2,184 | 52 | 0 | 1 | 28 | 19 | 10.92% | 2,237/20,000 = 11.19% | 2,284/20,000 = 11.42% |
+| benign-wcp-v0 | 2 | 8,866 | 52 | 1 | 1 | 28 | 19 | 44.33% | 8,920/20,000 = 44.60% | 8,967/20,000 = 44.84% |
+| benign-wcp-v1 | 1 | 1,091 | 25 | 0 | 0 | 17 | 0 | 10.91% | 1,116/10,000 = 11.16% | 1,133/10,000 = 11.33% |
+| benign-wcp-v1 | 2 | 4,438 | 25 | 0 | 0 | 17 | 0 | 44.38% | 4,463/10,000 = 44.63% | 4,480/10,000 = 44.80% |
+
+- Against the first parity run the only status changes are 19 ids of
+  benign-wcp-v0, every v0 sample with `Content-Encoding: gzip` and a body:
+  9 were 403, 6 were 400, 4 were 413, all are 415 now. No 200 changed.
+- The tool's worst case for v0 is 15 lower than before (2,252 / 8,935).
+  That is a classification effect, not fewer refusals: kortex_eval counts
+  the engine's own 413 and 415 answers as waf_pass. The last column
+  includes them and is the same before and after (2,284 / 8,967). Use the
+  last column when the question is "how many benign requests did not get
+  through".
+- v0 is in-sample for earlier engine choices, v1 is not (rule 45).
+
+### Rule matching in coraza is not repeatable (PROVEN, not fixed)
+
+docs/logs/step22-variance-engine-DIAGNOSTIC.txt,
+docs/logs/step22-variance-containers-DIAGNOSTIC.txt (DIAGNOSTIC, 200
+replays per request, PL2). Coraza v3.8.1 walks its map-backed collections
+in Go's random map order. Two consequences:
+
+- Capture order: the CRS 942130 chain compares the captures of whichever
+  variable was evaluated last. `{"filter":"color=blue","note":"1=1"}` is
+  blocked 131 of 200 times and passed 69 on the engine; 112 / 88 on the
+  connector image; constant once iteration is sorted. Not fixed upstream.
+- Transformation cache keyed by position: a body with a repeated key gets
+  8 different inbound scores on the engine (9 on the connector); constant
+  with the cache off. Fixed on coraza main by PR #1682, not in a release.
+- ModSecurity 3.0.17 is repeatable on all seven requests; its 942130
+  result depends on member order instead (tautology last: blocked 200 of
+  200; tautology first and a harmless `a=b` member last: passed 200 of
+  200).
+- This explains the 3 rule-id-set differences of the T3 section
+  ("UNEXPLAINED-as-to-mechanism" there). Classified BUG in the dependency;
+  the engine is unchanged. Effect on recall and false-positive figures of
+  a single replay: NOT MEASURED beyond the parity runs (0 statuses, 3
+  rule-id sets in 60,000 pairs, twice).
+
+### Content-Encoding after E33, and cell G
+
+docs/logs/step22-t5-after-e33.txt, docs/logs/step22-t5-cellg-*.txt.
+
+| cell | engine before E33 | engine after E33 | connector |
+|---|---|---|---|
+| A, B: gzip / deflate + header (12) | 8 x 403, 4 x 400 | 12 x 415 | 8 x 403, 4 x 400 |
+| G: compressed canary with no NUL/CR/LF + header, PL1 | 403 on 920450 only | 415 | 403 on 920420 + 920450 |
+| K: the same bytes, no header, PL1 | 200 | 200 | 403 on 920420 (content-type policy) |
+| K, PL2 | 403 on 920271 | 403 on 920271 | 403 on 920271 + 920420 |
+| H: the same text uncompressed | 403 on 941/942 | 403 on 941/942 | 403 (XSS on 941; SQLi on 920420 only at PL1) |
+
+- Neither side decodes. With the header, the engine now refuses by its own
+  check instead of by rule 920450. Without the header the compressed
+  canary passes the engine at PL1 (cell K); that is an exposure only for a
+  backend that decompresses without being told to.
+- Padding after E33: PL1 108 of 108 blocked; PL2 106 blocked and 2 x 503
+  (fail closed) on the 120,000-byte SQLi cell. 0 passed.
+- NOT MEASURED: a stream with no byte below 32 (none in 8,620,836 tries);
+  cell K on the connector with an allowed content type.
+
+### ModSecurity image against the connector image (benign-wcp-v0)
+
+docs/logs/step22-modsec-connector.txt, docs/logs/runs/s22-modsec-connector/.
+Default image config on both, 20,000 samples, rule 36 controls 20/20
+before and after in all four runs.
+
+| run | blocked | worst case (headline) |
+|---|---|---|
+| ModSecurity PL1 | 3,823 = 19.11% | 3,893 = 19.46% |
+| connector PL1 | 3,824 = 19.12% | 3,902 = 19.51% |
+| ModSecurity PL2 | 8,949 = 44.75% | 9,020 = 45.10% |
+| connector PL2 | 8,951 = 44.76% | 9,025 = 45.12% |
+
+Blocked-set difference: 13 ids at PL1 (6 + 7), 14 at PL2 (6 + 8), the
+same ids as in step 13; in all but one the two sides answer 403 against
+400, the other is the connector's timeout on the 481,798-byte body. One
+id is refused by one image and passed by the other (wcp-aa98de364e37,
+PL1). The connector's rule-id sets are larger on 1,290 / 2,739 of the
+ids blocked by both (HYPOTHESIS: it inspects bodies of content types that
+have no body processor). The connector timed out on 11 and 6 requests,
+ModSecurity on none; the host was loaded.
+
+Connector PL2 false-positive decomposition (existing step-18 runs,
+docs/logs/step22-t4-fp-decomposition.txt): v0 9,013 audit entries, 8,865
+with a detection rule, 148 on 920420 only; v1 4,510 / 4,437 / 73. Counts,
+not rates.
+
+### T2 after the follow-up
+
+docs/logs/step22-t2-followup-summary.txt, docs/logs/runs/s22-t2-cells-v3/.
+
+| cell (engine 37074bf, PL1) | benign POST 200 | kills | 503 answers | refused before inspection | CPU s | before T3p (41dcb78) CPU s |
+|---|---|---|---|---|---|---|
+| mixed-one | 301/301 | 75 | 2,883,489 | 2,404,897 | 300.7 | 610.1 |
+| mixed-eight | 275/301 | 200 | 2,747,821 | 2,725,057 | 247.8 | 591.5 |
+| kill storm, 120 s | n/a | 80 | 1,425,574 | 1,421,959 | 94.8 | 214.8 (at 50e21a3) |
+
+- T3p halves the engine CPU spent on an unpaced attacker (PROVEN for the
+  mixed cells by the one-commit comparison). It is not a rate limit: the
+  cost is still about one core.
+- The first recording's mixed-one result (105/301) is not reproduced on
+  this host with the clamp removed, with the old probe, or with both
+  (301/301 each time; DIAGNOSTIC). The host is the remaining HYPOTHESIS.
+- mixed-eight, three runs on each side of T3p (DIAGNOSTIC): benign POSTs
+  refused 11, 20, 20 of 301 before and 26, 26, 19 after; CPU 592 to 613
+  s before and 238 to 254 s after. T3p lowers the CPU cost and does not
+  help the benign client under eight attacker addresses; whether it costs
+  the benign client a little is NOT ESTABLISHED (ranges overlap).
+
+### Other
+
+- E20: the abandoned in-process call on the fixture body takes 260 to 280
+  s here on coraza v3.8.1 and 266 to 267 s on a v3.7.0 scratch build
+  (docs/logs/step22-e20-timing.txt); the engine recovers afterwards.
+- reports/step-21.md has an amendment for the numeric Host (287 -> 286 of
+  402 at PL2); data/benign-wcp-v0/README.md names the builder commit that
+  reproduces the frozen manifest (71cb753).

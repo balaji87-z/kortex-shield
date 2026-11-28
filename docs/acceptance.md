@@ -206,3 +206,16 @@ changed to macOS arm64, see docs/baseline-v1.7.md):
   then includes the abandoned in-process calls of those tests. T3g's status
   "passing" above is for runs without the fixture on this host. Neither
   test was changed (rule 5); see reports/step-22.md, Questions.
+- Follow-up in the same step (reports/step-22.md, F5 to F12), which
+  replaces the two bullets above for the engine from 37074bf on: T3g runs
+  in its own process (T3n; canary T3o) and E20 waits 480 s (the abandoned
+  call takes 260 to 280 s on this host, docs/logs/step22-e20-timing.txt).
+  New ids E32, E33, E34, T3p, each failing first. Suites at 37074bf:
+  docs/logs/step22-followup-go-test.log 48 PASS, 5 SKIP, 0 FAIL
+  (`ok kortexshield/engine 51.195s`);
+  docs/logs/step22-followup-go-test-with-fixture.log 53 PASS, 0 SKIP,
+  0 FAIL (`ok kortexshield/engine 319.372s`, E20 260.72 s; needs
+  `-timeout 900s`); docs/logs/step22-followup-pytest.log 186 passed,
+  4 skipped. Parity re-run with this engine: 0 status diffs and 0
+  worst-case-set diffs on 60,000 samples
+  (docs/logs/step22-t3-parity-after-followup.txt).
