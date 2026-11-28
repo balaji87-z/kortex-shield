@@ -1,0 +1,133 @@
+# step-27 T2: encoding-diff-v0, the Python client's runs (a, step-27 engine, docs/logs/runs/s27-own) against the raw-socket runner's runs (b, docs/logs/runs/s27-raw), per sample id
+# 2026-11-28T16:47:34Z git 366a086767db06ed8b3fc2747e41fabe9266e975
+== encoding-diff-v0 PL1 inprocess (a=Python client b=raw runner):
+# .venv/bin/python tools/step21_engine_diff.py docs/logs/runs/s27-own/encoding-diff-v0-inprocess-pl1 docs/logs/runs/s27-raw/encoding-diff-v0-raw-inprocess-pl1
+samples compared: 192 (a=192 b=192 only-a=0 only-b=0)
+status counts a: {200: 45, 403: 137, None: 10}
+status counts b: {200: 45, 400: 10, 403: 137}
+status diffs: 10
+  encd-query-plain-command-injection-029d9cca: a=None b=400
+  encd-query-plain-command-injection-05bbe7a8: a=None b=400
+  encd-query-plain-command-injection-227cb8a4: a=None b=400
+  encd-query-plain-sqli-6e47f23b: a=None b=400
+  encd-query-plain-sqli-8c187a93: a=None b=400
+  encd-query-plain-sqli-a2035700: a=None b=400
+  encd-query-plain-xss-369d0b75: a=None b=400
+  encd-query-plain-xss-545d1ff8: a=None b=400
+  encd-query-plain-xss-56083d09: a=None b=400
+  encd-query-plain-xss-784791cd: a=None b=400
+no status in a (counted as error): 10
+  encd-query-plain-command-injection-029d9cca
+  encd-query-plain-command-injection-05bbe7a8
+  encd-query-plain-command-injection-227cb8a4
+  encd-query-plain-sqli-6e47f23b
+  encd-query-plain-sqli-8c187a93
+  encd-query-plain-sqli-a2035700
+  encd-query-plain-xss-369d0b75
+  encd-query-plain-xss-545d1ff8
+  encd-query-plain-xss-56083d09
+  encd-query-plain-xss-784791cd
+no status in b (counted as error): 0
+worst-case set a: 147/192 (error=10 blocked=137 deny_status=0 inconsistent=0 fail_closed_413=0 fail_closed_415=0 fail_closed_400=0 fail_closed_503_timeout=0 fail_closed_503_overload=0)
+worst-case set b: 147/192 (error=0 blocked=137 deny_status=0 inconsistent=0 fail_closed_413=0 fail_closed_415=0 fail_closed_400=10 fail_closed_503_timeout=0 fail_closed_503_overload=0)
+worst-case set diffs: 0 (only-a 0 only-b 0)
+== encoding-diff-v0 PL1 worker (a=Python client b=raw runner):
+# .venv/bin/python tools/step21_engine_diff.py docs/logs/runs/s27-own/encoding-diff-v0-worker-pl1 docs/logs/runs/s27-raw/encoding-diff-v0-raw-worker-pl1
+samples compared: 192 (a=192 b=192 only-a=0 only-b=0)
+status counts a: {200: 45, 403: 137, None: 10}
+status counts b: {200: 45, 400: 10, 403: 137}
+status diffs: 10
+  encd-query-plain-command-injection-029d9cca: a=None b=400
+  encd-query-plain-command-injection-05bbe7a8: a=None b=400
+  encd-query-plain-command-injection-227cb8a4: a=None b=400
+  encd-query-plain-sqli-6e47f23b: a=None b=400
+  encd-query-plain-sqli-8c187a93: a=None b=400
+  encd-query-plain-sqli-a2035700: a=None b=400
+  encd-query-plain-xss-369d0b75: a=None b=400
+  encd-query-plain-xss-545d1ff8: a=None b=400
+  encd-query-plain-xss-56083d09: a=None b=400
+  encd-query-plain-xss-784791cd: a=None b=400
+no status in a (counted as error): 10
+  encd-query-plain-command-injection-029d9cca
+  encd-query-plain-command-injection-05bbe7a8
+  encd-query-plain-command-injection-227cb8a4
+  encd-query-plain-sqli-6e47f23b
+  encd-query-plain-sqli-8c187a93
+  encd-query-plain-sqli-a2035700
+  encd-query-plain-xss-369d0b75
+  encd-query-plain-xss-545d1ff8
+  encd-query-plain-xss-56083d09
+  encd-query-plain-xss-784791cd
+no status in b (counted as error): 0
+worst-case set a: 147/192 (error=10 blocked=137 deny_status=0 inconsistent=0 fail_closed_413=0 fail_closed_415=0 fail_closed_400=0 fail_closed_503_timeout=0 fail_closed_503_overload=0)
+worst-case set b: 147/192 (error=0 blocked=137 deny_status=0 inconsistent=0 fail_closed_413=0 fail_closed_415=0 fail_closed_400=10 fail_closed_503_timeout=0 fail_closed_503_overload=0)
+worst-case set diffs: 0 (only-a 0 only-b 0)
+== encoding-diff-v0 PL2 inprocess (a=Python client b=raw runner):
+# .venv/bin/python tools/step21_engine_diff.py docs/logs/runs/s27-own/encoding-diff-v0-inprocess-pl2 docs/logs/runs/s27-raw/encoding-diff-v0-raw-inprocess-pl2
+samples compared: 192 (a=192 b=192 only-a=0 only-b=0)
+status counts a: {200: 35, 403: 147, None: 10}
+status counts b: {200: 35, 400: 10, 403: 147}
+status diffs: 10
+  encd-query-plain-command-injection-029d9cca: a=None b=400
+  encd-query-plain-command-injection-05bbe7a8: a=None b=400
+  encd-query-plain-command-injection-227cb8a4: a=None b=400
+  encd-query-plain-sqli-6e47f23b: a=None b=400
+  encd-query-plain-sqli-8c187a93: a=None b=400
+  encd-query-plain-sqli-a2035700: a=None b=400
+  encd-query-plain-xss-369d0b75: a=None b=400
+  encd-query-plain-xss-545d1ff8: a=None b=400
+  encd-query-plain-xss-56083d09: a=None b=400
+  encd-query-plain-xss-784791cd: a=None b=400
+no status in a (counted as error): 10
+  encd-query-plain-command-injection-029d9cca
+  encd-query-plain-command-injection-05bbe7a8
+  encd-query-plain-command-injection-227cb8a4
+  encd-query-plain-sqli-6e47f23b
+  encd-query-plain-sqli-8c187a93
+  encd-query-plain-sqli-a2035700
+  encd-query-plain-xss-369d0b75
+  encd-query-plain-xss-545d1ff8
+  encd-query-plain-xss-56083d09
+  encd-query-plain-xss-784791cd
+no status in b (counted as error): 0
+worst-case set a: 157/192 (error=10 blocked=147 deny_status=0 inconsistent=0 fail_closed_413=0 fail_closed_415=0 fail_closed_400=0 fail_closed_503_timeout=0 fail_closed_503_overload=0)
+worst-case set b: 157/192 (error=0 blocked=147 deny_status=0 inconsistent=0 fail_closed_413=0 fail_closed_415=0 fail_closed_400=10 fail_closed_503_timeout=0 fail_closed_503_overload=0)
+worst-case set diffs: 0 (only-a 0 only-b 0)
+== encoding-diff-v0 PL2 worker (a=Python client b=raw runner):
+# .venv/bin/python tools/step21_engine_diff.py docs/logs/runs/s27-own/encoding-diff-v0-worker-pl2 docs/logs/runs/s27-raw/encoding-diff-v0-raw-worker-pl2
+samples compared: 192 (a=192 b=192 only-a=0 only-b=0)
+status counts a: {200: 35, 403: 147, None: 10}
+status counts b: {200: 35, 400: 10, 403: 147}
+status diffs: 10
+  encd-query-plain-command-injection-029d9cca: a=None b=400
+  encd-query-plain-command-injection-05bbe7a8: a=None b=400
+  encd-query-plain-command-injection-227cb8a4: a=None b=400
+  encd-query-plain-sqli-6e47f23b: a=None b=400
+  encd-query-plain-sqli-8c187a93: a=None b=400
+  encd-query-plain-sqli-a2035700: a=None b=400
+  encd-query-plain-xss-369d0b75: a=None b=400
+  encd-query-plain-xss-545d1ff8: a=None b=400
+  encd-query-plain-xss-56083d09: a=None b=400
+  encd-query-plain-xss-784791cd: a=None b=400
+no status in a (counted as error): 10
+  encd-query-plain-command-injection-029d9cca
+  encd-query-plain-command-injection-05bbe7a8
+  encd-query-plain-command-injection-227cb8a4
+  encd-query-plain-sqli-6e47f23b
+  encd-query-plain-sqli-8c187a93
+  encd-query-plain-sqli-a2035700
+  encd-query-plain-xss-369d0b75
+  encd-query-plain-xss-545d1ff8
+  encd-query-plain-xss-56083d09
+  encd-query-plain-xss-784791cd
+no status in b (counted as error): 0
+worst-case set a: 157/192 (error=10 blocked=147 deny_status=0 inconsistent=0 fail_closed_413=0 fail_closed_415=0 fail_closed_400=0 fail_closed_503_timeout=0 fail_closed_503_overload=0)
+worst-case set b: 157/192 (error=0 blocked=147 deny_status=0 inconsistent=0 fail_closed_413=0 fail_closed_415=0 fail_closed_400=10 fail_closed_503_timeout=0 fail_closed_503_overload=0)
+worst-case set diffs: 0 (only-a 0 only-b 0)
+
+# rule-id sets per sample, Python client (a) against raw runner (b)
+== encoding-diff-v0-inprocess-pl1: samples with an audit entry a=137 b=137; rule-id set differs for 0; ids gained in b: none; ids lost in b: none
+== encoding-diff-v0-worker-pl1: samples with an audit entry a=137 b=137; rule-id set differs for 0; ids gained in b: none; ids lost in b: none
+== encoding-diff-v0-inprocess-pl2: samples with an audit entry a=147 b=147; rule-id set differs for 0; ids gained in b: none; ids lost in b: none
+== encoding-diff-v0-worker-pl2: samples with an audit entry a=147 b=147; rule-id set differs for 0; ids gained in b: none; ids lost in b: none
+== total samples with a different rule-id set: 0

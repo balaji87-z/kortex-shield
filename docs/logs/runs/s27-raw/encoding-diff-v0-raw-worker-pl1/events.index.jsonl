@@ -1,0 +1,14 @@
+{"sample_id": "encd-query-plain-sqli-6e47f23b", "decision": "framing", "status": 400, "reason": "parser:http-version"}
+{"sample_id": "encd-query-plain-sqli-8c187a93", "decision": "framing", "status": 400, "reason": "parser:http-version"}
+{"sample_id": "encd-query-plain-sqli-a2035700", "decision": "framing", "status": 400, "reason": "parser:http-version"}
+{"sample_id": "encd-query-plain-xss-369d0b75", "decision": "framing", "status": 400, "reason": "parser:http-version"}
+{"sample_id": "encd-query-plain-xss-545d1ff8", "decision": "framing", "status": 400, "reason": "parser:http-version"}
+{"sample_id": "encd-query-plain-xss-56083d09", "decision": "framing", "status": 400, "reason": "parser:http-version"}
+{"sample_id": "encd-query-plain-xss-784791cd", "decision": "framing", "status": 400, "reason": "parser:http-version"}
+{"sample_id": "encd-query-plain-command-injection-029d9cca", "decision": "framing", "status": 400, "reason": "parser:http-version"}
+{"sample_id": "encd-query-pct-u-command-injection-029d9cca", "decision": "would_reject", "status": 0, "reason": "invalid-percent-sequence-in-query"}
+{"sample_id": "encd-urlencoded-pct-u-command-injection-029d9cca", "decision": "would_reject", "status": 0, "reason": "invalid-percent-sequence-in-body"}
+{"sample_id": "encd-query-plain-command-injection-05bbe7a8", "decision": "framing", "status": 400, "reason": "parser:http-version"}
+{"sample_id": "encd-query-pct-u-command-injection-05bbe7a8", "decision": "would_reject", "status": 0, "reason": "invalid-percent-sequence-in-query"}
+{"sample_id": "encd-urlencoded-pct-u-command-injection-05bbe7a8", "decision": "would_reject", "status": 0, "reason": "invalid-percent-sequence-in-body"}
+{"sample_id": "encd-query-plain-command-injection-227cb8a4", "decision": "framing", "status": 400, "reason": "parser:http-version"}

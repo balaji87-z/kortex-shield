@@ -1,0 +1,47 @@
+# Step-27 T2: encoding-diff-v0 through the raw-socket runner, engine in-process and worker, PL1 and PL2
+== 2026-11-28T16:42:34Z, macOS 27.0 Darwin 27.0.0 arm64, go version go1.27.4 darwin/arm64, Python 3.15.2, load at start: load averages: 3.22 3.23 3.10
+== git 366a086767db06ed8b3fc2747e41fabe9266e975, tracked paths changed under engine/: 0
+== manifest data/encoding-diff-v0/manifest.jsonl sha256 ff00384d33018f45d95bde0d3cfa2c0eab184c94558ec1d24e527baa6ea27e5c (frozen: ff00384d33018f45d95bde0d3cfa2c0eab184c94558ec1d24e527baa6ea27e5c), 192 requests
+== engine binary sha256 50e43c4f893f8294bce55efb1811741cd0cd3db1fd2f43cb5af38edcc352d3f8 built from 366a086767db06ed8b3fc2747e41fabe9266e975 with go version go1.27.4 darwin/arm64
+== encoding-diff-v0-raw-inprocess-pl1 rule29 2026-11-28T16:42:35Z load: load averages: 2.96 3.18 3.09: {"backend_url":"http://127.0.0.1:13004","rule_engine":"On","blocking_paranoia":1,"detection_paranoia":1,"max_body_bytes":13107200,"max_inspected_bytes":131072,"engine_time_budget_ms":2000,"rules_dir":"/Users/ivan/work/kortex-shield-next/engine/crs","listen_addr":"127.0.0.1:8097","events_file":"/Users/ivan/work/kortex-shield-next/out/s22-s27-encoding-diff-v0-raw-inprocess-pl1.events.jsonl","audit_log":"/Users/ivan/work/kortex-shield-next/out/s22-s27-encoding-diff-v0-raw-inprocess-pl1.audit.log","allowed_methods":"GET HEAD POST OPTIONS","max_inflight_body":8,"max_inflight_body_large":2,"body_lane_threshold":65536,"worker_mode":false,"client_max_inflight":0,"client_max_inflight_small":4,"client_max_inflight_large":1,"request_body_target_updates":165,"error_log":"","crs_test_setup":false,"head_timeout_ms":30000,"max_pending_heads":256}
+== encoding-diff-v0-raw-inprocess-pl1 raw runner: {"total_samples": 192, "responses_ok": 192, "blocked": 137, "error_count": 0}
+== encoding-diff-v0-raw-inprocess-pl1 stats after run: {"inflight_small":0,"inflight_large":0,"abandoned_running":0,"kills":0,"overloads":0,"refused_before_inspection":0,"penalised_clients":0,"client_inflight_small":0,"client_inflight_large":0,"workers":{"pool":0,"busy":0,"spares":0,"recycled":0},"pending_heads":0}
+== encoding-diff-v0-raw-inprocess-pl1 kortex_eval.crs_audit and kortex_eval.outcome output:
+crs_audit: 137 audit entr(ies) -> out/s27-raw-encoding-diff-v0-raw-inprocess-pl1/audit.jsonl
+waf_block: 137
+waf_fail_closed_400: 10
+waf_pass: 45
+docs/logs/runs/s27-raw/encoding-diff-v0-raw-inprocess-pl1/audit.index.jsonl: 137 records, 73 with a body, 14267 body bytes in the source
+== encoding-diff-v0-raw-inprocess-pl1 events: 197 events {'block': 137, 'framing': 10, 'pass': 46, 'would_reject': 4}; compressed-body events 0 {}; framing events 10 {'parser:http-version': 10}; kept 14
+== encoding-diff-v0-raw-worker-pl1 rule29 2026-11-28T16:42:38Z load: load averages: 2.96 3.18 3.09: {"backend_url":"http://127.0.0.1:13004","rule_engine":"On","blocking_paranoia":1,"detection_paranoia":1,"max_body_bytes":13107200,"max_inspected_bytes":131072,"engine_time_budget_ms":2000,"rules_dir":"/Users/ivan/work/kortex-shield-next/engine/crs","listen_addr":"127.0.0.1:8098","events_file":"/Users/ivan/work/kortex-shield-next/out/s22-s27-encoding-diff-v0-raw-worker-pl1.events.jsonl","audit_log":"/Users/ivan/work/kortex-shield-next/out/s22-s27-encoding-diff-v0-raw-worker-pl1.audit.log","allowed_methods":"GET HEAD POST OPTIONS","max_inflight_body":8,"max_inflight_body_large":2,"body_lane_threshold":65536,"worker_mode":true,"client_max_inflight":0,"client_max_inflight_small":4,"client_max_inflight_large":1,"request_body_target_updates":165,"error_log":"","crs_test_setup":false,"head_timeout_ms":30000,"max_pending_heads":256}
+== encoding-diff-v0-raw-worker-pl1 raw runner: {"total_samples": 192, "responses_ok": 192, "blocked": 137, "error_count": 0}
+== encoding-diff-v0-raw-worker-pl1 stats after run: {"inflight_small":0,"inflight_large":0,"abandoned_running":0,"kills":0,"overloads":0,"refused_before_inspection":0,"penalised_clients":0,"client_inflight_small":0,"client_inflight_large":0,"workers":{"pool":4,"busy":0,"spares":4,"recycled":0},"pending_heads":0}
+== encoding-diff-v0-raw-worker-pl1 kortex_eval.crs_audit and kortex_eval.outcome output:
+crs_audit: 137 audit entr(ies) -> out/s27-raw-encoding-diff-v0-raw-worker-pl1/audit.jsonl
+waf_block: 137
+waf_fail_closed_400: 10
+waf_pass: 45
+docs/logs/runs/s27-raw/encoding-diff-v0-raw-worker-pl1/audit.index.jsonl: 137 records, 73 with a body, 14267 body bytes in the source
+== encoding-diff-v0-raw-worker-pl1 events: 197 events {'block': 137, 'framing': 10, 'pass': 46, 'would_reject': 4}; compressed-body events 0 {}; framing events 10 {'parser:http-version': 10}; kept 14
+== encoding-diff-v0-raw-inprocess-pl2 rule29 2026-11-28T16:42:40Z load: load averages: 3.21 3.22 3.10: {"backend_url":"http://127.0.0.1:13004","rule_engine":"On","blocking_paranoia":2,"detection_paranoia":2,"max_body_bytes":13107200,"max_inspected_bytes":131072,"engine_time_budget_ms":2000,"rules_dir":"/Users/ivan/work/kortex-shield-next/engine/crs","listen_addr":"127.0.0.1:8097","events_file":"/Users/ivan/work/kortex-shield-next/out/s22-s27-encoding-diff-v0-raw-inprocess-pl2.events.jsonl","audit_log":"/Users/ivan/work/kortex-shield-next/out/s22-s27-encoding-diff-v0-raw-inprocess-pl2.audit.log","allowed_methods":"GET HEAD POST OPTIONS","max_inflight_body":8,"max_inflight_body_large":2,"body_lane_threshold":65536,"worker_mode":false,"client_max_inflight":0,"client_max_inflight_small":4,"client_max_inflight_large":1,"request_body_target_updates":165,"error_log":"","crs_test_setup":false,"head_timeout_ms":30000,"max_pending_heads":256}
+== encoding-diff-v0-raw-inprocess-pl2 raw runner: {"total_samples": 192, "responses_ok": 192, "blocked": 147, "error_count": 0}
+== encoding-diff-v0-raw-inprocess-pl2 stats after run: {"inflight_small":0,"inflight_large":0,"abandoned_running":0,"kills":0,"overloads":0,"refused_before_inspection":0,"penalised_clients":0,"client_inflight_small":0,"client_inflight_large":0,"workers":{"pool":0,"busy":0,"spares":0,"recycled":0},"pending_heads":0}
+== encoding-diff-v0-raw-inprocess-pl2 kortex_eval.crs_audit and kortex_eval.outcome output:
+crs_audit: 147 audit entr(ies) -> out/s27-raw-encoding-diff-v0-raw-inprocess-pl2/audit.jsonl
+waf_block: 147
+waf_fail_closed_400: 10
+waf_pass: 35
+docs/logs/runs/s27-raw/encoding-diff-v0-raw-inprocess-pl2/audit.index.jsonl: 147 records, 79 with a body, 14948 body bytes in the source
+== encoding-diff-v0-raw-inprocess-pl2 events: 195 events {'block': 147, 'framing': 10, 'pass': 36, 'would_reject': 2}; compressed-body events 0 {}; framing events 10 {'parser:http-version': 10}; kept 12
+== encoding-diff-v0-raw-worker-pl2 rule29 2026-11-28T16:42:42Z load: load averages: 3.21 3.22 3.10: {"backend_url":"http://127.0.0.1:13004","rule_engine":"On","blocking_paranoia":2,"detection_paranoia":2,"max_body_bytes":13107200,"max_inspected_bytes":131072,"engine_time_budget_ms":2000,"rules_dir":"/Users/ivan/work/kortex-shield-next/engine/crs","listen_addr":"127.0.0.1:8098","events_file":"/Users/ivan/work/kortex-shield-next/out/s22-s27-encoding-diff-v0-raw-worker-pl2.events.jsonl","audit_log":"/Users/ivan/work/kortex-shield-next/out/s22-s27-encoding-diff-v0-raw-worker-pl2.audit.log","allowed_methods":"GET HEAD POST OPTIONS","max_inflight_body":8,"max_inflight_body_large":2,"body_lane_threshold":65536,"worker_mode":true,"client_max_inflight":0,"client_max_inflight_small":4,"client_max_inflight_large":1,"request_body_target_updates":165,"error_log":"","crs_test_setup":false,"head_timeout_ms":30000,"max_pending_heads":256}
+== encoding-diff-v0-raw-worker-pl2 raw runner: {"total_samples": 192, "responses_ok": 192, "blocked": 147, "error_count": 0}
+== encoding-diff-v0-raw-worker-pl2 stats after run: {"inflight_small":0,"inflight_large":0,"abandoned_running":0,"kills":0,"overloads":0,"refused_before_inspection":0,"penalised_clients":0,"client_inflight_small":0,"client_inflight_large":0,"workers":{"pool":4,"busy":0,"spares":4,"recycled":0},"pending_heads":0}
+== encoding-diff-v0-raw-worker-pl2 kortex_eval.crs_audit and kortex_eval.outcome output:
+crs_audit: 147 audit entr(ies) -> out/s27-raw-encoding-diff-v0-raw-worker-pl2/audit.jsonl
+waf_block: 147
+waf_fail_closed_400: 10
+waf_pass: 35
+docs/logs/runs/s27-raw/encoding-diff-v0-raw-worker-pl2/audit.index.jsonl: 147 records, 79 with a body, 14948 body bytes in the source
+== encoding-diff-v0-raw-worker-pl2 events: 195 events {'block': 147, 'framing': 10, 'pass': 36, 'would_reject': 2}; compressed-body events 0 {}; framing events 10 {'parser:http-version': 10}; kept 12
+== load at end: load averages: 3.21 3.22 3.10
+S27-RAW-DONE
