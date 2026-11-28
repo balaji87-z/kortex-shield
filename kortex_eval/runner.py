@@ -9,6 +9,11 @@ A verdict is the WAF's decision, not the target app's status: a response is
 "blocked" only when the status equals --block-status AND the body matches
 --block-marker (see docs/block-discriminator.md for why the marker is needed).
 A timeout or connection error is recorded as an error, never as "not flagged".
+
+Each row also carries `engine_decision`: the decision named in a kortex engine
+answer ("block", "limit", "content-encoding", ...), or null when the response
+is not one. kortex_eval.outcome needs it to tell the engine's own 413/415
+from a 413/415 of the backend.
 """
 from __future__ import annotations
 
@@ -33,6 +38,10 @@ from .manifest import Sample
 SAMPLE_ID_RE = re.compile(r"^[A-Za-z0-9._:-]{1,64}$")
 DEFAULT_BLOCK_STATUS = 403
 DEFAULT_BLOCK_MARKER = r"<center>nginx</center>"
+# A kortex engine answer is one line, "<status> kortex-decision=<decision>",
+# optionally followed by details (docs/block-discriminator.md). The whole body
+# must be that line, so a backend page that quotes the marker is not one.
+ENGINE_DECISION_RE = re.compile(r"\A(\d{3}) kortex-decision=([a-z-]+)(?: [^\r\n]*)?\r?\n?\Z")
 
 
 class RunnerError(ValueError):
@@ -46,6 +55,14 @@ def validate_ids(samples: list[Sample]) -> None:
         raise RunnerError(
             "sample ids outside [A-Za-z0-9._:-]{1,64}: " + ", ".join(repr(b) for b in bad)
         )
+
+
+def engine_decision(status: int, body: str) -> str | None:
+    """The decision of a kortex engine answer, or None for any other response."""
+    m = ENGINE_DECISION_RE.match(body)
+    if m is None or int(m.group(1)) != status:
+        return None
+    return m.group(2)
 
 
 def _request_line(sample: Sample) -> str:
@@ -66,7 +83,7 @@ def send_one(
 ) -> dict:
     """Send one sample verbatim. Returns a responses.jsonl row."""
     row = {"id": sample.id, "status": None, "elapsed_ms": None, "blocked": False,
-           "body_marker": False, "error": None, "error_class": None}
+           "body_marker": False, "engine_decision": None, "error": None, "error_class": None}
     start = time.monotonic()
     conn: http.client.HTTPConnection | None = None
     try:
@@ -99,8 +116,10 @@ def send_one(
         body = resp.read()
         row["status"] = resp.status
         row["elapsed_ms"] = round((time.monotonic() - start) * 1000, 1)
-        marker_hit = bool(block_marker and block_marker.search(body.decode("utf-8", "replace")))
+        text = body.decode("utf-8", "replace")
+        marker_hit = bool(block_marker and block_marker.search(text))
         row["body_marker"] = marker_hit
+        row["engine_decision"] = engine_decision(resp.status, text)
         if resp.status == block_status and (block_marker is None or marker_hit):
             row["blocked"] = True
     except UnicodeError as exc:

@@ -1,0 +1,15 @@
+# step-22 close-out Python suite with the C2 change (working tree on afb551c2490a289888f9f3230474e9a79d71b770), 2026-11-28T02:49:27Z, Python 3.15.2, load at start: load averages: 2.96 4.08 4.17
+$ .venv/bin/python -m pytest -q -rs
+.............................................................ss..s...... [ 35%]
+........................................................................ [ 70%]
+.........................................................----------------------------------------
+.Exception occurred during processing of request from ('127.0.0.1', 59948)
+..             [100%]
+=========================== short test summary info ============================
+SKIPPED [1] tests/test_record_benign.py:9: could not import 'playwright': No module named 'playwright'
+SKIPPED [1] tests/test_outcome.py:78: smoke run artifacts not present
+SKIPPED [1] tests/test_outcome.py:96: smoke run artifacts not present
+SKIPPED [1] tests/test_outcome.py:161: step-05 hard PL2 run output not present
+201 passed, 4 skipped in 56.99s
+# exit status of pytest: 0
+# load at end: load averages: 3.60 4.12 4.18

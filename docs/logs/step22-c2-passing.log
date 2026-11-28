@@ -1,0 +1,5 @@
+# step-22 C2 tests with the implementation (working tree on afb551c2490a289888f9f3230474e9a79d71b770), 2026-11-28T02:48:39Z
+$ .venv/bin/python -m pytest -q tests/test_outcome.py tests/test_runner.py tests/test_step22_tools.py
+........ss..s....................................................        [100%]
+62 passed, 3 skipped in 47.14s
+# exit status of pytest: 0

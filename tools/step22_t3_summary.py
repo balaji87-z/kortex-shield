@@ -5,7 +5,9 @@ Usage: step22_t3_summary.py <durable-dir>      (docs/logs/runs/s22-t3-parity)
 
 Per run: outcome counts and the false-positive rate on benign-labelled wcp
 traffic, best case (blocked only) and worst case (blocked + deny_status +
-inconsistent + error), each over all samples (rules 20, 21, 30). Per run:
+inconsistent + error + the engine's fail-closed 413 and 415 answers, which
+are counted apart from the 403 blocks), each over all samples (rules 20, 21,
+30). Per run:
 rule ids present in 20% or more of the audit entries (rule 18). Per
 dataset and level: sample ids whose rule-id set differs between in-process
 and worker mode (rule 32). Reads ids, statuses and rule ids only.
@@ -25,6 +27,25 @@ def read(path):
         return [json.loads(l) for l in fh if l.strip()]
 
 
+WORST_CASE_OUTCOMES = ("waf_block", "waf_deny_status", "inconsistent", "error",
+                       "waf_fail_closed_413", "waf_fail_closed_415")
+
+
+def rate_lines(ds, pl, mode, oc, n):
+    """The two lines of the rate table for one run; oc is a Counter of outcomes."""
+    blocked = oc["waf_block"]
+    worst = sum(oc[name] for name in WORST_CASE_OUTCOMES)
+    return [
+        f"{ds} PL{pl} {mode}: n={n} waf_block={blocked} waf_deny_status={oc['waf_deny_status']} "
+        f"inconsistent={oc['inconsistent']} error={oc['error']} "
+        f"waf_fail_closed_413={oc['waf_fail_closed_413']} waf_fail_closed_415={oc['waf_fail_closed_415']} "
+        f"waf_pass={oc['waf_pass']} other={n - worst - oc['waf_pass']}",
+        f"    FP rate best case (errors, deny_status, inconsistent, fail-closed 413/415 not flagged) "
+        f"{blocked}/{n} = {100 * blocked / n:.2f}%; "
+        f"worst case (all flagged) {worst}/{n} = {100 * worst / n:.2f}%",
+    ]
+
+
 def main():
     base = sys.argv[1]
     print("\n== rate table (benign-labelled external traffic; every block is a potential false positive)")
@@ -36,13 +57,7 @@ def main():
                 outc = read(f"{run}/outcomes.jsonl")
                 n = len(outc)
                 oc = collections.Counter(r["outcome"] for r in outc)
-                blocked = oc["waf_block"]
-                worst = blocked + oc["waf_deny_status"] + oc["inconsistent"] + oc["error"]
-                print(f"{ds} PL{pl} {mode}: n={n} waf_block={blocked} waf_deny_status={oc['waf_deny_status']} "
-                      f"inconsistent={oc['inconsistent']} error={oc['error']} waf_pass={oc['waf_pass']} "
-                      f"other={n - worst - oc['waf_pass']}")
-                print(f"    FP rate best case (errors, deny_status, inconsistent not flagged) {blocked}/{n} = {100 * blocked / n:.2f}%; "
-                      f"worst case (all flagged) {worst}/{n} = {100 * worst / n:.2f}%")
+                print("\n".join(rate_lines(ds, pl, mode, oc, n)))
                 idx = read(f"{run}/audit.index.jsonl")
                 hits = collections.Counter(r for e in idx for r in set(e.get("rule_ids") or []))
                 common = [(r, c) for r, c in hits.most_common() if c >= 0.2 * len(idx)]

@@ -11,7 +11,7 @@ provenance and a baseline.
 | `kortex_eval/` manifest, leak-proof split, metrics with 95% intervals, report | Written, 105 unit tests pass |
 | `kortex_eval/runner.py` verbatim request runner (stdlib http.client, sample-id header, block discriminator, manifest sha256 + labels in run.json) | Written, smoke-tested and used for the corpus runs |
 | `kortex_eval/crs_audit.py` CRS audit-log parser, sample correlation via `X-Kortex-Sample-Id`, dual score readings (949110 total vs severity sum) | Written, tested on real audit samples |
-| `kortex_eval/outcome.py` per-sample outcome classifier (error / waf_block / waf_would_block / waf_pass / proxy_reject / inconsistent) | Written, tested on synthetic + real data |
+| `kortex_eval/outcome.py` per-sample outcome classifier (error / waf_block / waf_would_block / waf_fail_closed_413 / waf_fail_closed_415 / waf_pass / proxy_reject / inconsistent) | Written, tested on synthetic + real data |
 | `deploy/compose.yml` baseline testbed (target + OWASP CRS) | Running and verified: Juice Shop v20.4.0 behind owasp/modsecurity-crs 4.25.2-nginx-lts; ports/engine/paranoia are env vars with defaults |
 | `docs/block-discriminator.md` WAF-block vs target-error discrimination rule | Written from captured evidence |
 | `tools/build_attacks.py` + `data/attacks-v0/` first frozen ATTACK corpus (1054 samples, 527 distinct payloads × 2 injection points, 4 families) | Frozen (MANIFEST.sha256) |

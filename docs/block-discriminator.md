@@ -14,6 +14,19 @@ classified without guessing:
 | overload | 503 | `503 kortex-decision=overload` | concurrent in-flight body-processing cap reached IN THE REQUEST'S SIZE-CLASS LANE (step-20 T2): small lane (Content-Length <= KORTEX_SMALL_BODY_BYTES, default 65536; cap KORTEX_MAX_INFLIGHT_BODY_SMALL, default 4) or large lane (cap KORTEX_MAX_INFLIGHT_BODY, default 8). A saturated large lane does not consume small-lane capacity. Capacity decision, not a WAF decision (step-17 T3) |
 | pass     | backend status | — | request inspected and forwarded |
 
+Outcome classes in kortex_eval (step-22 close-out). The runner records the
+decision of an engine answer in `engine_decision` (the whole response body
+must be the marker line, with the response's own status in front).
+`kortex_eval.outcome` then classifies the engine's own `413 limit` as
+`waf_fail_closed_413` and its own `415 content-encoding` (step-22 E33) as
+`waf_fail_closed_415`, in blocking and in detection mode. Both are refusals
+by the WAF without inspection, so they are part of the worst case of a rate
+(rules 20, 21), and they are counted apart from `waf_block` (403) because no
+rule matched. A 413 or 415 without the marker is the backend's status and
+stays `waf_pass`; so does every row of a responses.jsonl written before the
+field existed. The 400 framing and 503 timeout/overload answers are not
+reclassified by this change.
+
 Notes
 
 - limit and framing decisions never reach the engine and never reach the
