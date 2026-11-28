@@ -1,0 +1,50 @@
+# step-25 T1: E49, E50 passing after the implementation; E51 guard
+# 2026-11-28T05:56:44Z git 80ad1e3daa6021474b3b21217ed2223c2a321932 + working tree (implementation); go version go1.27.4 darwin/arm64
+# cd engine && go test -count=1 -run 'TestE49|TestE50|TestE51' -v .
+=== RUN   TestE49ErrorLogListsMatchedRules
+=== RUN   TestE49ErrorLogListsMatchedRules/blocking,_query
+    step25_test.go:160: E49 [blocking, query]: status 403, 6 lines, ids [941100 941110 941160 941390 949110 980170]
+=== RUN   TestE49ErrorLogListsMatchedRules/detection-only,_query
+    step25_test.go:160: E49 [detection-only, query]: status 200, 6 lines, ids [941100 941110 941160 941390 949110 980170]
+=== RUN   TestE49ErrorLogListsMatchedRules/detection-only,_body
+    step25_test.go:160: E49 [detection-only, body]: status 200, 6 lines, ids [941100 941110 941160 941390 949110 980170]
+=== RUN   TestE49ErrorLogListsMatchedRules/worker_mode,_body
+    step25_test.go:160: E49 [worker mode, body]: status 403, 6 lines, ids [941100 941110 941160 941390 949110 980170]
+=== RUN   TestE49ErrorLogListsMatchedRules/worker_mode,_detection-only,_body
+    step25_test.go:160: E49 [worker mode, detection-only, body]: status 200, 6 lines, ids [941100 941110 941160 941390 949110 980170]
+=== RUN   TestE49ErrorLogListsMatchedRules/benign_request_writes_nothing
+=== RUN   TestE49ErrorLogListsMatchedRules/path_is_on_the_config_page
+--- PASS: TestE49ErrorLogListsMatchedRules (0.33s)
+    --- PASS: TestE49ErrorLogListsMatchedRules/blocking,_query (0.04s)
+    --- PASS: TestE49ErrorLogListsMatchedRules/detection-only,_query (0.01s)
+    --- PASS: TestE49ErrorLogListsMatchedRules/detection-only,_body (0.01s)
+    --- PASS: TestE49ErrorLogListsMatchedRules/worker_mode,_body (0.12s)
+    --- PASS: TestE49ErrorLogListsMatchedRules/worker_mode,_detection-only,_body (0.12s)
+    --- PASS: TestE49ErrorLogListsMatchedRules/benign_request_writes_nothing (0.01s)
+    --- PASS: TestE49ErrorLogListsMatchedRules/path_is_on_the_config_page (0.01s)
+=== RUN   TestE50CRSTestSetup
+=== RUN   TestE50CRSTestSetup/marker_request_logs_the_marker_and_nothing_else
+=== RUN   TestE50CRSTestSetup/marker_rule_also_holds_in_blocking_mode
+=== RUN   TestE50CRSTestSetup/the_same_attack_without_the_marker_header_is_logged
+=== RUN   TestE50CRSTestSetup/suite_limits_are_set
+=== RUN   TestE50CRSTestSetup/a_400-character_argument_is_within_the_limit
+--- PASS: TestE50CRSTestSetup (0.06s)
+    --- PASS: TestE50CRSTestSetup/marker_request_logs_the_marker_and_nothing_else (0.01s)
+    --- PASS: TestE50CRSTestSetup/marker_rule_also_holds_in_blocking_mode (0.02s)
+    --- PASS: TestE50CRSTestSetup/the_same_attack_without_the_marker_header_is_logged (0.01s)
+    --- PASS: TestE50CRSTestSetup/suite_limits_are_set (0.01s)
+    --- PASS: TestE50CRSTestSetup/a_400-character_argument_is_within_the_limit (0.01s)
+=== RUN   TestE51CRSTestSetupIsOffByDefault
+=== RUN   TestE51CRSTestSetupIsOffByDefault/KORTEX_CRS_TEST_SETUP=""
+=== RUN   TestE51CRSTestSetupIsOffByDefault/KORTEX_CRS_TEST_SETUP="off"
+=== RUN   TestE51CRSTestSetupIsOffByDefault/KORTEX_CRS_TEST_SETUP="1"
+=== RUN   TestE51CRSTestSetupIsOffByDefault/KORTEX_CRS_TEST_SETUP="true"
+=== RUN   TestE51CRSTestSetupIsOffByDefault/KORTEX_CRS_TEST_SETUP="ON"
+--- PASS: TestE51CRSTestSetupIsOffByDefault (0.06s)
+    --- PASS: TestE51CRSTestSetupIsOffByDefault/KORTEX_CRS_TEST_SETUP="" (0.01s)
+    --- PASS: TestE51CRSTestSetupIsOffByDefault/KORTEX_CRS_TEST_SETUP="off" (0.01s)
+    --- PASS: TestE51CRSTestSetupIsOffByDefault/KORTEX_CRS_TEST_SETUP="1" (0.01s)
+    --- PASS: TestE51CRSTestSetupIsOffByDefault/KORTEX_CRS_TEST_SETUP="true" (0.01s)
+    --- PASS: TestE51CRSTestSetupIsOffByDefault/KORTEX_CRS_TEST_SETUP="ON" (0.01s)
+PASS
+ok  	kortexshield/engine	0.630s

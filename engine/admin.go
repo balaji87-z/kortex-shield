@@ -36,13 +36,13 @@ func adminConfig(cfg *Config, fair *fairness) http.HandlerFunc {
 			`"max_inflight_body":%d,"max_inflight_body_large":%d,"body_lane_threshold":%d,`+
 			`"worker_mode":%t,"client_max_inflight":%d,`+
 			`"client_max_inflight_small":%d,"client_max_inflight_large":%d,`+
-			`"request_body_target_updates":%d}`+"\n",
+			`"request_body_target_updates":%d,"error_log":%q,"crs_test_setup":%t}`+"\n",
 			cfg.BackendURL, cfg.RuleEngine, cfg.BlockingParanoia, cfg.DetectionParanoia,
 			cfg.MaxBodyBytes, cfg.MaxInspectedBytes, cfg.EngineTimeBudgetMS, cfg.RulesDir,
 			cfg.ListenAddr, cfg.EventsFile, cfg.AuditLog, cfg.AllowedMethods, cfg.MaxInflightBody,
 			cfg.MaxInflightBodyLarge, cfg.BodyLaneThreshold,
 			cfg.WorkerMode, cfg.ClientMaxInflight, clientSmall, clientLarge,
-			len(cfg.RequestBodyTargetIDs))
+			len(cfg.RequestBodyTargetIDs), cfg.ErrorLog, cfg.CRSTestSetup)
 	}
 }
 

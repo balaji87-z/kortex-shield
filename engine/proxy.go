@@ -11,6 +11,7 @@ import (
 	"regexp"
 	"strconv"
 	"strings"
+	"sync"
 	"sync/atomic"
 	"time"
 
@@ -64,6 +65,21 @@ func buildWAF(cfg *Config) (coraza.WAF, error) {
 	if cfg.CorazaDebugLevel != "" {
 		wcfg = wcfg.WithDebugLogger(newCorazaDebugLogger(cfg.CorazaDebugFile,
 			cfg.CorazaDebugLevel))
+	}
+	if cfg.ErrorLog != "" {
+		f, err := os.OpenFile(cfg.ErrorLog, os.O_CREATE|os.O_WRONLY|os.O_APPEND, 0o644)
+		if err != nil {
+			return nil, fmt.Errorf("error log: %w", err)
+		}
+		// One write per line on an O_APPEND file: the parent and its
+		// workers share the file without interleaving inside a line.
+		var mu sync.Mutex
+		wcfg = wcfg.WithErrorCallback(func(mr types.MatchedRule) {
+			line := mr.ErrorLog() + "\n"
+			mu.Lock()
+			io.WriteString(f, line)
+			mu.Unlock()
+		})
 	}
 	return coraza.NewWAF(wcfg)
 }

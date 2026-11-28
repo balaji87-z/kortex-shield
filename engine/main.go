@@ -16,6 +16,8 @@
 //	KORTEX_LISTEN_ADDR            default :8080
 //	KORTEX_EVENTS_FILE            default kortex-events.jsonl
 //	KORTEX_AUDIT_LOG              default audit.log
+//	KORTEX_ERROR_LOG              default unset: no error log (step 25)
+//	KORTEX_CRS_TEST_SETUP         "on" = CRS regression suite setup, TEST ONLY (step 25)
 package main
 
 import (
@@ -47,10 +49,12 @@ func main() {
 	}
 	fmt.Printf("kortex-engine: effective config: backend_url=%s rule_engine=%s blocking_paranoia=%d "+
 		"detection_paranoia=%d max_body_bytes=%d max_inspected_bytes=%d engine_time_budget_ms=%d "+
-		"rules_dir=%s listen_addr=%s events_file=%s audit_log=%s request_body_target_updates=%d\n",
+		"rules_dir=%s listen_addr=%s events_file=%s audit_log=%s request_body_target_updates=%d "+
+		"error_log=%s crs_test_setup=%t\n",
 		cfg.BackendURL, cfg.RuleEngine, cfg.BlockingParanoia, cfg.DetectionParanoia,
 		cfg.MaxBodyBytes, cfg.MaxInspectedBytes, cfg.EngineTimeBudgetMS, cfg.RulesDir,
-		cfg.ListenAddr, cfg.EventsFile, cfg.AuditLog, len(cfg.RequestBodyTargetIDs))
+		cfg.ListenAddr, cfg.EventsFile, cfg.AuditLog, len(cfg.RequestBodyTargetIDs),
+		cfg.ErrorLog, cfg.CRSTestSetup)
 
 	srv := newEngineServer(handler)
 	srv.ReadTimeout = 60 * time.Second

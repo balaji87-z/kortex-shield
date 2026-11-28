@@ -38,6 +38,13 @@ type Config struct {
 	CorazaDebugLevel   string
 	CorazaDebugFile    string
 	AuditLog           string
+	// ErrorLog (step-25, E49): when set, one line per matched rule with the
+	// log action, in the ModSecurity error-log form. Empty = no such log.
+	ErrorLog string
+	// CRSTestSetup (step-25, E50): TEST ONLY. Renders the setup of the CRS
+	// regression suite, including its marker rule 999999, which switches
+	// every rule off for a request that carries an X-CRS-Test header.
+	CRSTestSetup bool
 	// RequestBodyTargetIDs is the sorted list of CRS rule ids that received a
 	// REQUEST_BODY target via SecRuleUpdateTargetById (step-18 T4, body
 	// parsing fidelity). Computed by directives() at WAF build; printed at
@@ -92,8 +99,20 @@ func loadConfig() *Config {
 		CorazaDebugLevel:     os.Getenv("KORTEX_CORAZA_DEBUG_LEVEL"),
 		CorazaDebugFile:      os.Getenv("KORTEX_CORAZA_DEBUG_FILE"),
 		AuditLog:             envOr("KORTEX_AUDIT_LOG", "audit.log"),
+		ErrorLog:             os.Getenv("KORTEX_ERROR_LOG"),
+		CRSTestSetup:         os.Getenv("KORTEX_CRS_TEST_SETUP") == "on",
 	}
 }
+
+// crsTestSetup is the setup of the CRS regression suite (docs/baseline-config.md,
+// step 25): rule 900005 of the suite's README without its ctl and paranoia
+// actions, 900511 from the suite's compose file, and the log marker rule
+// 999999 as in coraza's own harness for the suite.
+const crsTestSetup = `
+SecAction "id:900005,phase:1,nolog,pass,setvar:tx.crs_validate_utf8_encoding=1,setvar:tx.arg_name_length=100,setvar:tx.arg_length=400,setvar:tx.total_arg_length=64000,setvar:tx.max_num_args=255,setvar:tx.max_file_size=64100,setvar:tx.combined_file_sizes=65535"
+SecAction "id:900511,phase:1,pass,nolog,setvar:tx.crs_xml_attr_inspect=1"
+SecRule REQUEST_HEADERS:X-CRS-Test "@rx ^.*$" "id:999999,phase:1,pass,t:none,log,msg:'X-CRS-Test %{MATCHED_VAR}',ctl:ruleRemoveById=1-999999"
+`
 
 // directives renders the SecLang config: engine settings, the CRS setup
 // SecActions mirroring the pinned container's activated crs-setup.conf
@@ -112,6 +131,10 @@ func (c *Config) directives() (string, error) {
 		return "", fmt.Errorf("request-body target scan: %w", err)
 	}
 	c.RequestBodyTargetIDs = bodyTargets
+	testSetup := ""
+	if c.CRSTestSetup {
+		testSetup = crsTestSetup
+	}
 	base := fmt.Sprintf(`
 SecRuleEngine %s
 SecRequestBodyAccess On
@@ -162,9 +185,9 @@ SecRule REQBODY_ERROR "!@eq 0" \
     "id:'200002',phase:2,t:none,log,deny,status:400,msg:'Failed to parse request body.',logdata:'%%{reqbody_error_msg}',severity:2"
 SecRule MULTIPART_STRICT_ERROR "!@eq 0" \
     "id:'200003',phase:2,t:none,log,deny,status:400,msg:'Multipart request body failed strict validation.',severity:2"
-
+%s
 Include %s/owasp-crs/rules/*.conf
 `, engine, c.MaxBodyBytes, c.MaxInspectedBytes, c.AuditLog,
-		c.BlockingParanoia, c.DetectionParanoia, c.AllowedMethods, c.RulesDir)
+		c.BlockingParanoia, c.DetectionParanoia, c.AllowedMethods, testSetup, c.RulesDir)
 	return base + renderBodyTargetUpdates(bodyTargets), nil
 }
