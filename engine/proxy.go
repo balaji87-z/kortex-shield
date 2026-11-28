@@ -533,6 +533,12 @@ func (p *Proxy) forward(w http.ResponseWriter, r *http.Request, body []byte, sam
 		http.Error(w, "bad upstream request", http.StatusBadGateway)
 		return
 	}
+	// E64: the backend gets the path and query the rules were given. When
+	// Go's form differs from what was sent, the path goes out as an opaque
+	// string, which Go's client writes as it stands.
+	if path, query, hasQuery, ok := sentPathQuery(r.RequestURI); ok && sentTargetDiffers(r.RequestURI) {
+		out.URL.Opaque, out.URL.RawQuery, out.URL.ForceQuery = path, query, hasQuery && query == ""
+	}
 	out.Host = r.Host
 	for k, vv := range r.Header {
 		if strings.EqualFold(k, "Connection") || strings.EqualFold(k, "Transfer-Encoding") ||

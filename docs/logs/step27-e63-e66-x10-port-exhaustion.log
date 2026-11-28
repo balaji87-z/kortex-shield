@@ -1,0 +1,257 @@
+# step-27 T5: ten repeats of E63 to E66 in one go, 2026-11-28T17:20Z: go test -run 'TestE63|TestE64|TestE65|TestE66' -count=10 -v .
+# 13 top-level PASS, 27 FAIL; every failure is "connect: can't assign requested address" (the first three
+# repeats pass). E63 opens 19,579 connections per run. The repeat without E63 is in docs/logs/step27-e64-e66-passing.log (30 PASS).
+=== RUN   TestE63ParserGateAgreesWithNetHTTPOnDamagedHeadsWithBareLF
+    step27_e63_test.go:146: heads compared 19579 (not sent, no end of head: 421; no answer from net/http: 0); with a bare LF in the head 19170, of them ended by a blank line without CRLF CRLF 14832; net/http refused 11883 map[400:10803 417:405 501:673 505:2]; parserGate refused 11883; mismatches 0
+    step27_e63_test.go:148: parserGate reasons: parser:content-length 518, parser:expect 405, parser:header-line 4326, parser:header-name 393, parser:host-duplicate 1025, parser:host-malformed 287, parser:host-missing 294, parser:http-version 2418, parser:method 511, parser:request-line 397, parser:request-target 636, parser:transfer-encoding 673
+--- PASS: TestE63ParserGateAgreesWithNetHTTPOnDamagedHeadsWithBareLF (2.01s)
+=== RUN   TestE64BackendGetsTheRequestTargetTheRulesWereGiven
+=== RUN   TestE64BackendGetsTheRequestTargetTheRulesWereGiven/inprocess
+    step27_forward_test.go:105: inprocess: targets 11, forwarded in another spelling: 0
+=== RUN   TestE64BackendGetsTheRequestTargetTheRulesWereGiven/worker
+    step27_forward_test.go:105: worker: targets 11, forwarded in another spelling: 0
+--- PASS: TestE64BackendGetsTheRequestTargetTheRulesWereGiven (0.25s)
+    --- PASS: TestE64BackendGetsTheRequestTargetTheRulesWereGiven/inprocess (0.07s)
+    --- PASS: TestE64BackendGetsTheRequestTargetTheRulesWereGiven/worker (0.17s)
+=== RUN   TestE65UnforwardableTargetIsRefused
+--- PASS: TestE65UnforwardableTargetIsRefused (0.02s)
+=== RUN   TestE66XMLAttributeInspectionSwitch
+=== RUN   TestE66XMLAttributeInspectionSwitch/off_(default)
+=== RUN   TestE66XMLAttributeInspectionSwitch/on
+=== RUN   TestE66XMLAttributeInspectionSwitch/on,_worker_mode
+--- PASS: TestE66XMLAttributeInspectionSwitch (0.21s)
+    --- PASS: TestE66XMLAttributeInspectionSwitch/off_(default) (0.02s)
+    --- PASS: TestE66XMLAttributeInspectionSwitch/on (0.01s)
+    --- PASS: TestE66XMLAttributeInspectionSwitch/on,_worker_mode (0.18s)
+=== RUN   TestE63ParserGateAgreesWithNetHTTPOnDamagedHeadsWithBareLF
+    step27_e63_test.go:146: heads compared 19579 (not sent, no end of head: 421; no answer from net/http: 0); with a bare LF in the head 19170, of them ended by a blank line without CRLF CRLF 14832; net/http refused 11883 map[400:10803 417:405 501:673 505:2]; parserGate refused 11883; mismatches 0
+    step27_e63_test.go:148: parserGate reasons: parser:content-length 518, parser:expect 405, parser:header-line 4326, parser:header-name 393, parser:host-duplicate 1025, parser:host-malformed 287, parser:host-missing 294, parser:http-version 2418, parser:method 511, parser:request-line 397, parser:request-target 636, parser:transfer-encoding 673
+--- PASS: TestE63ParserGateAgreesWithNetHTTPOnDamagedHeadsWithBareLF (2.33s)
+=== RUN   TestE64BackendGetsTheRequestTargetTheRulesWereGiven
+=== RUN   TestE64BackendGetsTheRequestTargetTheRulesWereGiven/inprocess
+    step27_forward_test.go:105: inprocess: targets 11, forwarded in another spelling: 0
+=== RUN   TestE64BackendGetsTheRequestTargetTheRulesWereGiven/worker
+    step27_forward_test.go:105: worker: targets 11, forwarded in another spelling: 0
+--- PASS: TestE64BackendGetsTheRequestTargetTheRulesWereGiven (0.19s)
+    --- PASS: TestE64BackendGetsTheRequestTargetTheRulesWereGiven/inprocess (0.02s)
+    --- PASS: TestE64BackendGetsTheRequestTargetTheRulesWereGiven/worker (0.17s)
+=== RUN   TestE65UnforwardableTargetIsRefused
+--- PASS: TestE65UnforwardableTargetIsRefused (0.02s)
+=== RUN   TestE66XMLAttributeInspectionSwitch
+=== RUN   TestE66XMLAttributeInspectionSwitch/off_(default)
+=== RUN   TestE66XMLAttributeInspectionSwitch/on
+=== RUN   TestE66XMLAttributeInspectionSwitch/on,_worker_mode
+--- PASS: TestE66XMLAttributeInspectionSwitch (0.26s)
+    --- PASS: TestE66XMLAttributeInspectionSwitch/off_(default) (0.02s)
+    --- PASS: TestE66XMLAttributeInspectionSwitch/on (0.02s)
+    --- PASS: TestE66XMLAttributeInspectionSwitch/on,_worker_mode (0.23s)
+=== RUN   TestE63ParserGateAgreesWithNetHTTPOnDamagedHeadsWithBareLF
+    step27_e63_test.go:146: heads compared 19579 (not sent, no end of head: 421; no answer from net/http: 0); with a bare LF in the head 19170, of them ended by a blank line without CRLF CRLF 14832; net/http refused 11883 map[400:10803 417:405 501:673 505:2]; parserGate refused 11883; mismatches 0
+    step27_e63_test.go:148: parserGate reasons: parser:content-length 518, parser:expect 405, parser:header-line 4326, parser:header-name 393, parser:host-duplicate 1025, parser:host-malformed 287, parser:host-missing 294, parser:http-version 2418, parser:method 511, parser:request-line 397, parser:request-target 636, parser:transfer-encoding 673
+--- PASS: TestE63ParserGateAgreesWithNetHTTPOnDamagedHeadsWithBareLF (2.71s)
+=== RUN   TestE64BackendGetsTheRequestTargetTheRulesWereGiven
+=== RUN   TestE64BackendGetsTheRequestTargetTheRulesWereGiven/inprocess
+    step27_forward_test.go:105: inprocess: targets 11, forwarded in another spelling: 0
+=== RUN   TestE64BackendGetsTheRequestTargetTheRulesWereGiven/worker
+    step27_forward_test.go:105: worker: targets 11, forwarded in another spelling: 0
+--- PASS: TestE64BackendGetsTheRequestTargetTheRulesWereGiven (0.22s)
+    --- PASS: TestE64BackendGetsTheRequestTargetTheRulesWereGiven/inprocess (0.04s)
+    --- PASS: TestE64BackendGetsTheRequestTargetTheRulesWereGiven/worker (0.18s)
+=== RUN   TestE65UnforwardableTargetIsRefused
+--- PASS: TestE65UnforwardableTargetIsRefused (0.02s)
+=== RUN   TestE66XMLAttributeInspectionSwitch
+=== RUN   TestE66XMLAttributeInspectionSwitch/off_(default)
+=== RUN   TestE66XMLAttributeInspectionSwitch/on
+=== RUN   TestE66XMLAttributeInspectionSwitch/on,_worker_mode
+--- PASS: TestE66XMLAttributeInspectionSwitch (0.22s)
+    --- PASS: TestE66XMLAttributeInspectionSwitch/off_(default) (0.02s)
+    --- PASS: TestE66XMLAttributeInspectionSwitch/on (0.02s)
+    --- PASS: TestE66XMLAttributeInspectionSwitch/on,_worker_mode (0.18s)
+=== RUN   TestE63ParserGateAgreesWithNetHTTPOnDamagedHeadsWithBareLF
+    step27_e63_test.go:99: dial: dial tcp 127.0.0.1:50692: connect: can't assign requested address
+--- FAIL: TestE63ParserGateAgreesWithNetHTTPOnDamagedHeadsWithBareLF (2.53s)
+=== RUN   TestE64BackendGetsTheRequestTargetTheRulesWereGiven
+=== RUN   TestE64BackendGetsTheRequestTargetTheRulesWereGiven/inprocess
+    step27_forward_test.go:86: dial: dial tcp 127.0.0.1:55945: connect: can't assign requested address
+=== RUN   TestE64BackendGetsTheRequestTargetTheRulesWereGiven/worker
+    step27_forward_test.go:86: dial: dial tcp 127.0.0.1:56496: connect: can't assign requested address
+--- FAIL: TestE64BackendGetsTheRequestTargetTheRulesWereGiven (0.33s)
+    --- FAIL: TestE64BackendGetsTheRequestTargetTheRulesWereGiven/inprocess (0.05s)
+    --- FAIL: TestE64BackendGetsTheRequestTargetTheRulesWereGiven/worker (0.28s)
+=== RUN   TestE65UnforwardableTargetIsRefused
+    step27_forward_test.go:121: dial: dial tcp 127.0.0.1:57918: connect: can't assign requested address
+--- FAIL: TestE65UnforwardableTargetIsRefused (0.03s)
+=== RUN   TestE66XMLAttributeInspectionSwitch
+=== RUN   TestE66XMLAttributeInspectionSwitch/off_(default)
+    step27_forward_test.go:163: dial: dial tcp 127.0.0.1:59777: connect: can't assign requested address
+=== RUN   TestE66XMLAttributeInspectionSwitch/on
+=== RUN   TestE66XMLAttributeInspectionSwitch/on,_worker_mode
+--- FAIL: TestE66XMLAttributeInspectionSwitch (0.34s)
+    --- FAIL: TestE66XMLAttributeInspectionSwitch/off_(default) (0.05s)
+    --- PASS: TestE66XMLAttributeInspectionSwitch/on (0.06s)
+    --- PASS: TestE66XMLAttributeInspectionSwitch/on,_worker_mode (0.23s)
+=== RUN   TestE63ParserGateAgreesWithNetHTTPOnDamagedHeadsWithBareLF
+    step27_e63_test.go:99: dial: dial tcp 127.0.0.1:63640: connect: can't assign requested address
+--- FAIL: TestE63ParserGateAgreesWithNetHTTPOnDamagedHeadsWithBareLF (0.51s)
+=== RUN   TestE64BackendGetsTheRequestTargetTheRulesWereGiven
+=== RUN   TestE64BackendGetsTheRequestTargetTheRulesWereGiven/inprocess
+    step27_forward_test.go:86: dial: dial tcp 127.0.0.1:63650: connect: can't assign requested address
+=== RUN   TestE64BackendGetsTheRequestTargetTheRulesWereGiven/worker
+    step27_forward_test.go:88: E64 e64-control: the case must be forwarded to mean anything, got 502 "backend unreachable"
+    step27_forward_test.go:88: E64 e64-control-pct: the case must be forwarded to mean anything, got 502 "backend unreachable"
+    step27_forward_test.go:88: E64 e64-overlong-raw: the case must be forwarded to mean anything, got 502 "backend unreachable"
+    step27_forward_test.go:88: E64 e64-utf8-raw: the case must be forwarded to mean anything, got 502 "backend unreachable"
+    step27_forward_test.go:88: E64 e64-latin1-raw: the case must be forwarded to mean anything, got 502 "backend unreachable"
+    step27_forward_test.go:88: E64 e64-quote: the case must be forwarded to mean anything, got 502 "backend unreachable"
+    step27_forward_test.go:88: E64 e64-braces: the case must be forwarded to mean anything, got 502 "backend unreachable"
+    step27_forward_test.go:88: E64 e64-caret: the case must be forwarded to mean anything, got 502 "backend unreachable"
+    step27_forward_test.go:88: E64 e64-backtick: the case must be forwarded to mean anything, got 502 "backend unreachable"
+    step27_forward_test.go:88: E64 e64-empty-query: the case must be forwarded to mean anything, got 502 "backend unreachable"
+    step27_forward_test.go:88: E64 e64-absolute: the case must be forwarded to mean anything, got 502 "backend unreachable"
+    step27_forward_test.go:105: worker: targets 11, forwarded in another spelling: 0
+--- FAIL: TestE64BackendGetsTheRequestTargetTheRulesWereGiven (0.46s)
+    --- FAIL: TestE64BackendGetsTheRequestTargetTheRulesWereGiven/inprocess (0.06s)
+    --- FAIL: TestE64BackendGetsTheRequestTargetTheRulesWereGiven/worker (0.40s)
+=== RUN   TestE65UnforwardableTargetIsRefused
+--- PASS: TestE65UnforwardableTargetIsRefused (0.04s)
+=== RUN   TestE66XMLAttributeInspectionSwitch
+=== RUN   TestE66XMLAttributeInspectionSwitch/off_(default)
+    step27_forward_test.go:169: E66: payload in an attribute: want 200, got 502 "backend unreachable"
+    step27_forward_test.go:175: E66: harmless attributes must pass, got 502 "backend unreachable"
+=== RUN   TestE66XMLAttributeInspectionSwitch/on
+    step27_forward_test.go:175: E66: harmless attributes must pass, got 502 "backend unreachable"
+=== RUN   TestE66XMLAttributeInspectionSwitch/on,_worker_mode
+    step27_forward_test.go:163: dial: dial tcp 127.0.0.1:63655: connect: can't assign requested address
+--- FAIL: TestE66XMLAttributeInspectionSwitch (0.43s)
+    --- FAIL: TestE66XMLAttributeInspectionSwitch/off_(default) (0.09s)
+    --- FAIL: TestE66XMLAttributeInspectionSwitch/on (0.06s)
+    --- FAIL: TestE66XMLAttributeInspectionSwitch/on,_worker_mode (0.28s)
+=== RUN   TestE63ParserGateAgreesWithNetHTTPOnDamagedHeadsWithBareLF
+    step27_e63_test.go:99: dial: dial tcp 127.0.0.1:63650: connect: can't assign requested address
+--- FAIL: TestE63ParserGateAgreesWithNetHTTPOnDamagedHeadsWithBareLF (0.02s)
+=== RUN   TestE64BackendGetsTheRequestTargetTheRulesWereGiven
+=== RUN   TestE64BackendGetsTheRequestTargetTheRulesWereGiven/inprocess
+    step27_forward_test.go:86: dial: dial tcp 127.0.0.1:63657: connect: can't assign requested address
+=== RUN   TestE64BackendGetsTheRequestTargetTheRulesWereGiven/worker
+    step27_forward_test.go:86: dial: dial tcp 127.0.0.1:63659: connect: can't assign requested address
+--- FAIL: TestE64BackendGetsTheRequestTargetTheRulesWereGiven (0.32s)
+    --- FAIL: TestE64BackendGetsTheRequestTargetTheRulesWereGiven/inprocess (0.04s)
+    --- FAIL: TestE64BackendGetsTheRequestTargetTheRulesWereGiven/worker (0.28s)
+=== RUN   TestE65UnforwardableTargetIsRefused
+    step27_forward_test.go:124: E65 control: want 200 and //a/b?q=1 at the backend, got 502 "backend unreachable", backend ""
+--- FAIL: TestE65UnforwardableTargetIsRefused (0.07s)
+=== RUN   TestE66XMLAttributeInspectionSwitch
+=== RUN   TestE66XMLAttributeInspectionSwitch/off_(default)
+    step27_forward_test.go:169: E66: payload in an attribute: want 200, got 502 "backend unreachable"
+    step27_forward_test.go:175: E66: harmless attributes must pass, got 502 "backend unreachable"
+=== RUN   TestE66XMLAttributeInspectionSwitch/on
+    step27_forward_test.go:175: E66: harmless attributes must pass, got 502 "backend unreachable"
+=== RUN   TestE66XMLAttributeInspectionSwitch/on,_worker_mode
+    step27_forward_test.go:163: dial: dial tcp 127.0.0.1:63658: connect: can't assign requested address
+--- FAIL: TestE66XMLAttributeInspectionSwitch (0.43s)
+    --- FAIL: TestE66XMLAttributeInspectionSwitch/off_(default) (0.08s)
+    --- FAIL: TestE66XMLAttributeInspectionSwitch/on (0.07s)
+    --- FAIL: TestE66XMLAttributeInspectionSwitch/on,_worker_mode (0.28s)
+=== RUN   TestE63ParserGateAgreesWithNetHTTPOnDamagedHeadsWithBareLF
+    step27_e63_test.go:99: dial: dial tcp 127.0.0.1:63655: connect: can't assign requested address
+--- FAIL: TestE63ParserGateAgreesWithNetHTTPOnDamagedHeadsWithBareLF (0.02s)
+=== RUN   TestE64BackendGetsTheRequestTargetTheRulesWereGiven
+=== RUN   TestE64BackendGetsTheRequestTargetTheRulesWereGiven/inprocess
+    step27_forward_test.go:86: dial: dial tcp 127.0.0.1:63660: connect: can't assign requested address
+=== RUN   TestE64BackendGetsTheRequestTargetTheRulesWereGiven/worker
+    step27_forward_test.go:86: dial: dial tcp 127.0.0.1:63663: connect: can't assign requested address
+--- FAIL: TestE64BackendGetsTheRequestTargetTheRulesWereGiven (0.27s)
+    --- FAIL: TestE64BackendGetsTheRequestTargetTheRulesWereGiven/inprocess (0.04s)
+    --- FAIL: TestE64BackendGetsTheRequestTargetTheRulesWereGiven/worker (0.23s)
+=== RUN   TestE65UnforwardableTargetIsRefused
+    step27_forward_test.go:121: dial: dial tcp 127.0.0.1:63666: connect: can't assign requested address
+--- FAIL: TestE65UnforwardableTargetIsRefused (0.03s)
+=== RUN   TestE66XMLAttributeInspectionSwitch
+=== RUN   TestE66XMLAttributeInspectionSwitch/off_(default)
+    step27_forward_test.go:163: dial: dial tcp 127.0.0.1:63668: connect: can't assign requested address
+=== RUN   TestE66XMLAttributeInspectionSwitch/on
+    step27_forward_test.go:163: dial: dial tcp 127.0.0.1:63672: connect: can't assign requested address
+=== RUN   TestE66XMLAttributeInspectionSwitch/on,_worker_mode
+    step27_forward_test.go:163: dial: dial tcp 127.0.0.1:63674: connect: can't assign requested address
+--- FAIL: TestE66XMLAttributeInspectionSwitch (0.27s)
+    --- FAIL: TestE66XMLAttributeInspectionSwitch/off_(default) (0.03s)
+    --- FAIL: TestE66XMLAttributeInspectionSwitch/on (0.03s)
+    --- FAIL: TestE66XMLAttributeInspectionSwitch/on,_worker_mode (0.21s)
+=== RUN   TestE63ParserGateAgreesWithNetHTTPOnDamagedHeadsWithBareLF
+    step27_e63_test.go:99: dial: dial tcp 127.0.0.1:63658: connect: can't assign requested address
+--- FAIL: TestE63ParserGateAgreesWithNetHTTPOnDamagedHeadsWithBareLF (0.02s)
+=== RUN   TestE64BackendGetsTheRequestTargetTheRulesWereGiven
+=== RUN   TestE64BackendGetsTheRequestTargetTheRulesWereGiven/inprocess
+    step27_forward_test.go:86: dial: dial tcp 127.0.0.1:63661: connect: can't assign requested address
+=== RUN   TestE64BackendGetsTheRequestTargetTheRulesWereGiven/worker
+    step27_forward_test.go:86: dial: dial tcp 127.0.0.1:63664: connect: can't assign requested address
+--- FAIL: TestE64BackendGetsTheRequestTargetTheRulesWereGiven (0.22s)
+    --- FAIL: TestE64BackendGetsTheRequestTargetTheRulesWereGiven/inprocess (0.03s)
+    --- FAIL: TestE64BackendGetsTheRequestTargetTheRulesWereGiven/worker (0.19s)
+=== RUN   TestE65UnforwardableTargetIsRefused
+    step27_forward_test.go:121: dial: dial tcp 127.0.0.1:63667: connect: can't assign requested address
+--- FAIL: TestE65UnforwardableTargetIsRefused (0.03s)
+=== RUN   TestE66XMLAttributeInspectionSwitch
+=== RUN   TestE66XMLAttributeInspectionSwitch/off_(default)
+    step27_forward_test.go:163: dial: dial tcp 127.0.0.1:63669: connect: can't assign requested address
+=== RUN   TestE66XMLAttributeInspectionSwitch/on
+    step27_forward_test.go:163: dial: dial tcp 127.0.0.1:63673: connect: can't assign requested address
+=== RUN   TestE66XMLAttributeInspectionSwitch/on,_worker_mode
+    step27_forward_test.go:163: dial: dial tcp 127.0.0.1:63675: connect: can't assign requested address
+--- FAIL: TestE66XMLAttributeInspectionSwitch (0.23s)
+    --- FAIL: TestE66XMLAttributeInspectionSwitch/off_(default) (0.03s)
+    --- FAIL: TestE66XMLAttributeInspectionSwitch/on (0.03s)
+    --- FAIL: TestE66XMLAttributeInspectionSwitch/on,_worker_mode (0.18s)
+=== RUN   TestE63ParserGateAgreesWithNetHTTPOnDamagedHeadsWithBareLF
+    step27_e63_test.go:99: dial: dial tcp 127.0.0.1:63676: connect: can't assign requested address
+--- FAIL: TestE63ParserGateAgreesWithNetHTTPOnDamagedHeadsWithBareLF (0.02s)
+=== RUN   TestE64BackendGetsTheRequestTargetTheRulesWereGiven
+=== RUN   TestE64BackendGetsTheRequestTargetTheRulesWereGiven/inprocess
+    step27_forward_test.go:86: dial: dial tcp 127.0.0.1:63679: connect: can't assign requested address
+=== RUN   TestE64BackendGetsTheRequestTargetTheRulesWereGiven/worker
+    step27_forward_test.go:86: dial: dial tcp 127.0.0.1:63683: connect: can't assign requested address
+--- FAIL: TestE64BackendGetsTheRequestTargetTheRulesWereGiven (0.21s)
+    --- FAIL: TestE64BackendGetsTheRequestTargetTheRulesWereGiven/inprocess (0.03s)
+    --- FAIL: TestE64BackendGetsTheRequestTargetTheRulesWereGiven/worker (0.18s)
+=== RUN   TestE65UnforwardableTargetIsRefused
+    step27_forward_test.go:121: dial: dial tcp 127.0.0.1:63686: connect: can't assign requested address
+--- FAIL: TestE65UnforwardableTargetIsRefused (0.03s)
+=== RUN   TestE66XMLAttributeInspectionSwitch
+=== RUN   TestE66XMLAttributeInspectionSwitch/off_(default)
+    step27_forward_test.go:163: dial: dial tcp 127.0.0.1:63688: connect: can't assign requested address
+=== RUN   TestE66XMLAttributeInspectionSwitch/on
+    step27_forward_test.go:163: dial: dial tcp 127.0.0.1:63690: connect: can't assign requested address
+=== RUN   TestE66XMLAttributeInspectionSwitch/on,_worker_mode
+    step27_forward_test.go:163: dial: dial tcp 127.0.0.1:63694: connect: can't assign requested address
+--- FAIL: TestE66XMLAttributeInspectionSwitch (0.23s)
+    --- FAIL: TestE66XMLAttributeInspectionSwitch/off_(default) (0.02s)
+    --- FAIL: TestE66XMLAttributeInspectionSwitch/on (0.03s)
+    --- FAIL: TestE66XMLAttributeInspectionSwitch/on,_worker_mode (0.18s)
+=== RUN   TestE63ParserGateAgreesWithNetHTTPOnDamagedHeadsWithBareLF
+    step27_e63_test.go:99: dial: dial tcp 127.0.0.1:63695: connect: can't assign requested address
+--- FAIL: TestE63ParserGateAgreesWithNetHTTPOnDamagedHeadsWithBareLF (0.01s)
+=== RUN   TestE64BackendGetsTheRequestTargetTheRulesWereGiven
+=== RUN   TestE64BackendGetsTheRequestTargetTheRulesWereGiven/inprocess
+    step27_forward_test.go:86: dial: dial tcp 127.0.0.1:63698: connect: can't assign requested address
+=== RUN   TestE64BackendGetsTheRequestTargetTheRulesWereGiven/worker
+    step27_forward_test.go:86: dial: dial tcp 127.0.0.1:63700: connect: can't assign requested address
+--- FAIL: TestE64BackendGetsTheRequestTargetTheRulesWereGiven (0.21s)
+    --- FAIL: TestE64BackendGetsTheRequestTargetTheRulesWereGiven/inprocess (0.03s)
+    --- FAIL: TestE64BackendGetsTheRequestTargetTheRulesWereGiven/worker (0.18s)
+=== RUN   TestE65UnforwardableTargetIsRefused
+    step27_forward_test.go:121: dial: dial tcp 127.0.0.1:63703: connect: can't assign requested address
+--- FAIL: TestE65UnforwardableTargetIsRefused (0.03s)
+=== RUN   TestE66XMLAttributeInspectionSwitch
+=== RUN   TestE66XMLAttributeInspectionSwitch/off_(default)
+    step27_forward_test.go:163: dial: dial tcp 127.0.0.1:63705: connect: can't assign requested address
+=== RUN   TestE66XMLAttributeInspectionSwitch/on
+    step27_forward_test.go:163: dial: dial tcp 127.0.0.1:63707: connect: can't assign requested address
+=== RUN   TestE66XMLAttributeInspectionSwitch/on,_worker_mode
+    step27_forward_test.go:163: dial: dial tcp 127.0.0.1:63709: connect: can't assign requested address
+--- FAIL: TestE66XMLAttributeInspectionSwitch (0.23s)
+    --- FAIL: TestE66XMLAttributeInspectionSwitch/off_(default) (0.03s)
+    --- FAIL: TestE66XMLAttributeInspectionSwitch/on (0.03s)
+    --- FAIL: TestE66XMLAttributeInspectionSwitch/on,_worker_mode (0.18s)
+FAIL
+FAIL	kortexshield/engine	16.180s
+FAIL

@@ -37,14 +37,14 @@ func adminConfig(cfg *Config, fair *fairness) http.HandlerFunc {
 			`"worker_mode":%t,"client_max_inflight":%d,`+
 			`"client_max_inflight_small":%d,"client_max_inflight_large":%d,`+
 			`"request_body_target_updates":%d,"error_log":%q,"crs_test_setup":%t,`+
-			`"head_timeout_ms":%d,"max_pending_heads":%d}`+"\n",
+			`"head_timeout_ms":%d,"max_pending_heads":%d,"xml_attr_inspect":%t}`+"\n",
 			cfg.BackendURL, cfg.RuleEngine, cfg.BlockingParanoia, cfg.DetectionParanoia,
 			cfg.MaxBodyBytes, cfg.MaxInspectedBytes, cfg.EngineTimeBudgetMS, cfg.RulesDir,
 			cfg.ListenAddr, cfg.EventsFile, cfg.AuditLog, cfg.AllowedMethods, cfg.MaxInflightBody,
 			cfg.MaxInflightBodyLarge, cfg.BodyLaneThreshold,
 			cfg.WorkerMode, cfg.ClientMaxInflight, clientSmall, clientLarge,
 			len(cfg.RequestBodyTargetIDs), cfg.ErrorLog, cfg.CRSTestSetup,
-			cfg.HeadTimeoutMS, cfg.MaxPendingHeads)
+			cfg.HeadTimeoutMS, cfg.MaxPendingHeads, cfg.XMLAttrInspect)
 	}
 }
 

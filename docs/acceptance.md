@@ -175,9 +175,9 @@ T3a-T3g; implementations e4a2e76 and 5795c34):
 | E61 | (step-27 T1) a connection with an unfinished head does not delay another connection: with one such connection open and the head limit at its default 30 s, a second request is served within 3 s; `/__kortex/stats` shows `pending_heads` 1 while it is open and 0 after it is closed (rule 50) | passing (failing in 52b4b42: no answer in 3 s; passing log as E57) |
 | E62 | (step-27 T1) connections waiting in the gate are capped: with `KORTEX_MAX_PENDING_HEADS=2` and two unfinished heads open, the next connection gets `503 kortex-decision=overload` at once and one `overload` event with reason `pending-heads`; after the two are closed `pending_heads` is 0 and a request is served; the cap is on `/__kortex/config` (`max_pending_heads`) | passing (failing in 52b4b42: no answer in 3 s; passing log as E57) |
 | E63 | (step-27 T1) E45 for heads with bare-LF line endings: the five heads of E45, the same kinds of damage, then every CRLF turned into LF with probability 1/2 (seed 27, 20,000 heads); every head whose end `headEnd` finds is sent to bare net/http; `parserGate` refuses exactly the heads net/http refuses | passing on first run (a test of the E59 / E60 behaviour, no engine change: 19,579 heads compared, 14,832 of them ended by a blank line without CRLF CRLF, 0 decided differently; docs/logs/step27-e63.log) |
-| E64 | (step-27 T5) the backend is sent the request target the rules were given: 11 targets (two controls; raw bytes C0 AF, raw UTF-8, raw Latin-1, `"`, `{}`, `^`, a backtick, an empty query, an absolute-form target), in-process and worker; every one is forwarded and arrives byte for byte | failing (9 of 11 arrive in another spelling, both modes: docs/logs/step27-e64-e66-failing.log) |
-| E65 | (step-27 T5) a target the engine cannot forward byte for byte (it starts with `//` and holds a byte Go would escape) is refused: `400 kortex-decision=framing`, one event, reason `target-not-forwardable`; `//a/b?q=1` is forwarded unchanged | failing (forwarded as `//a/caf%C3%A9`; log as E64) |
-| E66 | (step-27 T5) `KORTEX_XML_ATTR_INSPECT=on` makes the rules inspect XML attribute values (CRS `tx.crs_xml_attr_inspect=1`): a payload in an attribute is blocked by 941100, in-process and worker; off (the default) it is forwarded; the payload as element text is blocked either way (canary); harmless attributes pass; `/__kortex/config` shows `xml_attr_inspect` | failing (the switch does not exist: forwarded with it on; log as E64) |
+| E64 | (step-27 T5) the backend is sent the request target the rules were given: 11 targets (two controls; raw bytes C0 AF, raw UTF-8, raw Latin-1, `"`, `{}`, `^`, a backtick, an empty query, an absolute-form target), in-process and worker; every one is forwarded and arrives byte for byte | passing (failing in 33f92f0: 9 of 11 arrive in another spelling, both modes, docs/logs/step27-e64-e66-failing.log; passing log docs/logs/step27-e64-e66-passing.log) |
+| E65 | (step-27 T5) a target the engine cannot forward byte for byte (it starts with `//` and holds a byte Go would escape) is refused: `400 kortex-decision=framing`, one event, reason `target-not-forwardable`; `//a/b?q=1` is forwarded unchanged | passing (failing in 33f92f0: forwarded as `//a/caf%C3%A9`; logs as E64) |
+| E66 | (step-27 T5) `KORTEX_XML_ATTR_INSPECT=on` makes the rules inspect XML attribute values (CRS `tx.crs_xml_attr_inspect=1`): a payload in an attribute is blocked by 941100, in-process and worker; off (the default) it is forwarded; the payload as element text is blocked either way (canary); harmless attributes pass; `/__kortex/config` shows `xml_attr_inspect` | passing (failing in 33f92f0: the switch did not exist, forwarded with it on; logs as E64) |
 | T3a | worker mode decides identically to in-process mode on a small benign body (200) and a small XSS body (403) | passing |
 | T3b | at the budget the worker is SIGKILLed, the kill is counted and the slot is released (next request served) | passing |
 | T3c | a pre-spawned spare serves the next request after a kill without paying the ~1.5-2 s rule-load in the hot path | passing |
@@ -374,3 +374,11 @@ Step-27 run evidence (new ids E57 to E66; E57 to E62 and E64 to E66 failing firs
   docs/logs/step27-e57-e62-passing.log; ten repeats
   docs/logs/step27-e57-e62-x10.log (60 PASS); Go suite after the changes
   docs/logs/step27-t1-go-test.log (76 PASS / 0 FAIL / 5 SKIP).
+- E63: docs/logs/step27-e63.log (passing on first run).
+- E64 to E66: docs/logs/step27-e64-e66-failing.log ->
+  docs/logs/step27-e64-e66-passing.log (with ten repeats, 30 PASS); Go
+  suite after the changes docs/logs/step27-t5-go-test.log (80 PASS / 0
+  FAIL / 5 SKIP). A first run of the suite, started straight after ten
+  repeats that included E63, failed one test on a local-port shortage of
+  the host: docs/logs/step27-t5-go-test-run1.log,
+  docs/logs/step27-e63-e66-x10-port-exhaustion.log.

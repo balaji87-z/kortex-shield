@@ -132,6 +132,9 @@ func (l *gatedListener) gate(conn net.Conn) {
 	if res.pass {
 		res = optionsAsteriskGate(head)
 	}
+	if res.pass {
+		res = forwardableTargetGate(head)
+	}
 	if !res.pass {
 		// logged before the answer goes out, so the event exists by the
 		// time the client has read the 400
@@ -185,6 +188,21 @@ func headEnd(b []byte) int {
 // rule would see it and no event would record it, and the engine has no
 // request to forward it as. Called after parserGate, so the request line is
 // known to parse.
+// forwardableTargetGate refuses a request target the engine could only
+// forward in another spelling than the one the rules judge (E65). Called
+// after parserGate, so the request line is known to parse.
+func forwardableTargetGate(head []byte) gateResult {
+	line := string(head)
+	if i := strings.Index(line, "\n"); i >= 0 {
+		line = line[:i]
+	}
+	f := strings.Fields(line)
+	if len(f) >= 2 && !targetForwardable(f[1]) {
+		return gateResult{reason: "target-not-forwardable"}
+	}
+	return gateResult{pass: true}
+}
+
 func optionsAsteriskGate(head []byte) gateResult {
 	line := string(head)
 	if i := strings.Index(line, "\n"); i >= 0 {

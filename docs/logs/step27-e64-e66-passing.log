@@ -1,0 +1,26 @@
+# step-27 T5: tests E64 to E66 after the fix (working tree on 33f92f0c24ce60fbce245d3722caa516dc5fabe8); 2026-11-28T17:22:32Z; go version go1.27.4 darwin/arm64
+# cd engine && go test -run 'TestE64|TestE65|TestE66' -count=1 -v .
+=== RUN   TestE64BackendGetsTheRequestTargetTheRulesWereGiven
+=== RUN   TestE64BackendGetsTheRequestTargetTheRulesWereGiven/inprocess
+    step27_forward_test.go:105: inprocess: targets 11, forwarded in another spelling: 0
+=== RUN   TestE64BackendGetsTheRequestTargetTheRulesWereGiven/worker
+    step27_forward_test.go:105: worker: targets 11, forwarded in another spelling: 0
+--- PASS: TestE64BackendGetsTheRequestTargetTheRulesWereGiven (0.22s)
+    --- PASS: TestE64BackendGetsTheRequestTargetTheRulesWereGiven/inprocess (0.07s)
+    --- PASS: TestE64BackendGetsTheRequestTargetTheRulesWereGiven/worker (0.14s)
+=== RUN   TestE65UnforwardableTargetIsRefused
+--- PASS: TestE65UnforwardableTargetIsRefused (0.01s)
+=== RUN   TestE66XMLAttributeInspectionSwitch
+=== RUN   TestE66XMLAttributeInspectionSwitch/off_(default)
+=== RUN   TestE66XMLAttributeInspectionSwitch/on
+=== RUN   TestE66XMLAttributeInspectionSwitch/on,_worker_mode
+--- PASS: TestE66XMLAttributeInspectionSwitch (0.18s)
+    --- PASS: TestE66XMLAttributeInspectionSwitch/off_(default) (0.01s)
+    --- PASS: TestE66XMLAttributeInspectionSwitch/on (0.01s)
+    --- PASS: TestE66XMLAttributeInspectionSwitch/on,_worker_mode (0.15s)
+PASS
+ok  	kortexshield/engine	0.630s
+# ten repeats: go test -run 'TestE64|TestE65|TestE66' -count=10 -v .
+top-level PASS lines: 30, FAIL lines: 0
+PASS
+ok  	kortexshield/engine	3.588s

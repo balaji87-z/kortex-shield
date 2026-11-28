@@ -53,6 +53,11 @@ type Config struct {
 	// waiting for the end of their head at once; one more is answered 503
 	// kortex-decision=overload (pending-heads). Default 256.
 	MaxPendingHeads int64
+	// XMLAttrInspect (step-27, E66): renders CRS opt-in 900510
+	// (tx.crs_xml_attr_inspect=1) so that rule 901181 leaves the target
+	// XML://@* on the attack rules and XML attribute values are inspected.
+	// Default off, as in the setup of the pinned images.
+	XMLAttrInspect bool
 	// RequestBodyTargetIDs is the sorted list of CRS rule ids that received a
 	// REQUEST_BODY target via SecRuleUpdateTargetById (step-18 T4, body
 	// parsing fidelity). Computed by directives() at WAF build; printed at
@@ -111,6 +116,7 @@ func loadConfig() *Config {
 		CRSTestSetup:         os.Getenv("KORTEX_CRS_TEST_SETUP") == "on",
 		HeadTimeoutMS:        envInt("KORTEX_HEAD_TIMEOUT_MS", 30000),
 		MaxPendingHeads:      envInt("KORTEX_MAX_PENDING_HEADS", 256),
+		XMLAttrInspect:       os.Getenv("KORTEX_XML_ATTR_INSPECT") == "on",
 	}
 }
 
@@ -122,6 +128,13 @@ const crsTestSetup = `
 SecAction "id:900005,phase:1,nolog,pass,setvar:tx.crs_validate_utf8_encoding=1,setvar:tx.arg_name_length=100,setvar:tx.arg_length=400,setvar:tx.total_arg_length=64000,setvar:tx.max_num_args=255,setvar:tx.max_file_size=64100,setvar:tx.combined_file_sizes=65535"
 SecAction "id:900511,phase:1,pass,nolog,setvar:tx.crs_xml_attr_inspect=1"
 SecRule REQUEST_HEADERS:X-CRS-Test "@rx ^.*$" "id:999999,phase:1,pass,t:none,log,msg:'X-CRS-Test %{MATCHED_VAR}',ctl:ruleRemoveById=1-999999"
+`
+
+// xmlAttrInspectSetup is the CRS opt-in for XML attribute inspection
+// (docs/baseline-config.md, step 27): the id REQUEST-901-INITIALIZATION.conf
+// names for it.
+const xmlAttrInspectSetup = `
+SecAction "id:900510,phase:1,pass,nolog,setvar:tx.crs_xml_attr_inspect=1"
 `
 
 // directives renders the SecLang config: engine settings, the CRS setup
@@ -144,6 +157,9 @@ func (c *Config) directives() (string, error) {
 	testSetup := ""
 	if c.CRSTestSetup {
 		testSetup = crsTestSetup
+	}
+	if c.XMLAttrInspect {
+		testSetup += xmlAttrInspectSetup
 	}
 	base := fmt.Sprintf(`
 SecRuleEngine %s

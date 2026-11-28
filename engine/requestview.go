@@ -9,6 +9,8 @@ package main
 
 import (
 	"net/http"
+	"net/url"
+	"strings"
 
 	"github.com/corazawaf/coraza/v3/types"
 )
@@ -60,4 +62,58 @@ func (v requestView) feed(tx types.Transaction) {
 			tx.AddRequestHeader(k, val)
 		}
 	}
+}
+
+// sentPathQuery cuts the path and the query out of a request target as it
+// was sent, without decoding anything: the whole target for origin form, what
+// follows the authority for absolute form. ok is false for a target that has
+// neither form (`*`, authority form).
+func sentPathQuery(target string) (path, query string, hasQuery, ok bool) {
+	rest := target
+	if !strings.HasPrefix(rest, "/") {
+		i := strings.Index(rest, "://")
+		if i < 0 {
+			return "", "", false, false
+		}
+		rest = rest[i+3:]
+		if j := strings.IndexAny(rest, "/?"); j >= 0 {
+			rest = rest[j:]
+		} else {
+			rest = ""
+		}
+		if !strings.HasPrefix(rest, "/") {
+			rest = "/" + rest
+		}
+	}
+	path, query, hasQuery = strings.Cut(rest, "?")
+	return path, query, hasQuery, true
+}
+
+// sentTargetDiffers reports whether Go would write another path and query
+// for this target than the client sent (it escapes on output the path bytes
+// it would not write itself: 0x80 to 0xFF, `"`, `<`, `>`, `^`, a backtick,
+// `{`, `|`, `}`, `\`, `#`).
+func sentTargetDiffers(target string) bool {
+	path, query, hasQuery, ok := sentPathQuery(target)
+	if !ok {
+		return false
+	}
+	sent := path
+	if hasQuery {
+		sent += "?" + query
+	}
+	u, err := url.ParseRequestURI(sent)
+	if err != nil {
+		return false // net/http refuses such a target; the gate has refused it already
+	}
+	return u.RequestURI() != sent
+}
+
+// targetForwardable is false for the one kind of target the engine cannot
+// forward byte for byte (E65): Go's client writes an opaque path that starts
+// with "//" as an absolute URL, so such a path cannot go out as sent when it
+// also holds a byte Go would escape.
+func targetForwardable(target string) bool {
+	path, _, _, ok := sentPathQuery(target)
+	return !ok || !strings.HasPrefix(path, "//") || !sentTargetDiffers(target)
 }
