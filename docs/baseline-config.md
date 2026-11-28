@@ -718,3 +718,18 @@ With the proxy layer aligned (client_max_body_size 0 on both engines):
 - No run of this step sets it; no rule or limit changes.
 - Reference: https://pkg.go.dev/net/http#Server (ReadHeaderTimeout, the
   equivalent net/http setting).
+
+## Step-27: cap on connections waiting in the gate (documented BEFORE the run, rule 17)
+
+- What: `KORTEX_MAX_PENDING_HEADS` (default 256): how many accepted
+  connections may be waiting for the end of their request head at once. A
+  connection over the cap is answered `503 kortex-decision=overload`
+  (event `overload`, reason `pending-heads`). Printed on `/__kortex/config`
+  as `max_pending_heads`; the current count is `pending_heads` on
+  `/__kortex/stats`.
+- Why: the gate now reads heads concurrently instead of one at a time
+  inside the accept loop (docs/engine-design.md, step 27, E61), and the
+  waiting connections need a bound.
+- Expected effect on the dataset runs: none. The runner sends one request
+  at a time, so at most one head is waiting.
+- No rule or inspection limit changes.

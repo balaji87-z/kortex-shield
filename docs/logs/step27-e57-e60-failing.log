@@ -1,0 +1,75 @@
+# step-27 T1: E57, E58, E59, E60 failing before the changes
+# 2026-11-28T16:29:21Z git 65575afcd3eb26931aa0c17e2695fbbd979f5e6e + step27_test.go; go version go1.27.4 darwin/arm64
+# cd engine && go test -count=1 -run 'TestE57|TestE58|TestE59|TestE60' -v .
+=== RUN   TestE57OptionsAsteriskIsRefusedByTheGate
+=== RUN   TestE57OptionsAsteriskIsRefusedByTheGate/e57-options-asterisk
+    step27_test.go:87: want 400 with body "400 kortex-decision=framing", got 200 ""
+=== RUN   TestE57OptionsAsteriskIsRefusedByTheGate/e57-options-asterisk-10
+    step27_test.go:87: want 400 with body "400 kortex-decision=framing", got 200 ""
+=== RUN   TestE57OptionsAsteriskIsRefusedByTheGate/guard:_OPTIONS_with_a_path_is_forwarded
+--- FAIL: TestE57OptionsAsteriskIsRefusedByTheGate (10.07s)
+    --- FAIL: TestE57OptionsAsteriskIsRefusedByTheGate/e57-options-asterisk (10.00s)
+    --- FAIL: TestE57OptionsAsteriskIsRefusedByTheGate/e57-options-asterisk-10 (0.00s)
+    --- PASS: TestE57OptionsAsteriskIsRefusedByTheGate/guard:_OPTIONS_with_a_path_is_forwarded (0.00s)
+=== RUN   TestE58UnreadableHeadIsAnsweredAndLogged
+=== RUN   TestE58UnreadableHeadIsAnsweredAndLogged/the_limit_is_on_the_config_page
+    step27_test.go:119: E58: /__kortex/config must show head_timeout_ms 300, got {"backend_url":"http://127.0.0.1:54457","rule_engine":"On","blocking_paranoia":1,"detection_paranoia":1,"max_body_bytes":13107200,"max_inspected_bytes":131072,"engine_time_budget_ms":2000,"rules_dir":"crs","listen_addr":"127.0.0.1:0","events_file":"/var/folders/nq/sk_8btb16995njvp54fs72180000gs/T/TestE58UnreadableHeadIsAnsweredAndLogged881077933/001/kortex-events.jsonl","audit_log":"/var/folders/nq/sk_8btb16995njvp54fs72180000gs/T/TestE58UnreadableHeadIsAnsweredAndLogged881077933/001/audit.log","allowed_methods":"GET HEAD POST OPTIONS","max_inflight_body":8,"max_inflight_body_large":2,"body_lane_threshold":65536,"worker_mode":false,"client_max_inflight":0,"client_max_inflight_small":4,"client_max_inflight_large":1,"request_body_target_updates":165,"error_log":"","crs_test_setup":false}
+=== RUN   TestE58UnreadableHeadIsAnsweredAndLogged/head_over_65,536_bytes
+    step27_test.go:129: want 400 with body "400 kortex-decision=framing", got 0 ""
+=== RUN   TestE58UnreadableHeadIsAnsweredAndLogged/head_that_never_ends
+    step27_test.go:137: want 400 with body "400 kortex-decision=framing", got 0 ""
+=== RUN   TestE58UnreadableHeadIsAnsweredAndLogged/guard:_a_head_that_arrives_in_two_pieces_within_the_limit_is_served
+--- FAIL: TestE58UnreadableHeadIsAnsweredAndLogged (3.14s)
+    --- FAIL: TestE58UnreadableHeadIsAnsweredAndLogged/the_limit_is_on_the_config_page (0.00s)
+    --- FAIL: TestE58UnreadableHeadIsAnsweredAndLogged/head_over_65,536_bytes (0.00s)
+    --- FAIL: TestE58UnreadableHeadIsAnsweredAndLogged/head_that_never_ends (3.00s)
+    --- PASS: TestE58UnreadableHeadIsAnsweredAndLogged/guard:_a_head_that_arrives_in_two_pieces_within_the_limit_is_served (0.11s)
+=== RUN   TestE59EndOfHeadIsReadAsGoReadsIt
+=== RUN   TestE59EndOfHeadIsReadAsGoReadsIt/e59-all-lf
+    step27_test.go:189: E59: want the request forwarded (200 from the stub), got 0 "" after 3.002081875s, backend hit false
+=== RUN   TestE59EndOfHeadIsReadAsGoReadsIt/e59-crlf-lines-lf-blank
+    step27_test.go:189: E59: want the request forwarded (200 from the stub), got 0 "" after 3.002079333s, backend hit false
+=== RUN   TestE59EndOfHeadIsReadAsGoReadsIt/e59-lf-lines-crlf-blank
+    step27_test.go:189: E59: want the request forwarded (200 from the stub), got 0 "" after 3.000394334s, backend hit false
+=== RUN   TestE59EndOfHeadIsReadAsGoReadsIt/e59-all-lf-body
+    step27_test.go:189: E59: want the request forwarded (200 from the stub), got 0 "" after 3.000676084s, backend hit false
+=== RUN   TestE59EndOfHeadIsReadAsGoReadsIt/e59-all-lf-canary
+    step27_test.go:196: E59: want 403 kortex-decision=block, got 0 "" after 3.001072292s, backend hit false
+=== RUN   TestE59EndOfHeadIsReadAsGoReadsIt/e59-all-lf-te-cl
+--- FAIL: TestE59EndOfHeadIsReadAsGoReadsIt (15.05s)
+    --- FAIL: TestE59EndOfHeadIsReadAsGoReadsIt/e59-all-lf (3.00s)
+    --- FAIL: TestE59EndOfHeadIsReadAsGoReadsIt/e59-crlf-lines-lf-blank (3.00s)
+    --- FAIL: TestE59EndOfHeadIsReadAsGoReadsIt/e59-lf-lines-crlf-blank (3.00s)
+    --- FAIL: TestE59EndOfHeadIsReadAsGoReadsIt/e59-all-lf-body (3.00s)
+    --- FAIL: TestE59EndOfHeadIsReadAsGoReadsIt/e59-all-lf-canary (3.00s)
+    --- PASS: TestE59EndOfHeadIsReadAsGoReadsIt/e59-all-lf-te-cl (0.00s)
+=== RUN   TestE60EveryLineEndingMixIsAnsweredLikeNetHTTP
+    step27_test.go:251: E60: bare net/http handler ran true (status 200), engine answered 400 "400 kortex-decision=framing" for "GET /a?q=1 HTTP/1.1\nHost: localhost\nAccept: */*\r\n\r\n"
+    step27_test.go:244: E60: no answer within 3 s (waited 3.002052084s) for "GET /a?q=1 HTTP/1.1\r\nHost: localhost\r\nAccept: */*\n\r\n"; bare net/http: 200, handler ran true
+    step27_test.go:244: E60: no answer within 3 s (waited 3.002086292s) for "GET /a?q=1 HTTP/1.1\nHost: localhost\r\nAccept: */*\n\r\n"; bare net/http: 200, handler ran true
+    step27_test.go:244: E60: no answer within 3 s (waited 3.001397875s) for "GET /a?q=1 HTTP/1.1\r\nHost: localhost\nAccept: */*\n\r\n"; bare net/http: 200, handler ran true
+    step27_test.go:244: E60: no answer within 3 s (waited 3.000070958s) for "GET /a?q=1 HTTP/1.1\nHost: localhost\nAccept: */*\n\r\n"; bare net/http: 200, handler ran true
+    step27_test.go:244: E60: no answer within 3 s (waited 3.002077s) for "GET /a?q=1 HTTP/1.1\r\nHost: localhost\r\nAccept: */*\r\n\n"; bare net/http: 200, handler ran true
+    step27_test.go:251: E60: bare net/http handler ran true (status 200), engine answered 400 "400 kortex-decision=framing" for "POST /form HTTP/1.1\nHost: localhost\nContent-Type: text/plain\nContent-Length: 5\r\n\r\nhello"
+    step27_test.go:251: E60: bare net/http handler ran true (status 200), engine answered 400 "400 kortex-decision=framing" for "HEAD /x HTTP/1.0\nAccept: */*\r\n\r\n"
+    step27_test.go:251: E60: bare net/http handler ran true (status 200), engine answered 400 "400 kortex-decision=framing" for "GET /b HTTP/1.1\nHost: localhost\nX-A: 1\nX-B: 2\r\n\r\n"
+    step27_test.go:256: heads 88; not answered within 3 s: 66; decided differently from bare net/http: 4
+    step27_test.go:258: E60: 66 of 88 heads not answered in time, 4 decided differently
+--- FAIL: TestE60EveryLineEndingMixIsAnsweredLikeNetHTTP (198.22s)
+FAIL
+FAIL	kortexshield/engine	226.785s
+FAIL
+
+# step-27 T1: E61, E62 failing before the changes (found while writing E58: the gate reads heads inside the accept loop)
+# 2026-11-28T16:35:16Z git 65575afcd3eb26931aa0c17e2695fbbd979f5e6e + step27_test.go; go version go1.27.4 darwin/arm64
+# cd engine && go test -count=1 -run 'TestE61|TestE62' -v .
+=== RUN   TestE61UnfinishedHeadDoesNotDelayOtherConnections
+    step27_test.go:282: E61: a request sent while another connection holds an unfinished head: want 200 from the stub within 3 s, got 0 "" after 3.000891417s
+--- FAIL: TestE61UnfinishedHeadDoesNotDelayOtherConnections (3.28s)
+=== RUN   TestE62PendingHeadsAreCapped
+    step27_test.go:315: E62: want 503 kortex-decision=overload for the connection over the cap, got 0 "" after 3.002054083s, backend hit false
+2026/11/28 08:35:28 httptest.Server blocked in Close after 5 seconds, waiting for connections:
+--- FAIL: TestE62PendingHeadsAreCapped (30.04s)
+FAIL
+FAIL	kortexshield/engine	33.654s
+FAIL

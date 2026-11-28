@@ -960,3 +960,30 @@ Decisions (defaults for the step-24 questions; open to the instructor):
   already read the header block as Go does (step 24), so the gate and
   net/http now also agree on where it ends.
 - Parser refusals keep the one status 400.
+
+### Found while writing the step-27 tests (before any fix)
+
+- **One unfinished head stops the whole listener (BUG, E61).** The gate
+  reads each head inside the listener's accept loop. A connection that
+  sends a request line and then nothing keeps the loop waiting for up to
+  the head limit (30 s); no other connection is accepted meanwhile. Probe:
+  a second, complete request sent while such a connection is open got no
+  answer in 8 s. One idle connection every 30 s is enough to take the
+  engine out of service. Fix: each accepted connection is gated in its own
+  goroutine and handed to the HTTP server when its head is in. The
+  connections waiting in the gate are a resource (rule 50): counted on
+  `/__kortex/stats` as `pending_heads`, capped by
+  `KORTEX_MAX_PENDING_HEADS` (default 256, printed on `/__kortex/config`).
+  A connection that arrives over the cap is answered
+  `503 kortex-decision=overload` with an `overload` event, reason
+  `pending-heads` (E62). The cap is global, not per client: one client can
+  still fill it. A per-client limit on waiting heads is not built in this
+  step.
+- **A head whose request line and header lines end with bare LF, with only
+  the last line and the blank line in CRLF, is refused** as
+  `no-request-line`, while the same head with one more CRLF line is
+  accepted and net/http accepts both (E60, 4 of 88 line-ending mixes). The
+  refusal is announced, so it is not a hole; it contradicts the step-24
+  rule "bare LF is accepted when it hides no framing problem". Fix: the
+  CRLF view of the framing check looks for the request line as Go reads it
+  and stops at the end of the head as Go reads it.
