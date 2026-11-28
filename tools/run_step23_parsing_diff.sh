@@ -8,7 +8,7 @@
 # (rule 29). The cases are chosen, so the output is counts and a list of
 # cases, never a rate (rule 35).
 #
-# Usage: run_step23_parsing_diff.sh
+# Usage: [PARSING_STEP=24] run_step23_parsing_diff.sh
 set -u
 cd "$(dirname "$0")/.."
 . tools/step22_lib.sh
@@ -16,11 +16,14 @@ PY_PORT=13011
 GO_PORT=13012
 ENG_PY_PORT=8101
 ENG_GO_PORT=8102
-DUR=docs/logs/runs/s23-parsing-diff
-LOG=docs/logs/step23-parsing-diff.txt
+# PARSING_STEP names the step the run belongs to (log and run-file paths);
+# the cases are the same 61 whatever the step.
+PARSING_STEP=${PARSING_STEP:-23}
+DUR=docs/logs/runs/s$PARSING_STEP-parsing-diff
+LOG=docs/logs/step$PARSING_STEP-parsing-diff.txt
 mkdir -p out $DUR
 : > $LOG
-echo "# Step-23 T5: strict-parsing differential, first slice" | tee -a $LOG
+echo "# Step-$PARSING_STEP: strict-parsing differential, first slice (the 61 cases of step-23 T5)" | tee -a $LOG
 echo "== $(date -u +%FT%TZ), $(sw_vers -productName) $(sw_vers -productVersion) $(uname -srm), $(go version), $($PY --version), system python3 for the backend: $(python3 --version)" | tee -a $LOG
 echo "== git $(git rev-parse HEAD), tracked paths changed in the working tree: $(git status --porcelain -uno | wc -l | tr -d ' ')" | tee -a $LOG
 echo "== coraza module of engine/: $(cd engine && go list -m github.com/corazawaf/coraza/v3)" | tee -a $LOG

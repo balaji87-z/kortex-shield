@@ -131,6 +131,25 @@ def test_refusal_kind_names_who_refused():
         "HTTP parser of the engine (400, no marker, no event)"
 
 
+def test_summary_counts_framing_events_by_reason_and_names_unlogged_ones():
+    pd = load("step23_parsing_diff")
+
+    def row(cid, decision, events):
+        eng = {"status": 400 if decision else 200, "decision": decision, "forwarded": decision is None,
+               "events": events, "view": None, "error": None}
+        direct = {"status": 400, "view": None, "error": None}
+        return {"id": cid, "family": "content-length", "canary": False, "engine": {"python": eng, "go": eng},
+                "direct": {"python": direct, "go": direct}, "disagreements": {"python": [], "go": []}}
+
+    ev = lambda reason: {"decision": "framing", "status": 400, "reason": reason}
+    rows = [row("a", "framing", [ev("parser:content-length")]), row("b", "framing", [ev("parser:content-length")]),
+            row("c", "framing", [ev("duplicate-content-length")]), row("d", "framing", []),
+            row("e", None, [{"decision": "pass", "status": 0, "reason": "forwarding"}])]
+    line = [l for l in pd.summary(rows) if "framing answers:" in l]
+    assert line == ["   framing answers: 4; framing events by reason: duplicate-content-length 1, "
+                    "parser:content-length 2; framing answers without a framing event: 1: d"]
+
+
 def test_compare_classes():
     pd = load("step23_parsing_diff")
     case = {"id": "c", "canary": None}

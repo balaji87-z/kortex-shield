@@ -422,6 +422,15 @@ def summary(rows):
     silent = [r["id"] for r in rows if refusal_kind(r["engine"]["python"]).startswith("HTTP parser")]
     out.append(f"   refused by the engine's HTTP parser without a kortex marker and without an event: {len(silent)}: "
                + ", ".join(silent))
+    framing = [r for r in rows if r["engine"]["python"]["decision"] == "framing"]
+    reasons = collections.Counter(e["reason"] for r in framing for e in r["engine"]["python"].get("events", [])
+                                  if e["decision"] == "framing")
+    unlogged = [r["id"] for r in framing
+                if not any(e["decision"] == "framing" for e in r["engine"]["python"].get("events", []))]
+    out.append(f"   framing answers: {len(framing)}; framing events by reason: "
+               + (", ".join(f"{k} {v}" for k, v in sorted(reasons.items())) or "none")
+               + f"; framing answers without a framing event: {len(unlogged)}"
+               + (": " + ", ".join(unlogged) if unlogged else ""))
     out.append("== each backend given the same bytes directly")
     for b in ("python", "go"):
         acc = sum(1 for r in rows if r["direct"][b]["view"] is not None)
