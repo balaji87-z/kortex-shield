@@ -1,0 +1,27 @@
+# step-26 T1: build of the attacks-v1 candidates, 2026-11-28T12:11:56Z, git efa286d4401eae9d909214651000a616f0cf0f1f + tools/build_attacks_v1.py, Python 3.15.2
+$ .venv/bin/python tools/build_attacks_v1.py build
+| family | files | raw lines | blank | duplicates | in attacks-v0 | in an earlier family | unsendable | after filters | cap | sampled | requests |
+|---|---|---|---|---|---|---|---|---|---|---|---|
+| sqli | 21 | 1466 | 1 | 99 | 77 | 0 | 1 {'not-utf8': 1} | 1288 | 300 | 300 | 600 |
+| xss | 12 | 2434 | 56 | 473 | 0 | 0 | 2 {'longer-than-2000-bytes': 2} | 1903 | 300 | 300 | 600 |
+| path-traversal | 3 | 1939 | 0 | 471 | 8 | 0 | 0  | 1460 | 200 | 200 | 400 |
+| command-injection | 1 | 83 | 0 | 4 | 8 | 0 | 0  | 71 | all | 71 | 142 |
+| lfi | 4 | 2159 | 0 | 763 | 3 | 70 | 0  | 1323 | 200 | 200 | 400 |
+| xxe | 2 | 116 | 1 | 13 | 0 | 1 | 0  | 101 | all | 101 | 202 |
+| ssti | 1 | 107 | 0 | 0 | 0 | 0 | 0  | 107 | all | 107 | 214 |
+| nosql | 2 | 46 | 0 | 20 | 0 | 0 | 0  | 26 | all | 26 | 52 |
+| ldap | 2 | 66 | 0 | 33 | 0 | 3 | 0  | 30 | all | 30 | 60 |
+candidates: 2670 requests, 1335 distinct payloads -> data/attacks-v1/candidates.jsonl
+$ shasum -a 256 data/attacks-v1/candidates.jsonl
+7a82a51622e311f26f00fffff1f39b718f1528d907a20da89e30372cc6723066  data/attacks-v1/candidates.jsonl
+$ wc -l data/attacks-v1/*.jsonl
+    2670 data/attacks-v1/annotations.jsonl
+    2670 data/attacks-v1/candidates.jsonl
+      74 data/attacks-v1/excluded-cross-family.jsonl
+      96 data/attacks-v1/excluded-in-v0.jsonl
+       3 data/attacks-v1/excluded-unsendable.jsonl
+    5513 total
+# second build into out/step26/rebuild: identical candidates?
+identical
+# kortex_eval.manifest loads the candidates:
+2670 samples valid; 2670 distinct request contents

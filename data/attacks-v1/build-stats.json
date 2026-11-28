@@ -1,0 +1,120 @@
+{
+ "seed": 1,
+ "source": "PayloadsAllTheThings@08ea40e77db3f42ef8f20c65196f3936a19b6c86",
+ "families": {
+  "sqli": {
+   "files": 21,
+   "cap": 300,
+   "raw_lines": 1466,
+   "blank_removed": 1,
+   "duplicates_removed": 99,
+   "in_v0_removed": 77,
+   "cross_family_removed": 0,
+   "unsendable_removed": {
+    "not-utf8": 1
+   },
+   "after_filters": 1288,
+   "sampled": 300
+  },
+  "xss": {
+   "files": 12,
+   "cap": 300,
+   "raw_lines": 2434,
+   "blank_removed": 56,
+   "duplicates_removed": 473,
+   "in_v0_removed": 0,
+   "cross_family_removed": 0,
+   "unsendable_removed": {
+    "longer-than-2000-bytes": 2
+   },
+   "after_filters": 1903,
+   "sampled": 300
+  },
+  "path-traversal": {
+   "files": 3,
+   "cap": 200,
+   "raw_lines": 1939,
+   "blank_removed": 0,
+   "duplicates_removed": 471,
+   "in_v0_removed": 8,
+   "cross_family_removed": 0,
+   "unsendable_removed": {},
+   "after_filters": 1460,
+   "sampled": 200
+  },
+  "command-injection": {
+   "files": 1,
+   "cap": 0,
+   "raw_lines": 83,
+   "blank_removed": 0,
+   "duplicates_removed": 4,
+   "in_v0_removed": 8,
+   "cross_family_removed": 0,
+   "unsendable_removed": {},
+   "after_filters": 71,
+   "sampled": 71
+  },
+  "lfi": {
+   "files": 4,
+   "cap": 200,
+   "raw_lines": 2159,
+   "blank_removed": 0,
+   "duplicates_removed": 763,
+   "in_v0_removed": 3,
+   "cross_family_removed": 70,
+   "unsendable_removed": {},
+   "after_filters": 1323,
+   "sampled": 200
+  },
+  "xxe": {
+   "files": 2,
+   "cap": 0,
+   "raw_lines": 116,
+   "blank_removed": 1,
+   "duplicates_removed": 13,
+   "in_v0_removed": 0,
+   "cross_family_removed": 1,
+   "unsendable_removed": {},
+   "after_filters": 101,
+   "sampled": 101
+  },
+  "ssti": {
+   "files": 1,
+   "cap": 0,
+   "raw_lines": 107,
+   "blank_removed": 0,
+   "duplicates_removed": 0,
+   "in_v0_removed": 0,
+   "cross_family_removed": 0,
+   "unsendable_removed": {},
+   "after_filters": 107,
+   "sampled": 107
+  },
+  "nosql": {
+   "files": 2,
+   "cap": 0,
+   "raw_lines": 46,
+   "blank_removed": 0,
+   "duplicates_removed": 20,
+   "in_v0_removed": 0,
+   "cross_family_removed": 0,
+   "unsendable_removed": {},
+   "after_filters": 26,
+   "sampled": 26
+  },
+  "ldap": {
+   "files": 2,
+   "cap": 0,
+   "raw_lines": 66,
+   "blank_removed": 0,
+   "duplicates_removed": 33,
+   "in_v0_removed": 0,
+   "cross_family_removed": 3,
+   "unsendable_removed": {},
+   "after_filters": 30,
+   "sampled": 30
+  }
+ },
+ "requests": 2670,
+ "distinct_payloads": 1335
+}
