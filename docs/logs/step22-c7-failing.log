@@ -1,0 +1,51 @@
+# step-22 C7 tests before the implementation, at 5193fbaa5787859704b20b88c4f8e756817ef09d plus the changed and new tests, 2026-11-28T03:24:33Z
+$ .venv/bin/python -m pytest -q tests/test_step21_engine_diff.py
+......FFFF.FF                                                            [100%]
+=================================== FAILURES ===================================
+_________________ test_main_prints_counts_ids_and_not_measured _________________
+tmp_path = PosixPath('/private/var/folders/nq/sk_8btb16995njvp54fs72180000gs/T/pytest-of-ivan/pytest-34/test_main_prints_counts_ids_an0')
+capsys = <_pytest.capture.CaptureFixture object at 0x1079f2a50>
+>       assert "fail_closed_*: NOT MEASURED" in out
+E       AssertionError: assert 'fail_closed_*: NOT MEASURED' in 'samples compared: 8 (a=8 b=7 only-a=1 only-b=0)\nstatus counts a: {200: 4, 400: 1, 403: 1, None: 2}\nstatus counts b:...\n  only-b s-none-b: b=error (status None) a status 200\n  only-b s-status-diff: b=blocked (status 403) a status 200\n'
+tests/test_step21_engine_diff.py:158: AssertionError
+_______________ test_main_uses_outcomes_when_both_runs_have_them _______________
+tmp_path = PosixPath('/private/var/folders/nq/sk_8btb16995njvp54fs72180000gs/T/pytest-of-ivan/pytest-34/test_main_uses_outcomes_when_b0')
+capsys = <_pytest.capture.CaptureFixture object at 0x1079fb9d0>
+>       assert "fail_closed_*: NOT MEASURED" in out
+E       AssertionError: assert 'fail_closed_*: NOT MEASURED' in 'samples compared: 8 (a=8 b=7 only-a=1 only-b=0)\nstatus counts a: {200: 4, 400: 1, 403: 1, None: 2}\nstatus counts b:...\n  only-b s-none-b: b=error (status None) a status 200\n  only-b s-status-diff: b=blocked (status 403) a status 200\n'
+tests/test_step21_engine_diff.py:176: AssertionError
+______________ test_engine_413_and_415_are_in_the_worst_case_set _______________
+>       assert res["have_decisions"] is True
+E       KeyError: 'have_decisions'
+tests/test_step21_engine_diff.py:216: KeyError
+__________ test_engine_400_framing_and_503_are_in_the_worst_case_set ___________
+>       assert res["classes_a"] == {
+E       AssertionError: assert {'f-block': '...one': 'error'} == {'f-413': 'fa...timeout', ...}
+E         
+E         Omitting 2 identical items, use -vv to show
+E         Right contains 4 more items:
+E         {'f-400': 'fail_closed_400',
+E          'f-413': 'fail_closed_413',
+E          'f-415': 'fail_closed_415',
+E          'f-timeout': 'fail_closed_503_timeout'}
+E         Use -v to get more diff
+tests/test_step21_engine_diff.py:227: AssertionError
+_____ test_fail_closed_is_not_measured_when_one_run_has_no_engine_decision _____
+>       assert res["have_decisions"] is False
+E       KeyError: 'have_decisions'
+tests/test_step21_engine_diff.py:247: KeyError
+___________________ test_main_prints_the_fail_closed_counts ____________________
+tmp_path = PosixPath('/private/var/folders/nq/sk_8btb16995njvp54fs72180000gs/T/pytest-of-ivan/pytest-34/test_main_prints_the_fail_clos0')
+capsys = <_pytest.capture.CaptureFixture object at 0x1079b5810>
+>       assert ("worst-case set a: 6/9 (error=1 blocked=1 deny_status=NOT MEASURED inconsistent=NOT MEASURED "
+E       AssertionError: assert 'worst-case set a: 6/9 (error=1 blocked=1 deny_status=NOT MEASURED inconsistent=NOT MEASURED fail_closed_413=1 fail_closed_415=1 fail_closed_400=1 fail_closed_503_timeout=1 fail_closed_503_overload=0)' in 'samples compared: 9 (a=9 b=9 only-a=0 only-b=0)\nstatus counts a: {200: 2, 400: 1, 403: 1, 413: 2, 415: 1, 503: 1, No...tent=NOT MEASURED)\nworst-case set diffs: 1 (only-a 1 only-b 0)\n  only-a f-none: a=error (status None) b status 200\n'
+tests/test_step21_engine_diff.py:261: AssertionError
+=========================== short test summary info ============================
+FAILED tests/test_step21_engine_diff.py::test_main_prints_counts_ids_and_not_measured
+FAILED tests/test_step21_engine_diff.py::test_main_uses_outcomes_when_both_runs_have_them
+FAILED tests/test_step21_engine_diff.py::test_engine_413_and_415_are_in_the_worst_case_set
+FAILED tests/test_step21_engine_diff.py::test_engine_400_framing_and_503_are_in_the_worst_case_set
+FAILED tests/test_step21_engine_diff.py::test_fail_closed_is_not_measured_when_one_run_has_no_engine_decision
+FAILED tests/test_step21_engine_diff.py::test_main_prints_the_fail_closed_counts
+6 failed, 7 passed in 0.05s
+# exit status of pytest: 1

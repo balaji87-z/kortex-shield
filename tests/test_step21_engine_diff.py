@@ -13,6 +13,11 @@ sys.modules["step21_engine_diff"] = mod
 spec.loader.exec_module(mod)
 
 
+FAIL_CLOSED_NOT_MEASURED = (
+    "fail_closed_413=NOT MEASURED fail_closed_415=NOT MEASURED fail_closed_400=NOT MEASURED "
+    "fail_closed_503_timeout=NOT MEASURED fail_closed_503_overload=NOT MEASURED")
+
+
 def _row(sid, status, blocked=False, error=None):
     return {"id": sid, "status": status, "blocked": blocked, "error": error}
 
@@ -150,8 +155,11 @@ def test_main_prints_counts_ids_and_not_measured(tmp_path, capsys):
     assert "no status in a (counted as error): 2" in out
     assert "no status in b (counted as error): 3" in out
     assert "deny_status, inconsistent: NOT MEASURED" in out
-    assert "worst-case set a: 3/8 (error=2 blocked=1 deny_status=NOT MEASURED inconsistent=NOT MEASURED)" in out
-    assert "worst-case set b: 6/8 (error=3 blocked=3 deny_status=NOT MEASURED inconsistent=NOT MEASURED)" in out
+    assert "fail_closed_*: NOT MEASURED" in out
+    assert ("worst-case set a: 3/8 (error=2 blocked=1 deny_status=NOT MEASURED inconsistent=NOT MEASURED "
+            + FAIL_CLOSED_NOT_MEASURED + ")") in out
+    assert ("worst-case set b: 6/8 (error=3 blocked=3 deny_status=NOT MEASURED inconsistent=NOT MEASURED "
+            + FAIL_CLOSED_NOT_MEASURED + ")") in out
     assert "worst-case set diffs: 3 (only-a 0 only-b 3)" in out
     assert "  only-b s-missing-b: b=error (status None) a status 200" in out
 
@@ -163,6 +171,98 @@ def test_main_uses_outcomes_when_both_runs_have_them(tmp_path, capsys):
     _write_run(tmp_path / "b", b, deny)
     assert mod.main([str(tmp_path / "a"), str(tmp_path / "b")]) == 0
     out = capsys.readouterr().out
-    assert "NOT MEASURED" not in out
-    assert "worst-case set a: 4/8 (error=2 blocked=1 deny_status=1 inconsistent=0)" in out
-    assert "worst-case set b: 7/8 (error=3 blocked=3 deny_status=1 inconsistent=0)" in out
+    # the fixture rows have no engine_decision, so only the fail-closed classes stay unmeasured
+    assert "deny_status, inconsistent: NOT MEASURED" not in out
+    assert "fail_closed_*: NOT MEASURED" in out
+    assert ("worst-case set a: 4/8 (error=2 blocked=1 deny_status=1 inconsistent=0 "
+            + FAIL_CLOSED_NOT_MEASURED + ")") in out
+    assert ("worst-case set b: 7/8 (error=3 blocked=3 deny_status=1 inconsistent=0 "
+            + FAIL_CLOSED_NOT_MEASURED + ")") in out
+
+
+# ---------- the engine's fail-closed answers in the worst-case set ----------
+
+def _drow(sid, status, decision=None, blocked=False, error=None):
+    """A row as the runner writes it since it records engine_decision."""
+    return {"id": sid, "status": status, "blocked": blocked, "engine_decision": decision, "error": error}
+
+
+def _decision_runs():
+    """id          run a                  run b
+    f-413       413 limit              413 limit
+    f-415       415 content-encoding   200
+    f-400       400 framing            400 framing
+    f-timeout   503 timeout            200
+    f-overload  200                    503 overload
+    f-block     403 blocked            403 blocked
+    f-app-413   413, not the engine's  413, not the engine's
+    f-pass      200                    200
+    f-none      no status              200
+    """
+    a = [_drow("f-413", 413, "limit"), _drow("f-415", 415, "content-encoding"),
+         _drow("f-400", 400, "framing"), _drow("f-timeout", 503, "timeout"),
+         _drow("f-overload", 200), _drow("f-block", 403, "block", blocked=True),
+         _drow("f-app-413", 413), _drow("f-pass", 200), _drow("f-none", None, error="timeout")]
+    b = [_drow("f-413", 413, "limit"), _drow("f-415", 200),
+         _drow("f-400", 400, "framing"), _drow("f-timeout", 200),
+         _drow("f-overload", 503, "overload"), _drow("f-block", 403, "block", blocked=True),
+         _drow("f-app-413", 413), _drow("f-pass", 200), _drow("f-none", 200)]
+    return {r["id"]: r for r in a}, {r["id"]: r for r in b}
+
+
+def test_engine_413_and_415_are_in_the_worst_case_set():
+    a, b = _decision_runs()
+    res = mod.compare(a, b)
+    assert res["have_decisions"] is True
+    assert res["classes_a"]["f-413"] == "fail_closed_413"
+    assert res["classes_b"]["f-413"] == "fail_closed_413"
+    assert res["classes_a"]["f-415"] == "fail_closed_415"
+    assert "f-415" not in res["classes_b"]
+    assert "f-415" in res["worst_only_a"]
+
+
+def test_engine_400_framing_and_503_are_in_the_worst_case_set():
+    a, b = _decision_runs()
+    res = mod.compare(a, b)
+    assert res["classes_a"] == {
+        "f-413": "fail_closed_413", "f-415": "fail_closed_415", "f-400": "fail_closed_400",
+        "f-timeout": "fail_closed_503_timeout", "f-block": "blocked", "f-none": "error"}
+    assert res["classes_b"] == {
+        "f-413": "fail_closed_413", "f-400": "fail_closed_400",
+        "f-overload": "fail_closed_503_overload", "f-block": "blocked"}
+    assert res["worst_only_a"] == ["f-415", "f-none", "f-timeout"]
+    assert res["worst_only_b"] == ["f-overload"]
+
+
+def test_a_413_that_is_not_the_engines_is_not_in_the_worst_case_set():
+    a, b = _decision_runs()
+    res = mod.compare(a, b)
+    assert "f-app-413" not in res["classes_a"] and "f-app-413" not in res["classes_b"]
+
+
+def test_fail_closed_is_not_measured_when_one_run_has_no_engine_decision():
+    a, b = _decision_runs()
+    old_b = {i: {k: v for k, v in r.items() if k != "engine_decision"} for i, r in b.items()}
+    res = mod.compare(a, old_b)
+    assert res["have_decisions"] is False
+    # neither run's set gets a fail-closed member, so the old run causes no one-sided entries
+    assert not any(c.startswith("fail_closed") for c in res["classes_a"].values())
+    assert not any(c.startswith("fail_closed") for c in res["classes_b"].values())
+    assert res["classes_a"] == {"f-block": "blocked", "f-none": "error"}
+
+
+def test_main_prints_the_fail_closed_counts(tmp_path, capsys):
+    a, b = _decision_runs()
+    _write_run(tmp_path / "a", a)
+    _write_run(tmp_path / "b", b)
+    assert mod.main([str(tmp_path / "a"), str(tmp_path / "b")]) == 0
+    out = capsys.readouterr().out
+    assert "fail_closed_*: NOT MEASURED" not in out
+    assert ("worst-case set a: 6/9 (error=1 blocked=1 deny_status=NOT MEASURED inconsistent=NOT MEASURED "
+            "fail_closed_413=1 fail_closed_415=1 fail_closed_400=1 "
+            "fail_closed_503_timeout=1 fail_closed_503_overload=0)") in out
+    assert ("worst-case set b: 4/9 (error=0 blocked=1 deny_status=NOT MEASURED inconsistent=NOT MEASURED "
+            "fail_closed_413=1 fail_closed_415=0 fail_closed_400=1 "
+            "fail_closed_503_timeout=0 fail_closed_503_overload=1)") in out
+    assert "worst-case set diffs: 4 (only-a 3 only-b 1)" in out
+    assert "  only-a f-415: a=fail_closed_415 (status 415) b status 200" in out
