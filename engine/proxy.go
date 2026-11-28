@@ -250,6 +250,11 @@ func (p *Proxy) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 			p.timeout(w, r, sampleID, start, "body-read-error: "+err.Error())
 			return
 		}
+		// LOG-ONLY (E40): a body that starts like a compressed stream but
+		// carries no Content-Encoding. Never changes the decision.
+		if kind := compressedMagic(buf); kind != "" {
+			p.events.log(sampleID, "would_reject", 0, start, "compressed-body-without-content-encoding:"+kind)
+		}
 		if int64(len(buf)) > p.cfg.MaxInspectedBytes {
 			p.limit(w, r, sampleID, start, "body-over-inspected-limit")
 			return
@@ -551,6 +556,24 @@ func (p *Proxy) forward(w http.ResponseWriter, r *http.Request, body []byte, sam
 	}
 	w.WriteHeader(resp.StatusCode)
 	io.Copy(w, resp.Body)
+}
+
+// compressedMagic reports whether b starts with the magic bytes of a gzip
+// member (1f 8b 08: RFC 1952 ID1, ID2, CM=deflate) or of a zlib stream with
+// the usual 32K window and no preset dictionary (78 01 / 78 5e / 78 9c /
+// 78 da: RFC 1950). It returns "gzip", "zlib" or "". Nothing is inflated;
+// docs/engine-design.md lists what this does not recognise.
+func compressedMagic(b []byte) string {
+	if len(b) >= 3 && b[0] == 0x1f && b[1] == 0x8b && b[2] == 0x08 {
+		return "gzip"
+	}
+	if len(b) >= 2 && b[0] == 0x78 {
+		switch b[1] {
+		case 0x01, 0x5e, 0x9c, 0xda:
+			return "zlib"
+		}
+	}
+	return ""
 }
 
 // logEncodingIssues records would_reject events for invalid percent sequences
