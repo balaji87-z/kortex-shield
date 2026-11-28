@@ -1,0 +1,56 @@
+# step-25 T1: E49 and E50 failing before the implementation (E51 guard passes)
+# 2026-11-28T05:55:57Z git 1b4934db4a8bb6395e4821aa9fab9380cebdcdc4 + step25_test.go; go version go1.27.4 darwin/arm64
+# cd engine && go test -count=1 -run 'TestE49|TestE50|TestE51' -v .
+=== RUN   TestE49ErrorLogListsMatchedRules
+=== RUN   TestE49ErrorLogListsMatchedRules/blocking,_query
+    step25_test.go:152: E49 [blocking, query]: error log has no line for rule 941100 (ids [], 0 lines)
+=== RUN   TestE49ErrorLogListsMatchedRules/detection-only,_query
+    step25_test.go:152: E49 [detection-only, query]: error log has no line for rule 941100 (ids [], 0 lines)
+=== RUN   TestE49ErrorLogListsMatchedRules/detection-only,_body
+    step25_test.go:152: E49 [detection-only, body]: error log has no line for rule 941100 (ids [], 0 lines)
+=== RUN   TestE49ErrorLogListsMatchedRules/worker_mode,_body
+    step25_test.go:152: E49 [worker mode, body]: error log has no line for rule 941100 (ids [], 0 lines)
+=== RUN   TestE49ErrorLogListsMatchedRules/worker_mode,_detection-only,_body
+    step25_test.go:152: E49 [worker mode, detection-only, body]: error log has no line for rule 941100 (ids [], 0 lines)
+=== RUN   TestE49ErrorLogListsMatchedRules/benign_request_writes_nothing
+=== RUN   TestE49ErrorLogListsMatchedRules/path_is_on_the_config_page
+    step25_test.go:175: E49: config error_log = <nil>, want "<tmp>/error.log"
+--- FAIL: TestE49ErrorLogListsMatchedRules (0.33s)
+    --- FAIL: TestE49ErrorLogListsMatchedRules/blocking,_query (0.04s)
+    --- FAIL: TestE49ErrorLogListsMatchedRules/detection-only,_query (0.01s)
+    --- FAIL: TestE49ErrorLogListsMatchedRules/detection-only,_body (0.01s)
+    --- FAIL: TestE49ErrorLogListsMatchedRules/worker_mode,_body (0.12s)
+    --- FAIL: TestE49ErrorLogListsMatchedRules/worker_mode,_detection-only,_body (0.12s)
+    --- PASS: TestE49ErrorLogListsMatchedRules/benign_request_writes_nothing (0.01s)
+    --- FAIL: TestE49ErrorLogListsMatchedRules/path_is_on_the_config_page (0.01s)
+=== RUN   TestE50CRSTestSetup
+=== RUN   TestE50CRSTestSetup/marker_request_logs_the_marker_and_nothing_else
+    step25_test.go:196: E50 marker: want only rule 999999 in the error log, got []
+=== RUN   TestE50CRSTestSetup/marker_rule_also_holds_in_blocking_mode
+    step25_test.go:207: E50 marker, blocking: want 200 and only 999999, got 403 []
+=== RUN   TestE50CRSTestSetup/the_same_attack_without_the_marker_header_is_logged
+    step25_test.go:215: E50 canary: want 941100 and no 999999, got []
+=== RUN   TestE50CRSTestSetup/suite_limits_are_set
+    step25_test.go:224: E50 limits: a 401-character argument must match 920370 (tx.arg_length=400), got []
+=== RUN   TestE50CRSTestSetup/a_400-character_argument_is_within_the_limit
+--- FAIL: TestE50CRSTestSetup (0.04s)
+    --- FAIL: TestE50CRSTestSetup/marker_request_logs_the_marker_and_nothing_else (0.01s)
+    --- FAIL: TestE50CRSTestSetup/marker_rule_also_holds_in_blocking_mode (0.01s)
+    --- FAIL: TestE50CRSTestSetup/the_same_attack_without_the_marker_header_is_logged (0.01s)
+    --- FAIL: TestE50CRSTestSetup/suite_limits_are_set (0.01s)
+    --- PASS: TestE50CRSTestSetup/a_400-character_argument_is_within_the_limit (0.01s)
+=== RUN   TestE51CRSTestSetupIsOffByDefault
+=== RUN   TestE51CRSTestSetupIsOffByDefault/KORTEX_CRS_TEST_SETUP=""
+=== RUN   TestE51CRSTestSetupIsOffByDefault/KORTEX_CRS_TEST_SETUP="off"
+=== RUN   TestE51CRSTestSetupIsOffByDefault/KORTEX_CRS_TEST_SETUP="1"
+=== RUN   TestE51CRSTestSetupIsOffByDefault/KORTEX_CRS_TEST_SETUP="true"
+=== RUN   TestE51CRSTestSetupIsOffByDefault/KORTEX_CRS_TEST_SETUP="ON"
+--- PASS: TestE51CRSTestSetupIsOffByDefault (0.05s)
+    --- PASS: TestE51CRSTestSetupIsOffByDefault/KORTEX_CRS_TEST_SETUP="" (0.01s)
+    --- PASS: TestE51CRSTestSetupIsOffByDefault/KORTEX_CRS_TEST_SETUP="off" (0.01s)
+    --- PASS: TestE51CRSTestSetupIsOffByDefault/KORTEX_CRS_TEST_SETUP="1" (0.01s)
+    --- PASS: TestE51CRSTestSetupIsOffByDefault/KORTEX_CRS_TEST_SETUP="true" (0.01s)
+    --- PASS: TestE51CRSTestSetupIsOffByDefault/KORTEX_CRS_TEST_SETUP="ON" (0.01s)
+FAIL
+FAIL	kortexshield/engine	0.721s
+FAIL
