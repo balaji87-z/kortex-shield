@@ -217,3 +217,28 @@ manifest-derived.jsonl.gz (25.8 MB, identical content) plus a body-less
 index manifest-derived-nobodies.jsonl (507 KB, ids/sizes/CT for the
 replay analysis). No other content changed.
 SHA-256 of the uncompressed original: c52e118fa4f6b4e1ba3021e2cd02a46fa147bac249e7eb147ffea1469ab30230
+
+## Amendment (step-22, 2026-11-27): numeric Host in the step-21 runs
+
+Added in step 22; the text above is unchanged. The step-21 T3 (parity) and
+T4 (big-body) runs replayed against `http://127.0.0.1:<port>`
+(tools/run_step21_t3_parity.sh, tools/run_step21_t2_replay.sh). The runner
+takes the Host header from the base URL, and a numeric Host matches CRS
+920350 (+3) on every request, so a request with one warning-level match is
+blocked at PL2. PROVEN in step 22 (reports/step-22.md, "Numeric-Host
+artifact"; docs/logs/step22-numeric-host.txt).
+
+- T4, PL2: the count above is `403: 287` of 402. The step-22 re-run with
+  `localhost` (docs/logs/step22-t4-bigbodies-audit.txt, other host, in-process
+  mode) gives **286 of 402**; the one id that differs is wcp-43ad8735b4fe
+  (403 here, 200 there). PL1 is 207 of 402 in both.
+- T4 timings (0/402 over 2 s at PL1, 4/402 at PL2) are from the step-21
+  host and were not re-measured there; the step-22 run on another host has
+  0/402 over 2 s at both levels.
+- T3 parity (5 datasets, 2,520 samples, 0 differences): both modes were
+  replayed with the same numeric Host, so the comparison is like with like
+  and the parity result stands. The block counts inside those runs include
+  the artifact at PL2. The 5 datasets were NOT re-run with `localhost`; the
+  step-22 parity runs with `localhost` cover benign-wcp-v0 and v1 (60,000
+  samples, 0 status differences).
+

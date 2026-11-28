@@ -87,6 +87,19 @@ dataset is exactly reproducible: fetch the zip (SHA-256 checked), run the
 builder — it reads sample-plan.json and reproduces the identical manifest
 byte-for-byte.
 
+Correction (step-22, 2026-11-27; the dataset itself is unchanged): the
+sentence above holds for the builder as it was when this dataset was frozen,
+not for tools/build_benign_wcp.py at HEAD, which changed in steps 13 and 19.
+Checked on 2026-11-27 with the zip of the recorded SHA-256:
+
+- builder from commit 71cb753 (`git show 71cb753:tools/build_benign_wcp.py`):
+  manifest SHA-256 c8ce11f26406df96d55e5a1cc6186bcbf648cb29bd628081dd834c6ccf1329d1,
+  equal to MANIFEST.sha256;
+- builder at HEAD (6e2b666): 39830d0a819467f301f2ae0e261626f5f9982a53b4fb61aa232dab588a05fdb7,
+  not equal.
+
+To rebuild this version, use the builder from 71cb753.
+
 ## replay-defects.jsonl (added step-13, additive annotation only)
 
 One line per (id, defect): `{"id": ..., "defect": ...}` — no request values.

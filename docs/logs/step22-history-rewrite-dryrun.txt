@@ -1,0 +1,46 @@
+# Step-22: DRY RUN of the history rewrite for the 27 paths of docs/logs/step22-history-cleanup-list.txt
+# Done in a scratch clone (out/history-rewrite-dryrun, gitignored). origin/main and this repository were NOT rewritten.
+# 2026-11-27T19:22:06Z; git 2.56.1; git-filter-repo 2.47.0 (pip, in .venv)
+$ git clone --no-local --branch main . out/history-rewrite-dryrun     # HEAD 37074bf, 251 commits, pack 26.50 MiB
+$ grep -v "^#" docs/logs/step22-history-cleanup-list.txt | cut -f1 > out/history-rewrite-paths.txt   # 27 paths
+$ (cd out/history-rewrite-dryrun && git filter-repo --force --invert-paths --paths-from-file ../history-rewrite-paths.txt && git gc --prune=now --aggressive)
+result: HEAD 37074bf763a9e1be4a49a780537573f19b47fde5 -> dc55f37e12425626ac24185c791399cd1ea152a2; 251 commits before and after (every commit id changes); pack 26.50 MiB -> 12.47 MiB
+check: commits that still touch any of the 27 paths (git log --all -- <path>, per path): 0
+side effect: 21 of the 27 paths exist in the tree at HEAD today and are gone from the rewritten HEAD:
+   docs/logs/runs/coraza-benign-wcp-v0-pl1-default/audit.jsonl
+   docs/logs/runs/coraza-benign-wcp-v0-pl2-default/audit.jsonl.gz
+   docs/logs/runs/coraza-benign-wcp-v1-pl1-default/audit.jsonl
+   docs/logs/runs/coraza-benign-wcp-v1-pl2-default/audit.jsonl.gz
+   docs/logs/runs/s17-t4-engine-benign-wcp-v0-pl1/audit.jsonl
+   docs/logs/runs/s17-t4-engine-benign-wcp-v0-pl2/audit.jsonl.gz
+   docs/logs/runs/s18-t4-engine-benign-wcp-v0-post-pl1/audit.jsonl
+   docs/logs/runs/s18-t4-engine-benign-wcp-v0-post-pl2/audit.jsonl.gz
+   docs/logs/runs/s18-t4-engine-benign-wcp-v0-v2-pl1/audit.jsonl
+   docs/logs/runs/s18-t4-engine-benign-wcp-v0-v2-pl2/audit.jsonl.gz
+   docs/logs/runs/s19-t4-benign-wcp-v1-post-r1-pl1/audit.jsonl
+   docs/logs/runs/s19-t4-benign-wcp-v1-post-r1-pl2/audit.jsonl.gz
+   docs/logs/runs/s19-t4-benign-wcp-v1-post-r2-pl1/audit.jsonl
+   docs/logs/runs/s19-t4-benign-wcp-v1-post-r2-pl2/audit.jsonl.gz
+   docs/logs/runs/s19-t4-benign-wcp-v1-pre-r1-pl1/audit.jsonl
+   docs/logs/runs/s19-t4-benign-wcp-v1-pre-r1-pl2/audit.jsonl.gz
+   docs/logs/runs/s19-t4-benign-wcp-v1-pre-r2-pl1/audit.jsonl
+   docs/logs/runs/s19-t4-benign-wcp-v1-pre-r2-pl2/audit.jsonl.gz
+   docs/logs/runs/s20-t4a-canary-connector/audit-connector.log
+   docs/logs/runs/s21-t4-bigbodies/manifest-derived-nobodies.jsonl
+   docs/logs/wcp-baseline-breakdown.json
+$ (cd out/history-rewrite-dryrun && bash tools/prepush_scan.sh --range <root commit>..HEAD)   # every blob of the rewritten history
+exit status 1; FAIL lines by path (commit ids removed, counts only):
+      3 prepush: FAIL: CRED_SHAPES docs/baseline-v0.1.md email=1
+      1 prepush: FAIL: SIZE docs/logs/runs/s20-t1-flip-v381/audit-pl2.log bytes is over the limit of 5242880
+      1 prepush: FAIL: CRED_SHAPES tools/build_benign_hard.py email=3
+      1 prepush: FAIL: CRED_SHAPES tests/test_build_benign_wcp.py mapbox_token=2
+      1 prepush: FAIL: CRED_SHAPES reports/step-18.md mapbox_token=1
+      1 prepush: FAIL: CRED_SHAPES reports/step-05.md email=1
+      1 prepush: FAIL: CRED_SHAPES engine/crs/owasp-crs/rules/REQUEST-942-APPLICATION-ATTACK-SQLI.conf email=2
+      1 prepush: FAIL: CRED_SHAPES engine/crs/owasp-crs/rules/REQUEST-934-APPLICATION-ATTACK-GENERIC.conf email=2
+      1 prepush: FAIL: CRED_SHAPES engine/crs/owasp-crs/rules/REQUEST-932-APPLICATION-ATTACK-RCE.conf email=1
+      1 prepush: FAIL: CRED_SHAPES data/benign-hard-v0/candidates.jsonl email=47
+      1 prepush: FAIL: CRED_SHAPES data/benign-browse-v1/candidates.jsonl bearer_header=345,email=90,jwt=345
+      1 prepush: FAIL: CRED_SHAPES data/benign-browse-v0/candidates.jsonl bearer_header=80,email=30,jwt=80
+      1 prepush: FAIL: BODY_DUMP data/smoke/manifest.jsonl reason=json-body-field records=1 keys=body
+      1 prepush: FAIL: BODY_DUMP data/encoding-diff-v0/manifest.jsonl reason=json-body-field records=96 keys=body

@@ -29,7 +29,10 @@ Per endpoint class (default / aligned, PL1):
 | static | 141/5,807 = 2.43% | 167/5,807 = 2.88% |
 | api | 874/2,523 = 34.64% | 1,847/2,523 = 73.21% |
 
-Per-host and per-endpoint tables: docs/logs/wcp-baseline-breakdown.json
+Per-host and per-endpoint tables: docs/logs/wcp-baseline-breakdown-nopaths.json
+(step-22: the original wcp-baseline-breakdown.json was removed from the tree,
+it was over the 5 MB limit and its endpoint keys held e-mail and JWT shapes;
+the copy has the same numbers with each endpoint key replaced by a hash)
 (16,735 distinct endpoints; e.g. default PL1: 76 endpoints fully blocked
 with ≥5 requests; aligned PL1: 148).
 
