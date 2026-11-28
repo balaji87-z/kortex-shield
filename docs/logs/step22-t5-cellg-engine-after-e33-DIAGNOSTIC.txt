@@ -1,0 +1,70 @@
+# Step-22 T5b DIAGNOSTIC cell G, engine side (rule 34: never a baseline or parity number)
+== host: Darwin 27.0.0 arm64; Python 3.15.2; load at start: load averages: 9.30 9.15 9.36
+== engine binary sha256 e1c8328268f89ec9c05bd9c5b0b2cd5640268b9cca34bfef172285826c81d32c built from c586b76570efcaf0efe8c34d89ff1e0c4dc7e472 with go version go1.27.4 darwin/arm64
+== DIAGNOSTIC-cellg-engine-pl1 rule29 2026-11-27T19:17:52Z load: load averages: 9.30 9.15 9.36: {"backend_url":"http://127.0.0.1:13003","rule_engine":"On","blocking_paranoia":1,"detection_paranoia":1,"max_body_bytes":13107200,"max_inspected_bytes":131072,"engine_time_budget_ms":2000,"rules_dir":"/Users/ivan/work/kortex-shield-dev/engine/crs","listen_addr":"127.0.0.1:8099","events_file":"/Users/ivan/work/kortex-shield-dev/out/s22-t5g-pl1.events.jsonl","audit_log":"/Users/ivan/work/kortex-shield-dev/out/s22-t5g-pl1.audit.log","allowed_methods":"GET HEAD POST OPTIONS","max_inflight_body":8,"max_inflight_body_large":2,"body_lane_threshold":65536,"worker_mode":false,"client_max_inflight":0,"client_max_inflight_small":4,"client_max_inflight_large":1,"request_body_target_updates":166}
+docs/logs/runs/s22-t5-cellg-after-e33/DIAGNOSTIC-cellg-engine-pl1.audit.index.jsonl: 2 records, 2 with a body, 147 body bytes in the source
+== DIAGNOSTIC-cellg-engine-pl1: 8 requests
+   cell ('G', 'plain', 'sqli'): {415: 1}
+   cell ('G', 'plain', 'xss'): {415: 1}
+   cell ('G0', 'plain', 'benign'): {415: 1}
+   cell ('H', 'plain', 'sqli'): {403: 1}
+   cell ('H', 'plain', 'xss'): {403: 1}
+   cell ('K', 'plain', 'sqli'): {200: 1}
+   cell ('K', 'plain', 'xss'): {200: 1}
+   cell ('K0', 'plain', 'benign'): {200: 1}
+   PASSED (evasion candidates): 3
+     ('K', 'xss', 'text/plain')
+     ('K', 'sqli', 'text/plain')
+     ('K0', 'benign', 'text/plain')
+   ('G', 'clean-deflate+header', 'sqli', 'plain'): status 415 no-audit-entry=1
+       rules [] x1
+   ('G', 'clean-deflate+header', 'xss', 'plain'): status 415 no-audit-entry=1
+       rules [] x1
+   ('G0', 'clean-deflate+header', 'benign', 'plain'): status 415 no-audit-entry=1
+       rules [] x1
+   ('H', 'raw', 'sqli', 'plain'): status 403 payload-detected=1
+       rules [942100] x1
+   ('H', 'raw', 'xss', 'plain'): status 403 payload-detected=1
+       rules [941100,941110,941160,941390] x1
+   ('K', 'clean-deflate-no-header', 'sqli', 'plain'): status 200 no-audit-entry=1
+       rules [] x1
+   ('K', 'clean-deflate-no-header', 'xss', 'plain'): status 200 no-audit-entry=1
+       rules [] x1
+   ('K0', 'clean-deflate-no-header', 'benign', 'plain'): status 200 no-audit-entry=1
+       rules [] x1
+   block pages that list rule 920450 among the matched rules: 0 []
+   body bytes the engine recorded per sample (raw control of the same payload and content type in brackets):
+== DIAGNOSTIC-cellg-engine-pl2 rule29 2026-11-27T19:17:54Z load: load averages: 9.30 9.15 9.36: {"backend_url":"http://127.0.0.1:13003","rule_engine":"On","blocking_paranoia":2,"detection_paranoia":2,"max_body_bytes":13107200,"max_inspected_bytes":131072,"engine_time_budget_ms":2000,"rules_dir":"/Users/ivan/work/kortex-shield-dev/engine/crs","listen_addr":"127.0.0.1:8099","events_file":"/Users/ivan/work/kortex-shield-dev/out/s22-t5g-pl2.events.jsonl","audit_log":"/Users/ivan/work/kortex-shield-dev/out/s22-t5g-pl2.audit.log","allowed_methods":"GET HEAD POST OPTIONS","max_inflight_body":8,"max_inflight_body_large":2,"body_lane_threshold":65536,"worker_mode":false,"client_max_inflight":0,"client_max_inflight_small":4,"client_max_inflight_large":1,"request_body_target_updates":166}
+docs/logs/runs/s22-t5-cellg-after-e33/DIAGNOSTIC-cellg-engine-pl2.audit.index.jsonl: 5 records, 5 with a body, 536 body bytes in the source
+== DIAGNOSTIC-cellg-engine-pl2: 8 requests
+   cell ('G', 'plain', 'sqli'): {415: 1}
+   cell ('G', 'plain', 'xss'): {415: 1}
+   cell ('G0', 'plain', 'benign'): {415: 1}
+   cell ('H', 'plain', 'sqli'): {403: 1}
+   cell ('H', 'plain', 'xss'): {403: 1}
+   cell ('K', 'plain', 'sqli'): {403: 1}
+   cell ('K', 'plain', 'xss'): {403: 1}
+   cell ('K0', 'plain', 'benign'): {403: 1}
+   PASSED (evasion candidates): 0
+   ('G', 'clean-deflate+header', 'sqli', 'plain'): status 415 no-audit-entry=1
+       rules [] x1
+   ('G', 'clean-deflate+header', 'xss', 'plain'): status 415 no-audit-entry=1
+       rules [] x1
+   ('G0', 'clean-deflate+header', 'benign', 'plain'): status 415 no-audit-entry=1
+       rules [] x1
+   ('H', 'raw', 'sqli', 'plain'): status 403 payload-detected=1
+       rules [932240,942100,942130,942180,942300,942330,942370,942390,942440,942520,942521] x1
+   ('H', 'raw', 'xss', 'plain'): status 403 payload-detected=1
+       rules [941100,941110,941160,941320,941390,942131,942520] x1
+   ('K', 'clean-deflate-no-header', 'sqli', 'plain'): status 403 policy-only=1
+       rules [920271,932200] x1
+   ('K', 'clean-deflate-no-header', 'xss', 'plain'): status 403 policy-only=1
+       rules [920271] x1
+   ('K0', 'clean-deflate-no-header', 'benign', 'plain'): status 403 payload-detected=1
+       rules [920271,942131,942440] x1
+   block pages that list rule 920450 among the matched rules: 0 []
+   body bytes the engine recorded per sample (raw control of the same payload and content type in brackets):
+     t5g-e-pl2-xss-K clean-deflate-no-header: 139 [83]
+     t5g-e-pl2-sqli-K clean-deflate-no-header: 111 [64]
+     t5g-e-pl2-benign-K0 clean-deflate-no-header: 139 [None]
+== load at end: load averages: 9.30 9.15 9.36

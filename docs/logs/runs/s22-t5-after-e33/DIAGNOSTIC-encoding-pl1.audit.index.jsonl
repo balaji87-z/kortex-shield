@@ -1,0 +1,2 @@
+{"sample_id": "t5d-xss-H", "content_type": "text/plain", "body_bytes": 32, "status": 0, "rule_ids": ["941100", "941110", "941160", "941390", "949110"]}
+{"sample_id": "t5d-sqli-H", "content_type": "text/plain", "body_bytes": 23, "status": 0, "rule_ids": ["942100", "949110"]}

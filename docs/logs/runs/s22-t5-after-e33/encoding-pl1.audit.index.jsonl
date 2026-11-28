@@ -1,0 +1,24 @@
+{"sample_id": "t5b-xss-plain-C", "content_type": "text/plain", "body_bytes": 67, "status": 0, "rule_ids": ["920270", "921150", "949110"]}
+{"sample_id": "t5b-xss-plain-D", "content_type": "text/plain", "body_bytes": 32, "status": 0, "rule_ids": ["941100", "941110", "941160", "941390", "949110"]}
+{"sample_id": "t5b-xss-plain-E4", "content_type": "text/plain", "body_bytes": 32, "status": 0, "rule_ids": ["920180", "941100", "941110", "941160", "941390", "949110"]}
+{"sample_id": "t5b-xss-plain-E9", "content_type": "text/plain", "body_bytes": 32, "status": 0, "rule_ids": ["920180", "941100", "941110", "941160", "941390", "949110"]}
+{"sample_id": "t5b-xss-url-C", "content_type": "application/x-www-form-urlencoded", "body_bytes": 85, "status": 0, "rule_ids": ["920270", "949110"]}
+{"sample_id": "t5b-xss-url-D", "content_type": "application/x-www-form-urlencoded", "body_bytes": 47, "status": 0, "rule_ids": ["941100", "941110", "941160", "941390", "949110"]}
+{"sample_id": "t5b-xss-url-E4", "content_type": "application/x-www-form-urlencoded", "body_bytes": 47, "status": 0, "rule_ids": ["920180", "941100", "941110", "941160", "941390", "949110"]}
+{"sample_id": "t5b-xss-url-E9", "content_type": "application/x-www-form-urlencoded", "body_bytes": 47, "status": 0, "rule_ids": ["920180", "941100", "941110", "941160", "941390", "949110"]}
+{"sample_id": "t5b-xss-json-C", "content_type": "application/json", "body_bytes": 85, "status": 0, "rule_ids": ["200002"]}
+{"sample_id": "t5b-xss-json-D", "content_type": "application/json", "body_bytes": 40, "status": 0, "rule_ids": ["941100", "941110", "941160", "941390", "949110"]}
+{"sample_id": "t5b-xss-json-E4", "content_type": "application/json", "body_bytes": 40, "status": 0, "rule_ids": ["920180", "941100", "941110", "941160", "941390", "949110"]}
+{"sample_id": "t5b-xss-json-E9", "content_type": "application/json", "body_bytes": 40, "status": 0, "rule_ids": ["920180", "941100", "941110", "941160", "941390", "949110"]}
+{"sample_id": "t5b-sqli-plain-C", "content_type": "text/plain", "body_bytes": 63, "status": 0, "rule_ids": ["920270", "949110"]}
+{"sample_id": "t5b-sqli-plain-D", "content_type": "text/plain", "body_bytes": 23, "status": 0, "rule_ids": ["942100", "949110"]}
+{"sample_id": "t5b-sqli-plain-E4", "content_type": "text/plain", "body_bytes": 23, "status": 0, "rule_ids": ["920180", "942100", "949110"]}
+{"sample_id": "t5b-sqli-plain-E9", "content_type": "text/plain", "body_bytes": 23, "status": 0, "rule_ids": ["920180", "942100", "949110"]}
+{"sample_id": "t5b-sqli-url-C", "content_type": "application/x-www-form-urlencoded", "body_bytes": 73, "status": 0, "rule_ids": ["920270", "949110"]}
+{"sample_id": "t5b-sqli-url-D", "content_type": "application/x-www-form-urlencoded", "body_bytes": 38, "status": 0, "rule_ids": ["942100", "949110"]}
+{"sample_id": "t5b-sqli-url-E4", "content_type": "application/x-www-form-urlencoded", "body_bytes": 38, "status": 0, "rule_ids": ["920180", "942100", "949110"]}
+{"sample_id": "t5b-sqli-url-E9", "content_type": "application/x-www-form-urlencoded", "body_bytes": 38, "status": 0, "rule_ids": ["920180", "942100", "949110"]}
+{"sample_id": "t5b-sqli-json-C", "content_type": "application/json", "body_bytes": 81, "status": 0, "rule_ids": ["200002"]}
+{"sample_id": "t5b-sqli-json-D", "content_type": "application/json", "body_bytes": 35, "status": 0, "rule_ids": ["942100", "949110"]}
+{"sample_id": "t5b-sqli-json-E4", "content_type": "application/json", "body_bytes": 35, "status": 0, "rule_ids": ["920180", "942100", "949110"]}
+{"sample_id": "t5b-sqli-json-E9", "content_type": "application/json", "body_bytes": 35, "status": 0, "rule_ids": ["920180", "942100", "949110"]}

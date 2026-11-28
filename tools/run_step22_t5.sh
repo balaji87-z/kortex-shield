@@ -8,8 +8,9 @@
 set -u
 cd "$(dirname "$0")/.."
 . tools/step22_lib.sh
-DUR=docs/logs/runs/s22-t5
-LOG=docs/logs/step22-t5.txt
+# T5_DUR / T5_LOG: write a later re-run next to the first recording instead of over it
+DUR=${T5_DUR:-docs/logs/runs/s22-t5}
+LOG=${T5_LOG:-docs/logs/step22-t5.txt}
 mkdir -p out $DUR
 : > $LOG
 echo "# Step-22 T5 (engine side only; connector NOT MEASURED: no Docker on this host)" >> $LOG

@@ -12,8 +12,10 @@
 set -u
 cd "$(dirname "$0")/.."
 . tools/step22_lib.sh
-DUR=docs/logs/runs/s22-t3-parity
-LOG=docs/logs/step22-t3-parity.txt
+# T3_TAG: suffix for a later re-run (other engine commit), so the first recording is kept
+TAG=${T3_TAG:-}
+DUR=docs/logs/runs/s22-t3-parity$TAG
+LOG=docs/logs/step22-t3-parity$TAG.txt
 mkdir -p out $DUR
 : > $LOG
 echo "# Step-22 T3: in-process vs worker parity on the wcp datasets" >> $LOG
@@ -29,19 +31,19 @@ for PL in 1 2; do
     for MODE in inprocess worker; do
       PORT=8097; [ "$MODE" = worker ] && PORT=8098
       NAME=$DS-$MODE-pl$PL
-      start_engine t3-$NAME $MODE $PORT $PL 2000 $DUR/engine-$NAME.log || continue
+      start_engine t3$TAG-$NAME $MODE $PORT $PL 2000 $DUR/engine-$NAME.log || continue
       config_proof "$NAME" $PORT $LOG
       $PY -m kortex_eval.runner --manifest data/$DS/manifest.jsonl \
-        --base-url $BASE:$PORT --out out/s22-t3-$NAME --timeout 15 --workers 1 \
+        --base-url $BASE:$PORT --out out/s22-t3$TAG-$NAME --timeout 15 --workers 1 \
         --block-status 403 --block-marker 'kortex-decision=block' \
         --default-user-agent "$UA" --label engine=kortex --label mode=$MODE --label paranoia=$PL \
         > $DUR/$NAME.runner.log 2>&1 || echo "runner nonzero for $NAME (sample errors); continuing" >> $LOG
       echo "== $NAME stats after run: $(curl -s http://127.0.0.1:$PORT/__kortex/stats)" >> $LOG
       stop_engine
-      finish_run out/s22-t3-$NAME $DUR/$NAME $LOG
+      finish_run out/s22-t3$TAG-$NAME $DUR/$NAME $LOG
     done
     echo "== diff $DS PL$PL (a=inprocess b=worker):" | tee -a $LOG
-    $PY tools/step21_engine_diff.py out/s22-t3-$DS-inprocess-pl$PL out/s22-t3-$DS-worker-pl$PL 2>&1 | tee -a $LOG
+    $PY tools/step21_engine_diff.py out/s22-t3$TAG-$DS-inprocess-pl$PL out/s22-t3$TAG-$DS-worker-pl$PL 2>&1 | tee -a $LOG
   done
 done
 stop_stub
