@@ -1,0 +1,29 @@
+# step-23 T2: E37/E38/E39 on stock coraza v3.8.1, at 7cc62a57f8f43aba14a543f96fdb6c41a32b2242 plus the new tests, 2026-11-28T03:39:15Z, go version go1.27.4 darwin/arm64, github.com/corazawaf/coraza/v3 v3.8.1, load at start: load averages: 1.80 1.92 2.18
+$ cd engine && GOPROXY=off go test -buildvcs=false -count=1 -v -run "TestE37|TestE38|TestE39" ./...
+=== RUN   TestE37UnchangedRequestMatchesTheSameEveryTime
+=== RUN   TestE37UnchangedRequestMatchesTheSameEveryTime/syn-chain
+    step23_test.go:290: E37 [syn-chain]: 2000 replays of one unchanged request gave 2 distinct (status, rule-id set) outcomes, want 1 (503s set aside: 0):
+            x436: status 200 rules []
+            x1564: status 403 rules [942130,949110]
+=== RUN   TestE37UnchangedRequestMatchesTheSameEveryTime/syn-dup
+    step23_test.go:290: E37 [syn-dup]: 2000 replays of one unchanged request gave 2 distinct (status, rule-id set) outcomes, want 1 (503s set aside: 0):
+            x1701: status 403 rules [941100,941110,941160,941320,941390,942131,942430,949110]
+            x299: status 403 rules [941100,941110,941160,941320,942131,942430,949110]
+--- FAIL: TestE37UnchangedRequestMatchesTheSameEveryTime (6.32s)
+    --- FAIL: TestE37UnchangedRequestMatchesTheSameEveryTime/syn-chain (2.35s)
+    --- FAIL: TestE37UnchangedRequestMatchesTheSameEveryTime/syn-dup (3.97s)
+=== RUN   TestE38MemberOrderDoesNotChangeTheDecision
+    step23_test.go:303: E38 [filter-then-note]: 300 replays of one unchanged request gave 2 distinct (status, rule-id set) outcomes, want 1 (503s set aside: 0):
+            x72: status 200 rules []
+            x228: status 403 rules [942130,949110]
+--- FAIL: TestE38MemberOrderDoesNotChangeTheDecision (1.48s)
+=== RUN   TestE39TautologySortedFirstIsDecidedTheSameEveryTime
+    step23_test.go:323: E39 [tautology-key-sorts-first]: 300 replays of one unchanged request gave 2 distinct (status, rule-id set) outcomes, want 1 (503s set aside: 0):
+            x230: status 200 rules []
+            x70: status 403 rules [942130,949110]
+--- FAIL: TestE39TautologySortedFirstIsDecidedTheSameEveryTime (0.76s)
+FAIL
+FAIL	kortexshield/engine	8.982s
+FAIL
+# exit status of go test: 1
+# load at end: load averages: 1.73 1.91 2.18

@@ -2,9 +2,16 @@ package main
 
 import (
 	"encoding/json"
+	"fmt"
+	"io"
+	"net/http"
+	"net/http/httptest"
 	"os"
+	"regexp"
+	"sort"
 	"strings"
 	"testing"
+	"time"
 )
 
 // readEvents returns every line of the events file as a decoded event; a
@@ -105,4 +112,213 @@ func TestE36PassedRequestWritesNoFramingEvent(t *testing.T) {
 			t.Fatalf("E36: a passed request wrote a framing event: %v", ev)
 		}
 	}
+}
+
+// ---- step-23 T2: deterministic rule matching --------------------------------
+
+const browserUA = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/158.0.0.0 Safari/537.36"
+
+var auditRuleIDRe = regexp.MustCompile(`\[id "(\d+)"\]`)
+
+// auditRuleSets reads the engine audit log and returns, per sample id, the
+// sorted set of rule ids named in that transaction's messages.
+func auditRuleSets(t *testing.T, auditFile string) map[string]string {
+	t.Helper()
+	out := map[string]string{}
+	data, err := os.ReadFile(auditFile)
+	if os.IsNotExist(err) {
+		return out
+	}
+	if err != nil {
+		t.Fatalf("read audit log: %v", err)
+	}
+	for _, line := range strings.Split(string(data), "\n") {
+		if !strings.HasPrefix(line, `{"transaction"`) {
+			continue
+		}
+		var doc struct {
+			Transaction struct {
+				Request struct {
+					Headers map[string][]string `json:"headers"`
+				} `json:"request"`
+			} `json:"transaction"`
+			Messages []struct {
+				ErrorMessage string `json:"error_message"`
+			} `json:"messages"`
+		}
+		if err := json.Unmarshal([]byte(line), &doc); err != nil {
+			t.Fatalf("audit line does not parse: %v", err)
+		}
+		ids := doc.Transaction.Request.Headers["x-kortex-sample-id"]
+		if len(ids) == 0 {
+			continue
+		}
+		seen := map[string]bool{}
+		for _, m := range doc.Messages {
+			for _, g := range auditRuleIDRe.FindAllStringSubmatch(m.ErrorMessage, -1) {
+				seen[g[1]] = true
+			}
+		}
+		set := make([]string, 0, len(seen))
+		for id := range seen {
+			set = append(set, id)
+		}
+		sort.Strings(set)
+		out[ids[0]] = strings.Join(set, ",")
+	}
+	return out
+}
+
+// replayOutcomes sends the same POST n times (a fresh sample id each time,
+// Host localhost as in the replay runs) and returns how often each
+// (status, audit rule-id set) pair occurred, plus the number of 503 answers.
+// A 503 is the engine's time budget under host load, not a matching result
+// (the lesson of E30), so it is counted apart and never compared.
+func replayOutcomes(t *testing.T, srv *httptest.Server, prefix, contentType, body string, n int) (map[string]int, int) {
+	t.Helper()
+	statuses := make(map[string]int, n)
+	timeouts := 0
+	for i := 0; i < n; i++ {
+		id := fmt.Sprintf("%s-%04d", prefix, i)
+		req, err := http.NewRequest("POST", srv.URL+"/", strings.NewReader(body))
+		if err != nil {
+			t.Fatalf("new request: %v", err)
+		}
+		req.Host = "localhost:8090"
+		req.Header.Set("X-Kortex-Sample-Id", id)
+		req.Header.Set("Content-Type", contentType)
+		req.Header.Set("User-Agent", browserUA)
+		resp, err := srv.Client().Do(req)
+		if err != nil {
+			t.Fatalf("do: %v", err)
+		}
+		io.Copy(io.Discard, resp.Body)
+		resp.Body.Close()
+		if resp.StatusCode == http.StatusServiceUnavailable {
+			timeouts++
+			continue
+		}
+		statuses[id] = resp.StatusCode
+	}
+	// the audit entry of a request is written when its transaction closes;
+	// wait until the log has stopped growing
+	auditFile := os.Getenv("KORTEX_AUDIT_LOG")
+	var sets map[string]string
+	last, stable := -1, 0
+	for deadline := time.Now().Add(10 * time.Second); stable < 3 && time.Now().Before(deadline); {
+		sets = auditRuleSets(t, auditFile)
+		if len(sets) == last {
+			stable++
+		} else {
+			last, stable = len(sets), 0
+		}
+		time.Sleep(100 * time.Millisecond)
+	}
+	outcomes := map[string]int{}
+	for id, status := range statuses {
+		outcomes[fmt.Sprintf("status %d rules [%s]", status, sets[id])]++
+	}
+	return outcomes, timeouts
+}
+
+func describeOutcomes(outcomes map[string]int) string {
+	keys := make([]string, 0, len(outcomes))
+	for k := range outcomes {
+		keys = append(keys, k)
+	}
+	sort.Strings(keys)
+	var b strings.Builder
+	for _, k := range keys {
+		fmt.Fprintf(&b, "\n    x%d: %s", outcomes[k], k)
+	}
+	return b.String()
+}
+
+func pl2Env(t *testing.T) *httptest.Server {
+	t.Helper()
+	srv, _ := newEnv(t, map[string]string{"KORTEX_BLOCKING_PARANOIA": "2", "KORTEX_DETECTION_PARANOIA": "2"})
+	return srv
+}
+
+// requireOneOutcome fails unless all n replays that were not a 503 gave the
+// same status and the same audit rule-id set.
+func requireOneOutcome(t *testing.T, id, name string, outcomes map[string]int, timeouts, n int) {
+	t.Helper()
+	if timeouts > n/10 {
+		t.Fatalf("%s [%s]: environment too noisy: %d of %d replays were 503 (want <= %d)", id, name, timeouts, n, n/10)
+	}
+	if len(outcomes) != 1 {
+		t.Fatalf("%s [%s]: %d replays of one unchanged request gave %d distinct (status, rule-id set) outcomes, want 1 (503s set aside: %d):%s",
+			id, name, n, len(outcomes), timeouts, describeOutcomes(outcomes))
+	}
+	t.Logf("%s [%s]: %d replays, 503s set aside: %d, one outcome:%s", id, name, n, timeouts, describeOutcomes(outcomes))
+}
+
+const (
+	synXSS    = "%3Cscript%3Ealert(1)%3C%2Fscript%3E"
+	synOthers = "&a=1&b=2&c=3&d=4&e=5&f=6&g=7&h=8"
+)
+
+// E37: an unchanged request gets the same status and the same matched rules
+// every time. The two requests are the synthetic ones of step-22 F1
+// (tools/run_step22_variance_diag.py), 2,000 replays each at PL2:
+//
+//	syn-chain  JSON {"filter":"color=blue","note":"1=1"}: CRS 942130 captures
+//	           both sides of x=y from every matching value and its chained
+//	           rule compares the captures of whichever value came last. On
+//	           stock coraza v3.8.1 the map-backed collections iterate in
+//	           random order, so the request was blocked in 131 of 200 replays
+//	           and passed in 69.
+//	syn-dup    urlencoded, the key "tag" twice ("hello" and an XSS canary)
+//	           plus eight other keys: the transformation cache is keyed by
+//	           position in the iteration, so the matched rule set varied (2
+//	           sets, 8 inbound scores in 200 replays).
+//
+// Not timing luck (rule 48): on the stock library each replay of syn-chain
+// passes with probability about 1/3, so 2,000 identical outcomes do not
+// happen by chance.
+func TestE37UnchangedRequestMatchesTheSameEveryTime(t *testing.T) {
+	const n = 2000
+	cases := []struct{ name, contentType, body string }{
+		{"syn-chain", "application/json", `{"filter":"color=blue","note":"1=1"}`},
+		{"syn-dup", "application/x-www-form-urlencoded", "tag=hello&tag=" + synXSS + synOthers},
+	}
+	for _, c := range cases {
+		t.Run(c.name, func(t *testing.T) {
+			srv := pl2Env(t)
+			outcomes, timeouts := replayOutcomes(t, srv, "e37-"+c.name, c.contentType, c.body, n)
+			requireOneOutcome(t, "E37", c.name, outcomes, timeouts, n)
+		})
+	}
+}
+
+// E38: the order in which a JSON body lists its members does not change the
+// decision. syn-chain and syn-chain-rev hold the same two members; on stock
+// coraza v3.8.1 they were blocked 131 and 69 times of 200.
+func TestE38MemberOrderDoesNotChangeTheDecision(t *testing.T) {
+	const n = 300
+	srv := pl2Env(t)
+	a, ta := replayOutcomes(t, srv, "e38-fwd", "application/json", `{"filter":"color=blue","note":"1=1"}`, n)
+	b, tb := replayOutcomes(t, srv, "e38-rev", "application/json", `{"note":"1=1","filter":"color=blue"}`, n)
+	requireOneOutcome(t, "E38", "filter-then-note", a, ta, n)
+	requireOneOutcome(t, "E38", "note-then-filter", b, tb, n)
+	for k := range a {
+		if _, ok := b[k]; !ok {
+			t.Fatalf("E38: the two member orders are decided differently:\n  filter-then-note:%s\n  note-then-filter:%s",
+				describeOutcomes(a), describeOutcomes(b))
+		}
+	}
+}
+
+// E39: determinism is all that sorted iteration gives. When the tautology's
+// key sorts BEFORE the decoy's key, the chained rule of 942130 always sees
+// the decoy's captures. This test requires one outcome in every replay and
+// logs which one it is; it does not require a block, because whether CRS
+// 942130 should catch a tautology followed by a harmless x=y member is a
+// rule question, not an engine one (step-22 F2b: ModSecurity passes it too).
+func TestE39TautologySortedFirstIsDecidedTheSameEveryTime(t *testing.T) {
+	const n = 300
+	srv := pl2Env(t)
+	outcomes, timeouts := replayOutcomes(t, srv, "e39", "application/json", `{"anote":"1=1","zfilter":"color=blue"}`, n)
+	requireOneOutcome(t, "E39", "tautology-key-sorts-first", outcomes, timeouts, n)
 }

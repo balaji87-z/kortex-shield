@@ -552,3 +552,91 @@ passes (in-process mode remains supported and default), but the
 availability/CPU property the system relies on is now T3g. Worker-mode
 decision parity is proven zero-diff on 5 datasets (2520 samples) and
 flip_repro worker PL2 0/2500 (docs/logs/runs/s21-t3-parity/).
+
+## Step-23 additions (2026-11-27)
+
+### Framing refusals are logged (T1)
+
+The framing gate (engine/listener.go) refuses on the raw connection before
+any HTTP parser runs. Until step 23 it wrote the 400 and nothing else, while
+engine/events.go and docs/block-discriminator.md said framing decisions are
+always logged (found in step 22, C6). Now every refusal writes one event to
+kortex-events.jsonl before the answer is sent: decision `framing`, status
+400, reason = the gate's reason (`conflicting-content-length`,
+`duplicate-content-length`, `transfer-encoding-with-content-length`,
+`nul-in-target`, `no-request-line`), sample id read from the raw head
+(`X-Kortex-Sample-Id`, empty when absent). A connection whose head cannot be
+read (timeout, more than 65,536 bytes) is closed without an answer and
+without an event, as before: no decision was made on a request. Tests E35
+(failing first) and E36.
+
+### Deterministic rule matching: patched coraza (T2, documented BEFORE the patch is built and run)
+
+Problem (step-22 F1, PROVEN there): coraza v3.8.1 iterates its map-backed
+collections (ARGS, ARGS_NAMES, request headers, cookies, ...) in Go's random
+map order, on every call. Two consequences for one unchanged request:
+(H1) a rule with `capture` and a chained rule that reads the captures (CRS
+942130) sees the captures of whichever variable came last, so the request
+is blocked or passed at random; (H2) the transformation cache is keyed by
+position in the iteration, so the set of matched rules and the score vary
+when a key repeats.
+
+Decision (instructor, step 23): carry a minimal patch. The engine builds
+against a vendored copy of coraza v3.8.1 through a `replace` in
+engine/go.mod:
+
+    replace github.com/corazawaf/coraza/v3 => ./third_party/coraza-v3.8.1-kortex
+
+The patch, in full, is engine/third_party/coraza-v3.8.1-kortex.patch:
+
+- new file `internal/collections/kortex_sorted.go`: `sortedKeys(m)`
+  returns the keys of a collection's map in ascending byte order;
+- `internal/collections/map.go`: `Map.FindRegex` and `Map.FindAll` walk
+  the keys in that order instead of ranging over the map;
+- `internal/collections/named.go`: `NamedCollectionNames.FindRegex`,
+  `FindAll` and `String` do the same.
+
+Values under one key keep their insertion order (they are a slice and were
+never the problem). Nothing else in coraza is changed. It is the `sorted`
+build of step-22 F1 (200 replays there: syn-chain 403 x 200, syn-dup one
+rule-id set), now made the engine's dependency.
+
+What is vendored: the non-test `.go` files of the coraza packages the
+engine imports (25 packages), plus go.mod, go.sum and LICENSE (Apache-2.0).
+Tests, docs, examples and the `testing` and `http` packages are not copied.
+`tools/step23_coraza_vendor_check.sh` proves the copy from the Go module
+cache: every vendored file is byte-identical to coraza v3.8.1 except the
+two patched files and the one new file, and the diff of those equals the
+committed patch.
+
+What the patch gives and what it does not (rule 41):
+
+- It gives repeatability: the same request, the same order, the same
+  decision. Tests E37 (2,000 replays each of syn-chain and syn-dup, one
+  status and one rule-id set), E38 (member order in a JSON body does not
+  change the decision), E39.
+- It does not make CRS 942130 catch every tautology. The chained rule still
+  sees the captures of the LAST matching variable, which is now the one
+  whose key sorts last. A tautology under a key that sorts before a
+  harmless `x=y` member is passed, every time (E39 logs the outcome). That
+  is a property of the rule (ModSecurity 3.0.17 passes it too, step-22
+  F2b), not of the engine.
+- Order is by key, not by arrival. ModSecurity keeps arrival order; a rule
+  whose outcome depends on the order of variables can therefore still
+  differ between this engine and ModSecurity or the stock connector.
+- H2 is removed as a source of variation because the position of a value
+  in the iteration is now fixed. The cache key itself is not changed
+  (upstream PR #1682 changes it; not in a release).
+- Cost: one sort of the key list per FindAll / FindRegex call. Measured in
+  the step-23 report, not assumed.
+
+Consequences recorded: the engine is no longer "stock coraza v3.8.1"; the
+effective-config log line and /__kortex/config keep saying which rules
+directory is used, and the build's coraza is named in docs/baseline-v1.8.md.
+Rule-id parity against the stock connector image cannot be exact for
+requests of the H1/H2 kind (the connector still varies). Scratch builds
+that swap the coraza version (tools/run_step22_flip.sh FLIP_CONTROL,
+tools/run_step22_variance_diag.sh) must drop the replace first.
+
+Removal: when a coraza release has ordered iteration, delete the replace
+line and the third_party directory; E37 to E39 then test the release.
