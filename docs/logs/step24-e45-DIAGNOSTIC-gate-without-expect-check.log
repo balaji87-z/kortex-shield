@@ -1,0 +1,22 @@
+# step-24 T1 DIAGNOSTIC: E45 run against a parser gate with its Expect check switched off (scratch edit, not committed)
+# shows that E45 fails when the gate misses a check net/http makes (rule 44)
+# 2026-11-28T04:47:26Z git 323ed4987b41349c91486edb0f8b61bbb3f8bcf4 + working tree; go version go1.27.4 darwin/arm64
+# cd engine && go test -count=1 -run TestE45 -v .
+=== RUN   TestE45ParserGateAgreesWithNetHTTPOnDamagedHeads
+    step24_test.go:418: E45 mismatch: net/http status 417, handler ran false; parserGate pass true ; head "POST /form HTTP/1.1\r\nHost: localhost:8080\r\nContent-Type: text/plain\r\nC%ntent-Length: 0\r\nExpect: 1=0-continue\r\n\r\n\r\nTransfer-Encoding: chunked"
+    step24_test.go:418: E45 mismatch: net/http status 417, handler ran false; parserGate pass true ; head "POST /form HTTP/1.1\r\nHost: localhost:8080\r\nContent-Type: text/plain\r\nContent-Length: 0\r\nExpect: later\r\nExpect: 100-continue\r\n\r\n"
+    step24_test.go:418: E45 mismatch: net/http status 417, handler ran false; parserGate pass true ; head "POST /form HTTP/1.1\r\nHost: localhost:8080\r\nContent-Type: tex/plain\r\nContent-Length: 0\r\nExpect: 100-contine\r\n\r\n"
+    step24_test.go:418: E45 mismatch: net/http status 417, handler ran false; parserGate pass true ; head "GET /a/b?q=1&r=%20x HTTP/1.1\r\nHost: localhost\r\nUser-Agent: ua/1.0\r\nAccept: */*\r\nExpect: later\r\nX-A: one, two\r\n\r\n"
+    step24_test.go:418: E45 mismatch: net/http status 417, handler ran false; parserGate pass true ; head "POST /form HTTP/1.1\r\nHost: localhost:8080\r\nContent-Type: text/plain\r\nContent-Length: 0\r\nExpect: 100-contnue\r\n\r\nX-B : 1\r\n"
+    step24_test.go:418: E45 mismatch: net/http status 417, handler ran false; parserGate pass true ; head "POST /form HTTP/1.1\r\nHost: localhost:8080\r\nContent-Type: text/plain\r\nExpect: later\r\nContent-Length: 0\r\nEx:ect: 100-continue\r\n\r\n"
+    step24_test.go:418: E45 mismatch: net/http status 417, handler ran false; parserGate pass true ; head "POST /form HTTP/1.1\r\nHost: localhost:8080\r\nContent-Type: text/plain\r\nContent-Length: 0\r\nExpect: later\r\nExpect: 100-continue\r\n\r\n"
+    step24_test.go:418: E45 mismatch: net/http status 417, handler ran false; parserGate pass true ; head "HEAD http://localhost/\xffx%41 HTTP/1.1\r\nHost: localhost\r\nUpgrade: h2c\r\nExpect: later\r\nExpect: later\r\nTE: trailers\r\n\r\n"
+    step24_test.go:418: E45 mismatch: net/http status 417, handler ran false; parserGate pass true ; head "POST /form HTTP/1.1\r\nHost: localhost:8080\r\nContent-Type: text/plain\r\nContent-Length: 0\r\nContent-Length: 0\r\nExpect: 100-continue\x80\r\n\r\n"
+    step24_test.go:418: E45 mismatch: net/http status 417, handler ran false; parserGate pass true ; head "POST /form HTTP/1.1\r\nHost: loca;host:8080\r\nContent-Type: text/plain\r\nContent-Length: 0\r\nExpect: 100-cotinue\r\n\r\n"
+    step24_test.go:428: heads compared 19257 (not sent, no blank line: 743; no answer from net/http: 0); net/http refused 11890 map[400:10815 417:421 501:654]; parserGate refused 11469; mismatches 421
+    step24_test.go:430: parserGate reasons: parser:content-length 542, parser:header-line 4276, parser:header-name 404, parser:host-duplicate 973, parser:host-malformed 311, parser:host-missing 322, parser:http-version 2364, parser:method 509, parser:request-line 419, parser:request-target 695, parser:transfer-encoding 654
+    step24_test.go:432: E45: 421 of 19257 heads decided differently by parserGate and net/http
+--- FAIL: TestE45ParserGateAgreesWithNetHTTPOnDamagedHeads (1.67s)
+FAIL
+FAIL	kortexshield/engine	2.009s
+FAIL

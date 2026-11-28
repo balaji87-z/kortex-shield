@@ -1,13 +1,17 @@
 package main
 
 import (
+	"bytes"
 	"fmt"
 	"io"
+	"math/rand"
 	"net"
 	"net/http"
 	"net/http/httptest"
 	"regexp"
+	"sort"
 	"strings"
+	"sync/atomic"
 	"testing"
 	"time"
 )
@@ -305,5 +309,129 @@ func TestE44RequestsPastTheParserGateAreInspected(t *testing.T) {
 				t.Fatalf("E44: want 0 framing events, got %d", n)
 			}
 		})
+	}
+}
+
+// E45: the parser gate and net/http agree on seeded random damage. Five
+// well-formed request heads are damaged 1 to 3 times each (a byte replaced,
+// deleted or inserted from a list of awkward bytes, a line repeated, a header
+// line inserted), 20,000 heads in all, with a fixed seed. Each head that
+// still ends in a blank line is sent to a bare net/http server. Whenever that
+// server answers 400 or above without running its handler, parserGate must
+// refuse the same bytes, and whenever the handler runs (or net/http answers
+// below 400), parserGate must pass them: the gate refuses exactly what Go
+// refuses, no less and no more.
+func TestE45ParserGateAgreesWithNetHTTPOnDamagedHeads(t *testing.T) {
+	var ran atomic.Bool
+	bare := httptest.NewServer(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		ran.Store(true)
+		w.Header().Set("Connection", "close")
+		fmt.Fprint(w, "bare-ok")
+	}))
+	defer bare.Close()
+	addr := strings.TrimPrefix(bare.URL, "http://")
+	bases := []string{
+		"GET /a/b?q=1&r=%20x HTTP/1.1\r\nHost: localhost\r\nUser-Agent: ua/1.0\r\nAccept: */*\r\nX-A: one, two\r\n\r\n",
+		"POST /form HTTP/1.1\r\nHost: localhost:8080\r\nContent-Type: text/plain\r\nContent-Length: 0\r\nExpect: 100-continue\r\n\r\n",
+		"POST /form HTTP/1.1\r\nHost: localhost\r\nTransfer-Encoding: chunked\r\nConnection: close\r\n\r\n0\r\n\r\n",
+		"OPTIONS /x HTTP/1.0\r\nAccept: */*\r\nCookie: a=b; c=d\r\n\r\n",
+		"HEAD http://localhost/x%41 HTTP/1.1\r\nHost: localhost\r\nUpgrade: h2c\r\nTE: trailers\r\n\r\n",
+	}
+	awkward := []byte(" \t:,%\x00\x01\x7f\x80\xff\r\n/*0x-+_(\";=@[]#?1HP.")
+	extraLines := []string{
+		"Host: other", "Host:", "Content-Length: 0", "Content-Length: 0, 0", "Content-Length: +0",
+		"Transfer-Encoding: chunked", "Transfer-Encoding: gzip", "Transfer-Encoding: identity",
+		"Expect: 100-continue", "Expect: later", "Expect:", "X-B : 1", "NoColon", " folded", "Connection: keep-alive",
+	}
+	rng := rand.New(rand.NewSource(24))
+	compared, notSent, noAnswer, goRefused, gateRefused, mismatches := 0, 0, 0, 0, 0, 0
+	goStatus := map[int]int{}
+	gateReason := map[string]int{}
+	for i := 0; i < 20000; i++ {
+		b := []byte(bases[rng.Intn(len(bases))])
+		for k := rng.Intn(3); k >= 0; k-- {
+			pos := rng.Intn(len(b))
+			switch rng.Intn(5) {
+			case 0:
+				b[pos] = awkward[rng.Intn(len(awkward))]
+			case 1:
+				b = append(b[:pos:pos], b[pos+1:]...)
+			case 2:
+				b = append(b[:pos:pos], append([]byte{awkward[rng.Intn(len(awkward))]}, b[pos:]...)...)
+			case 3, 4:
+				lines := bytes.Split(b, []byte("\r\n"))
+				j := rng.Intn(len(lines))
+				add := lines[j]
+				if rng.Intn(2) == 0 {
+					add = []byte(extraLines[rng.Intn(len(extraLines))])
+				}
+				out := append([][]byte{}, lines[:j+1]...)
+				out = append(out, add)
+				out = append(out, lines[j+1:]...)
+				b = bytes.Join(out, []byte("\r\n"))
+			}
+		}
+		if !bytes.Contains(b, []byte("\r\n\r\n")) {
+			notSent++ // the engine's gate never sees a head without a blank line
+			continue
+		}
+		ran.Store(false)
+		conn, err := net.Dial("tcp", addr)
+		if err != nil {
+			t.Fatalf("dial: %v", err)
+		}
+		conn.SetDeadline(time.Now().Add(2 * time.Second))
+		conn.Write(b)
+		var resp []byte
+		buf := make([]byte, 4096)
+		for !bytes.Contains(resp, []byte("\r\n\r\n")) {
+			n, err := conn.Read(buf)
+			resp = append(resp, buf[:n]...)
+			if err != nil {
+				break
+			}
+		}
+		conn.Close()
+		status := 0
+		if m := statusLineRe.FindSubmatch(resp); m != nil {
+			fmt.Sscanf(string(m[1]), "%d", &status)
+		}
+		handlerRan := ran.Load()
+		if status == 0 && !handlerRan {
+			noAnswer++
+			continue
+		}
+		compared++
+		goRefuses := !handlerRan && status >= 400
+		gate := parserGate(b)
+		if goRefuses {
+			goRefused++
+			goStatus[status]++
+		}
+		if !gate.pass {
+			gateRefused++
+			gateReason[gate.reason]++
+		}
+		if goRefuses == gate.pass {
+			mismatches++
+			if mismatches <= 10 {
+				t.Errorf("E45 mismatch: net/http status %d, handler ran %v; parserGate pass %v %s; head %q",
+					status, handlerRan, gate.pass, gate.reason, b)
+			}
+		}
+	}
+	reasons := make([]string, 0, len(gateReason))
+	for r, n := range gateReason {
+		reasons = append(reasons, fmt.Sprintf("%s %d", r, n))
+	}
+	sort.Strings(reasons)
+	t.Logf("heads compared %d (not sent, no blank line: %d; no answer from net/http: %d); net/http refused %d %v; parserGate refused %d; mismatches %d",
+		compared, notSent, noAnswer, goRefused, goStatus, gateRefused, mismatches)
+	t.Logf("parserGate reasons: %s", strings.Join(reasons, ", "))
+	if mismatches != 0 {
+		t.Fatalf("E45: %d of %d heads decided differently by parserGate and net/http", mismatches, compared)
+	}
+	if compared < 15000 || goRefused < 1000 || compared-goRefused < 1000 {
+		t.Fatalf("E45: the sample is too thin to mean anything: compared %d, refused %d", compared, goRefused)
 	}
 }

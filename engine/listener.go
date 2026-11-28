@@ -1,7 +1,7 @@
 // gatedListener wraps a net.Listener: for each accepted connection it reads
-// the request head, runs the framing gate, and either rejects with a raw 400
-// (kortex-decision=framing) or hands the connection to the HTTP server with
-// the head bytes already buffered.
+// the request head, runs the framing gate and the parser gate, and either
+// rejects with a raw 400 (kortex-decision=framing) or hands the connection to
+// the HTTP server with the head bytes already buffered.
 package main
 
 import (
@@ -40,6 +40,9 @@ func (l *gatedListener) Accept() (net.Conn, error) {
 			continue
 		}
 		res := framingGate(head)
+		if res.pass {
+			res = parserGate(head)
+		}
 		if !res.pass {
 			// logged before the answer goes out, so the event exists by the
 			// time the client has read the 400

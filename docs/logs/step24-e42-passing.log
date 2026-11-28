@@ -1,0 +1,162 @@
+# step-24 T1: E42 passing after the fix; E43, E44 guards; E45 seeded differential
+# 2026-11-28T04:47:36Z git 323ed4987b41349c91486edb0f8b61bbb3f8bcf4 + working tree (fix); go version go1.27.4 darwin/arm64
+# cd engine && go test -count=1 -run 'TestE42|TestE43|TestE44|TestE45' -v .
+=== RUN   TestE42ParserRefusalsAreAnnounced
+=== RUN   TestE42ParserRefusalsAreAnnounced/e42-cl-list-same
+    step24_test.go:223: bare net/http answers 400, handler not run
+=== RUN   TestE42ParserRefusalsAreAnnounced/e42-cl-list-conflict
+    step24_test.go:223: bare net/http answers 400, handler not run
+=== RUN   TestE42ParserRefusalsAreAnnounced/e42-cl-plus
+    step24_test.go:223: bare net/http answers 400, handler not run
+=== RUN   TestE42ParserRefusalsAreAnnounced/e42-cl-hex
+    step24_test.go:223: bare net/http answers 400, handler not run
+=== RUN   TestE42ParserRefusalsAreAnnounced/e42-cl-negative
+    step24_test.go:223: bare net/http answers 400, handler not run
+=== RUN   TestE42ParserRefusalsAreAnnounced/e42-cl-empty
+    step24_test.go:223: bare net/http answers 400, handler not run
+=== RUN   TestE42ParserRefusalsAreAnnounced/e42-cl-non-numeric
+    step24_test.go:223: bare net/http answers 400, handler not run
+=== RUN   TestE42ParserRefusalsAreAnnounced/e42-cl-underscore
+    step24_test.go:223: bare net/http answers 400, handler not run
+=== RUN   TestE42ParserRefusalsAreAnnounced/e42-cl-space-before-colon
+    step24_test.go:223: bare net/http answers 400, handler not run
+=== RUN   TestE42ParserRefusalsAreAnnounced/e42-te-dup
+    step24_test.go:223: bare net/http answers 501, handler not run
+=== RUN   TestE42ParserRefusalsAreAnnounced/e42-te-dup-identity
+    step24_test.go:223: bare net/http answers 501, handler not run
+=== RUN   TestE42ParserRefusalsAreAnnounced/e42-te-list-identity
+    step24_test.go:223: bare net/http answers 501, handler not run
+=== RUN   TestE42ParserRefusalsAreAnnounced/e42-te-gzip-chunked
+    step24_test.go:223: bare net/http answers 501, handler not run
+=== RUN   TestE42ParserRefusalsAreAnnounced/e42-te-xchunked
+    step24_test.go:223: bare net/http answers 501, handler not run
+=== RUN   TestE42ParserRefusalsAreAnnounced/e42-pct-path-short
+    step24_test.go:223: bare net/http answers 400, handler not run
+=== RUN   TestE42ParserRefusalsAreAnnounced/e42-pct-path-nonhex
+    step24_test.go:223: bare net/http answers 400, handler not run
+=== RUN   TestE42ParserRefusalsAreAnnounced/e42-pct-path-bare
+    step24_test.go:223: bare net/http answers 400, handler not run
+=== RUN   TestE42ParserRefusalsAreAnnounced/e42-host-missing
+    step24_test.go:223: bare net/http answers 400, handler not run
+=== RUN   TestE42ParserRefusalsAreAnnounced/e42-host-duplicate
+    step24_test.go:223: bare net/http answers 400, handler not run
+=== RUN   TestE42ParserRefusalsAreAnnounced/e42-host-malformed
+    step24_test.go:223: bare net/http answers 400, handler not run
+=== RUN   TestE42ParserRefusalsAreAnnounced/e42-version-2
+    step24_test.go:223: bare net/http answers 505, handler not run
+=== RUN   TestE42ParserRefusalsAreAnnounced/e42-version-0-9
+    step24_test.go:223: bare net/http answers 505, handler not run
+=== RUN   TestE42ParserRefusalsAreAnnounced/e42-version-malformed
+    step24_test.go:223: bare net/http answers 400, handler not run
+=== RUN   TestE42ParserRefusalsAreAnnounced/e42-request-line-short
+    step24_test.go:223: bare net/http answers 400, handler not run
+=== RUN   TestE42ParserRefusalsAreAnnounced/e42-method-invalid
+    step24_test.go:223: bare net/http answers 400, handler not run
+=== RUN   TestE42ParserRefusalsAreAnnounced/e42-target-relative
+    step24_test.go:223: bare net/http answers 400, handler not run
+=== RUN   TestE42ParserRefusalsAreAnnounced/e42-header-no-colon
+    step24_test.go:223: bare net/http answers 400, handler not run
+=== RUN   TestE42ParserRefusalsAreAnnounced/e42-header-name-space
+    step24_test.go:223: bare net/http answers 400, handler not run
+=== RUN   TestE42ParserRefusalsAreAnnounced/e42-header-name-ctl
+    step24_test.go:223: bare net/http answers 400, handler not run
+=== RUN   TestE42ParserRefusalsAreAnnounced/e42-header-value-ctl
+    step24_test.go:223: bare net/http answers 400, handler not run
+=== RUN   TestE42ParserRefusalsAreAnnounced/e42-header-count-501
+    step24_test.go:223: bare net/http answers 431, handler not run
+=== RUN   TestE42ParserRefusalsAreAnnounced/e42-expect-unknown
+    step24_test.go:223: bare net/http answers 417, handler not run
+=== RUN   TestE42ParserRefusalsAreAnnounced/e42-cl-hex-xss
+    step24_test.go:223: bare net/http answers 400, handler not run
+--- PASS: TestE42ParserRefusalsAreAnnounced (0.57s)
+    --- PASS: TestE42ParserRefusalsAreAnnounced/e42-cl-list-same (0.00s)
+    --- PASS: TestE42ParserRefusalsAreAnnounced/e42-cl-list-conflict (0.00s)
+    --- PASS: TestE42ParserRefusalsAreAnnounced/e42-cl-plus (0.00s)
+    --- PASS: TestE42ParserRefusalsAreAnnounced/e42-cl-hex (0.00s)
+    --- PASS: TestE42ParserRefusalsAreAnnounced/e42-cl-negative (0.00s)
+    --- PASS: TestE42ParserRefusalsAreAnnounced/e42-cl-empty (0.00s)
+    --- PASS: TestE42ParserRefusalsAreAnnounced/e42-cl-non-numeric (0.00s)
+    --- PASS: TestE42ParserRefusalsAreAnnounced/e42-cl-underscore (0.00s)
+    --- PASS: TestE42ParserRefusalsAreAnnounced/e42-cl-space-before-colon (0.00s)
+    --- PASS: TestE42ParserRefusalsAreAnnounced/e42-te-dup (0.00s)
+    --- PASS: TestE42ParserRefusalsAreAnnounced/e42-te-dup-identity (0.00s)
+    --- PASS: TestE42ParserRefusalsAreAnnounced/e42-te-list-identity (0.00s)
+    --- PASS: TestE42ParserRefusalsAreAnnounced/e42-te-gzip-chunked (0.00s)
+    --- PASS: TestE42ParserRefusalsAreAnnounced/e42-te-xchunked (0.00s)
+    --- PASS: TestE42ParserRefusalsAreAnnounced/e42-pct-path-short (0.00s)
+    --- PASS: TestE42ParserRefusalsAreAnnounced/e42-pct-path-nonhex (0.00s)
+    --- PASS: TestE42ParserRefusalsAreAnnounced/e42-pct-path-bare (0.00s)
+    --- PASS: TestE42ParserRefusalsAreAnnounced/e42-host-missing (0.00s)
+    --- PASS: TestE42ParserRefusalsAreAnnounced/e42-host-duplicate (0.00s)
+    --- PASS: TestE42ParserRefusalsAreAnnounced/e42-host-malformed (0.00s)
+    --- PASS: TestE42ParserRefusalsAreAnnounced/e42-version-2 (0.00s)
+    --- PASS: TestE42ParserRefusalsAreAnnounced/e42-version-0-9 (0.00s)
+    --- PASS: TestE42ParserRefusalsAreAnnounced/e42-version-malformed (0.00s)
+    --- PASS: TestE42ParserRefusalsAreAnnounced/e42-request-line-short (0.00s)
+    --- PASS: TestE42ParserRefusalsAreAnnounced/e42-method-invalid (0.00s)
+    --- PASS: TestE42ParserRefusalsAreAnnounced/e42-target-relative (0.00s)
+    --- PASS: TestE42ParserRefusalsAreAnnounced/e42-header-no-colon (0.00s)
+    --- PASS: TestE42ParserRefusalsAreAnnounced/e42-header-name-space (0.00s)
+    --- PASS: TestE42ParserRefusalsAreAnnounced/e42-header-name-ctl (0.00s)
+    --- PASS: TestE42ParserRefusalsAreAnnounced/e42-header-value-ctl (0.00s)
+    --- PASS: TestE42ParserRefusalsAreAnnounced/e42-header-count-501 (0.00s)
+    --- PASS: TestE42ParserRefusalsAreAnnounced/e42-expect-unknown (0.00s)
+    --- PASS: TestE42ParserRefusalsAreAnnounced/e42-cl-hex-xss (0.00s)
+=== RUN   TestE43ParserGateLetsWellFormedRequestsThrough
+=== RUN   TestE43ParserGateLetsWellFormedRequestsThrough/e43-cl
+    step24_test.go:280: engine: status 200, forwarded true, blocked by rule false
+=== RUN   TestE43ParserGateLetsWellFormedRequestsThrough/e43-cl-leading-zeros
+    step24_test.go:280: engine: status 200, forwarded true, blocked by rule false
+=== RUN   TestE43ParserGateLetsWellFormedRequestsThrough/e43-te-chunked
+    step24_test.go:280: engine: status 200, forwarded true, blocked by rule false
+=== RUN   TestE43ParserGateLetsWellFormedRequestsThrough/e43-te-case
+    step24_test.go:280: engine: status 200, forwarded true, blocked by rule false
+=== RUN   TestE43ParserGateLetsWellFormedRequestsThrough/e43-pct-valid
+    step24_test.go:280: engine: status 200, forwarded true, blocked by rule false
+=== RUN   TestE43ParserGateLetsWellFormedRequestsThrough/e43-pct-query-bare
+    step24_test.go:280: engine: status 200, forwarded true, blocked by rule false
+=== RUN   TestE43ParserGateLetsWellFormedRequestsThrough/e43-expect-continue
+    step24_test.go:280: engine: status 403, forwarded false, blocked by rule true
+=== RUN   TestE43ParserGateLetsWellFormedRequestsThrough/e43-http10-no-host
+    step24_test.go:280: engine: status 403, forwarded false, blocked by rule true
+=== RUN   TestE43ParserGateLetsWellFormedRequestsThrough/e43-host-port
+    step24_test.go:280: engine: status 200, forwarded true, blocked by rule false
+=== RUN   TestE43ParserGateLetsWellFormedRequestsThrough/e43-host-empty
+    step24_test.go:280: engine: status 403, forwarded false, blocked by rule true
+=== RUN   TestE43ParserGateLetsWellFormedRequestsThrough/e43-absolute-uri
+    step24_test.go:280: engine: status 200, forwarded true, blocked by rule false
+=== RUN   TestE43ParserGateLetsWellFormedRequestsThrough/e43-obs-fold
+    step24_test.go:280: engine: status 200, forwarded true, blocked by rule false
+=== RUN   TestE43ParserGateLetsWellFormedRequestsThrough/e43-header-count-401
+    step24_test.go:280: engine: status 200, forwarded true, blocked by rule false
+--- PASS: TestE43ParserGateLetsWellFormedRequestsThrough (0.04s)
+    --- PASS: TestE43ParserGateLetsWellFormedRequestsThrough/e43-cl (0.00s)
+    --- PASS: TestE43ParserGateLetsWellFormedRequestsThrough/e43-cl-leading-zeros (0.00s)
+    --- PASS: TestE43ParserGateLetsWellFormedRequestsThrough/e43-te-chunked (0.00s)
+    --- PASS: TestE43ParserGateLetsWellFormedRequestsThrough/e43-te-case (0.00s)
+    --- PASS: TestE43ParserGateLetsWellFormedRequestsThrough/e43-pct-valid (0.00s)
+    --- PASS: TestE43ParserGateLetsWellFormedRequestsThrough/e43-pct-query-bare (0.00s)
+    --- PASS: TestE43ParserGateLetsWellFormedRequestsThrough/e43-expect-continue (0.00s)
+    --- PASS: TestE43ParserGateLetsWellFormedRequestsThrough/e43-http10-no-host (0.00s)
+    --- PASS: TestE43ParserGateLetsWellFormedRequestsThrough/e43-host-port (0.00s)
+    --- PASS: TestE43ParserGateLetsWellFormedRequestsThrough/e43-host-empty (0.00s)
+    --- PASS: TestE43ParserGateLetsWellFormedRequestsThrough/e43-absolute-uri (0.00s)
+    --- PASS: TestE43ParserGateLetsWellFormedRequestsThrough/e43-obs-fold (0.00s)
+    --- PASS: TestE43ParserGateLetsWellFormedRequestsThrough/e43-header-count-401 (0.00s)
+=== RUN   TestE44RequestsPastTheParserGateAreInspected
+=== RUN   TestE44RequestsPastTheParserGateAreInspected/e44-get
+=== RUN   TestE44RequestsPastTheParserGateAreInspected/e44-cl
+=== RUN   TestE44RequestsPastTheParserGateAreInspected/e44-te-chunked
+=== RUN   TestE44RequestsPastTheParserGateAreInspected/e44-expect-continue
+--- PASS: TestE44RequestsPastTheParserGateAreInspected (0.01s)
+    --- PASS: TestE44RequestsPastTheParserGateAreInspected/e44-get (0.00s)
+    --- PASS: TestE44RequestsPastTheParserGateAreInspected/e44-cl (0.00s)
+    --- PASS: TestE44RequestsPastTheParserGateAreInspected/e44-te-chunked (0.00s)
+    --- PASS: TestE44RequestsPastTheParserGateAreInspected/e44-expect-continue (0.00s)
+=== RUN   TestE45ParserGateAgreesWithNetHTTPOnDamagedHeads
+    step24_test.go:428: heads compared 19257 (not sent, no blank line: 743; no answer from net/http: 0); net/http refused 11890 map[400:10815 417:421 501:654]; parserGate refused 11890; mismatches 0
+    step24_test.go:430: parserGate reasons: parser:content-length 542, parser:expect 421, parser:header-line 4276, parser:header-name 404, parser:host-duplicate 973, parser:host-malformed 311, parser:host-missing 322, parser:http-version 2364, parser:method 509, parser:request-line 419, parser:request-target 695, parser:transfer-encoding 654
+--- PASS: TestE45ParserGateAgreesWithNetHTTPOnDamagedHeads (1.69s)
+PASS
+ok  	kortexshield/engine	2.541s
+exit=0
