@@ -1,0 +1,6 @@
+# step-22 C6 tests with the implementation (working tree on 6004f597d1b3a2214a823e09b9c478ed059a9044), 2026-11-28T03:20:42Z
+$ .venv/bin/python -m pytest -q tests/test_outcome.py tests/test_runner.py tests/test_step22_tools.py
+........ss..s........................................................... [ 88%]
+.........                                                                [100%]
+78 passed, 3 skipped in 47.72s
+# exit status of pytest: 0

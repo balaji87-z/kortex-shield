@@ -1,0 +1,14 @@
+# step-22 close-out Python suite with the C6 change (working tree on 6004f597d1b3a2214a823e09b9c478ed059a9044), 2026-11-28T03:22:29Z, Python 3.15.2, load at start: load averages: 2.10 2.31 2.78
+$ .venv/bin/python -m pytest -q -rs
+.............................................................ss..s...... [ 32%]
+........................................................................ [ 65%]
+........................................................................ [ 98%]
+....                                                                     [100%]
+=========================== short test summary info ============================
+SKIPPED [1] tests/test_record_benign.py:9: could not import 'playwright': No module named 'playwright'
+SKIPPED [1] tests/test_outcome.py:78: smoke run artifacts not present
+SKIPPED [1] tests/test_outcome.py:96: smoke run artifacts not present
+SKIPPED [1] tests/test_outcome.py:161: step-05 hard PL2 run output not present
+217 passed, 4 skipped in 57.60s
+# exit status of pytest: 0
+# load at end: load averages: 2.13 2.31 2.75

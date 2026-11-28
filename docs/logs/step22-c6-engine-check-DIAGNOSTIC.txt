@@ -1,0 +1,42 @@
+== step-22 C6 DIAGNOSTIC engine check, 2026-11-28T03:23:40Z, git 6004f597d1b3a2214a823e09b9c478ed059a9044, tracked paths changed: 4
+== manifest (hand-written, 3 requests; bodies not printed, the pre-push scan refuses body fields in logs):
+    c6-get GET /?q=hello content-type: - body bytes: 0 extra headers: -
+    c6-post POST /form content-type: application/x-www-form-urlencoded body bytes: 7 extra headers: -
+    c6-te-cl POST /form content-type: application/x-www-form-urlencoded body bytes: 7 extra headers: {'Transfer-Encoding': 'chunked'}
+== engine binary sha256 be2217464eb640c97fb112b64aaf6992c8f93a183e2b92e69fd5b996ea717626 built from 6004f597d1b3a2214a823e09b9c478ed059a9044 with go version go1.27.4 darwin/arm64
+== DIAGNOSTIC-normal rule29 2026-11-28T03:23:41Z load: load averages: 2.05 2.27 2.73: {"backend_url":"http://127.0.0.1:13004","rule_engine":"On","blocking_paranoia":1,"detection_paranoia":1,"max_body_bytes":13107200,"max_inspected_bytes":131072,"engine_time_budget_ms":2000,"rules_dir":"/Users/ivan/work/kortex-shield-work/engine/crs","listen_addr":"127.0.0.1:8096","events_file":"/Users/ivan/work/kortex-shield-work/out/s22-c6-DIAGNOSTIC-normal.events.jsonl","audit_log":"/Users/ivan/work/kortex-shield-work/out/s22-c6-DIAGNOSTIC-normal.audit.log","allowed_methods":"GET HEAD POST OPTIONS","max_inflight_body":8,"max_inflight_body_large":2,"body_lane_threshold":65536,"worker_mode":false,"client_max_inflight":0,"client_max_inflight_small":4,"client_max_inflight_large":1,"request_body_target_updates":166}
+== DIAGNOSTIC-normal engine events:
+{"ts":"2026-11-28T03:23:41.433024Z","sample_id":"c6-get","decision":"pass","status":0,"elapsed_ms":0.535,"reason":"forwarding"}
+{"ts":"2026-11-28T03:23:41.435057Z","sample_id":"c6-post","decision":"pass","status":0,"elapsed_ms":1.265,"reason":"forwarding"}
+== DIAGNOSTIC-normal responses.jsonl:
+{"id": "c6-get", "status": 200, "elapsed_ms": 5.5, "blocked": false, "body_marker": false, "engine_decision": null, "error": null, "error_class": null}
+{"id": "c6-post", "status": 200, "elapsed_ms": 1.9, "blocked": false, "body_marker": false, "engine_decision": null, "error": null, "error_class": null}
+{"id": "c6-te-cl", "status": 400, "elapsed_ms": 0.4, "blocked": false, "body_marker": false, "engine_decision": "framing", "error": null, "error_class": null}
+== DIAGNOSTIC-normal kortex_eval.crs_audit and kortex_eval.outcome output:
+crs_audit: 0 audit entr(ies) -> out/s22-c6-DIAGNOSTIC-normal/audit.jsonl
+waf_fail_closed_400: 1
+waf_pass: 2
+docs/logs/runs/s22-c6-check-DIAGNOSTIC/DIAGNOSTIC-normal/audit.index.jsonl: 0 records, 0 with a body, 0 body bytes in the source
+== DIAGNOSTIC-normal outcomes.jsonl:
+{"id": "c6-get", "status": 200, "outcome": "waf_pass", "audit_score": null, "audit_score_from_severities": null, "score_mismatch": null, "rule_ids": []}
+{"id": "c6-post", "status": 200, "outcome": "waf_pass", "audit_score": null, "audit_score_from_severities": null, "score_mismatch": null, "rule_ids": []}
+{"id": "c6-te-cl", "status": 400, "outcome": "waf_fail_closed_400", "audit_score": null, "audit_score_from_severities": null, "score_mismatch": null, "rule_ids": []}
+== DIAGNOSTIC-budget0 rule29 2026-11-28T03:23:43Z load: load averages: 2.05 2.27 2.73: {"backend_url":"http://127.0.0.1:13004","rule_engine":"On","blocking_paranoia":1,"detection_paranoia":1,"max_body_bytes":13107200,"max_inspected_bytes":131072,"engine_time_budget_ms":0,"rules_dir":"/Users/ivan/work/kortex-shield-work/engine/crs","listen_addr":"127.0.0.1:8096","events_file":"/Users/ivan/work/kortex-shield-work/out/s22-c6-DIAGNOSTIC-budget0.events.jsonl","audit_log":"/Users/ivan/work/kortex-shield-work/out/s22-c6-DIAGNOSTIC-budget0.audit.log","allowed_methods":"GET HEAD POST OPTIONS","max_inflight_body":8,"max_inflight_body_large":2,"body_lane_threshold":65536,"worker_mode":false,"client_max_inflight":0,"client_max_inflight_small":4,"client_max_inflight_large":1,"request_body_target_updates":166}
+runner nonzero for DIAGNOSTIC-budget0
+== DIAGNOSTIC-budget0 engine events:
+{"ts":"2026-11-28T03:23:43.392582Z","sample_id":"c6-get","decision":"timeout","status":503,"elapsed_ms":0.142,"reason":"time budget expired after headers"}
+{"ts":"2026-11-28T03:23:43.393336Z","sample_id":"c6-post","decision":"timeout","status":503,"elapsed_ms":0.130,"reason":"time budget expired after headers"}
+== DIAGNOSTIC-budget0 responses.jsonl:
+{"id": "c6-get", "status": 503, "elapsed_ms": 5.0, "blocked": false, "body_marker": false, "engine_decision": "timeout", "error": null, "error_class": null}
+{"id": "c6-post", "status": 503, "elapsed_ms": 0.7, "blocked": false, "body_marker": false, "engine_decision": "timeout", "error": null, "error_class": null}
+{"id": "c6-te-cl", "status": null, "elapsed_ms": null, "blocked": false, "body_marker": false, "engine_decision": null, "error": "connection_error: ConnectionResetError", "error_class": "connection_error"}
+== DIAGNOSTIC-budget0 kortex_eval.crs_audit and kortex_eval.outcome output:
+crs_audit: 0 audit entr(ies) -> out/s22-c6-DIAGNOSTIC-budget0/audit.jsonl
+error: 1
+waf_fail_closed_503_timeout: 2
+docs/logs/runs/s22-c6-check-DIAGNOSTIC/DIAGNOSTIC-budget0/audit.index.jsonl: 0 records, 0 with a body, 0 body bytes in the source
+== DIAGNOSTIC-budget0 outcomes.jsonl:
+{"id": "c6-get", "status": 503, "outcome": "waf_fail_closed_503_timeout", "audit_score": null, "audit_score_from_severities": null, "score_mismatch": null, "rule_ids": []}
+{"id": "c6-post", "status": 503, "outcome": "waf_fail_closed_503_timeout", "audit_score": null, "audit_score_from_severities": null, "score_mismatch": null, "rule_ids": []}
+{"id": "c6-te-cl", "status": null, "outcome": "error", "audit_score": null, "audit_score_from_severities": null, "score_mismatch": null, "rule_ids": []}
+C6-CHECK-DONE

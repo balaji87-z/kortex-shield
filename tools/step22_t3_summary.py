@@ -5,9 +5,9 @@ Usage: step22_t3_summary.py <durable-dir>      (docs/logs/runs/s22-t3-parity)
 
 Per run: outcome counts and the false-positive rate on benign-labelled wcp
 traffic, best case (blocked only) and worst case (blocked + deny_status +
-inconsistent + error + the engine's fail-closed 413 and 415 answers, which
-are counted apart from the 403 blocks), each over all samples (rules 20, 21,
-30). Per run:
+inconsistent + error + the engine's fail-closed answers: 413, 415, 400
+framing, 503 timeout, 503 overload, each counted apart from the 403 blocks),
+each over all samples (rules 20, 21, 30). Per run:
 rule ids present in 20% or more of the audit entries (rule 18). Per
 dataset and level: sample ids whose rule-id set differs between in-process
 and worker mode (rule 32). Reads ids, statuses and rule ids only.
@@ -27,8 +27,9 @@ def read(path):
         return [json.loads(l) for l in fh if l.strip()]
 
 
-WORST_CASE_OUTCOMES = ("waf_block", "waf_deny_status", "inconsistent", "error",
-                       "waf_fail_closed_413", "waf_fail_closed_415")
+FAIL_CLOSED_OUTCOMES = ("waf_fail_closed_413", "waf_fail_closed_415", "waf_fail_closed_400",
+                        "waf_fail_closed_503_timeout", "waf_fail_closed_503_overload")
+WORST_CASE_OUTCOMES = ("waf_block", "waf_deny_status", "inconsistent", "error") + FAIL_CLOSED_OUTCOMES
 
 
 def rate_lines(ds, pl, mode, oc, n):
@@ -38,9 +39,9 @@ def rate_lines(ds, pl, mode, oc, n):
     return [
         f"{ds} PL{pl} {mode}: n={n} waf_block={blocked} waf_deny_status={oc['waf_deny_status']} "
         f"inconsistent={oc['inconsistent']} error={oc['error']} "
-        f"waf_fail_closed_413={oc['waf_fail_closed_413']} waf_fail_closed_415={oc['waf_fail_closed_415']} "
-        f"waf_pass={oc['waf_pass']} other={n - worst - oc['waf_pass']}",
-        f"    FP rate best case (errors, deny_status, inconsistent, fail-closed 413/415 not flagged) "
+        + "".join(f"{name}={oc[name]} " for name in FAIL_CLOSED_OUTCOMES)
+        + f"waf_pass={oc['waf_pass']} other={n - worst - oc['waf_pass']}",
+        f"    FP rate best case (errors, deny_status, inconsistent, fail-closed answers not flagged) "
         f"{blocked}/{n} = {100 * blocked / n:.2f}%; "
         f"worst case (all flagged) {worst}/{n} = {100 * worst / n:.2f}%",
     ]

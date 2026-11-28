@@ -10,13 +10,20 @@ The verdict we measure is the WAF's decision, not the target app's status
                      below the threshold — the WAF blocked the OUTBOUND side
                      and cut the response (see docs/block-discriminator.md)
     waf_block        (blocking mode) runner says blocked AND audit score >= threshold
-    waf_fail_closed_413  (either mode) the kortex engine refused the request
-                     itself with "413 kortex-decision=limit" (body above the
-                     inspection or total size limit): not inspected, not
-                     forwarded
-    waf_fail_closed_415  (either mode) the kortex engine refused the request
-                     itself with "415 kortex-decision=content-encoding" (body
-                     with a Content-Encoding): not inspected, not forwarded
+    waf_fail_closed_*  (either mode) the kortex engine refused the request
+                     itself, without a rule decision and without forwarding
+                     it; one outcome per kind of refusal, never merged with
+                     waf_block:
+                       waf_fail_closed_400           "400 kortex-decision=framing"
+                                                     (conflicting framing headers)
+                       waf_fail_closed_413           "413 kortex-decision=limit"
+                                                     (body above a size limit)
+                       waf_fail_closed_415           "415 kortex-decision=content-encoding"
+                                                     (body with a Content-Encoding)
+                       waf_fail_closed_503_timeout   "503 kortex-decision=timeout"
+                                                     (engine time budget exceeded)
+                       waf_fail_closed_503_overload  "503 kortex-decision=overload"
+                                                     (in-flight cap reached)
     waf_would_block  (detection mode) audit score >= threshold and nothing was blocked
     waf_pass         reached the engine, score below threshold or no rule match
     proxy_reject     not blocked, nginx error-page marker present, status != 403,
@@ -24,11 +31,12 @@ The verdict we measure is the WAF's decision, not the target app's status
     inconsistent     any other combination (e.g. blocked without a qualifying
                      audit score); every inconsistent sample is listed
 
-The two fail-closed outcomes need the runner's `engine_decision` field. A 413
-or 415 without it (the backend's own status, or a responses.jsonl written
-before the runner recorded the field) is classified as before. They are WAF
-refusals, so they belong in the worst case of a rate, and they are counted
-apart from waf_block (403) because no rule matched.
+The fail-closed outcomes need the runner's `engine_decision` field. The same
+status without it (the backend's own 400/413/415/503, or a responses.jsonl
+written before the runner recorded the field) is classified as before. They
+are refusals by the WAF, so they belong in the worst case of a rate, and they
+are counted apart from waf_block (403) because no rule decided them. An engine
+400 with decision "block" is a rule deny and stays waf_deny_status.
 
 Inputs: the runner's responses.jsonl and the crs_audit output JSONL.
 Rows in either file without a counterpart are still classified (audit entries
@@ -42,10 +50,16 @@ import sys
 
 THRESHOLD_DEFAULT = 5
 
-# status -> the engine decision that makes it a fail-closed answer
-# (docs/block-discriminator.md)
-_FAIL_CLOSED_DECISIONS = {413: "limit", 415: "content-encoding"}
-FAIL_CLOSED_OUTCOMES = tuple(f"waf_fail_closed_{status}" for status in sorted(_FAIL_CLOSED_DECISIONS))
+# (status, engine decision) of the engine's own refusals -> outcome
+# (docs/block-discriminator.md). 503 has two decisions, so they carry the name.
+_FAIL_CLOSED = {
+    (400, "framing"): "waf_fail_closed_400",
+    (413, "limit"): "waf_fail_closed_413",
+    (415, "content-encoding"): "waf_fail_closed_415",
+    (503, "overload"): "waf_fail_closed_503_overload",
+    (503, "timeout"): "waf_fail_closed_503_timeout",
+}
+FAIL_CLOSED_OUTCOMES = tuple(sorted(_FAIL_CLOSED.values()))
 
 _OUTBOUND_ERROR_MARKERS = (
     "incompleteread", "connectionreset", "remotedisconnected", "badstatusline",
@@ -72,12 +86,8 @@ def _outbound_cut(response: dict, audit: dict | None, threshold: int) -> bool:
 
 
 def _fail_closed(response: dict) -> str | None:
-    """The fail-closed outcome of an engine 413/415 answer, else None."""
-    status = response.get("status")
-    decision = _FAIL_CLOSED_DECISIONS.get(status)
-    if decision is None or response.get("engine_decision") != decision:
-        return None
-    return f"waf_fail_closed_{status}"
+    """The fail-closed outcome of one of the engine's own refusals, else None."""
+    return _FAIL_CLOSED.get((response.get("status"), response.get("engine_decision")))
 
 
 class OutcomeError(ValueError):

@@ -17,15 +17,24 @@ classified without guessing:
 Outcome classes in kortex_eval (step-22 close-out). The runner records the
 decision of an engine answer in `engine_decision` (the whole response body
 must be the marker line, with the response's own status in front).
-`kortex_eval.outcome` then classifies the engine's own `413 limit` as
-`waf_fail_closed_413` and its own `415 content-encoding` (step-22 E33) as
-`waf_fail_closed_415`, in blocking and in detection mode. Both are refusals
-by the WAF without inspection, so they are part of the worst case of a rate
-(rules 20, 21), and they are counted apart from `waf_block` (403) because no
-rule matched. A 413 or 415 without the marker is the backend's status and
-stays `waf_pass`; so does every row of a responses.jsonl written before the
-field existed. The 400 framing and 503 timeout/overload answers are not
-reclassified by this change.
+`kortex_eval.outcome` then classifies the engine's own refusals as
+fail-closed outcomes, in blocking and in detection mode:
+
+| engine answer | outcome |
+|---|---|
+| `400 kortex-decision=framing` | `waf_fail_closed_400` |
+| `413 kortex-decision=limit` | `waf_fail_closed_413` |
+| `415 kortex-decision=content-encoding` (step-22 E33) | `waf_fail_closed_415` |
+| `503 kortex-decision=timeout` | `waf_fail_closed_503_timeout` |
+| `503 kortex-decision=overload` | `waf_fail_closed_503_overload` |
+
+All five are refusals by the WAF without a rule decision, so they are part
+of the worst case of a rate (rules 20, 21) and are counted apart from
+`waf_block` (403) and from each other. Overload stays a capacity decision
+(step-17 T3): its own outcome keeps it separable in every table. A 400 with
+decision `block` is a rule deny and stays `waf_deny_status`. The same status
+without the marker is the backend's status and stays `waf_pass`; so does
+every row of a responses.jsonl written before the field existed.
 
 Notes
 

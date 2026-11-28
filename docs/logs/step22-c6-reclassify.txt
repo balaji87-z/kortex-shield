@@ -1,0 +1,36 @@
+# step-22 C6: the four C2 runs classified again with the changed kortex_eval (working tree on 6004f597d1b3a2214a823e09b9c478ed059a9044), 2026-11-28T03:21:39Z
+# inputs: responses.jsonl of each run and its parsed audit.jsonl under out/ (not committed, rule 51); compared with the committed outcomes.jsonl
+$ .venv/bin/python -m kortex_eval.outcome --responses docs/logs/runs/s22-c2-outcomes/benign-wcp-v0-inprocess-pl1/responses.jsonl --audit out/s22-c2-benign-wcp-v0-inprocess-pl1/audit.jsonl --out out/s22-c2-benign-wcp-v0-inprocess-pl1/outcomes-c6.jsonl --engine-mode blocking
+error: 1
+waf_block: 2184
+waf_deny_status: 52
+waf_fail_closed_413: 28
+waf_fail_closed_415: 19
+waf_pass: 17716
+$ cmp out/s22-c2-benign-wcp-v0-inprocess-pl1/outcomes-c6.jsonl docs/logs/runs/s22-c2-outcomes/benign-wcp-v0-inprocess-pl1/outcomes.jsonl; echo "cmp exit=$?"
+cmp exit=0
+$ .venv/bin/python -m kortex_eval.outcome --responses docs/logs/runs/s22-c2-outcomes/benign-wcp-v0-inprocess-pl2/responses.jsonl --audit out/s22-c2-benign-wcp-v0-inprocess-pl2/audit.jsonl --out out/s22-c2-benign-wcp-v0-inprocess-pl2/outcomes-c6.jsonl --engine-mode blocking
+inconsistent samples: wcp-67cb71cd0c38
+error: 1
+inconsistent: 1
+waf_block: 8866
+waf_deny_status: 52
+waf_fail_closed_413: 28
+waf_fail_closed_415: 19
+waf_pass: 11033
+$ cmp out/s22-c2-benign-wcp-v0-inprocess-pl2/outcomes-c6.jsonl docs/logs/runs/s22-c2-outcomes/benign-wcp-v0-inprocess-pl2/outcomes.jsonl; echo "cmp exit=$?"
+cmp exit=0
+$ .venv/bin/python -m kortex_eval.outcome --responses docs/logs/runs/s22-c2-outcomes/benign-wcp-v1-inprocess-pl1/responses.jsonl --audit out/s22-c2-benign-wcp-v1-inprocess-pl1/audit.jsonl --out out/s22-c2-benign-wcp-v1-inprocess-pl1/outcomes-c6.jsonl --engine-mode blocking
+waf_block: 1091
+waf_deny_status: 25
+waf_fail_closed_413: 17
+waf_pass: 8867
+$ cmp out/s22-c2-benign-wcp-v1-inprocess-pl1/outcomes-c6.jsonl docs/logs/runs/s22-c2-outcomes/benign-wcp-v1-inprocess-pl1/outcomes.jsonl; echo "cmp exit=$?"
+cmp exit=0
+$ .venv/bin/python -m kortex_eval.outcome --responses docs/logs/runs/s22-c2-outcomes/benign-wcp-v1-inprocess-pl2/responses.jsonl --audit out/s22-c2-benign-wcp-v1-inprocess-pl2/audit.jsonl --out out/s22-c2-benign-wcp-v1-inprocess-pl2/outcomes-c6.jsonl --engine-mode blocking
+waf_block: 4438
+waf_deny_status: 25
+waf_fail_closed_413: 17
+waf_pass: 5520
+$ cmp out/s22-c2-benign-wcp-v1-inprocess-pl2/outcomes-c6.jsonl docs/logs/runs/s22-c2-outcomes/benign-wcp-v1-inprocess-pl2/outcomes.jsonl; echo "cmp exit=$?"
+cmp exit=0
