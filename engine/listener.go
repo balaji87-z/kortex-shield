@@ -9,6 +9,7 @@ import (
 	"fmt"
 	"io"
 	"net"
+	"strings"
 	"time"
 )
 
@@ -17,6 +18,13 @@ const maxHeadBytes = 65536
 type gatedListener struct {
 	net.Listener
 	gateTimeout time.Duration
+	events      *eventLogger
+}
+
+// newGatedListener is the one place main() and the tests build the gate, so
+// a refusal is logged to the same events file as every other decision.
+func newGatedListener(ln net.Listener, cfg *Config) *gatedListener {
+	return &gatedListener{Listener: ln, gateTimeout: 30 * time.Second, events: newEventLogger(cfg.EventsFile)}
 }
 
 func (l *gatedListener) Accept() (net.Conn, error) {
@@ -25,6 +33,7 @@ func (l *gatedListener) Accept() (net.Conn, error) {
 		if err != nil {
 			return nil, err
 		}
+		start := time.Now()
 		head, err := readHead(conn, l.gateTimeout)
 		if err != nil {
 			conn.Close()
@@ -32,12 +41,37 @@ func (l *gatedListener) Accept() (net.Conn, error) {
 		}
 		res := framingGate(head)
 		if !res.pass {
+			// logged before the answer goes out, so the event exists by the
+			// time the client has read the 400
+			l.events.log(headSampleID(head), "framing", 400, start, res.reason)
 			fmt.Fprint(conn, gateResponse)
 			conn.Close()
 			continue
 		}
 		return &gatedConn{Conn: conn, prefix: head}, nil
 	}
+}
+
+// headSampleID returns the value of the first X-Kortex-Sample-Id header in a
+// raw request head, or "" when there is none. The gate refuses before any
+// HTTP parser runs, so the id has to be read from the raw bytes.
+func headSampleID(head []byte) string {
+	if end := bytes.Index(head, []byte("\r\n\r\n")); end >= 0 {
+		head = head[:end]
+	}
+	for i, line := range strings.Split(string(head), "\r\n") {
+		if i == 0 {
+			continue // request line
+		}
+		col := strings.Index(line, ":")
+		if col < 0 {
+			continue
+		}
+		if strings.EqualFold(strings.TrimSpace(line[:col]), "X-Kortex-Sample-Id") {
+			return strings.TrimSpace(line[col+1:])
+		}
+	}
+	return ""
 }
 
 // readHead reads from conn until the end of the header block (\r\n\r\n) and

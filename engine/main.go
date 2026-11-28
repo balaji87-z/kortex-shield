@@ -58,7 +58,7 @@ func main() {
 	}
 	// the framing gate runs on the first request of every connection; the
 	// handler answers Connection: close so every request is gated
-	if err := srv.Serve(&gatedListener{Listener: ln, gateTimeout: 30 * time.Second}); err != nil {
+	if err := srv.Serve(newGatedListener(ln, cfg)); err != nil {
 		fmt.Fprintf(os.Stderr, "kortex-engine: serve: %v\n", err)
 		os.Exit(2)
 	}

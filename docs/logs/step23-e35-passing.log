@@ -1,0 +1,25 @@
+# step-23 T1: E35/E36 with the fix (working tree on a21491ae190906327c56886bf9314b3fca38aa18), 2026-11-28T03:36:53Z, go version go1.27.4 darwin/arm64
+$ cd engine && GOPROXY=off go test -buildvcs=false -count=1 -v -run "TestE35|TestE36|TestE1Dup|TestE2TE|TestE3Raw" ./...
+=== RUN   TestE1DuplicateContentLengthRejected
+--- PASS: TestE1DuplicateContentLengthRejected (0.06s)
+=== RUN   TestE2TEWithCLRejected
+--- PASS: TestE2TEWithCLRejected (0.01s)
+=== RUN   TestE3RawNulInQueryRejected
+--- PASS: TestE3RawNulInQueryRejected (0.01s)
+=== RUN   TestE35FramingRefusalLogsEvent
+=== RUN   TestE35FramingRefusalLogsEvent/e35-conflict
+=== RUN   TestE35FramingRefusalLogsEvent/e35-duplicate
+=== RUN   TestE35FramingRefusalLogsEvent/e35-te-cl
+=== RUN   TestE35FramingRefusalLogsEvent/e35-nul
+=== RUN   TestE35FramingRefusalLogsEvent/no-sample-id
+--- PASS: TestE35FramingRefusalLogsEvent (0.04s)
+    --- PASS: TestE35FramingRefusalLogsEvent/e35-conflict (0.01s)
+    --- PASS: TestE35FramingRefusalLogsEvent/e35-duplicate (0.01s)
+    --- PASS: TestE35FramingRefusalLogsEvent/e35-te-cl (0.01s)
+    --- PASS: TestE35FramingRefusalLogsEvent/e35-nul (0.01s)
+    --- PASS: TestE35FramingRefusalLogsEvent/no-sample-id (0.01s)
+=== RUN   TestE36PassedRequestWritesNoFramingEvent
+--- PASS: TestE36PassedRequestWritesNoFramingEvent (0.01s)
+PASS
+ok  	kortexshield/engine	0.467s
+# exit status of go test: 0

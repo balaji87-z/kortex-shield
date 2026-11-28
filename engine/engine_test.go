@@ -23,7 +23,6 @@ import (
 	"path/filepath"
 	"strings"
 	"testing"
-	"time"
 )
 
 // stub backend: records that the request REACHED the backend and answers 200.
@@ -67,9 +66,10 @@ func newEnv(t *testing.T, overrides map[string]string) (*httptest.Server, string
 	if err != nil {
 		t.Fatalf("listen: %v", err)
 	}
+	cfg := loadConfig()
 	srv := &httptest.Server{
-		Listener: &gatedListener{Listener: ln, gateTimeout: 30 * time.Second},
-		Config:   &http.Server{Handler: buildHandler(loadConfig())},
+		Listener: newGatedListener(ln, cfg),
+		Config:   &http.Server{Handler: buildHandler(cfg)},
 	}
 	srv.Start()
 	t.Cleanup(srv.Close)
