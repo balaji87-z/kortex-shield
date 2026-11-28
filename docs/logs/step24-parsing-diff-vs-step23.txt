@@ -1,0 +1,47 @@
+# step-24 T3: the 61 parsing-differential cases, step-23 engine (c2b069b) against the step-24 engine (95208d9), case by case
+# .venv/bin/python tools/step24_parsing_compare.py docs/logs/runs/s23-parsing-diff/results.jsonl docs/logs/runs/s24-parsing-diff/results.jsonl
+== cases in both runs: 61; in one run only: 0
+== engine in front of the python backend: answer changed in 17 of 61 cases, unchanged in 44
+   12 x  400 no marker  ->  400 kortex-decision=framing
+   5 x  501 no marker  ->  400 kortex-decision=framing
+   cl-list-same: 400 no marker, no event  ->  400 kortex-decision=framing, event parser:content-length
+   cl-list-conflict: 400 no marker, no event  ->  400 kortex-decision=framing, event parser:content-length
+   cl-plus: 400 no marker, no event  ->  400 kortex-decision=framing, event parser:content-length
+   cl-hex: 400 no marker, no event  ->  400 kortex-decision=framing, event parser:content-length
+   cl-negative: 400 no marker, no event  ->  400 kortex-decision=framing, event parser:content-length
+   cl-empty: 400 no marker, no event  ->  400 kortex-decision=framing, event parser:content-length
+   cl-non-numeric: 400 no marker, no event  ->  400 kortex-decision=framing, event parser:content-length
+   cl-underscore: 400 no marker, no event  ->  400 kortex-decision=framing, event parser:content-length
+   cl-space-before-colon: 400 no marker, no event  ->  400 kortex-decision=framing, event parser:header-name
+   te-dup: 501 no marker, no event  ->  400 kortex-decision=framing, event parser:transfer-encoding
+   te-dup-identity: 501 no marker, no event  ->  400 kortex-decision=framing, event parser:transfer-encoding
+   te-list-identity: 501 no marker, no event  ->  400 kortex-decision=framing, event parser:transfer-encoding
+   te-gzip-chunked: 501 no marker, no event  ->  400 kortex-decision=framing, event parser:transfer-encoding
+   te-xchunked: 501 no marker, no event  ->  400 kortex-decision=framing, event parser:transfer-encoding
+   pct-path-short: 400 no marker, no event  ->  400 kortex-decision=framing, event parser:request-target
+   pct-path-nonhex: 400 no marker, no event  ->  400 kortex-decision=framing, event parser:request-target
+   pct-path-bare: 400 no marker, no event  ->  400 kortex-decision=framing, event parser:request-target
+== disagreement classes against the python backend changed in 0 of 61 cases
+== engine in front of the go backend: answer changed in 17 of 61 cases, unchanged in 44
+   12 x  400 no marker  ->  400 kortex-decision=framing
+   5 x  501 no marker  ->  400 kortex-decision=framing
+   cl-list-same: 400 no marker, no event  ->  400 kortex-decision=framing, event parser:content-length
+   cl-list-conflict: 400 no marker, no event  ->  400 kortex-decision=framing, event parser:content-length
+   cl-plus: 400 no marker, no event  ->  400 kortex-decision=framing, event parser:content-length
+   cl-hex: 400 no marker, no event  ->  400 kortex-decision=framing, event parser:content-length
+   cl-negative: 400 no marker, no event  ->  400 kortex-decision=framing, event parser:content-length
+   cl-empty: 400 no marker, no event  ->  400 kortex-decision=framing, event parser:content-length
+   cl-non-numeric: 400 no marker, no event  ->  400 kortex-decision=framing, event parser:content-length
+   cl-underscore: 400 no marker, no event  ->  400 kortex-decision=framing, event parser:content-length
+   cl-space-before-colon: 400 no marker, no event  ->  400 kortex-decision=framing, event parser:header-name
+   te-dup: 501 no marker, no event  ->  400 kortex-decision=framing, event parser:transfer-encoding
+   te-dup-identity: 501 no marker, no event  ->  400 kortex-decision=framing, event parser:transfer-encoding
+   te-list-identity: 501 no marker, no event  ->  400 kortex-decision=framing, event parser:transfer-encoding
+   te-gzip-chunked: 501 no marker, no event  ->  400 kortex-decision=framing, event parser:transfer-encoding
+   te-xchunked: 501 no marker, no event  ->  400 kortex-decision=framing, event parser:transfer-encoding
+   pct-path-short: 400 no marker, no event  ->  400 kortex-decision=framing, event parser:request-target
+   pct-path-nonhex: 400 no marker, no event  ->  400 kortex-decision=framing, event parser:request-target
+   pct-path-bare: 400 no marker, no event  ->  400 kortex-decision=framing, event parser:request-target
+== disagreement classes against the go backend changed in 0 of 61 cases
+== before: refused with no kortex marker: 17: cl-empty, cl-hex, cl-list-conflict, cl-list-same, cl-negative, cl-non-numeric, cl-plus, cl-space-before-colon, cl-underscore, pct-path-bare, pct-path-nonhex, pct-path-short, te-dup, te-dup-identity, te-gzip-chunked, te-list-identity, te-xchunked
+== after: refused with no kortex marker: 0
