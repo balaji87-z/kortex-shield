@@ -9,6 +9,7 @@ Counts only; no body content is read or emitted (rule 51).
 """
 import json
 import collections
+import gzip
 import os
 
 RUNS = "docs/logs/runs"
@@ -92,6 +93,10 @@ def analyze(run, dataset, label, out):
 def connector_side(run, label, out):
     """detection-involved = connector blocks whose rules include anything but 920420."""
     path = f"{RUNS}/{run}/audit.jsonl"
+    opener = open
+    if not os.path.exists(path) and os.path.exists(path + ".gz"):
+        # preserve_run.sh stores files over 5 MB gzip-compressed
+        path, opener = path + ".gz", lambda p: gzip.open(p, "rt")
     if not os.path.exists(path):
         out.write(f"\n== {label}: audit.jsonl missing -> NOT MEASURED\n")
         return
@@ -100,7 +105,7 @@ def connector_side(run, label, out):
     det = 0
     famcnt = collections.Counter()
     rulecnt = collections.Counter()
-    for line in open(path):
+    for line in opener(path):
         d = json.loads(line)
         n += 1
         st = d.get("status")

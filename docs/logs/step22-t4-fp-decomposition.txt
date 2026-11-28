@@ -37,13 +37,17 @@ denominator: body-less=7296 body-bearing=2704
 connector family hits: rce=1371, sqli=1077, protocol=1020, other=556, xss=349
 connector top 10: 932370=424, 921150=379, 942550=364, 920270=275, 932130=274, 942100=224, 942190=177, 942290=166, 932235=166, 943110=160
 
-== connector v0 PL2: audit.jsonl missing -> NOT MEASURED
+== connector v0 PL2: n=9013 403-blocks=9013 detection-involved=8865 (920420-only blocks=148)
+connector family hits: sqli=23509, other=5941, rce=5655, protocol=3544, xss=2020
+connector top 10: 931130=5114, 942430=4828, 942200=4240, 942370=3239, 942340=3102, 942330=1904, 920230=1688, 932200=1589, 942520=1078, 942120=1024
 
 == connector v1 PL1: n=1898 403-blocks=1898 detection-involved=1070 (920420-only blocks=828)
 connector family hits: rce=667, sqli=540, protocol=531, other=255, xss=133
 connector top 10: 942550=217, 932370=202, 921150=186, 920270=151, 932130=148, 942100=117, 942190=88, 932235=73, 943110=63, 941100=61
 
-== connector v1 PL2: audit.jsonl missing -> NOT MEASURED
+== connector v1 PL2: n=4510 403-blocks=4510 detection-involved=4437 (920420-only blocks=73)
+connector family hits: sqli=11428, other=2985, rce=2743, protocol=1794, xss=975
+connector top 10: 931130=2573, 942430=2377, 942200=2054, 942370=1556, 942340=1464, 942330=931, 920230=843, 932200=792, 942120=528, 942520=494
 
 == REQUEST_BODY-target attribution (v1, step-19 pre vs post r1)
 PL1: pre_blocked=1064 post_blocked=1092 new_in_post=28 gone_in_post=0
