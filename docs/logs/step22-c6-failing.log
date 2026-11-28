@@ -1,0 +1,124 @@
+# step-22 C6 tests before the implementation, at d1712c7c2ff3f19b08b65c817ccaa4a7fa5a3883 plus the new tests, 2026-11-28T03:19:28Z
+$ .venv/bin/python -m pytest -q tests/test_outcome.py tests/test_runner.py tests/test_step22_tools.py
+........ss..s........F......FFFFFFFF....F..........................F.... [ 88%]
+........F                                                                [100%]
+=================================== FAILURES ===================================
+_________ test_fail_closed_outcomes_are_named_and_distinct_from_block __________
+>       assert outcome.FAIL_CLOSED_OUTCOMES == (
+E       AssertionError: assert ('waf_fail_cl...l_closed_415') == ('waf_fail_cl..._503_timeout')
+E         
+E         At index 0 diff: 'waf_fail_closed_413' != 'waf_fail_closed_400'
+E         Right contains 3 more items, first extra item: 'waf_fail_closed_415'
+E         Use -v to get more diff
+tests/test_outcome.py:223: AssertionError
+_ test_engine_400_framing_and_503_are_fail_closed_not_waf_pass[400-framing-waf_fail_closed_400-blocking] _
+mode = 'blocking', status = 400, decision = 'framing'
+want = 'waf_fail_closed_400'
+>       assert outcome.classify(engine_resp("a", status, decision), None, mode) == want
+E       AssertionError: assert 'waf_pass' == 'waf_fail_closed_400'
+E         
+E         - waf_fail_closed_400
+E         + waf_pass
+tests/test_outcome.py:297: AssertionError
+_ test_engine_400_framing_and_503_are_fail_closed_not_waf_pass[400-framing-waf_fail_closed_400-detection] _
+mode = 'detection', status = 400, decision = 'framing'
+want = 'waf_fail_closed_400'
+>       assert outcome.classify(engine_resp("a", status, decision), None, mode) == want
+E       AssertionError: assert 'waf_pass' == 'waf_fail_closed_400'
+E         
+E         - waf_fail_closed_400
+E         + waf_pass
+tests/test_outcome.py:297: AssertionError
+_ test_engine_400_framing_and_503_are_fail_closed_not_waf_pass[503-timeout-waf_fail_closed_503_timeout-blocking] _
+mode = 'blocking', status = 503, decision = 'timeout'
+want = 'waf_fail_closed_503_timeout'
+>       assert outcome.classify(engine_resp("a", status, decision), None, mode) == want
+E       AssertionError: assert 'waf_pass' == 'waf_fail_closed_503_timeout'
+E         
+E         - waf_fail_closed_503_timeout
+E         + waf_pass
+tests/test_outcome.py:297: AssertionError
+_ test_engine_400_framing_and_503_are_fail_closed_not_waf_pass[503-timeout-waf_fail_closed_503_timeout-detection] _
+mode = 'detection', status = 503, decision = 'timeout'
+want = 'waf_fail_closed_503_timeout'
+>       assert outcome.classify(engine_resp("a", status, decision), None, mode) == want
+E       AssertionError: assert 'waf_pass' == 'waf_fail_closed_503_timeout'
+E         
+E         - waf_fail_closed_503_timeout
+E         + waf_pass
+tests/test_outcome.py:297: AssertionError
+_ test_engine_400_framing_and_503_are_fail_closed_not_waf_pass[503-overload-waf_fail_closed_503_overload-blocking] _
+mode = 'blocking', status = 503, decision = 'overload'
+want = 'waf_fail_closed_503_overload'
+>       assert outcome.classify(engine_resp("a", status, decision), None, mode) == want
+E       AssertionError: assert 'waf_pass' == 'waf_fail_closed_503_overload'
+E         
+E         - waf_fail_closed_503_overload
+E         + waf_pass
+tests/test_outcome.py:297: AssertionError
+_ test_engine_400_framing_and_503_are_fail_closed_not_waf_pass[503-overload-waf_fail_closed_503_overload-detection] _
+mode = 'detection', status = 503, decision = 'overload'
+want = 'waf_fail_closed_503_overload'
+>       assert outcome.classify(engine_resp("a", status, decision), None, mode) == want
+E       AssertionError: assert 'waf_pass' == 'waf_fail_closed_503_overload'
+E         
+E         - waf_fail_closed_503_overload
+E         + waf_pass
+tests/test_outcome.py:297: AssertionError
+___ test_503_timeout_is_fail_closed_whatever_the_audit_entry_says[blocking] ____
+mode = 'blocking'
+>           assert outcome.classify(
+E           AssertionError: assert 'waf_pass' == 'waf_fail_closed_503_timeout'
+E             
+E             - waf_fail_closed_503_timeout
+E             + waf_pass
+tests/test_outcome.py:305: AssertionError
+___ test_503_timeout_is_fail_closed_whatever_the_audit_entry_says[detection] ___
+mode = 'detection'
+>           assert outcome.classify(
+E           AssertionError: assert 'waf_pass' == 'waf_fail_closed_503_timeout'
+E             
+E             - waf_fail_closed_503_timeout
+E             + waf_pass
+tests/test_outcome.py:305: AssertionError
+__________ test_cli_counts_400_and_503_fail_closed_on_their_own_lines __________
+tmp_path = PosixPath('/private/var/folders/nq/sk_8btb16995njvp54fs72180000gs/T/pytest-of-ivan/pytest-31/test_cli_counts_400_and_503_fa0')
+>       assert proc.stdout.splitlines() == [
+E       AssertionError: assert ['waf_block: ...'waf_pass: 6'] == ['waf_block: ...'waf_pass: 2']
+E         
+E         At index 1 diff: 'waf_fail_closed_413: 1' != 'waf_fail_closed_400: 1'
+E         Right contains 3 more items, first extra item: 'waf_fail_closed_503_overload: 1'
+E         Use -v to get more diff
+tests/test_outcome.py:352: AssertionError
+_________ test_runner_rows_classify_400_framing_and_503_as_fail_closed _________
+tmp_path = PosixPath('/private/var/folders/nq/sk_8btb16995njvp54fs72180000gs/T/pytest-of-ivan/pytest-31/test_runner_rows_classify_400_0')
+fake_server = <http.server.ThreadingHTTPServer object at 0x10b84c4d0>
+>       assert {r["id"]: r["outcome"] for r in classified} == {
+E       AssertionError: assert {'k-framing':...af_pass', ...} == {'k-framing':...af_pass', ...}
+E         
+E         Omitting 2 identical items, use -vv to show
+E         Differing items:
+E         {'k-timeout': 'waf_pass'} != {'k-timeout': 'waf_fail_closed_503_timeout'}
+E         {'k-framing': 'waf_pass'} != {'k-framing': 'waf_fail_closed_400'}
+E         {'k-overload': 'waf_pass'} != {'k-overload': 'waf_fail_closed_503_overload'}
+E         Use -v to get more diff
+tests/test_runner.py:425: AssertionError
+_______ test_t3_summary_counts_400_and_503_fail_closed_in_the_worst_case _______
+>       assert "waf_fail_closed_400=2 waf_fail_closed_503_timeout=5 waf_fail_closed_503_overload=6 " in first
+E       AssertionError: assert 'waf_fail_closed_400=2 waf_fail_closed_503_timeout=5 waf_fail_closed_503_overload=6 ' in 'benign-wcp-v0 PL2 worker: n=100 waf_block=10 waf_deny_status=2 inconsistent=1 error=1 waf_fail_closed_413=4 waf_fail_closed_415=3 waf_pass=66 other=13'
+tests/test_step22_tools.py:196: AssertionError
+=========================== short test summary info ============================
+FAILED tests/test_outcome.py::test_fail_closed_outcomes_are_named_and_distinct_from_block
+FAILED tests/test_outcome.py::test_engine_400_framing_and_503_are_fail_closed_not_waf_pass[400-framing-waf_fail_closed_400-blocking]
+FAILED tests/test_outcome.py::test_engine_400_framing_and_503_are_fail_closed_not_waf_pass[400-framing-waf_fail_closed_400-detection]
+FAILED tests/test_outcome.py::test_engine_400_framing_and_503_are_fail_closed_not_waf_pass[503-timeout-waf_fail_closed_503_timeout-blocking]
+FAILED tests/test_outcome.py::test_engine_400_framing_and_503_are_fail_closed_not_waf_pass[503-timeout-waf_fail_closed_503_timeout-detection]
+FAILED tests/test_outcome.py::test_engine_400_framing_and_503_are_fail_closed_not_waf_pass[503-overload-waf_fail_closed_503_overload-blocking]
+FAILED tests/test_outcome.py::test_engine_400_framing_and_503_are_fail_closed_not_waf_pass[503-overload-waf_fail_closed_503_overload-detection]
+FAILED tests/test_outcome.py::test_503_timeout_is_fail_closed_whatever_the_audit_entry_says[blocking]
+FAILED tests/test_outcome.py::test_503_timeout_is_fail_closed_whatever_the_audit_entry_says[detection]
+FAILED tests/test_outcome.py::test_cli_counts_400_and_503_fail_closed_on_their_own_lines
+FAILED tests/test_runner.py::test_runner_rows_classify_400_framing_and_503_as_fail_closed
+FAILED tests/test_step22_tools.py::test_t3_summary_counts_400_and_503_fail_closed_in_the_worst_case
+12 failed, 66 passed, 3 skipped in 47.67s
+# exit status of pytest: 1

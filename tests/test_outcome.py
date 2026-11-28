@@ -220,7 +220,9 @@ def test_engine_415_content_encoding_is_fail_closed_not_waf_pass(mode):
 
 
 def test_fail_closed_outcomes_are_named_and_distinct_from_block():
-    assert outcome.FAIL_CLOSED_OUTCOMES == ("waf_fail_closed_413", "waf_fail_closed_415")
+    assert outcome.FAIL_CLOSED_OUTCOMES == (
+        "waf_fail_closed_400", "waf_fail_closed_413", "waf_fail_closed_415",
+        "waf_fail_closed_503_overload", "waf_fail_closed_503_timeout")
     assert "waf_block" not in outcome.FAIL_CLOSED_OUTCOMES
 
 
@@ -281,3 +283,77 @@ def test_cli_counts_413_and_415_separately_from_403(tmp_path):
     assert by_id == {"blk": "waf_block", "big-1": "waf_fail_closed_413",
                      "big-2": "waf_fail_closed_413", "gzip-1": "waf_fail_closed_415",
                      "ok": "waf_pass", "app-413": "waf_pass"}
+
+
+# ---------- engine fail-closed answers: 400 framing, 503 timeout, 503 overload ----------
+
+@pytest.mark.parametrize("mode", ["blocking", "detection"])
+@pytest.mark.parametrize("status,decision,want", [
+    (400, "framing", "waf_fail_closed_400"),
+    (503, "timeout", "waf_fail_closed_503_timeout"),
+    (503, "overload", "waf_fail_closed_503_overload"),
+])
+def test_engine_400_framing_and_503_are_fail_closed_not_waf_pass(mode, status, decision, want):
+    assert outcome.classify(engine_resp("a", status, decision), None, mode) == want
+
+
+@pytest.mark.parametrize("mode", ["blocking", "detection"])
+def test_503_timeout_is_fail_closed_whatever_the_audit_entry_says(mode):
+    # a timeout may have spent engine time and left an audit entry; the answer
+    # the client got is still the engine's refusal, not a rule decision
+    for score in (3, 20):
+        assert outcome.classify(
+            engine_resp("a", 503, "timeout"), audit("a", score), mode) == "waf_fail_closed_503_timeout"
+
+
+@pytest.mark.parametrize("mode", ["blocking", "detection"])
+def test_400_and_503_without_the_engine_marker_stay_waf_pass(mode):
+    for status in (400, 503):
+        assert outcome.classify(resp("a", status), None, mode) == "waf_pass"
+        assert outcome.classify(engine_resp("b", status, None), None, mode) == "waf_pass"
+
+
+def test_400_and_503_decisions_must_match_their_status():
+    assert outcome.classify(engine_resp("a", 400, "timeout"), None, "blocking") == "waf_pass"
+    assert outcome.classify(engine_resp("b", 503, "framing"), None, "blocking") == "waf_pass"
+    assert outcome.classify(engine_resp("c", 503, "limit"), None, "blocking") == "waf_pass"
+
+
+def test_engine_400_block_with_a_deny_rule_is_still_waf_deny_status():
+    # body-parser deny (rule id starting with 2) answered 400 with decision "block"
+    entry = {"sample_id": "a", "status": 400, "inbound_score_from_949110": None,
+             "inbound_score_from_severities": 0, "score_mismatch": False,
+             "rules": [{"id": "200002", "message": "x", "severity": "2"}]}
+    assert outcome.classify(engine_resp("a", 400, "block"), entry, "blocking") == "waf_deny_status"
+
+
+def test_cli_counts_400_and_503_fail_closed_on_their_own_lines(tmp_path):
+    blocked = engine_resp("blk", 403, "block")
+    blocked["blocked"] = blocked["body_marker"] = True
+    responses = [
+        blocked,
+        engine_resp("frm", 400, "framing"),
+        engine_resp("slow-1", 503, "timeout"),
+        engine_resp("slow-2", 503, "timeout"),
+        engine_resp("full", 503, "overload"),
+        engine_resp("big", 413, "limit"),
+        engine_resp("ok", 200, None),
+        resp("app-503", 503),
+    ]
+    rpath, apath, opath = tmp_path / "responses.jsonl", tmp_path / "audit.jsonl", tmp_path / "outcomes.jsonl"
+    rpath.write_text("".join(json.dumps(r) + "\n" for r in responses), encoding="utf-8")
+    apath.write_text(json.dumps(audit("blk", 20)) + "\n", encoding="utf-8")
+    proc = subprocess.run(
+        [sys.executable, "-m", "kortex_eval.outcome", "--responses", str(rpath),
+         "--audit", str(apath), "--out", str(opath), "--engine-mode", "blocking"],
+        capture_output=True, text=True, cwd=ROOT,
+    )
+    assert proc.returncode == 0, proc.stderr
+    assert proc.stdout.splitlines() == [
+        "waf_block: 1",
+        "waf_fail_closed_400: 1",
+        "waf_fail_closed_413: 1",
+        "waf_fail_closed_503_overload: 1",
+        "waf_fail_closed_503_timeout: 2",
+        "waf_pass: 2",
+    ]

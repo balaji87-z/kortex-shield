@@ -402,3 +402,30 @@ def test_runner_rows_classify_413_415_as_fail_closed(tmp_path, fake_server):
     assert by_id["k-encoding"] == "waf_fail_closed_415"
     for sid in ("app-413", "app-415", "quoted", "wrong-status", "clean"):
         assert by_id[sid] == "waf_pass", sid
+
+
+def test_runner_rows_classify_400_framing_and_503_as_fail_closed(tmp_path, fake_server):
+    from kortex_eval import outcome
+    routes = {
+        "/k-framing": (400, "400 kortex-decision=framing\n"),
+        "/k-timeout": (503, "503 kortex-decision=timeout\n"),
+        "/k-overload": (503, "503 kortex-decision=overload\n"),
+        "/app-400": (400, '{"error":"bad request"}'),
+        "/app-503": (503, "<html><body>Service Unavailable</body></html>"),
+    }
+    FakeWaf.routes.update(routes)
+    samples = [sample(id=path.strip("/"), path=path) for path in routes]
+    runner.run(samples, f"http://127.0.0.1:{fake_server.server_port}", tmp_path / "run",
+               block_marker="kortex-decision=block", workers=1)
+    rows = read_jsonl(tmp_path / "run" / "responses.jsonl")
+    decisions = {r["id"]: r["engine_decision"] for r in rows}
+    assert decisions == {"k-framing": "framing", "k-timeout": "timeout", "k-overload": "overload",
+                         "app-400": None, "app-503": None}
+    classified, _ = outcome.classify_all(rows, [], "blocking")
+    assert {r["id"]: r["outcome"] for r in classified} == {
+        "k-framing": "waf_fail_closed_400",
+        "k-timeout": "waf_fail_closed_503_timeout",
+        "k-overload": "waf_fail_closed_503_overload",
+        "app-400": "waf_pass",
+        "app-503": "waf_pass",
+    }

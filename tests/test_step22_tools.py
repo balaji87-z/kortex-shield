@@ -182,3 +182,18 @@ def test_worst_case_breakdown_gives_every_sample_one_class():
     assert "run: n=11 worst case 9/11" in text
     assert "check: worst case + pass 200 + other = 11 of 11" in text
     assert "classified waf_pass by the outcomes file of this run: 3 [400 framing=1, 503 timeout=1, 503 overload=1]" in text
+
+
+def test_t3_summary_counts_400_and_503_fail_closed_in_the_worst_case():
+    import collections
+    t3 = load("step22_t3_summary")
+    oc = collections.Counter({"waf_block": 10, "waf_deny_status": 2, "inconsistent": 1, "error": 1,
+                              "waf_fail_closed_413": 4, "waf_fail_closed_415": 3,
+                              "waf_fail_closed_400": 2, "waf_fail_closed_503_timeout": 5,
+                              "waf_fail_closed_503_overload": 6, "waf_pass": 66})
+    first, second = t3.rate_lines("benign-wcp-v0", 2, "worker", oc, 100)
+    assert "waf_fail_closed_413=4 waf_fail_closed_415=3 " in first
+    assert "waf_fail_closed_400=2 waf_fail_closed_503_timeout=5 waf_fail_closed_503_overload=6 " in first
+    assert "waf_pass=66 other=0" in first
+    assert "10/100 = 10.00%" in second
+    assert "worst case (all flagged) 34/100 = 34.00%" in second
