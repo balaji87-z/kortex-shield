@@ -1,0 +1,65 @@
+== step-22 flip_repro DIAGNOSTIC positive control (coraza370), 2026-11-28T02:54:02Z, macOS 27.0 Darwin 27.0.0 arm64, go version go1.27.4 darwin/arm64, Python 3.15.2
+== git 457de00facc46a15736f9cbcb62562fa9d3b9e8c, engine/ paths changed in the working tree: 0
+== require github.com/corazawaf/coraza/v3 v3.8.1; github.com/corazawaf/libinjection-go v0.3.3 // indirect;
+== manifest /Users/ivan/work/kortex-shield-dev/data/benign-wcp-v0/manifest.jsonl sha256 c8ce11f26406df96d55e5a1cc6186bcbf648cb29bd628081dd834c6ccf1329d1 (frozen: c8ce11f26406df96d55e5a1cc6186bcbf648cb29bd628081dd834c6ccf1329d1)
+== DIAGNOSTIC scratch engine sha256 184d29236b33dd1da5ce7dd7c035586b31097b15335b2ce02b260834017ac38f; .go files that differ from engine/: 0; diff of go.mod against engine/go.mod:
+5c5
+< require github.com/corazawaf/coraza/v3 v3.8.1
+---
+> require github.com/corazawaf/coraza/v3 v3.7.0
+== stub backend tools/stub_backend.py on 127.0.0.1:13004; pl=2 rounds=500 reps=5 hosts=localhost 127.0.0.1
+== flip-pl2-DIAGNOSTIC-coraza370-localhost rule29 2026-11-28T02:54:04Z load: load averages: 5.54 5.85 5.02: {"backend_url":"http://127.0.0.1:13004","rule_engine":"On","blocking_paranoia":2,"detection_paranoia":2,"max_body_bytes":13107200,"max_inspected_bytes":131072,"engine_time_budget_ms":2000,"rules_dir":"/Users/ivan/work/kortex-shield-work/engine/crs","listen_addr":"127.0.0.1:8093","events_file":"/Users/ivan/work/kortex-shield-work/out/s22-flip-pl2-DIAGNOSTIC-coraza370-localhost.events.jsonl","audit_log":"/Users/ivan/work/kortex-shield-work/out/s22-flip-pl2-DIAGNOSTIC-coraza370-localhost.audit.log","allowed_methods":"GET HEAD POST OPTIONS","max_inflight_body":8,"max_inflight_body_large":2,"body_lane_threshold":65536,"worker_mode":false,"client_max_inflight":0,"client_max_inflight_small":4,"client_max_inflight_large":1,"request_body_target_updates":166}
+== host localhost: load at start: load averages: 5.54 5.85 5.02
+host=localhost rep=1 :: rounds=500 flip_rounds=175 flips/round=0.3500 per_sample={'wcp-62cd1bd36bf7': 90, 'wcp-b6f2246ef4b8': 98} wall_s=3.8
+host=localhost rep=2 :: rounds=500 flip_rounds=170 flips/round=0.3400 per_sample={'wcp-62cd1bd36bf7': 78, 'wcp-b6f2246ef4b8': 103} wall_s=3.7
+host=localhost rep=3 :: rounds=500 flip_rounds=144 flips/round=0.2880 per_sample={'wcp-62cd1bd36bf7': 73, 'wcp-b6f2246ef4b8': 85} wall_s=3.7
+host=localhost rep=4 :: rounds=500 flip_rounds=153 flips/round=0.3060 per_sample={'wcp-62cd1bd36bf7': 79, 'wcp-b6f2246ef4b8': 91} wall_s=3.7
+host=localhost rep=5 :: rounds=500 flip_rounds=166 flips/round=0.3320 per_sample={'wcp-62cd1bd36bf7': 83, 'wcp-b6f2246ef4b8': 94} wall_s=3.7
+== host localhost: load at end: load averages: 7.14 6.19 5.17
+== host localhost: engine stats at end: {"inflight_small":0,"inflight_large":0,"abandoned_running":0,"kills":0,"overloads":0,"refused_before_inspection":0,"penalised_clients":0,"client_inflight_small":0,"client_inflight_large":0,"workers":{"pool":0,"busy":0,"spares":0,"recycled":0}}
+== host localhost: audit entries 4126 in out/s22-flip-pl2-DIAGNOSTIC-coraza370-localhost.audit.log (not committed, rule 51)
+== flip-pl2-DIAGNOSTIC-coraza370-127.0.0.1 rule29 2026-11-28T02:54:26Z load: load averages: 7.14 6.19 5.17: {"backend_url":"http://127.0.0.1:13004","rule_engine":"On","blocking_paranoia":2,"detection_paranoia":2,"max_body_bytes":13107200,"max_inspected_bytes":131072,"engine_time_budget_ms":2000,"rules_dir":"/Users/ivan/work/kortex-shield-work/engine/crs","listen_addr":"127.0.0.1:8093","events_file":"/Users/ivan/work/kortex-shield-work/out/s22-flip-pl2-DIAGNOSTIC-coraza370-127.0.0.1.events.jsonl","audit_log":"/Users/ivan/work/kortex-shield-work/out/s22-flip-pl2-DIAGNOSTIC-coraza370-127.0.0.1.audit.log","allowed_methods":"GET HEAD POST OPTIONS","max_inflight_body":8,"max_inflight_body_large":2,"body_lane_threshold":65536,"worker_mode":false,"client_max_inflight":0,"client_max_inflight_small":4,"client_max_inflight_large":1,"request_body_target_updates":166}
+== host 127.0.0.1: load at start: load averages: 7.14 6.19 5.17
+host=127.0.0.1 rep=1 :: rounds=500 flip_rounds=123 flips/round=0.2460 per_sample={'wcp-62cd1bd36bf7': 32, 'wcp-b6f2246ef4b8': 100} wall_s=2.8
+host=127.0.0.1 rep=2 :: rounds=500 flip_rounds=129 flips/round=0.2580 per_sample={'wcp-62cd1bd36bf7': 34, 'wcp-b6f2246ef4b8': 97} wall_s=2.7
+host=127.0.0.1 rep=3 :: rounds=500 flip_rounds=137 flips/round=0.2740 per_sample={'wcp-62cd1bd36bf7': 30, 'wcp-b6f2246ef4b8': 115} wall_s=2.8
+host=127.0.0.1 rep=4 :: rounds=500 flip_rounds=130 flips/round=0.2600 per_sample={'wcp-62cd1bd36bf7': 24, 'wcp-b6f2246ef4b8': 108} wall_s=2.8
+host=127.0.0.1 rep=5 :: rounds=500 flip_rounds=108 flips/round=0.2160 per_sample={'wcp-62cd1bd36bf7': 26, 'wcp-b6f2246ef4b8': 86} wall_s=2.8
+== host 127.0.0.1: load at end: load averages: 5.86 5.95 5.10
+== host 127.0.0.1: engine stats at end: {"inflight_small":0,"inflight_large":0,"abandoned_running":0,"kills":0,"overloads":0,"refused_before_inspection":0,"penalised_clients":0,"client_inflight_small":0,"client_inflight_large":0,"workers":{"pool":0,"busy":0,"spares":0,"recycled":0}}
+== host 127.0.0.1: audit entries 4348 in out/s22-flip-pl2-DIAGNOSTIC-coraza370-127.0.0.1.audit.log (not committed, rule 51)
+
+== summary: answers by status, per repeat (a flip is a 200; rule 20: every request counted)
+host=localhost rep=1: rounds=500 rounds with a 200 (flip)=175 flips/round=0.3500 statuses={'200': 188, '403': 812}
+host=localhost rep=2: rounds=500 rounds with a 200 (flip)=170 flips/round=0.3400 statuses={'200': 181, '403': 819}
+host=localhost rep=3: rounds=500 rounds with a 200 (flip)=144 flips/round=0.2880 statuses={'200': 158, '403': 842}
+host=localhost rep=4: rounds=500 rounds with a 200 (flip)=153 flips/round=0.3060 statuses={'200': 170, '403': 830}
+host=localhost rep=5: rounds=500 rounds with a 200 (flip)=166 flips/round=0.3320 statuses={'200': 177, '403': 823}
+host=localhost all repeats: rounds=2500 rounds with a flip=808 flips/round=0.3232 statuses={'200': 874, '403': 4126}
+host=localhost engine events (no sample id): 1 distinct (decision, status, rule ids)
+    x1: pass 0 forwarding
+host=localhost engine events wcp-62cd1bd36bf7-fliprepro: 4 distinct (decision, status, rule ids)
+    x1715: block 403 rules=900000,900001,900110,900990,900200,901111,901115,901130,901140,901141,901142,901143,901162,901168,901163,901164,901165,901171,901510,901167,901169,901170,901180,901200,901340,901400,911015,913015,920015,921015,930015,931015,932015,933015,934015,941010,941015,942015,943015,944015,949052,949152,949053,949153,949015,980015,901181,911016,913016,920016,921016,930016,931016,932016,933016,934016,941016,942370,942430,942016,943016,944016,949059,949159,949060,949160,949061,949161,949110
+    x403: pass 0 forwarding
+    x321: block 403 rules=900000,900001,900110,900990,900200,901111,901115,901130,901140,901141,901142,901143,901162,901168,901163,901164,901165,901171,901510,901167,901169,901170,901180,901200,901340,901400,911015,913015,920015,921015,930015,931015,932015,933015,934015,941010,941015,942015,943015,944015,949052,949152,949053,949153,949015,980015,901181,911016,913016,920016,921016,930016,931016,932016,933016,934016,941016,942370,942016,943016,944016,949059,949159,949060,949160,949061,949161,949110
+    x61: block 403 rules=900000,900001,900110,900990,900200,901111,901115,901130,901140,901141,901142,901143,901162,901168,901163,901164,901165,901171,901510,901167,901169,901170,901180,901200,901340,901400,911015,913015,920015,921015,930015,931015,932015,933015,934015,941010,941015,942015,943015,944015,949052,949152,949053,949153,949015,980015,901181,911016,913016,920016,921016,930016,931016,932016,933016,934016,941016,942430,942016,943016,944016,949059,949159,949060,949160,949061,949161,949110
+host=localhost engine events wcp-b6f2246ef4b8-fliprepro: 2 distinct (decision, status, rule ids)
+    x2029: block 403 rules=900000,900001,900110,900990,900200,901111,901115,901130,901140,901141,901142,901143,901162,901168,901163,901164,901165,901171,901510,901167,901169,901170,901180,901200,901340,901400,911015,913015,920015,921015,930015,931015,932015,933015,934015,941010,941015,942015,943015,944015,949052,949152,949053,949153,949015,980015,901181,911016,913016,920016,921016,930016,931016,932016,933016,934016,941016,942370,942016,943016,944016,949059,949159,949060,949160,949061,949161,949110
+    x471: pass 0 forwarding
+host=127.0.0.1 rep=1: rounds=500 rounds with a 200 (flip)=123 flips/round=0.2460 statuses={'200': 132, '403': 868}
+host=127.0.0.1 rep=2: rounds=500 rounds with a 200 (flip)=129 flips/round=0.2580 statuses={'200': 131, '403': 869}
+host=127.0.0.1 rep=3: rounds=500 rounds with a 200 (flip)=137 flips/round=0.2740 statuses={'200': 145, '403': 855}
+host=127.0.0.1 rep=4: rounds=500 rounds with a 200 (flip)=130 flips/round=0.2600 statuses={'200': 132, '403': 868}
+host=127.0.0.1 rep=5: rounds=500 rounds with a 200 (flip)=108 flips/round=0.2160 statuses={'200': 112, '403': 888}
+host=127.0.0.1 all repeats: rounds=2500 rounds with a flip=627 flips/round=0.2508 statuses={'200': 652, '403': 4348}
+host=127.0.0.1 engine events (no sample id): 1 distinct (decision, status, rule ids)
+    x1: pass 0 forwarding
+host=127.0.0.1 engine events wcp-62cd1bd36bf7-fliprepro: 4 distinct (decision, status, rule ids)
+    x1768: block 403 rules=900000,900001,900110,900990,900200,901111,901115,901130,901140,901141,901142,901143,901162,901168,901163,901164,901165,901171,901510,901167,901169,901170,901180,901200,901340,901400,911015,913015,920350,920015,921015,930015,931015,932015,933015,934015,941010,941015,942015,943015,944015,949052,949152,949053,949153,949015,980015,901181,911016,913016,920016,921016,930016,931016,932016,933016,934016,941016,942370,942430,942016,943016,944016,949059,949159,949060,949160,949061,949161,949110
+    x304: block 403 rules=900000,900001,900110,900990,900200,901111,901115,901130,901140,901141,901142,901143,901162,901168,901163,901164,901165,901171,901510,901167,901169,901170,901180,901200,901340,901400,911015,913015,920350,920015,921015,930015,931015,932015,933015,934015,941010,941015,942015,943015,944015,949052,949152,949053,949153,949015,980015,901181,911016,913016,920016,921016,930016,931016,932016,933016,934016,941016,942430,942016,943016,944016,949059,949159,949060,949160,949061,949161,949110
+    x282: block 403 rules=900000,900001,900110,900990,900200,901111,901115,901130,901140,901141,901142,901143,901162,901168,901163,901164,901165,901171,901510,901167,901169,901170,901180,901200,901340,901400,911015,913015,920350,920015,921015,930015,931015,932015,933015,934015,941010,941015,942015,943015,944015,949052,949152,949053,949153,949015,980015,901181,911016,913016,920016,921016,930016,931016,932016,933016,934016,941016,942370,942016,943016,944016,949059,949159,949060,949160,949061,949161,949110
+    x146: pass 0 forwarding
+host=127.0.0.1 engine events wcp-b6f2246ef4b8-fliprepro: 2 distinct (decision, status, rule ids)
+    x1994: block 403 rules=900000,900001,900110,900990,900200,901111,901115,901130,901140,901141,901142,901143,901162,901168,901163,901164,901165,901171,901510,901167,901169,901170,901180,901200,901340,901400,911015,913015,920350,920015,921015,930015,931015,932015,933015,934015,941010,941015,942015,943015,944015,949052,949152,949053,949153,949015,980015,901181,911016,913016,920016,921016,930016,931016,932016,933016,934016,941016,942370,942016,943016,944016,949059,949159,949060,949160,949061,949161,949110
+    x506: pass 0 forwarding
+FLIP-DONE
