@@ -1,0 +1,55 @@
+# step-23 T3: E40/E41 before the implementation, at 41b6035d91eb910b719f68b03e486e6f71588e0f plus the new tests, 2026-11-28T03:44:54Z, go version go1.27.4 darwin/arm64
+$ cd engine && GOPROXY=off go test -buildvcs=false -count=1 -v -run "TestE40|TestE41" ./...
+=== RUN   TestE40CompressedLookingBodyIsLoggedNeverBlocked
+=== RUN   TestE40CompressedLookingBodyIsLoggedNeverBlocked/blocking/gzip
+    step23_test.go:425: E40: want exactly one compressed-body event of kind "gzip", got []
+=== RUN   TestE40CompressedLookingBodyIsLoggedNeverBlocked/blocking/zlib-7801
+    step23_test.go:425: E40: want exactly one compressed-body event of kind "zlib", got []
+=== RUN   TestE40CompressedLookingBodyIsLoggedNeverBlocked/blocking/zlib-785e
+    step23_test.go:425: E40: want exactly one compressed-body event of kind "zlib", got []
+=== RUN   TestE40CompressedLookingBodyIsLoggedNeverBlocked/blocking/zlib-789c
+    step23_test.go:425: E40: want exactly one compressed-body event of kind "zlib", got []
+=== RUN   TestE40CompressedLookingBodyIsLoggedNeverBlocked/blocking/zlib-78da
+    step23_test.go:425: E40: want exactly one compressed-body event of kind "zlib", got []
+=== RUN   TestE40CompressedLookingBodyIsLoggedNeverBlocked/detection-only/gzip
+    step23_test.go:425: E40: want exactly one compressed-body event of kind "gzip", got []
+=== RUN   TestE40CompressedLookingBodyIsLoggedNeverBlocked/detection-only/zlib-7801
+    step23_test.go:425: E40: want exactly one compressed-body event of kind "zlib", got []
+=== RUN   TestE40CompressedLookingBodyIsLoggedNeverBlocked/detection-only/zlib-785e
+    step23_test.go:425: E40: want exactly one compressed-body event of kind "zlib", got []
+=== RUN   TestE40CompressedLookingBodyIsLoggedNeverBlocked/detection-only/zlib-789c
+    step23_test.go:425: E40: want exactly one compressed-body event of kind "zlib", got []
+=== RUN   TestE40CompressedLookingBodyIsLoggedNeverBlocked/detection-only/zlib-78da
+    step23_test.go:425: E40: want exactly one compressed-body event of kind "zlib", got []
+=== RUN   TestE40CompressedLookingBodyIsLoggedNeverBlocked/worker/gzip
+    step23_test.go:425: E40: want exactly one compressed-body event of kind "gzip", got []
+=== RUN   TestE40CompressedLookingBodyIsLoggedNeverBlocked/worker/zlib-7801
+    step23_test.go:425: E40: want exactly one compressed-body event of kind "zlib", got []
+=== RUN   TestE40CompressedLookingBodyIsLoggedNeverBlocked/worker/zlib-785e
+    step23_test.go:425: E40: want exactly one compressed-body event of kind "zlib", got []
+=== RUN   TestE40CompressedLookingBodyIsLoggedNeverBlocked/worker/zlib-789c
+    step23_test.go:425: E40: want exactly one compressed-body event of kind "zlib", got []
+=== RUN   TestE40CompressedLookingBodyIsLoggedNeverBlocked/worker/zlib-78da
+    step23_test.go:425: E40: want exactly one compressed-body event of kind "zlib", got []
+--- FAIL: TestE40CompressedLookingBodyIsLoggedNeverBlocked (0.74s)
+    --- FAIL: TestE40CompressedLookingBodyIsLoggedNeverBlocked/blocking/gzip (0.06s)
+    --- FAIL: TestE40CompressedLookingBodyIsLoggedNeverBlocked/blocking/zlib-7801 (0.01s)
+    --- FAIL: TestE40CompressedLookingBodyIsLoggedNeverBlocked/blocking/zlib-785e (0.01s)
+    --- FAIL: TestE40CompressedLookingBodyIsLoggedNeverBlocked/blocking/zlib-789c (0.01s)
+    --- FAIL: TestE40CompressedLookingBodyIsLoggedNeverBlocked/blocking/zlib-78da (0.01s)
+    --- FAIL: TestE40CompressedLookingBodyIsLoggedNeverBlocked/detection-only/gzip (0.01s)
+    --- FAIL: TestE40CompressedLookingBodyIsLoggedNeverBlocked/detection-only/zlib-7801 (0.01s)
+    --- FAIL: TestE40CompressedLookingBodyIsLoggedNeverBlocked/detection-only/zlib-785e (0.01s)
+    --- FAIL: TestE40CompressedLookingBodyIsLoggedNeverBlocked/detection-only/zlib-789c (0.01s)
+    --- FAIL: TestE40CompressedLookingBodyIsLoggedNeverBlocked/detection-only/zlib-78da (0.01s)
+    --- FAIL: TestE40CompressedLookingBodyIsLoggedNeverBlocked/worker/gzip (0.12s)
+    --- FAIL: TestE40CompressedLookingBodyIsLoggedNeverBlocked/worker/zlib-7801 (0.12s)
+    --- FAIL: TestE40CompressedLookingBodyIsLoggedNeverBlocked/worker/zlib-785e (0.12s)
+    --- FAIL: TestE40CompressedLookingBodyIsLoggedNeverBlocked/worker/zlib-789c (0.12s)
+    --- FAIL: TestE40CompressedLookingBodyIsLoggedNeverBlocked/worker/zlib-78da (0.12s)
+=== RUN   TestE41CompressedBodyEventIsNarrow
+--- PASS: TestE41CompressedBodyEventIsNarrow (0.01s)
+FAIL
+FAIL	kortexshield/engine	1.091s
+FAIL
+# exit status of go test: 1

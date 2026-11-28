@@ -640,3 +640,37 @@ tools/run_step22_variance_diag.sh) must drop the replace first.
 
 Removal: when a coraza release has ordered iteration, delete the replace
 line and the third_party directory; E37 to E39 then test the release.
+
+### Compressed-looking body without Content-Encoding: log-only event (T3, documented BEFORE the code and the run)
+
+Step-22 F3 (cell K): compressed bytes sent WITHOUT a Content-Encoding header
+are not refused by E33 (there is no header to refuse) and pass the rules at
+PL1, because neither the engine nor CRS inflates them. A backend that
+sniffs the body and inflates it would then see what the engine did not.
+Whether to refuse such bodies is undecided; step 23 only measures how often
+they occur.
+
+The engine looks at the first bytes of every request body it reads (after
+the E33 header check, so only bodies without a Content-Encoding other than
+identity get here):
+
+| kind | first bytes | basis |
+|---|---|---|
+| gzip | `1f 8b 08` | RFC 1952: ID1, ID2, CM = 8 (deflate, the only method defined) |
+| zlib | `78 01`, `78 5e`, `78 9c`, `78 da` | RFC 1950: CMF 0x78 (deflate, 32K window) with the four FLG values a stream without a preset dictionary can have, one per compression level class |
+
+A match writes one event to kortex-events.jsonl: decision `would_reject`,
+status 0, reason `compressed-body-without-content-encoding:gzip` or
+`...:zlib`. Nothing else happens: the body is inspected, decided and
+forwarded exactly as before (LOG-ONLY, like the encoding checks; tests E40
+and E41). The event is written when the body has been read, whatever the
+later decision, in in-process and in worker mode.
+
+Known limits, on purpose for a first measurement: zlib streams with a
+smaller window (CMF 0x08 to 0x68) or a preset dictionary are not flagged;
+the pairs for those collide with ordinary text (for example `80`, `(4`,
+`x ` are valid zlib headers) and would make the count meaningless. `x^`
+(78 5e) is the one listed pair that is printable text. Raw deflate has no
+magic and cannot be recognised this way. A body the engine does not read
+(Content-Length above the total limit, refused 413) is not checked. The
+check says "starts like", not "is": nothing is inflated.

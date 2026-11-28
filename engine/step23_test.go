@@ -1,6 +1,7 @@
 package main
 
 import (
+	"bytes"
 	"encoding/json"
 	"fmt"
 	"io"
@@ -321,4 +322,149 @@ func TestE39TautologySortedFirstIsDecidedTheSameEveryTime(t *testing.T) {
 	srv := pl2Env(t)
 	outcomes, timeouts := replayOutcomes(t, srv, "e39", "application/json", `{"anote":"1=1","zfilter":"color=blue"}`, n)
 	requireOneOutcome(t, "E39", "tautology-key-sorts-first", outcomes, timeouts, n)
+}
+
+// ---- step-23 T3: compressed-looking body without Content-Encoding (log-only) ----
+
+const magicReasonPrefix = "compressed-body-without-content-encoding:"
+
+// postBytes sends one POST with the given body bytes and headers (Host
+// localhost, browser User-Agent) and returns the status and the body.
+func postBytes(t *testing.T, srv *httptest.Server, id, contentType string, hdr map[string]string, body []byte) (int, string) {
+	t.Helper()
+	req, err := http.NewRequest("POST", srv.URL+"/", bytes.NewReader(body))
+	if err != nil {
+		t.Fatalf("new request: %v", err)
+	}
+	req.Host = "localhost:8090"
+	req.Header.Set("X-Kortex-Sample-Id", id)
+	req.Header.Set("Content-Type", contentType)
+	req.Header.Set("User-Agent", browserUA)
+	for k, v := range hdr {
+		req.Header.Set(k, v)
+	}
+	resp, err := (&http.Client{Timeout: 30 * time.Second}).Do(req)
+	if err != nil {
+		t.Fatalf("do: %v", err)
+	}
+	defer resp.Body.Close()
+	b, _ := io.ReadAll(resp.Body)
+	return resp.StatusCode, string(b)
+}
+
+// magicEvents returns the reasons of the compressed-body events of one sample.
+func magicEvents(t *testing.T, eventsFile, id string) []string {
+	t.Helper()
+	var out []string
+	for _, ev := range readEvents(t, eventsFile) {
+		reason, _ := ev["reason"].(string)
+		if ev["sample_id"] == id && strings.HasPrefix(reason, magicReasonPrefix) {
+			if ev["decision"] != "would_reject" || ev["status"] != float64(0) {
+				t.Fatalf("compressed-body event must be log-only (decision would_reject, status 0), got %v", ev)
+			}
+			out = append(out, strings.TrimPrefix(reason, magicReasonPrefix))
+		}
+	}
+	return out
+}
+
+// E40: a body sent WITHOUT a Content-Encoding header that starts with gzip
+// (1f 8b 08) or zlib (78 01 / 78 5e / 78 9c / 78 da) magic bytes writes one
+// log-only event (decision would_reject, status 0, reason
+// compressed-body-without-content-encoding:gzip|zlib) and is otherwise
+// treated exactly like the same body with its first byte changed: same
+// status, forwarded to the backend. Step-22 F3, cell K: such bytes pass the
+// rules at PL1, and a backend that sniffs and inflates would see what the
+// engine did not. In blocking and DetectionOnly mode, in-process and in
+// worker mode.
+func TestE40CompressedLookingBodyIsLoggedNeverBlocked(t *testing.T) {
+	tail := "plain filler text, nothing to match here"
+	cases := []struct {
+		name, kind string
+		magic      []byte
+	}{
+		{"gzip", "gzip", []byte{0x1f, 0x8b, 0x08}},
+		{"zlib-7801", "zlib", []byte{0x78, 0x01}},
+		{"zlib-785e", "zlib", []byte{0x78, 0x5e}},
+		{"zlib-789c", "zlib", []byte{0x78, 0x9c}},
+		{"zlib-78da", "zlib", []byte{0x78, 0xda}},
+	}
+	envs := []struct {
+		name string
+		env  map[string]string
+	}{
+		{"blocking", nil},
+		{"detection-only", map[string]string{"KORTEX_RULE_ENGINE": "DetectionOnly"}},
+		{"worker", workerEnv(nil)},
+	}
+	for _, e := range envs {
+		for _, c := range cases {
+			t.Run(e.name+"/"+c.name, func(t *testing.T) {
+				srv, events := newEnv(t, e.env)
+				// control: same bytes, first byte off by one, so no magic
+				control := append([]byte{c.magic[0] - 1}, c.magic[1:]...)
+				control = append(control, tail...)
+				wantStatus, _ := postBytes(t, srv, "e40-control", "application/octet-stream", nil, control)
+				if wantStatus != http.StatusOK {
+					t.Fatalf("E40 precondition: the control body must pass (200), got %d", wantStatus)
+				}
+				if got := magicEvents(t, events, "e40-control"); len(got) != 0 {
+					t.Fatalf("E40 precondition: the control body wrote a compressed-body event: %v", got)
+				}
+				backendHit = false
+				body := append(append([]byte{}, c.magic...), tail...)
+				status, page := postBytes(t, srv, "e40-magic", "application/octet-stream", nil, body)
+				if status != wantStatus {
+					t.Fatalf("E40: the check must never change the answer: control %d, magic body %d %q", wantStatus, status, page)
+				}
+				if !backendHit {
+					t.Fatalf("E40: the magic body did not reach the backend")
+				}
+				got := magicEvents(t, events, "e40-magic")
+				if len(got) != 1 || got[0] != c.kind {
+					t.Fatalf("E40: want exactly one compressed-body event of kind %q, got %v", c.kind, got)
+				}
+			})
+		}
+	}
+}
+
+// E41: the event of E40 is narrow. None of these writes it: a text body, a
+// JSON body, magic bytes that are not at offset 0, a lone first magic byte,
+// a zlib-looking pair that is not one of the four listed, an empty body, and
+// a body that DOES carry Content-Encoding: gzip (refused 415 by E33 before
+// any body byte is read).
+func TestE41CompressedBodyEventIsNarrow(t *testing.T) {
+	srv, events := newEnv(t, map[string]string{"KORTEX_RULE_ENGINE": "DetectionOnly"})
+	bodies := map[string][]byte{
+		"e41-text":       []byte("hello world"),
+		"e41-json":       []byte(`{"a":1}`),
+		"e41-offset":     append([]byte("a"), 0x1f, 0x8b, 0x08, 'x'),
+		"e41-lone-byte":  {0x1f},
+		"e41-gzip-2of3":  {0x1f, 0x8b, 0x07, 'x'},
+		"e41-x-then-eq":  []byte("x=1&y=2"),
+		"e41-zlib-other": {0x78, 0x20, 'x'},
+	}
+	for id, body := range bodies {
+		if status, page := postBytes(t, srv, id, "text/plain", nil, body); status != http.StatusOK {
+			t.Fatalf("E41 [%s]: want 200 in DetectionOnly, got %d %q", id, status, page)
+		}
+		if got := magicEvents(t, events, id); len(got) != 0 {
+			t.Fatalf("E41 [%s]: wrote a compressed-body event: %v", id, got)
+		}
+	}
+	resp := get(t, srv, "/", nil, "")
+	io.Copy(io.Discard, resp.Body)
+	if status, _ := postBytes(t, srv, "e41-encoded", "application/octet-stream",
+		map[string]string{"Content-Encoding": "gzip"}, []byte{0x1f, 0x8b, 0x08, 'x'}); status != http.StatusUnsupportedMediaType {
+		t.Fatalf("E41 [encoded]: want 415 (E33), got %d", status)
+	}
+	if got := magicEvents(t, events, "e41-encoded"); len(got) != 0 {
+		t.Fatalf("E41 [encoded]: a body with Content-Encoding wrote the header-less event: %v", got)
+	}
+	for _, ev := range readEvents(t, events) {
+		if reason, _ := ev["reason"].(string); strings.HasPrefix(reason, magicReasonPrefix) {
+			t.Fatalf("E41: unexpected compressed-body event: %v", ev)
+		}
+	}
 }
