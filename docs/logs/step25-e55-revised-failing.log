@@ -1,0 +1,20 @@
+# step-25 T3: E55 as revised (942130 only; the first form, no target on any of the 12 chain starters, broke E24 PL2, which needs the target on 932240) failing before the fix
+# 2026-11-28T06:23:08Z git f47d4a651f214ccea5abc19e03df4feab2bd0023 + step25_test.go; go version go1.27.4 darwin/arm64
+# cd engine && go test -count=1 -run 'TestE55|TestE24' -v .
+=== RUN   TestE24RawCarriersSplitDestroyedRCEBlocked
+--- PASS: TestE24RawCarriersSplitDestroyedRCEBlocked (0.06s)
+=== RUN   TestE24RawCarriersSplitDestroyedRCEBlockedPL2
+--- PASS: TestE24RawCarriersSplitDestroyedRCEBlockedPL2 (0.01s)
+=== RUN   TestE55TautologyRuleKeepsItsOwnTargets
+=== RUN   TestE55TautologyRuleKeepsItsOwnTargets/canary:_tautology_in_the_query_string_matches_942130
+=== RUN   TestE55TautologyRuleKeepsItsOwnTargets/tautology_in_a_form_body_matches_942130
+    step25_test.go:461: E55: want 942130 for a tautology in a form body, got []
+=== RUN   TestE55TautologyRuleKeepsItsOwnTargets/942130_is_not_in_the_target_updates,_932240_still_is
+    step25_test.go:474: E55: want 165 target updates without 942130 and with 932240, got 166 updates, 942130 true, 932240 true
+--- FAIL: TestE55TautologyRuleKeepsItsOwnTargets (0.03s)
+    --- PASS: TestE55TautologyRuleKeepsItsOwnTargets/canary:_tautology_in_the_query_string_matches_942130 (0.01s)
+    --- FAIL: TestE55TautologyRuleKeepsItsOwnTargets/tautology_in_a_form_body_matches_942130 (0.01s)
+    --- FAIL: TestE55TautologyRuleKeepsItsOwnTargets/942130_is_not_in_the_target_updates,_932240_still_is (0.00s)
+FAIL
+FAIL	kortexshield/engine	0.418s
+FAIL

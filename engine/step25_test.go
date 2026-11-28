@@ -436,13 +436,15 @@ func TestE54RulesSeeTheHostHeaderAsSent(t *testing.T) {
 	}
 }
 
-// E55: a rule that is the start of a chain gets no REQUEST_BODY target. The
-// chained rule works on the captures of the last variable that matched, so
-// the added target did not add a scan: it replaced the scan of the parsed
-// argument with a scan of the raw body, whose first match is the name=value
-// pair itself. The SQL tautology of CRS test 942130-7 (a=42 like 42) is
-// matched in a form body as it is in the query string.
-func TestE55ChainRulesKeepTheirOwnTargets(t *testing.T) {
+// E55: CRS 942130 (SQL tautology) gets no REQUEST_BODY target. Its chained
+// rule compares the two words captured by the last variable that matched,
+// and the added target is evaluated last, so on a form body the chain judged
+// the raw body instead of the argument. The first "word = word" of a raw
+// form body is the name=value pair itself, which is never a tautology: the
+// rule could not match in a form body at all (CRS test 942130-7,
+// a=42 like 42). The other chain-starting rules keep their target: E24 needs
+// it on 932240.
+func TestE55TautologyRuleKeepsItsOwnTargets(t *testing.T) {
 	pl2 := map[string]string{"KORTEX_RULE_ENGINE": "DetectionOnly", "KORTEX_BLOCKING_PARANOIA": "2", "KORTEX_DETECTION_PARANOIA": "2"}
 	tautology := "a=42%20like%2042"
 	t.Run("canary: tautology in the query string matches 942130", func(t *testing.T) {
@@ -459,21 +461,18 @@ func TestE55ChainRulesKeepTheirOwnTargets(t *testing.T) {
 			t.Fatalf("E55: want 942130 for a tautology in a form body, got %v", ids)
 		}
 	})
-	t.Run("no chain starter is in the target updates", func(t *testing.T) {
+	t.Run("942130 is not in the target updates, 932240 still is", func(t *testing.T) {
 		ids, err := requestBodyTargetUpdates(rulesDirForTests())
 		if err != nil {
 			t.Fatalf("E55: %v", err)
 		}
-		chain := map[int]bool{931130: true, 932200: true, 932240: true, 933150: true, 941310: true, 942130: true,
-			942131: true, 942200: true, 942440: true, 942521: true, 943110: true, 943120: true}
-		var found []int
+		has := map[int]bool{}
 		for _, id := range ids {
-			if chain[id] {
-				found = append(found, id)
-			}
+			has[id] = true
 		}
-		if len(found) != 0 || len(ids) != 154 {
-			t.Fatalf("E55: want 154 target updates and no chain starter, got %d updates, chain starters %v", len(ids), found)
+		if has[942130] || !has[932240] || len(ids) != 165 {
+			t.Fatalf("E55: want 165 target updates without 942130 and with 932240, got %d updates, 942130 %t, 932240 %t",
+				len(ids), has[942130], has[932240])
 		}
 	})
 }
