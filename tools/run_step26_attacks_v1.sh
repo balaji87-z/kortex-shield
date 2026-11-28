@@ -5,12 +5,14 @@
 # Requests go to "localhost". Raw audit logs stay under out/; durable files
 # per run under docs/logs/runs/s26-*/ (rule 42).
 #
-# Usage: [STUB_PORT=13004] run_step26_attacks_v1.sh reach|engine|diag|baseline
+# Usage: [STUB_PORT=13004] run_step26_attacks_v1.sh reach|engine|diag|diag-canary|baseline
 #   reach     BEFORE the freeze: every candidate once, engine in-process,
 #             DetectionOnly, PL1 (who was judged by the rules, who was not)
 #   engine    frozen manifest, blocking, PL1 and PL2, in-process and worker
 #   diag      DIAGNOSTIC: the engine without the REQUEST_BODY target updates
 #             (scratch build), in-process, PL1 and PL2
+#   diag-canary  the same DIAGNOSTIC build on attacks-ct-v0 at PL1: shows that
+#             the build differs from the engine where the targets matter
 #   baseline  the ModSecurity and the Coraza connector image of
 #             deploy/compose.yml, stub backend, PL1 and PL2 (needs docker)
 set -u
@@ -64,6 +66,23 @@ engine_run() {
   $PY tools/step23_events_index.py "$ENGINE_EVENTS" $DUR/$NAME/events.index.jsonl | sed "s|^|== $NAME events: |" | tee -a $LOG
 }
 
+# the engine in a scratch copy without the REQUEST_BODY target updates (rule 34)
+build_diag_engine() {
+  SCR=out/DIAGNOSTIC-engine-no-body-targets
+  rm -rf $SCR && mkdir -p $SCR && (cd engine && tar cf - --exclude engine --exclude '*.log' .) | (cd $SCR && tar xf -)
+  python3 - $SCR/config.go <<'PYEOF' || { echo "SCRATCH EDIT FAILED" | tee -a $LOG; exit 1; }
+import sys
+s = open(sys.argv[1]).read()
+old = "return base + renderBodyTargetUpdates(bodyTargets), nil"
+assert s.count(old) == 1, s.count(old)
+open(sys.argv[1], "w").write(s.replace(old, "return base, nil"))
+PYEOF
+  (cd $SCR && go build -buildvcs=false -o ../kortex-engine-DIAGNOSTIC-no-body-targets .) || { echo "SCRATCH BUILD FAILED" | tee -a $LOG; exit 1; }
+  ENGINE_BIN=out/kortex-engine-DIAGNOSTIC-no-body-targets
+  echo "== DIAGNOSTIC scratch engine sha256 $(sha256_of $ENGINE_BIN); files that differ from engine/: $(diff -rq --exclude=engine --exclude='*.log' engine $SCR | wc -l | tr -d ' '); diff of config.go against engine/config.go:" | tee -a $LOG
+  diff engine/config.go $SCR/config.go | tee -a $LOG
+}
+
 case $WHAT in
 reach)
   LOG=docs/logs/step26-reach.txt; DUR=docs/logs/runs/s26-reach; mkdir -p out $DUR; : > $LOG
@@ -104,19 +123,7 @@ diag)
   LOG=docs/logs/step26-DIAGNOSTIC-no-body-targets.txt; DUR=docs/logs/runs/s26-engine; mkdir -p out $DUR; : > $LOG
   echo "# Step-26 DIAGNOSTIC: attacks-v1 on the engine built without the REQUEST_BODY target updates, in-process, PL1 and PL2" | tee -a $LOG
   head_lines; frozen_manifest; free_stub_port
-  SCR=out/DIAGNOSTIC-engine-no-body-targets
-  rm -rf $SCR && mkdir -p $SCR && (cd engine && tar cf - --exclude engine --exclude '*.log' .) | (cd $SCR && tar xf -)
-  python3 - $SCR/config.go <<'PYEOF' || { echo "SCRATCH EDIT FAILED" | tee -a $LOG; exit 1; }
-import sys
-s = open(sys.argv[1]).read()
-old = "return base + renderBodyTargetUpdates(bodyTargets), nil"
-assert s.count(old) == 1, s.count(old)
-open(sys.argv[1], "w").write(s.replace(old, "return base, nil"))
-PYEOF
-  (cd $SCR && go build -buildvcs=false -o ../kortex-engine-DIAGNOSTIC-no-body-targets .) || { echo "SCRATCH BUILD FAILED" | tee -a $LOG; exit 1; }
-  ENGINE_BIN=out/kortex-engine-DIAGNOSTIC-no-body-targets
-  echo "== DIAGNOSTIC scratch engine sha256 $(sha256_of $ENGINE_BIN); files that differ from engine/: $(diff -rq --exclude=engine --exclude='*.log' engine $SCR | wc -l | tr -d ' '); diff of config.go against engine/config.go:" | tee -a $LOG
-  diff engine/config.go $SCR/config.go | tee -a $LOG
+  build_diag_engine
   start_stub || exit 1
   for PL in 1 2; do
     engine_run $DS-inprocess-pl$PL-DIAGNOSTIC-no-body-targets inprocess $PL $MAN $DUR blocking
@@ -124,6 +131,23 @@ PYEOF
     $PY tools/step21_engine_diff.py $DUR/$DS-inprocess-pl$PL $DUR/$DS-inprocess-pl$PL-DIAGNOSTIC-no-body-targets 2>&1 | tee -a $LOG
   done
   stop_stub
+  ;;
+diag-canary)
+  # Rule 16: the DIAGNOSTIC build gives the same result as the engine on
+  # attacks-v1, and /__kortex/config counts the target list, not what was
+  # rendered. So the same binary is run on a dataset where the targets are
+  # known to matter (attacks-ct-v0, PL1) and compared with the engine's run.
+  LOG=docs/logs/step26-DIAGNOSTIC-canary.txt; DUR=docs/logs/runs/s26-engine; mkdir -p out $DUR; : > $LOG
+  echo "# Step-26 DIAGNOSTIC canary: attacks-ct-v0 at PL1 on the engine built without the REQUEST_BODY target updates" | tee -a $LOG
+  head_lines; free_stub_port
+  CT=data/attacks-ct-v0/manifest.jsonl
+  echo "== manifest $CT sha256 $(sha256_of $CT) (frozen: $(awk '{print $1}' data/attacks-ct-v0/MANIFEST.sha256)), $(wc -l < $CT | tr -d ' ') requests" | tee -a $LOG
+  build_diag_engine
+  start_stub || exit 1
+  engine_run attacks-ct-v0-inprocess-pl1-DIAGNOSTIC-no-body-targets inprocess 1 $CT $DUR blocking
+  stop_stub
+  echo "== diff attacks-ct-v0 PL1 (a=engine, step-25 run docs/logs/runs/s25-own/attacks-ct-v0-inprocess-pl1; b=DIAGNOSTIC without the REQUEST_BODY targets):" | tee -a $LOG
+  $PY tools/step21_engine_diff.py docs/logs/runs/s25-own/attacks-ct-v0-inprocess-pl1 $DUR/attacks-ct-v0-inprocess-pl1-DIAGNOSTIC-no-body-targets 2>&1 | tee -a $LOG
   ;;
 baseline)
   LOG=docs/logs/step26-baseline.txt; DUR=docs/logs/runs/s26-baseline; mkdir -p out $DUR; : > $LOG
@@ -225,7 +249,7 @@ PYEOF
   done
   docker compose -f deploy/compose.yml --profile coraza down > /dev/null 2>&1
   ;;
-*) echo "usage: run_step26_attacks_v1.sh reach|engine|diag|baseline"; exit 2 ;;
+*) echo "usage: run_step26_attacks_v1.sh reach|engine|diag|diag-canary|baseline"; exit 2 ;;
 esac
 echo "== load at end: $(uptime | sed 's/.*load/load/')" | tee -a $LOG
 echo "S26-$WHAT-DONE" | tee -a $LOG

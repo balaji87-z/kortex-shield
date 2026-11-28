@@ -1,0 +1,51 @@
+# Step-26 DIAGNOSTIC: CRS 942330 on four attacks-v1 requests, 25 sends each, PL2
+== 2026-11-28T16:19:28Z, git 62a099eb2344916928168f142e600b0370b2e6a7, go version go1.27.4 darwin/arm64, load at start: load averages: 3.95 3.85 2.92
+== manifest out/step26-942330-manifest.jsonl: 100 requests (not committed: copies of 4 frozen samples)
+== engine binary sha256 761ef5adacb501c596a0dc67b1df0ec3bdb9f50b8ca9330c0205c320702792fb built from 62a099eb2344916928168f142e600b0370b2e6a7 with go version go1.27.4 darwin/arm64
+== engine (patched coraza) rule29 2026-11-28T16:19:29Z load: load averages: 3.95 3.85 2.92: {"backend_url":"http://127.0.0.1:13004","rule_engine":"On","blocking_paranoia":2,"detection_paranoia":2,"max_body_bytes":13107200,"max_inspected_bytes":131072,"engine_time_budget_ms":2000,"rules_dir":"/Users/ivan/work/kortex-shield-next/engine/crs","listen_addr":"127.0.0.1:8097","events_file":"/Users/ivan/work/kortex-shield-next/out/s22-s26-942330-patched.events.jsonl","audit_log":"/Users/ivan/work/kortex-shield-next/out/s22-s26-942330-patched.audit.log","allowed_methods":"GET HEAD POST OPTIONS","max_inflight_body":8,"max_inflight_body_large":2,"body_lane_threshold":65536,"worker_mode":false,"client_max_inflight":0,"client_max_inflight_small":4,"client_max_inflight_large":1,"request_body_target_updates":165,"error_log":"","crs_test_setup":false}
+== engine (patched coraza) engine binary sha256 761ef5adacb501c596a0dc67b1df0ec3bdb9f50b8ca9330c0205c320702792fb
+crs_audit: 100 audit entr(ies) -> out/s26-942330-patched/audit.jsonl
+   engine (patched coraza): v1-command-injection-0a2a074b-login: audit entries 25 of 25 sends, with 942330 in 25; rule-id sets seen: {'920230 932160 932200 942330 942520 949110': 25}; scores at 949110: {'28': 25}
+   engine (patched coraza): v1-command-injection-0a2a074b-q: audit entries 25 of 25 sends, with 942330 in 25; rule-id sets seen: {'920230 932160 932200 942330 942520 949110': 25}; scores at 949110: {'28': 25}
+   engine (patched coraza): v1-command-injection-7dc8718c-login: audit entries 25 of 25 sends, with 942330 in 25; rule-id sets seen: {'920230 932160 942330 942520 949110': 25}; scores at 949110: {'18': 25}
+   engine (patched coraza): v1-command-injection-7dc8718c-q: audit entries 25 of 25 sends, with 942330 in 25; rule-id sets seen: {'920230 932160 942330 942520 949110': 25}; scores at 949110: {'18': 25}
+== engine (patched coraza): 942330 in 100 of 100 audit entries
+== DIAGNOSTIC scratch engine coraza module: github.com/corazawaf/coraza/v3 v3.8.1
+== DIAGNOSTIC engine on stock coraza v3.8.1 rule29 2026-11-28T16:19:31Z load: load averages: 3.71 3.81 2.90: {"backend_url":"http://127.0.0.1:13004","rule_engine":"On","blocking_paranoia":2,"detection_paranoia":2,"max_body_bytes":13107200,"max_inspected_bytes":131072,"engine_time_budget_ms":2000,"rules_dir":"/Users/ivan/work/kortex-shield-next/engine/crs","listen_addr":"127.0.0.1:8097","events_file":"/Users/ivan/work/kortex-shield-next/out/s22-s26-942330-stock.events.jsonl","audit_log":"/Users/ivan/work/kortex-shield-next/out/s22-s26-942330-stock.audit.log","allowed_methods":"GET HEAD POST OPTIONS","max_inflight_body":8,"max_inflight_body_large":2,"body_lane_threshold":65536,"worker_mode":false,"client_max_inflight":0,"client_max_inflight_small":4,"client_max_inflight_large":1,"request_body_target_updates":165,"error_log":"","crs_test_setup":false}
+== DIAGNOSTIC engine on stock coraza v3.8.1 engine binary sha256 1e0fac89229d34bb92f2d0989fc9d00ed0d6236fdcccffb5f1f49779b2e9315c
+crs_audit: 100 audit entr(ies) -> out/s26-942330-stock/audit.jsonl
+   DIAGNOSTIC engine on stock coraza v3.8.1: v1-command-injection-0a2a074b-login: audit entries 25 of 25 sends, with 942330 in 25; rule-id sets seen: {'920230 932160 932200 942330 942520 949110': 25}; scores at 949110: {'28': 25}
+   DIAGNOSTIC engine on stock coraza v3.8.1: v1-command-injection-0a2a074b-q: audit entries 25 of 25 sends, with 942330 in 25; rule-id sets seen: {'920230 932160 932200 942330 942520 949110': 25}; scores at 949110: {'28': 25}
+   DIAGNOSTIC engine on stock coraza v3.8.1: v1-command-injection-7dc8718c-login: audit entries 25 of 25 sends, with 942330 in 25; rule-id sets seen: {'920230 932160 942330 942520 949110': 25}; scores at 949110: {'18': 25}
+   DIAGNOSTIC engine on stock coraza v3.8.1: v1-command-injection-7dc8718c-q: audit entries 25 of 25 sends, with 942330 in 25; rule-id sets seen: {'920230 932160 942330 942520 949110': 25}; scores at 949110: {'18': 25}
+== DIAGNOSTIC engine on stock coraza v3.8.1: 942330 in 100 of 100 audit entries
+== DIAGNOSTIC scratch engine coraza module: github.com/corazawaf/coraza/v3 v3.7.0; files that differ from engine/ other than go.mod, go.sum and third_party: 0
+== DIAGNOSTIC engine on coraza v3.7.0 rule29 2026-11-28T16:19:33Z load: load averages: 3.71 3.81 2.90: {"backend_url":"http://127.0.0.1:13004","rule_engine":"On","blocking_paranoia":2,"detection_paranoia":2,"max_body_bytes":13107200,"max_inspected_bytes":131072,"engine_time_budget_ms":2000,"rules_dir":"/Users/ivan/work/kortex-shield-next/engine/crs","listen_addr":"127.0.0.1:8097","events_file":"/Users/ivan/work/kortex-shield-next/out/s22-s26-942330-coraza370.events.jsonl","audit_log":"/Users/ivan/work/kortex-shield-next/out/s22-s26-942330-coraza370.audit.log","allowed_methods":"GET HEAD POST OPTIONS","max_inflight_body":8,"max_inflight_body_large":2,"body_lane_threshold":65536,"worker_mode":false,"client_max_inflight":0,"client_max_inflight_small":4,"client_max_inflight_large":1,"request_body_target_updates":165,"error_log":"","crs_test_setup":false}
+== DIAGNOSTIC engine on coraza v3.7.0 engine binary sha256 6af92efacd03f24c41f5e388dada3d2012f4b915744dbfda153d8628e805a122
+crs_audit: 100 audit entr(ies) -> out/s26-942330-coraza370/audit.jsonl
+   DIAGNOSTIC engine on coraza v3.7.0: v1-command-injection-0a2a074b-login: audit entries 25 of 25 sends, with 942330 in 25; rule-id sets seen: {'920230 932160 932200 942330 942520 949110': 25}; scores at 949110: {'28': 25}
+   DIAGNOSTIC engine on coraza v3.7.0: v1-command-injection-0a2a074b-q: audit entries 25 of 25 sends, with 942330 in 25; rule-id sets seen: {'920230 932160 932200 942330 942520 949110': 25}; scores at 949110: {'28': 25}
+   DIAGNOSTIC engine on coraza v3.7.0: v1-command-injection-7dc8718c-login: audit entries 25 of 25 sends, with 942330 in 25; rule-id sets seen: {'920230 932160 942330 942520 949110': 25}; scores at 949110: {'18': 25}
+   DIAGNOSTIC engine on coraza v3.7.0: v1-command-injection-7dc8718c-q: audit entries 25 of 25 sends, with 942330 in 25; rule-id sets seen: {'920230 932160 942330 942520 949110': 25}; scores at 949110: {'18': 25}
+== DIAGNOSTIC engine on coraza v3.7.0: 942330 in 100 of 100 audit entries
+== DIAGNOSTIC engine built from engine/ unchanged with -tags coraza.rule.no_regex_multiline
+== DIAGNOSTIC engine with -tags coraza.rule.no_regex_multiline rule29 2026-11-28T16:19:36Z load: load averages: 3.65 3.79 2.90: {"backend_url":"http://127.0.0.1:13004","rule_engine":"On","blocking_paranoia":2,"detection_paranoia":2,"max_body_bytes":13107200,"max_inspected_bytes":131072,"engine_time_budget_ms":2000,"rules_dir":"/Users/ivan/work/kortex-shield-next/engine/crs","listen_addr":"127.0.0.1:8097","events_file":"/Users/ivan/work/kortex-shield-next/out/s22-s26-942330-tag.events.jsonl","audit_log":"/Users/ivan/work/kortex-shield-next/out/s22-s26-942330-tag.audit.log","allowed_methods":"GET HEAD POST OPTIONS","max_inflight_body":8,"max_inflight_body_large":2,"body_lane_threshold":65536,"worker_mode":false,"client_max_inflight":0,"client_max_inflight_small":4,"client_max_inflight_large":1,"request_body_target_updates":165,"error_log":"","crs_test_setup":false}
+== DIAGNOSTIC engine with -tags coraza.rule.no_regex_multiline engine binary sha256 adb78c994fa42e94dee217a0dc111f80017803da720fe7712a6b5ac3edd7e51a
+crs_audit: 100 audit entr(ies) -> out/s26-942330-tag/audit.jsonl
+   DIAGNOSTIC engine with -tags coraza.rule.no_regex_multiline: v1-command-injection-0a2a074b-login: audit entries 25 of 25 sends, with 942330 in 0; rule-id sets seen: {'920230 932160 932200 942520 949110': 25}; scores at 949110: {'23': 25}
+   DIAGNOSTIC engine with -tags coraza.rule.no_regex_multiline: v1-command-injection-0a2a074b-q: audit entries 25 of 25 sends, with 942330 in 0; rule-id sets seen: {'920230 932160 932200 942520 949110': 25}; scores at 949110: {'23': 25}
+   DIAGNOSTIC engine with -tags coraza.rule.no_regex_multiline: v1-command-injection-7dc8718c-login: audit entries 25 of 25 sends, with 942330 in 0; rule-id sets seen: {'920230 932160 942520 949110': 25}; scores at 949110: {'13': 25}
+   DIAGNOSTIC engine with -tags coraza.rule.no_regex_multiline: v1-command-injection-7dc8718c-q: audit entries 25 of 25 sends, with 942330 in 0; rule-id sets seen: {'920230 932160 942520 949110': 25}; scores at 949110: {'13': 25}
+== DIAGNOSTIC engine with -tags coraza.rule.no_regex_multiline: 942330 in 0 of 100 audit entries
+== coraza version inside the connector image (grep in /usr/local/lib/libcoraza.so):  154 corazawaf/coraza/v3@v3.7.0;
+== build tags named inside the connector image's libcoraza.so:  2 -tags=coraza.rule.no_regex_multiline;
+== connector image: ghcr.io/coreruleset/coraza-crs:4.25.2-nginx-lts@sha256:bfbfe70b4445c1ef1dc389c2de12cfdb194c9616746c33dc8a7131461c28f4a6; E=On B=2 D=2
+ver:'OWASP_CRS/4.25.2
+coraza_audit: 100 audit entr(ies) -> out/s26-942330-connector/audit.jsonl
+   Coraza connector image: v1-command-injection-0a2a074b-login: audit entries 25 of 25 sends, with 942330 in 0; rule-id sets seen: {'920230 932160 932200 942520 949110': 25}; scores at 949110: {'23': 25}
+   Coraza connector image: v1-command-injection-0a2a074b-q: audit entries 25 of 25 sends, with 942330 in 0; rule-id sets seen: {'920230 932160 932200 942520 949110': 25}; scores at 949110: {'23': 25}
+   Coraza connector image: v1-command-injection-7dc8718c-login: audit entries 25 of 25 sends, with 942330 in 0; rule-id sets seen: {'920230 932160 942520 949110': 25}; scores at 949110: {'13': 25}
+   Coraza connector image: v1-command-injection-7dc8718c-q: audit entries 25 of 25 sends, with 942330 in 0; rule-id sets seen: {'920230 932160 942520 949110': 25}; scores at 949110: {'13': 25}
+== Coraza connector image: 942330 in 0 of 100 audit entries
+== load at end: load averages: 3.14 3.67 2.88
+S26-942330-DONE

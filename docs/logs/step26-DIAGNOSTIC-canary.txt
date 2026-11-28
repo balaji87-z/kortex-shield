@@ -1,0 +1,41 @@
+# Step-26 DIAGNOSTIC canary: attacks-ct-v0 at PL1 on the engine built without the REQUEST_BODY target updates
+== 2026-11-28T16:12:59Z, macOS 27.0 Darwin 27.0.0 arm64, go version go1.27.4 darwin/arm64, Python 3.15.2, load at start: load averages: 3.56 2.40 1.91
+== git 62a099eb2344916928168f142e600b0370b2e6a7, tracked paths changed in the working tree: 1, under engine/: 0
+== manifest data/attacks-ct-v0/manifest.jsonl sha256 69d0447c5b33ca63e37c2993e8c7e87add2a16d56dd89201978883905f923251 (frozen: 69d0447c5b33ca63e37c2993e8c7e87add2a16d56dd89201978883905f923251), 320 requests
+== DIAGNOSTIC scratch engine sha256 7726e6f3d4660fd28228baa80ccbe039a764fe9e7a3c85ced480e5e1cef68e85; files that differ from engine/: 1; diff of config.go against engine/config.go:
+192c192
+< 	return base + renderBodyTargetUpdates(bodyTargets), nil
+---
+> 	return base, nil
+== attacks-ct-v0-inprocess-pl1-DIAGNOSTIC-no-body-targets rule29 2026-11-28T16:13:00Z load: load averages: 5.68 2.85 2.07: {"backend_url":"http://127.0.0.1:13004","rule_engine":"On","blocking_paranoia":1,"detection_paranoia":1,"max_body_bytes":13107200,"max_inspected_bytes":131072,"engine_time_budget_ms":2000,"rules_dir":"/Users/ivan/work/kortex-shield-next/engine/crs","listen_addr":"127.0.0.1:8097","events_file":"/Users/ivan/work/kortex-shield-next/out/s22-s26-attacks-ct-v0-inprocess-pl1-DIAGNOSTIC-no-body-targets.events.jsonl","audit_log":"/Users/ivan/work/kortex-shield-next/out/s22-s26-attacks-ct-v0-inprocess-pl1-DIAGNOSTIC-no-body-targets.audit.log","allowed_methods":"GET HEAD POST OPTIONS","max_inflight_body":8,"max_inflight_body_large":2,"body_lane_threshold":65536,"worker_mode":false,"client_max_inflight":0,"client_max_inflight_small":4,"client_max_inflight_large":1,"request_body_target_updates":165,"error_log":"","crs_test_setup":false}
+== attacks-ct-v0-inprocess-pl1-DIAGNOSTIC-no-body-targets stats after run: {"inflight_small":0,"inflight_large":0,"abandoned_running":0,"kills":0,"overloads":0,"refused_before_inspection":0,"penalised_clients":0,"client_inflight_small":0,"client_inflight_large":0,"workers":{"pool":0,"busy":0,"spares":0,"recycled":0}}
+== attacks-ct-v0-inprocess-pl1-DIAGNOSTIC-no-body-targets kortex_eval.crs_audit and kortex_eval.outcome (blocking) output:
+crs_audit: 286 audit entr(ies) -> out/s26-attacks-ct-v0-inprocess-pl1-DIAGNOSTIC-no-body-targets/audit.jsonl
+waf_block: 286
+waf_pass: 34
+docs/logs/runs/s26-engine/attacks-ct-v0-inprocess-pl1-DIAGNOSTIC-no-body-targets/audit.index.jsonl: 286 records, 250 with a body, 19963 body bytes in the source
+== attacks-ct-v0-inprocess-pl1-DIAGNOSTIC-no-body-targets events: 321 events {'block': 286, 'pass': 35}; compressed-body events 0 {}; framing events 0 {}; kept 0
+== diff attacks-ct-v0 PL1 (a=engine, step-25 run docs/logs/runs/s25-own/attacks-ct-v0-inprocess-pl1; b=DIAGNOSTIC without the REQUEST_BODY targets):
+samples compared: 320 (a=320 b=320 only-a=0 only-b=0)
+status counts a: {200: 28, 403: 292}
+status counts b: {200: 34, 403: 286}
+status diffs: 6
+  actv0-octet-stream-command-injection-dc2932d5: a=403 b=200
+  actv0-octet-stream-sqli-6e47f23b: a=403 b=200
+  actv0-text-plain-command-injection-dc2932d5: a=403 b=200
+  actv0-text-plain-sqli-6e47f23b: a=403 b=200
+  actv0-unknown-ct-command-injection-dc2932d5: a=403 b=200
+  actv0-unknown-ct-sqli-6e47f23b: a=403 b=200
+no status in a (counted as error): 0
+no status in b (counted as error): 0
+worst-case set a: 292/320 (error=0 blocked=292 deny_status=0 inconsistent=0 fail_closed_413=0 fail_closed_415=0 fail_closed_400=0 fail_closed_503_timeout=0 fail_closed_503_overload=0)
+worst-case set b: 286/320 (error=0 blocked=286 deny_status=0 inconsistent=0 fail_closed_413=0 fail_closed_415=0 fail_closed_400=0 fail_closed_503_timeout=0 fail_closed_503_overload=0)
+worst-case set diffs: 6 (only-a 6 only-b 0)
+  only-a actv0-octet-stream-command-injection-dc2932d5: a=blocked (status 403) b status 200
+  only-a actv0-octet-stream-sqli-6e47f23b: a=blocked (status 403) b status 200
+  only-a actv0-text-plain-command-injection-dc2932d5: a=blocked (status 403) b status 200
+  only-a actv0-text-plain-sqli-6e47f23b: a=blocked (status 403) b status 200
+  only-a actv0-unknown-ct-command-injection-dc2932d5: a=blocked (status 403) b status 200
+  only-a actv0-unknown-ct-sqli-6e47f23b: a=blocked (status 403) b status 200
+== load at end: load averages: 5.68 2.85 2.07
+S26-diag-canary-DONE
