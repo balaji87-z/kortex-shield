@@ -1,0 +1,15 @@
+# step-22 close-out Python suite at e8ed852d62e47b12085e42787f4e9a282a44bf83 (tracked files unchanged: 0 modified), 2026-11-28T02:46:31Z, Python 3.15.2, pytest 9.2.0, load at start: load averages: 5.86 4.63 4.33
+$ .venv/bin/python -m pytest -q -rs
+.............................................................ss..s...... [ 38%]
+........................................................................ [ 76%]
+..........................................----------------------------------------
+.Exception occurred during processing of request from ('127.0.0.1', 59088)
+..                            [100%]
+=========================== short test summary info ============================
+SKIPPED [1] tests/test_record_benign.py:9: could not import 'playwright': No module named 'playwright'
+SKIPPED [1] tests/test_outcome.py:78: smoke run artifacts not present
+SKIPPED [1] tests/test_outcome.py:96: smoke run artifacts not present
+SKIPPED [1] tests/test_outcome.py:161: step-05 hard PL2 run output not present
+186 passed, 4 skipped in 56.76s
+# exit status of pytest: 0
+# load at end: load averages: 3.71 4.34 4.25
