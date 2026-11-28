@@ -641,3 +641,58 @@ docs/baseline-v1.8.md.
   step26-DIAGNOSTIC-canary.txt.
 - NOT MEASURED in step 26: the benign side of A2, body carriers that fit
   the new families, timing.
+
+## Step-27 evidence (2026-11-28, baseline v2.2)
+
+- The gate, tests first (E57 to E62; failing in 52b4b42, passing in
+  366a086): `OPTIONS *` refused with a marker and an event; a head over
+  65,536 bytes or one that never ends is answered and logged instead of
+  dropped; the end of the head is found as Go finds it (66 of 88
+  line-ending mixes got no answer within 3 s before, 0 after, and all 88
+  are decided as bare net/http decides); one unfinished head no longer
+  stops the listener; waiting heads are counted (`pending_heads`) and
+  capped. E63: 19,579 damaged heads with bare-LF line endings, 0 decided
+  differently from net/http. Evidence:
+  docs/logs/step27-e57-e60-failing.log, step27-e57-e62-passing.log,
+  step27-e57-e62-x10.log (60 PASS), step27-e63.log.
+- Raw-socket runner: encoding-diff-v0 with all 192 requests sent, 0 client
+  errors; the 10 the Python client cannot build are refused by the gate
+  (`parser:http-version`); 0 status and 0 rule-id-set differences from the
+  Python client on the other 182. Evidence:
+  docs/logs/step27-raw-runner.txt, step27-raw-vs-python-client.txt.
+- A3, first measurement (158 hand-written cases, three backends, PL1 and
+  PL2, final engine 70e6477): 0 refusals without marker or event, 7 of 7
+  canary controls blocked, 0 canaries in path or query reach a backend, 0
+  second requests served, 1 canary reaches a body parser (`xml-attr`), 1
+  canary forwarded as file content. PL2 shown to be in effect by rule ids
+  (rule 16). Evidence: docs/logs/step27-parsing-diff.txt,
+  step27-parsing-diff-classes.txt, step27-parsing-diff-vs-step24.txt; the
+  first reading, on engine 7616436: step27-parsing-diff-run1.txt.
+- Found by the differential and fixed test first (E64, E65; failing in
+  33f92f0, passing in 70e6477): the backend was sent Go's re-encoded path
+  while the rules judged the target as sent (9 of 11 test targets, both
+  modes); now the path and query go out as sent, and a target that cannot
+  is refused (`target-not-forwardable`). Evidence:
+  docs/logs/step27-e64-e66-failing.log, step27-e64-e66-passing.log.
+- XML attributes (E66): not inspected with the CRS setup of the pinned
+  images, which the engine mirrors; both images pass `xml-attr` and block
+  its control (DIAGNOSTIC). `KORTEX_XML_ATTR_INSPECT=on`, default off,
+  blocks it (941100); the differential with the switch on has 0 canaries
+  reaching a parser (DIAGNOSTIC). Evidence:
+  docs/logs/step27-DIAGNOSTIC-reference.txt,
+  step27-parsing-diff-DIAGNOSTIC-xml-attr-inspect.txt.
+- `ovl-path-raw` (raw bytes C0 AF in the path): forwarded as sent by the
+  final engine and by the Coraza connector image; blocked by the
+  ModSecurity image with 930110. 1 request, UNEXPLAINED (HYPOTHESIS:
+  `t:utf8toUnicode`). Evidence: docs/logs/step27-DIAGNOSTIC-reference.txt.
+- After the engine changes, per sample against the earlier runs: 0 status,
+  worst-case-set and rule-id-set differences on attacks-v0, attacks-ct-v0,
+  encoding-diff-v0, benign-browse-v1, benign-hard-v0 (in-process and
+  worker, PL1 and PL2), on benign-wcp-v0 and benign-wcp-v1 (worst case
+  2,284 / 8,967 of 20,000 and 1,133 / 4,480 of 10,000, unchanged), on
+  attacks-v1 against step 26, and on the CRS suite against step 25.
+  Evidence: docs/logs/step27-own-vs-step25.txt, step27-parity.txt,
+  step27-attacks-v1-vs-step26.txt, step27-ftw-vs-step25.txt.
+- NOT MEASURED in step 27: application frameworks, multipart and XML on
+  Node, the WAFFLED corpus, HTTP/2, the XML switch on any dataset, the
+  default cap of 256 waiting heads under load, timing.

@@ -57,6 +57,18 @@ Notes
   it refuses with the framing marker what net/http would otherwise answer
   itself with a bare 400, 501, 505, 417 or 431 (E42). `OPTIONS *` is still
   answered 200 by net/http itself, uninspected and not forwarded.
+- Since step 27 (E57 to E62, E65) the gate also answers
+  `400 kortex-decision=framing`, each with one `framing` event, for:
+  `OPTIONS *` (reason `parser:options-asterisk`; the sentence above no
+  longer holds), a head over 65,536 bytes (`head-too-large`), a head that
+  does not end within `KORTEX_HEAD_TIMEOUT_MS`, default 30 s
+  (`head-timeout`), and a request target the engine cannot forward byte
+  for byte (`target-not-forwardable`). A connection that arrives while
+  `KORTEX_MAX_PENDING_HEADS` (default 256) connections are still sending
+  their head gets `503 kortex-decision=overload` with an `overload` event,
+  reason `pending-heads`. The event of a head whose
+  `X-Kortex-Sample-Id` line the engine cannot read has an empty
+  `sample_id`.
 - Detection blocks must not depend on the content-type allow-list (criterion
   C4, decision 0002 addendum): the engine does not implement a content-type
   allow-list at all; CRS rules decide.
