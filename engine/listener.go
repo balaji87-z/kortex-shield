@@ -6,6 +6,7 @@ package main
 
 import (
 	"bytes"
+	"context"
 	"fmt"
 	"io"
 	"net"
@@ -54,7 +55,7 @@ func (l *gatedListener) Accept() (net.Conn, error) {
 			conn.Close()
 			continue
 		}
-		return &gatedConn{Conn: conn, prefix: head}, nil
+		return &gatedConn{Conn: conn, prefix: head, hostLines: headHostLines(head)}, nil
 	}
 }
 
@@ -113,9 +114,36 @@ func readHead(conn net.Conn, timeout time.Duration) ([]byte, error) {
 }
 
 // gatedConn replays the buffered head bytes before the live stream.
+// hostLines holds the values of the Host header lines of the head the gate
+// let through (none, or one: the gate refuses more), because net/http keeps
+// neither the fact that a Host line was there nor its value when the
+// request target is in absolute form.
 type gatedConn struct {
 	net.Conn
-	prefix []byte
+	prefix    []byte
+	hostLines []string
+}
+
+// headHostLines returns the values of the Host header lines of a raw head,
+// read the way Go's parser reads the header block; nil when there is none.
+func headHostLines(head []byte) []string {
+	hdr, err := goHeaderView(head)
+	if err != nil {
+		return nil
+	}
+	return hdr["Host"]
+}
+
+type connCtxKey int
+
+const hostLinesKey connCtxKey = 0
+
+// connContext hands the gate's view of the Host header to the handler.
+func connContext(ctx context.Context, c net.Conn) context.Context {
+	if gc, ok := c.(*gatedConn); ok {
+		return context.WithValue(ctx, hostLinesKey, gc.hostLines)
+	}
+	return ctx
 }
 
 func (c *gatedConn) Read(b []byte) (int, error) {

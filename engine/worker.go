@@ -24,13 +24,10 @@ import (
 // workerJob is one inspection job, framed as a single JSON line on the
 // worker's stdin.
 type workerJob struct {
-	SampleID string              `json:"sample_id"`
-	Method   string              `json:"method"`
-	URI      string              `json:"uri"`
-	Headers  map[string][]string `json:"headers"`
-	Host     string              `json:"host"`
-	BodyB64  string              `json:"body_b64,omitempty"`
-	HoldMS   int64               `json:"hold_ms,omitempty"`
+	SampleID string `json:"sample_id"`
+	requestView
+	BodyB64 string `json:"body_b64,omitempty"`
+	HoldMS  int64  `json:"hold_ms,omitempty"`
 }
 
 // workerResult is the worker's answer, one JSON line on stdout.
@@ -104,15 +101,7 @@ func runJob(waf coraza.WAF, job *workerJob) workerResult {
 	defer func() {
 		res.ElapsedMS = time.Since(start).Milliseconds()
 	}()
-	tx.ProcessURI(job.URI, job.Method, "1.1")
-	if job.Host != "" {
-		tx.AddRequestHeader("Host", job.Host)
-	}
-	for k, vv := range job.Headers {
-		for _, v := range vv {
-			tx.AddRequestHeader(k, v)
-		}
-	}
+	job.requestView.feed(tx)
 	tx.ProcessConnection("127.0.0.1", 0, "127.0.0.1", 80)
 	if job.HoldMS > 0 {
 		time.Sleep(time.Duration(job.HoldMS) * time.Millisecond)
@@ -177,19 +166,7 @@ func (p *pool) inspect(pw *Proxy, sampleID string, r *http.Request, start time.T
 			p.release(wk)
 		}
 	}()
-	job := workerJob{
-		SampleID: sampleID,
-		Method:   r.Method,
-		URI:      r.URL.RequestURI(),
-		Headers:  map[string][]string{},
-		Host:     r.Host,
-	}
-	for k, vv := range r.Header {
-		if k == "Host" {
-			continue
-		}
-		job.Headers[k] = vv
-	}
+	job := workerJob{SampleID: sampleID, requestView: viewOf(r)}
 	if pw.cfg.TestHoldBodyMS > 0 && r.Header.Get("X-Kortex-Test-Hold") == "1" {
 		job.HoldMS = pw.cfg.TestHoldBodyMS
 	}

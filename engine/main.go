@@ -70,7 +70,7 @@ func main() {
 // connection after every answer, including the ones net/http writes itself
 // (OPTIONS *) and the admin paths.
 func newEngineServer(handler http.Handler) *http.Server {
-	srv := &http.Server{Handler: handler}
+	srv := &http.Server{Handler: handler, ConnContext: connContext}
 	srv.SetKeepAlivesEnabled(false)
 	return srv
 }

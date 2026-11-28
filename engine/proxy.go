@@ -186,13 +186,7 @@ func (p *Proxy) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 		}
 	}()
 
-	tx.ProcessURI(r.URL.RequestURI(), r.Method, "1.1")
-	tx.AddRequestHeader("Host", r.Host)
-	for k, vv := range r.Header {
-		for _, v := range vv {
-			tx.AddRequestHeader(k, v)
-		}
-	}
+	viewOf(r).feed(tx)
 	if r.ContentLength > 0 {
 		tx.AddRequestHeader("Content-Length", strconv.FormatInt(r.ContentLength, 10))
 	}

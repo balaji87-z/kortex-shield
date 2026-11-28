@@ -1,0 +1,55 @@
+# step-25 T3: E52 to E55 passing after the fixes
+# 2026-11-28T06:23:20Z git 3d52ae45ef674c736d65733c944462b95d5aeff5 + working tree (fixes); go version go1.27.4 darwin/arm64
+# cd engine && go test -count=1 -run 'TestE52|TestE53|TestE54|TestE55' -v .
+=== RUN   TestE52RulesSeeTheRequestLineAsSent
+=== RUN   TestE52RulesSeeTheRequestLineAsSent/absolute-form_target_without_a_path_matches_920100
+=== RUN   TestE52RulesSeeTheRequestLineAsSent/origin-form_target_is_a_valid_request_line
+=== RUN   TestE52RulesSeeTheRequestLineAsSent/protocol_HTTP/1.0_reaches_the_audit_entry
+=== RUN   TestE52RulesSeeTheRequestLineAsSent/protocol_HTTP/1.1_reaches_the_audit_entry
+--- PASS: TestE52RulesSeeTheRequestLineAsSent (0.08s)
+    --- PASS: TestE52RulesSeeTheRequestLineAsSent/absolute-form_target_without_a_path_matches_920100 (0.04s)
+    --- PASS: TestE52RulesSeeTheRequestLineAsSent/origin-form_target_is_a_valid_request_line (0.01s)
+    --- PASS: TestE52RulesSeeTheRequestLineAsSent/protocol_HTTP/1.0_reaches_the_audit_entry (0.01s)
+    --- PASS: TestE52RulesSeeTheRequestLineAsSent/protocol_HTTP/1.1_reaches_the_audit_entry (0.01s)
+=== RUN   TestE53RulesSeeTransferEncoding
+=== RUN   TestE53RulesSeeTransferEncoding/in-process,_GET_with_Transfer-Encoding_matches_920171
+=== RUN   TestE53RulesSeeTransferEncoding/in-process,_POST_with_Transfer-Encoding_does_not
+=== RUN   TestE53RulesSeeTransferEncoding/worker,_GET_with_Transfer-Encoding_matches_920171
+=== RUN   TestE53RulesSeeTransferEncoding/worker,_POST_with_Transfer-Encoding_does_not
+--- PASS: TestE53RulesSeeTransferEncoding (0.30s)
+    --- PASS: TestE53RulesSeeTransferEncoding/in-process,_GET_with_Transfer-Encoding_matches_920171 (0.01s)
+    --- PASS: TestE53RulesSeeTransferEncoding/in-process,_POST_with_Transfer-Encoding_does_not (0.01s)
+    --- PASS: TestE53RulesSeeTransferEncoding/worker,_GET_with_Transfer-Encoding_matches_920171 (0.14s)
+    --- PASS: TestE53RulesSeeTransferEncoding/worker,_POST_with_Transfer-Encoding_does_not (0.13s)
+=== RUN   TestE54RulesSeeTheHostHeaderAsSent
+=== RUN   TestE54RulesSeeTheHostHeaderAsSent/in-process,_HTTP/1.0_without_Host
+=== RUN   TestE54RulesSeeTheHostHeaderAsSent/in-process,_empty_Host_line
+=== RUN   TestE54RulesSeeTheHostHeaderAsSent/in-process,_normal_Host
+=== RUN   TestE54RulesSeeTheHostHeaderAsSent/in-process,_HTTP/1.0_without_Host,_body
+=== RUN   TestE54RulesSeeTheHostHeaderAsSent/in-process,_empty_Host_line,_body
+=== RUN   TestE54RulesSeeTheHostHeaderAsSent/worker,_HTTP/1.0_without_Host
+=== RUN   TestE54RulesSeeTheHostHeaderAsSent/worker,_empty_Host_line
+=== RUN   TestE54RulesSeeTheHostHeaderAsSent/worker,_normal_Host
+=== RUN   TestE54RulesSeeTheHostHeaderAsSent/worker,_HTTP/1.0_without_Host,_body
+=== RUN   TestE54RulesSeeTheHostHeaderAsSent/worker,_empty_Host_line,_body
+--- PASS: TestE54RulesSeeTheHostHeaderAsSent (0.70s)
+    --- PASS: TestE54RulesSeeTheHostHeaderAsSent/in-process,_HTTP/1.0_without_Host (0.01s)
+    --- PASS: TestE54RulesSeeTheHostHeaderAsSent/in-process,_empty_Host_line (0.01s)
+    --- PASS: TestE54RulesSeeTheHostHeaderAsSent/in-process,_normal_Host (0.01s)
+    --- PASS: TestE54RulesSeeTheHostHeaderAsSent/in-process,_HTTP/1.0_without_Host,_body (0.01s)
+    --- PASS: TestE54RulesSeeTheHostHeaderAsSent/in-process,_empty_Host_line,_body (0.01s)
+    --- PASS: TestE54RulesSeeTheHostHeaderAsSent/worker,_HTTP/1.0_without_Host (0.13s)
+    --- PASS: TestE54RulesSeeTheHostHeaderAsSent/worker,_empty_Host_line (0.13s)
+    --- PASS: TestE54RulesSeeTheHostHeaderAsSent/worker,_normal_Host (0.13s)
+    --- PASS: TestE54RulesSeeTheHostHeaderAsSent/worker,_HTTP/1.0_without_Host,_body (0.13s)
+    --- PASS: TestE54RulesSeeTheHostHeaderAsSent/worker,_empty_Host_line,_body (0.13s)
+=== RUN   TestE55TautologyRuleKeepsItsOwnTargets
+=== RUN   TestE55TautologyRuleKeepsItsOwnTargets/canary:_tautology_in_the_query_string_matches_942130
+=== RUN   TestE55TautologyRuleKeepsItsOwnTargets/tautology_in_a_form_body_matches_942130
+=== RUN   TestE55TautologyRuleKeepsItsOwnTargets/942130_is_not_in_the_target_updates,_932240_still_is
+--- PASS: TestE55TautologyRuleKeepsItsOwnTargets (0.03s)
+    --- PASS: TestE55TautologyRuleKeepsItsOwnTargets/canary:_tautology_in_the_query_string_matches_942130 (0.01s)
+    --- PASS: TestE55TautologyRuleKeepsItsOwnTargets/tautology_in_a_form_body_matches_942130 (0.01s)
+    --- PASS: TestE55TautologyRuleKeepsItsOwnTargets/942130_is_not_in_the_target_updates,_932240_still_is (0.00s)
+PASS
+ok  	kortexshield/engine	1.294s

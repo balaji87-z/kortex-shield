@@ -46,13 +46,22 @@ var (
 	bodyTargetIDRe    = regexp.MustCompile(`id:['"]?(\d{6})`)
 	bodyTargetPhase1  = regexp.MustCompile(`phase:1([^0-9]|$)`)
 	bodyTargetSecRule = regexp.MustCompile(`^SecRule\s+(\S+)\s+"`)
+	// the chain action closes the action list of a rule that has a chained rule
+	bodyTargetChain = regexp.MustCompile(`[,\s]chain\s*"\s*$`)
+	// bodyTargetSkip: rules that must not get the REQUEST_BODY target.
+	// 942130 (step 25, E55): its chained rule compares the two words
+	// captured by the LAST variable that matched; the added target is
+	// evaluated last, and the first "word = word" of a raw form body is the
+	// name=value pair itself, so with the target the rule could never match
+	// a tautology in a form body.
+	bodyTargetSkip = map[int]bool{942130: true}
 )
 
 // requestBodyTargetUpdates returns the sorted ids of inbound CRS rules that
 // inspect ARGS-family variables (the split output) but not REQUEST_BODY, run
-// in phase 2 or later, and are not chain-inner rules (SecRuleUpdateTargetById
-// addresses rules by id; chain members after the starter have no id of their
-// own). Counted (&ARGS) and size (ARGS_COMBINED_SIZE) targets are skipped:
+// in phase 2 or later, are not chained rules (SecRuleUpdateTargetById
+// addresses rules by id; chain members after the first have no id of their
+// own) and are not in bodyTargetSkip. Counted (&ARGS) and size (ARGS_COMBINED_SIZE) targets are skipped:
 // adding REQUEST_BODY there would change count/size semantics rather than add
 // a payload scan.
 func requestBodyTargetUpdates(rulesDir string) ([]int, error) {
@@ -85,7 +94,7 @@ func requestBodyTargetUpdates(rulesDir string) ([]int, error) {
 			}
 			vars := m[1]
 			inner := prevChain
-			prevChain = strings.HasSuffix(strings.TrimSpace(line), "chain")
+			prevChain = bodyTargetChain.MatchString(line)
 			if inner {
 				continue
 			}
@@ -98,6 +107,9 @@ func requestBodyTargetUpdates(rulesDir string) ([]int, error) {
 				continue
 			}
 			if id < 930000 || id > 949999 {
+				continue
+			}
+			if bodyTargetSkip[id] {
 				continue
 			}
 			if seen[id] {
