@@ -50,11 +50,11 @@ func main() {
 	fmt.Printf("kortex-engine: effective config: backend_url=%s rule_engine=%s blocking_paranoia=%d "+
 		"detection_paranoia=%d max_body_bytes=%d max_inspected_bytes=%d engine_time_budget_ms=%d "+
 		"rules_dir=%s listen_addr=%s events_file=%s audit_log=%s request_body_target_updates=%d "+
-		"error_log=%s crs_test_setup=%t\n",
+		"error_log=%s crs_test_setup=%t head_timeout_ms=%d max_pending_heads=%d\n",
 		cfg.BackendURL, cfg.RuleEngine, cfg.BlockingParanoia, cfg.DetectionParanoia,
 		cfg.MaxBodyBytes, cfg.MaxInspectedBytes, cfg.EngineTimeBudgetMS, cfg.RulesDir,
 		cfg.ListenAddr, cfg.EventsFile, cfg.AuditLog, len(cfg.RequestBodyTargetIDs),
-		cfg.ErrorLog, cfg.CRSTestSetup)
+		cfg.ErrorLog, cfg.CRSTestSetup, cfg.HeadTimeoutMS, cfg.MaxPendingHeads)
 
 	srv := newEngineServer(handler)
 	srv.ReadTimeout = 60 * time.Second

@@ -45,6 +45,14 @@ type Config struct {
 	// regression suite, including its marker rule 999999, which switches
 	// every rule off for a request that carries an X-CRS-Test header.
 	CRSTestSetup bool
+	// HeadTimeoutMS (step-27, E58): how long the gate waits for the end of a
+	// request head before it answers 400 kortex-decision=framing
+	// (head-timeout). Default 30000.
+	HeadTimeoutMS int64
+	// MaxPendingHeads (step-27, E62): how many accepted connections may be
+	// waiting for the end of their head at once; one more is answered 503
+	// kortex-decision=overload (pending-heads). Default 256.
+	MaxPendingHeads int64
 	// RequestBodyTargetIDs is the sorted list of CRS rule ids that received a
 	// REQUEST_BODY target via SecRuleUpdateTargetById (step-18 T4, body
 	// parsing fidelity). Computed by directives() at WAF build; printed at
@@ -101,6 +109,8 @@ func loadConfig() *Config {
 		AuditLog:             envOr("KORTEX_AUDIT_LOG", "audit.log"),
 		ErrorLog:             os.Getenv("KORTEX_ERROR_LOG"),
 		CRSTestSetup:         os.Getenv("KORTEX_CRS_TEST_SETUP") == "on",
+		HeadTimeoutMS:        envInt("KORTEX_HEAD_TIMEOUT_MS", 30000),
+		MaxPendingHeads:      envInt("KORTEX_MAX_PENDING_HEADS", 256),
 	}
 }
 

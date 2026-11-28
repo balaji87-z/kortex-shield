@@ -36,13 +36,15 @@ func adminConfig(cfg *Config, fair *fairness) http.HandlerFunc {
 			`"max_inflight_body":%d,"max_inflight_body_large":%d,"body_lane_threshold":%d,`+
 			`"worker_mode":%t,"client_max_inflight":%d,`+
 			`"client_max_inflight_small":%d,"client_max_inflight_large":%d,`+
-			`"request_body_target_updates":%d,"error_log":%q,"crs_test_setup":%t}`+"\n",
+			`"request_body_target_updates":%d,"error_log":%q,"crs_test_setup":%t,`+
+			`"head_timeout_ms":%d,"max_pending_heads":%d}`+"\n",
 			cfg.BackendURL, cfg.RuleEngine, cfg.BlockingParanoia, cfg.DetectionParanoia,
 			cfg.MaxBodyBytes, cfg.MaxInspectedBytes, cfg.EngineTimeBudgetMS, cfg.RulesDir,
 			cfg.ListenAddr, cfg.EventsFile, cfg.AuditLog, cfg.AllowedMethods, cfg.MaxInflightBody,
 			cfg.MaxInflightBodyLarge, cfg.BodyLaneThreshold,
 			cfg.WorkerMode, cfg.ClientMaxInflight, clientSmall, clientLarge,
-			len(cfg.RequestBodyTargetIDs), cfg.ErrorLog, cfg.CRSTestSetup)
+			len(cfg.RequestBodyTargetIDs), cfg.ErrorLog, cfg.CRSTestSetup,
+			cfg.HeadTimeoutMS, cfg.MaxPendingHeads)
 	}
 }
 
@@ -63,21 +65,27 @@ type gateResult struct {
 // connection and is always gated. framingGateGoView repeats the header
 // checks on the lines as Go's parser reads them.
 func framingGate(head []byte) gateResult {
-	// the head ends at the first blank line; anything after it is body
-	end := bytes.Index(head, []byte("\r\n\r\n"))
-	if end < 0 {
-		end = len(head)
+	// the head ends at the first blank line, as Go's parser finds it (LF or
+	// CRLF); anything after it is body
+	if end := headEnd(head); end >= 0 {
+		head = head[:end]
 	}
-	head = head[:end]
-	// request line
-	lineEnd := strings.Index(string(head), "\r\n")
-	if lineEnd < 0 {
+	head = bytes.TrimRight(head, "\r\n")
+	// request line: up to the first line break, LF or CRLF
+	firstLF := bytes.IndexByte(head, '\n')
+	if firstLF < 0 {
 		return gateResult{reason: "no-request-line"}
 	}
-	reqLine := string(head[:lineEnd])
-	if strings.ContainsRune(reqLine, '\x00') {
+	if strings.ContainsRune(strings.TrimSuffix(string(head[:firstLF]), "\r"), '\x00') {
 		return gateResult{reason: "nul-in-target"}
 	}
+	// this view splits on CRLF only; a head without any CRLF line has its
+	// header lines checked by framingGateGoView alone
+	lineEnd := strings.Index(string(head), "\r\n")
+	if lineEnd < 0 {
+		return gateResult{pass: true}
+	}
+	reqLine := string(head[:lineEnd])
 	// headers
 	var (
 		clCount int
@@ -146,8 +154,9 @@ func (p *Proxy) adminStats(w http.ResponseWriter, r *http.Request) {
 		`"abandoned_running":%d,"kills":%d,"overloads":%d,`+
 		`"refused_before_inspection":%d,"penalised_clients":%d,`+
 		`"client_inflight_small":%d,"client_inflight_large":%d,`+
-		`"workers":{"pool":%d,"busy":%d,"spares":%d,"recycled":%d}}`+"\n",
+		`"workers":{"pool":%d,"busy":%d,"spares":%d,"recycled":%d},"pending_heads":%d}`+"\n",
 		p.inflightSmall.Load(), p.inflightLarge.Load(),
 		p.abandonedRunning.Load(), kills, p.overloads.Load(),
-		p.refusedEarly.Load(), penalised, clientSmall, clientLarge, wtotal, wbusy, widle, wrecycled)
+		p.refusedEarly.Load(), penalised, clientSmall, clientLarge, wtotal, wbusy, widle, wrecycled,
+		gatePending.Load())
 }

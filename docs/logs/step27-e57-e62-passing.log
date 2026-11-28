@@ -1,0 +1,44 @@
+# step-27 T1: E57 to E62 passing after the changes
+# 2026-11-28T16:37:06Z git 52b4b420645c593fdb057f0c89461dc2d566e376 + working tree (changes); go version go1.27.4 darwin/arm64
+# cd engine && go test -count=1 -run 'TestE57|TestE58|TestE59|TestE60|TestE61|TestE62' -v .
+=== RUN   TestE57OptionsAsteriskIsRefusedByTheGate
+=== RUN   TestE57OptionsAsteriskIsRefusedByTheGate/e57-options-asterisk
+=== RUN   TestE57OptionsAsteriskIsRefusedByTheGate/e57-options-asterisk-10
+=== RUN   TestE57OptionsAsteriskIsRefusedByTheGate/guard:_OPTIONS_with_a_path_is_forwarded
+--- PASS: TestE57OptionsAsteriskIsRefusedByTheGate (10.07s)
+    --- PASS: TestE57OptionsAsteriskIsRefusedByTheGate/e57-options-asterisk (10.00s)
+    --- PASS: TestE57OptionsAsteriskIsRefusedByTheGate/e57-options-asterisk-10 (0.00s)
+    --- PASS: TestE57OptionsAsteriskIsRefusedByTheGate/guard:_OPTIONS_with_a_path_is_forwarded (0.00s)
+=== RUN   TestE58UnreadableHeadIsAnsweredAndLogged
+=== RUN   TestE58UnreadableHeadIsAnsweredAndLogged/the_limit_is_on_the_config_page
+=== RUN   TestE58UnreadableHeadIsAnsweredAndLogged/head_over_65,536_bytes
+=== RUN   TestE58UnreadableHeadIsAnsweredAndLogged/head_that_never_ends
+=== RUN   TestE58UnreadableHeadIsAnsweredAndLogged/guard:_a_head_that_arrives_in_two_pieces_within_the_limit_is_served
+--- PASS: TestE58UnreadableHeadIsAnsweredAndLogged (0.44s)
+    --- PASS: TestE58UnreadableHeadIsAnsweredAndLogged/the_limit_is_on_the_config_page (0.00s)
+    --- PASS: TestE58UnreadableHeadIsAnsweredAndLogged/head_over_65,536_bytes (0.00s)
+    --- PASS: TestE58UnreadableHeadIsAnsweredAndLogged/head_that_never_ends (0.30s)
+    --- PASS: TestE58UnreadableHeadIsAnsweredAndLogged/guard:_a_head_that_arrives_in_two_pieces_within_the_limit_is_served (0.11s)
+=== RUN   TestE59EndOfHeadIsReadAsGoReadsIt
+=== RUN   TestE59EndOfHeadIsReadAsGoReadsIt/e59-all-lf
+=== RUN   TestE59EndOfHeadIsReadAsGoReadsIt/e59-crlf-lines-lf-blank
+=== RUN   TestE59EndOfHeadIsReadAsGoReadsIt/e59-lf-lines-crlf-blank
+=== RUN   TestE59EndOfHeadIsReadAsGoReadsIt/e59-all-lf-body
+=== RUN   TestE59EndOfHeadIsReadAsGoReadsIt/e59-all-lf-canary
+=== RUN   TestE59EndOfHeadIsReadAsGoReadsIt/e59-all-lf-te-cl
+--- PASS: TestE59EndOfHeadIsReadAsGoReadsIt (0.03s)
+    --- PASS: TestE59EndOfHeadIsReadAsGoReadsIt/e59-all-lf (0.00s)
+    --- PASS: TestE59EndOfHeadIsReadAsGoReadsIt/e59-crlf-lines-lf-blank (0.00s)
+    --- PASS: TestE59EndOfHeadIsReadAsGoReadsIt/e59-lf-lines-crlf-blank (0.00s)
+    --- PASS: TestE59EndOfHeadIsReadAsGoReadsIt/e59-all-lf-body (0.00s)
+    --- PASS: TestE59EndOfHeadIsReadAsGoReadsIt/e59-all-lf-canary (0.00s)
+    --- PASS: TestE59EndOfHeadIsReadAsGoReadsIt/e59-all-lf-te-cl (0.00s)
+=== RUN   TestE60EveryLineEndingMixIsAnsweredLikeNetHTTP
+    step27_test.go:256: heads 88; not answered within 3 s: 0; decided differently from bare net/http: 0
+--- PASS: TestE60EveryLineEndingMixIsAnsweredLikeNetHTTP (0.07s)
+=== RUN   TestE61UnfinishedHeadDoesNotDelayOtherConnections
+--- PASS: TestE61UnfinishedHeadDoesNotDelayOtherConnections (0.22s)
+=== RUN   TestE62PendingHeadsAreCapped
+--- PASS: TestE62PendingHeadsAreCapped (0.24s)
+PASS
+ok  	kortexshield/engine	11.455s
