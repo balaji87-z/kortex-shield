@@ -722,3 +722,55 @@ The log-only encoding checks (invalid percent sequence, overlong UTF-8)
 look at the query and at urlencoded bodies, not at the path. An invalid
 percent escape in the path is refused at (2); overlong UTF-8 in the path
 reaches the rules unremarked (T5: `ovl-path-nul-pct` forwarded, no event).
+
+## Step-24 additions (2026-11-27)
+
+### Refusals of Go's HTTP parser are made by the gate (T1, documented BEFORE the code)
+
+Classification (rule 39): BUG. Step 23 (T5) found that 17 of 61 hand-written
+requests were answered `400 Bad Request` or `501 Unsupported transfer
+encoding` by Go's net/http inside the engine: no kortex-decision line, no
+event, no audit entry. The request is not forwarded, so this is fail-closed,
+but the evaluation reads a bare 400 or 501 as `waf_pass` and the events file
+says nothing happened.
+
+The fix keeps kortex_eval unchanged (rule 5) and moves the refusal into the
+engine's own gate:
+
+- After the framing checks, the gate (engine/listener.go) gives the request
+  head it already holds to Go's own request parser (`http.ReadRequest`), then
+  repeats the checks that net/http's server makes after parsing and before it
+  calls a handler (protocol version, Host header present / single / well
+  formed, header names and values, more than 500 header lines, an `Expect`
+  value other than `100-continue`).
+- A head that fails any of them is answered by the gate exactly like every
+  other gate refusal: `400` with the body `400 kortex-decision=framing`, one
+  `framing` event (status 400, sample id from the raw head) written before
+  the answer, connection closed. kortex_eval already classifies this answer
+  as `waf_fail_closed_400`.
+- The event reason is `parser:<class>` where the class is one of a fixed list
+  of words: `content-length`, `transfer-encoding`, `request-target`,
+  `request-line`, `method`, `http-version`, `host-missing`, `host-duplicate`,
+  `host-malformed`, `header-line`, `header-name`, `header-value`,
+  `header-count`, `expect`, `other`. Go's error text quotes the offending
+  value, so it is never written to the events file.
+- The status changes for these requests: 501 (unsupported Transfer-Encoding),
+  505 (HTTP version), 417 (Expect) and 431 (more than 500 header lines)
+  become 400, the one status the gate uses. A request the gate refuses this
+  way was already refused before; nothing that used to reach the handler is
+  refused now (test E43 is the guard, E44 the canary that such requests are
+  still inspected).
+
+What this does not cover, and is left as it was:
+
+- A head the gate cannot read (no blank line within 30 s, or more than
+  65,536 bytes) is closed without an answer and without an event.
+- Errors found while the body is read (a malformed chunk) are the handler's:
+  503 timeout with reason `body-read-error`, as in step 23.
+- `OPTIONS * HTTP/1.1` is answered 200 by net/http itself with an empty
+  body; the handler does not run, nothing is inspected and nothing is
+  forwarded. This is an answer, not a refusal; see the step-24 report.
+- The checks made after parsing are a copy of what net/http does in
+  go1.27.4. Test E42 proves, case by case on a bare net/http server, that
+  each listed shape is answered by Go without running a handler; a shape
+  that is not in the test is UNVERIFIED.
