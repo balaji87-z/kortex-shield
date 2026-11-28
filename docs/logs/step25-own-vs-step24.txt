@@ -1,5 +1,5 @@
-# step-25: own datasets on the step-25 engine (after E52 to E55) against the step-24 runs, per sample id (rule 32)
-# 2026-11-28T06:28:52Z git af5ab15825c17c33ef4a5a8d5f32324558c752b2
+# step-25: own datasets on the step-25 engine against the step-24 runs, per sample id (rule 32)
+# 2026-11-28T07:03:37Z git 497d585e8f0dfa49ba5f1fe71c12f8ec6071142e
 == attacks-v0 PL1 inprocess (a=step-24 b=step-25):
 # .venv/bin/python tools/step21_engine_diff.py docs/logs/runs/s24-own/attacks-v0-inprocess-pl1 docs/logs/runs/s25-own/attacks-v0-inprocess-pl1
 samples compared: 1054 (a=1054 b=1054 only-a=0 only-b=0)

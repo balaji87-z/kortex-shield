@@ -813,3 +813,94 @@ both PROVEN by failing tests (docs/logs/step24-e46-e48-failing.log).
 
 Neither change touches what the engine does with the first request of a
 connection that has no framing problem.
+
+## Step-25 additions (2026-11-27)
+
+### What the CRS regression suite needs: error log and suite setup (T1, tests first)
+
+Two switches, off by default (docs/baseline-config.md, step 25):
+
+- `KORTEX_ERROR_LOG=<path>`: one line per matched rule that has the `log`
+  action, in the ModSecurity error-log form (`MatchedRule.ErrorLog()`).
+  The parent and each worker append to the same file, one write per line.
+  The audit log is unchanged; it still records only requests that end in
+  4xx / 5xx, so in DetectionOnly mode the error log is the only record of a
+  match on a forwarded request (E49).
+- `KORTEX_CRS_TEST_SETUP=on`: TEST ONLY. Renders rules 900005, 900511 and
+  the marker rule 999999 of the CRS regression suite. With it on, any
+  client can switch every rule off with an `X-CRS-Test` header. Only the
+  exact value `on` enables it (E50, guard E51), and `/__kortex/config`
+  shows `crs_test_setup`.
+
+### The rules see the request head as it was sent (T3; tests E52 to E54 first, this note after the fix)
+
+Go's net/http changes three things before a handler sees a request, and the
+engine handed the changed form to the rules:
+
+| what | before | now | found by |
+|---|---|---|---|
+| request target | `r.URL.RequestURI()`: an absolute-form target lost its scheme and host | `r.RequestURI`, the target as sent | CRS test 920100-16 |
+| protocol | the constant `1.1` (REQUEST_PROTOCOL and REQUEST_LINE carried `1.1`, also for HTTP/1.0) | `r.Proto`, e.g. `HTTP/1.0`, as coraza's own middleware passes it | E52 |
+| Transfer-Encoding | absent: net/http removes it from the header map | handed back from `r.TransferEncoding` | CRS tests 920171-2, -3 |
+| Host | always added, empty when the request had no Host line; in worker mode the worker added none, so a body-bearing request without Host got 920290 from the parent and 920280 from the worker | the Host line as the gate read it from the raw head: its value when there is one, no header when there is none | CRS test 920280-1, E54 |
+
+`engine/requestview.go` builds this view once (`viewOf`) and feeds it to
+the transaction in the handler and, through the job, in the worker, so the
+two cannot drift apart again. The gate keeps the Host lines of the head it
+let through on the connection (`gatedConn.hostLines`), and the server's
+`ConnContext` hands them to the handler. net/http itself cannot tell "no
+Host line" from "empty Host line", and for an absolute-form target it
+replaces the Host value with the target's host.
+
+Not changed: what is forwarded to the backend (`r.URL.RequestURI()` and
+`r.Host`, as before).
+
+Found while writing the view (test E56 first): in-process the handler added
+a `Content-Length` header of its own although net/http keeps the one that
+was sent, so the rules were given the header twice; the worker was given it
+once. The handler no longer adds it. No CRS test and no sample of our
+datasets changed its result or its rule-id set with this fix
+(docs/logs/step25-ftw-final-diffs.txt, last section).
+
+### CRS 942130 gets no REQUEST_BODY target (T3; test E55 first, this note after the fix)
+
+Step 18 added REQUEST_BODY as a target to every inbound 93x / 94x rule that
+inspects parsed arguments, saying "targets are only added". For a rule that
+starts a chain this is not true: the chained rule reads the captures of the
+last variable that matched, and the added target is evaluated last. CRS
+942130 (SQL tautology) captures two words around `=` or `like` and its
+chained rule requires them to be equal. In a form body `a=42 like 42` the
+argument gives (42, 42), then the raw body gives (a, 42), its first match
+being the name=value pair, and the chain fails. Since step 18 the rule
+could not match a tautology in any body parsed as a form (PROVEN: E55, and
+the DIAGNOSTIC run without the target updates, where CRS test 942130-7
+passes).
+
+Fix: 942130 is left out of the target updates (`bodyTargetSkip`), 165
+updates instead of 166. What this gives up: a tautology that the form split
+destroys (for example a raw text body `x' or 1=1`, where the split puts the
+two sides into name and value) was matched by 942130 through the raw body;
+it no longer is by this rule. Measured on our datasets at PL2: attacks-ct-v0
+942130 lost on 28 requests and gained on 7, encoding-diff-v0 gained on 12,
+no status changed (docs/logs/step25-own-vs-step24.txt).
+
+The other 11 chain-starting rules among the updates (931130, 932200,
+932240, 933150, 941310, 942131, 942200, 942440, 942521, 943110, 943120)
+keep the target: E24 needs it on 932240, and no CRS test shows a missed
+match for them. Whether one of them loses matches the same way on other
+inputs is not tested.
+
+### Properties the CRS suite measures against (stated in the plan before the run)
+
+- The engine does not inspect responses: `SecResponseBodyAccess Off`, and
+  engine/proxy.go calls no response phase. Every CRS rule in the
+  RESPONSE-95x files is inactive. Measured: 78 of the suite's tests.
+- No content-type allow-list (rule 900220, decision 0002 addendum C4).
+  Measured: 19 tests that expect 920420.
+- REQUEST_BODY as an added target (step 18) scans the raw body, names and
+  separators included. Measured: 15 tests in which the CRS project asserts
+  that a rule must not match (`initials=DF` for 932340, one special
+  character for 942432, ...) do match on the engine: potential false
+  positives.
+- The gate answers before the rules (steps 15 and 24). Measured: 3 tests
+  that expect a rule id for a request the gate refuses.

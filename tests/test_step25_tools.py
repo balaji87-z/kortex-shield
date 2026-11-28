@@ -159,3 +159,31 @@ def test_ruleid_diff_counts_gained_and_lost_ids_per_sample(tmp_path, capsys):
     assert "ids gained in b: {'942130': 1}; ids lost in b: {'942130': 1}" in out
     assert "missing: NOT MEASURED" in out
     assert "total samples with a different rule-id set: 2" in out
+
+
+def test_groups_puts_every_failed_test_in_exactly_one_group(tmp_path, capsys):
+    fs = load("step25_ftw_summary")
+    failed = ["951100-1", "920430-5", "920420-2", "942432-5", "920100-5", "933100-9"]
+    run = write_run(tmp_path, "engine", doc(success=["911100-1"], failed=failed))
+    ref = write_run(tmp_path, "ref", doc(success=["911100-1", "951100-1", "920420-2", "942432-5", "933100-9"],
+                                         failed=["920430-5", "920100-5"]))
+    no_ct = write_run(tmp_path, "no-ct", doc(success=["911100-1", "920420-2"],
+                                            failed=[t for t in failed if t != "920420-2"]))
+    no_body = write_run(tmp_path, "no-body", doc(success=["911100-1", "942432-5"],
+                                                failed=[t for t in failed if t != "942432-5"]))
+    probe = tmp_path / "probe.txt"
+    probe.write_text("| test | engine events | statuses | result |\n|---|---|---|---|\n"
+                     "| 920430-5 | framing 400 parser:http-version (3 events in all) | 200 400 200 | failed |\n"
+                     "| 920100-5 | pass 0 forwarding (3 events in all) | 200 200 200 | failed |\n")
+    assert fs.main(["groups", str(run), "--probe", str(probe), "--diag", f"no allow-list={no_ct}",
+                    "--diag", f"body targets={no_body}", "--ref", str(ref)]) == 0
+    out = capsys.readouterr().out
+    assert "6 failed tests" in out
+    assert "response rule: 1: 951100-1" in out
+    # refused by the gate wins over "the reference fails it too"
+    assert "refused by the gate: 1: 920430-5" in out
+    assert "no allow-list: 1: 920420-2" in out
+    assert "body targets: 1: 942432-5" in out
+    assert "failed by the reference too: 1: 920100-5" in out
+    assert "UNEXPLAINED: 1: 933100-9" in out
+    assert "sum of the groups: 6" in out

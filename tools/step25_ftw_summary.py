@@ -7,6 +7,8 @@
   step25_ftw_summary.py diff <run-dir-a> <run-dir-b>   per-test differences
   step25_ftw_summary.py failed <run-dir> [<ref-run-dir>] [--tests <dir>] [--overrides <yaml>]
                                                  every failed test with what it expected and what was logged
+  step25_ftw_summary.py groups <run-dir> [--probe <probe.txt>] [--diag <label>=<run-dir>]... [--ref <run-dir>]
+                                                 every failed test in exactly one group
 
 A run directory holds go-ftw's `-o json --report-triggered-rules` output as
 ftw.json and, for engine runs, the compact form of the engine's events.
@@ -335,6 +337,66 @@ def cmd_failed(argv):
               f"{triggered(doc, t)} | {ref} | {'yes' if t in ov else 'no'} |")
 
 
+def probe_framing(path):
+    """Test ids for which the per-test probe recorded a framing answer of the gate."""
+    out = set()
+    with open(path, encoding="utf-8") as fh:
+        for line in fh:
+            cells = [c.strip() for c in line.split("|")]
+            if len(cells) >= 4 and re.match(r"^\d+-\d+$", cells[1]) and cells[2].startswith("framing "):
+                out.add(cells[1])
+    return out
+
+
+def cmd_groups(argv):
+    """Each failed test goes to the first group that holds, in this order:
+    its rule is a response rule (files 950 to 959); the probe shows the gate
+    refused the request; it passes in a DIAGNOSTIC run (in the order given);
+    the reference fails it too; otherwise UNEXPLAINED."""
+    run_dir = argv[0]
+    probe = None
+    diags = []
+    ref_dir = None
+    i = 1
+    while i < len(argv):
+        if argv[i] == "--probe":
+            probe = argv[i + 1]
+        elif argv[i] == "--diag":
+            label, _, path = argv[i + 1].partition("=")
+            diags.append((label, results(load(path))))
+        elif argv[i] == "--ref":
+            ref_dir = argv[i + 1]
+        else:
+            raise SystemExit(f"groups: unknown argument {argv[i]}")
+        i += 2
+    res = results(load(run_dir))
+    framing = probe_framing(probe) if probe else set()
+    ref_res = results(load(ref_dir)) if ref_dir else {}
+    names = (["response rule", "refused by the gate"] + [label for label, _ in diags]
+             + ["failed by the reference too", "UNEXPLAINED"])
+    groups = {n: [] for n in names}
+    failed = sorted((t for t, cls in res.items() if cls == "failed"), key=sort_key)
+    for t in failed:
+        if family(t).startswith("95"):
+            groups["response rule"].append(t)
+        elif t in framing:
+            groups["refused by the gate"].append(t)
+        else:
+            for label, diag_res in diags:
+                if diag_res.get(t) == "success":
+                    groups[label].append(t)
+                    break
+            else:
+                if ref_res.get(t) == "failed":
+                    groups["failed by the reference too"].append(t)
+                else:
+                    groups["UNEXPLAINED"].append(t)
+    print(f"== {os.path.basename(run_dir.rstrip('/'))}: {len(failed)} failed tests")
+    for n in names:
+        print(f"== {n}: {len(groups[n])}: {' '.join(groups[n])}")
+    print(f"== sum of the groups: {sum(len(v) for v in groups.values())}")
+
+
 def main(argv):
     if len(argv) >= 2 and argv[0] == "one":
         cmd_one(argv[1])
@@ -346,6 +408,8 @@ def main(argv):
         cmd_diff(argv[1], argv[2])
     elif len(argv) >= 2 and argv[0] == "failed":
         cmd_failed(argv[1:])
+    elif len(argv) >= 2 and argv[0] == "groups":
+        cmd_groups(argv[1:])
     else:
         print(__doc__)
         return 2

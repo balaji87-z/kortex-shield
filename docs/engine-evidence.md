@@ -577,3 +577,39 @@ docs/baseline-v1.8.md.
 - NOT MEASURED in step 24: connector / ModSecurity images, timing, the
   differential with the new shapes against real backends, PL2 with a
   numeric Host.
+
+## Step-25 evidence (2026-11-27, baseline v2.0)
+
+- A1, the CRS v4.25.2 regression suite (go-ftw 2.1.0, DetectionOnly, PL4,
+  4,987 tests), first time on the engine: 4,862 passed, 125 failed
+  (97.49%); 4,863 / 124 with the CRS project's coraza-overrides. A1 is
+  failing. Worker mode, a repeat and a DIAGNOSTIC build on stock coraza
+  v3.8.1: 0 tests with a different result or rule-id set. Reference (stock
+  coraza v3.8.1 as Go middleware, with response inspection): 4,970 / 17.
+  Evidence: docs/logs/s25-ftw.txt, s25-ftw-fixed.txt,
+  step25-ftw-final-diffs.txt.
+- The 125 failed tests (rule 39), 0 UNEXPLAINED: 78 need response
+  inspection (DESIGN; the reference passes all 78); 19 expect 920420
+  (DESIGN, PROVEN: DIAGNOSTIC without rule 900220, exactly these 19 more
+  pass); 15 are matches of the REQUEST_BODY targets where the suite says
+  the rule must not match (DESIGN, PROVEN: DIAGNOSTIC without the target
+  updates, these 15 pass; potential false positives); 3 are refused by the
+  gate (DESIGN; `framing 400` in the per-test probe); 10 are failed by the
+  reference in the same way (no difference). Evidence:
+  docs/logs/step25-failed-tests.txt, step25-failed-probe.txt.
+- Five BUG-class differences fixed, test first: the request target and the
+  protocol as sent (E52), Transfer-Encoding (E53), the Host line as sent
+  and the same in worker mode (E54), 942130 without the REQUEST_BODY target
+  (E55), Content-Length once (E56). Effect on the suite: 5 tests from
+  failed to passed (4,857 -> 4,862), none the other way. Evidence:
+  docs/logs/step25-e52-e55-*.log, step25-e55-revised-failing.log,
+  step25-e56-*.log.
+- Own datasets against the step-24 runs: 0 status and 0 worst-case-set
+  differences in 10,080 pairs; rule-id sets differ only by 942130 at PL2
+  (attacks-ct-v0: lost on 28, gained on 7; encoding-diff-v0: gained on 12).
+  wcp datasets: 0 status and 0 outcome differences in 60,000 pairs, worst
+  cases 2,284, 8,967, 1,133, 4,480; rule-id sets differ on 4 requests, by
+  942130. Evidence: docs/logs/step25-own-vs-step24.txt, step25-parity.txt.
+- NOT MEASURED in step 25: the suite on the connector and ModSecurity
+  images, in blocking mode, or at another paranoia level; the 11 other
+  chain-starting rules that keep the REQUEST_BODY target; timing.

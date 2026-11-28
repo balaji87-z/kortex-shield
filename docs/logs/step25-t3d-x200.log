@@ -1,0 +1,24 @@
+# step-25: TestT3dWorkerRecycleAfterN 200 times in one process at 497d585e8f0dfa49ba5f1fe71c12f8ec6071142e, 2026-11-28T07:13:57Z, go version go1.27.4 darwin/arm64, load at start: load averages: 3.59 5.67 5.04
+# cd engine && go test -count=200 -timeout 900s -run 'TestT3dWorkerRecycleAfterN' -v .
+    testing.go:1619: TempDir RemoveAll cleanup: unlinkat /var/folders/nq/sk_8btb16995njvp54fs72180000gs/T/TestT3dWorkerRecycleAfterN1171040436/001: directory not empty
+--- FAIL: TestT3dWorkerRecycleAfterN (0.15s)
+    testing.go:1619: TempDir RemoveAll cleanup: unlinkat /var/folders/nq/sk_8btb16995njvp54fs72180000gs/T/TestT3dWorkerRecycleAfterN2352749991/001: directory not empty
+--- FAIL: TestT3dWorkerRecycleAfterN (0.15s)
+FAIL
+FAIL	kortexshield/engine	31.141s
+FAIL
+# load at end: load averages: 3.62 5.48 4.99
+# stderr lines of worker processes that started after the test's directory was removed (left out here): 'worker: rule load failed: invalid WAF config from audit log: open <tmp>/audit.log: no such file or directory' x 198, 'worker: audit touch failed: open <tmp>/audit.log: no such file or directory' x 26
+# result: 2 FAIL of 200
+
+# step-25 DIAGNOSTIC: the same test 200 times on the step-24 engine (git archive 4f53d03 engine, scratch copy), 2026-11-28T07:14:47Z, go version go1.27.4 darwin/arm64, load at start: load averages: 4.19 5.48 5.01
+# cd <scratch>/engine && go test -count=200 -timeout 900s -run 'TestT3dWorkerRecycleAfterN' -v .
+    testing.go:1619: TempDir RemoveAll cleanup: unlinkat /var/folders/nq/sk_8btb16995njvp54fs72180000gs/T/TestT3dWorkerRecycleAfterN3407415865/001: directory not empty
+--- FAIL: TestT3dWorkerRecycleAfterN (0.14s)
+FAIL
+FAIL	kortexshield/engine	31.276s
+FAIL
+# load at end: load averages: 5.01 5.57 5.06
+# stderr lines of worker processes that started after the test's directory was removed (left out here): 'worker: rule load failed: invalid WAF config from audit log: open <tmp>/audit.log: no such file or directory' x 199, 'worker: audit touch failed: open <tmp>/audit.log: no such file or directory' x 62
+# result: 1 FAIL of 200
+

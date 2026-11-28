@@ -1,0 +1,16 @@
+# step-25: every failed test of the final engine-strict run in exactly one group
+# 2026-11-28T07:07:12Z git 497d585e8f0dfa49ba5f1fe71c12f8ec6071142e + tools/step25_ftw_summary.py (groups)
+# the two DIAGNOSTIC runs are those of the first runs (engine at c1bb0c5); a test is in such a group when it still fails on the final engine and passes in the DIAGNOSTIC run
+$ python3 tools/step25_ftw_summary.py groups docs/logs/runs/s25-ftw-fixed/engine-strict --probe docs/logs/step25-failed-probe.txt --diag 'passes without rule 900220 (DIAGNOSTIC)=docs/logs/runs/s25-ftw/DIAGNOSTIC-no-900220' --diag 'passes without the REQUEST_BODY targets (DIAGNOSTIC)=docs/logs/runs/s25-ftw/DIAGNOSTIC-no-body-targets' --ref docs/logs/runs/s25-ftw/ref-strict
+== engine-strict: 125 failed tests
+== response rule: 78: 950150-1 950150-2 950150-3 950150-4 950150-5 950150-6 950150-7 950150-8 950150-9 951110-1 951120-1 951130-1 951140-1 951150-1 951160-1 951170-1 951180-1 951190-1 951200-1 951210-1 951210-2 951220-1 951220-2 951230-1 951230-2 951240-1 951240-2 951250-1 951260-1 952110-1 952110-2 952110-3 952110-4 952110-5 952110-6 952110-7 952110-8 952110-9 953101-1 953101-2 953101-3 953101-4 953101-5 953120-1 953120-3 953120-5 953120-7 954100-1 954100-2 954100-3 954101-1 954101-2 954120-1 954120-2 955100-1 955100-2 955100-3 955110-1 955120-1 955120-2 955260-1 955400-1 955400-2 955400-3 956100-1 956100-2 956100-3 956100-4 956100-5 956100-6 956100-7 956100-8 956100-9 956110-1 956110-2 956110-3 959100-1 959100-3
+== refused by the gate: 3: 920181-1 920430-5 920430-8
+== passes without rule 900220 (DIAGNOSTIC): 19: 901360-3 901370-5 901370-6 901370-11 920420-2 920420-3 920420-4 920420-5 920420-6 920420-7 920420-8 920420-11 920420-12 920420-14 920420-15 920420-16 920420-17 920420-18 920420-21
+== passes without the REQUEST_BODY targets (DIAGNOSTIC): 15: 932340-10 932340-11 932340-12 932340-13 942210-31 942210-44 942430-7 942431-2 942431-3 942431-6 942432-5 942440-16 942440-21 942440-22 942440-23
+== failed by the reference too: 10: 920100-5 920100-8 920270-4 920274-1 920290-1 920610-2 920620-1 922130-1 922130-2 922130-7
+== UNEXPLAINED: 0: 
+== sum of the groups: 125
+
+# response rules: tests in which go-ftw found a 95x rule id in the log, per rule file prefix (measured property of rule 41)
+== docs/logs/runs/s25-ftw-fixed/engine-strict: {}, total (test, rule id) pairs 0, of 4987 tests
+== docs/logs/runs/s25-ftw/ref-strict: {'950': 9, '951': 39, '952': 11, '953': 14, '954': 10, '955': 10, '956': 12, '959': 78}, total (test, rule id) pairs 183, of 4987 tests

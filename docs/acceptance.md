@@ -8,7 +8,7 @@ Status values: `not started`, `in progress`, `passing`, `failing`.
 
 | ID | Bar | Source | Test | Pass condition | Status |
 |---|---|---|---|---|---|
-| A1 | Rule-engine compatibility | CRS engine-options page: Coraza passes 100% of the CRS v4 test suite; ModSecurity v3 fails 2-4% | Run the CRS regression suite against our build | 100% of the suite | failing (measured in step 25): CRS v4.25.2 suite, go-ftw 2.1.0, DetectionOnly, PL4, 4,987 tests: 4,862 passed, 125 failed (97.49%; 4,863 / 124 with the CRS project's coraza-overrides); before the step-25 fixes 4,857 / 130. Reference, stock coraza v3.8.1 as Go middleware with response inspection: 4,970 / 17. All 125 classified DESIGN, 0 UNEXPLAINED: 78 need response inspection, which the engine does not have; 19 expect 920420 (no content-type allow-list, C4); 15 are matches of the REQUEST_BODY targets on requests the suite says must not match; 3 are refused by the gate before the rules; 10 are failed by the reference in the same way (Go net/http and coraza behaviour). docs/baseline-v2.0.md, reports/step-25.md |
+| A1 | Rule-engine compatibility | CRS engine-options page: Coraza passes 100% of the CRS v4 test suite; ModSecurity v3 fails 2-4% | Run the CRS regression suite against our build | 100% of the suite | failing (measured in step 25): CRS v4.25.2 suite, go-ftw 2.1.0, DetectionOnly, PL4, 4,987 tests: 4,862 passed, 125 failed (97.49%; 4,863 / 124 with the CRS project's coraza-overrides); before the step-25 fixes 4,857 / 130. Reference, stock coraza v3.8.1 as Go middleware with response inspection: 4,970 / 17. Of the 125, 115 are classified DESIGN and 10 are no difference to the reference, 0 UNEXPLAINED: 78 need response inspection, which the engine does not have; 19 expect 920420 (no content-type allow-list, C4; PROVEN by a DIAGNOSTIC run); 15 are matches of the REQUEST_BODY targets on requests the suite says must not match (potential false positives; PROVEN by a DIAGNOSTIC run); 3 are refused by the gate before the rules; 10 are failed by the reference in the same way (6 expect Apache's status 400). Worker mode, a repeat and the DIAGNOSTIC stock-coraza build: 0 per-test differences. docs/baseline-v2.0.md, reports/step-25.md |
 | A2 | Efficacy at independent-test scale | SecureIQLab 2026: 1,608 attack and 1,487 legitimate scenarios, covering OWASP Top 10, API Top 10, L7 DoS, bots | Build our own suite of at least that size, with recorded provenance and held-out attack families | At least 1,600 attack and 1,400 legitimate scenarios; recall and false positive rate reported per family with counts and 95% intervals; targets set after baseline | in progress — attack side: attacks-v0 frozen (1,054 attack samples, 527 distinct payloads × 2 injection points, 4 families, public payload lists with provenance) plus step-14 carrier/encoding expansions frozen (attacks-ct-v0: 320 samples = 40 payloads × 8 carriers; encoding-diff-v0: 192 samples = 16 payloads × 6 encodings × 2 carriers; both derived from attacks-v0 payloads, both derived from attacks-v0 payloads already inside the 527 distinct payloads, so the distinct-payload count is unchanged at 527) — **546 samples short of the 1,600 bar on distinct payloads**; benign side: benign-browse-v0 frozen (214 natural browsing requests), benign-hard-v0 frozen (180 hand-authored hard benign), benign-browse-v1 frozen (774 requests, 60 sessions) and benign-wcp-v0 frozen (20,000 external openappsec-WCP requests, out-of-sample) — the 1,400-legitimate bar is met in count by WCP (20,000), but those requests are third-party browsing replayed against a stub backend, not one app's traffic, and the set is vendor-labelled and audited only at 100 (rule 26), so it is reported separately, never merged (rule 14); benign rates reported separately (rule 14), never merged; no recall/FPR targets set yet |
 | A3 | Parser fidelity | WAFFLED (arXiv 2503.10846): 1,207 bypasses across 5 WAFs via multipart, JSON and XML parsing differences | Replay WAFFLED-style body mutations against our proxy in front of each target framework | Zero parsing-discrepancy bypasses on frameworks in scope; the list of frameworks is fixed before testing | not started |
 | A4 | PCI DSS 4.0.1 req. 6.4.2 | BDO PCI 4.0 summary | Check that the product sits in front of the app, generates audit logs, and either blocks or raises alerts that are investigated | Audit logs present for every decision; block mode and alert mode both work | not started |
@@ -323,7 +323,7 @@ with the fix because it calls the new function; reports/step-24.md):
   (`ok kortexshield/engine 341.920s`);
   docs/logs/step24-final-pytest.log 242 passed, 4 skipped.
 
-Step-25 run evidence (new ids E49 to E55; E49, E50, E52 to E55 failing
+Step-25 run evidence (new ids E49 to E56; E49, E50, E52 to E56 failing
 first; E51 is a guard that passes before and after; reports/step-25.md):
 
 - E49/E50/E51: docs/logs/step25-e49-e50-failing.log ->
@@ -331,10 +331,16 @@ first; E51 is a guard that passes before and after; reports/step-25.md):
 - E52 to E55: docs/logs/step25-e52-e55-failing.log (E55 in its first form),
   docs/logs/step25-e55-revised-failing.log ->
   docs/logs/step25-e52-e55-passing.log.
+- E56: docs/logs/step25-e56-failing.log -> docs/logs/step25-e56-passing.log.
 - A1, the CRS v4.25.2 regression suite: docs/logs/s25-ftw.txt (first runs,
-  reference, DIAGNOSTIC runs), docs/logs/s25-ftw-fixed.txt (after E52 to
-  E55), per-test lists docs/logs/step25-failed-tests.txt and
-  docs/logs/step25-failed-probe.txt, run files under
-  docs/logs/runs/s25-ftw/ and docs/logs/runs/s25-ftw-fixed/.
+  reference, DIAGNOSTIC runs), docs/logs/s25-ftw-fixed.txt (final runs, on
+  the engine after E52 to E56), per-test comparisons
+  docs/logs/step25-ftw-final-diffs.txt, per-test lists
+  docs/logs/step25-failed-tests.txt and docs/logs/step25-failed-probe.txt,
+  run files under docs/logs/runs/s25-ftw/ and docs/logs/runs/s25-ftw-fixed/.
 - Our own datasets on the step-25 engine against the step-24 runs:
-  docs/logs/step25-own-vs-step24.txt (0 status diffs in 5,040 pairs).
+  docs/logs/step25-own-vs-step24.txt (0 status diffs in 10,080 pairs).
+- The wcp datasets against the step-24 runs: docs/logs/step25-parity.txt
+  (0 status diffs in 60,000 pairs).
+- Final suites: docs/logs/step25-t6-go-test.log,
+  step25-t6-go-test-with-fixture.log, step25-t6-pytest.log.
