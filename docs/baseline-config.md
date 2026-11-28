@@ -677,3 +677,31 @@ With the proxy layer aligned (client_max_body_size 0 on both engines):
   https://github.com/corazawaf/coraza/blob/v3.8.1/testing/coreruleset/coreruleset_test.go ,
   https://github.com/coreruleset/go-ftw/pull/133 (marker rule),
   https://coraza.io/docs/seclang/actions/#ctl
+
+## Step-26: runs of attacks-v1 (documented BEFORE the runs, rule 17)
+
+- What: no configuration is changed. The runs of docs/plan-attacks-v1.md
+  use settings that exist:
+  1. Reach check, before the freeze: the engine in-process with
+     `KORTEX_RULE_ENGINE=DetectionOnly`, `KORTEX_BLOCKING_PARANOIA=1`,
+     `KORTEX_DETECTION_PARANOIA=1`, otherwise as in baseline v2.0. The run
+     script passes the mode through `ENGINE_RULE_MODE` (tools/step22_lib.sh;
+     default `On`, as before).
+  2. Engine runs after the freeze: baseline v2.0 as it is (blocking, PL1 and
+     PL2, in-process and worker; `KORTEX_ERROR_LOG` and
+     `KORTEX_CRS_TEST_SETUP` unset).
+  3. Baseline images of deploy/compose.yml with their default configuration
+     and the stub backend, as in the step-22 follow-up
+     (tools/run_step22_modsec_connector.sh): ModSecurity
+     `MODSEC_RULE_ENGINE=On`, Coraza connector `CORAZA_RULE_ENGINE=On`,
+     `PARANOIA` = `BLOCKING_PARANOIA` = `DETECTION_PARANOIA` = 1 or 2. The
+     ModSecurity audit log is redirected to a file and nginx reloaded (the
+     capture-only change of step 9 and step 13), with 20 control requests
+     before and after the samples (rule 36).
+  4. DIAGNOSTIC (rule 34): the engine built in a scratch copy without the
+     REQUEST_BODY target updates (the one-line change of the step-25
+     DIAGNOSTIC), PL1 and PL2. It gives no baseline number.
+- Why: first measurement of recall on attack payloads that no engine
+  setting was chosen with.
+- No rule exclusion and no setting is changed in response to a result of
+  these runs (rule 17).

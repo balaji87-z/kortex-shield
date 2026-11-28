@@ -1,0 +1,5 @@
+# step-26: fetch of the attacks-v1 source files, 2026-11-28T07:18:38Z, git 4b3472fa7a8b702e0c09dcffe331fc4a875dda82
+# bash tools/fetch/fetch_attacks_v1_sources.sh out/step26/fresh-fetch   (a fresh download into an empty directory)
+PayloadsAllTheThings@08ea40e77db3f42ef8f20c65196f3936a19b6c86: 48 files in out/step26/fresh-fetch, 48 downloaded now, every sha256 as in tools/fetch/attacks_v1_sources.sha256 (list sha256 0e98cb7a888f17630607dcc27e933d53e7b207ffd8e67fbc4b1b0dabdcbf1336)
+# bash tools/fetch/fetch_attacks_v1_sources.sh   (the files the builder reads)
+PayloadsAllTheThings@08ea40e77db3f42ef8f20c65196f3936a19b6c86: 48 files in data/external/patt-08ea40e, 0 downloaded now, every sha256 as in tools/fetch/attacks_v1_sources.sha256 (list sha256 0e98cb7a888f17630607dcc27e933d53e7b207ffd8e67fbc4b1b0dabdcbf1336)
