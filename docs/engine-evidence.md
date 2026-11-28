@@ -550,3 +550,30 @@ docs/baseline-v1.8.md.
   patch; E37 in worker mode; the parsing cases at PL2 and against other
   backends.
 
+## Step-24 evidence (2026-11-27, baseline v1.9)
+
+- T1 parser refusals: BUG of step 23 fixed, test first (E42 failing 33 of
+  33 in 323ed49). The gate refuses with `400 kortex-decision=framing` and a
+  `framing` event what Go's net/http answered itself. Measured: the 61
+  differential cases have 0 refusals without a marker (step 23: 17), 44
+  cases unchanged; 19,257 seeded damaged heads, 0 decided differently by
+  the gate and by net/http (E45). Evidence: docs/logs/step24-e42-*.log,
+  step24-parsing-diff.txt, step24-parsing-diff-vs-step23.txt.
+- T2 two holes of the framing gate, both BUG, both PROVEN by failing tests
+  (5cd6fc2) and fixed (40c57ad): a framing header after a bare LF was not
+  seen (E46, 4 of 4 forwarded before), and a second request on a
+  connection left open by `OPTIONS *` or the admin paths was not gated
+  (E48, 6 of 6 reached the backend before). Evidence:
+  docs/logs/step24-e46-e48-*.log.
+- T4 own datasets, Host localhost, patched engine: attacks-v0 954 and 1,024
+  of 1,054 blocked at PL1 and PL2, attacks-ct-v0 292 and 313 of 320 (both
+  IN-SAMPLE), encoding-diff-v0 137 and 147 of 192 (counts), benign-browse-v1
+  124 of 774, benign-hard-v0 22 and 78 of 180. In-process against worker
+  and patched against stock coraza (DIAGNOSTIC): 0 differences of any kind
+  in 5,040 pairs each. Evidence: docs/logs/step24-own-summary.txt.
+- T5 wcp datasets: unchanged sample by sample against step 23 (60,000
+  pairs, 0 differences); worst cases 2,284, 8,967, 1,133, 4,480; 0 framing
+  events. Evidence: docs/logs/step24-parity.txt.
+- NOT MEASURED in step 24: connector / ModSecurity images, timing, the
+  differential with the new shapes against real backends, PL2 with a
+  numeric Host.

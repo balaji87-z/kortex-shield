@@ -1,0 +1,21 @@
+# step-24: E42-E44 and E46-E48 repeated 30 times in one process (rule 48), at 7316418f19c96c006f10dd74f283f46084a88306, 2026-11-28T05:29:01Z, go version go1.27.4 darwin/arm64
+$ cd engine && go test -count=30 -run 'TestE42|TestE43|TestE44|TestE46|TestE47|TestE48' -v .
+  27 --- PASS: TestE42ParserRefusalsAreAnnounced (0.52s)
+   2 --- PASS: TestE42ParserRefusalsAreAnnounced (0.53s)
+   1 --- PASS: TestE42ParserRefusalsAreAnnounced (0.57s)
+  28 --- PASS: TestE43ParserGateLetsWellFormedRequestsThrough (0.02s)
+   1 --- PASS: TestE43ParserGateLetsWellFormedRequestsThrough (0.06s)
+   1 --- PASS: TestE43ParserGateLetsWellFormedRequestsThrough (0.07s)
+  28 --- PASS: TestE44RequestsPastTheParserGateAreInspected (0.01s)
+   2 --- PASS: TestE44RequestsPastTheParserGateAreInspected (0.03s)
+  28 --- PASS: TestE46FramingChecksSeeLinesEndedByBareLF (0.01s)
+   1 --- PASS: TestE46FramingChecksSeeLinesEndedByBareLF (0.02s)
+   1 --- PASS: TestE46FramingChecksSeeLinesEndedByBareLF (0.04s)
+  28 --- PASS: TestE47BareLFWithoutFramingProblemIsStillForwarded (0.01s)
+   1 --- PASS: TestE47BareLFWithoutFramingProblemIsStillForwarded (0.02s)
+   1 --- PASS: TestE47BareLFWithoutFramingProblemIsStillForwarded (0.04s)
+  29 --- PASS: TestE48SecondRequestOnAConnectionIsNeverServed (0.01s)
+   1 --- PASS: TestE48SecondRequestOnAConnectionIsNeverServed (0.02s)
+   1 ok  	kortexshield/engine	18.168s
+   1 PASS
+# exit status of go test: 0

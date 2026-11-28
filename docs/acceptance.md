@@ -289,3 +289,28 @@ failing first; E36 and E41 are guards that pass before and after; reports/step-2
   the engine refuses some malformed requests (400 / 501) before the
   engine's handler runs, with no kortex marker and no event (17 of the 61
   cases of the step-23 parsing differential, docs/logs/step23-parsing-diff.txt).
+
+Step-24 run evidence (new ids E42 to E48; E42, E46 and E48 failing first;
+E43, E44 and E47 are guards that pass before and after; E45 was written
+with the fix because it calls the new function; reports/step-24.md):
+
+- E42/E43/E44: docs/logs/step24-e42-failing.log (33 of 33 refusal cases
+  answered 400 / 501 / 505 / 417 / 431 by net/http with no marker and no
+  event) -> docs/logs/step24-e42-passing.log.
+- E45: 19,257 seeded damaged heads compared, 11,890 refused by net/http and
+  by the gate, 0 decided differently (docs/logs/step24-e42-passing.log);
+  DIAGNOSTIC with the gate's Expect check switched off: 421 decided
+  differently, the test fails
+  (docs/logs/step24-e45-DIAGNOSTIC-gate-without-expect-check.log).
+- E46/E47/E48: docs/logs/step24-e46-e48-failing.log (E46 4 of 4 forwarded,
+  E48 6 of 6 reached the backend) -> docs/logs/step24-e46-e48-passing.log.
+  30 repeats of E42 to E44 and E46 to E48 in one process: 180 PASS, 0 FAIL
+  (docs/logs/step24-repeat-30x.log).
+- The 61 parsing-differential cases on the fixed engine: 0 refused without
+  a kortex marker (step 23: 17), 29 framing answers with 29 framing events
+  (docs/logs/step24-parsing-diff.txt, step24-parsing-diff-vs-step23.txt).
+- Suites at 7316418: docs/logs/step24-final-go-test.log 62 PASS, 0 FAIL,
+  5 SKIP (`ok kortexshield/engine 66.028s`);
+  docs/logs/step24-final-go-test-with-fixture.log 67 PASS, 0 FAIL, 0 SKIP
+  (`ok kortexshield/engine 341.920s`);
+  docs/logs/step24-final-pytest.log 242 passed, 4 skipped.
