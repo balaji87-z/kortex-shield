@@ -307,6 +307,32 @@ internal/corazawaf/rulegroup.go:290) as a map key, which is fragile under
 memory reuse. Not fixed in this step (rule 1); raised in the step-18
 report as a question for the instructor.
 
+### Step-22: the non-determinism has two mechanisms, both PROVEN
+
+DIAGNOSTIC C (tools/run_step22_variance_diag.sh,
+docs/logs/step22-variance-engine-DIAGNOSTIC.txt, reports/step-22.md F1)
+replaces the HYPOTHESIS above. coraza v3.8.1 iterates its map-backed
+collections (ARGS, headers, cookies) in Go's random map order on every call
+(internal/collections/map.go). Two things depend on that order:
+
+- H1, capture order: a rule with `capture` whose chained rule reads TX:1 /
+  TX:2 (CRS 942130) gets the captures of the variable evaluated last. A
+  request with two members that both match the regex, one a tautology and
+  one not, is blocked in some of its replays and passed in the rest
+  (131 / 69 of 200 at PL2; 69 / 131 with the two members swapped). Not fixed in coraza main as of 4cc95a33a6a2.
+- H2, transformation cache: the cache key holds the position of the value
+  in the iteration (internal/corazawaf/rule.go, transformArg), so with a
+  repeated key a rule can be given the cached transformation of the other
+  value. One body gets 8 different anomaly scores in 200 replays. The
+  v3.7.0 -> v3.8.1 bump of step 20 removed the status flip of the E30
+  sample, not this mechanism. Fixed on coraza main by PR #1682 (issue
+  #1681), not in a release yet.
+
+With ordered iteration (a scratch patch of coraza) both effects are gone:
+every request of the diagnostic gets one status, one rule set and one
+score. The engine cannot order the iteration from outside coraza, so the
+engine at this commit still has both. Status: BUG in the dependency, open.
+
 ## Size-class body lanes (step-20 T2, documented BEFORE any run)
 
 Motivation: step-19 T3 showed 8 abandoned large-body calls (131,071 B

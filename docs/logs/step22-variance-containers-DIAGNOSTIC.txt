@@ -1,0 +1,90 @@
+# Step-22 DIAGNOSTIC C, containers: status and matched-rule variance of unchanged requests, 200 replays each (never a baseline or parity number)
+== host: Darwin 27.0.0 arm64; docker server 29.5.2 linux/arm64; load at start: load averages: 5.92 6.17 7.52
+== DIAGNOSTIC-variance-modsec-pl2 rule29/28 2026-11-27T19:27:50Z
+   image: owasp/modsecurity-crs:4.25.2-nginx-lts@sha256:6296ce685cb88ba4012998b935b25dabbd9e0ff326088c1149447102544de661 id sha256:6296ce685cb88ba4012998b935b25dabbd9e0ff326088c1149447102544de661 platform linux/arm64
+   env: E=On B=2 P=2 D=2
+   ruleset: ver:'OWASP_CRS/4.25.2; engine: libmodsecurity version: see nginx start-up line
+   libmodsecurity3 version 3.0.17
+   syn-chain: statuses {'403': 200}
+   syn-chain-rev: statuses {'200': 200}
+   syn-chain-single: statuses {'403': 200}
+   syn-dup: statuses {'403': 200}
+   syn-dup-single: statuses {'403': 200}
+   wcp-35f82c1417df: statuses {'403': 200}
+   wcp-7b0bdeda7bc7: statuses {'403': 200}
+crs_audit: 1201 audit entr(ies) -> out/s22-DIAGNOSTIC-variance-modsec-pl2.audit.jsonl
+   [modsec] syn-chain: 200 audit entries, 1 distinct rule-id set(s), 1 distinct inbound score(s) {5: 200}
+        rules: ['942130', '949110']
+   [modsec] syn-chain-single: 200 audit entries, 1 distinct rule-id set(s), 1 distinct inbound score(s) {5: 200}
+        rules: ['942130', '949110']
+   [modsec] syn-dup: 200 audit entries, 1 distinct rule-id set(s), 1 distinct inbound score(s) {30: 200}
+        rules: ['941100', '941110', '941160', '941320', '941390', '942131', '949110']
+   [modsec] syn-dup-single: 200 audit entries, 1 distinct rule-id set(s), 1 distinct inbound score(s) {30: 200}
+        rules: ['941100', '941110', '941160', '941320', '941390', '942131', '949110']
+   [modsec] wcp-35f82c1417df: 200 audit entries, 1 distinct rule-id set(s), 1 distinct inbound score(s) {23: 200}
+        rules: ['920230', '920420', '931130', '932271', '949110']
+   [modsec] wcp-7b0bdeda7bc7: 200 audit entries, 1 distinct rule-id set(s), 1 distinct inbound score(s) {47: 200}
+        rules: ['931130', '932240', '942130', '942430', '949110']
+== DIAGNOSTIC-variance-coraza-pl2 rule29/28 2026-11-27T19:28:23Z
+   image: ghcr.io/coreruleset/coraza-crs:4.25.2-nginx-lts@sha256:bfbfe70b4445c1ef1dc389c2de12cfdb194c9616746c33dc8a7131461c28f4a6 id sha256:bfbfe70b4445c1ef1dc389c2de12cfdb194c9616746c33dc8a7131461c28f4a6 platform linux/arm64
+   env: E=On B=2 P=2 D=2
+   ruleset: ver:'OWASP_CRS/4.25.2; engine: coraza version not readable
+   syn-chain: statuses {'200': 88, '403': 112}
+   syn-chain-rev: statuses {'200': 105, '403': 95}
+   syn-chain-single: statuses {'403': 200}
+   syn-dup: statuses {'403': 200}
+   syn-dup-single: statuses {'403': 200}
+   wcp-35f82c1417df: statuses {'403': 200}
+   wcp-7b0bdeda7bc7: statuses {'403': 200}
+coraza_audit: 1207 audit entr(ies) -> out/s22-DIAGNOSTIC-variance-coraza-pl2.audit.jsonl
+   [coraza] syn-chain: 112 audit entries, 1 distinct rule-id set(s), 1 distinct inbound score(s) {5: 112}
+        rules: ['942130', '949110']
+   [coraza] syn-chain-rev: 95 audit entries, 1 distinct rule-id set(s), 1 distinct inbound score(s) {5: 95}
+        rules: ['942130', '949110']
+   [coraza] syn-chain-single: 200 audit entries, 1 distinct rule-id set(s), 1 distinct inbound score(s) {5: 200}
+        rules: ['942130', '949110']
+   [coraza] syn-dup: 200 audit entries, 15 distinct rule-id set(s), 9 distinct inbound score(s) {10: 1, 15: 4, 20: 13, 25: 40, 30: 73, 35: 44, 40: 22, 45: 2, 50: 1}
+        x119: rules outside the common core: ['941100', '941110', '941160', '941390']
+        x18: rules outside the common core: ['941100', '941110', '941160']
+        x16: rules outside the common core: ['941110', '941160', '941390']
+        x16: rules outside the common core: ['941100', '941110', '941390']
+        x11: rules outside the common core: ['941100', '941160', '941390']
+        x4: rules outside the common core: ['941100', '941390']
+        x3: rules outside the common core: ['941110', '941390']
+        x3: rules outside the common core: ['941160', '941390']
+        x2: rules outside the common core: ['941100', '941110']
+        x2: rules outside the common core: ['941390']
+        x2: rules outside the common core: ['941110', '941160']
+        x1: rules outside the common core: ['941100']
+        x1: rules outside the common core: ['941160']
+        x1: rules outside the common core: none
+        x1: rules outside the common core: ['941100', '941160']
+   [coraza] syn-dup-single: 200 audit entries, 1 distinct rule-id set(s), 1 distinct inbound score(s) {30: 200}
+        rules: ['941100', '941110', '941160', '941320', '941390', '942131', '949110']
+   [coraza] wcp-35f82c1417df: 200 audit entries, 22 distinct rule-id set(s), 11 distinct inbound score(s) {71: 1, 76: 2, 81: 4, 86: 11, 91: 32, 96: 84, 101: 38, 106: 23, 111: 3, 116: 1, 121: 1}
+        x123: rules outside the common core: ['941340', '942120', '942200', '942210', '942340', '942370']
+        x14: rules outside the common core: ['941340', '942120', '942200', '942340', '942370']
+        x14: rules outside the common core: ['941340', '942200', '942210', '942340', '942370']
+        x7: rules outside the common core: ['941340', '942120', '942200', '942210', '942340']
+        x7: rules outside the common core: ['941340', '942120', '942200', '942210', '942370']
+        x6: rules outside the common core: ['942120', '942200', '942210', '942340', '942370']
+        x5: rules outside the common core: ['941340', '942120', '942210', '942340', '942370']
+        x4: rules outside the common core: ['941340', '942210', '942340', '942370']
+        x3: rules outside the common core: ['941340', '942120', '942210', '942370']
+        x2: rules outside the common core: ['941340', '942120', '942200']
+        x2: rules outside the common core: ['941340', '942120', '942210', '942340']
+        x2: rules outside the common core: ['941340', '942200', '942210', '942370']
+        x2: rules outside the common core: ['942120', '942210', '942340', '942370']
+        x1: rules outside the common core: ['941340', '942120', '942370']
+        x1: rules outside the common core: ['942120', '942200', '942210', '942370']
+        x1: rules outside the common core: ['942120', '942370']
+        x1: rules outside the common core: ['941340', '942120', '942340', '942370']
+        x1: rules outside the common core: ['941340', '942210']
+        x1: rules outside the common core: ['942200', '942210', '942340', '942370']
+        x1: rules outside the common core: ['942200', '942210', '942370']
+        x1: rules outside the common core: ['942120', '942340', '942370']
+        x1: rules outside the common core: ['941340', '942120', '942200', '942340']
+   [coraza] wcp-7b0bdeda7bc7: 200 audit entries, 2 distinct rule-id set(s), 2 distinct inbound score(s) {42: 109, 47: 91}
+        x109: rules outside the common core: none
+        x91: rules outside the common core: ['942130']
+== load at end: load averages: 4.89 5.79 7.28

@@ -1,0 +1,29 @@
+{
+ "base_url": "http://localhost:8095",
+ "reps": 200,
+ "status_counts": {
+  "syn-chain": {
+   "200": 64,
+   "403": 136
+  },
+  "syn-chain-rev": {
+   "200": 140,
+   "403": 60
+  },
+  "syn-chain-single": {
+   "403": 200
+  },
+  "syn-dup": {
+   "403": 200
+  },
+  "syn-dup-single": {
+   "403": 200
+  },
+  "wcp-35f82c1417df": {
+   "403": 200
+  },
+  "wcp-7b0bdeda7bc7": {
+   "403": 200
+  }
+ }
+}

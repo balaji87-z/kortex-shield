@@ -1,0 +1,140 @@
+# Step-22 DIAGNOSTIC C, engine: status and matched-rule variance of unchanged requests, 200 replays each (never a baseline or parity number)
+== host: Darwin 27.0.0 arm64; go version go1.27.4 darwin/arm64; load at start: load averages: 10.93 7.78 6.95
+== coraza module: github.com/corazawaf/coraza/v3 v3.8.1
+== engine binary sha256 3739a11b4e5e12e2dfb41325390a5ddc27da568066adb7c4a579d3d48c07adb9 built from 6e2b666d3c862af592f5168c3642dad49a42f29f with go version go1.27.4 darwin/arm64
+   patch nocache: internal/corazawaf/rule.go: 1 replacement(s)
+== build nocache: sha256 88df2f1092d79953c6a30f13ee1c5c0111a1ac0840b08863e06f5a0201dee44c; .go files of engine/ that differ in the scratch copy: 0; coraza files that differ from the module: 1
+      Files <coraza>/internal/corazawaf/rule.go and out/DIAGNOSTIC-coraza-nocache/internal/corazawaf/rule.go differ
+   patch sorted: internal/collections/map.go: 1 replacement(s)
+   patch sorted: internal/collections/map.go: 1 replacement(s)
+   patch sorted: internal/collections/named.go: 2 replacement(s)
+   patch sorted: internal/collections/named.go: 1 replacement(s)
+== build sorted: sha256 89e26ab3c4f3c98222b35ce79f6086e2779f17bb0fdd93b172daede3274d1853; .go files of engine/ that differ in the scratch copy: 0; coraza files that differ from the module: 3
+      Only in out/DIAGNOSTIC-coraza-sorted/internal/collections: diag_sorted.go
+      Files <coraza>/internal/collections/map.go and out/DIAGNOSTIC-coraza-sorted/internal/collections/map.go differ
+      Files <coraza>/internal/collections/named.go and out/DIAGNOSTIC-coraza-sorted/internal/collections/named.go differ
+== build upstream: sha256 97fbed746047254b499c26f9119e1bf334e864d351a527eb715b7860deab6c1a; go.mod against engine/go.mod:
+      3c3
+      < go 1.25.0
+      ---
+      > go 1.26.0
+      5c5
+      < require github.com/corazawaf/coraza/v3 v3.8.1
+      ---
+      > require github.com/corazawaf/coraza/v3 v3.8.2-0.20261127161411-4cc95a33a6a2
+      8c8
+      < 	github.com/corazawaf/libinjection-go v0.3.3 // indirect
+      ---
+      > 	github.com/corazawaf/libinjection-go v0.3.7 // indirect
+      21,23c21,23
+      < 	golang.org/x/net v0.58.0 // indirect
+      < 	golang.org/x/sync v0.22.0 // indirect
+      < 	golang.org/x/text v0.41.0 // indirect
+      ---
+      > 	golang.org/x/net v0.62.0 // indirect
+      > 	golang.org/x/sync v0.24.0 // indirect
+      > 	golang.org/x/text v0.43.0 // indirect
+== DIAGNOSTIC-variance-stock-pl2 rule29 2026-11-27T19:02:34Z load: load averages: 11.86 8.10 7.07: {"backend_url":"http://127.0.0.1:13001","rule_engine":"On","blocking_paranoia":2,"detection_paranoia":2,"max_body_bytes":13107200,"max_inspected_bytes":131072,"engine_time_budget_ms":2000,"rules_dir":"/Users/ivan/work/kortex-shield-dev/engine/crs","listen_addr":"127.0.0.1:8095","events_file":"/Users/ivan/work/kortex-shield-dev/out/s22-var-stock.events.jsonl","audit_log":"/Users/ivan/work/kortex-shield-dev/out/s22-var-stock.audit.log","allowed_methods":"GET HEAD POST OPTIONS","max_inflight_body":8,"max_inflight_body_large":2,"body_lane_threshold":65536,"worker_mode":false,"client_max_inflight":0,"client_max_inflight_small":4,"client_max_inflight_large":1,"request_body_target_updates":166}
+   syn-chain: statuses {'200': 69, '403': 131}
+   syn-chain-rev: statuses {'200': 131, '403': 69}
+   syn-chain-single: statuses {'403': 200}
+   syn-dup: statuses {'403': 200}
+   syn-dup-single: statuses {'403': 200}
+   wcp-35f82c1417df: statuses {'403': 200}
+   wcp-7b0bdeda7bc7: statuses {'403': 200}
+crs_audit: 1200 audit entr(ies) -> out/s22-DIAGNOSTIC-variance-stock-pl2.audit.jsonl
+   [stock] syn-chain: 131 audit entries, 1 distinct rule-id set(s), 1 distinct inbound score(s) {5: 131}
+        rules: ['942130', '949110']
+   [stock] syn-chain-rev: 69 audit entries, 1 distinct rule-id set(s), 1 distinct inbound score(s) {5: 69}
+        rules: ['942130', '949110']
+   [stock] syn-chain-single: 200 audit entries, 1 distinct rule-id set(s), 1 distinct inbound score(s) {5: 200}
+        rules: ['942130', '949110']
+   [stock] syn-dup: 200 audit entries, 2 distinct rule-id set(s), 8 distinct inbound score(s) {33: 5, 38: 22, 43: 42, 48: 62, 53: 47, 58: 18, 63: 3, 68: 1}
+        x163: rules outside the common core: ['941390']
+        x37: rules outside the common core: none
+   [stock] syn-dup-single: 200 audit entries, 1 distinct rule-id set(s), 1 distinct inbound score(s) {48: 200}
+        rules: ['941100', '941110', '941160', '941320', '941390', '942131', '942430', '949110']
+   [stock] wcp-35f82c1417df: 200 audit entries, 8 distinct rule-id set(s), 9 distinct inbound score(s) {104: 5, 109: 22, 114: 35, 119: 65, 124: 43, 129: 15, 134: 12, 139: 2, 144: 1}
+        x138: rules outside the common core: ['941340', '942120', '942210']
+        x23: rules outside the common core: ['941340', '942210']
+        x15: rules outside the common core: ['942120', '942210']
+        x15: rules outside the common core: ['941340', '942120']
+        x6: rules outside the common core: ['941340']
+        x1: rules outside the common core: ['942120']
+        x1: rules outside the common core: ['942210']
+        x1: rules outside the common core: none
+   [stock] wcp-7b0bdeda7bc7: 200 audit entries, 2 distinct rule-id set(s), 2 distinct inbound score(s) {42: 110, 47: 90}
+        x110: rules outside the common core: none
+        x90: rules outside the common core: ['942130']
+== DIAGNOSTIC-variance-nocache-pl2 rule29 2026-11-27T19:02:53Z load: load averages: 9.30 7.75 6.97: {"backend_url":"http://127.0.0.1:13001","rule_engine":"On","blocking_paranoia":2,"detection_paranoia":2,"max_body_bytes":13107200,"max_inspected_bytes":131072,"engine_time_budget_ms":2000,"rules_dir":"/Users/ivan/work/kortex-shield-dev/engine/crs","listen_addr":"127.0.0.1:8095","events_file":"/Users/ivan/work/kortex-shield-dev/out/s22-var-nocache.events.jsonl","audit_log":"/Users/ivan/work/kortex-shield-dev/out/s22-var-nocache.audit.log","allowed_methods":"GET HEAD POST OPTIONS","max_inflight_body":8,"max_inflight_body_large":2,"body_lane_threshold":65536,"worker_mode":false,"client_max_inflight":0,"client_max_inflight_small":4,"client_max_inflight_large":1,"request_body_target_updates":166}
+   syn-chain: statuses {'200': 78, '403': 122}
+   syn-chain-rev: statuses {'200': 126, '403': 74}
+   syn-chain-single: statuses {'403': 200}
+   syn-dup: statuses {'403': 200}
+   syn-dup-single: statuses {'403': 200}
+   wcp-35f82c1417df: statuses {'403': 200}
+   wcp-7b0bdeda7bc7: statuses {'403': 200}
+crs_audit: 1196 audit entr(ies) -> out/s22-DIAGNOSTIC-variance-nocache-pl2.audit.jsonl
+   [nocache] syn-chain: 122 audit entries, 1 distinct rule-id set(s), 1 distinct inbound score(s) {5: 122}
+        rules: ['942130', '949110']
+   [nocache] syn-chain-rev: 74 audit entries, 1 distinct rule-id set(s), 1 distinct inbound score(s) {5: 74}
+        rules: ['942130', '949110']
+   [nocache] syn-chain-single: 200 audit entries, 1 distinct rule-id set(s), 1 distinct inbound score(s) {5: 200}
+        rules: ['942130', '949110']
+   [nocache] syn-dup: 200 audit entries, 1 distinct rule-id set(s), 1 distinct inbound score(s) {48: 200}
+        rules: ['941100', '941110', '941160', '941320', '941390', '942131', '942430', '949110']
+   [nocache] syn-dup-single: 200 audit entries, 1 distinct rule-id set(s), 1 distinct inbound score(s) {48: 200}
+        rules: ['941100', '941110', '941160', '941320', '941390', '942131', '942430', '949110']
+   [nocache] wcp-35f82c1417df: 200 audit entries, 1 distinct rule-id set(s), 1 distinct inbound score(s) {119: 200}
+        rules: ['920230', '931130', '932200', '932271', '941340', '942120', '942200', '942210', '942340', '942370', '942430', '949110']
+   [nocache] wcp-7b0bdeda7bc7: 200 audit entries, 2 distinct rule-id set(s), 2 distinct inbound score(s) {42: 109, 47: 91}
+        x109: rules outside the common core: none
+        x91: rules outside the common core: ['942130']
+== DIAGNOSTIC-variance-sorted-pl2 rule29 2026-11-27T19:03:10Z load: load averages: 7.78 7.50 6.90: {"backend_url":"http://127.0.0.1:13001","rule_engine":"On","blocking_paranoia":2,"detection_paranoia":2,"max_body_bytes":13107200,"max_inspected_bytes":131072,"engine_time_budget_ms":2000,"rules_dir":"/Users/ivan/work/kortex-shield-dev/engine/crs","listen_addr":"127.0.0.1:8095","events_file":"/Users/ivan/work/kortex-shield-dev/out/s22-var-sorted.events.jsonl","audit_log":"/Users/ivan/work/kortex-shield-dev/out/s22-var-sorted.audit.log","allowed_methods":"GET HEAD POST OPTIONS","max_inflight_body":8,"max_inflight_body_large":2,"body_lane_threshold":65536,"worker_mode":false,"client_max_inflight":0,"client_max_inflight_small":4,"client_max_inflight_large":1,"request_body_target_updates":166}
+   syn-chain: statuses {'403': 200}
+   syn-chain-rev: statuses {'403': 200}
+   syn-chain-single: statuses {'403': 200}
+   syn-dup: statuses {'403': 200}
+   syn-dup-single: statuses {'403': 200}
+   wcp-35f82c1417df: statuses {'403': 200}
+   wcp-7b0bdeda7bc7: statuses {'403': 200}
+crs_audit: 1400 audit entr(ies) -> out/s22-DIAGNOSTIC-variance-sorted-pl2.audit.jsonl
+   [sorted] syn-chain: 200 audit entries, 1 distinct rule-id set(s), 1 distinct inbound score(s) {5: 200}
+        rules: ['942130', '949110']
+   [sorted] syn-chain-rev: 200 audit entries, 1 distinct rule-id set(s), 1 distinct inbound score(s) {5: 200}
+        rules: ['942130', '949110']
+   [sorted] syn-chain-single: 200 audit entries, 1 distinct rule-id set(s), 1 distinct inbound score(s) {5: 200}
+        rules: ['942130', '949110']
+   [sorted] syn-dup: 200 audit entries, 1 distinct rule-id set(s), 1 distinct inbound score(s) {48: 200}
+        rules: ['941100', '941110', '941160', '941320', '941390', '942131', '942430', '949110']
+   [sorted] syn-dup-single: 200 audit entries, 1 distinct rule-id set(s), 1 distinct inbound score(s) {48: 200}
+        rules: ['941100', '941110', '941160', '941320', '941390', '942131', '942430', '949110']
+   [sorted] wcp-35f82c1417df: 200 audit entries, 1 distinct rule-id set(s), 1 distinct inbound score(s) {119: 200}
+        rules: ['920230', '931130', '932200', '932271', '941340', '942120', '942200', '942210', '942340', '942370', '942430', '949110']
+   [sorted] wcp-7b0bdeda7bc7: 200 audit entries, 1 distinct rule-id set(s), 1 distinct inbound score(s) {42: 200}
+        rules: ['931130', '932240', '942430', '949110']
+== DIAGNOSTIC-variance-upstream-pl2 rule29 2026-11-27T19:03:33Z load: load averages: 10.44 8.12 7.13: {"backend_url":"http://127.0.0.1:13001","rule_engine":"On","blocking_paranoia":2,"detection_paranoia":2,"max_body_bytes":13107200,"max_inspected_bytes":131072,"engine_time_budget_ms":2000,"rules_dir":"/Users/ivan/work/kortex-shield-dev/engine/crs","listen_addr":"127.0.0.1:8095","events_file":"/Users/ivan/work/kortex-shield-dev/out/s22-var-upstream.events.jsonl","audit_log":"/Users/ivan/work/kortex-shield-dev/out/s22-var-upstream.audit.log","allowed_methods":"GET HEAD POST OPTIONS","max_inflight_body":8,"max_inflight_body_large":2,"body_lane_threshold":65536,"worker_mode":false,"client_max_inflight":0,"client_max_inflight_small":4,"client_max_inflight_large":1,"request_body_target_updates":166}
+   syn-chain: statuses {'200': 64, '403': 136}
+   syn-chain-rev: statuses {'200': 140, '403': 60}
+   syn-chain-single: statuses {'403': 200}
+   syn-dup: statuses {'403': 200}
+   syn-dup-single: statuses {'403': 200}
+   wcp-35f82c1417df: statuses {'403': 200}
+   wcp-7b0bdeda7bc7: statuses {'403': 200}
+crs_audit: 1196 audit entr(ies) -> out/s22-DIAGNOSTIC-variance-upstream-pl2.audit.jsonl
+   [upstream] syn-chain: 136 audit entries, 1 distinct rule-id set(s), 1 distinct inbound score(s) {5: 136}
+        rules: ['942130', '949110']
+   [upstream] syn-chain-rev: 60 audit entries, 1 distinct rule-id set(s), 1 distinct inbound score(s) {5: 60}
+        rules: ['942130', '949110']
+   [upstream] syn-chain-single: 200 audit entries, 1 distinct rule-id set(s), 1 distinct inbound score(s) {5: 200}
+        rules: ['942130', '949110']
+   [upstream] syn-dup: 200 audit entries, 1 distinct rule-id set(s), 1 distinct inbound score(s) {48: 200}
+        rules: ['941100', '941110', '941160', '941320', '941390', '942131', '942430', '949110']
+   [upstream] syn-dup-single: 200 audit entries, 1 distinct rule-id set(s), 1 distinct inbound score(s) {48: 200}
+        rules: ['941100', '941110', '941160', '941320', '941390', '942131', '942430', '949110']
+   [upstream] wcp-35f82c1417df: 200 audit entries, 1 distinct rule-id set(s), 1 distinct inbound score(s) {119: 200}
+        rules: ['920230', '931130', '932200', '932271', '941340', '942120', '942200', '942210', '942340', '942370', '942430', '949110']
+   [upstream] wcp-7b0bdeda7bc7: 200 audit entries, 2 distinct rule-id set(s), 2 distinct inbound score(s) {42: 100, 47: 100}
+        x100: rules outside the common core: ['942130']
+        x100: rules outside the common core: none
+== load at end: load averages: 12.80 8.85 7.42
