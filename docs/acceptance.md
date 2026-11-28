@@ -235,3 +235,13 @@ changed to macOS arm64, see docs/baseline-v1.7.md):
   on Host localhost and on 127.0.0.1; DIAGNOSTIC v3.7.0 scratch build on
   this host: 808 and 627 of 2,500 (docs/logs/step22-flip-pl2.txt,
   docs/logs/step22-flip-pl2-DIAGNOSTIC-coraza370.txt).
+- Close-out, second part (reports/step-22.md, C5 to C7; no engine code
+  and no acceptance id changed). kortex_eval also classifies the engine's
+  own 400 framing, 503 timeout and 503 overload answers as fail-closed
+  outcomes (tests first, docs/logs/step22-c6-failing.log ->
+  step22-c6-passing.log); tools/step21_engine_diff.py counts the five
+  fail-closed classes in its worst-case set (docs/logs/step22-c7-failing.log
+  -> step22-c7-passing.log; two existing tests changed, named in commit
+  1da3128). Python suite after it: 222 passed, 4 skipped
+  (docs/logs/step22-closeout-pytest-after-c7.log). Seen, not fixed: the
+  framing gate writes no event for its 400 (reports/step-22.md, Questions).

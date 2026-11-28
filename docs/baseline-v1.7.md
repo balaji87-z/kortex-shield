@@ -469,3 +469,14 @@ Details and raw outputs: reports/step-22.md, sections C1 to C3.
 - Suites at e8ed852: Go 48 PASS / 0 FAIL / 5 SKIP, with the fixture 53 /
   0 / 0; pytest 186 passed, 4 skipped (201 passed, 4 skipped with the
   kortex_eval tests).
+- Second part of the close-out (kortex_eval at 5193fba): the engine's own
+  400 framing, 503 timeout and 503 overload answers are fail-closed
+  outcomes too (`waf_fail_closed_400`, `waf_fail_closed_503_timeout`,
+  `waf_fail_closed_503_overload`), and tools/step21_engine_diff.py counts
+  all five fail-closed classes in its worst-case set. The table above
+  does not move: the four runs hold no such answer, and each worst case is
+  accounted for by class (docs/logs/step22-c5-worst-case-breakdown.txt):
+  blocks + 413 + 415 + deny_status + inconsistent + error = 2,284, 8,967,
+  1,133, 4,480, and every other sample is a 200 answer. Outcome files are
+  byte-identical under the changed code
+  (docs/logs/step22-c6-reclassify.txt).

@@ -20,7 +20,7 @@ against the brief).
 
 - Summary: worker mode matches in-process on both wcp sets at PL1/PL2 (60,000 samples, 0 status diffs, before and after
   E32, E33, T3p); numeric-Host artifact removed. Follow-up: coraza rule matching is not repeatable (PROVEN, NOT FIXED).
-  Close-out: suites green (Go 48/0/5, fixture 53/0/0, pytest 201/0/4); engine 413/415 are fail-closed outcomes; flip_repro 0 of 2,500 at PL2.
+  Close-out: suites green (Go 48/0/5, fixture 53/0/0, pytest 222/0/4); engine 400/413/415/503 refusals are fail-closed outcomes; flip_repro 0 of 2,500 at PL2.
 
 - Task table:
 
@@ -51,6 +51,9 @@ against the brief).
 | C1 suites re-run at e8ed852 (close-out) | done: Go 48 PASS / 0 FAIL / 5 SKIP; with fixture 53 / 0 / 0; pytest 186 passed, 0 failed, 4 skipped | docs/logs/step22-closeout-go-test*.log, step22-closeout-pytest.log |
 | C2 kortex_eval: engine 413 / 415 answers are waf_fail_closed_413 / waf_fail_closed_415, not waf_pass | done, test-first; rule 5 deviation, asked for | docs/logs/step22-c2-failing.log, step22-c2-passing.log, step22-closeout-pytest-after-c2.log, step22-c2-outcomes.txt, step22-c2-vs-f9.txt, docs/logs/runs/s22-c2-outcomes/ |
 | C3 flip_repro on coraza v3.8.1, 5 x 500 at PL2 | done: 0 flips per round in every repeat; DIAGNOSTIC v3.7.0 control flips | docs/logs/step22-flip-pl2.txt, step22-flip-pl2-DIAGNOSTIC-coraza370.txt, docs/logs/runs/s22-flip-pl2*/ |
+| C5 worst case of the four wcp runs by class | done: every worst-case number is the sum of its classes; 400 framing 0, 503 timeout 0, 503 overload 0 | docs/logs/step22-c5-worst-case-breakdown.txt |
+| C6 kortex_eval: engine 400 framing, 503 timeout, 503 overload are fail-closed outcomes | done, test-first; rule 5 deviation, asked for; 503 overload NOT MEASURED on the real engine | docs/logs/step22-c6-failing.log, step22-c6-passing.log, step22-c6-reclassify.txt, step22-c6-engine-check-DIAGNOSTIC.txt, step22-closeout-pytest-after-c6.log |
+| C7 step21_engine_diff.py: fail-closed answers in the worst-case set | done, test-first; two existing tests changed (asked for) | docs/logs/step22-c7-failing.log, step22-c7-passing.log, step22-c7-diff-tool-on-c2-runs.txt, step22-closeout-pytest-after-c7.log |
 
 - Raw evidence (key numbers in the body per rule 31; outputs trimmed where
   marked "..."):
@@ -1391,7 +1394,7 @@ What changed (commit 457de00):
 - Not changed: metrics, split, manifest validation, the block
   discriminator, `flagged` in predictions.jsonl (still 403 blocks only),
   and the 400 framing and 503 timeout/overload answers (still classified
-  as before; see Questions).
+  as before at this commit; they became fail-closed outcomes in C6 below).
 
 Tests first (commit afb551c, then 457de00). 15 new test cases in
 tests/test_outcome.py, tests/test_runner.py (against the local fake
@@ -1517,10 +1520,9 @@ status diffs: 0
 - The one inconsistent sample is wcp-67cb71cd0c38 (v0 PL2, 403 without a
   qualifying audit score) and the one error is wcp-6b0bf5e43122 (v0, no
   status); both are the same ids as in F9.
-- tools/step21_engine_diff.py was not changed: its "worst-case set" is
-  still error + blocked + deny_status + inconsistent (2,237 above, not
-  2,284). Its parity bar is the status diff, which covers 413 and 415. See
-  Questions.
+- tools/step21_engine_diff.py was not changed at this commit: its
+  "worst-case set" was still error + blocked + deny_status + inconsistent
+  (2,237 above, not 2,284). Changed in C7 below.
 - Rule 18/24: PL2, both sets: 931130, 942430, 942200, 942370, 942340,
   942330, 932200 each on 20% or more of the audit entries, the same list
   as in F9 (949110 is the blocking evaluation rule). PL1 v0: 932370 on
@@ -1657,6 +1659,262 @@ oldest first: 6463b2f (C1), afb551c and 457de00 (C2 tests, then code),
 5132e59 (C3), d5731c4 (C2 runs on the wcp sets), and the commit that
 holds this report.
 
+## Close-out, second part (2026-11-27, C5 to C7; nothing pushed)
+
+Asked for before the session ends: (C5) the worst case of the four wcp
+tables by class, so that each worst-case number is fully accounted for;
+(C6) the engine's own 400 framing and 503 timeout/overload answers as
+separate fail-closed outcomes in kortex_eval, test-first; (C7) 413/415 in
+the worst-case set of tools/step21_engine_diff.py, with the tests that
+assert the old strings updated and that stated in the commit message.
+Same host, checkout, venv and engine binary (sha256 be2217464eb6...) as
+the first part.
+
+**C5. Worst case of the four wcp runs by class.**
+`.venv/bin/python tools/step22_worst_case_breakdown.py docs/logs/runs/s22-c2-outcomes/benign-wcp-v{0,1}-inprocess-pl{1,2}`
+(new tool with a test; docs/logs/step22-c5-worst-case-breakdown.txt,
+commit d1712c7). Each sample gets exactly one class: waf_block,
+deny_status, inconsistent and error from outcomes.jsonl; the engine's own
+refusals from status + engine_decision in responses.jsonl, so they are
+found whatever name the outcomes file gave them.
+
+```
+docs/logs/runs/s22-c2-outcomes/benign-wcp-v0-inprocess-pl1: n=20000 worst case 2284/20000 = 11.42%
+    waf_block 2184 + deny_status 52 + inconsistent 0 + error 1 + 413 limit 28 + 415 content-encoding 19 + 400 framing 0 + 503 timeout 0 + 503 overload 0 = 2284
+    not in the worst case: pass 200 17716, other 0
+    check: worst case + pass 200 + other = 20000 of 20000
+    of the worst case, classified waf_pass by the outcomes file of this run: 0
+docs/logs/runs/s22-c2-outcomes/benign-wcp-v0-inprocess-pl2: n=20000 worst case 8967/20000 = 44.84%
+    waf_block 8866 + deny_status 52 + inconsistent 1 + error 1 + 413 limit 28 + 415 content-encoding 19 + 400 framing 0 + 503 timeout 0 + 503 overload 0 = 8967
+    not in the worst case: pass 200 11033, other 0
+    check: worst case + pass 200 + other = 20000 of 20000
+    of the worst case, classified waf_pass by the outcomes file of this run: 0
+docs/logs/runs/s22-c2-outcomes/benign-wcp-v1-inprocess-pl1: n=10000 worst case 1133/10000 = 11.33%
+    waf_block 1091 + deny_status 25 + inconsistent 0 + error 0 + 413 limit 17 + 415 content-encoding 0 + 400 framing 0 + 503 timeout 0 + 503 overload 0 = 1133
+    not in the worst case: pass 200 8867, other 0
+    check: worst case + pass 200 + other = 10000 of 10000
+    of the worst case, classified waf_pass by the outcomes file of this run: 0
+docs/logs/runs/s22-c2-outcomes/benign-wcp-v1-inprocess-pl2: n=10000 worst case 4480/10000 = 44.80%
+    waf_block 4438 + deny_status 25 + inconsistent 0 + error 0 + 413 limit 17 + 415 content-encoding 0 + 400 framing 0 + 503 timeout 0 + 503 overload 0 = 4480
+    not in the worst case: pass 200 5520, other 0
+    check: worst case + pass 200 + other = 10000 of 10000
+    of the worst case, classified waf_pass by the outcomes file of this run: 0
+```
+
+| dataset | PL | worst case | waf_block (403) | 413 | 415 | deny_status | inconsistent | error | 400 framing | 503 timeout | 503 overload | pass 200 |
+|---|---|---|---|---|---|---|---|---|---|---|---|---|
+| benign-wcp-v0 | 1 | 2,284 | 2,184 | 28 | 19 | 52 | 0 | 1 | 0 | 0 | 0 | 17,716 |
+| benign-wcp-v0 | 2 | 8,967 | 8,866 | 28 | 19 | 52 | 1 | 1 | 0 | 0 | 0 | 11,033 |
+| benign-wcp-v1 | 1 | 1,133 | 1,091 | 17 | 0 | 25 | 0 | 0 | 0 | 0 | 0 | 8,867 |
+| benign-wcp-v1 | 2 | 4,480 | 4,438 | 17 | 0 | 25 | 0 | 0 | 0 | 0 | 0 | 5,520 |
+
+- Each worst case is the sum of its classes, and worst case + 200 answers
+  = n in all four runs: no sample is unaccounted for.
+- The remainder beyond waf_block, 413 and 415 is 53, 54, 25 and 25:
+  deny_status 52 / 52 / 25 / 25, inconsistent 0 / 1 / 0 / 0, error 1 / 1 /
+  0 / 0, and no 400 framing, 503 timeout or 503 overload answer in any of
+  the four runs.
+- All 52 and 25 status-400 answers are deny_status: the engine's body
+  parser denies (decision `block` in the response, audit entry with a
+  rule id starting with 2), not framing refusals.
+
+**C6. kortex_eval: the engine's own 400 framing and 503 timeout / 503
+overload answers are fail-closed outcomes.** Rule 5 again (asked for).
+Commits 6004f59 (tests), 5193fba (code).
+
+- `kortex_eval/outcome.py`: three more outcomes, in blocking and in
+  detection mode, from the runner's `engine_decision` (no runner change):
+  `waf_fail_closed_400` (400 with decision `framing`),
+  `waf_fail_closed_503_timeout`, `waf_fail_closed_503_overload`. The two
+  503 answers are kept apart because they mean different things (time
+  budget spent; capacity cap, step-17 T3). Together with C2 there are five
+  fail-closed outcomes, each printed on its own line.
+- A 503 timeout is fail-closed whatever the audit entry says (the engine
+  may have matched rules before the budget ran out; the client still got
+  the refusal). A 400 with decision `block` stays waf_deny_status. A 400
+  or 503 without the marker stays waf_pass, as does every row written
+  before the runner recorded `engine_decision`.
+- `tools/step22_t3_summary.py` counts the three in the worst case and
+  prints them; docs/block-discriminator.md has the table of the five.
+- One assertion from the first part was changed, and the commit message
+  says so: `test_fail_closed_outcomes_are_named_and_distinct_from_block`
+  (added in afb551c) listed two outcome names and now lists five.
+
+```
+# step-22 C6 tests before the implementation   (docs/logs/step22-c6-failing.log)
+$ .venv/bin/python -m pytest -q tests/test_outcome.py tests/test_runner.py tests/test_step22_tools.py
+FAILED tests/test_outcome.py::test_fail_closed_outcomes_are_named_and_distinct_from_block
+FAILED tests/test_outcome.py::test_engine_400_framing_and_503_are_fail_closed_not_waf_pass[400-framing-waf_fail_closed_400-blocking]
+FAILED tests/test_outcome.py::test_engine_400_framing_and_503_are_fail_closed_not_waf_pass[400-framing-waf_fail_closed_400-detection]
+FAILED tests/test_outcome.py::test_engine_400_framing_and_503_are_fail_closed_not_waf_pass[503-timeout-waf_fail_closed_503_timeout-blocking]
+FAILED tests/test_outcome.py::test_engine_400_framing_and_503_are_fail_closed_not_waf_pass[503-timeout-waf_fail_closed_503_timeout-detection]
+FAILED tests/test_outcome.py::test_engine_400_framing_and_503_are_fail_closed_not_waf_pass[503-overload-waf_fail_closed_503_overload-blocking]
+FAILED tests/test_outcome.py::test_engine_400_framing_and_503_are_fail_closed_not_waf_pass[503-overload-waf_fail_closed_503_overload-detection]
+FAILED tests/test_outcome.py::test_503_timeout_is_fail_closed_whatever_the_audit_entry_says[blocking]
+FAILED tests/test_outcome.py::test_503_timeout_is_fail_closed_whatever_the_audit_entry_says[detection]
+FAILED tests/test_outcome.py::test_cli_counts_400_and_503_fail_closed_on_their_own_lines
+FAILED tests/test_runner.py::test_runner_rows_classify_400_framing_and_503_as_fail_closed
+FAILED tests/test_step22_tools.py::test_t3_summary_counts_400_and_503_fail_closed_in_the_worst_case
+12 failed, 66 passed, 3 skipped in 47.67s
+# exit status of pytest: 1
+
+# step-22 C6 tests with the implementation   (docs/logs/step22-c6-passing.log)
+78 passed, 3 skipped in 47.72s
+# exit status of pytest: 0
+
+# step-22 close-out Python suite with the C6 change   (docs/logs/step22-closeout-pytest-after-c6.log)
+$ .venv/bin/python -m pytest -q -rs
+217 passed, 4 skipped in 57.60s
+# exit status of pytest: 0
+```
+
+The four wcp runs classified again with the changed code
+(docs/logs/step22-c6-reclassify.txt; responses.jsonl of each run plus its
+parsed audit.jsonl under out/): the new outcomes.jsonl is byte-identical
+to the committed one in all four (`cmp exit=0` four times), as C5
+predicts, since none of the runs has a 400 framing or 503 answer. The
+tables of C2 and C5 stand.
+
+DIAGNOSTIC check on the real engine (rule 34; `STUB_PORT=13004 bash
+tools/run_step22_c6_check.sh`, docs/logs/step22-c6-engine-check-DIAGNOSTIC.txt,
+docs/logs/runs/s22-c6-check-DIAGNOSTIC/): three hand-written requests of
+my own through runner, crs_audit and outcome, once with the normal 2,000 ms
+budget and once with `KORTEX_ENGINE_TIME_BUDGET_MS=0` (expire immediately).
+Rows below are trimmed where marked with `...` or `[trimmed]`.
+
+```
+    c6-get GET /?q=hello content-type: - body bytes: 0 extra headers: -
+    c6-post POST /form content-type: application/x-www-form-urlencoded body bytes: 7 extra headers: -
+    c6-te-cl POST /form content-type: application/x-www-form-urlencoded body bytes: 7 extra headers: {'Transfer-Encoding': 'chunked'}
+== DIAGNOSTIC-normal rule29 ...: {...,"blocking_paranoia":1,"detection_paranoia":1,...,"engine_time_budget_ms":2000,...}   [trimmed]
+== DIAGNOSTIC-normal responses.jsonl:
+{"id": "c6-get", "status": 200, ..., "engine_decision": null, "error": null, "error_class": null}
+{"id": "c6-post", "status": 200, ..., "engine_decision": null, "error": null, "error_class": null}
+{"id": "c6-te-cl", "status": 400, ..., "engine_decision": "framing", "error": null, "error_class": null}
+waf_fail_closed_400: 1
+waf_pass: 2
+== DIAGNOSTIC-budget0 rule29 ...: {...,"engine_time_budget_ms":0,...}   [trimmed]
+== DIAGNOSTIC-budget0 engine events:
+{"ts":"2026-11-28T03:23:43.392582Z","sample_id":"c6-get","decision":"timeout","status":503,"elapsed_ms":0.142,"reason":"time budget expired after headers"}
+{"ts":"2026-11-28T03:23:43.393336Z","sample_id":"c6-post","decision":"timeout","status":503,"elapsed_ms":0.130,"reason":"time budget expired after headers"}
+== DIAGNOSTIC-budget0 responses.jsonl:
+{"id": "c6-get", "status": 503, ..., "engine_decision": "timeout", "error": null, "error_class": null}
+{"id": "c6-post", "status": 503, ..., "engine_decision": "timeout", "error": null, "error_class": null}
+{"id": "c6-te-cl", "status": 400, ..., "engine_decision": "framing", "error": null, "error_class": null}
+waf_fail_closed_400: 1
+waf_fail_closed_503_timeout: 2
+```
+
+- The real engine's framing refusal (a POST with Transfer-Encoding and
+  Content-Length) and its timeout refusal are recorded by the runner and
+  classified as intended.
+- NOT MEASURED on the real engine: 503 overload (it needs concurrent body
+  requests or a penalised client; the runner was at `--workers 1`). Its
+  classification is covered by the unit tests only, with the body string
+  of engine/proxy.go (`503 kortex-decision=overload`).
+- Seen in this check, not fixed: the framing refusal wrote no line to
+  kortex-events.jsonl (the events of the "normal" run are the start-up
+  probe and the two passes only). engine/listener.go answers the gate's
+  400 without calling the event logger, while engine/events.go and
+  docs/block-discriminator.md say framing decisions are always logged.
+  See Questions.
+
+**C7. tools/step21_engine_diff.py: the fail-closed answers are in the
+worst-case set.** Commits 1da3128 (tests), bf3d535 (code).
+
+- New classes `fail_closed_413`, `fail_closed_415`, and, so that the tool
+  agrees with kortex_eval after C6, also `fail_closed_400`,
+  `fail_closed_503_timeout`, `fail_closed_503_overload`. Asked for were
+  413 and 415; the other three are my addition (see Deviations).
+- They are read from status + engine_decision in responses.jsonl (the
+  same pairs as in kortex_eval/outcome.py), so they do not need
+  outcomes.jsonl. When a row with a status has no `engine_decision` in
+  either run (a run recorded before the field existed), all five are
+  printed NOT MEASURED (rule 52) and neither run's set gets them, so an
+  old run cannot produce one-sided entries.
+- Order of classes for one sample: error, blocked, fail-closed, then
+  deny_status / inconsistent from the outcomes.
+- Two existing tests asserted the old four-class strings and were changed
+  (rule 5; asked for, and stated in the message of 1da3128):
+  `test_main_prints_counts_ids_and_not_measured` and
+  `test_main_uses_outcomes_when_both_runs_have_them` now expect the same
+  counts followed by the five `fail_closed_*` fields (NOT MEASURED for
+  their fixture rows, which have no engine_decision). The second one used
+  to assert that the text "NOT MEASURED" is absent from the whole output;
+  it now asserts that deny_status and inconsistent are measured. No
+  assertion on a count was changed. Five new tests.
+
+```
+# step-22 C7 tests before the implementation   (docs/logs/step22-c7-failing.log)
+$ .venv/bin/python -m pytest -q tests/test_step21_engine_diff.py
+FAILED tests/test_step21_engine_diff.py::test_main_prints_counts_ids_and_not_measured
+FAILED tests/test_step21_engine_diff.py::test_main_uses_outcomes_when_both_runs_have_them
+FAILED tests/test_step21_engine_diff.py::test_engine_413_and_415_are_in_the_worst_case_set
+FAILED tests/test_step21_engine_diff.py::test_engine_400_framing_and_503_are_in_the_worst_case_set
+FAILED tests/test_step21_engine_diff.py::test_fail_closed_is_not_measured_when_one_run_has_no_engine_decision
+FAILED tests/test_step21_engine_diff.py::test_main_prints_the_fail_closed_counts
+6 failed, 7 passed in 0.05s
+# exit status of pytest: 1
+
+# step-22 C7 tests with the implementation   (docs/logs/step22-c7-passing.log)
+13 passed in 0.02s
+# exit status of pytest: 0
+
+# step-22 close-out Python suite with the C5, C6 and C7 changes   (docs/logs/step22-closeout-pytest-after-c7.log)
+$ .venv/bin/python -m pytest -q -rs
+222 passed, 4 skipped in 57.47s
+# exit status of pytest: 0
+```
+
+On real run files (docs/logs/step22-c7-diff-tool-on-c2-runs.txt). TOOL
+CHECK, NOT A PARITY COMPARISON: a and b are the PL1 and PL2 runs of one
+dataset, so the differences between them mean nothing; what is checked is
+that each run's worst-case set now equals the rate table.
+
+```
+worst-case set a: 2284/20000 (error=1 blocked=2184 deny_status=52 inconsistent=0 fail_closed_413=28 fail_closed_415=19 fail_closed_400=0 fail_closed_503_timeout=0 fail_closed_503_overload=0)
+worst-case set b: 8967/20000 (error=1 blocked=8866 deny_status=52 inconsistent=1 fail_closed_413=28 fail_closed_415=19 fail_closed_400=0 fail_closed_503_timeout=0 fail_closed_503_overload=0)
+worst-case set a: 1133/10000 (error=0 blocked=1091 deny_status=25 inconsistent=0 fail_closed_413=17 fail_closed_415=0 fail_closed_400=0 fail_closed_503_timeout=0 fail_closed_503_overload=0)
+worst-case set b: 4480/10000 (error=0 blocked=4438 deny_status=25 inconsistent=0 fail_closed_413=17 fail_closed_415=0 fail_closed_400=0 fail_closed_503_timeout=0 fail_closed_503_overload=0)
+# a run recorded before the runner wrote engine_decision (F9) against the C2 run of the same dataset and level:
+status diffs: 0
+fail_closed_*: NOT MEASURED (responses.jsonl without engine_decision in at least one run); not in the worst-case set below
+worst-case set a: 2237/20000 (error=1 blocked=2184 deny_status=52 inconsistent=0 fail_closed_413=NOT MEASURED fail_closed_415=NOT MEASURED fail_closed_400=NOT MEASURED fail_closed_503_timeout=NOT MEASURED fail_closed_503_overload=NOT MEASURED)
+worst-case set b: 2237/20000 (error=1 blocked=2184 deny_status=52 inconsistent=0 fail_closed_413=NOT MEASURED fail_closed_415=NOT MEASURED fail_closed_400=NOT MEASURED fail_closed_503_timeout=NOT MEASURED fail_closed_503_overload=NOT MEASURED)
+worst-case set diffs: 0 (only-a 0 only-b 0)
+```
+
+- The diff tool's worst-case sets are 2,284, 8,967, 1,133 and 4,480: the
+  three tools (outcome counts, rate table, diff tool) and the C5 breakdown
+  give the same four numbers.
+- No in-process against worker comparison was run with the new set
+  (NOT MEASURED): no worker-mode run with `engine_decision` exists yet.
+  The parity results of F9 are unchanged; their run files predate the
+  field, so the tool reports the fail-closed classes as NOT MEASURED for
+  them, as shown.
+- The Go suite was not run again (no file under engine/ changed).
+
+**C8. Pre-push scan for the second part (rule 51).** Nothing was pushed.
+
+```
+$ bash tools/prepush_scan.sh --range origin/main..HEAD; echo "exit=$?"
+[trimmed: 9 "large file" notes, the same files under docs/logs/runs/s22-c2-outcomes/ as in C4]
+prepush: OK, 91 blob(s) in origin/main..HEAD scanned
+exit=0
+$ git add docs/acceptance.md docs/baseline-v1.7.md reports/step-22.md
+$ bash tools/prepush_scan.sh; echo "exit=$?"
+prepush: OK, 3 staged path(s) scanned
+exit=0
+```
+
+The first version of the C6 check log printed the three hand-written
+requests with their `body` fields and the staged scan refused it
+(`BODY_DUMP ... json-body-field records=2`); the script now prints method,
+path, content type and body length only, and was run again. No external
+data was involved. Commits of the second part, oldest first: d1712c7 (C5),
+6004f59 and 5193fba (C6 tests, then code), 1da3128 and bf3d535 (C7 tests,
+then code), and the commit that holds this part of the report.
+
 - Deviations from instructions:
   - The run scripts committed earlier in the step (T3, T4, T5, T2) could not
     run on this host as written (`setsid`, `/tmp/stub200.py`, `/tmp`
@@ -1767,6 +2025,22 @@ holds this report.
       read from the first checkout after a hash check.
     - Rule 8: C2 has three commits (failing tests afb551c, implementation
       457de00, real-traffic run d5731c4); C1 6463b2f; C3 5132e59.
+  - Close-out, second part (C5 to C7):
+    - Rule 5, twice: kortex_eval changed again (C6), and two existing
+      tests of tools/step21_engine_diff.py plus one assertion I had added
+      in the first part were changed (C7, C6). All asked for; each change
+      is named in its commit message. No test was deleted and no asserted
+      count was changed.
+    - C7 adds 400 framing, 503 timeout and 503 overload to the diff tool's
+      worst-case set, not only 413 and 415 as asked, so that the tool
+      matches kortex_eval after C6. Removing the three is a three-line
+      change in `_FAIL_CLOSED_CLASS` plus the test strings.
+    - Not asked for: the breakdown tool (C5 could have been a one-off
+      print), the DIAGNOSTIC engine check and the reclassification check
+      of C6, and the tool check of C7.
+    - The C6 engine check ran twice (first log refused by the pre-push
+      scan, see C8); the committed log is the second run.
+    - Rule 8: C6 and C7 have two commits each (tests, then code).
 
 - UNVERIFIED items (state after the follow-up; items closed there are
   listed at the end):
@@ -1803,8 +2077,14 @@ holds this report.
     tools/stub_backend.py process started from the first checkout at
     10:55 local time (pid 22470, `ps` and `lsof` after the runs). It was
     not used and was left running; who still needs it is not known.
-  - Close-out: the Go suite was not re-run after C2 (no file under
-    engine/ changed).
+  - Close-out: the Go suite was not re-run after C2, C6 or C7 (no file
+    under engine/ changed).
+  - Close-out: 503 overload on the real engine through kortex_eval (C6:
+    NOT MEASURED; unit tests only).
+  - Close-out: in-process against worker parity with the new worst-case
+    set (C7: NOT MEASURED; no worker run with engine_decision yet).
+  - Close-out: whether the missing framing event (C6) was ever different
+    in an earlier engine version. Not looked into.
   - Closed in the follow-up: the rule-id set variance (F1, PROVEN); the
     missing 920450 / 920350 audit messages (F7, BUG fixed); cell G (F3);
     the E20 duration (F5); T3g's CPU reading in the suite (F6, fixed and
@@ -1830,15 +2110,20 @@ holds this report.
     leaves 14 other paths that still fail the scan over history. Go
     ahead as is, extend the list first, or leave history alone? Nothing
     was force-pushed.
-  - ANSWERED in the close-out (C2): kortex_eval now has outcomes for the
-    engine's own 413 and 415 answers. Left open by that change:
-    (a) the engine's 400 framing and 503 timeout/overload answers are
-    still classified as before (waf_pass unless another rule applies);
-    give them fail-closed outcomes too? (b) tools/step21_engine_diff.py
-    keeps its four worst-case classes; add the two fail-closed classes
-    (that changes strings its existing tests assert)? (c) should
-    predictions.jsonl `flagged`, which feeds kortex_eval.report, stay
-    "403 block only"?
+  - ANSWERED in the close-out (C2, C6, C7): kortex_eval has fail-closed
+    outcomes for the engine's own 413, 415, 400 framing, 503 timeout and
+    503 overload answers, and tools/step21_engine_diff.py counts them in
+    its worst-case set. Left open:
+    (a) should predictions.jsonl `flagged`, which feeds
+    kortex_eval.report, stay "403 block only"? (b) is 503 overload wanted
+    in the worst case of a false-positive rate, given that step-17 T3
+    calls it a capacity decision and not a WAF decision? It is in now, on
+    its own line, so it can be subtracted. (c) keep 400 / 503 in the diff
+    tool's set (C7 added them beyond the 413 / 415 asked for)?
+  - New (C6): the framing gate answers 400 without writing an event to
+    kortex-events.jsonl, while engine/events.go and
+    docs/block-discriminator.md say framing decisions are always logged.
+    Fix the engine (test first, rule 40) or correct the two texts?
   - E33 answers 415 and does not decode. Decoding gzip/deflate before
     inspection is the alternative (the 19 benign gzip samples of
     benign-wcp-v0 would then be inspected instead of refused). Wanted?
