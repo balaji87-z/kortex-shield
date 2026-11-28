@@ -674,3 +674,51 @@ the pairs for those collide with ordinary text (for example `80`, `(4`,
 magic and cannot be recognised this way. A body the engine does not read
 (Content-Length above the total limit, refused 413) is not checked. The
 check says "starts like", not "is": nothing is inflated.
+
+### What was measured for the patched coraza (T2, after the runs)
+
+- Repeatability: E37 2,000 replays each, one outcome (stock: syn-chain
+  1,564 x 403 and 436 x 200; syn-dup two rule-id sets). In-process against
+  worker mode on the four wcp runs: 0 rule-id set differences in 60,000
+  pairs (step 22: 3 ids per parity run).
+- The limit stated above is real: E39's request is passed in 300 of 300
+  replays (stock: 230 passed, 70 blocked).
+- Effect on real traffic: against the stock-coraza runs of the wcp
+  datasets, 0 status differences in 60,000 pairs and 1 rule-id set
+  difference (942130 on wcp-7b0bdeda7bc7, blocked either way).
+- Cost: not visible at the resolution of these runs (wcp run wall times
+  within 4 s of the stock runs; 2,000 replays 2.35 against 2.39 s and 3.97
+  against 3.99 s). A controlled timing is NOT MEASURED.
+
+### Who answers a request, in order (found while building the T5 differential)
+
+A request can be refused at four places, and only three of them are the
+engine's own code:
+
+1. The framing gate (engine/listener.go), on the raw bytes: 400
+   `kortex-decision=framing`, event since step 23 (E35).
+2. **Go's net/http parser**, after the gate and before the handler: a
+   Content-Length it cannot parse (`+5`, `0x5`, `-1`, empty, `5, 5`, a
+   space before the colon), an unsupported or repeated Transfer-Encoding,
+   an invalid percent escape in the path. It answers `400 Bad Request` or
+   `501 Unsupported transfer encoding` itself. The engine's handler never
+   runs, so there is no kortex-decision line, no event, no audit entry and
+   no rule evaluation. 17 of the 61 T5 cases end here. This is fail-closed
+   behaviour that the engine does not announce; kortex_eval sees a bare
+   status. Not changed in step 23 (see the report's questions).
+3. The handler's own checks (engine/proxy.go): 415 content-encoding, 413
+   limit, 503 overload, 503 timeout (which also covers a body the engine
+   cannot read, for example a malformed chunk: reason `body-read-error`).
+4. The rules: 403 block, or the deny status of a body-parser rule.
+
+A request that passes all four is forwarded with the engine's own framing:
+Transfer-Encoding and Content-Length are dropped and a Content-Length for
+the bytes the engine read is set, and the connection to the client is
+closed after the answer. So a backend behind the engine never receives an
+ambiguous length, and bytes a client sends after the declared body never
+reach it (T5: `cl-short-body`, the three chunked cases).
+
+The log-only encoding checks (invalid percent sequence, overlong UTF-8)
+look at the query and at urlencoded bodies, not at the path. An invalid
+percent escape in the path is refused at (2); overlong UTF-8 in the path
+reaches the rules unremarked (T5: `ovl-path-nul-pct` forwarded, no event).

@@ -56,6 +56,16 @@ Notes
   `{"ts","sample_id","decision","status","elapsed_ms","reason"}` for limit,
   framing, timeout and overload decisions (and would_reject for log-only
   encoding checks). Blocks and passes are visible in the Coraza JSON audit log and in
-  the response statuses.
+  the response statuses. Since step 23 the framing gate really does write its
+  event (E35; it did not before), and `would_reject` also covers a body
+  without Content-Encoding that starts with gzip or zlib magic bytes (E40,
+  reason `compressed-body-without-content-encoding:gzip|zlib`, log-only).
+- NOT covered by any marker or event (found in step 23, T5): a request that
+  Go's HTTP parser inside the engine refuses after the gate and before the
+  engine's handler (a Content-Length it cannot parse, an unsupported
+  Transfer-Encoding, an invalid percent escape in the path). The client gets
+  Go's plain `400 Bad Request` or `501 Unsupported transfer encoding`, with
+  no kortex-decision line and no event; kortex_eval classifies such an
+  answer by status only.
 - The effective configuration is printed at startup and served as JSON on
   /__kortex/config (loopback only), so it is provable in-container.

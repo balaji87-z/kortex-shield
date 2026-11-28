@@ -503,3 +503,50 @@ passed.
   both engines). Audit of the 42 new benign-wcp-v1 blocks: 0/42 look
   like attacks (all browser telemetry) -> classified false positives.
   Token count corrected 6 -> 8. Evidence: docs/logs/step20-t4-*.txt.
+
+## Step-23 (2026-11-27, macOS host of step 22; no container, no network)
+
+Engine changes, each test-first (docs/acceptance.md E35 to E41), and what
+the runs show. Numbers and raw outputs: reports/step-23.md,
+docs/baseline-v1.8.md.
+
+- T1 framing events: every refusal of the framing gate now writes a
+  `framing` event (5 of 5 cases wrote none before). In the parsing
+  differential all 12 gate refusals have their event.
+- T2 deterministic matching: the engine builds against a vendored coraza
+  v3.8.1 with one patch (sorted key order for map-backed collections).
+  E37: 2,000 replays each of syn-chain and syn-dup, one status and one
+  rule-id set (stock: 1,564 / 436 and two sets). flip_repro PL2 0 of 2,500.
+  In-process against worker mode on the wcp datasets: 0 rule-id set
+  differences in 60,000 pairs (step 22: 3 ids). Against the stock-coraza
+  runs: 0 status differences, 1 rule-id set difference (942130), DESIGN
+  (order by key, documented before the run). Limit, measured: a tautology
+  under a key that sorts before a harmless x=y member is passed 300 of 300
+  times (E39). Evidence: docs/logs/step23-e37-*.log, step23-flip-pl2.txt,
+  step23-parity.txt, step23-coraza-vendor-check.txt.
+- T3 compressed-looking bodies: log-only event (E40, E41). benign-wcp-v0:
+  14 events, benign-wcp-v1: 2, all zlib `78 01`, all text/plain POSTs that
+  the rules already block at PL1 and PL2. Evidence:
+  docs/logs/step23-magic-analysis.txt.
+- T4 worker-mode evidence: the four wcp runs in worker mode now carry
+  `engine_decision`; the worst-case sets with the fail-closed classes are
+  equal to the in-process ones (2,284, 8,967, 1,133, 4,480). A real 503
+  overload reaches kortex_eval: 46 of 48 (in-process) and 47 of 48 (worker)
+  with the runner at 8 workers (DIAGNOSTIC,
+  docs/logs/step23-overload-DIAGNOSTIC.txt).
+- T5 strict parsing differential, first slice: 61 hand-written cases
+  against the engine, a Python http.server and a Go net/http backend. The
+  engine forwards 14, refuses 47 (framing gate 12, rules 16, body read 2,
+  its Go HTTP parser 17). Disagreements with the Python backend: 50 (47
+  engine stricter, 3 re-framed chunked bodies); with the Go backend: 23
+  (all engine stricter). No case where the engine forwards something a
+  backend then refuses or reads differently, and no canary reaches a
+  backend. BUG, not fixed (rule 39): the 17 parser refusals carry no
+  kortex marker and no event. Evidence: docs/logs/step23-parsing-diff.txt.
+- Suites at 9754a0d: Go 55 PASS / 0 FAIL / 5 SKIP, with the fixture 60 / 0
+  / 0; pytest 234 passed, 4 skipped.
+- NOT MEASURED in step 23: the attack datasets and the connector /
+  ModSecurity images with the patched engine; a controlled timing of the
+  patch; E37 in worker mode; the parsing cases at PL2 and against other
+  backends.
+

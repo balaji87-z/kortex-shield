@@ -1,0 +1,22 @@
+# step-23 T2: coraza v3.8.1's own tests on a full copy of the module with the committed patch applied (out/s23-coraza-full, not committed), 2026-11-28T04:19:15Z, go version go1.27.4 darwin/arm64, GOPROXY=off
+$ patch -p1 < engine/third_party/coraza-v3.8.1-kortex.patch   (in a copy of $GOMODCACHE/github.com/corazawaf/coraza/v3@v3.8.1, go.work removed)
+$ go test -count=1 ./internal/collections/ ./internal/corazawaf/ ./internal/seclang/ ./internal/bodyprocessors/ ./internal/operators/ ./internal/transformations/ ./internal/actions/ .
+ok  	github.com/corazawaf/coraza/v3/internal/collections	0.311s
+ok  	github.com/corazawaf/coraza/v3/internal/corazawaf	0.311s
+ok  	github.com/corazawaf/coraza/v3/internal/seclang	0.311s
+ok  	github.com/corazawaf/coraza/v3/internal/bodyprocessors	0.722s
+ok  	github.com/corazawaf/coraza/v3/internal/operators	0.303s
+ok  	github.com/corazawaf/coraza/v3/internal/transformations	0.228s
+ok  	github.com/corazawaf/coraza/v3/internal/actions	0.261s
+ok  	github.com/corazawaf/coraza/v3	0.274s
+# exit status of go test: 0
+# the same packages on the unpatched module copy:
+ok  	github.com/corazawaf/coraza/v3/internal/collections	0.228s
+ok  	github.com/corazawaf/coraza/v3/internal/corazawaf	0.331s
+ok  	github.com/corazawaf/coraza/v3/internal/seclang	0.315s
+ok  	github.com/corazawaf/coraza/v3/internal/bodyprocessors	0.605s
+ok  	github.com/corazawaf/coraza/v3/internal/operators	0.327s
+ok  	github.com/corazawaf/coraza/v3/internal/transformations	0.253s
+ok  	github.com/corazawaf/coraza/v3/internal/actions	0.287s
+ok  	github.com/corazawaf/coraza/v3	0.301s
+# exit status of go test: 0

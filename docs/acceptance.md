@@ -252,3 +252,33 @@ changed to macOS arm64, see docs/baseline-v1.7.md):
   1da3128). Python suite after it: 222 passed, 4 skipped
   (docs/logs/step22-closeout-pytest-after-c7.log). Seen, not fixed: the
   framing gate writes no event for its 400 (reports/step-22.md, Questions).
+
+Step-23 run evidence (new ids E35 to E41, each of E35, E37, E38, E39, E40
+failing first; E36 and E41 are guards that pass before and after; reports/step-23.md):
+
+- E35/E36: docs/logs/step23-e35-failing.log (5 of 5 refusal cases wrote 0
+  events) -> docs/logs/step23-e35-passing.log.
+- E37/E38/E39 on stock coraza v3.8.1: docs/logs/step23-e37-failing.log
+  (syn-chain 1,564 x 403 and 436 x 200 in 2,000 replays; syn-dup two
+  rule-id sets) -> docs/logs/step23-e37-passing.log with the patched copy
+  (2,000 x one outcome each; E39 300 x 200, the documented limit). The
+  vendored copy is proven against the module cache by
+  tools/step23_coraza_vendor.py check (docs/logs/step23-coraza-vendor-check.txt:
+  197 of 200 files byte-identical, 2 patched, 1 new).
+- E40/E41: docs/logs/step23-e40-failing.log (15 of 15 cases, no event) ->
+  docs/logs/step23-e40-passing.log.
+- flip_repro on the patched engine, PL2, 5 x 500: 0 of 2,500 rounds with a
+  flip on Host localhost and on 127.0.0.1 (docs/logs/step23-flip-pl2.txt);
+  DIAGNOSTIC v3.7.0 control 741 and 573 of 2,500.
+- In-process against worker mode on benign-wcp-v0 and v1 at PL1 and PL2,
+  60,000 pairs: 0 status diffs, 0 worst-case-set diffs with the fail-closed
+  classes measured, 0 rule-id set differences (docs/logs/step23-parity.txt).
+- Suites at 9754a0d: docs/logs/step23-final-go-test.log 55 PASS, 0 FAIL,
+  5 SKIP (`ok kortexshield/engine 62.676s`);
+  docs/logs/step23-final-go-test-with-fixture.log 60 PASS, 0 FAIL, 0 SKIP
+  (`ok kortexshield/engine 336.432s`, E20 265.18 s);
+  docs/logs/step23-final-pytest.log 234 passed, 4 skipped.
+- Not an acceptance id, recorded for the next step: Go's HTTP parser inside
+  the engine refuses some malformed requests (400 / 501) before the
+  engine's handler runs, with no kortex marker and no event (17 of the 61
+  cases of the step-23 parsing differential, docs/logs/step23-parsing-diff.txt).

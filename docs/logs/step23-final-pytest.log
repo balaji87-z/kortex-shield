@@ -1,0 +1,14 @@
+# step-23 final Python suite at 9754a0dbed8933d318796644f8c22bf2b96f98bf (tracked files modified: 2: docs only), 2026-11-28T04:18:02Z, Python 3.15.2, pytest 9.2.0, load at start: load averages: 4.43 4.56 3.76
+$ .venv/bin/python -m pytest -q -rs
+.............................................................ss..s...... [ 30%]
+........................................................................ [ 60%]
+........................................................................ [ 91%]
+.....................                                                    [100%]
+=========================== short test summary info ============================
+SKIPPED [1] tests/test_record_benign.py:9: could not import 'playwright': No module named 'playwright'
+SKIPPED [1] tests/test_outcome.py:78: smoke run artifacts not present
+SKIPPED [1] tests/test_outcome.py:96: smoke run artifacts not present
+SKIPPED [1] tests/test_outcome.py:161: step-05 hard PL2 run output not present
+234 passed, 4 skipped in 60.07s (0:01:00)
+# exit status of pytest: 0
+# load at end: load averages: 3.60 4.28 3.70
