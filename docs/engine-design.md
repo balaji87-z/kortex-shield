@@ -904,3 +904,27 @@ inputs is not tested.
   positives.
 - The gate answers before the rules (steps 15 and 24). Measured: 3 tests
   that expect a rule id for a request the gate refuses.
+
+## Step-26 addition (2026-11-28): CRS regexes are compiled multiline
+
+Found in step 26 and written here after the run that showed it (rule 39
+asks for a DESIGN property to be documented before the run; this one was
+not known before).
+
+The engine is built with coraza's defaults. One of them: the `@rx`
+operator compiles every pattern with the multiline flag, so `^` and `$`
+also match at a line break inside a value (ModSecurity compiles its PCRE
+patterns the same way). Coraza has a Go build tag that turns this off,
+`coraza.rule.no_regex_multiline`, and the Coraza connector image of
+deploy/compose.yml is built with it: its `libcoraza.so` names the tag.
+
+Measured (docs/logs/step26-DIAGNOSTIC-942330.txt, PROVEN): on four
+attacks-v1 requests whose decoded value has a line break after a quote,
+the engine logs CRS 942330 at PL2 and the connector image does not, 25 of
+25 sends each. The engine's own source built with
+`-tags coraza.rule.no_regex_multiline` gives the connector's rule ids and
+scores on all 100 sends. The step-23 patch and the coraza version (v3.8.1
+in the engine, v3.7.0 in the image) do not change the result.
+
+The engine keeps coraza's default. What the tag would change on the other
+datasets is not measured.

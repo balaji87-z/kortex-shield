@@ -613,3 +613,31 @@ docs/baseline-v1.8.md.
 - NOT MEASURED in step 25: the suite on the connector and ModSecurity
   images, in blocking mode, or at another paranoia level; the 11 other
   chain-starting rules that keep the REQUEST_BODY target; timing.
+
+## Step-26 evidence (2026-11-28, baseline v2.1)
+
+- A2, attack side: attacks-v1 frozen (2,670 requests, 1,335 distinct
+  payloads, 9 families, 5 of them new; no payload shared with attacks-v0;
+  plan committed before the build, reach check before the freeze). With
+  attacks-v0: 1,862 distinct payloads. Evidence: docs/plan-attacks-v1.md,
+  data/attacks-v1/README.md, docs/logs/step26-build.log, step26-reach.txt.
+- Held-out recall of the engine (no engine code changed in this step): PL1
+  2,214/2,670 = 82.92% (95% Wilson 81.45 to 84.30), PL2 2,444/2,670 =
+  91.54% (90.42 to 92.53); best case equals worst case; in-process equals
+  worker per sample. In-sample attacks-v0: 90.51% and 97.15%. Weakest
+  family ldap (8 and 14 of 60). Evidence: docs/logs/step26-engine.txt,
+  step26-summary.txt.
+- Baselines on the same manifest: Coraza connector image 2,214 and 2,444
+  (0 status differences against the engine), ModSecurity image 2,210 and
+  2,444 (8 status differences at PL1, 0 at PL2). Rule 36 controls 20/20
+  before and after. Evidence: docs/logs/step26-baseline.txt.
+- Engine against connector, 4 rule-id-set differences at PL2 (942330):
+  PROVEN to follow from the connector's build tag
+  `coraza.rule.no_regex_multiline`. Evidence:
+  docs/logs/step26-DIAGNOSTIC-942330.txt.
+- DIAGNOSTIC without the REQUEST_BODY targets: 0 differences on attacks-v1;
+  the same binary differs on attacks-ct-v0 (canary, 6 requests). Evidence:
+  docs/logs/step26-DIAGNOSTIC-no-body-targets.txt,
+  step26-DIAGNOSTIC-canary.txt.
+- NOT MEASURED in step 26: the benign side of A2, body carriers that fit
+  the new families, timing.

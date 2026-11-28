@@ -1,0 +1,328 @@
+# step-26: attacks-v1 (held-out for every engine setting), tables
+# 2026-11-28T16:15:53Z git 62a099eb2344916928168f142e600b0370b2e6a7
+# "attack" means "listed under this family in this source", not "verified exploitable" (rule 11)
+
+== PL1: rates and counts per run
+engine-inprocess-pl1: requests 2670, distinct payloads 1335; outcomes: waf_block 2214, waf_pass 456
+    recall best case (only waf_block) 2214/2670 = 82.92% (95% Wilson 81.45 to 84.30); worst case (every outcome that is not a pass) 2214/2670 = 82.92% (95% Wilson 81.45 to 84.30)
+    per family kind:
+      seen-family: best 1488/1742 = 85.42% (95% Wilson 83.68 to 87.00); worst 1488/1742 = 85.42% (95% Wilson 83.68 to 87.00)
+      new-family: best 726/928 = 78.23% (95% Wilson 75.46 to 80.77); worst 726/928 = 78.23% (95% Wilson 75.46 to 80.77)
+    per family:
+      sqli: best 488/600 = 81.33% (95% Wilson 78.02 to 84.25); worst 488/600 = 81.33% (95% Wilson 78.02 to 84.25)
+      xss: best 556/600 = 92.67% (95% Wilson 90.30 to 94.49); worst 556/600 = 92.67% (95% Wilson 90.30 to 94.49)
+      path-traversal: best 346/400 = 86.50% (95% Wilson 82.80 to 89.50); worst 346/400 = 86.50% (95% Wilson 82.80 to 89.50)
+      command-injection: best 98/142 = 69.01% (95% Wilson 60.99 to 76.04); worst 98/142 = 69.01% (95% Wilson 60.99 to 76.04)
+      lfi: best 330/400 = 82.50% (95% Wilson 78.47 to 85.91); worst 330/400 = 82.50% (95% Wilson 78.47 to 85.91)
+      xxe: best 186/202 = 92.08% (95% Wilson 87.52 to 95.07); worst 186/202 = 92.08% (95% Wilson 87.52 to 95.07)
+      ssti: best 158/214 = 73.83% (95% Wilson 67.56 to 79.26); worst 158/214 = 73.83% (95% Wilson 67.56 to 79.26)
+      nosql: best 44/52 = 84.62% (95% Wilson 72.48 to 91.99); worst 44/52 = 84.62% (95% Wilson 72.48 to 91.99)
+      ldap: best 8/60 = 13.33% (95% Wilson 6.91 to 24.17); worst 8/60 = 13.33% (95% Wilson 6.91 to 24.17)
+    per injection point:
+      q: best 1107/1335 = 82.92% (95% Wilson 80.81 to 84.84); worst 1107/1335 = 82.92% (95% Wilson 80.81 to 84.84)
+      login: best 1107/1335 = 82.92% (95% Wilson 80.81 to 84.84); worst 1107/1335 = 82.92% (95% Wilson 80.81 to 84.84)
+    payloads blocked at both injection points 1107, at one 0, at none 228
+    per payload (blocked at both injection points): 1107/1335 = 82.92% (95% Wilson 80.81 to 84.84)
+    rule 18: 2214 audit entries; rule ids in >=20% of them: 949110=2214, 941100=620, 941390=500, 941160=482
+    not blocked, by family and injection point: sqli/q 56, sqli/login 56, xss/q 22, xss/login 22, path-traversal/q 27, path-traversal/login 27, command-injection/q 22, command-injection/login 22, lfi/q 35, lfi/login 35, xxe/q 8, xxe/login 8, ssti/q 28, ssti/login 28, nosql/q 4, nosql/login 4, ldap/q 26, ldap/login 26
+engine-worker-pl1: requests 2670, distinct payloads 1335; outcomes: waf_block 2214, waf_pass 456
+    recall best case (only waf_block) 2214/2670 = 82.92% (95% Wilson 81.45 to 84.30); worst case (every outcome that is not a pass) 2214/2670 = 82.92% (95% Wilson 81.45 to 84.30)
+    per family kind:
+      seen-family: best 1488/1742 = 85.42% (95% Wilson 83.68 to 87.00); worst 1488/1742 = 85.42% (95% Wilson 83.68 to 87.00)
+      new-family: best 726/928 = 78.23% (95% Wilson 75.46 to 80.77); worst 726/928 = 78.23% (95% Wilson 75.46 to 80.77)
+    per family:
+      sqli: best 488/600 = 81.33% (95% Wilson 78.02 to 84.25); worst 488/600 = 81.33% (95% Wilson 78.02 to 84.25)
+      xss: best 556/600 = 92.67% (95% Wilson 90.30 to 94.49); worst 556/600 = 92.67% (95% Wilson 90.30 to 94.49)
+      path-traversal: best 346/400 = 86.50% (95% Wilson 82.80 to 89.50); worst 346/400 = 86.50% (95% Wilson 82.80 to 89.50)
+      command-injection: best 98/142 = 69.01% (95% Wilson 60.99 to 76.04); worst 98/142 = 69.01% (95% Wilson 60.99 to 76.04)
+      lfi: best 330/400 = 82.50% (95% Wilson 78.47 to 85.91); worst 330/400 = 82.50% (95% Wilson 78.47 to 85.91)
+      xxe: best 186/202 = 92.08% (95% Wilson 87.52 to 95.07); worst 186/202 = 92.08% (95% Wilson 87.52 to 95.07)
+      ssti: best 158/214 = 73.83% (95% Wilson 67.56 to 79.26); worst 158/214 = 73.83% (95% Wilson 67.56 to 79.26)
+      nosql: best 44/52 = 84.62% (95% Wilson 72.48 to 91.99); worst 44/52 = 84.62% (95% Wilson 72.48 to 91.99)
+      ldap: best 8/60 = 13.33% (95% Wilson 6.91 to 24.17); worst 8/60 = 13.33% (95% Wilson 6.91 to 24.17)
+    per injection point:
+      q: best 1107/1335 = 82.92% (95% Wilson 80.81 to 84.84); worst 1107/1335 = 82.92% (95% Wilson 80.81 to 84.84)
+      login: best 1107/1335 = 82.92% (95% Wilson 80.81 to 84.84); worst 1107/1335 = 82.92% (95% Wilson 80.81 to 84.84)
+    payloads blocked at both injection points 1107, at one 0, at none 228
+    per payload (blocked at both injection points): 1107/1335 = 82.92% (95% Wilson 80.81 to 84.84)
+    rule 18: 2214 audit entries; rule ids in >=20% of them: 949110=2214, 941100=620, 941390=500, 941160=482
+    not blocked, by family and injection point: sqli/q 56, sqli/login 56, xss/q 22, xss/login 22, path-traversal/q 27, path-traversal/login 27, command-injection/q 22, command-injection/login 22, lfi/q 35, lfi/login 35, xxe/q 8, xxe/login 8, ssti/q 28, ssti/login 28, nosql/q 4, nosql/login 4, ldap/q 26, ldap/login 26
+modsecurity-pl1: requests 2670, distinct payloads 1335; outcomes: waf_block 2210, waf_pass 460
+    recall best case (only waf_block) 2210/2670 = 82.77% (95% Wilson 81.29 to 84.16); worst case (every outcome that is not a pass) 2210/2670 = 82.77% (95% Wilson 81.29 to 84.16)
+    per family kind:
+      seen-family: best 1490/1742 = 85.53% (95% Wilson 83.80 to 87.11); worst 1490/1742 = 85.53% (95% Wilson 83.80 to 87.11)
+      new-family: best 720/928 = 77.59% (95% Wilson 74.79 to 80.15); worst 720/928 = 77.59% (95% Wilson 74.79 to 80.15)
+    per family:
+      sqli: best 488/600 = 81.33% (95% Wilson 78.02 to 84.25); worst 488/600 = 81.33% (95% Wilson 78.02 to 84.25)
+      xss: best 558/600 = 93.00% (95% Wilson 90.67 to 94.78); worst 558/600 = 93.00% (95% Wilson 90.67 to 94.78)
+      path-traversal: best 346/400 = 86.50% (95% Wilson 82.80 to 89.50); worst 346/400 = 86.50% (95% Wilson 82.80 to 89.50)
+      command-injection: best 98/142 = 69.01% (95% Wilson 60.99 to 76.04); worst 98/142 = 69.01% (95% Wilson 60.99 to 76.04)
+      lfi: best 324/400 = 81.00% (95% Wilson 76.87 to 84.54); worst 324/400 = 81.00% (95% Wilson 76.87 to 84.54)
+      xxe: best 186/202 = 92.08% (95% Wilson 87.52 to 95.07); worst 186/202 = 92.08% (95% Wilson 87.52 to 95.07)
+      ssti: best 158/214 = 73.83% (95% Wilson 67.56 to 79.26); worst 158/214 = 73.83% (95% Wilson 67.56 to 79.26)
+      nosql: best 44/52 = 84.62% (95% Wilson 72.48 to 91.99); worst 44/52 = 84.62% (95% Wilson 72.48 to 91.99)
+      ldap: best 8/60 = 13.33% (95% Wilson 6.91 to 24.17); worst 8/60 = 13.33% (95% Wilson 6.91 to 24.17)
+    per injection point:
+      q: best 1105/1335 = 82.77% (95% Wilson 80.65 to 84.70); worst 1105/1335 = 82.77% (95% Wilson 80.65 to 84.70)
+      login: best 1105/1335 = 82.77% (95% Wilson 80.65 to 84.70); worst 1105/1335 = 82.77% (95% Wilson 80.65 to 84.70)
+    payloads blocked at both injection points 1105, at one 0, at none 230
+    per payload (blocked at both injection points): 1105/1335 = 82.77% (95% Wilson 80.65 to 84.70)
+    rule 18: 2251 audit entries; rule ids in >=20% of them: 949110=2251, 941100=626, 941390=500, 941160=482
+    not blocked, by family and injection point: sqli/q 56, sqli/login 56, xss/q 21, xss/login 21, path-traversal/q 27, path-traversal/login 27, command-injection/q 22, command-injection/login 22, lfi/q 38, lfi/login 38, xxe/q 8, xxe/login 8, ssti/q 28, ssti/login 28, nosql/q 4, nosql/login 4, ldap/q 26, ldap/login 26
+coraza-connector-pl1: requests 2670, distinct payloads 1335; outcomes: waf_block 2214, waf_pass 456
+    recall best case (only waf_block) 2214/2670 = 82.92% (95% Wilson 81.45 to 84.30); worst case (every outcome that is not a pass) 2214/2670 = 82.92% (95% Wilson 81.45 to 84.30)
+    per family kind:
+      seen-family: best 1488/1742 = 85.42% (95% Wilson 83.68 to 87.00); worst 1488/1742 = 85.42% (95% Wilson 83.68 to 87.00)
+      new-family: best 726/928 = 78.23% (95% Wilson 75.46 to 80.77); worst 726/928 = 78.23% (95% Wilson 75.46 to 80.77)
+    per family:
+      sqli: best 488/600 = 81.33% (95% Wilson 78.02 to 84.25); worst 488/600 = 81.33% (95% Wilson 78.02 to 84.25)
+      xss: best 556/600 = 92.67% (95% Wilson 90.30 to 94.49); worst 556/600 = 92.67% (95% Wilson 90.30 to 94.49)
+      path-traversal: best 346/400 = 86.50% (95% Wilson 82.80 to 89.50); worst 346/400 = 86.50% (95% Wilson 82.80 to 89.50)
+      command-injection: best 98/142 = 69.01% (95% Wilson 60.99 to 76.04); worst 98/142 = 69.01% (95% Wilson 60.99 to 76.04)
+      lfi: best 330/400 = 82.50% (95% Wilson 78.47 to 85.91); worst 330/400 = 82.50% (95% Wilson 78.47 to 85.91)
+      xxe: best 186/202 = 92.08% (95% Wilson 87.52 to 95.07); worst 186/202 = 92.08% (95% Wilson 87.52 to 95.07)
+      ssti: best 158/214 = 73.83% (95% Wilson 67.56 to 79.26); worst 158/214 = 73.83% (95% Wilson 67.56 to 79.26)
+      nosql: best 44/52 = 84.62% (95% Wilson 72.48 to 91.99); worst 44/52 = 84.62% (95% Wilson 72.48 to 91.99)
+      ldap: best 8/60 = 13.33% (95% Wilson 6.91 to 24.17); worst 8/60 = 13.33% (95% Wilson 6.91 to 24.17)
+    per injection point:
+      q: best 1107/1335 = 82.92% (95% Wilson 80.81 to 84.84); worst 1107/1335 = 82.92% (95% Wilson 80.81 to 84.84)
+      login: best 1107/1335 = 82.92% (95% Wilson 80.81 to 84.84); worst 1107/1335 = 82.92% (95% Wilson 80.81 to 84.84)
+    payloads blocked at both injection points 1107, at one 0, at none 228
+    per payload (blocked at both injection points): 1107/1335 = 82.92% (95% Wilson 80.81 to 84.84)
+    rule 18: 2254 audit entries; rule ids in >=20% of them: 949110=2254, 941100=620, 941390=500, 941160=482
+    not blocked, by family and injection point: sqli/q 56, sqli/login 56, xss/q 22, xss/login 22, path-traversal/q 27, path-traversal/login 27, command-injection/q 22, command-injection/login 22, lfi/q 35, lfi/login 35, xxe/q 8, xxe/login 8, ssti/q 28, ssti/login 28, nosql/q 4, nosql/login 4, ldap/q 26, ldap/login 26
+DIAGNOSTIC-no-body-targets-pl1: requests 2670, distinct payloads 1335; outcomes: waf_block 2214, waf_pass 456
+    recall best case (only waf_block) 2214/2670 = 82.92% (95% Wilson 81.45 to 84.30); worst case (every outcome that is not a pass) 2214/2670 = 82.92% (95% Wilson 81.45 to 84.30)
+    per family kind:
+      seen-family: best 1488/1742 = 85.42% (95% Wilson 83.68 to 87.00); worst 1488/1742 = 85.42% (95% Wilson 83.68 to 87.00)
+      new-family: best 726/928 = 78.23% (95% Wilson 75.46 to 80.77); worst 726/928 = 78.23% (95% Wilson 75.46 to 80.77)
+    per family:
+      sqli: best 488/600 = 81.33% (95% Wilson 78.02 to 84.25); worst 488/600 = 81.33% (95% Wilson 78.02 to 84.25)
+      xss: best 556/600 = 92.67% (95% Wilson 90.30 to 94.49); worst 556/600 = 92.67% (95% Wilson 90.30 to 94.49)
+      path-traversal: best 346/400 = 86.50% (95% Wilson 82.80 to 89.50); worst 346/400 = 86.50% (95% Wilson 82.80 to 89.50)
+      command-injection: best 98/142 = 69.01% (95% Wilson 60.99 to 76.04); worst 98/142 = 69.01% (95% Wilson 60.99 to 76.04)
+      lfi: best 330/400 = 82.50% (95% Wilson 78.47 to 85.91); worst 330/400 = 82.50% (95% Wilson 78.47 to 85.91)
+      xxe: best 186/202 = 92.08% (95% Wilson 87.52 to 95.07); worst 186/202 = 92.08% (95% Wilson 87.52 to 95.07)
+      ssti: best 158/214 = 73.83% (95% Wilson 67.56 to 79.26); worst 158/214 = 73.83% (95% Wilson 67.56 to 79.26)
+      nosql: best 44/52 = 84.62% (95% Wilson 72.48 to 91.99); worst 44/52 = 84.62% (95% Wilson 72.48 to 91.99)
+      ldap: best 8/60 = 13.33% (95% Wilson 6.91 to 24.17); worst 8/60 = 13.33% (95% Wilson 6.91 to 24.17)
+    per injection point:
+      q: best 1107/1335 = 82.92% (95% Wilson 80.81 to 84.84); worst 1107/1335 = 82.92% (95% Wilson 80.81 to 84.84)
+      login: best 1107/1335 = 82.92% (95% Wilson 80.81 to 84.84); worst 1107/1335 = 82.92% (95% Wilson 80.81 to 84.84)
+    payloads blocked at both injection points 1107, at one 0, at none 228
+    per payload (blocked at both injection points): 1107/1335 = 82.92% (95% Wilson 80.81 to 84.84)
+    rule 18: 2214 audit entries; rule ids in >=20% of them: 949110=2214, 941100=620, 941390=500, 941160=482
+    not blocked, by family and injection point: sqli/q 56, sqli/login 56, xss/q 22, xss/login 22, path-traversal/q 27, path-traversal/login 27, command-injection/q 22, command-injection/login 22, lfi/q 35, lfi/login 35, xxe/q 8, xxe/login 8, ssti/q 28, ssti/login 28, nosql/q 4, nosql/login 4, ldap/q 26, ldap/login 26
+
+== PL2: rates and counts per run
+engine-inprocess-pl2: requests 2670, distinct payloads 1335; outcomes: waf_block 2444, waf_pass 226
+    recall best case (only waf_block) 2444/2670 = 91.54% (95% Wilson 90.42 to 92.53); worst case (every outcome that is not a pass) 2444/2670 = 91.54% (95% Wilson 90.42 to 92.53)
+    per family kind:
+      seen-family: best 1628/1742 = 93.46% (95% Wilson 92.20 to 94.52); worst 1628/1742 = 93.46% (95% Wilson 92.20 to 94.52)
+      new-family: best 816/928 = 87.93% (95% Wilson 85.68 to 89.87); worst 816/928 = 87.93% (95% Wilson 85.68 to 89.87)
+    per family:
+      sqli: best 578/600 = 96.33% (95% Wilson 94.51 to 97.57); worst 578/600 = 96.33% (95% Wilson 94.51 to 97.57)
+      xss: best 576/600 = 96.00% (95% Wilson 94.12 to 97.30); worst 576/600 = 96.00% (95% Wilson 94.12 to 97.30)
+      path-traversal: best 364/400 = 91.00% (95% Wilson 87.79 to 93.43); worst 364/400 = 91.00% (95% Wilson 87.79 to 93.43)
+      command-injection: best 110/142 = 77.46% (95% Wilson 69.92 to 83.56); worst 110/142 = 77.46% (95% Wilson 69.92 to 83.56)
+      lfi: best 356/400 = 89.00% (95% Wilson 85.55 to 91.70); worst 356/400 = 89.00% (95% Wilson 85.55 to 91.70)
+      xxe: best 190/202 = 94.06% (95% Wilson 89.90 to 96.57); worst 190/202 = 94.06% (95% Wilson 89.90 to 96.57)
+      ssti: best 206/214 = 96.26% (95% Wilson 92.80 to 98.09); worst 206/214 = 96.26% (95% Wilson 92.80 to 98.09)
+      nosql: best 50/52 = 96.15% (95% Wilson 87.02 to 98.94); worst 50/52 = 96.15% (95% Wilson 87.02 to 98.94)
+      ldap: best 14/60 = 23.33% (95% Wilson 14.44 to 35.44); worst 14/60 = 23.33% (95% Wilson 14.44 to 35.44)
+    per injection point:
+      q: best 1222/1335 = 91.54% (95% Wilson 89.92 to 92.91); worst 1222/1335 = 91.54% (95% Wilson 89.92 to 92.91)
+      login: best 1222/1335 = 91.54% (95% Wilson 89.92 to 92.91); worst 1222/1335 = 91.54% (95% Wilson 89.92 to 92.91)
+    payloads blocked at both injection points 1222, at one 0, at none 113
+    per payload (blocked at both injection points): 1222/1335 = 91.54% (95% Wilson 89.92 to 92.91)
+    rule 18: 2444 audit entries; rule ids in >=20% of them: 949110=2444, 942520=756, 941100=620, 942430=606, 941390=500, 942370=492, 941320=490
+    not blocked, by family and injection point: sqli/q 11, sqli/login 11, xss/q 12, xss/login 12, path-traversal/q 18, path-traversal/login 18, command-injection/q 16, command-injection/login 16, lfi/q 22, lfi/login 22, xxe/q 6, xxe/login 6, ssti/q 4, ssti/login 4, nosql/q 1, nosql/login 1, ldap/q 23, ldap/login 23
+engine-worker-pl2: requests 2670, distinct payloads 1335; outcomes: waf_block 2444, waf_pass 226
+    recall best case (only waf_block) 2444/2670 = 91.54% (95% Wilson 90.42 to 92.53); worst case (every outcome that is not a pass) 2444/2670 = 91.54% (95% Wilson 90.42 to 92.53)
+    per family kind:
+      seen-family: best 1628/1742 = 93.46% (95% Wilson 92.20 to 94.52); worst 1628/1742 = 93.46% (95% Wilson 92.20 to 94.52)
+      new-family: best 816/928 = 87.93% (95% Wilson 85.68 to 89.87); worst 816/928 = 87.93% (95% Wilson 85.68 to 89.87)
+    per family:
+      sqli: best 578/600 = 96.33% (95% Wilson 94.51 to 97.57); worst 578/600 = 96.33% (95% Wilson 94.51 to 97.57)
+      xss: best 576/600 = 96.00% (95% Wilson 94.12 to 97.30); worst 576/600 = 96.00% (95% Wilson 94.12 to 97.30)
+      path-traversal: best 364/400 = 91.00% (95% Wilson 87.79 to 93.43); worst 364/400 = 91.00% (95% Wilson 87.79 to 93.43)
+      command-injection: best 110/142 = 77.46% (95% Wilson 69.92 to 83.56); worst 110/142 = 77.46% (95% Wilson 69.92 to 83.56)
+      lfi: best 356/400 = 89.00% (95% Wilson 85.55 to 91.70); worst 356/400 = 89.00% (95% Wilson 85.55 to 91.70)
+      xxe: best 190/202 = 94.06% (95% Wilson 89.90 to 96.57); worst 190/202 = 94.06% (95% Wilson 89.90 to 96.57)
+      ssti: best 206/214 = 96.26% (95% Wilson 92.80 to 98.09); worst 206/214 = 96.26% (95% Wilson 92.80 to 98.09)
+      nosql: best 50/52 = 96.15% (95% Wilson 87.02 to 98.94); worst 50/52 = 96.15% (95% Wilson 87.02 to 98.94)
+      ldap: best 14/60 = 23.33% (95% Wilson 14.44 to 35.44); worst 14/60 = 23.33% (95% Wilson 14.44 to 35.44)
+    per injection point:
+      q: best 1222/1335 = 91.54% (95% Wilson 89.92 to 92.91); worst 1222/1335 = 91.54% (95% Wilson 89.92 to 92.91)
+      login: best 1222/1335 = 91.54% (95% Wilson 89.92 to 92.91); worst 1222/1335 = 91.54% (95% Wilson 89.92 to 92.91)
+    payloads blocked at both injection points 1222, at one 0, at none 113
+    per payload (blocked at both injection points): 1222/1335 = 91.54% (95% Wilson 89.92 to 92.91)
+    rule 18: 2444 audit entries; rule ids in >=20% of them: 949110=2444, 942520=756, 941100=620, 942430=606, 941390=500, 942370=492, 941320=490
+    not blocked, by family and injection point: sqli/q 11, sqli/login 11, xss/q 12, xss/login 12, path-traversal/q 18, path-traversal/login 18, command-injection/q 16, command-injection/login 16, lfi/q 22, lfi/login 22, xxe/q 6, xxe/login 6, ssti/q 4, ssti/login 4, nosql/q 1, nosql/login 1, ldap/q 23, ldap/login 23
+modsecurity-pl2: requests 2670, distinct payloads 1335; outcomes: waf_block 2444, waf_pass 226
+    recall best case (only waf_block) 2444/2670 = 91.54% (95% Wilson 90.42 to 92.53); worst case (every outcome that is not a pass) 2444/2670 = 91.54% (95% Wilson 90.42 to 92.53)
+    per family kind:
+      seen-family: best 1628/1742 = 93.46% (95% Wilson 92.20 to 94.52); worst 1628/1742 = 93.46% (95% Wilson 92.20 to 94.52)
+      new-family: best 816/928 = 87.93% (95% Wilson 85.68 to 89.87); worst 816/928 = 87.93% (95% Wilson 85.68 to 89.87)
+    per family:
+      sqli: best 578/600 = 96.33% (95% Wilson 94.51 to 97.57); worst 578/600 = 96.33% (95% Wilson 94.51 to 97.57)
+      xss: best 576/600 = 96.00% (95% Wilson 94.12 to 97.30); worst 576/600 = 96.00% (95% Wilson 94.12 to 97.30)
+      path-traversal: best 364/400 = 91.00% (95% Wilson 87.79 to 93.43); worst 364/400 = 91.00% (95% Wilson 87.79 to 93.43)
+      command-injection: best 110/142 = 77.46% (95% Wilson 69.92 to 83.56); worst 110/142 = 77.46% (95% Wilson 69.92 to 83.56)
+      lfi: best 356/400 = 89.00% (95% Wilson 85.55 to 91.70); worst 356/400 = 89.00% (95% Wilson 85.55 to 91.70)
+      xxe: best 190/202 = 94.06% (95% Wilson 89.90 to 96.57); worst 190/202 = 94.06% (95% Wilson 89.90 to 96.57)
+      ssti: best 206/214 = 96.26% (95% Wilson 92.80 to 98.09); worst 206/214 = 96.26% (95% Wilson 92.80 to 98.09)
+      nosql: best 50/52 = 96.15% (95% Wilson 87.02 to 98.94); worst 50/52 = 96.15% (95% Wilson 87.02 to 98.94)
+      ldap: best 14/60 = 23.33% (95% Wilson 14.44 to 35.44); worst 14/60 = 23.33% (95% Wilson 14.44 to 35.44)
+    per injection point:
+      q: best 1222/1335 = 91.54% (95% Wilson 89.92 to 92.91); worst 1222/1335 = 91.54% (95% Wilson 89.92 to 92.91)
+      login: best 1222/1335 = 91.54% (95% Wilson 89.92 to 92.91); worst 1222/1335 = 91.54% (95% Wilson 89.92 to 92.91)
+    payloads blocked at both injection points 1222, at one 0, at none 113
+    per payload (blocked at both injection points): 1222/1335 = 91.54% (95% Wilson 89.92 to 92.91)
+    rule 18: 2537 audit entries; rule ids in >=20% of them: 949110=2485, 942520=756, 941100=626, 942430=608
+    not blocked, by family and injection point: sqli/q 11, sqli/login 11, xss/q 12, xss/login 12, path-traversal/q 18, path-traversal/login 18, command-injection/q 16, command-injection/login 16, lfi/q 22, lfi/login 22, xxe/q 6, xxe/login 6, ssti/q 4, ssti/login 4, nosql/q 1, nosql/login 1, ldap/q 23, ldap/login 23
+coraza-connector-pl2: requests 2670, distinct payloads 1335; outcomes: waf_block 2444, waf_pass 226
+    recall best case (only waf_block) 2444/2670 = 91.54% (95% Wilson 90.42 to 92.53); worst case (every outcome that is not a pass) 2444/2670 = 91.54% (95% Wilson 90.42 to 92.53)
+    per family kind:
+      seen-family: best 1628/1742 = 93.46% (95% Wilson 92.20 to 94.52); worst 1628/1742 = 93.46% (95% Wilson 92.20 to 94.52)
+      new-family: best 816/928 = 87.93% (95% Wilson 85.68 to 89.87); worst 816/928 = 87.93% (95% Wilson 85.68 to 89.87)
+    per family:
+      sqli: best 578/600 = 96.33% (95% Wilson 94.51 to 97.57); worst 578/600 = 96.33% (95% Wilson 94.51 to 97.57)
+      xss: best 576/600 = 96.00% (95% Wilson 94.12 to 97.30); worst 576/600 = 96.00% (95% Wilson 94.12 to 97.30)
+      path-traversal: best 364/400 = 91.00% (95% Wilson 87.79 to 93.43); worst 364/400 = 91.00% (95% Wilson 87.79 to 93.43)
+      command-injection: best 110/142 = 77.46% (95% Wilson 69.92 to 83.56); worst 110/142 = 77.46% (95% Wilson 69.92 to 83.56)
+      lfi: best 356/400 = 89.00% (95% Wilson 85.55 to 91.70); worst 356/400 = 89.00% (95% Wilson 85.55 to 91.70)
+      xxe: best 190/202 = 94.06% (95% Wilson 89.90 to 96.57); worst 190/202 = 94.06% (95% Wilson 89.90 to 96.57)
+      ssti: best 206/214 = 96.26% (95% Wilson 92.80 to 98.09); worst 206/214 = 96.26% (95% Wilson 92.80 to 98.09)
+      nosql: best 50/52 = 96.15% (95% Wilson 87.02 to 98.94); worst 50/52 = 96.15% (95% Wilson 87.02 to 98.94)
+      ldap: best 14/60 = 23.33% (95% Wilson 14.44 to 35.44); worst 14/60 = 23.33% (95% Wilson 14.44 to 35.44)
+    per injection point:
+      q: best 1222/1335 = 91.54% (95% Wilson 89.92 to 92.91); worst 1222/1335 = 91.54% (95% Wilson 89.92 to 92.91)
+      login: best 1222/1335 = 91.54% (95% Wilson 89.92 to 92.91); worst 1222/1335 = 91.54% (95% Wilson 89.92 to 92.91)
+    payloads blocked at both injection points 1222, at one 0, at none 113
+    per payload (blocked at both injection points): 1222/1335 = 91.54% (95% Wilson 89.92 to 92.91)
+    rule 18: 2484 audit entries; rule ids in >=20% of them: 949110=2484, 942520=756, 941100=620, 942430=606, 941390=500
+    not blocked, by family and injection point: sqli/q 11, sqli/login 11, xss/q 12, xss/login 12, path-traversal/q 18, path-traversal/login 18, command-injection/q 16, command-injection/login 16, lfi/q 22, lfi/login 22, xxe/q 6, xxe/login 6, ssti/q 4, ssti/login 4, nosql/q 1, nosql/login 1, ldap/q 23, ldap/login 23
+DIAGNOSTIC-no-body-targets-pl2: requests 2670, distinct payloads 1335; outcomes: waf_block 2444, waf_pass 226
+    recall best case (only waf_block) 2444/2670 = 91.54% (95% Wilson 90.42 to 92.53); worst case (every outcome that is not a pass) 2444/2670 = 91.54% (95% Wilson 90.42 to 92.53)
+    per family kind:
+      seen-family: best 1628/1742 = 93.46% (95% Wilson 92.20 to 94.52); worst 1628/1742 = 93.46% (95% Wilson 92.20 to 94.52)
+      new-family: best 816/928 = 87.93% (95% Wilson 85.68 to 89.87); worst 816/928 = 87.93% (95% Wilson 85.68 to 89.87)
+    per family:
+      sqli: best 578/600 = 96.33% (95% Wilson 94.51 to 97.57); worst 578/600 = 96.33% (95% Wilson 94.51 to 97.57)
+      xss: best 576/600 = 96.00% (95% Wilson 94.12 to 97.30); worst 576/600 = 96.00% (95% Wilson 94.12 to 97.30)
+      path-traversal: best 364/400 = 91.00% (95% Wilson 87.79 to 93.43); worst 364/400 = 91.00% (95% Wilson 87.79 to 93.43)
+      command-injection: best 110/142 = 77.46% (95% Wilson 69.92 to 83.56); worst 110/142 = 77.46% (95% Wilson 69.92 to 83.56)
+      lfi: best 356/400 = 89.00% (95% Wilson 85.55 to 91.70); worst 356/400 = 89.00% (95% Wilson 85.55 to 91.70)
+      xxe: best 190/202 = 94.06% (95% Wilson 89.90 to 96.57); worst 190/202 = 94.06% (95% Wilson 89.90 to 96.57)
+      ssti: best 206/214 = 96.26% (95% Wilson 92.80 to 98.09); worst 206/214 = 96.26% (95% Wilson 92.80 to 98.09)
+      nosql: best 50/52 = 96.15% (95% Wilson 87.02 to 98.94); worst 50/52 = 96.15% (95% Wilson 87.02 to 98.94)
+      ldap: best 14/60 = 23.33% (95% Wilson 14.44 to 35.44); worst 14/60 = 23.33% (95% Wilson 14.44 to 35.44)
+    per injection point:
+      q: best 1222/1335 = 91.54% (95% Wilson 89.92 to 92.91); worst 1222/1335 = 91.54% (95% Wilson 89.92 to 92.91)
+      login: best 1222/1335 = 91.54% (95% Wilson 89.92 to 92.91); worst 1222/1335 = 91.54% (95% Wilson 89.92 to 92.91)
+    payloads blocked at both injection points 1222, at one 0, at none 113
+    per payload (blocked at both injection points): 1222/1335 = 91.54% (95% Wilson 89.92 to 92.91)
+    rule 18: 2444 audit entries; rule ids in >=20% of them: 949110=2444, 942520=756, 941100=620, 942430=606, 941390=500, 942370=492, 941320=490
+    not blocked, by family and injection point: sqli/q 11, sqli/login 11, xss/q 12, xss/login 12, path-traversal/q 18, path-traversal/login 18, command-injection/q 16, command-injection/login 16, lfi/q 22, lfi/login 22, xxe/q 6, xxe/login 6, ssti/q 4, ssti/login 4, nosql/q 1, nosql/login 1, ldap/q 23, ldap/login 23
+
+== PL1: per sample id (rule 32: status, worst-case set, rule-id sets)
+    engine-inprocess against engine-worker: 2670 sample ids; status differs in 0; worst-case set differs in 0 (only engine-inprocess 0, only engine-worker 0); rule-id set differs in 0
+    engine against modsecurity: 2670 sample ids; status differs in 8; worst-case set differs in 8 (only engine 6, only modsecurity 2); rule-id set differs in 32
+      rule ids that make up the differences: only in engine: 930120 x8, 949110 x6; only in modsecurity: 920260 x18, 941100 x6, 949110 x2
+      v1-lfi-85d4f1b9-login: status 403 / 200; outcome waf_block / waf_pass; rule ids only in engine ['930120', '949110'], only in modsecurity []
+      v1-lfi-85d4f1b9-q: status 403 / 200; outcome waf_block / waf_pass; rule ids only in engine ['930120', '949110'], only in modsecurity []
+      v1-lfi-aafcd311-login: status 403 / 200; outcome waf_block / waf_pass; rule ids only in engine ['930120', '949110'], only in modsecurity []
+      v1-lfi-aafcd311-q: status 403 / 200; outcome waf_block / waf_pass; rule ids only in engine ['930120', '949110'], only in modsecurity []
+      v1-lfi-b8205086-login: status 403 / 200; outcome waf_block / waf_pass; rule ids only in engine ['930120', '949110'], only in modsecurity []
+      v1-lfi-b8205086-q: status 403 / 200; outcome waf_block / waf_pass; rule ids only in engine ['930120', '949110'], only in modsecurity []
+      v1-xss-06229db7-login: status 200 / 403; outcome waf_pass / waf_block; rule ids only in engine [], only in modsecurity ['941100', '949110']
+      v1-xss-06229db7-q: status 200 / 403; outcome waf_pass / waf_block; rule ids only in engine [], only in modsecurity ['941100', '949110']
+    engine against coraza-connector: 2670 sample ids; status differs in 0; worst-case set differs in 0 (only engine 0, only coraza-connector 0); rule-id set differs in 0
+    modsecurity against coraza-connector: 2670 sample ids; status differs in 8; worst-case set differs in 8 (only modsecurity 2, only coraza-connector 6); rule-id set differs in 32
+      rule ids that make up the differences: only in modsecurity: 920260 x18, 941100 x6, 949110 x2; only in coraza-connector: 930120 x8, 949110 x6
+      v1-lfi-85d4f1b9-login: status 200 / 403; outcome waf_pass / waf_block; rule ids only in modsecurity [], only in coraza-connector ['930120', '949110']
+      v1-lfi-85d4f1b9-q: status 200 / 403; outcome waf_pass / waf_block; rule ids only in modsecurity [], only in coraza-connector ['930120', '949110']
+      v1-lfi-aafcd311-login: status 200 / 403; outcome waf_pass / waf_block; rule ids only in modsecurity [], only in coraza-connector ['930120', '949110']
+      v1-lfi-aafcd311-q: status 200 / 403; outcome waf_pass / waf_block; rule ids only in modsecurity [], only in coraza-connector ['930120', '949110']
+      v1-lfi-b8205086-login: status 200 / 403; outcome waf_pass / waf_block; rule ids only in modsecurity [], only in coraza-connector ['930120', '949110']
+      v1-lfi-b8205086-q: status 200 / 403; outcome waf_pass / waf_block; rule ids only in modsecurity [], only in coraza-connector ['930120', '949110']
+      v1-xss-06229db7-login: status 403 / 200; outcome waf_block / waf_pass; rule ids only in modsecurity ['941100', '949110'], only in coraza-connector []
+      v1-xss-06229db7-q: status 403 / 200; outcome waf_block / waf_pass; rule ids only in modsecurity ['941100', '949110'], only in coraza-connector []
+    engine against DIAGNOSTIC-no-body-targets: 2670 sample ids; status differs in 0; worst-case set differs in 0 (only engine 0, only DIAGNOSTIC-no-body-targets 0); rule-id set differs in 0
+
+== PL2: per sample id (rule 32: status, worst-case set, rule-id sets)
+    engine-inprocess against engine-worker: 2670 sample ids; status differs in 0; worst-case set differs in 0 (only engine-inprocess 0, only engine-worker 0); rule-id set differs in 0
+    engine against modsecurity: 2670 sample ids; status differs in 0; worst-case set differs in 0 (only engine 0, only modsecurity 0); rule-id set differs in 90
+      rule ids that make up the differences: only in engine: 930120 x8; only in modsecurity: 920230 x50, 920260 x18, 941100 x6, 942131 x6, 942430 x2
+      v1-command-injection-09dcc86c-login: status 200 / 200; outcome waf_pass / waf_pass; rule ids only in engine [], only in modsecurity ['920230']
+      v1-command-injection-09dcc86c-q: status 200 / 200; outcome waf_pass / waf_pass; rule ids only in engine [], only in modsecurity ['920230']
+      v1-command-injection-639af472-login: status 200 / 200; outcome waf_pass / waf_pass; rule ids only in engine [], only in modsecurity ['920230']
+      v1-command-injection-639af472-q: status 200 / 200; outcome waf_pass / waf_pass; rule ids only in engine [], only in modsecurity ['920230']
+      v1-command-injection-d4904a44-login: status 200 / 200; outcome waf_pass / waf_pass; rule ids only in engine [], only in modsecurity ['920230']
+      v1-command-injection-d4904a44-q: status 200 / 200; outcome waf_pass / waf_pass; rule ids only in engine [], only in modsecurity ['920230']
+      v1-ldap-26ebd69f-login: status 200 / 200; outcome waf_pass / waf_pass; rule ids only in engine [], only in modsecurity ['920230']
+      v1-ldap-26ebd69f-q: status 200 / 200; outcome waf_pass / waf_pass; rule ids only in engine [], only in modsecurity ['920230']
+      v1-ldap-2e66d75b-login: status 200 / 200; outcome waf_pass / waf_pass; rule ids only in engine [], only in modsecurity ['920230']
+      v1-ldap-2e66d75b-q: status 200 / 200; outcome waf_pass / waf_pass; rule ids only in engine [], only in modsecurity ['920230']
+      v1-ldap-3367706f-login: status 200 / 200; outcome waf_pass / waf_pass; rule ids only in engine [], only in modsecurity ['920230']
+      v1-ldap-3367706f-q: status 200 / 200; outcome waf_pass / waf_pass; rule ids only in engine [], only in modsecurity ['920230']
+      v1-ldap-3378b00f-login: status 200 / 200; outcome waf_pass / waf_pass; rule ids only in engine [], only in modsecurity ['920230']
+      v1-ldap-3378b00f-q: status 200 / 200; outcome waf_pass / waf_pass; rule ids only in engine [], only in modsecurity ['920230']
+      v1-ldap-a91b7710-login: status 200 / 200; outcome waf_pass / waf_pass; rule ids only in engine [], only in modsecurity ['920230']
+      v1-ldap-a91b7710-q: status 200 / 200; outcome waf_pass / waf_pass; rule ids only in engine [], only in modsecurity ['920230']
+      v1-ldap-adf38caa-login: status 200 / 200; outcome waf_pass / waf_pass; rule ids only in engine [], only in modsecurity ['920230']
+      v1-ldap-adf38caa-q: status 200 / 200; outcome waf_pass / waf_pass; rule ids only in engine [], only in modsecurity ['920230']
+      v1-ldap-cd087341-login: status 200 / 200; outcome waf_pass / waf_pass; rule ids only in engine [], only in modsecurity ['920230']
+      v1-ldap-cd087341-q: status 200 / 200; outcome waf_pass / waf_pass; rule ids only in engine [], only in modsecurity ['920230']
+      v1-ldap-d13042fb-login: status 200 / 200; outcome waf_pass / waf_pass; rule ids only in engine [], only in modsecurity ['920230']
+      v1-ldap-d13042fb-q: status 200 / 200; outcome waf_pass / waf_pass; rule ids only in engine [], only in modsecurity ['920230']
+      v1-ldap-d30de49f-login: status 200 / 200; outcome waf_pass / waf_pass; rule ids only in engine [], only in modsecurity ['920230']
+      v1-ldap-d30de49f-q: status 200 / 200; outcome waf_pass / waf_pass; rule ids only in engine [], only in modsecurity ['920230']
+      v1-lfi-19d2efe5-login: status 403 / 403; outcome waf_block / waf_block; rule ids only in engine ['930120'], only in modsecurity []
+      v1-lfi-19d2efe5-q: status 403 / 403; outcome waf_block / waf_block; rule ids only in engine ['930120'], only in modsecurity []
+      v1-lfi-85d4f1b9-login: status 403 / 403; outcome waf_block / waf_block; rule ids only in engine ['930120'], only in modsecurity []
+      v1-lfi-85d4f1b9-q: status 403 / 403; outcome waf_block / waf_block; rule ids only in engine ['930120'], only in modsecurity []
+      v1-lfi-aafcd311-login: status 403 / 403; outcome waf_block / waf_block; rule ids only in engine ['930120'], only in modsecurity []
+      v1-lfi-aafcd311-q: status 403 / 403; outcome waf_block / waf_block; rule ids only in engine ['930120'], only in modsecurity []
+      ... and 60 more ids (all in the run files)
+    engine against coraza-connector: 2670 sample ids; status differs in 0; worst-case set differs in 0 (only engine 0, only coraza-connector 0); rule-id set differs in 4
+      rule ids that make up the differences: only in engine: 942330 x4; only in coraza-connector: none
+      v1-command-injection-0a2a074b-login: status 403 / 403; outcome waf_block / waf_block; rule ids only in engine ['942330'], only in coraza-connector []
+      v1-command-injection-0a2a074b-q: status 403 / 403; outcome waf_block / waf_block; rule ids only in engine ['942330'], only in coraza-connector []
+      v1-command-injection-7dc8718c-login: status 403 / 403; outcome waf_block / waf_block; rule ids only in engine ['942330'], only in coraza-connector []
+      v1-command-injection-7dc8718c-q: status 403 / 403; outcome waf_block / waf_block; rule ids only in engine ['942330'], only in coraza-connector []
+    modsecurity against coraza-connector: 2670 sample ids; status differs in 0; worst-case set differs in 0 (only modsecurity 0, only coraza-connector 0); rule-id set differs in 94
+      rule ids that make up the differences: only in modsecurity: 920230 x50, 920260 x18, 941100 x6, 942131 x6, 942330 x4, 942430 x2; only in coraza-connector: 930120 x8
+      v1-command-injection-09dcc86c-login: status 200 / 200; outcome waf_pass / waf_pass; rule ids only in modsecurity ['920230'], only in coraza-connector []
+      v1-command-injection-09dcc86c-q: status 200 / 200; outcome waf_pass / waf_pass; rule ids only in modsecurity ['920230'], only in coraza-connector []
+      v1-command-injection-0a2a074b-login: status 403 / 403; outcome waf_block / waf_block; rule ids only in modsecurity ['942330'], only in coraza-connector []
+      v1-command-injection-0a2a074b-q: status 403 / 403; outcome waf_block / waf_block; rule ids only in modsecurity ['942330'], only in coraza-connector []
+      v1-command-injection-639af472-login: status 200 / 200; outcome waf_pass / waf_pass; rule ids only in modsecurity ['920230'], only in coraza-connector []
+      v1-command-injection-639af472-q: status 200 / 200; outcome waf_pass / waf_pass; rule ids only in modsecurity ['920230'], only in coraza-connector []
+      v1-command-injection-7dc8718c-login: status 403 / 403; outcome waf_block / waf_block; rule ids only in modsecurity ['942330'], only in coraza-connector []
+      v1-command-injection-7dc8718c-q: status 403 / 403; outcome waf_block / waf_block; rule ids only in modsecurity ['942330'], only in coraza-connector []
+      v1-command-injection-d4904a44-login: status 200 / 200; outcome waf_pass / waf_pass; rule ids only in modsecurity ['920230'], only in coraza-connector []
+      v1-command-injection-d4904a44-q: status 200 / 200; outcome waf_pass / waf_pass; rule ids only in modsecurity ['920230'], only in coraza-connector []
+      v1-ldap-26ebd69f-login: status 200 / 200; outcome waf_pass / waf_pass; rule ids only in modsecurity ['920230'], only in coraza-connector []
+      v1-ldap-26ebd69f-q: status 200 / 200; outcome waf_pass / waf_pass; rule ids only in modsecurity ['920230'], only in coraza-connector []
+      v1-ldap-2e66d75b-login: status 200 / 200; outcome waf_pass / waf_pass; rule ids only in modsecurity ['920230'], only in coraza-connector []
+      v1-ldap-2e66d75b-q: status 200 / 200; outcome waf_pass / waf_pass; rule ids only in modsecurity ['920230'], only in coraza-connector []
+      v1-ldap-3367706f-login: status 200 / 200; outcome waf_pass / waf_pass; rule ids only in modsecurity ['920230'], only in coraza-connector []
+      v1-ldap-3367706f-q: status 200 / 200; outcome waf_pass / waf_pass; rule ids only in modsecurity ['920230'], only in coraza-connector []
+      v1-ldap-3378b00f-login: status 200 / 200; outcome waf_pass / waf_pass; rule ids only in modsecurity ['920230'], only in coraza-connector []
+      v1-ldap-3378b00f-q: status 200 / 200; outcome waf_pass / waf_pass; rule ids only in modsecurity ['920230'], only in coraza-connector []
+      v1-ldap-a91b7710-login: status 200 / 200; outcome waf_pass / waf_pass; rule ids only in modsecurity ['920230'], only in coraza-connector []
+      v1-ldap-a91b7710-q: status 200 / 200; outcome waf_pass / waf_pass; rule ids only in modsecurity ['920230'], only in coraza-connector []
+      v1-ldap-adf38caa-login: status 200 / 200; outcome waf_pass / waf_pass; rule ids only in modsecurity ['920230'], only in coraza-connector []
+      v1-ldap-adf38caa-q: status 200 / 200; outcome waf_pass / waf_pass; rule ids only in modsecurity ['920230'], only in coraza-connector []
+      v1-ldap-cd087341-login: status 200 / 200; outcome waf_pass / waf_pass; rule ids only in modsecurity ['920230'], only in coraza-connector []
+      v1-ldap-cd087341-q: status 200 / 200; outcome waf_pass / waf_pass; rule ids only in modsecurity ['920230'], only in coraza-connector []
+      v1-ldap-d13042fb-login: status 200 / 200; outcome waf_pass / waf_pass; rule ids only in modsecurity ['920230'], only in coraza-connector []
+      v1-ldap-d13042fb-q: status 200 / 200; outcome waf_pass / waf_pass; rule ids only in modsecurity ['920230'], only in coraza-connector []
+      v1-ldap-d30de49f-login: status 200 / 200; outcome waf_pass / waf_pass; rule ids only in modsecurity ['920230'], only in coraza-connector []
+      v1-ldap-d30de49f-q: status 200 / 200; outcome waf_pass / waf_pass; rule ids only in modsecurity ['920230'], only in coraza-connector []
+      v1-lfi-19d2efe5-login: status 403 / 403; outcome waf_block / waf_block; rule ids only in modsecurity [], only in coraza-connector ['930120']
+      v1-lfi-19d2efe5-q: status 403 / 403; outcome waf_block / waf_block; rule ids only in modsecurity [], only in coraza-connector ['930120']
+      ... and 64 more ids (all in the run files)
+    engine against DIAGNOSTIC-no-body-targets: 2670 sample ids; status differs in 0; worst-case set differs in 0 (only engine 0, only DIAGNOSTIC-no-body-targets 0); rule-id set differs in 0
