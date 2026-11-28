@@ -1,0 +1,25 @@
+# step-23 T1: E35/E36 before the fix, at 73ae5af9c25a0cb8e4df2fb0de8f04bee298ffb9 plus engine/step23_test.go, 2026-11-28T03:36:14Z, go version go1.27.4 darwin/arm64
+$ cd engine && GOPROXY=off go test -buildvcs=false -count=1 -v -run "TestE35|TestE36" ./...
+=== RUN   TestE35FramingRefusalLogsEvent
+=== RUN   TestE35FramingRefusalLogsEvent/e35-conflict
+    step23_test.go:77: E35: want exactly 1 framing event for the refused request, got 0 (events: [])
+=== RUN   TestE35FramingRefusalLogsEvent/e35-duplicate
+    step23_test.go:77: E35: want exactly 1 framing event for the refused request, got 0 (events: [])
+=== RUN   TestE35FramingRefusalLogsEvent/e35-te-cl
+    step23_test.go:77: E35: want exactly 1 framing event for the refused request, got 0 (events: [])
+=== RUN   TestE35FramingRefusalLogsEvent/e35-nul
+    step23_test.go:77: E35: want exactly 1 framing event for the refused request, got 0 (events: [])
+=== RUN   TestE35FramingRefusalLogsEvent/no-sample-id
+    step23_test.go:77: E35: want exactly 1 framing event for the refused request, got 0 (events: [])
+--- FAIL: TestE35FramingRefusalLogsEvent (0.10s)
+    --- FAIL: TestE35FramingRefusalLogsEvent/e35-conflict (0.06s)
+    --- FAIL: TestE35FramingRefusalLogsEvent/e35-duplicate (0.01s)
+    --- FAIL: TestE35FramingRefusalLogsEvent/e35-te-cl (0.01s)
+    --- FAIL: TestE35FramingRefusalLogsEvent/e35-nul (0.01s)
+    --- FAIL: TestE35FramingRefusalLogsEvent/no-sample-id (0.01s)
+=== RUN   TestE36PassedRequestWritesNoFramingEvent
+--- PASS: TestE36PassedRequestWritesNoFramingEvent (0.01s)
+FAIL
+FAIL	kortexshield/engine	0.539s
+FAIL
+# exit status of go test: 1
