@@ -18,9 +18,9 @@ The step-22 task brief is not in the repository. Task ids and scope below
 are taken from the step-22 commit messages and script headers (UNVERIFIED
 against the brief).
 
-- Summary: worker mode matches in-process on both wcp sets at PL1/PL2 (60,000 samples, 0 status
-  diffs, before and after the follow-up engine changes E32, E33, T3p); numeric-Host artifact removed.
-  Follow-up: coraza rule matching is not repeatable (PROVEN, NOT FIXED: dependency); both suites green.
+- Summary: worker mode matches in-process on both wcp sets at PL1/PL2 (60,000 samples, 0 status diffs, before and after
+  E32, E33, T3p); numeric-Host artifact removed. Follow-up: coraza rule matching is not repeatable (PROVEN, NOT FIXED).
+  Close-out: suites green (Go 48/0/5, fixture 53/0/0, pytest 201/0/4); engine 413/415 are fail-closed outcomes; flip_repro 0 of 2,500 at PL2.
 
 - Task table:
 
@@ -48,6 +48,9 @@ against the brief).
 | F10 T2 mixed cells one factor at a time; refusal cost after T3p | done; host factor not testable here | docs/logs/step22-t2-followup-summary.txt, docs/logs/runs/s22-t2-cells-v3/, s22-t2-DIAGNOSTIC-*/ |
 | F11 cleanup (step-21 amendment, v0 README, breakdown file) | done; history rewrite is a dry run only | docs/logs/step22-history-rewrite-dryrun.txt |
 | F12 suites after the follow-up | done: Go 48 PASS / 5 SKIP; with fixture 53 PASS / 0 FAIL; pytest 186 passed, 4 skipped | docs/logs/step22-followup-*.log |
+| C1 suites re-run at e8ed852 (close-out) | done: Go 48 PASS / 0 FAIL / 5 SKIP; with fixture 53 / 0 / 0; pytest 186 passed, 0 failed, 4 skipped | docs/logs/step22-closeout-go-test*.log, step22-closeout-pytest.log |
+| C2 kortex_eval: engine 413 / 415 answers are waf_fail_closed_413 / waf_fail_closed_415, not waf_pass | done, test-first; rule 5 deviation, asked for | docs/logs/step22-c2-failing.log, step22-c2-passing.log, step22-closeout-pytest-after-c2.log, step22-c2-outcomes.txt, step22-c2-vs-f9.txt, docs/logs/runs/s22-c2-outcomes/ |
+| C3 flip_repro on coraza v3.8.1, 5 x 500 at PL2 | done: 0 flips per round in every repeat; DIAGNOSTIC v3.7.0 control flips | docs/logs/step22-flip-pl2.txt, step22-flip-pl2-DIAGNOSTIC-coraza370.txt, docs/logs/runs/s22-flip-pl2*/ |
 
 - Raw evidence (key numbers in the body per rule 31; outputs trimmed where
   marked "..."):
@@ -1285,6 +1288,375 @@ c586b76, 2452039, 41dcb78, 37074bf (tests and engine changes), 898ed64
 (F9), 9e32acd (F11), and the commit that holds this report (F12, F13,
 docs, tool tests).
 
+## Close-out (2026-11-27, after the follow-up push at e8ed852)
+
+Asked for before the step is closed: (C1) re-run the Go suite and the
+Python suite and give exact pass / fail / skip counts; (C2) make
+kortex_eval count the engine's own 413 and 415 answers as fail-closed
+decisions instead of waf_pass, with a test, and report them apart from 403
+in the outcome counts; (C3) re-run the flip reproducer on the current
+coraza version, 5 x 500 rounds at PL2, and give flips per round.
+
+Host, Go, Python and pytest versions are those at the top of this report
+(printed again in each log). The work was done in a second checkout of the
+same repository on the same machine (`~/work/kortex-shield-work`, new
+`.venv` with pytest 9.2.0). That checkout has no wcp manifests and no
+fixture body (never committed, rules 25 and 51); they were read from the
+first checkout, and each hash was compared with the committed or
+previously reported one before use (shown below). No container image was
+used. Engine code is unchanged since 37074bf; the engine binary of C2 and
+C3 was built from 457de00 (sha256 be2217464eb6...ea717626, in the logs).
+Port 13000 was held by a stub backend left running from the first checkout
+(see UNVERIFIED), so the stub backend of these runs ran on 13004.
+
+**C1. Suites at e8ed852 (nothing changed in the tree).** Run one after
+another. Logs: docs/logs/step22-closeout-go-test.log,
+docs/logs/step22-closeout-go-test-with-fixture.log,
+docs/logs/step22-closeout-pytest.log.
+
+| suite | passed | failed | skipped | time |
+|---|---|---|---|---|
+| Go, fixture not set | 48 | 0 | 5 (E16, E17, E19, E20, E21) | 51.879 s |
+| Go, with the recorded wcp fixture, `-timeout 900s` | 53 | 0 | 0 | 322.491 s |
+| pytest | 186 | 0 | 4 | 56.76 s |
+
+```
+# step-22 close-out suite at e8ed852d62e47b12085e42787f4e9a282a44bf83 (working tree clean: 0 changed paths under engine/), 2026-11-28T02:40:00Z, go version go1.27.4 darwin/arm64, load at start: load averages: 1.08 2.00 3.77
+$ cd engine && go test -buildvcs=false -count=1 -v ./...
+[trimmed: 48 "--- PASS", 0 "--- FAIL", 5 "--- SKIP" at top level, 53 tests run]
+--- SKIP: TestE16BodyProcessingBoundedByTimeBudget (0.00s)
+--- SKIP: TestE17AbandonedCallOwnsTransaction (0.00s)
+--- SKIP: TestE19OverloadCapImmediate (0.01s)
+--- SKIP: TestE20OverloadRecovery (0.01s)
+--- SKIP: TestE21BenignPromptOnCapReachedEngine (0.01s)
+ok  	kortexshield/engine	51.879s
+# exit status of go test: 0
+# load at end: load averages: 1.31 1.91 3.62
+
+# step-22 close-out suite at e8ed852d62e47b12085e42787f4e9a282a44bf83 (working tree clean: 0 changed paths under engine/), 2026-11-28T02:40:53Z, go version go1.27.4 darwin/arm64, load at start: load averages: 1.31 1.91 3.62
+$ cd engine && KORTEX_TEST_WCP_BODY=/Users/ivan/work/kortex-shield-dev/out/step14-t5/wcp-80a49c991b2d.body go test -buildvcs=false -count=1 -timeout 900s -v ./...
+[trimmed: 53 "--- PASS", 0 "--- FAIL", 0 "--- SKIP" at top level, 53 tests run]
+--- PASS: TestE20OverloadRecovery (262.75s)
+            worker_test.go:381: T3g: killed worker pid 50452; parent CPU 67.046ms -> 67.069ms (+23µs) over 1.2s after the kill
+    worker_test.go:427: T3o: with a busy parent T3g failed as it must: worker_test.go:383: T3g: parent CPU grew by 1.194875s in 1.2s after the kill (limit 150ms)
+ok  	kortexshield/engine	322.491s
+# exit status of go test: 0
+# load at end: load averages: 5.38 4.49 4.28
+
+$ shasum -a 256 ../kortex-shield-dev/out/step14-t5/wcp-80a49c991b2d.body
+5c718716a795c0414b7c2500ebc1816dee4172ba094832f15bb6e1f5de2f2480  ../kortex-shield-dev/out/step14-t5/wcp-80a49c991b2d.body
+
+# step-22 close-out Python suite at e8ed852d62e47b12085e42787f4e9a282a44bf83 (tracked files unchanged: 0 modified), 2026-11-28T02:46:31Z, Python 3.15.2, pytest 9.2.0, load at start: load averages: 5.86 4.63 4.33
+$ .venv/bin/python -m pytest -q -rs
+SKIPPED [1] tests/test_record_benign.py:9: could not import 'playwright': No module named 'playwright'
+SKIPPED [1] tests/test_outcome.py:78: smoke run artifacts not present
+SKIPPED [1] tests/test_outcome.py:96: smoke run artifacts not present
+SKIPPED [1] tests/test_outcome.py:161: step-05 hard PL2 run output not present
+186 passed, 4 skipped in 56.76s
+# exit status of pytest: 0
+# load at end: load averages: 3.71 4.34 4.25
+```
+
+The counts are those of F12. The fixture hash is the one reported in F12.
+After C2 the Python suite is 201 passed, 0 failed, 4 skipped (below); the
+Go suite was not run again after C2 because nothing under engine/ changed.
+
+**C2. kortex_eval: the engine's own 413 and 415 answers are fail-closed
+outcomes.** This changes kortex_eval, which rule 5 forbids; it was asked
+for explicitly and answers the question raised after F9 (see Deviations).
+
+What changed (commit 457de00):
+
+- `kortex_eval/runner.py` writes a new field `engine_decision` in every
+  responses.jsonl row: the decision named in a kortex engine answer
+  ("block", "limit", "content-encoding", ...), else null. The whole
+  response body must be the marker line `<status> kortex-decision=<name>`
+  (optionally followed by details on the same line) and the status in
+  front must be the response's own status. A backend page that quotes the
+  marker, or a backend 413/415, gives null. Nothing else in the row
+  changes; `blocked`, predictions.jsonl and run.json are as before.
+- `kortex_eval/outcome.py` has two new outcomes, in blocking and in
+  detection mode: `waf_fail_closed_413` (status 413 with decision `limit`)
+  and `waf_fail_closed_415` (status 415 with decision `content-encoding`).
+  The per-outcome counts the tool prints therefore show them on their own
+  lines, apart from `waf_block` (403).
+- A 413 or 415 without the marker stays `waf_pass` (it is the target's
+  status, and "the verdict we measure is the WAF's decision"). So does
+  every row of a responses.jsonl written before the field existed: old
+  run files classify exactly as they did, and the figures in earlier
+  reports are not changed by re-running the tool on them.
+- `tools/step22_t3_summary.py` (the step-22 rate table) prints the two
+  counts and includes them in the worst case. docs/block-discriminator.md
+  and the README row for outcome.py name the new outcomes.
+- Not changed: metrics, split, manifest validation, the block
+  discriminator, `flagged` in predictions.jsonl (still 403 blocks only),
+  and the 400 framing and 503 timeout/overload answers (still classified
+  as before; see Questions).
+
+Tests first (commit afb551c, then 457de00). 15 new test cases in
+tests/test_outcome.py, tests/test_runner.py (against the local fake
+server) and tests/test_step22_tools.py. No existing test was changed.
+
+```
+# step-22 C2 tests before the implementation, at 6463b2f... plus the new tests   (docs/logs/step22-c2-failing.log)
+$ .venv/bin/python -m pytest -q tests/test_outcome.py tests/test_runner.py tests/test_step22_tools.py
+FAILED tests/test_outcome.py::test_engine_413_limit_is_fail_closed_not_waf_pass[blocking]
+FAILED tests/test_outcome.py::test_engine_413_limit_is_fail_closed_not_waf_pass[detection]
+FAILED tests/test_outcome.py::test_engine_415_content_encoding_is_fail_closed_not_waf_pass[blocking]
+FAILED tests/test_outcome.py::test_engine_415_content_encoding_is_fail_closed_not_waf_pass[detection]
+FAILED tests/test_outcome.py::test_fail_closed_outcomes_are_named_and_distinct_from_block
+FAILED tests/test_outcome.py::test_cli_counts_413_and_415_separately_from_403
+FAILED tests/test_runner.py::test_engine_decision_recorded_for_engine_answers
+FAILED tests/test_runner.py::test_engine_decision_is_null_for_answers_that_are_not_the_engines
+FAILED tests/test_runner.py::test_runner_rows_classify_413_415_as_fail_closed
+FAILED tests/test_step22_tools.py::test_t3_summary_counts_fail_closed_apart_from_blocks_and_in_the_worst_case
+10 failed, 52 passed, 3 skipped in 47.04s
+# exit status of pytest: 1
+
+# step-22 C2 tests with the implementation   (docs/logs/step22-c2-passing.log)
+$ .venv/bin/python -m pytest -q tests/test_outcome.py tests/test_runner.py tests/test_step22_tools.py
+62 passed, 3 skipped in 47.14s
+# exit status of pytest: 0
+
+# step-22 close-out Python suite with the C2 change   (docs/logs/step22-closeout-pytest-after-c2.log)
+$ .venv/bin/python -m pytest -q -rs
+201 passed, 4 skipped in 56.99s
+# exit status of pytest: 0
+```
+
+The five new cases that passed before the implementation are the ones
+that pin behaviour which must not change (a 413/415 without the marker is
+waf_pass, a decision must match its status, an nginx 413 with the marker
+stays proxy_reject, an engine 403 block stays waf_block).
+
+On real traffic: `STUB_PORT=13004 WCP_DATA_DIR=~/work/kortex-shield-dev/data
+bash tools/run_step22_c2_outcomes.sh` (docs/logs/step22-c2-outcomes.txt;
+durable files in docs/logs/runs/s22-c2-outcomes/, commit d5731c4).
+In-process engine, PL1 and PL2, both wcp sets, one engine process and one
+audit log per run, runner `--workers 1`, requests to `localhost`; rule 29
+proof per run in the log. Manifest hashes c8ce11f2...1329d1 (v0) and
+049b7dea...8b5c0 (v1) equal the committed MANIFEST.sha256 files.
+
+```
+== outcome counts (benign-labelled external traffic; every block or refusal is a potential false positive)
+benign-wcp-v0 PL1 inprocess: n=20000 waf_block=2184 waf_deny_status=52 inconsistent=0 error=1 waf_fail_closed_413=28 waf_fail_closed_415=19 waf_pass=17716 other=0
+    FP rate best case (errors, deny_status, inconsistent, fail-closed 413/415 not flagged) 2184/20000 = 10.92%; worst case (all flagged) 2284/20000 = 11.42%
+    statuses: {200: 17716, 400: 52, 403: 2184, 413: 28, 415: 19, None: 1}
+    engine_decision: {None: 17717, 'block': 2236, 'content-encoding': 19, 'limit': 28}
+    outcome x status: error/None=1, waf_block/403=2184, waf_deny_status/400=52, waf_fail_closed_413/413=28, waf_fail_closed_415/415=19, waf_pass/200=17716
+    rule 18: 2236 audit entries; rule ids in >=20% of them: 949110=2184, 932370=466
+benign-wcp-v0 PL2 inprocess: n=20000 waf_block=8866 waf_deny_status=52 inconsistent=1 error=1 waf_fail_closed_413=28 waf_fail_closed_415=19 waf_pass=11033 other=0
+    FP rate best case (errors, deny_status, inconsistent, fail-closed 413/415 not flagged) 8866/20000 = 44.33%; worst case (all flagged) 8967/20000 = 44.84%
+    statuses: {200: 11033, 400: 52, 403: 8867, 413: 28, 415: 19, None: 1}
+    engine_decision: {None: 11035, 'block': 8918, 'content-encoding': 19, 'limit': 28}
+    outcome x status: error/None=1, inconsistent/403=1, waf_block/403=8866, waf_deny_status/400=52, waf_fail_closed_413/413=28, waf_fail_closed_415/415=19, waf_pass/200=11033
+    rule 18: 8919 audit entries; rule ids in >=20% of them: 949110=8867, 931130=5853, 942430=4987, 942200=4269, 942370=3239, 942340=3087, 942330=1913, 932200=1834
+benign-wcp-v1 PL1 inprocess: n=10000 waf_block=1091 waf_deny_status=25 inconsistent=0 error=0 waf_fail_closed_413=17 waf_fail_closed_415=0 waf_pass=8867 other=0
+    FP rate best case (errors, deny_status, inconsistent, fail-closed 413/415 not flagged) 1091/10000 = 10.91%; worst case (all flagged) 1133/10000 = 11.33%
+    statuses: {200: 8867, 400: 25, 403: 1091, 413: 17}
+    engine_decision: {None: 8867, 'block': 1116, 'limit': 17}
+    outcome x status: waf_block/403=1091, waf_deny_status/400=25, waf_fail_closed_413/413=17, waf_pass/200=8867
+    rule 18: 1116 audit entries; rule ids in >=20% of them: 949110=1091
+benign-wcp-v1 PL2 inprocess: n=10000 waf_block=4438 waf_deny_status=25 inconsistent=0 error=0 waf_fail_closed_413=17 waf_fail_closed_415=0 waf_pass=5520 other=0
+    FP rate best case (errors, deny_status, inconsistent, fail-closed 413/415 not flagged) 4438/10000 = 44.38%; worst case (all flagged) 4480/10000 = 44.80%
+    statuses: {200: 5520, 400: 25, 403: 4438, 413: 17}
+    engine_decision: {None: 5520, 'block': 4463, 'limit': 17}
+    outcome x status: waf_block/403=4438, waf_deny_status/400=25, waf_fail_closed_413/413=17, waf_pass/200=5520
+    rule 18: 4463 audit entries; rule ids in >=20% of them: 949110=4438, 931130=2931, 942430=2466, 942200=2073, 942370=1558, 942340=1456, 942330=930, 932200=905
+```
+
+Outcome counts, benign-labelled natural traffic (rule 14: nothing merged;
+rule 46: every block or refusal is a potential false positive),
+denominator all samples, the one errored sample of v0 not flagged in the
+best case and flagged in the worst case (rules 20, 21, 30):
+
+| dataset | PL | waf_block (403) | waf_fail_closed_413 | waf_fail_closed_415 | deny_status (400) | inconsistent | error | waf_pass | best case | worst case (headline) | worst case before C2 (F9) |
+|---|---|---|---|---|---|---|---|---|---|---|---|
+| benign-wcp-v0 | 1 | 2,184 | 28 | 19 | 52 | 0 | 1 | 17,716 | 2,184 = 10.92% | 2,284 = 11.42% | 2,237 = 11.19% |
+| benign-wcp-v0 | 2 | 8,866 | 28 | 19 | 52 | 1 | 1 | 11,033 | 8,866 = 44.33% | 8,967 = 44.84% | 8,920 = 44.60% |
+| benign-wcp-v1 | 1 | 1,091 | 17 | 0 | 25 | 0 | 0 | 8,867 | 1,091 = 10.91% | 1,133 = 11.33% | 1,116 = 11.16% |
+| benign-wcp-v1 | 2 | 4,438 | 17 | 0 | 25 | 0 | 0 | 5,520 | 4,438 = 44.38% | 4,480 = 44.80% | 4,463 = 44.63% |
+
+- Every status-413 and status-415 answer of the four runs carries the
+  engine marker and is classified fail-closed: 28 + 19 on v0, 17 + 0 on
+  v1, none left in waf_pass, and waf_pass now equals the number of 200
+  answers in each run. The tool's worst case is now the "every answer
+  other than 200" column that F9 had to add by hand (2,284, 8,967, 1,133,
+  4,480: equal in all four cells), so that extra column is no longer
+  needed for the engine.
+- Per sample against the F9 in-process runs of the same engine
+  (docs/logs/step22-c2-vs-f9.txt: tools/step21_engine_diff.py plus the
+  outcome transitions of every id): 0 status differences in the 60,000
+  pairs of the four runs. The only outcome changes are waf_pass ->
+  waf_fail_closed_413 (28, 28, 17, 17) and waf_pass -> waf_fail_closed_415
+  (19, 19, 0, 0); every other sample keeps its outcome. So the change
+  moved exactly the 413 and 415 answers and nothing else.
+
+```
+== benign-wcp-v0-inprocess-pl2: a = F9 run (docs/logs/runs/s22-t3-parity-after-followup/benign-wcp-v0-inprocess-pl2), b = C2 run (docs/logs/runs/s22-c2-outcomes/benign-wcp-v0-inprocess-pl2)
+samples compared: 20000 (a=20000 b=20000 only-a=0 only-b=0)
+status counts a: {200: 11033, 400: 52, 403: 8867, 413: 28, 415: 19, None: 1}
+status counts b: {200: 11033, 400: 52, 403: 8867, 413: 28, 415: 19, None: 1}
+status diffs: 0
+-- outcome transitions a -> b (every sample id) and rule-id set differences:
+   error -> error: 1
+   inconsistent -> inconsistent: 1
+   waf_block -> waf_block: 8866
+   waf_deny_status -> waf_deny_status: 52
+   waf_pass -> waf_fail_closed_413: 28   CHANGED
+   waf_pass -> waf_fail_closed_415: 19   CHANGED
+   waf_pass -> waf_pass: 11033
+   rule-id sets differ on 1 of 20000 ids
+      wcp-7b0bdeda7bc7: only a [] only b ['942130']; outcome a waf_block b waf_block
+[the other three runs, same shape: 0 status diffs; v0 PL1 28 + 19 changed, v1 PL1 and PL2 17 changed; rule-id sets differ on 0, 0 and 1 id (wcp-bc05c8d4eb28, 942130 only in the F9 run)]
+```
+
+- Rule-id sets differ between the F9 and the C2 replay on 2 of 60,000
+  ids, both by rule 942130 only and both blocked either way: the F1
+  non-determinism, seen again.
+- The one inconsistent sample is wcp-67cb71cd0c38 (v0 PL2, 403 without a
+  qualifying audit score) and the one error is wcp-6b0bf5e43122 (v0, no
+  status); both are the same ids as in F9.
+- tools/step21_engine_diff.py was not changed: its "worst-case set" is
+  still error + blocked + deny_status + inconsistent (2,237 above, not
+  2,284). Its parity bar is the status diff, which covers 413 and 415. See
+  Questions.
+- Rule 18/24: PL2, both sets: 931130, 942430, 942200, 942370, 942340,
+  942330, 932200 each on 20% or more of the audit entries, the same list
+  as in F9 (949110 is the blocking evaluation rule). PL1 v0: 932370 on
+  466 of 2,236. Not re-examined here.
+- These are single replays. F1 applies: a request whose block rests on
+  942130 or on one rule over a repeated key can differ between replays.
+
+**C3. Flip reproducer on coraza v3.8.1, 5 x 500 rounds at PL2: 0 flips
+per round.** `STUB_PORT=13004 WCP_V0_MANIFEST=~/work/kortex-shield-dev/data/benign-wcp-v0/manifest.jsonl
+bash tools/run_step22_flip.sh 2 500 5 "localhost 127.0.0.1"`
+(docs/logs/step22-flip-pl2.txt; rounds and engine events in
+docs/logs/runs/s22-flip-pl2/). tools/flip_repro.py is unchanged: two wcp
+samples (wcp-62cd1bd36bf7, wcp-b6f2246ef4b8, GET, blocked on the query at
+PL2) replayed in a fixed order, 500 rounds, 5 repeats against one engine
+process, as in step 20 (tools/run_step20_t1_flip.sh, which needs
+`sha256sum` and a stub on port 13000 and so does not run here; the new
+script is the same protocol on tools/step22_lib.sh). In-process engine
+built from 457de00, coraza v3.8.1 (engine/go.mod), which is still the
+newest coraza tag (`go list -m -versions github.com/corazawaf/coraza/v3`
+on 2026-11-27 ends with v3.8.0 v3.8.1). Steps 19 and 20 sent the requests to
+`127.0.0.1`; step 22 uses `localhost` because a numeric Host adds CRS
+920350 to every request. Both were run.
+
+```
+== require github.com/corazawaf/coraza/v3 v3.8.1; github.com/corazawaf/libinjection-go v0.3.3 // indirect;
+== manifest /Users/ivan/work/kortex-shield-dev/data/benign-wcp-v0/manifest.jsonl sha256 c8ce11f26406df96d55e5a1cc6186bcbf648cb29bd628081dd834c6ccf1329d1 (frozen: c8ce11f26406df96d55e5a1cc6186bcbf648cb29bd628081dd834c6ccf1329d1)
+== engine binary sha256 be2217464eb640c97fb112b64aaf6992c8f93a183e2b92e69fd5b996ea717626 built from 457de00facc46a15736f9cbcb62562fa9d3b9e8c with go version go1.27.4 darwin/arm64
+== flip-pl2-localhost rule29 2026-11-28T02:53:20Z load: load averages: 5.16 5.85 4.98: {"backend_url":"http://127.0.0.1:13004","rule_engine":"On","blocking_paranoia":2,"detection_paranoia":2,"max_body_bytes":13107200,"max_inspected_bytes":131072,"engine_time_budget_ms":2000,[trimmed],"allowed_methods":"GET HEAD POST OPTIONS",[trimmed],"worker_mode":false,[trimmed]}
+host=localhost rep=1 :: rounds=500 flip_rounds=0 flips/round=0.0000 per_sample={'wcp-62cd1bd36bf7': 0, 'wcp-b6f2246ef4b8': 0} wall_s=3.7
+host=localhost rep=2 :: rounds=500 flip_rounds=0 flips/round=0.0000 per_sample={'wcp-62cd1bd36bf7': 0, 'wcp-b6f2246ef4b8': 0} wall_s=3.3
+host=localhost rep=3 :: rounds=500 flip_rounds=0 flips/round=0.0000 per_sample={'wcp-62cd1bd36bf7': 0, 'wcp-b6f2246ef4b8': 0} wall_s=3.7
+host=localhost rep=4 :: rounds=500 flip_rounds=0 flips/round=0.0000 per_sample={'wcp-62cd1bd36bf7': 0, 'wcp-b6f2246ef4b8': 0} wall_s=3.6
+host=localhost rep=5 :: rounds=500 flip_rounds=0 flips/round=0.0000 per_sample={'wcp-62cd1bd36bf7': 0, 'wcp-b6f2246ef4b8': 0} wall_s=3.6
+host=127.0.0.1 rep=1 :: rounds=500 flip_rounds=0 flips/round=0.0000 per_sample={'wcp-62cd1bd36bf7': 0, 'wcp-b6f2246ef4b8': 0} wall_s=3.7
+host=127.0.0.1 rep=2 :: rounds=500 flip_rounds=0 flips/round=0.0000 per_sample={'wcp-62cd1bd36bf7': 0, 'wcp-b6f2246ef4b8': 0} wall_s=3.5
+host=127.0.0.1 rep=3 :: rounds=500 flip_rounds=0 flips/round=0.0000 per_sample={'wcp-62cd1bd36bf7': 0, 'wcp-b6f2246ef4b8': 0} wall_s=3.6
+host=127.0.0.1 rep=4 :: rounds=500 flip_rounds=0 flips/round=0.0000 per_sample={'wcp-62cd1bd36bf7': 0, 'wcp-b6f2246ef4b8': 0} wall_s=3.5
+host=127.0.0.1 rep=5 :: rounds=500 flip_rounds=0 flips/round=0.0000 per_sample={'wcp-62cd1bd36bf7': 0, 'wcp-b6f2246ef4b8': 0} wall_s=3.5
+host=localhost all repeats: rounds=2500 rounds with a flip=0 flips/round=0.0000 statuses={'403': 5000}
+host=localhost engine events wcp-62cd1bd36bf7-fliprepro: 1 distinct (decision, status, rule ids)
+    x2500: block 403 rules=[trimmed: set-up and paranoia-level skip rules],942370,942430,[trimmed],949110
+host=localhost engine events wcp-b6f2246ef4b8-fliprepro: 1 distinct (decision, status, rule ids)
+    x2500: block 403 rules=[trimmed],942370,[trimmed],949110
+host=127.0.0.1 all repeats: rounds=2500 rounds with a flip=0 flips/round=0.0000 statuses={'403': 5000}
+host=127.0.0.1 engine events wcp-62cd1bd36bf7-fliprepro: 1 distinct (decision, status, rule ids)
+    x2500: block 403 rules=[trimmed],920350,[trimmed],942370,942430,[trimmed],949110
+host=127.0.0.1 engine events wcp-b6f2246ef4b8-fliprepro: 1 distinct (decision, status, rule ids)
+    x2500: block 403 rules=[trimmed],920350,[trimmed],942370,[trimmed],949110
+```
+
+DIAGNOSTIC positive control (rules 34, 47; not asked for): the same script
+with `FLIP_CONTROL=coraza370`, a scratch copy of engine/ in which only
+go.mod differs (coraza v3.7.0, the version on which steps 19 and 20
+recorded the flip). docs/logs/step22-flip-pl2-DIAGNOSTIC-coraza370.txt,
+docs/logs/runs/s22-flip-pl2-DIAGNOSTIC-coraza370/.
+
+```
+== DIAGNOSTIC scratch engine sha256 184d29236b33dd1da5ce7dd7c035586b31097b15335b2ce02b260834017ac38f; .go files that differ from engine/: 0; diff of go.mod against engine/go.mod:
+< require github.com/corazawaf/coraza/v3 v3.8.1
+> require github.com/corazawaf/coraza/v3 v3.7.0
+host=localhost rep=1: rounds=500 rounds with a 200 (flip)=175 flips/round=0.3500 statuses={'200': 188, '403': 812}
+host=localhost rep=2: rounds=500 rounds with a 200 (flip)=170 flips/round=0.3400 statuses={'200': 181, '403': 819}
+host=localhost rep=3: rounds=500 rounds with a 200 (flip)=144 flips/round=0.2880 statuses={'200': 158, '403': 842}
+host=localhost rep=4: rounds=500 rounds with a 200 (flip)=153 flips/round=0.3060 statuses={'200': 170, '403': 830}
+host=localhost rep=5: rounds=500 rounds with a 200 (flip)=166 flips/round=0.3320 statuses={'200': 177, '403': 823}
+host=localhost all repeats: rounds=2500 rounds with a flip=808 flips/round=0.3232 statuses={'200': 874, '403': 4126}
+host=127.0.0.1 rep=1: rounds=500 rounds with a 200 (flip)=123 flips/round=0.2460 statuses={'200': 132, '403': 868}
+host=127.0.0.1 rep=2: rounds=500 rounds with a 200 (flip)=129 flips/round=0.2580 statuses={'200': 131, '403': 869}
+host=127.0.0.1 rep=3: rounds=500 rounds with a 200 (flip)=137 flips/round=0.2740 statuses={'200': 145, '403': 855}
+host=127.0.0.1 rep=4: rounds=500 rounds with a 200 (flip)=130 flips/round=0.2600 statuses={'200': 132, '403': 868}
+host=127.0.0.1 rep=5: rounds=500 rounds with a 200 (flip)=108 flips/round=0.2160 statuses={'200': 112, '403': 888}
+host=127.0.0.1 all repeats: rounds=2500 rounds with a flip=627 flips/round=0.2508 statuses={'200': 652, '403': 4348}
+```
+
+| engine | Host | flips per round, repeats 1 to 5 | rounds with a flip | answers |
+|---|---|---|---|---|
+| coraza v3.8.1 (current) | localhost | 0.0000, 0.0000, 0.0000, 0.0000, 0.0000 | 0 of 2,500 | 5,000 x 403 |
+| coraza v3.8.1 (current) | 127.0.0.1 | 0.0000, 0.0000, 0.0000, 0.0000, 0.0000 | 0 of 2,500 | 5,000 x 403 |
+| DIAGNOSTIC coraza v3.7.0 scratch build | localhost | 0.3500, 0.3400, 0.2880, 0.3060, 0.3320 | 808 of 2,500 | 4,126 x 403, 874 x 200 |
+| DIAGNOSTIC coraza v3.7.0 scratch build | 127.0.0.1 | 0.2460, 0.2580, 0.2740, 0.2600, 0.2160 | 627 of 2,500 | 4,348 x 403, 652 x 200 |
+
+- A flip is a round in which at least one of the two samples was answered
+  200. flip_repro.py itself counts every answer other than 403; here the
+  two definitions agree, since all 20,000 answers are 403 or 200 (no 503,
+  no error).
+- On v3.8.1 the status never changed and neither did the matched rules:
+  one rule-id set per sample in 2,500 replays, on each Host form
+  (wcp-62cd1bd36bf7: 942370 and 942430; wcp-b6f2246ef4b8: 942370). On the
+  v3.7.0 control (Host localhost) wcp-62cd1bd36bf7 has 4 distinct event
+  shapes (block on both rules x1,715, block on 942370 only x321, block on
+  942430 only x61, pass x403) and wcp-b6f2246ef4b8 has 2 (block x2,029,
+  pass x471).
+- PROVEN that this reproducer detects the flip on this host: the control
+  differs from the measured engine in the coraza version only and flips in
+  627 to 808 of 2,500 rounds. Had the reproducer been unable to see a flip
+  here, the control would have shown 0 as well.
+- Rule 49, unchanged from F1: the flip of these two samples is fixed
+  empirically by the v3.7.0 -> v3.8.1 bump; the changed code is not
+  identified. This result does not cover F1: coraza v3.8.1 still matches
+  non-repeatably on other requests (942130 chain order, repeated keys).
+- Step 20 measured a median of 114 of 500 on v3.7.0 on the Ubuntu host
+  (0.23 per round, Host 127.0.0.1); here the 127.0.0.1 control gives 108
+  to 137 of 500. Comparison across hosts only; not a claim.
+- Both runs were made twice. The first pair (docs/logs/step22-flip-pl2-run1.txt,
+  docs/logs/step22-flip-pl2-DIAGNOSTIC-coraza370-run1.txt) was made before
+  the script compressed the events files: v3.8.1 0 of 2,500 on both Host
+  forms; control 774 and 562 of 2,500. The tables above are the second
+  pair, made with the committed script.
+- Load during C3 was 5 to 13 (a headless Chromium process not started by
+  me used 3 to 7 cores). C3 measures statuses, not timings; no answer was
+  a 503.
+
+**C4. Pre-push scan for the close-out (rule 51).** Nothing was pushed;
+the five close-out commits before this one were scanned as a range and
+this commit as staged content.
+
+```
+$ git fetch origin; git log --oneline -1 origin/main
+e8ed852 step-22: F12 follow-up report, baseline v1.7 follow-up section, ...
+$ bash tools/prepush_scan.sh --range origin/main..HEAD; echo "exit=$?"
+[trimmed: 9 "large file" notes, all under docs/logs/runs/s22-c2-outcomes/; largest benign-wcp-v0-inprocess-pl2/outcomes.jsonl (3734663 bytes)]
+prepush: OK, 59 blob(s) in origin/main..HEAD scanned
+exit=0
+$ git add docs/acceptance.md docs/baseline-v1.7.md reports/step-22.md docs/logs/step22-c2-vs-f9.txt
+$ bash tools/prepush_scan.sh; echo "exit=$?"
+prepush: OK, 4 staged path(s) scanned
+exit=0
+```
+
+The committed run files hold ids, statuses, timings, outcomes, scores and
+rule ids only. Raw engine audit logs and parsed audit.jsonl (which quote
+request data) stayed under gitignored out/. Commits of the close-out,
+oldest first: 6463b2f (C1), afb551c and 457de00 (C2 tests, then code),
+5132e59 (C3), d5731c4 (C2 runs on the wcp sets), and the commit that
+holds this report.
+
 - Deviations from instructions:
   - The run scripts committed earlier in the step (T3, T4, T5, T2) could not
     run on this host as written (`setsid`, `/tmp/stub200.py`, `/tmp`
@@ -1376,6 +1748,25 @@ docs, tool tests).
       The fix is inside the dependency; see Questions.
     - Rule 8: the follow-up is one commit per task, 9 commits before this
       report was extended and the rest listed in the pre-push block.
+  - Close-out (sections C1 to C3):
+    - Rule 5: kortex_eval was changed (runner: one new field per row;
+      outcome: two new outcomes). Done because it was asked for
+      explicitly. No existing test was changed or removed; responses.jsonl
+      files written before the change classify as before.
+    - C2 goes beyond kortex_eval in two places: tools/step22_t3_summary.py
+      now counts the two outcomes in its worst case, and the four wcp runs
+      of C2 were not asked for (they show the counts on real traffic).
+    - C3: the v3.7.0 positive control and the second Host form
+      (127.0.0.1) were not asked for. The control is DIAGNOSTIC and gives
+      no baseline number.
+    - C3 was run twice; the reported run is the second (see C3). Rule 13
+      (container force-recreated) does not apply to the host engine; each
+      Host form had a fresh engine process, and the 5 repeats of one Host
+      form share it, as in step 20.
+    - Work done in a second checkout; wcp manifests and the fixture body
+      read from the first checkout after a hash check.
+    - Rule 8: C2 has three commits (failing tests afb551c, implementation
+      457de00, real-traffic run d5731c4); C1 6463b2f; C3 5132e59.
 
 - UNVERIFIED items (state after the follow-up; items closed there are
   listed at the end):
@@ -1404,6 +1795,16 @@ docs, tool tests).
     the step-17 host finished its suite in 54.3 s (F5: the coraza version
     is ruled out).
   - Whether the two 503s of the PL2 padding re-run come from host load.
+  - Close-out: whether any backend used in earlier steps (Juice Shop)
+    ever answered with a body that is exactly a kortex marker line; the
+    runner would then record an engine decision for it. Not checked; the
+    stub backend used in step 22 cannot.
+  - Close-out: port 13000 was held during C2 and C3 by a
+    tools/stub_backend.py process started from the first checkout at
+    10:55 local time (pid 22470, `ps` and `lsof` after the runs). It was
+    not used and was left running; who still needs it is not known.
+  - Close-out: the Go suite was not re-run after C2 (no file under
+    engine/ changed).
   - Closed in the follow-up: the rule-id set variance (F1, PROVEN); the
     missing 920450 / 920350 audit messages (F7, BUG fixed); cell G (F3);
     the E20 duration (F5); T3g's CPU reading in the suite (F6, fixed and
@@ -1429,11 +1830,15 @@ docs, tool tests).
     leaves 14 other paths that still fail the scan over history. Go
     ahead as is, extend the list first, or leave history alone? Nothing
     was force-pushed.
-  - kortex_eval classifies the engine's own 413 and 415 answers as
-    waf_pass, so they are outside the "worst case" (F9: 47 samples on
-    benign-wcp-v0, 17 on v1). May kortex_eval get an outcome for engine
-    refusals (rule 5 forbids me to change it), or should reports keep
-    giving the "every answer other than 200" column next to it?
+  - ANSWERED in the close-out (C2): kortex_eval now has outcomes for the
+    engine's own 413 and 415 answers. Left open by that change:
+    (a) the engine's 400 framing and 503 timeout/overload answers are
+    still classified as before (waf_pass unless another rule applies);
+    give them fail-closed outcomes too? (b) tools/step21_engine_diff.py
+    keeps its four worst-case classes; add the two fail-closed classes
+    (that changes strings its existing tests assert)? (c) should
+    predictions.jsonl `flagged`, which feeds kortex_eval.report, stay
+    "403 block only"?
   - E33 answers 415 and does not decode. Decoding gzip/deflate before
     inspection is the alternative (the 19 benign gzip samples of
     benign-wcp-v0 would then be inspected instead of refused). Wanted?

@@ -219,3 +219,19 @@ changed to macOS arm64, see docs/baseline-v1.7.md):
   4 skipped. Parity re-run with this engine: 0 status diffs and 0
   worst-case-set diffs on 60,000 samples
   (docs/logs/step22-t3-parity-after-followup.txt).
+- Close-out of step 22 (reports/step-22.md, C1 to C3). Suites at e8ed852:
+  docs/logs/step22-closeout-go-test.log 48 PASS, 0 FAIL, 5 SKIP
+  (`ok kortexshield/engine 51.879s`);
+  docs/logs/step22-closeout-go-test-with-fixture.log 53 PASS, 0 FAIL,
+  0 SKIP (`ok kortexshield/engine 322.491s`, E20 262.75 s);
+  docs/logs/step22-closeout-pytest.log 186 passed, 4 skipped. No engine
+  code and no acceptance id changed. kortex_eval change (not engine code;
+  tests first, docs/logs/step22-c2-failing.log -> step22-c2-passing.log):
+  the engine's own 413 limit and 415 content-encoding answers are
+  classified waf_fail_closed_413 / waf_fail_closed_415 instead of
+  waf_pass; Python suite after it 201 passed, 4 skipped
+  (docs/logs/step22-closeout-pytest-after-c2.log). flip_repro on coraza
+  v3.8.1, in-process, PL2, 5 x 500 rounds: 0 of 2,500 rounds with a flip
+  on Host localhost and on 127.0.0.1; DIAGNOSTIC v3.7.0 scratch build on
+  this host: 808 and 627 of 2,500 (docs/logs/step22-flip-pl2.txt,
+  docs/logs/step22-flip-pl2-DIAGNOSTIC-coraza370.txt).

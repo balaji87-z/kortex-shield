@@ -431,3 +431,41 @@ docs/logs/step22-t2-followup-summary.txt, docs/logs/runs/s22-t2-cells-v3/.
 - reports/step-21.md has an amendment for the numeric Host (287 -> 286 of
   402 at PL2); data/benign-wcp-v0/README.md names the builder commit that
   reproduces the frozen manifest (71cb753).
+
+## Close-out (same step; kortex_eval at 457de00, engine unchanged since 37074bf)
+
+Details and raw outputs: reports/step-22.md, sections C1 to C3.
+
+- kortex_eval now classifies the engine's own `413 kortex-decision=limit`
+  and `415 kortex-decision=content-encoding` answers as
+  `waf_fail_closed_413` and `waf_fail_closed_415` instead of `waf_pass`
+  (definition: docs/block-discriminator.md). They are counted apart from
+  the 403 blocks and are part of the worst case. Run files written before
+  this change classify as before, so the tables above stand as printed;
+  from now on the tool's worst case equals the "every answer other than
+  200" column of the follow-up table.
+- Engine, in-process, benign-labelled natural traffic (every block or
+  refusal is a potential false positive), denominator all samples, the one
+  errored sample flagged in the worst case only
+  (docs/logs/step22-c2-outcomes.txt):
+
+| dataset | PL | waf_block (403) | fail-closed 413 | fail-closed 415 | deny_status | inconsistent | error | best case | worst case (headline) |
+|---|---|---|---|---|---|---|---|---|---|
+| benign-wcp-v0 | 1 | 2,184 | 28 | 19 | 52 | 0 | 1 | 2,184/20,000 = 10.92% | 2,284/20,000 = 11.42% |
+| benign-wcp-v0 | 2 | 8,866 | 28 | 19 | 52 | 1 | 1 | 8,866/20,000 = 44.33% | 8,967/20,000 = 44.84% |
+| benign-wcp-v1 | 1 | 1,091 | 17 | 0 | 25 | 0 | 0 | 1,091/10,000 = 10.91% | 1,133/10,000 = 11.33% |
+| benign-wcp-v1 | 2 | 4,438 | 17 | 0 | 25 | 0 | 0 | 4,438/10,000 = 44.38% | 4,480/10,000 = 44.80% |
+
+- Against the follow-up runs of the same engine: 0 status differences in
+  60,000 pairs; the only outcome changes are the 413 and 415 answers
+  leaving waf_pass (docs/logs/step22-c2-vs-f9.txt).
+- Flip reproducer (tools/flip_repro.py, two wcp samples), coraza v3.8.1,
+  in-process, PL2, 5 x 500 rounds: 0 flips per round in every repeat, on
+  Host localhost and on 127.0.0.1 (5,000 x 403 each). DIAGNOSTIC control,
+  coraza v3.7.0 scratch build on this host: 0.288 to 0.350 flips per round
+  (localhost) and 0.216 to 0.274 (127.0.0.1). The non-repeatable rule
+  matching described above is a different defect and is not covered by
+  this result.
+- Suites at e8ed852: Go 48 PASS / 0 FAIL / 5 SKIP, with the fixture 53 /
+  0 / 0; pytest 186 passed, 4 skipped (201 passed, 4 skipped with the
+  kortex_eval tests).
