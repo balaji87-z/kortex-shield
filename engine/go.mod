@@ -24,3 +24,5 @@ require (
 	google.golang.org/protobuf v1.36.11 // indirect
 	rsc.io/binaryregexp v0.2.0 // indirect
 )
+
+replace github.com/corazawaf/coraza/v3 => ./third_party/coraza-v3.8.1-kortex

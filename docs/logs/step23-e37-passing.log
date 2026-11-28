@@ -1,0 +1,26 @@
+# step-23 T2: E37/E38/E39 with the patched coraza (working tree on b69492e7638ac451f913c7f2f48021287146d370), 2026-11-28T03:40:57Z, go version go1.27.4 darwin/arm64, github.com/corazawaf/coraza/v3 v3.8.1 => ./third_party/coraza-v3.8.1-kortex, load at start: load averages: 1.36 1.74 2.08
+$ cd engine && GOPROXY=off go test -buildvcs=false -count=1 -v -run "TestE37|TestE38|TestE39" ./...
+=== RUN   TestE37UnchangedRequestMatchesTheSameEveryTime
+=== RUN   TestE37UnchangedRequestMatchesTheSameEveryTime/syn-chain
+    step23_test.go:290: E37 [syn-chain]: 2000 replays, 503s set aside: 0, one outcome:
+            x2000: status 403 rules [942130,949110]
+=== RUN   TestE37UnchangedRequestMatchesTheSameEveryTime/syn-dup
+    step23_test.go:290: E37 [syn-dup]: 2000 replays, 503s set aside: 0, one outcome:
+            x2000: status 403 rules [941100,941110,941160,941320,941390,942131,942430,949110]
+--- PASS: TestE37UnchangedRequestMatchesTheSameEveryTime (6.39s)
+    --- PASS: TestE37UnchangedRequestMatchesTheSameEveryTime/syn-chain (2.39s)
+    --- PASS: TestE37UnchangedRequestMatchesTheSameEveryTime/syn-dup (3.99s)
+=== RUN   TestE38MemberOrderDoesNotChangeTheDecision
+    step23_test.go:303: E38 [filter-then-note]: 300 replays, 503s set aside: 0, one outcome:
+            x300: status 403 rules [942130,949110]
+    step23_test.go:304: E38 [note-then-filter]: 300 replays, 503s set aside: 0, one outcome:
+            x300: status 403 rules [942130,949110]
+--- PASS: TestE38MemberOrderDoesNotChangeTheDecision (1.54s)
+=== RUN   TestE39TautologySortedFirstIsDecidedTheSameEveryTime
+    step23_test.go:323: E39 [tautology-key-sorts-first]: 300 replays, 503s set aside: 0, one outcome:
+            x300: status 200 rules []
+--- PASS: TestE39TautologySortedFirstIsDecidedTheSameEveryTime (0.75s)
+PASS
+ok  	kortexshield/engine	9.102s
+# exit status of go test: 0
+# load at end: load averages: 1.47 1.75 2.08

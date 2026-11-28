@@ -1,0 +1,80 @@
+# kortex-shield patch to github.com/corazawaf/coraza/v3 v3.8.1 (step 23, docs/engine-design.md).
+# Map-backed collections are walked in ascending key order.
+# Generated and checked by tools/step23_coraza_vendor.py.
+--- /dev/null
++++ b/internal/collections/kortex_sorted.go
+@@ -0,0 +1,20 @@
++// Copyright 2023 Juan Pablo Tosso and the OWASP Coraza contributors
++// SPDX-License-Identifier: Apache-2.0
++
++// kortex-shield patch (step 23): not part of coraza v3.8.1.
++
++package collections
++
++import "sort"
++
++// sortedKeys returns the keys of a collection's map in ascending order, so
++// that FindAll and FindRegex hand rules the same variables in the same order
++// on every call instead of Go's random map order.
++func sortedKeys(m map[string][]keyValue) []string {
++	keys := make([]string, 0, len(m))
++	for k := range m {
++		keys = append(keys, k)
++	}
++	sort.Strings(keys)
++	return keys
++}
+--- a/internal/collections/map.go
++++ b/internal/collections/map.go
+@@ -67,7 +67,8 @@
+ 	n := 0
+ 	// Collect matching data slices in a single pass to avoid evaluating the regex twice per key.
+ 	var matched [][]keyValue
+-	for k, data := range c.data {
++	for _, k := range sortedKeys(c.data) {
++		data := c.data[k]
+ 		if key.MatchString(k) {
+ 			n += len(data)
+ 			matched = append(matched, data)
+@@ -133,7 +134,8 @@
+ 	buf := make([]corazarules.MatchData, n)
+ 	result := make([]types.MatchData, n)
+ 	i := 0
+-	for _, data := range c.data {
++	for _, k := range sortedKeys(c.data) {
++		data := c.data[k]
+ 		for _, d := range data {
+ 			buf[i] = corazarules.MatchData{
+ 				Variable_: c.variable,
+--- a/internal/collections/named.go
++++ b/internal/collections/named.go
+@@ -104,7 +104,8 @@
+ 	n := 0
+ 	// Collect matching data slices in a single pass to avoid evaluating the regex twice per key.
+ 	var matched [][]keyValue
+-	for k, data := range c.collection.data {
++	for _, k := range sortedKeys(c.collection.data) {
++		data := c.collection.data[k]
+ 		if key.MatchString(k) {
+ 			n += len(data)
+ 			matched = append(matched, data)
+@@ -163,7 +164,8 @@
+ 	buf := make([]corazarules.MatchData, n)
+ 	res := make([]types.MatchData, n)
+ 	i := 0
+-	for _, data := range c.collection.data {
++	for _, k := range sortedKeys(c.collection.data) {
++		data := c.collection.data[k]
+ 		for _, d := range data {
+ 			buf[i] = corazarules.MatchData{
+ 				Variable_: c.variable,
+@@ -186,7 +188,8 @@
+ 	res.WriteString(c.variable.Name())
+ 	res.WriteString(": ")
+ 	firstOccurrence := true
+-	for _, data := range c.collection.data {
++	for _, k := range sortedKeys(c.collection.data) {
++		data := c.collection.data[k]
+ 		for _, d := range data {
+ 			if !firstOccurrence {
+ 				res.WriteString(",")

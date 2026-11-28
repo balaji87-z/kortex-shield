@@ -1,0 +1,11 @@
+# step-23 T2: vendored coraza copy checked against the Go module cache, 2026-11-28T03:43:17Z
+$ .venv/bin/python tools/step23_coraza_vendor.py check
+module: /Users/ivan/go/pkg/mod/github.com/corazawaf/coraza/v3@v3.8.1
+copy:   engine/third_party/coraza-v3.8.1-kortex: 200 file(s), 818014 bytes
+byte-identical to the module: 197; differing: 2 ['internal/collections/map.go', 'internal/collections/named.go']; new: 1 ['internal/collections/kortex_sorted.go']; module files of these packages not copied: 0
+patch:  engine/third_party/coraza-v3.8.1-kortex.patch: +30 -5 lines, sha256 b2d446186311785d360ec5db35d9d1e05caa7ffd3e381ae0d7c3b9f7355330ad
+vendor check: OK
+# exit status: 0
+$ grep -n replace engine/go.mod; (cd engine && GOPROXY=off go list -m github.com/corazawaf/coraza/v3)
+28:replace github.com/corazawaf/coraza/v3 => ./third_party/coraza-v3.8.1-kortex
+github.com/corazawaf/coraza/v3 v3.8.1 => ./third_party/coraza-v3.8.1-kortex

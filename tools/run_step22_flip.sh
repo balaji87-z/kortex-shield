@@ -18,7 +18,7 @@
 # whether this reproducer can see a flip on this host; it gives no baseline
 # number and writes to its own log and run directory.
 #
-# Usage: [STUB_PORT=13004] [WCP_V0_MANIFEST=path] [FLIP_CONTROL=coraza370] run_step22_flip.sh [pl] [rounds] [reps] ["hosts"]
+# Usage: [STUB_PORT=13004] [WCP_V0_MANIFEST=path] [FLIP_CONTROL=coraza370] [FLIP_STEP=23] run_step22_flip.sh [pl] [rounds] [reps] ["hosts"]
 # The wcp manifest is not committed (rule 25); its SHA-256 is checked against
 # data/benign-wcp-v0/MANIFEST.sha256. The raw audit log quotes request data
 # and stays under out/ (rule 51); rounds and engine events (ids, statuses,
@@ -35,14 +35,16 @@ PORT=8093
 CONTROL=${FLIP_CONTROL:-}
 SUFFIX=""
 [ -n "$CONTROL" ] && SUFFIX=-DIAGNOSTIC-$CONTROL
-DUR=docs/logs/runs/s22-flip-pl$PL$SUFFIX
-LOG=docs/logs/step22-flip-pl$PL$SUFFIX.txt
+STEP=${FLIP_STEP:-22}   # FLIP_STEP=23 writes step23-* / s23-* so earlier evidence is kept
+DUR=docs/logs/runs/s$STEP-flip-pl$PL$SUFFIX
+LOG=docs/logs/step$STEP-flip-pl$PL$SUFFIX.txt
 mkdir -p out "$DUR"
 : > "$LOG"
 
-echo "== step-22 flip_repro${CONTROL:+ DIAGNOSTIC positive control ($CONTROL)}, $(date -u +%FT%TZ), $(sw_vers -productName 2>/dev/null) $(sw_vers -productVersion 2>/dev/null) $(uname -srm), $(go version), $($PY --version)" | tee -a "$LOG"
+echo "== step-$STEP flip_repro${CONTROL:+ DIAGNOSTIC positive control ($CONTROL)}, $(date -u +%FT%TZ), $(sw_vers -productName 2>/dev/null) $(sw_vers -productVersion 2>/dev/null) $(uname -srm), $(go version), $($PY --version)" | tee -a "$LOG"
 echo "== git $(git rev-parse HEAD), engine/ paths changed in the working tree: $(git status --porcelain -- engine | wc -l | tr -d ' ')" | tee -a "$LOG"
 echo "== $(grep -E 'corazawaf/(coraza/v3|libinjection-go) ' engine/go.mod | tr -s '\t ' ' ' | tr '\n' ';')" | tee -a "$LOG"
+echo "== coraza module of engine/: $(cd engine && go list -m github.com/corazawaf/coraza/v3)" | tee -a "$LOG"
 WANT=$(awk '{print $1}' data/benign-wcp-v0/MANIFEST.sha256)
 GOT=$(sha256_of "$MANIFEST")
 echo "== manifest $MANIFEST sha256 $GOT (frozen: $WANT)" | tee -a "$LOG"
@@ -53,8 +55,14 @@ fi
 if [ "$CONTROL" = coraza370 ]; then
   SCR=out/DIAGNOSTIC-engine-coraza370
   rm -rf $SCR && mkdir -p $SCR && (cd engine && tar cf - --exclude engine --exclude '*.log' .) | (cd $SCR && tar xf -)
-  (cd $SCR && go mod edit -require github.com/corazawaf/coraza/v3@v3.7.0 && go mod tidy >/dev/null 2>&1 \
+  # since step 23 engine/go.mod replaces coraza with the patched v3.8.1 copy;
+  # the control must build against the real v3.7.0 module, so the replace is
+  # dropped in the scratch copy (and its vendored tree removed)
+  rm -rf $SCR/third_party
+  (cd $SCR && go mod edit -dropreplace github.com/corazawaf/coraza/v3 \
+    && go mod edit -require github.com/corazawaf/coraza/v3@v3.7.0 && go mod tidy >/dev/null 2>&1 \
     && go build -buildvcs=false -o ../kortex-engine-DIAGNOSTIC-coraza370 .) || { echo "SCRATCH BUILD FAILED" | tee -a "$LOG"; exit 1; }
+  echo "== DIAGNOSTIC scratch engine coraza module: $(cd $SCR && go list -m github.com/corazawaf/coraza/v3)" | tee -a "$LOG"
   ENGINE_BIN=out/kortex-engine-DIAGNOSTIC-coraza370
   echo "== DIAGNOSTIC scratch engine sha256 $(sha256_of $ENGINE_BIN); .go files that differ from engine/: $(diff -rq --exclude=go.mod --exclude=go.sum --exclude=engine --exclude='*.log' engine $SCR | wc -l | tr -d ' '); diff of go.mod against engine/go.mod:" | tee -a "$LOG"
   diff engine/go.mod $SCR/go.mod | tee -a "$LOG"
