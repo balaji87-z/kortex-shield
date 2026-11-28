@@ -1,0 +1,68 @@
+# step-25 T3: E52, E53, E54, E55 failing before the fixes
+# 2026-11-28T06:19:41Z git 50daa06bfa811832f97baaf0f9741e03a1d257ae + step25_test.go; go version go1.27.4 darwin/arm64
+# cd engine && go test -count=1 -run 'TestE52|TestE53|TestE54|TestE55' -v .
+=== RUN   TestE52RulesSeeTheRequestLineAsSent
+=== RUN   TestE52RulesSeeTheRequestLineAsSent/absolute-form_target_without_a_path_matches_920100
+    step25_test.go:321: E52: want 200 and 920100 in the error log, got 200 []
+=== RUN   TestE52RulesSeeTheRequestLineAsSent/origin-form_target_is_a_valid_request_line
+=== RUN   TestE52RulesSeeTheRequestLineAsSent/protocol_HTTP/1.0_reaches_the_audit_entry
+    step25_test.go:347: E52: audit protocol = 1.1, want "HTTP/1.0"
+=== RUN   TestE52RulesSeeTheRequestLineAsSent/protocol_HTTP/1.1_reaches_the_audit_entry
+    step25_test.go:347: E52: audit protocol = 1.1, want "HTTP/1.1"
+--- FAIL: TestE52RulesSeeTheRequestLineAsSent (0.09s)
+    --- FAIL: TestE52RulesSeeTheRequestLineAsSent/absolute-form_target_without_a_path_matches_920100 (0.06s)
+    --- PASS: TestE52RulesSeeTheRequestLineAsSent/origin-form_target_is_a_valid_request_line (0.01s)
+    --- FAIL: TestE52RulesSeeTheRequestLineAsSent/protocol_HTTP/1.0_reaches_the_audit_entry (0.01s)
+    --- FAIL: TestE52RulesSeeTheRequestLineAsSent/protocol_HTTP/1.1_reaches_the_audit_entry (0.01s)
+=== RUN   TestE53RulesSeeTransferEncoding
+=== RUN   TestE53RulesSeeTransferEncoding/in-process,_GET_with_Transfer-Encoding_matches_920171
+    step25_test.go:377: E53 [in-process]: want 200 and 920171, got 200 []
+=== RUN   TestE53RulesSeeTransferEncoding/in-process,_POST_with_Transfer-Encoding_does_not
+=== RUN   TestE53RulesSeeTransferEncoding/worker,_GET_with_Transfer-Encoding_matches_920171
+    step25_test.go:377: E53 [worker]: want 200 and 920171, got 200 []
+=== RUN   TestE53RulesSeeTransferEncoding/worker,_POST_with_Transfer-Encoding_does_not
+--- FAIL: TestE53RulesSeeTransferEncoding (0.25s)
+    --- FAIL: TestE53RulesSeeTransferEncoding/in-process,_GET_with_Transfer-Encoding_matches_920171 (0.01s)
+    --- PASS: TestE53RulesSeeTransferEncoding/in-process,_POST_with_Transfer-Encoding_does_not (0.01s)
+    --- FAIL: TestE53RulesSeeTransferEncoding/worker,_GET_with_Transfer-Encoding_matches_920171 (0.12s)
+    --- PASS: TestE53RulesSeeTransferEncoding/worker,_POST_with_Transfer-Encoding_does_not (0.12s)
+=== RUN   TestE54RulesSeeTheHostHeaderAsSent
+=== RUN   TestE54RulesSeeTheHostHeaderAsSent/in-process,_HTTP/1.0_without_Host
+    step25_test.go:427: E54 [in-process, HTTP/1.0 without Host]: want 920280, got [920290 949110 980170]
+=== RUN   TestE54RulesSeeTheHostHeaderAsSent/in-process,_empty_Host_line
+=== RUN   TestE54RulesSeeTheHostHeaderAsSent/in-process,_normal_Host
+=== RUN   TestE54RulesSeeTheHostHeaderAsSent/in-process,_HTTP/1.0_without_Host,_body
+    step25_test.go:427: E54 [in-process, HTTP/1.0 without Host, body]: want 920280, got [920290 949110 980170]
+=== RUN   TestE54RulesSeeTheHostHeaderAsSent/in-process,_empty_Host_line,_body
+=== RUN   TestE54RulesSeeTheHostHeaderAsSent/worker,_HTTP/1.0_without_Host
+    step25_test.go:427: E54 [worker, HTTP/1.0 without Host]: want 920280, got [920290 949110 980170]
+=== RUN   TestE54RulesSeeTheHostHeaderAsSent/worker,_empty_Host_line
+=== RUN   TestE54RulesSeeTheHostHeaderAsSent/worker,_normal_Host
+=== RUN   TestE54RulesSeeTheHostHeaderAsSent/worker,_HTTP/1.0_without_Host,_body
+    step25_test.go:431: E54 [worker, HTTP/1.0 without Host, body]: 920290 must not match, got [920280 920290 949110 980170]
+=== RUN   TestE54RulesSeeTheHostHeaderAsSent/worker,_empty_Host_line,_body
+    step25_test.go:431: E54 [worker, empty Host line, body]: 920280 must not match, got [920280 920290 949110 980170]
+--- FAIL: TestE54RulesSeeTheHostHeaderAsSent (0.65s)
+    --- FAIL: TestE54RulesSeeTheHostHeaderAsSent/in-process,_HTTP/1.0_without_Host (0.01s)
+    --- PASS: TestE54RulesSeeTheHostHeaderAsSent/in-process,_empty_Host_line (0.01s)
+    --- PASS: TestE54RulesSeeTheHostHeaderAsSent/in-process,_normal_Host (0.01s)
+    --- FAIL: TestE54RulesSeeTheHostHeaderAsSent/in-process,_HTTP/1.0_without_Host,_body (0.01s)
+    --- PASS: TestE54RulesSeeTheHostHeaderAsSent/in-process,_empty_Host_line,_body (0.01s)
+    --- FAIL: TestE54RulesSeeTheHostHeaderAsSent/worker,_HTTP/1.0_without_Host (0.12s)
+    --- PASS: TestE54RulesSeeTheHostHeaderAsSent/worker,_empty_Host_line (0.12s)
+    --- PASS: TestE54RulesSeeTheHostHeaderAsSent/worker,_normal_Host (0.12s)
+    --- FAIL: TestE54RulesSeeTheHostHeaderAsSent/worker,_HTTP/1.0_without_Host,_body (0.12s)
+    --- FAIL: TestE54RulesSeeTheHostHeaderAsSent/worker,_empty_Host_line,_body (0.13s)
+=== RUN   TestE55ChainRulesKeepTheirOwnTargets
+=== RUN   TestE55ChainRulesKeepTheirOwnTargets/canary:_tautology_in_the_query_string_matches_942130
+=== RUN   TestE55ChainRulesKeepTheirOwnTargets/tautology_in_a_form_body_matches_942130
+    step25_test.go:459: E55: want 942130 for a tautology in a form body, got []
+=== RUN   TestE55ChainRulesKeepTheirOwnTargets/no_chain_starter_is_in_the_target_updates
+    step25_test.go:476: E55: want 154 target updates and no chain starter, got 166 updates, chain starters [931130 932200 932240 933150 941310 942130 942131 942200 942440 942521 943110 943120]
+--- FAIL: TestE55ChainRulesKeepTheirOwnTargets (0.02s)
+    --- PASS: TestE55ChainRulesKeepTheirOwnTargets/canary:_tautology_in_the_query_string_matches_942130 (0.01s)
+    --- FAIL: TestE55ChainRulesKeepTheirOwnTargets/tautology_in_a_form_body_matches_942130 (0.01s)
+    --- FAIL: TestE55ChainRulesKeepTheirOwnTargets/no_chain_starter_is_in_the_target_updates (0.00s)
+FAIL
+FAIL	kortexshield/engine	1.691s
+FAIL

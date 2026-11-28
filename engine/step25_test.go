@@ -270,3 +270,210 @@ func TestE51CRSTestSetupIsOffByDefault(t *testing.T) {
 		})
 	}
 }
+
+// ---- step-25 T3: what the rules are told about the request -----------------
+
+// s25Raw sends a raw request to the engine and returns the status.
+func s25Raw(t *testing.T, srv *httptest.Server, raw string) int {
+	t.Helper()
+	status, _ := rawExchange(t, srv.Listener.Addr().String(), raw)
+	return status
+}
+
+// s25AuditRequests returns the request section of every audit entry.
+func s25AuditRequests(t *testing.T, auditFile string) []map[string]any {
+	t.Helper()
+	data, err := os.ReadFile(auditFile)
+	if err != nil {
+		if os.IsNotExist(err) {
+			return nil
+		}
+		t.Fatalf("read audit log: %v", err)
+	}
+	var out []map[string]any
+	for _, line := range strings.Split(string(data), "\n") {
+		if !strings.HasPrefix(line, `{"transaction"`) {
+			continue
+		}
+		var doc struct {
+			Transaction struct {
+				Request map[string]any `json:"request"`
+			} `json:"transaction"`
+		}
+		if err := json.Unmarshal([]byte(line), &doc); err != nil {
+			t.Fatalf("audit line does not parse: %v", err)
+		}
+		out = append(out, doc.Transaction.Request)
+	}
+	return out
+}
+
+// E52: the rules are given the request line as it was sent: the request
+// target unchanged (an absolute-form target without a path is an invalid
+// request line for CRS 920100, CRS test 920100-16) and the protocol of the
+// request (HTTP/1.0 stays HTTP/1.0 in the audit entry, with the HTTP/ prefix).
+func TestE52RulesSeeTheRequestLineAsSent(t *testing.T) {
+	t.Run("absolute-form target without a path matches 920100", func(t *testing.T) {
+		srv, errLog := s25Env(t, map[string]string{"KORTEX_RULE_ENGINE": "DetectionOnly"})
+		status := s25Raw(t, srv, "GET http://localhost HTTP/1.1\r\nHost: localhost\r\nUser-Agent: "+browserUA+"\r\nAccept: */*\r\n\r\n")
+		ids, _ := errorLogIDs(t, errLog)
+		if status != 200 || !hasID(ids, "920100") {
+			t.Fatalf("E52: want 200 and 920100 in the error log, got %d %v", status, ids)
+		}
+	})
+	t.Run("origin-form target is a valid request line", func(t *testing.T) {
+		srv, errLog := s25Env(t, map[string]string{"KORTEX_RULE_ENGINE": "DetectionOnly"})
+		status := s25Raw(t, srv, "GET /a/b?x=1 HTTP/1.1\r\nHost: localhost\r\nUser-Agent: "+browserUA+"\r\nAccept: */*\r\n\r\n")
+		ids, _ := errorLogIDs(t, errLog)
+		if status != 200 || hasID(ids, "920100") {
+			t.Fatalf("E52 guard: want 200 and no 920100, got %d %v", status, ids)
+		}
+	})
+	for _, proto := range []string{"HTTP/1.0", "HTTP/1.1"} {
+		t.Run("protocol "+proto+" reaches the audit entry", func(t *testing.T) {
+			dir := t.TempDir()
+			audit := filepath.Join(dir, "audit.log")
+			srv, _ := newEnv(t, map[string]string{"KORTEX_AUDIT_LOG": audit})
+			target := "/p?q=" + url.QueryEscape(s25XSS)
+			status := s25Raw(t, srv, "GET "+target+" "+proto+"\r\nHost: localhost\r\nUser-Agent: "+browserUA+"\r\nAccept: */*\r\n\r\n")
+			if status != 403 {
+				t.Fatalf("E52: want 403, got %d", status)
+			}
+			reqs := s25AuditRequests(t, audit)
+			if len(reqs) != 1 {
+				t.Fatalf("E52: want 1 audit entry, got %d", len(reqs))
+			}
+			if got := reqs[0]["protocol"]; got != proto {
+				t.Fatalf("E52: audit protocol = %v, want %q", got, proto)
+			}
+			if got := reqs[0]["uri"]; got != target {
+				t.Fatalf("E52: audit uri = %v, want %q", got, target)
+			}
+		})
+	}
+}
+
+// E53: a Transfer-Encoding header is shown to the rules. Go's net/http takes
+// it out of the header map, so the engine has to hand it over itself; CRS
+// 920171 (GET or HEAD with Transfer-Encoding, CRS tests 920171-2 and -3)
+// can only match if it does. In-process and in worker mode.
+func TestE53RulesSeeTransferEncoding(t *testing.T) {
+	raw := func(method string) string {
+		return method + " /te HTTP/1.1\r\nHost: localhost\r\nUser-Agent: " + browserUA +
+			"\r\nAccept: */*\r\nTransfer-Encoding: chunked\r\n\r\n0\r\n\r\n"
+	}
+	for _, mode := range []struct {
+		name string
+		env  map[string]string
+	}{
+		{"in-process", map[string]string{"KORTEX_RULE_ENGINE": "DetectionOnly"}},
+		{"worker", map[string]string{"KORTEX_RULE_ENGINE": "DetectionOnly", "KORTEX_WORKER_MODE": "on"}},
+	} {
+		t.Run(mode.name+", GET with Transfer-Encoding matches 920171", func(t *testing.T) {
+			srv, errLog := s25Env(t, mode.env)
+			status := s25Raw(t, srv, raw("GET"))
+			ids, _ := errorLogIDs(t, errLog)
+			if status != 200 || !hasID(ids, "920171") {
+				t.Fatalf("E53 [%s]: want 200 and 920171, got %d %v", mode.name, status, ids)
+			}
+		})
+		t.Run(mode.name+", POST with Transfer-Encoding does not", func(t *testing.T) {
+			srv, errLog := s25Env(t, mode.env)
+			status := s25Raw(t, srv, raw("POST"))
+			ids, _ := errorLogIDs(t, errLog)
+			if status != 200 || hasID(ids, "920171") {
+				t.Fatalf("E53 guard [%s]: want 200 and no 920171, got %d %v", mode.name, status, ids)
+			}
+		})
+	}
+}
+
+// E54: the rules see the Host header the request has, and none when it has
+// none. HTTP/1.0 without a Host line is CRS 920280 (missing Host, CRS test
+// 920280-1); an empty Host line is CRS 920290 (empty Host); a normal Host is
+// neither. With a body the same holds in worker mode.
+func TestE54RulesSeeTheHostHeaderAsSent(t *testing.T) {
+	head := "User-Agent: " + browserUA + "\r\nAccept: */*\r\n"
+	body := "a=1"
+	post := "Content-Type: application/x-www-form-urlencoded\r\nContent-Length: 3\r\n"
+	cases := []struct {
+		name    string
+		raw     string
+		want    string
+		wantNot string
+	}{
+		{"HTTP/1.0 without Host", "GET /h HTTP/1.0\r\n" + head + "\r\n", "920280", "920290"},
+		{"empty Host line", "GET /h HTTP/1.1\r\nHost:\r\n" + head + "\r\n", "920290", "920280"},
+		{"normal Host", "GET /h HTTP/1.1\r\nHost: localhost\r\n" + head + "\r\n", "", "920280,920290"},
+		{"HTTP/1.0 without Host, body", "POST /h HTTP/1.0\r\n" + head + post + "\r\n" + body, "920280", "920290"},
+		{"empty Host line, body", "POST /h HTTP/1.1\r\nHost:\r\n" + head + post + "\r\n" + body, "920290", "920280"},
+	}
+	for _, mode := range []struct {
+		name string
+		env  map[string]string
+	}{
+		{"in-process", map[string]string{"KORTEX_RULE_ENGINE": "DetectionOnly"}},
+		{"worker", map[string]string{"KORTEX_RULE_ENGINE": "DetectionOnly", "KORTEX_WORKER_MODE": "on"}},
+	} {
+		for _, c := range cases {
+			t.Run(mode.name+", "+c.name, func(t *testing.T) {
+				srv, errLog := s25Env(t, mode.env)
+				status := s25Raw(t, srv, c.raw)
+				ids, _ := errorLogIDs(t, errLog)
+				if status != 200 {
+					t.Fatalf("E54 [%s, %s]: want 200, got %d", mode.name, c.name, status)
+				}
+				if c.want != "" && !hasID(ids, c.want) {
+					t.Fatalf("E54 [%s, %s]: want %s, got %v", mode.name, c.name, c.want, ids)
+				}
+				for _, not := range strings.Split(c.wantNot, ",") {
+					if hasID(ids, not) {
+						t.Fatalf("E54 [%s, %s]: %s must not match, got %v", mode.name, c.name, not, ids)
+					}
+				}
+			})
+		}
+	}
+}
+
+// E55: a rule that is the start of a chain gets no REQUEST_BODY target. The
+// chained rule works on the captures of the last variable that matched, so
+// the added target did not add a scan: it replaced the scan of the parsed
+// argument with a scan of the raw body, whose first match is the name=value
+// pair itself. The SQL tautology of CRS test 942130-7 (a=42 like 42) is
+// matched in a form body as it is in the query string.
+func TestE55ChainRulesKeepTheirOwnTargets(t *testing.T) {
+	pl2 := map[string]string{"KORTEX_RULE_ENGINE": "DetectionOnly", "KORTEX_BLOCKING_PARANOIA": "2", "KORTEX_DETECTION_PARANOIA": "2"}
+	tautology := "a=42%20like%2042"
+	t.Run("canary: tautology in the query string matches 942130", func(t *testing.T) {
+		srv, errLog := s25Env(t, pl2)
+		s25Do(t, srv, "GET", "/?"+tautology, nil, "")
+		if ids, _ := errorLogIDs(t, errLog); !hasID(ids, "942130") {
+			t.Fatalf("E55 canary: want 942130, got %v", ids)
+		}
+	})
+	t.Run("tautology in a form body matches 942130", func(t *testing.T) {
+		srv, errLog := s25Env(t, pl2)
+		s25Do(t, srv, "POST", "/post", map[string]string{"Content-Type": "application/x-www-form-urlencoded"}, tautology)
+		if ids, _ := errorLogIDs(t, errLog); !hasID(ids, "942130") {
+			t.Fatalf("E55: want 942130 for a tautology in a form body, got %v", ids)
+		}
+	})
+	t.Run("no chain starter is in the target updates", func(t *testing.T) {
+		ids, err := requestBodyTargetUpdates(rulesDirForTests())
+		if err != nil {
+			t.Fatalf("E55: %v", err)
+		}
+		chain := map[int]bool{931130: true, 932200: true, 932240: true, 933150: true, 941310: true, 942130: true,
+			942131: true, 942200: true, 942440: true, 942521: true, 943110: true, 943120: true}
+		var found []int
+		for _, id := range ids {
+			if chain[id] {
+				found = append(found, id)
+			}
+		}
+		if len(found) != 0 || len(ids) != 154 {
+			t.Fatalf("E55: want 154 target updates and no chain starter, got %d updates, chain starters %v", len(ids), found)
+		}
+	})
+}
