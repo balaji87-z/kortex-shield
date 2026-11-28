@@ -1,0 +1,52 @@
+# step-25: the engine's own record for each failed test outside the response rules
+# 2026-11-28T06:29:53Z git af5ab15825c17c33ef4a5a8d5f32324558c752b2, engine sha256 67e81bf4672c16b307d39f58bfe4414152c4630fa6f7ce72cc1f7da4636f6d52, run docs/logs/runs/s25-ftw-fixed/engine-strict
+# rule29: {"backend_url":"http://127.0.0.1:13026","rule_engine":"DetectionOnly","blocking_paranoia":4,"detection_paranoia":4,"max_body_bytes":13107200,"max_inspected_bytes":131072,"engine_time_budget_ms":2000,"rules_dir":"/Users/ivan/work/kortex-shield-next/engine/crs","listen_addr":"127.0.0.1:18026","events_file":"/Users/ivan/work/kortex-shield-next/out/step25/probe-run/events.jsonl","audit_log":"/Users/ivan/work/kortex-shield-next/out/step25/probe-run/audit.log","allowed_methods":"GET HEAD POST OPTIONS","max_inflight_body":8,"max_inflight_body_large":2,"body_lane_threshold":65536,"worker_mode":false,"client_max_inflight":0,"client_max_inflight_small":4,"client_max_inflight_large":1,"request_body_target_updates":165,"error_log":"/Users/ivan/work/kortex-shield-next/out/step25/probe-run/error.log","crs_test_setup":true}
+| test | engine events for the test request (decision status reason) | statuses go-ftw received (markers and test) | result |
+|---|---|---|---|
+| 901360-3 | pass 0 forwarding (3 events in all) | 200 200 200 | failed |
+| 901370-5 | pass 0 forwarding (3 events in all) | 200 200 200 | failed |
+| 901370-6 | pass 0 forwarding (3 events in all) | 200 200 200 | failed |
+| 901370-11 | pass 0 forwarding (3 events in all) | 200 200 200 | failed |
+| 920100-5 | pass 0 forwarding (3 events in all) | 200 200 200 | failed |
+| 920100-8 | pass 0 forwarding (3 events in all) | 200 200 200 | failed |
+| 920181-1 | framing 400 transfer-encoding-with-content-length (3 events in all) | 200 400 200 | failed |
+| 920270-4 | pass 0 forwarding (3 events in all) | 200 200 200 | failed |
+| 920274-1 | pass 0 forwarding (3 events in all) | 200 200 200 | failed |
+| 920290-1 | pass 0 forwarding (3 events in all) | 200 200 200 | failed |
+| 920420-2 | pass 0 forwarding (3 events in all) | 200 200 200 | failed |
+| 920420-3 | pass 0 forwarding (3 events in all) | 200 200 200 | failed |
+| 920420-4 | pass 0 forwarding (3 events in all) | 200 200 200 | failed |
+| 920420-5 | pass 0 forwarding (3 events in all) | 200 200 200 | failed |
+| 920420-6 | pass 0 forwarding (3 events in all) | 200 200 200 | failed |
+| 920420-7 | pass 0 forwarding (3 events in all) | 200 200 200 | failed |
+| 920420-8 | pass 0 forwarding (3 events in all) | 200 200 200 | failed |
+| 920420-11 | pass 0 forwarding (3 events in all) | 200 200 200 | failed |
+| 920420-12 | pass 0 forwarding (3 events in all) | 200 200 200 | failed |
+| 920420-14 | pass 0 forwarding (3 events in all) | 200 200 200 | failed |
+| 920420-15 | pass 0 forwarding (3 events in all) | 200 200 200 | failed |
+| 920420-16 | pass 0 forwarding (3 events in all) | 200 200 200 | failed |
+| 920420-17 | pass 0 forwarding (3 events in all) | 200 200 200 | failed |
+| 920420-18 | pass 0 forwarding (3 events in all) | 200 200 200 | failed |
+| 920420-21 | pass 0 forwarding (3 events in all) | 200 200 200 | failed |
+| 920430-5 | framing 400 parser:http-version (3 events in all) | 200 400 200 | failed |
+| 920430-8 | framing 400 parser:http-version (3 events in all) | 200 400 200 | failed |
+| 920610-2 | pass 0 forwarding (3 events in all) | 200 200 200 | failed |
+| 920620-1 | pass 0 forwarding (3 events in all) | 200 200 200 | failed |
+| 922130-1 | pass 0 forwarding (3 events in all) | 200 200 200 | failed |
+| 922130-2 | pass 0 forwarding (3 events in all) | 200 200 200 | failed |
+| 922130-7 | pass 0 forwarding (3 events in all) | 200 200 200 | failed |
+| 932340-10 | pass 0 forwarding (3 events in all) | 200 200 200 | failed |
+| 932340-11 | pass 0 forwarding (3 events in all) | 200 200 200 | failed |
+| 932340-12 | pass 0 forwarding (3 events in all) | 200 200 200 | failed |
+| 932340-13 | pass 0 forwarding (3 events in all) | 200 200 200 | failed |
+| 942210-31 | pass 0 forwarding (3 events in all) | 200 200 200 | failed |
+| 942210-44 | pass 0 forwarding (3 events in all) | 200 200 200 | failed |
+| 942430-7 | pass 0 forwarding (3 events in all) | 200 200 200 | failed |
+| 942431-2 | pass 0 forwarding (3 events in all) | 200 200 200 | failed |
+| 942431-3 | pass 0 forwarding (3 events in all) | 200 200 200 | failed |
+| 942431-6 | pass 0 forwarding (3 events in all) | 200 200 200 | failed |
+| 942432-5 | pass 0 forwarding (3 events in all) | 200 200 200 | failed |
+| 942440-16 | pass 0 forwarding (3 events in all) | 200 200 200 | failed |
+| 942440-21 | pass 0 forwarding (3 events in all) | 200 200 200 | failed |
+| 942440-22 | pass 0 forwarding (3 events in all) | 200 200 200 | failed |
+| 942440-23 | pass 0 forwarding (3 events in all) | 200 200 200 | failed |

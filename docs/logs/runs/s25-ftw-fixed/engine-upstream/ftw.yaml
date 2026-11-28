@@ -1,0 +1,5 @@
+logfile: /Users/ivan/work/kortex-shield-next/out/step25/runs/s25-ftw-fixed-engine-upstream/error.log
+logmarkerheadername: X-CRS-TEST
+testoverride:
+  input:
+    port: 18025

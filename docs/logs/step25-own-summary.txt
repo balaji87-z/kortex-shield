@@ -1,0 +1,117 @@
+
+== PL1: rates and counts per run
+attacks-v0-inprocess-pl1: requests 1054, distinct payloads 527; outcomes: waf_block 954, waf_pass 100
+    recall best case (only waf_block) 954/1054 = 90.51%; worst case (every outcome that is not a pass) 954/1054 = 90.51%  [IN-SAMPLE for the REQUEST_BODY target choice of step 18]
+    per family, blocked of requests: command-injection 224/300, path-traversal 298/300, sqli 132/154, xss 300/300
+    rule 18: 954 audit entries; rule ids in >=20% of them: 949110=954, 930120=318, 941390=310, 941120=302, 941100=290, 941160=250, 930100=234
+attacks-v0-worker-pl1: requests 1054, distinct payloads 527; outcomes: waf_block 954, waf_pass 100
+    recall best case (only waf_block) 954/1054 = 90.51%; worst case (every outcome that is not a pass) 954/1054 = 90.51%  [IN-SAMPLE for the REQUEST_BODY target choice of step 18]
+    per family, blocked of requests: command-injection 224/300, path-traversal 298/300, sqli 132/154, xss 300/300
+    rule 18: 954 audit entries; rule ids in >=20% of them: 949110=954, 930120=318, 941390=310, 941120=302, 941100=290, 941160=250, 930100=234
+attacks-ct-v0-inprocess-pl1: requests 320, distinct payloads 40; outcomes: waf_block 292, waf_pass 28
+    recall best case (only waf_block) 292/320 = 91.25%; worst case (every outcome that is not a pass) 292/320 = 91.25%  [IN-SAMPLE for the REQUEST_BODY target choice of step 18]
+    per family, blocked of requests: command-injection 59/80, path-traversal 80/80, sqli 73/80, xss 80/80
+    rule 18: 292 audit entries; rule ids in >=20% of them: 949110=292, 941390=88, 941120=80, 930120=80, 942100=72, 941100=72, 930100=72, 941160=64
+attacks-ct-v0-worker-pl1: requests 320, distinct payloads 40; outcomes: waf_block 292, waf_pass 28
+    recall best case (only waf_block) 292/320 = 91.25%; worst case (every outcome that is not a pass) 292/320 = 91.25%  [IN-SAMPLE for the REQUEST_BODY target choice of step 18]
+    per family, blocked of requests: command-injection 59/80, path-traversal 80/80, sqli 73/80, xss 80/80
+    rule 18: 292 audit entries; rule ids in >=20% of them: 949110=292, 941390=88, 941120=80, 930120=80, 942100=72, 941100=72, 930100=72, 941160=64
+encoding-diff-v0-inprocess-pl1: requests 192, distinct payloads 16; outcomes: error 10, waf_block 137, waf_pass 45
+    blocked 137 of 192; not passed 147 of 192 (chosen cases: counts, not a rate, rule 35)
+    per family, blocked of requests: command-injection 24/48, path-traversal 40/48, sqli 37/48, xss 36/48
+    rule 18: 137 audit entries; rule ids in >=20% of them: 949110=137, 930120=40, 942100=37, 941100=36, 941120=36, 941160=36, 930100=30
+encoding-diff-v0-worker-pl1: requests 192, distinct payloads 16; outcomes: error 10, waf_block 137, waf_pass 45
+    blocked 137 of 192; not passed 147 of 192 (chosen cases: counts, not a rate, rule 35)
+    per family, blocked of requests: command-injection 24/48, path-traversal 40/48, sqli 37/48, xss 36/48
+    rule 18: 137 audit entries; rule ids in >=20% of them: 949110=137, 930120=40, 942100=37, 941100=36, 941120=36, 941160=36, 930100=30
+benign-browse-v1-inprocess-pl1: requests 774, distinct endpoints 313; outcomes: waf_block 124, waf_pass 650
+    potential false positives (natural benign, held-out): best case (only waf_block) 124/774 = 16.02%; worst case (every outcome that is not a pass) 124/774 = 16.02%
+    rule 18: 124 audit entries; rule ids in >=20% of them: 949110=124, 911100=120
+benign-browse-v1-worker-pl1: requests 774, distinct endpoints 313; outcomes: waf_block 124, waf_pass 650
+    potential false positives (natural benign, held-out): best case (only waf_block) 124/774 = 16.02%; worst case (every outcome that is not a pass) 124/774 = 16.02%
+    rule 18: 124 audit entries; rule ids in >=20% of them: 949110=124, 911100=120
+benign-hard-v0-inprocess-pl1: requests 180, distinct endpoints 2; outcomes: waf_block 22, waf_pass 158
+    potential false positives (hard benign, held-out): best case (only waf_block) 22/180 = 12.22%; worst case (every outcome that is not a pass) 22/180 = 12.22%
+    rule 18: 22 audit entries; rule ids in >=20% of them: 949110=22, 932260=10, 942100=6, 932235=6
+benign-hard-v0-worker-pl1: requests 180, distinct endpoints 2; outcomes: waf_block 22, waf_pass 158
+    potential false positives (hard benign, held-out): best case (only waf_block) 22/180 = 12.22%; worst case (every outcome that is not a pass) 22/180 = 12.22%
+    rule 18: 22 audit entries; rule ids in >=20% of them: 949110=22, 932260=10, 942100=6, 932235=6
+
+== PL2: rates and counts per run
+attacks-v0-inprocess-pl2: requests 1054, distinct payloads 527; outcomes: waf_block 1024, waf_pass 30
+    recall best case (only waf_block) 1024/1054 = 97.15%; worst case (every outcome that is not a pass) 1024/1054 = 97.15%  [IN-SAMPLE for the REQUEST_BODY target choice of step 18]
+    per family, blocked of requests: command-injection 276/300, path-traversal 300/300, sqli 148/154, xss 300/300
+    rule 18: 1024 audit entries; rule ids in >=20% of them: 949110=1024, 930120=318, 941390=310, 941120=302, 942370=294, 941100=290, 942520=278, 941160=250, 932236=248, 941320=244, 930100=234
+attacks-v0-worker-pl2: requests 1054, distinct payloads 527; outcomes: waf_block 1024, waf_pass 30
+    recall best case (only waf_block) 1024/1054 = 97.15%; worst case (every outcome that is not a pass) 1024/1054 = 97.15%  [IN-SAMPLE for the REQUEST_BODY target choice of step 18]
+    per family, blocked of requests: command-injection 276/300, path-traversal 300/300, sqli 148/154, xss 300/300
+    rule 18: 1024 audit entries; rule ids in >=20% of them: 949110=1024, 930120=318, 941390=310, 941120=302, 942370=294, 941100=290, 942520=278, 941160=250, 932236=248, 941320=244, 930100=234
+attacks-ct-v0-inprocess-pl2: requests 320, distinct payloads 40; outcomes: waf_block 313, waf_pass 7
+    recall best case (only waf_block) 313/320 = 97.81%; worst case (every outcome that is not a pass) 313/320 = 97.81%  [IN-SAMPLE for the REQUEST_BODY target choice of step 18]
+    per family, blocked of requests: command-injection 73/80, path-traversal 80/80, sqli 80/80, xss 80/80
+    rule 18: 313 audit entries; rule ids in >=20% of them: 949110=313, 942520=128, 942370=104, 941390=88, 932240=80, 941120=80, 941320=80, 930120=80, 942430=73, 942100=72, 941100=72, 930100=72, 942180=64, 941160=64
+attacks-ct-v0-worker-pl2: requests 320, distinct payloads 40; outcomes: waf_block 313, waf_pass 7
+    recall best case (only waf_block) 313/320 = 97.81%; worst case (every outcome that is not a pass) 313/320 = 97.81%  [IN-SAMPLE for the REQUEST_BODY target choice of step 18]
+    per family, blocked of requests: command-injection 73/80, path-traversal 80/80, sqli 80/80, xss 80/80
+    rule 18: 313 audit entries; rule ids in >=20% of them: 949110=313, 942520=128, 942370=104, 941390=88, 932240=80, 941120=80, 941320=80, 930120=80, 942430=73, 942100=72, 941100=72, 930100=72, 942180=64, 941160=64
+encoding-diff-v0-inprocess-pl2: requests 192, distinct payloads 16; outcomes: error 10, waf_block 147, waf_pass 35
+    blocked 147 of 192; not passed 157 of 192 (chosen cases: counts, not a rate, rule 35)
+    per family, blocked of requests: command-injection 34/48, path-traversal 40/48, sqli 37/48, xss 36/48
+    rule 18: 147 audit entries; rule ids in >=20% of them: 949110=147, 942520=73, 942430=60, 942370=54, 920230=41, 930120=40, 942100=37, 942180=36, 941100=36, 941120=36, 941160=36, 930100=30
+encoding-diff-v0-worker-pl2: requests 192, distinct payloads 16; outcomes: error 10, waf_block 147, waf_pass 35
+    blocked 147 of 192; not passed 157 of 192 (chosen cases: counts, not a rate, rule 35)
+    per family, blocked of requests: command-injection 34/48, path-traversal 40/48, sqli 37/48, xss 36/48
+    rule 18: 147 audit entries; rule ids in >=20% of them: 949110=147, 942520=73, 942430=60, 942370=54, 920230=41, 930120=40, 942100=37, 942180=36, 941100=36, 941120=36, 941160=36, 930100=30
+benign-browse-v1-inprocess-pl2: requests 774, distinct endpoints 313; outcomes: waf_block 124, waf_pass 650
+    potential false positives (natural benign, held-out): best case (only waf_block) 124/774 = 16.02%; worst case (every outcome that is not a pass) 124/774 = 16.02%
+    rule 18: 124 audit entries; rule ids in >=20% of them: 949110=124, 911100=120
+benign-browse-v1-worker-pl2: requests 774, distinct endpoints 313; outcomes: waf_block 124, waf_pass 650
+    potential false positives (natural benign, held-out): best case (only waf_block) 124/774 = 16.02%; worst case (every outcome that is not a pass) 124/774 = 16.02%
+    rule 18: 124 audit entries; rule ids in >=20% of them: 949110=124, 911100=120
+benign-hard-v0-inprocess-pl2: requests 180, distinct endpoints 2; outcomes: waf_block 78, waf_pass 102
+    potential false positives (hard benign, held-out): best case (only waf_block) 78/180 = 43.33%; worst case (every outcome that is not a pass) 78/180 = 43.33%
+    rule 18: 78 audit entries; rule ids in >=20% of them: 949110=78, 932236=34, 931130=16
+benign-hard-v0-worker-pl2: requests 180, distinct endpoints 2; outcomes: waf_block 78, waf_pass 102
+    potential false positives (hard benign, held-out): best case (only waf_block) 78/180 = 43.33%; worst case (every outcome that is not a pass) 78/180 = 43.33%
+    rule 18: 78 audit entries; rule ids in >=20% of them: 949110=78, 932236=34, 931130=16
+
+== parity per sample id: in-process against worker (patched engine)
+attacks-v0 PL1
+    in-process against worker: 1054 sample ids; status differs in 0; worst-case set differs in 0; rule-id set differs in 0
+attacks-ct-v0 PL1
+    in-process against worker: 320 sample ids; status differs in 0; worst-case set differs in 0; rule-id set differs in 0
+encoding-diff-v0 PL1
+    in-process against worker: 192 sample ids; status differs in 0; worst-case set differs in 0; rule-id set differs in 0
+benign-browse-v1 PL1
+    in-process against worker: 774 sample ids; status differs in 0; worst-case set differs in 0; rule-id set differs in 0
+benign-hard-v0 PL1
+    in-process against worker: 180 sample ids; status differs in 0; worst-case set differs in 0; rule-id set differs in 0
+attacks-v0 PL2
+    in-process against worker: 1054 sample ids; status differs in 0; worst-case set differs in 0; rule-id set differs in 0
+attacks-ct-v0 PL2
+    in-process against worker: 320 sample ids; status differs in 0; worst-case set differs in 0; rule-id set differs in 0
+encoding-diff-v0 PL2
+    in-process against worker: 192 sample ids; status differs in 0; worst-case set differs in 0; rule-id set differs in 0
+benign-browse-v1 PL2
+    in-process against worker: 774 sample ids; status differs in 0; worst-case set differs in 0; rule-id set differs in 0
+benign-hard-v0 PL2
+    in-process against worker: 180 sample ids; status differs in 0; worst-case set differs in 0; rule-id set differs in 0
+
+== DIAGNOSTIC stock coraza v3.8.1 (same commit, replace dropped), in-process: counts, then per sample id against the patched in-process run
+attacks-v0 PL1: NOT MEASURED
+attacks-ct-v0 PL1: NOT MEASURED
+encoding-diff-v0 PL1: NOT MEASURED
+benign-browse-v1 PL1: NOT MEASURED
+benign-hard-v0 PL1: NOT MEASURED
+attacks-v0 PL2: NOT MEASURED
+attacks-ct-v0 PL2: NOT MEASURED
+encoding-diff-v0 PL2: NOT MEASURED
+benign-browse-v1 PL2: NOT MEASURED
+benign-hard-v0 PL2: NOT MEASURED
+
+== DIAGNOSTIC numeric Host (requests to 127.0.0.1), patched engine, in-process, PL1: counts, then per sample id against the Host-localhost run
+attacks-v0: NOT MEASURED
+attacks-ct-v0: NOT MEASURED
+encoding-diff-v0: NOT MEASURED
+benign-browse-v1: NOT MEASURED
+benign-hard-v0: NOT MEASURED
