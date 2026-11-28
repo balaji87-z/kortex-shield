@@ -1,0 +1,37 @@
+# step-22 C7: tools/step21_engine_diff.py with the fail-closed classes on real run files (working tree on 1da3128a54b1790502c42724e6b62b7c68146400), 2026-11-28T03:25:19Z
+# TOOL CHECK, NOT A PARITY COMPARISON: a and b are the PL1 and PL2 runs of one dataset, so the status diffs between them mean nothing here.
+# What is checked: each run's worst-case set equals the worst case of the rate table (2284, 8967, 1133, 4480).
+$ .venv/bin/python tools/step21_engine_diff.py docs/logs/runs/s22-c2-outcomes/benign-wcp-v0-inprocess-pl1 docs/logs/runs/s22-c2-outcomes/benign-wcp-v0-inprocess-pl2 | grep -v '^  '
+samples compared: 20000 (a=20000 b=20000 only-a=0 only-b=0)
+status counts a: {200: 17716, 400: 52, 403: 2184, 413: 28, 415: 19, None: 1}
+status counts b: {200: 11033, 400: 52, 403: 8867, 413: 28, 415: 19, None: 1}
+status diffs: 6683
+no status in a (counted as error): 1
+no status in b (counted as error): 1
+worst-case set a: 2284/20000 (error=1 blocked=2184 deny_status=52 inconsistent=0 fail_closed_413=28 fail_closed_415=19 fail_closed_400=0 fail_closed_503_timeout=0 fail_closed_503_overload=0)
+worst-case set b: 8967/20000 (error=1 blocked=8866 deny_status=52 inconsistent=1 fail_closed_413=28 fail_closed_415=19 fail_closed_400=0 fail_closed_503_timeout=0 fail_closed_503_overload=0)
+worst-case set diffs: 6683 (only-a 0 only-b 6683)
+$ .venv/bin/python tools/step21_engine_diff.py docs/logs/runs/s22-c2-outcomes/benign-wcp-v1-inprocess-pl1 docs/logs/runs/s22-c2-outcomes/benign-wcp-v1-inprocess-pl2 | grep -v '^  '
+samples compared: 10000 (a=10000 b=10000 only-a=0 only-b=0)
+status counts a: {200: 8867, 400: 25, 403: 1091, 413: 17}
+status counts b: {200: 5520, 400: 25, 403: 4438, 413: 17}
+status diffs: 3347
+no status in a (counted as error): 0
+no status in b (counted as error): 0
+worst-case set a: 1133/10000 (error=0 blocked=1091 deny_status=25 inconsistent=0 fail_closed_413=17 fail_closed_415=0 fail_closed_400=0 fail_closed_503_timeout=0 fail_closed_503_overload=0)
+worst-case set b: 4480/10000 (error=0 blocked=4438 deny_status=25 inconsistent=0 fail_closed_413=17 fail_closed_415=0 fail_closed_400=0 fail_closed_503_timeout=0 fail_closed_503_overload=0)
+worst-case set diffs: 3347 (only-a 0 only-b 3347)
+# a run recorded before the runner wrote engine_decision (F9) against the C2 run of the same dataset and level:
+$ .venv/bin/python tools/step21_engine_diff.py docs/logs/runs/s22-t3-parity-after-followup/benign-wcp-v0-inprocess-pl1 docs/logs/runs/s22-c2-outcomes/benign-wcp-v0-inprocess-pl1
+samples compared: 20000 (a=20000 b=20000 only-a=0 only-b=0)
+status counts a: {200: 17716, 400: 52, 403: 2184, 413: 28, 415: 19, None: 1}
+status counts b: {200: 17716, 400: 52, 403: 2184, 413: 28, 415: 19, None: 1}
+status diffs: 0
+no status in a (counted as error): 1
+  wcp-6b0bf5e43122
+no status in b (counted as error): 1
+  wcp-6b0bf5e43122
+fail_closed_*: NOT MEASURED (responses.jsonl without engine_decision in at least one run); not in the worst-case set below
+worst-case set a: 2237/20000 (error=1 blocked=2184 deny_status=52 inconsistent=0 fail_closed_413=NOT MEASURED fail_closed_415=NOT MEASURED fail_closed_400=NOT MEASURED fail_closed_503_timeout=NOT MEASURED fail_closed_503_overload=NOT MEASURED)
+worst-case set b: 2237/20000 (error=1 blocked=2184 deny_status=52 inconsistent=0 fail_closed_413=NOT MEASURED fail_closed_415=NOT MEASURED fail_closed_400=NOT MEASURED fail_closed_503_timeout=NOT MEASURED fail_closed_503_overload=NOT MEASURED)
+worst-case set diffs: 0 (only-a 0 only-b 0)
