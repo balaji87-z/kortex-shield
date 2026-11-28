@@ -1,0 +1,75 @@
+# Step-26: attacks-v1 on the ModSecurity image and the Coraza connector image, PL1 and PL2 (default config, stub backend)
+== 2026-11-28T16:13:14Z, macOS 27.0 Darwin 27.0.0 arm64, go version go1.27.4 darwin/arm64, Python 3.15.2, load at start: load averages: 5.25 2.89 2.10
+== git 62a099eb2344916928168f142e600b0370b2e6a7, tracked paths changed in the working tree: 1, under engine/: 0
+== manifest data/attacks-v1/manifest.jsonl sha256 7a82a51622e311f26f00fffff1f39b718f1528d907a20da89e30372cc6723066 (frozen: 7a82a51622e311f26f00fffff1f39b718f1528d907a20da89e30372cc6723066), 2670 requests
+== docker client 29.10.1 server 29.5.2 linux/arm64 kernel 6.8.0-117-generic
+== attacks-v1-modsec-pl1 rule29/28 2026-11-28T16:13:16Z load: load averages: 5.25 2.89 2.10
+   image: owasp/modsecurity-crs:4.25.2-nginx-lts@sha256:6296ce685cb88ba4012998b935b25dabbd9e0ff326088c1149447102544de661 id sha256:6296ce685cb88ba4012998b935b25dabbd9e0ff326088c1149447102544de661 platform linux/arm64 repo digests owasp/modsecurity-crs@sha256:6296ce685cb88ba4012998b935b25dabbd9e0ff326088c1149447102544de661
+   env: E=On B=1 P=1 D=1 BACKEND=http://stub-backend:3000 CT=[] M=[]
+   conf: SecRuleEngine On SecRequestBodyLimit 13107200 SecRequestBodyNoFilesLimit 131072 
+   crs-setup: tx.blocking_paranoia_level=1 tx.detection_paranoia_level=1 tx.crs_setup_version=4252
+   ruleset: ver:'OWASP_CRS/4.25.2 in /etc/modsecurity.d/owasp-crs/rules (27 .conf files)
+2026/11/28 16:13:16 [warn] 633#633: "ssl_stapling" ignored, issuer certificate not found for certificate "/etc/nginx/conf/server.crt"
+nginx: [warn] "ssl_stapling" ignored, issuer certificate not found for certificate "/etc/nginx/conf/server.crt"
+2026/11/28 16:13:16 [notice] 633#633: ModSecurity-nginx v1.0.4 (rules loaded inline/local/remote: 0/853/0)
+2026/11/28 16:13:16 [notice] 633#633: libmodsecurity3 version 3.0.17
+2026/11/28 16:13:16 [notice] 633#633: signal process started
+crs_audit: 2251 audit entr(ies) -> out/s26-attacks-v1-modsec-pl1/audit.jsonl
+warning: 41 audit entr(ies) could not be attributed to a sample id
+waf_block: 2210
+waf_pass: 460
+docs/logs/runs/s26-baseline/attacks-v1-modsec-pl1/audit.index.jsonl: 2251 entries
+   rule36 attacks-v1-modsec-pl1: control entries in the audit: pre 20/20, post 20/20; audit entries 2251 (2210 with a v1 sample id, 1 without a sample id)
+   result attacks-v1-modsec-pl1: n=2670 outcomes={'waf_block': 2210, 'waf_pass': 460}
+   result attacks-v1-modsec-pl1: status counts={200: 460, 403: 2210}
+== attacks-v1-modsec-pl1 done 2026-11-28T16:13:32Z load: load averages: 5.96 3.16 2.21
+== attacks-v1-coraza-pl1 rule29/28 2026-11-28T16:13:44Z load: load averages: 5.59 3.17 2.22
+   image: ghcr.io/coreruleset/coraza-crs:4.25.2-nginx-lts@sha256:bfbfe70b4445c1ef1dc389c2de12cfdb194c9616746c33dc8a7131461c28f4a6 id sha256:bfbfe70b4445c1ef1dc389c2de12cfdb194c9616746c33dc8a7131461c28f4a6 platform linux/arm64 repo digests ghcr.io/coreruleset/coraza-crs@sha256:bfbfe70b4445c1ef1dc389c2de12cfdb194c9616746c33dc8a7131461c28f4a6
+   env: E=On B=1 P=1 D=1 CT=[] body=[nofiles=131072 total=13107200]
+   crs-setup: tx.blocking_paranoia_level=1 tx.detection_paranoia_level=1 tx.crs_setup_version=4252
+   ruleset: ver:'OWASP_CRS/4.25.2 in /opt/coraza/owasp-crs/rules (27 .conf files)
+coraza_audit: 2254 audit entr(ies) -> out/s26-attacks-v1-coraza-pl1/audit.jsonl
+warning: 40 audit entr(ies) could not be attributed to a sample id
+waf_block: 2214
+waf_pass: 456
+docs/logs/runs/s26-baseline/attacks-v1-coraza-pl1/audit.index.jsonl: 2254 entries
+   rule36 attacks-v1-coraza-pl1: control entries in the audit: pre 20/20, post 20/20; audit entries 2254 (2214 with a v1 sample id, 0 without a sample id)
+   result attacks-v1-coraza-pl1: n=2670 outcomes={'waf_block': 2214, 'waf_pass': 456}
+   result attacks-v1-coraza-pl1: status counts={200: 456, 403: 2214}
+== attacks-v1-coraza-pl1 done 2026-11-28T16:14:09Z load: load averages: 4.64 3.15 2.24
+== attacks-v1-modsec-pl2 rule29/28 2026-11-28T16:14:20Z load: load averages: 6.61 3.63 2.43
+   image: owasp/modsecurity-crs:4.25.2-nginx-lts@sha256:6296ce685cb88ba4012998b935b25dabbd9e0ff326088c1149447102544de661 id sha256:6296ce685cb88ba4012998b935b25dabbd9e0ff326088c1149447102544de661 platform linux/arm64 repo digests owasp/modsecurity-crs@sha256:6296ce685cb88ba4012998b935b25dabbd9e0ff326088c1149447102544de661
+   env: E=On B=2 P=2 D=2 BACKEND=http://stub-backend:3000 CT=[] M=[]
+   conf: SecRuleEngine On SecRequestBodyLimit 13107200 SecRequestBodyNoFilesLimit 131072 
+   crs-setup: tx.blocking_paranoia_level=2 tx.detection_paranoia_level=2 tx.crs_setup_version=4252
+   ruleset: ver:'OWASP_CRS/4.25.2 in /etc/modsecurity.d/owasp-crs/rules (27 .conf files)
+2026/11/28 16:14:20 [warn] 633#633: "ssl_stapling" ignored, issuer certificate not found for certificate "/etc/nginx/conf/server.crt"
+nginx: [warn] "ssl_stapling" ignored, issuer certificate not found for certificate "/etc/nginx/conf/server.crt"
+2026/11/28 16:14:20 [notice] 633#633: ModSecurity-nginx v1.0.4 (rules loaded inline/local/remote: 0/853/0)
+2026/11/28 16:14:20 [notice] 633#633: libmodsecurity3 version 3.0.17
+2026/11/28 16:14:20 [notice] 633#633: signal process started
+crs_audit: 2537 audit entr(ies) -> out/s26-attacks-v1-modsec-pl2/audit.jsonl
+warning: 41 audit entr(ies) could not be attributed to a sample id
+waf_block: 2444
+waf_pass: 226
+docs/logs/runs/s26-baseline/attacks-v1-modsec-pl2/audit.index.jsonl: 2537 entries
+   rule36 attacks-v1-modsec-pl2: control entries in the audit: pre 20/20, post 20/20; audit entries 2537 (2496 with a v1 sample id, 1 without a sample id)
+   result attacks-v1-modsec-pl2: n=2670 outcomes={'waf_block': 2444, 'waf_pass': 226}
+   result attacks-v1-modsec-pl2: status counts={200: 226, 403: 2444}
+== attacks-v1-modsec-pl2 done 2026-11-28T16:14:37Z load: load averages: 5.81 3.60 2.44
+== attacks-v1-coraza-pl2 rule29/28 2026-11-28T16:14:49Z load: load averages: 5.61 3.63 2.46
+   image: ghcr.io/coreruleset/coraza-crs:4.25.2-nginx-lts@sha256:bfbfe70b4445c1ef1dc389c2de12cfdb194c9616746c33dc8a7131461c28f4a6 id sha256:bfbfe70b4445c1ef1dc389c2de12cfdb194c9616746c33dc8a7131461c28f4a6 platform linux/arm64 repo digests ghcr.io/coreruleset/coraza-crs@sha256:bfbfe70b4445c1ef1dc389c2de12cfdb194c9616746c33dc8a7131461c28f4a6
+   env: E=On B=2 P=2 D=2 CT=[] body=[nofiles=131072 total=13107200]
+   crs-setup: tx.blocking_paranoia_level=2 tx.detection_paranoia_level=2 tx.crs_setup_version=4252
+   ruleset: ver:'OWASP_CRS/4.25.2 in /opt/coraza/owasp-crs/rules (27 .conf files)
+coraza_audit: 2484 audit entr(ies) -> out/s26-attacks-v1-coraza-pl2/audit.jsonl
+warning: 40 audit entr(ies) could not be attributed to a sample id
+waf_block: 2444
+waf_pass: 226
+docs/logs/runs/s26-baseline/attacks-v1-coraza-pl2/audit.index.jsonl: 2484 entries
+   rule36 attacks-v1-coraza-pl2: control entries in the audit: pre 20/20, post 20/20; audit entries 2484 (2444 with a v1 sample id, 0 without a sample id)
+   result attacks-v1-coraza-pl2: n=2670 outcomes={'waf_block': 2444, 'waf_pass': 226}
+   result attacks-v1-coraza-pl2: status counts={200: 226, 403: 2444}
+== attacks-v1-coraza-pl2 done 2026-11-28T16:15:08Z load: load averages: 6.03 3.84 2.56
+== load at end: load averages: 5.71 3.85 2.58
+S26-baseline-DONE
