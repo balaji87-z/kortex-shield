@@ -1,0 +1,62 @@
+{"sample_id": "wcp-dac8e6856ecd", "decision": "limit", "status": 413, "reason": "body-over-inspected-limit"}
+{"sample_id": "wcp-93fd2b577bc9", "decision": "limit", "status": 413, "reason": "body-over-inspected-limit"}
+{"sample_id": "wcp-527dd0f97e39", "decision": "limit", "status": 413, "reason": "body-over-inspected-limit"}
+{"sample_id": "wcp-04bde4103ec0", "decision": "content-encoding", "status": 415, "reason": "body with a Content-Encoding other than identity is not inspected and not forwarded"}
+{"sample_id": "wcp-42779db678e0", "decision": "content-encoding", "status": 415, "reason": "body with a Content-Encoding other than identity is not inspected and not forwarded"}
+{"sample_id": "wcp-8761ffdf312c", "decision": "content-encoding", "status": 415, "reason": "body with a Content-Encoding other than identity is not inspected and not forwarded"}
+{"sample_id": "wcp-f7fa1f74802c", "decision": "would_reject", "status": 0, "reason": "invalid-percent-sequence-in-query"}
+{"sample_id": "wcp-3cf36d0103da", "decision": "limit", "status": 413, "reason": "body-over-inspected-limit"}
+{"sample_id": "wcp-6a389d9290e8", "decision": "limit", "status": 413, "reason": "body-over-inspected-limit"}
+{"sample_id": "wcp-22be95a5317d", "decision": "limit", "status": 413, "reason": "body-over-inspected-limit"}
+{"sample_id": "wcp-96b9ef51be10", "decision": "limit", "status": 413, "reason": "body-over-inspected-limit"}
+{"sample_id": "wcp-db7f83c2da88", "decision": "limit", "status": 413, "reason": "body-over-inspected-limit"}
+{"sample_id": "wcp-4ff99580bb57", "decision": "limit", "status": 413, "reason": "body-over-inspected-limit"}
+{"sample_id": "wcp-34940e7ffce1", "decision": "limit", "status": 413, "reason": "body-over-inspected-limit"}
+{"sample_id": "wcp-80922154f132", "decision": "limit", "status": 413, "reason": "body-over-inspected-limit"}
+{"sample_id": "wcp-ad3399e805f1", "decision": "limit", "status": 413, "reason": "body-over-inspected-limit"}
+{"sample_id": "wcp-1140885081e1", "decision": "limit", "status": 413, "reason": "body-over-inspected-limit"}
+{"sample_id": "wcp-f83f7556fc66", "decision": "limit", "status": 413, "reason": "body-over-inspected-limit"}
+{"sample_id": "wcp-908ef72be103", "decision": "limit", "status": 413, "reason": "body-over-inspected-limit"}
+{"sample_id": "wcp-131fde29d621", "decision": "limit", "status": 413, "reason": "body-over-inspected-limit"}
+{"sample_id": "wcp-5b3f575b061d", "decision": "limit", "status": 413, "reason": "body-over-inspected-limit"}
+{"sample_id": "wcp-c5155c659149", "decision": "limit", "status": 413, "reason": "body-over-inspected-limit"}
+{"sample_id": "wcp-7dfe87a9dd28", "decision": "limit", "status": 413, "reason": "body-over-inspected-limit"}
+{"sample_id": "wcp-bf3ad3695dc3", "decision": "limit", "status": 413, "reason": "body-over-inspected-limit"}
+{"sample_id": "wcp-aa98de364e37", "decision": "limit", "status": 413, "reason": "body-over-inspected-limit"}
+{"sample_id": "wcp-96a594e2ae57", "decision": "content-encoding", "status": 415, "reason": "body with a Content-Encoding other than identity is not inspected and not forwarded"}
+{"sample_id": "wcp-b97c3d889503", "decision": "content-encoding", "status": 415, "reason": "body with a Content-Encoding other than identity is not inspected and not forwarded"}
+{"sample_id": "wcp-c7970d727861", "decision": "content-encoding", "status": 415, "reason": "body with a Content-Encoding other than identity is not inspected and not forwarded"}
+{"sample_id": "wcp-672911deadaa", "decision": "content-encoding", "status": 415, "reason": "body with a Content-Encoding other than identity is not inspected and not forwarded"}
+{"sample_id": "wcp-71461e371348", "decision": "content-encoding", "status": 415, "reason": "body with a Content-Encoding other than identity is not inspected and not forwarded"}
+{"sample_id": "wcp-ecb4508c31ad", "decision": "limit", "status": 413, "reason": "body-over-inspected-limit"}
+{"sample_id": "wcp-506f75d28c6a", "decision": "limit", "status": 413, "reason": "body-over-inspected-limit"}
+{"sample_id": "wcp-9b1dd568c479", "decision": "limit", "status": 413, "reason": "body-over-inspected-limit"}
+{"sample_id": "wcp-25c4aee82dba", "decision": "content-encoding", "status": 415, "reason": "body with a Content-Encoding other than identity is not inspected and not forwarded"}
+{"sample_id": "wcp-376b3b37ef12", "decision": "content-encoding", "status": 415, "reason": "body with a Content-Encoding other than identity is not inspected and not forwarded"}
+{"sample_id": "wcp-ef1d0324c278", "decision": "content-encoding", "status": 415, "reason": "body with a Content-Encoding other than identity is not inspected and not forwarded"}
+{"sample_id": "wcp-1d4cdb361884", "decision": "content-encoding", "status": 415, "reason": "body with a Content-Encoding other than identity is not inspected and not forwarded"}
+{"sample_id": "wcp-1805e98d2249", "decision": "content-encoding", "status": 415, "reason": "body with a Content-Encoding other than identity is not inspected and not forwarded"}
+{"sample_id": "wcp-4be3821497ed", "decision": "content-encoding", "status": 415, "reason": "body with a Content-Encoding other than identity is not inspected and not forwarded"}
+{"sample_id": "wcp-c7d5d3acf255", "decision": "limit", "status": 413, "reason": "body-over-inspected-limit"}
+{"sample_id": "wcp-b7a3c19e24e4", "decision": "would_reject", "status": 0, "reason": "compressed-body-without-content-encoding:zlib"}
+{"sample_id": "wcp-5a15e93aa658", "decision": "would_reject", "status": 0, "reason": "compressed-body-without-content-encoding:zlib"}
+{"sample_id": "wcp-21141072626c", "decision": "would_reject", "status": 0, "reason": "compressed-body-without-content-encoding:zlib"}
+{"sample_id": "wcp-a17b14bcd3da", "decision": "would_reject", "status": 0, "reason": "compressed-body-without-content-encoding:zlib"}
+{"sample_id": "wcp-09b2ce21bb5e", "decision": "would_reject", "status": 0, "reason": "compressed-body-without-content-encoding:zlib"}
+{"sample_id": "wcp-4da012d5b741", "decision": "would_reject", "status": 0, "reason": "compressed-body-without-content-encoding:zlib"}
+{"sample_id": "wcp-25cc50ea6560", "decision": "would_reject", "status": 0, "reason": "compressed-body-without-content-encoding:zlib"}
+{"sample_id": "wcp-ca4adc1b0a38", "decision": "would_reject", "status": 0, "reason": "compressed-body-without-content-encoding:zlib"}
+{"sample_id": "wcp-1a27304814ac", "decision": "content-encoding", "status": 415, "reason": "body with a Content-Encoding other than identity is not inspected and not forwarded"}
+{"sample_id": "wcp-e4da77289f94", "decision": "would_reject", "status": 0, "reason": "compressed-body-without-content-encoding:zlib"}
+{"sample_id": "wcp-2895d7e869c5", "decision": "content-encoding", "status": 415, "reason": "body with a Content-Encoding other than identity is not inspected and not forwarded"}
+{"sample_id": "wcp-3c71da0d0860", "decision": "content-encoding", "status": 415, "reason": "body with a Content-Encoding other than identity is not inspected and not forwarded"}
+{"sample_id": "wcp-fbd60b4a7657", "decision": "limit", "status": 413, "reason": "body-over-inspected-limit"}
+{"sample_id": "wcp-a4a6f9fb8303", "decision": "content-encoding", "status": 415, "reason": "body with a Content-Encoding other than identity is not inspected and not forwarded"}
+{"sample_id": "wcp-62b3375148b4", "decision": "content-encoding", "status": 415, "reason": "body with a Content-Encoding other than identity is not inspected and not forwarded"}
+{"sample_id": "wcp-8dc97426f4b3", "decision": "limit", "status": 413, "reason": "body-over-inspected-limit"}
+{"sample_id": "wcp-e20396380a7b", "decision": "would_reject", "status": 0, "reason": "compressed-body-without-content-encoding:zlib"}
+{"sample_id": "wcp-bfb276bfb528", "decision": "would_reject", "status": 0, "reason": "compressed-body-without-content-encoding:zlib"}
+{"sample_id": "wcp-722e3605db9b", "decision": "would_reject", "status": 0, "reason": "compressed-body-without-content-encoding:zlib"}
+{"sample_id": "wcp-8d8ff115d7a0", "decision": "would_reject", "status": 0, "reason": "compressed-body-without-content-encoding:zlib"}
+{"sample_id": "wcp-b3b048a4a59c", "decision": "would_reject", "status": 0, "reason": "compressed-body-without-content-encoding:zlib"}
+{"sample_id": "wcp-80a49c991b2d", "decision": "limit", "status": 413, "reason": "body-over-inspected-limit"}

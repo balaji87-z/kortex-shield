@@ -106,8 +106,9 @@ print(f"== reach outcomes: {dict(sorted(out.items()))}; statuses {dict(sorted(st
 PYEOF
   ;;
 engine)
-  LOG=docs/logs/step26-engine.txt; DUR=docs/logs/runs/s26-engine; mkdir -p out $DUR; : > $LOG
-  echo "# Step-26: attacks-v1 on the engine, blocking, PL1 and PL2, in-process and worker" | tee -a $LOG
+  # a later step runs the same thing again on its own engine: S26_ENGINE_LOG, S26_ENGINE_DUR, S26_ENGINE_STEP
+  LOG=${S26_ENGINE_LOG:-docs/logs/step26-engine.txt}; DUR=${S26_ENGINE_DUR:-docs/logs/runs/s26-engine}; mkdir -p out $DUR; : > $LOG
+  echo "# Step-${S26_ENGINE_STEP:-26}: attacks-v1 on the engine, blocking, PL1 and PL2, in-process and worker" | tee -a $LOG
   head_lines; frozen_manifest; free_stub_port
   echo "== coraza module of engine/: $(cd engine && go list -m github.com/corazawaf/coraza/v3)" | tee -a $LOG
   build_engine $LOG || exit 1

@@ -1,0 +1,326 @@
+# step-27: own datasets on the step-27 engine against the step-25 runs, per sample id (rule 32)
+# 2026-11-28T17:50:29Z git 70e6477dd29ef94e66d5909553d392e9d3394eea
+== attacks-v0 PL1 inprocess (a=step-25 b=step-27):
+# .venv/bin/python tools/step21_engine_diff.py docs/logs/runs/s25-own/attacks-v0-inprocess-pl1 docs/logs/runs/s27-own/attacks-v0-inprocess-pl1
+samples compared: 1054 (a=1054 b=1054 only-a=0 only-b=0)
+status counts a: {200: 100, 403: 954}
+status counts b: {200: 100, 403: 954}
+status diffs: 0
+no status in a (counted as error): 0
+no status in b (counted as error): 0
+worst-case set a: 954/1054 (error=0 blocked=954 deny_status=0 inconsistent=0 fail_closed_413=0 fail_closed_415=0 fail_closed_400=0 fail_closed_503_timeout=0 fail_closed_503_overload=0)
+worst-case set b: 954/1054 (error=0 blocked=954 deny_status=0 inconsistent=0 fail_closed_413=0 fail_closed_415=0 fail_closed_400=0 fail_closed_503_timeout=0 fail_closed_503_overload=0)
+worst-case set diffs: 0 (only-a 0 only-b 0)
+== attacks-v0 PL1 worker (a=step-25 b=step-27):
+# .venv/bin/python tools/step21_engine_diff.py docs/logs/runs/s25-own/attacks-v0-worker-pl1 docs/logs/runs/s27-own/attacks-v0-worker-pl1
+samples compared: 1054 (a=1054 b=1054 only-a=0 only-b=0)
+status counts a: {200: 100, 403: 954}
+status counts b: {200: 100, 403: 954}
+status diffs: 0
+no status in a (counted as error): 0
+no status in b (counted as error): 0
+worst-case set a: 954/1054 (error=0 blocked=954 deny_status=0 inconsistent=0 fail_closed_413=0 fail_closed_415=0 fail_closed_400=0 fail_closed_503_timeout=0 fail_closed_503_overload=0)
+worst-case set b: 954/1054 (error=0 blocked=954 deny_status=0 inconsistent=0 fail_closed_413=0 fail_closed_415=0 fail_closed_400=0 fail_closed_503_timeout=0 fail_closed_503_overload=0)
+worst-case set diffs: 0 (only-a 0 only-b 0)
+== attacks-v0 PL2 inprocess (a=step-25 b=step-27):
+# .venv/bin/python tools/step21_engine_diff.py docs/logs/runs/s25-own/attacks-v0-inprocess-pl2 docs/logs/runs/s27-own/attacks-v0-inprocess-pl2
+samples compared: 1054 (a=1054 b=1054 only-a=0 only-b=0)
+status counts a: {200: 30, 403: 1024}
+status counts b: {200: 30, 403: 1024}
+status diffs: 0
+no status in a (counted as error): 0
+no status in b (counted as error): 0
+worst-case set a: 1024/1054 (error=0 blocked=1024 deny_status=0 inconsistent=0 fail_closed_413=0 fail_closed_415=0 fail_closed_400=0 fail_closed_503_timeout=0 fail_closed_503_overload=0)
+worst-case set b: 1024/1054 (error=0 blocked=1024 deny_status=0 inconsistent=0 fail_closed_413=0 fail_closed_415=0 fail_closed_400=0 fail_closed_503_timeout=0 fail_closed_503_overload=0)
+worst-case set diffs: 0 (only-a 0 only-b 0)
+== attacks-v0 PL2 worker (a=step-25 b=step-27):
+# .venv/bin/python tools/step21_engine_diff.py docs/logs/runs/s25-own/attacks-v0-worker-pl2 docs/logs/runs/s27-own/attacks-v0-worker-pl2
+samples compared: 1054 (a=1054 b=1054 only-a=0 only-b=0)
+status counts a: {200: 30, 403: 1024}
+status counts b: {200: 30, 403: 1024}
+status diffs: 0
+no status in a (counted as error): 0
+no status in b (counted as error): 0
+worst-case set a: 1024/1054 (error=0 blocked=1024 deny_status=0 inconsistent=0 fail_closed_413=0 fail_closed_415=0 fail_closed_400=0 fail_closed_503_timeout=0 fail_closed_503_overload=0)
+worst-case set b: 1024/1054 (error=0 blocked=1024 deny_status=0 inconsistent=0 fail_closed_413=0 fail_closed_415=0 fail_closed_400=0 fail_closed_503_timeout=0 fail_closed_503_overload=0)
+worst-case set diffs: 0 (only-a 0 only-b 0)
+== attacks-ct-v0 PL1 inprocess (a=step-25 b=step-27):
+# .venv/bin/python tools/step21_engine_diff.py docs/logs/runs/s25-own/attacks-ct-v0-inprocess-pl1 docs/logs/runs/s27-own/attacks-ct-v0-inprocess-pl1
+samples compared: 320 (a=320 b=320 only-a=0 only-b=0)
+status counts a: {200: 28, 403: 292}
+status counts b: {200: 28, 403: 292}
+status diffs: 0
+no status in a (counted as error): 0
+no status in b (counted as error): 0
+worst-case set a: 292/320 (error=0 blocked=292 deny_status=0 inconsistent=0 fail_closed_413=0 fail_closed_415=0 fail_closed_400=0 fail_closed_503_timeout=0 fail_closed_503_overload=0)
+worst-case set b: 292/320 (error=0 blocked=292 deny_status=0 inconsistent=0 fail_closed_413=0 fail_closed_415=0 fail_closed_400=0 fail_closed_503_timeout=0 fail_closed_503_overload=0)
+worst-case set diffs: 0 (only-a 0 only-b 0)
+== attacks-ct-v0 PL1 worker (a=step-25 b=step-27):
+# .venv/bin/python tools/step21_engine_diff.py docs/logs/runs/s25-own/attacks-ct-v0-worker-pl1 docs/logs/runs/s27-own/attacks-ct-v0-worker-pl1
+samples compared: 320 (a=320 b=320 only-a=0 only-b=0)
+status counts a: {200: 28, 403: 292}
+status counts b: {200: 28, 403: 292}
+status diffs: 0
+no status in a (counted as error): 0
+no status in b (counted as error): 0
+worst-case set a: 292/320 (error=0 blocked=292 deny_status=0 inconsistent=0 fail_closed_413=0 fail_closed_415=0 fail_closed_400=0 fail_closed_503_timeout=0 fail_closed_503_overload=0)
+worst-case set b: 292/320 (error=0 blocked=292 deny_status=0 inconsistent=0 fail_closed_413=0 fail_closed_415=0 fail_closed_400=0 fail_closed_503_timeout=0 fail_closed_503_overload=0)
+worst-case set diffs: 0 (only-a 0 only-b 0)
+== attacks-ct-v0 PL2 inprocess (a=step-25 b=step-27):
+# .venv/bin/python tools/step21_engine_diff.py docs/logs/runs/s25-own/attacks-ct-v0-inprocess-pl2 docs/logs/runs/s27-own/attacks-ct-v0-inprocess-pl2
+samples compared: 320 (a=320 b=320 only-a=0 only-b=0)
+status counts a: {200: 7, 403: 313}
+status counts b: {200: 7, 403: 313}
+status diffs: 0
+no status in a (counted as error): 0
+no status in b (counted as error): 0
+worst-case set a: 313/320 (error=0 blocked=313 deny_status=0 inconsistent=0 fail_closed_413=0 fail_closed_415=0 fail_closed_400=0 fail_closed_503_timeout=0 fail_closed_503_overload=0)
+worst-case set b: 313/320 (error=0 blocked=313 deny_status=0 inconsistent=0 fail_closed_413=0 fail_closed_415=0 fail_closed_400=0 fail_closed_503_timeout=0 fail_closed_503_overload=0)
+worst-case set diffs: 0 (only-a 0 only-b 0)
+== attacks-ct-v0 PL2 worker (a=step-25 b=step-27):
+# .venv/bin/python tools/step21_engine_diff.py docs/logs/runs/s25-own/attacks-ct-v0-worker-pl2 docs/logs/runs/s27-own/attacks-ct-v0-worker-pl2
+samples compared: 320 (a=320 b=320 only-a=0 only-b=0)
+status counts a: {200: 7, 403: 313}
+status counts b: {200: 7, 403: 313}
+status diffs: 0
+no status in a (counted as error): 0
+no status in b (counted as error): 0
+worst-case set a: 313/320 (error=0 blocked=313 deny_status=0 inconsistent=0 fail_closed_413=0 fail_closed_415=0 fail_closed_400=0 fail_closed_503_timeout=0 fail_closed_503_overload=0)
+worst-case set b: 313/320 (error=0 blocked=313 deny_status=0 inconsistent=0 fail_closed_413=0 fail_closed_415=0 fail_closed_400=0 fail_closed_503_timeout=0 fail_closed_503_overload=0)
+worst-case set diffs: 0 (only-a 0 only-b 0)
+== encoding-diff-v0 PL1 inprocess (a=step-25 b=step-27):
+# .venv/bin/python tools/step21_engine_diff.py docs/logs/runs/s25-own/encoding-diff-v0-inprocess-pl1 docs/logs/runs/s27-own/encoding-diff-v0-inprocess-pl1
+samples compared: 192 (a=192 b=192 only-a=0 only-b=0)
+status counts a: {200: 45, 403: 137, None: 10}
+status counts b: {200: 45, 403: 137, None: 10}
+status diffs: 0
+no status in a (counted as error): 10
+  encd-query-plain-command-injection-029d9cca
+  encd-query-plain-command-injection-05bbe7a8
+  encd-query-plain-command-injection-227cb8a4
+  encd-query-plain-sqli-6e47f23b
+  encd-query-plain-sqli-8c187a93
+  encd-query-plain-sqli-a2035700
+  encd-query-plain-xss-369d0b75
+  encd-query-plain-xss-545d1ff8
+  encd-query-plain-xss-56083d09
+  encd-query-plain-xss-784791cd
+no status in b (counted as error): 10
+  encd-query-plain-command-injection-029d9cca
+  encd-query-plain-command-injection-05bbe7a8
+  encd-query-plain-command-injection-227cb8a4
+  encd-query-plain-sqli-6e47f23b
+  encd-query-plain-sqli-8c187a93
+  encd-query-plain-sqli-a2035700
+  encd-query-plain-xss-369d0b75
+  encd-query-plain-xss-545d1ff8
+  encd-query-plain-xss-56083d09
+  encd-query-plain-xss-784791cd
+worst-case set a: 147/192 (error=10 blocked=137 deny_status=0 inconsistent=0 fail_closed_413=0 fail_closed_415=0 fail_closed_400=0 fail_closed_503_timeout=0 fail_closed_503_overload=0)
+worst-case set b: 147/192 (error=10 blocked=137 deny_status=0 inconsistent=0 fail_closed_413=0 fail_closed_415=0 fail_closed_400=0 fail_closed_503_timeout=0 fail_closed_503_overload=0)
+worst-case set diffs: 0 (only-a 0 only-b 0)
+== encoding-diff-v0 PL1 worker (a=step-25 b=step-27):
+# .venv/bin/python tools/step21_engine_diff.py docs/logs/runs/s25-own/encoding-diff-v0-worker-pl1 docs/logs/runs/s27-own/encoding-diff-v0-worker-pl1
+samples compared: 192 (a=192 b=192 only-a=0 only-b=0)
+status counts a: {200: 45, 403: 137, None: 10}
+status counts b: {200: 45, 403: 137, None: 10}
+status diffs: 0
+no status in a (counted as error): 10
+  encd-query-plain-command-injection-029d9cca
+  encd-query-plain-command-injection-05bbe7a8
+  encd-query-plain-command-injection-227cb8a4
+  encd-query-plain-sqli-6e47f23b
+  encd-query-plain-sqli-8c187a93
+  encd-query-plain-sqli-a2035700
+  encd-query-plain-xss-369d0b75
+  encd-query-plain-xss-545d1ff8
+  encd-query-plain-xss-56083d09
+  encd-query-plain-xss-784791cd
+no status in b (counted as error): 10
+  encd-query-plain-command-injection-029d9cca
+  encd-query-plain-command-injection-05bbe7a8
+  encd-query-plain-command-injection-227cb8a4
+  encd-query-plain-sqli-6e47f23b
+  encd-query-plain-sqli-8c187a93
+  encd-query-plain-sqli-a2035700
+  encd-query-plain-xss-369d0b75
+  encd-query-plain-xss-545d1ff8
+  encd-query-plain-xss-56083d09
+  encd-query-plain-xss-784791cd
+worst-case set a: 147/192 (error=10 blocked=137 deny_status=0 inconsistent=0 fail_closed_413=0 fail_closed_415=0 fail_closed_400=0 fail_closed_503_timeout=0 fail_closed_503_overload=0)
+worst-case set b: 147/192 (error=10 blocked=137 deny_status=0 inconsistent=0 fail_closed_413=0 fail_closed_415=0 fail_closed_400=0 fail_closed_503_timeout=0 fail_closed_503_overload=0)
+worst-case set diffs: 0 (only-a 0 only-b 0)
+== encoding-diff-v0 PL2 inprocess (a=step-25 b=step-27):
+# .venv/bin/python tools/step21_engine_diff.py docs/logs/runs/s25-own/encoding-diff-v0-inprocess-pl2 docs/logs/runs/s27-own/encoding-diff-v0-inprocess-pl2
+samples compared: 192 (a=192 b=192 only-a=0 only-b=0)
+status counts a: {200: 35, 403: 147, None: 10}
+status counts b: {200: 35, 403: 147, None: 10}
+status diffs: 0
+no status in a (counted as error): 10
+  encd-query-plain-command-injection-029d9cca
+  encd-query-plain-command-injection-05bbe7a8
+  encd-query-plain-command-injection-227cb8a4
+  encd-query-plain-sqli-6e47f23b
+  encd-query-plain-sqli-8c187a93
+  encd-query-plain-sqli-a2035700
+  encd-query-plain-xss-369d0b75
+  encd-query-plain-xss-545d1ff8
+  encd-query-plain-xss-56083d09
+  encd-query-plain-xss-784791cd
+no status in b (counted as error): 10
+  encd-query-plain-command-injection-029d9cca
+  encd-query-plain-command-injection-05bbe7a8
+  encd-query-plain-command-injection-227cb8a4
+  encd-query-plain-sqli-6e47f23b
+  encd-query-plain-sqli-8c187a93
+  encd-query-plain-sqli-a2035700
+  encd-query-plain-xss-369d0b75
+  encd-query-plain-xss-545d1ff8
+  encd-query-plain-xss-56083d09
+  encd-query-plain-xss-784791cd
+worst-case set a: 157/192 (error=10 blocked=147 deny_status=0 inconsistent=0 fail_closed_413=0 fail_closed_415=0 fail_closed_400=0 fail_closed_503_timeout=0 fail_closed_503_overload=0)
+worst-case set b: 157/192 (error=10 blocked=147 deny_status=0 inconsistent=0 fail_closed_413=0 fail_closed_415=0 fail_closed_400=0 fail_closed_503_timeout=0 fail_closed_503_overload=0)
+worst-case set diffs: 0 (only-a 0 only-b 0)
+== encoding-diff-v0 PL2 worker (a=step-25 b=step-27):
+# .venv/bin/python tools/step21_engine_diff.py docs/logs/runs/s25-own/encoding-diff-v0-worker-pl2 docs/logs/runs/s27-own/encoding-diff-v0-worker-pl2
+samples compared: 192 (a=192 b=192 only-a=0 only-b=0)
+status counts a: {200: 35, 403: 147, None: 10}
+status counts b: {200: 35, 403: 147, None: 10}
+status diffs: 0
+no status in a (counted as error): 10
+  encd-query-plain-command-injection-029d9cca
+  encd-query-plain-command-injection-05bbe7a8
+  encd-query-plain-command-injection-227cb8a4
+  encd-query-plain-sqli-6e47f23b
+  encd-query-plain-sqli-8c187a93
+  encd-query-plain-sqli-a2035700
+  encd-query-plain-xss-369d0b75
+  encd-query-plain-xss-545d1ff8
+  encd-query-plain-xss-56083d09
+  encd-query-plain-xss-784791cd
+no status in b (counted as error): 10
+  encd-query-plain-command-injection-029d9cca
+  encd-query-plain-command-injection-05bbe7a8
+  encd-query-plain-command-injection-227cb8a4
+  encd-query-plain-sqli-6e47f23b
+  encd-query-plain-sqli-8c187a93
+  encd-query-plain-sqli-a2035700
+  encd-query-plain-xss-369d0b75
+  encd-query-plain-xss-545d1ff8
+  encd-query-plain-xss-56083d09
+  encd-query-plain-xss-784791cd
+worst-case set a: 157/192 (error=10 blocked=147 deny_status=0 inconsistent=0 fail_closed_413=0 fail_closed_415=0 fail_closed_400=0 fail_closed_503_timeout=0 fail_closed_503_overload=0)
+worst-case set b: 157/192 (error=10 blocked=147 deny_status=0 inconsistent=0 fail_closed_413=0 fail_closed_415=0 fail_closed_400=0 fail_closed_503_timeout=0 fail_closed_503_overload=0)
+worst-case set diffs: 0 (only-a 0 only-b 0)
+== benign-browse-v1 PL1 inprocess (a=step-25 b=step-27):
+# .venv/bin/python tools/step21_engine_diff.py docs/logs/runs/s25-own/benign-browse-v1-inprocess-pl1 docs/logs/runs/s27-own/benign-browse-v1-inprocess-pl1
+samples compared: 774 (a=774 b=774 only-a=0 only-b=0)
+status counts a: {200: 650, 403: 124}
+status counts b: {200: 650, 403: 124}
+status diffs: 0
+no status in a (counted as error): 0
+no status in b (counted as error): 0
+worst-case set a: 124/774 (error=0 blocked=124 deny_status=0 inconsistent=0 fail_closed_413=0 fail_closed_415=0 fail_closed_400=0 fail_closed_503_timeout=0 fail_closed_503_overload=0)
+worst-case set b: 124/774 (error=0 blocked=124 deny_status=0 inconsistent=0 fail_closed_413=0 fail_closed_415=0 fail_closed_400=0 fail_closed_503_timeout=0 fail_closed_503_overload=0)
+worst-case set diffs: 0 (only-a 0 only-b 0)
+== benign-browse-v1 PL1 worker (a=step-25 b=step-27):
+# .venv/bin/python tools/step21_engine_diff.py docs/logs/runs/s25-own/benign-browse-v1-worker-pl1 docs/logs/runs/s27-own/benign-browse-v1-worker-pl1
+samples compared: 774 (a=774 b=774 only-a=0 only-b=0)
+status counts a: {200: 650, 403: 124}
+status counts b: {200: 650, 403: 124}
+status diffs: 0
+no status in a (counted as error): 0
+no status in b (counted as error): 0
+worst-case set a: 124/774 (error=0 blocked=124 deny_status=0 inconsistent=0 fail_closed_413=0 fail_closed_415=0 fail_closed_400=0 fail_closed_503_timeout=0 fail_closed_503_overload=0)
+worst-case set b: 124/774 (error=0 blocked=124 deny_status=0 inconsistent=0 fail_closed_413=0 fail_closed_415=0 fail_closed_400=0 fail_closed_503_timeout=0 fail_closed_503_overload=0)
+worst-case set diffs: 0 (only-a 0 only-b 0)
+== benign-browse-v1 PL2 inprocess (a=step-25 b=step-27):
+# .venv/bin/python tools/step21_engine_diff.py docs/logs/runs/s25-own/benign-browse-v1-inprocess-pl2 docs/logs/runs/s27-own/benign-browse-v1-inprocess-pl2
+samples compared: 774 (a=774 b=774 only-a=0 only-b=0)
+status counts a: {200: 650, 403: 124}
+status counts b: {200: 650, 403: 124}
+status diffs: 0
+no status in a (counted as error): 0
+no status in b (counted as error): 0
+worst-case set a: 124/774 (error=0 blocked=124 deny_status=0 inconsistent=0 fail_closed_413=0 fail_closed_415=0 fail_closed_400=0 fail_closed_503_timeout=0 fail_closed_503_overload=0)
+worst-case set b: 124/774 (error=0 blocked=124 deny_status=0 inconsistent=0 fail_closed_413=0 fail_closed_415=0 fail_closed_400=0 fail_closed_503_timeout=0 fail_closed_503_overload=0)
+worst-case set diffs: 0 (only-a 0 only-b 0)
+== benign-browse-v1 PL2 worker (a=step-25 b=step-27):
+# .venv/bin/python tools/step21_engine_diff.py docs/logs/runs/s25-own/benign-browse-v1-worker-pl2 docs/logs/runs/s27-own/benign-browse-v1-worker-pl2
+samples compared: 774 (a=774 b=774 only-a=0 only-b=0)
+status counts a: {200: 650, 403: 124}
+status counts b: {200: 650, 403: 124}
+status diffs: 0
+no status in a (counted as error): 0
+no status in b (counted as error): 0
+worst-case set a: 124/774 (error=0 blocked=124 deny_status=0 inconsistent=0 fail_closed_413=0 fail_closed_415=0 fail_closed_400=0 fail_closed_503_timeout=0 fail_closed_503_overload=0)
+worst-case set b: 124/774 (error=0 blocked=124 deny_status=0 inconsistent=0 fail_closed_413=0 fail_closed_415=0 fail_closed_400=0 fail_closed_503_timeout=0 fail_closed_503_overload=0)
+worst-case set diffs: 0 (only-a 0 only-b 0)
+== benign-hard-v0 PL1 inprocess (a=step-25 b=step-27):
+# .venv/bin/python tools/step21_engine_diff.py docs/logs/runs/s25-own/benign-hard-v0-inprocess-pl1 docs/logs/runs/s27-own/benign-hard-v0-inprocess-pl1
+samples compared: 180 (a=180 b=180 only-a=0 only-b=0)
+status counts a: {200: 158, 403: 22}
+status counts b: {200: 158, 403: 22}
+status diffs: 0
+no status in a (counted as error): 0
+no status in b (counted as error): 0
+worst-case set a: 22/180 (error=0 blocked=22 deny_status=0 inconsistent=0 fail_closed_413=0 fail_closed_415=0 fail_closed_400=0 fail_closed_503_timeout=0 fail_closed_503_overload=0)
+worst-case set b: 22/180 (error=0 blocked=22 deny_status=0 inconsistent=0 fail_closed_413=0 fail_closed_415=0 fail_closed_400=0 fail_closed_503_timeout=0 fail_closed_503_overload=0)
+worst-case set diffs: 0 (only-a 0 only-b 0)
+== benign-hard-v0 PL1 worker (a=step-25 b=step-27):
+# .venv/bin/python tools/step21_engine_diff.py docs/logs/runs/s25-own/benign-hard-v0-worker-pl1 docs/logs/runs/s27-own/benign-hard-v0-worker-pl1
+samples compared: 180 (a=180 b=180 only-a=0 only-b=0)
+status counts a: {200: 158, 403: 22}
+status counts b: {200: 158, 403: 22}
+status diffs: 0
+no status in a (counted as error): 0
+no status in b (counted as error): 0
+worst-case set a: 22/180 (error=0 blocked=22 deny_status=0 inconsistent=0 fail_closed_413=0 fail_closed_415=0 fail_closed_400=0 fail_closed_503_timeout=0 fail_closed_503_overload=0)
+worst-case set b: 22/180 (error=0 blocked=22 deny_status=0 inconsistent=0 fail_closed_413=0 fail_closed_415=0 fail_closed_400=0 fail_closed_503_timeout=0 fail_closed_503_overload=0)
+worst-case set diffs: 0 (only-a 0 only-b 0)
+== benign-hard-v0 PL2 inprocess (a=step-25 b=step-27):
+# .venv/bin/python tools/step21_engine_diff.py docs/logs/runs/s25-own/benign-hard-v0-inprocess-pl2 docs/logs/runs/s27-own/benign-hard-v0-inprocess-pl2
+samples compared: 180 (a=180 b=180 only-a=0 only-b=0)
+status counts a: {200: 102, 403: 78}
+status counts b: {200: 102, 403: 78}
+status diffs: 0
+no status in a (counted as error): 0
+no status in b (counted as error): 0
+worst-case set a: 78/180 (error=0 blocked=78 deny_status=0 inconsistent=0 fail_closed_413=0 fail_closed_415=0 fail_closed_400=0 fail_closed_503_timeout=0 fail_closed_503_overload=0)
+worst-case set b: 78/180 (error=0 blocked=78 deny_status=0 inconsistent=0 fail_closed_413=0 fail_closed_415=0 fail_closed_400=0 fail_closed_503_timeout=0 fail_closed_503_overload=0)
+worst-case set diffs: 0 (only-a 0 only-b 0)
+== benign-hard-v0 PL2 worker (a=step-25 b=step-27):
+# .venv/bin/python tools/step21_engine_diff.py docs/logs/runs/s25-own/benign-hard-v0-worker-pl2 docs/logs/runs/s27-own/benign-hard-v0-worker-pl2
+samples compared: 180 (a=180 b=180 only-a=0 only-b=0)
+status counts a: {200: 102, 403: 78}
+status counts b: {200: 102, 403: 78}
+status diffs: 0
+no status in a (counted as error): 0
+no status in b (counted as error): 0
+worst-case set a: 78/180 (error=0 blocked=78 deny_status=0 inconsistent=0 fail_closed_413=0 fail_closed_415=0 fail_closed_400=0 fail_closed_503_timeout=0 fail_closed_503_overload=0)
+worst-case set b: 78/180 (error=0 blocked=78 deny_status=0 inconsistent=0 fail_closed_413=0 fail_closed_415=0 fail_closed_400=0 fail_closed_503_timeout=0 fail_closed_503_overload=0)
+worst-case set diffs: 0 (only-a 0 only-b 0)
+
+# rule-id sets per sample, step-25 runs (a) against step-27 runs (b)
+# .venv/bin/python tools/step25_ruleid_diff.py docs/logs/runs/s25-own docs/logs/runs/s27-own <20 runs>
+== attacks-v0-inprocess-pl1: samples with an audit entry a=954 b=954; rule-id set differs for 0; ids gained in b: none; ids lost in b: none
+== attacks-v0-worker-pl1: samples with an audit entry a=954 b=954; rule-id set differs for 0; ids gained in b: none; ids lost in b: none
+== attacks-v0-inprocess-pl2: samples with an audit entry a=1024 b=1024; rule-id set differs for 0; ids gained in b: none; ids lost in b: none
+== attacks-v0-worker-pl2: samples with an audit entry a=1024 b=1024; rule-id set differs for 0; ids gained in b: none; ids lost in b: none
+== attacks-ct-v0-inprocess-pl1: samples with an audit entry a=292 b=292; rule-id set differs for 0; ids gained in b: none; ids lost in b: none
+== attacks-ct-v0-worker-pl1: samples with an audit entry a=292 b=292; rule-id set differs for 0; ids gained in b: none; ids lost in b: none
+== attacks-ct-v0-inprocess-pl2: samples with an audit entry a=313 b=313; rule-id set differs for 0; ids gained in b: none; ids lost in b: none
+== attacks-ct-v0-worker-pl2: samples with an audit entry a=313 b=313; rule-id set differs for 0; ids gained in b: none; ids lost in b: none
+== encoding-diff-v0-inprocess-pl1: samples with an audit entry a=137 b=137; rule-id set differs for 0; ids gained in b: none; ids lost in b: none
+== encoding-diff-v0-worker-pl1: samples with an audit entry a=137 b=137; rule-id set differs for 0; ids gained in b: none; ids lost in b: none
+== encoding-diff-v0-inprocess-pl2: samples with an audit entry a=147 b=147; rule-id set differs for 0; ids gained in b: none; ids lost in b: none
+== encoding-diff-v0-worker-pl2: samples with an audit entry a=147 b=147; rule-id set differs for 0; ids gained in b: none; ids lost in b: none
+== benign-browse-v1-inprocess-pl1: samples with an audit entry a=124 b=124; rule-id set differs for 0; ids gained in b: none; ids lost in b: none
+== benign-browse-v1-worker-pl1: samples with an audit entry a=124 b=124; rule-id set differs for 0; ids gained in b: none; ids lost in b: none
+== benign-browse-v1-inprocess-pl2: samples with an audit entry a=124 b=124; rule-id set differs for 0; ids gained in b: none; ids lost in b: none
+== benign-browse-v1-worker-pl2: samples with an audit entry a=124 b=124; rule-id set differs for 0; ids gained in b: none; ids lost in b: none
+== benign-hard-v0-inprocess-pl1: samples with an audit entry a=22 b=22; rule-id set differs for 0; ids gained in b: none; ids lost in b: none
+== benign-hard-v0-worker-pl1: samples with an audit entry a=22 b=22; rule-id set differs for 0; ids gained in b: none; ids lost in b: none
+== benign-hard-v0-inprocess-pl2: samples with an audit entry a=78 b=78; rule-id set differs for 0; ids gained in b: none; ids lost in b: none
+== benign-hard-v0-worker-pl2: samples with an audit entry a=78 b=78; rule-id set differs for 0; ids gained in b: none; ids lost in b: none
+== total samples with a different rule-id set: 0

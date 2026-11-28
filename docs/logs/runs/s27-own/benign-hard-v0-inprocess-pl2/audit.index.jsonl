@@ -1,0 +1,78 @@
+{"sample_id": "hardben-6f9aafa4-q", "content_type": null, "body_bytes": 0, "status": 0, "rule_ids": ["932236", "949110"]}
+{"sample_id": "hardben-6f9aafa4-login", "content_type": "application/json", "body_bytes": 78, "status": 0, "rule_ids": ["932236", "949110"]}
+{"sample_id": "hardben-fab595a9-q", "content_type": null, "body_bytes": 0, "status": 0, "rule_ids": ["932236", "949110"]}
+{"sample_id": "hardben-fab595a9-login", "content_type": "application/json", "body_bytes": 62, "status": 0, "rule_ids": ["932236", "949110"]}
+{"sample_id": "hardben-1cf6dcc9-q", "content_type": null, "body_bytes": 0, "status": 0, "rule_ids": ["932236", "932260", "949110"]}
+{"sample_id": "hardben-1cf6dcc9-login", "content_type": "application/json", "body_bytes": 81, "status": 0, "rule_ids": ["932236", "932260", "949110"]}
+{"sample_id": "hardben-e32a908e-q", "content_type": null, "body_bytes": 0, "status": 0, "rule_ids": ["942131", "949110"]}
+{"sample_id": "hardben-e32a908e-login", "content_type": "application/json", "body_bytes": 60, "status": 0, "rule_ids": ["942131", "949110"]}
+{"sample_id": "hardben-d85ddaae-q", "content_type": null, "body_bytes": 0, "status": 0, "rule_ids": ["932236", "932260", "949110"]}
+{"sample_id": "hardben-d85ddaae-login", "content_type": "application/json", "body_bytes": 61, "status": 0, "rule_ids": ["932236", "932260", "949110"]}
+{"sample_id": "hardben-c0cd937c-q", "content_type": null, "body_bytes": 0, "status": 0, "rule_ids": ["942131", "949110"]}
+{"sample_id": "hardben-c0cd937c-login", "content_type": "application/json", "body_bytes": 80, "status": 0, "rule_ids": ["942131", "949110"]}
+{"sample_id": "hardben-e20f3562-q", "content_type": null, "body_bytes": 0, "status": 0, "rule_ids": ["942200", "949110"]}
+{"sample_id": "hardben-e20f3562-login", "content_type": "application/json", "body_bytes": 54, "status": 0, "rule_ids": ["942200", "949110"]}
+{"sample_id": "hardben-ac0c6b2e-q", "content_type": null, "body_bytes": 0, "status": 0, "rule_ids": ["932236", "949110"]}
+{"sample_id": "hardben-ac0c6b2e-login", "content_type": "application/json", "body_bytes": 76, "status": 0, "rule_ids": ["932236", "949110"]}
+{"sample_id": "hardben-6750b21f-q", "content_type": null, "body_bytes": 0, "status": 0, "rule_ids": ["932236", "949110"]}
+{"sample_id": "hardben-6750b21f-login", "content_type": "application/json", "body_bytes": 56, "status": 0, "rule_ids": ["932236", "949110"]}
+{"sample_id": "hardben-5f87ddd8-q", "content_type": null, "body_bytes": 0, "status": 0, "rule_ids": ["932240", "949110"]}
+{"sample_id": "hardben-5f87ddd8-login", "content_type": "application/json", "body_bytes": 46, "status": 0, "rule_ids": ["932240", "949110"]}
+{"sample_id": "hardben-658918e5-q", "content_type": null, "body_bytes": 0, "status": 0, "rule_ids": ["932240", "942440", "949110"]}
+{"sample_id": "hardben-658918e5-login", "content_type": "application/json", "body_bytes": 46, "status": 0, "rule_ids": ["932240", "942440", "949110"]}
+{"sample_id": "hardben-603febc6-q", "content_type": null, "body_bytes": 0, "status": 0, "rule_ids": ["932240", "949110"]}
+{"sample_id": "hardben-603febc6-login", "content_type": "application/json", "body_bytes": 52, "status": 0, "rule_ids": ["932240", "949110"]}
+{"sample_id": "hardben-dfafaa48-q", "content_type": null, "body_bytes": 0, "status": 0, "rule_ids": ["942131", "949110"]}
+{"sample_id": "hardben-dfafaa48-login", "content_type": "application/json", "body_bytes": 51, "status": 0, "rule_ids": ["942131", "949110"]}
+{"sample_id": "hardben-fa3a556e-q", "content_type": null, "body_bytes": 0, "status": 0, "rule_ids": ["931130", "932200", "949110"]}
+{"sample_id": "hardben-fa3a556e-login", "content_type": "application/json", "body_bytes": 91, "status": 0, "rule_ids": ["931130", "932200", "949110"]}
+{"sample_id": "hardben-5dae6e11-q", "content_type": null, "body_bytes": 0, "status": 0, "rule_ids": ["931130", "949110"]}
+{"sample_id": "hardben-5dae6e11-login", "content_type": "application/json", "body_bytes": 89, "status": 0, "rule_ids": ["931130", "949110"]}
+{"sample_id": "hardben-8e2de57c-q", "content_type": null, "body_bytes": 0, "status": 0, "rule_ids": ["931130", "934110", "949110"]}
+{"sample_id": "hardben-8e2de57c-login", "content_type": "application/json", "body_bytes": 85, "status": 0, "rule_ids": ["931130", "934110", "949110"]}
+{"sample_id": "hardben-b46c5622-q", "content_type": null, "body_bytes": 0, "status": 0, "rule_ids": ["931130", "932200", "949110"]}
+{"sample_id": "hardben-b46c5622-login", "content_type": "application/json", "body_bytes": 80, "status": 0, "rule_ids": ["931130", "932200", "949110"]}
+{"sample_id": "hardben-1874c61c-q", "content_type": null, "body_bytes": 0, "status": 0, "rule_ids": ["931130", "949110"]}
+{"sample_id": "hardben-1874c61c-login", "content_type": "application/json", "body_bytes": 94, "status": 0, "rule_ids": ["931130", "949110"]}
+{"sample_id": "hardben-a903d870-q", "content_type": null, "body_bytes": 0, "status": 0, "rule_ids": ["931130", "949110"]}
+{"sample_id": "hardben-a903d870-login", "content_type": "application/json", "body_bytes": 75, "status": 0, "rule_ids": ["931130", "949110"]}
+{"sample_id": "hardben-58108842-q", "content_type": null, "body_bytes": 0, "status": 0, "rule_ids": ["932236", "949110"]}
+{"sample_id": "hardben-58108842-login", "content_type": "application/json", "body_bytes": 79, "status": 0, "rule_ids": ["932236", "949110"]}
+{"sample_id": "hardben-c4667d69-q", "content_type": null, "body_bytes": 0, "status": 0, "rule_ids": ["931130", "949110"]}
+{"sample_id": "hardben-c4667d69-login", "content_type": "application/json", "body_bytes": 81, "status": 0, "rule_ids": ["931130", "949110"]}
+{"sample_id": "hardben-b825b4a0-q", "content_type": null, "body_bytes": 0, "status": 0, "rule_ids": ["932240", "942131", "942430", "949110"]}
+{"sample_id": "hardben-b825b4a0-login", "content_type": "application/json", "body_bytes": 110, "status": 0, "rule_ids": ["932240", "942131", "942430", "949110"]}
+{"sample_id": "hardben-373c3b22-q", "content_type": null, "body_bytes": 0, "status": 0, "rule_ids": ["942100", "942131", "942260", "942480", "949110"]}
+{"sample_id": "hardben-373c3b22-login", "content_type": "application/json", "body_bytes": 72, "status": 0, "rule_ids": ["942100", "942131", "942260", "942480", "949110"]}
+{"sample_id": "hardben-0dbf16f8-q", "content_type": null, "body_bytes": 0, "status": 0, "rule_ids": ["931130", "932236", "934110", "949110"]}
+{"sample_id": "hardben-0dbf16f8-login", "content_type": "application/json", "body_bytes": 97, "status": 0, "rule_ids": ["931130", "932236", "934110", "949110"]}
+{"sample_id": "hardben-783fe9f5-q", "content_type": null, "body_bytes": 0, "status": 0, "rule_ids": ["932236", "949110"]}
+{"sample_id": "hardben-783fe9f5-login", "content_type": "application/json", "body_bytes": 70, "status": 0, "rule_ids": ["932236", "949110"]}
+{"sample_id": "hardben-273b3ad4-q", "content_type": null, "body_bytes": 0, "status": 0, "rule_ids": ["932140", "942100", "942120", "942150", "942410", "942430", "949110"]}
+{"sample_id": "hardben-273b3ad4-login", "content_type": "application/json", "body_bytes": 94, "status": 0, "rule_ids": ["932140", "942100", "942120", "942150", "942410", "942430", "949110"]}
+{"sample_id": "hardben-fd4bf3eb-q", "content_type": null, "body_bytes": 0, "status": 0, "rule_ids": ["932236", "949110"]}
+{"sample_id": "hardben-fd4bf3eb-login", "content_type": "application/json", "body_bytes": 72, "status": 0, "rule_ids": ["932236", "949110"]}
+{"sample_id": "hardben-ac35b46d-q", "content_type": null, "body_bytes": 0, "status": 0, "rule_ids": ["942100", "942150", "942410", "949110"]}
+{"sample_id": "hardben-ac35b46d-login", "content_type": "application/json", "body_bytes": 83, "status": 0, "rule_ids": ["942100", "942150", "942410", "949110"]}
+{"sample_id": "hardben-b7f58b79-q", "content_type": null, "body_bytes": 0, "status": 0, "rule_ids": ["942130", "949110"]}
+{"sample_id": "hardben-b7f58b79-login", "content_type": "application/json", "body_bytes": 68, "status": 0, "rule_ids": ["942130", "949110"]}
+{"sample_id": "hardben-d1b724dd-q", "content_type": null, "body_bytes": 0, "status": 0, "rule_ids": ["942131", "942330", "949110"]}
+{"sample_id": "hardben-d1b724dd-login", "content_type": "application/json", "body_bytes": 71, "status": 0, "rule_ids": ["942131", "942330", "949110"]}
+{"sample_id": "hardben-5c420414-q", "content_type": null, "body_bytes": 0, "status": 0, "rule_ids": ["942440", "949110"]}
+{"sample_id": "hardben-5c420414-login", "content_type": "application/json", "body_bytes": 99, "status": 0, "rule_ids": ["942440", "949110"]}
+{"sample_id": "hardben-3513fbd1-q", "content_type": null, "body_bytes": 0, "status": 0, "rule_ids": ["932235", "932236", "949110"]}
+{"sample_id": "hardben-3513fbd1-login", "content_type": "application/json", "body_bytes": 72, "status": 0, "rule_ids": ["932235", "932236", "949110"]}
+{"sample_id": "hardben-dc997559-q", "content_type": null, "body_bytes": 0, "status": 0, "rule_ids": ["932236", "942440", "949110"]}
+{"sample_id": "hardben-dc997559-login", "content_type": "application/json", "body_bytes": 81, "status": 0, "rule_ids": ["932236", "942440", "949110"]}
+{"sample_id": "hardben-9b564fbd-q", "content_type": null, "body_bytes": 0, "status": 0, "rule_ids": ["930120", "932235", "932236", "932250", "932260", "949110"]}
+{"sample_id": "hardben-9b564fbd-login", "content_type": "application/json", "body_bytes": 58, "status": 0, "rule_ids": ["930120", "932235", "932236", "932250", "932260", "949110"]}
+{"sample_id": "hardben-cd78392e-q", "content_type": null, "body_bytes": 0, "status": 0, "rule_ids": ["932160", "932235", "932236", "932260", "932380", "942120", "942440", "949110"]}
+{"sample_id": "hardben-cd78392e-login", "content_type": "application/json", "body_bytes": 82, "status": 0, "rule_ids": ["932160", "932235", "932236", "932260", "932380", "942120", "942440", "949110"]}
+{"sample_id": "hardben-76cbcc86-q", "content_type": null, "body_bytes": 0, "status": 0, "rule_ids": ["932236", "949110"]}
+{"sample_id": "hardben-76cbcc86-login", "content_type": "application/json", "body_bytes": 67, "status": 0, "rule_ids": ["932236", "949110"]}
+{"sample_id": "hardben-e45aeda9-q", "content_type": null, "body_bytes": 0, "status": 0, "rule_ids": ["932236", "932260", "949110"]}
+{"sample_id": "hardben-e45aeda9-login", "content_type": "application/json", "body_bytes": 81, "status": 0, "rule_ids": ["932236", "932260", "949110"]}
+{"sample_id": "hardben-4c2e0675-q", "content_type": null, "body_bytes": 0, "status": 0, "rule_ids": ["942131", "949110"]}
+{"sample_id": "hardben-4c2e0675-login", "content_type": "application/json", "body_bytes": 70, "status": 0, "rule_ids": ["942131", "949110"]}
+{"sample_id": "hardben-e73124c5-q", "content_type": null, "body_bytes": 0, "status": 0, "rule_ids": ["932236", "949110"]}
+{"sample_id": "hardben-e73124c5-login", "content_type": "application/json", "body_bytes": 83, "status": 0, "rule_ids": ["932236", "949110"]}

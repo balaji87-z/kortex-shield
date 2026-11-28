@@ -1,0 +1,114 @@
+# step-27: classes of the final differential run and of the DIAGNOSTIC run with KORTEX_XML_ATTR_INSPECT=on; 2026-11-28T17:30:32Z
+# .venv/bin/python tools/step27_diff_classes.py docs/logs/runs/s27-parsing-diff/pl1/results.jsonl docs/logs/runs/s27-parsing-diff/pl2/results.jsonl docs/logs/runs/s27-parsing-diff-DIAGNOSTIC-xml-attr-inspect/pl1/results.jsonl docs/logs/runs/s27-parsing-diff-DIAGNOSTIC-xml-attr-inspect/pl2/results.jsonl
+== docs/logs/runs/s27-parsing-diff/pl1/results.jsonl: 158 cases
+   go: canary-in-file-part 1, canary-reaches-parser 1, engine-refuses-backend-accepts 93
+   node: engine-forwards-backend-refuses 9, engine-refuses-backend-accepts 91, view-differs 1
+   python: canary-in-file-part 1, canary-reaches-parser 1, engine-refuses-backend-accepts 122, view-differs 4
+   rows in a class other than engine-refuses-backend-accepts:
+      cl-trailing-tab [content-length] node: engine-forwards-backend-refuses: backend alone answers 400
+      cl-obs-fold [content-length] node: engine-forwards-backend-refuses: backend alone answers 400
+      cl-short-body [content-length] node: engine-forwards-backend-refuses: backend alone answers 400
+      te-control [transfer-encoding] python: view-differs: body_len: through engine 5, direct 0; body_sha256
+      te-case [transfer-encoding] python: view-differs: body_len: through engine 5, direct 0; body_sha256
+      te-chunk-ext [transfer-encoding] python: view-differs: body_len: through engine 5, direct 0; body_sha256
+      ovl-path-raw [overlong] node: engine-forwards-backend-refuses: backend alone answers 400
+      blf-all-lf [bare-lf] node: engine-forwards-backend-refuses: backend alone answers 400
+      blf-blank-only [bare-lf] node: engine-forwards-backend-refuses: backend alone answers 400
+      blf-crlf-blank [bare-lf] node: engine-forwards-backend-refuses: backend alone answers 400
+      blf-body [bare-lf] node: engine-forwards-backend-refuses: backend alone answers 400
+      reuse-get-smuggle [conn-reuse] node: engine-forwards-backend-refuses: backend alone answers 400
+      host-absolute-diff [host] node: view-differs: path_decoded: through engine '/x', direct 'http://other.example/x'
+      host-absolute-diff [host] python: view-differs: path_decoded: through engine '/x', direct 'http://other.example/x'
+      mp-filename [multipart] go: canary-in-file-part: the canary is the content of a file part
+      mp-filename [multipart] python: canary-in-file-part: the canary is the content of a file part
+      xml-attr [xml] go: canary-reaches-parser: the backend's xml parser yields the canary
+      xml-attr [xml] python: canary-reaches-parser: the backend's xml parser yields the canary
+   two requests in one write (second-request-served means more than one answer or a pass event for the second):
+      reuse-get-get: go status 200, answers 1, second passed on False, node status 200, answers 1, second passed on False, python status 200, answers 1, second passed on False
+      reuse-get-smuggle: go status 200, answers 1, second passed on False, node status 200, answers 1, second passed on False, python status 200, answers 1, second passed on False
+      reuse-post-cl: go status 200, answers 1, second passed on False, node status 200, answers 1, second passed on False, python status 200, answers 1, second passed on False
+      reuse-keepalive: go status 200, answers 1, second passed on False, node status 200, answers 1, second passed on False, python status 200, answers 1, second passed on False
+   second-request-served: 0 cases
+== docs/logs/runs/s27-parsing-diff/pl2/results.jsonl: 158 cases
+   go: canary-in-file-part 1, canary-reaches-parser 1, engine-refuses-backend-accepts 93
+   node: engine-forwards-backend-refuses 9, engine-refuses-backend-accepts 91, view-differs 1
+   python: canary-in-file-part 1, canary-reaches-parser 1, engine-refuses-backend-accepts 122, view-differs 4
+   rows in a class other than engine-refuses-backend-accepts:
+      cl-trailing-tab [content-length] node: engine-forwards-backend-refuses: backend alone answers 400
+      cl-obs-fold [content-length] node: engine-forwards-backend-refuses: backend alone answers 400
+      cl-short-body [content-length] node: engine-forwards-backend-refuses: backend alone answers 400
+      te-control [transfer-encoding] python: view-differs: body_len: through engine 5, direct 0; body_sha256
+      te-case [transfer-encoding] python: view-differs: body_len: through engine 5, direct 0; body_sha256
+      te-chunk-ext [transfer-encoding] python: view-differs: body_len: through engine 5, direct 0; body_sha256
+      ovl-path-raw [overlong] node: engine-forwards-backend-refuses: backend alone answers 400
+      blf-all-lf [bare-lf] node: engine-forwards-backend-refuses: backend alone answers 400
+      blf-blank-only [bare-lf] node: engine-forwards-backend-refuses: backend alone answers 400
+      blf-crlf-blank [bare-lf] node: engine-forwards-backend-refuses: backend alone answers 400
+      blf-body [bare-lf] node: engine-forwards-backend-refuses: backend alone answers 400
+      reuse-get-smuggle [conn-reuse] node: engine-forwards-backend-refuses: backend alone answers 400
+      host-absolute-diff [host] node: view-differs: path_decoded: through engine '/x', direct 'http://other.example/x'
+      host-absolute-diff [host] python: view-differs: path_decoded: through engine '/x', direct 'http://other.example/x'
+      mp-filename [multipart] go: canary-in-file-part: the canary is the content of a file part
+      mp-filename [multipart] python: canary-in-file-part: the canary is the content of a file part
+      xml-attr [xml] go: canary-reaches-parser: the backend's xml parser yields the canary
+      xml-attr [xml] python: canary-reaches-parser: the backend's xml parser yields the canary
+   two requests in one write (second-request-served means more than one answer or a pass event for the second):
+      reuse-get-get: go status 200, answers 1, second passed on False, node status 200, answers 1, second passed on False, python status 200, answers 1, second passed on False
+      reuse-get-smuggle: go status 200, answers 1, second passed on False, node status 200, answers 1, second passed on False, python status 200, answers 1, second passed on False
+      reuse-post-cl: go status 200, answers 1, second passed on False, node status 200, answers 1, second passed on False, python status 200, answers 1, second passed on False
+      reuse-keepalive: go status 200, answers 1, second passed on False, node status 200, answers 1, second passed on False, python status 200, answers 1, second passed on False
+   second-request-served: 0 cases
+== docs/logs/runs/s27-parsing-diff-DIAGNOSTIC-xml-attr-inspect/pl1/results.jsonl: 158 cases
+   go: canary-in-file-part 1, engine-refuses-backend-accepts 94
+   node: engine-forwards-backend-refuses 9, engine-refuses-backend-accepts 92, view-differs 1
+   python: canary-in-file-part 1, engine-refuses-backend-accepts 123, view-differs 4
+   rows in a class other than engine-refuses-backend-accepts:
+      cl-trailing-tab [content-length] node: engine-forwards-backend-refuses: backend alone answers 400
+      cl-obs-fold [content-length] node: engine-forwards-backend-refuses: backend alone answers 400
+      cl-short-body [content-length] node: engine-forwards-backend-refuses: backend alone answers 400
+      te-control [transfer-encoding] python: view-differs: body_len: through engine 5, direct 0; body_sha256
+      te-case [transfer-encoding] python: view-differs: body_len: through engine 5, direct 0; body_sha256
+      te-chunk-ext [transfer-encoding] python: view-differs: body_len: through engine 5, direct 0; body_sha256
+      ovl-path-raw [overlong] node: engine-forwards-backend-refuses: backend alone answers 400
+      blf-all-lf [bare-lf] node: engine-forwards-backend-refuses: backend alone answers 400
+      blf-blank-only [bare-lf] node: engine-forwards-backend-refuses: backend alone answers 400
+      blf-crlf-blank [bare-lf] node: engine-forwards-backend-refuses: backend alone answers 400
+      blf-body [bare-lf] node: engine-forwards-backend-refuses: backend alone answers 400
+      reuse-get-smuggle [conn-reuse] node: engine-forwards-backend-refuses: backend alone answers 400
+      host-absolute-diff [host] node: view-differs: path_decoded: through engine '/x', direct 'http://other.example/x'
+      host-absolute-diff [host] python: view-differs: path_decoded: through engine '/x', direct 'http://other.example/x'
+      mp-filename [multipart] go: canary-in-file-part: the canary is the content of a file part
+      mp-filename [multipart] python: canary-in-file-part: the canary is the content of a file part
+   two requests in one write (second-request-served means more than one answer or a pass event for the second):
+      reuse-get-get: go status 200, answers 1, second passed on False, node status 200, answers 1, second passed on False, python status 200, answers 1, second passed on False
+      reuse-get-smuggle: go status 200, answers 1, second passed on False, node status 200, answers 1, second passed on False, python status 200, answers 1, second passed on False
+      reuse-post-cl: go status 200, answers 1, second passed on False, node status 200, answers 1, second passed on False, python status 200, answers 1, second passed on False
+      reuse-keepalive: go status 200, answers 1, second passed on False, node status 200, answers 1, second passed on False, python status 200, answers 1, second passed on False
+   second-request-served: 0 cases
+== docs/logs/runs/s27-parsing-diff-DIAGNOSTIC-xml-attr-inspect/pl2/results.jsonl: 158 cases
+   go: canary-in-file-part 1, engine-refuses-backend-accepts 94
+   node: engine-forwards-backend-refuses 9, engine-refuses-backend-accepts 92, view-differs 1
+   python: canary-in-file-part 1, engine-refuses-backend-accepts 123, view-differs 4
+   rows in a class other than engine-refuses-backend-accepts:
+      cl-trailing-tab [content-length] node: engine-forwards-backend-refuses: backend alone answers 400
+      cl-obs-fold [content-length] node: engine-forwards-backend-refuses: backend alone answers 400
+      cl-short-body [content-length] node: engine-forwards-backend-refuses: backend alone answers 400
+      te-control [transfer-encoding] python: view-differs: body_len: through engine 5, direct 0; body_sha256
+      te-case [transfer-encoding] python: view-differs: body_len: through engine 5, direct 0; body_sha256
+      te-chunk-ext [transfer-encoding] python: view-differs: body_len: through engine 5, direct 0; body_sha256
+      ovl-path-raw [overlong] node: engine-forwards-backend-refuses: backend alone answers 400
+      blf-all-lf [bare-lf] node: engine-forwards-backend-refuses: backend alone answers 400
+      blf-blank-only [bare-lf] node: engine-forwards-backend-refuses: backend alone answers 400
+      blf-crlf-blank [bare-lf] node: engine-forwards-backend-refuses: backend alone answers 400
+      blf-body [bare-lf] node: engine-forwards-backend-refuses: backend alone answers 400
+      reuse-get-smuggle [conn-reuse] node: engine-forwards-backend-refuses: backend alone answers 400
+      host-absolute-diff [host] node: view-differs: path_decoded: through engine '/x', direct 'http://other.example/x'
+      host-absolute-diff [host] python: view-differs: path_decoded: through engine '/x', direct 'http://other.example/x'
+      mp-filename [multipart] go: canary-in-file-part: the canary is the content of a file part
+      mp-filename [multipart] python: canary-in-file-part: the canary is the content of a file part
+   two requests in one write (second-request-served means more than one answer or a pass event for the second):
+      reuse-get-get: go status 200, answers 1, second passed on False, node status 200, answers 1, second passed on False, python status 200, answers 1, second passed on False
+      reuse-get-smuggle: go status 200, answers 1, second passed on False, node status 200, answers 1, second passed on False, python status 200, answers 1, second passed on False
+      reuse-post-cl: go status 200, answers 1, second passed on False, node status 200, answers 1, second passed on False, python status 200, answers 1, second passed on False
+      reuse-keepalive: go status 200, answers 1, second passed on False, node status 200, answers 1, second passed on False, python status 200, answers 1, second passed on False
+   second-request-served: 0 cases

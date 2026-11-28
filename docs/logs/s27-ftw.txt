@@ -1,0 +1,41 @@
+# Step-25: CRS v4.25.2 regression suite, runs: engine-strict engine-worker
+== 2026-11-28T17:51:00Z, macOS 27.0 Darwin 27.0.0 arm64, go version go1.27.4 darwin/arm64, load at start: load averages: 3.93 3.57 3.52
+== git 70e6477dd29ef94e66d5909553d392e9d3394eea, tracked paths changed in the working tree: 16
+== fetch: tarball sha256 a3ecf5d5b0f8001e2eaf2006448fc8e22d6b645d7fc1c71268be5b99a7395a2d ok
+== fetch: test files: 320 yaml, listing sha256 aec74fa450ee0b5f97d8a5e8edabeea06d0b78eaa7d3eebd6e0b85b137472e25 ok
+== fetch: coraza-overrides.yaml sha256 58c2ae7ad6412a71c9d4c61877ee7f210478ec3b0c15c07159196387cc0655ec ok
+== fetch: rules: identical to engine/crs/owasp-crs/rules
+== fetch: out/step25/bin210/go-ftw sha256 92f0db0de0665849866201fe9f337cf454105b35cb69c3fbe42d8535f7964652 github.com/coreruleset/go-ftw/v2 v2.1.0 h1:IGY5b8NI+1BWyrdoE8k0kpofgUtSQnMN/7b8yfB7E+4=
+== fetch: out/step25/bin/go-ftw sha256 9e592dc5df571a2d1899af36563ab0a4d53d62882da13d8a2b77d935b34fe59a github.com/coreruleset/go-ftw/v2 v2.7.0 h1:Zhq+RE83Nr8YH1DvjXMfyntrQryQNtzDxQ+AF4s7fCQ=
+== fetch: out/step25/bin/albedo sha256 f5c26773dfede739ff98845c9fe07915f5e6e8050acd1825b4f84818c5d973c7 github.com/coreruleset/albedo v0.3.0 h1:GC0CbI8/qzzBbiP95z7A+58pjlN8P5jheVrUwEfzRfQ=
+== rules set hash file engine/RULES.sha256: 7c55eb4938e6282d11e96ce431babefd6a076461a462dea9e4a9f3a1f16333d7
+== engine binary sha256 a06189399ae4eeb5fa9510837576ce6cd26af2701ed56151b9dcd419b50fd1a7, coraza module: github.com/corazawaf/coraza/v3 v3.8.1 => ./third_party/coraza-v3.8.1-kortex
+vendor check: OK
+
+## run engine-strict: engine, in-process, no overrides
+== engine-strict rule29 2026-11-28T17:51:02Z load: load averages: 3.93 3.57 3.52: {"backend_url":"http://127.0.0.1:13025","rule_engine":"DetectionOnly","blocking_paranoia":4,"detection_paranoia":4,"max_body_bytes":13107200,"max_inspected_bytes":131072,"engine_time_budget_ms":2000,"rules_dir":"/Users/ivan/work/kortex-shield-next/engine/crs","listen_addr":"127.0.0.1:18025","events_file":"/Users/ivan/work/kortex-shield-next/out/step25/runs/s27-ftw-engine-strict/events.jsonl","audit_log":"/Users/ivan/work/kortex-shield-next/out/step25/runs/s27-ftw-engine-strict/audit.log","allowed_methods":"GET HEAD POST OPTIONS","max_inflight_body":8,"max_inflight_body_large":2,"body_lane_threshold":65536,"worker_mode":false,"client_max_inflight":0,"client_max_inflight_small":4,"client_max_inflight_large":1,"request_body_target_updates":165,"error_log":"/Users/ivan/work/kortex-shield-next/out/step25/runs/s27-ftw-engine-strict/error.log","crs_test_setup":true,"head_timeout_ms":30000,"max_pending_heads":256,"xml_attr_inspect":false}
+== engine-strict engine binary sha256 a06189399ae4eeb5fa9510837576ce6cd26af2701ed56151b9dcd419b50fd1a7
+== engine-strict go-ftw: out/step25/bin210/go-ftw (v2.1.0, sha256 92f0db0de0665849866201fe9f337cf454105b35cb69c3fbe42d8535f7964652); overrides: none
+== engine-strict command: go-ftw run --config /Users/ivan/work/kortex-shield-next/out/step25/runs/s27-ftw-engine-strict/.ftw.yaml -d data/external/crs-v4.25.2/coreruleset-4.25.2/tests/regression/tests -o json --report-triggered-rules --read-timeout 10s
+== engine-strict attempt 1: go-ftw aborted (exit 1, 'Error: retry-once') at test 959100-1, which failed twice; counted as failed, excluded, run restarted
+== engine-strict attempt 2: go-ftw aborted (exit 1, 'Error: retry-once') at test 959100-3, which failed twice; counted as failed, excluded, run restarted
+== engine-strict go-ftw exit status 1 after 3 attempt(s), 27 s, exclude option: -e ^(959100-1|959100-3)$, stderr lines 1, load at end: load averages: 3.56 3.53 3.51
+== engine-strict error log: 37970 lines, 26061819 bytes, sha256 b32f6acc1763333f1064a3a72b69ecb4f398ee8e12ad3679bb4f11199def573a (out/step25/runs/s27-ftw-engine-strict/error.log, not committed)
+== engine-strict: tests listed 4987, run 4987, passed 4862, failed 125, ignored 0, skipped 0, forced-pass 0, forced-fail 0; pass rate (denominator: every test go-ftw lists as run, the ones that stopped it included) 4862/4987 = 97.49%; 2 of the failed tests stopped go-ftw (retry_once, failed twice) and were excluded from the restart: 959100-1 959100-3
+== failed by rule file prefix: 901: 4, 920: 25, 922: 3, 932: 4, 942: 11, 950: 9, 951: 20, 952: 9, 953: 9, 954: 7, 955: 10, 956: 12, 959: 2
+== engine events by decision: framing 23, pass 14950, would_reject 30
+
+## run engine-worker: engine, worker mode, no overrides
+== engine-worker rule29 2026-11-28T17:51:30Z load: load averages: 3.56 3.53 3.51: {"backend_url":"http://127.0.0.1:13025","rule_engine":"DetectionOnly","blocking_paranoia":4,"detection_paranoia":4,"max_body_bytes":13107200,"max_inspected_bytes":131072,"engine_time_budget_ms":2000,"rules_dir":"/Users/ivan/work/kortex-shield-next/engine/crs","listen_addr":"127.0.0.1:18025","events_file":"/Users/ivan/work/kortex-shield-next/out/step25/runs/s27-ftw-engine-worker/events.jsonl","audit_log":"/Users/ivan/work/kortex-shield-next/out/step25/runs/s27-ftw-engine-worker/audit.log","allowed_methods":"GET HEAD POST OPTIONS","max_inflight_body":8,"max_inflight_body_large":2,"body_lane_threshold":65536,"worker_mode":true,"client_max_inflight":0,"client_max_inflight_small":4,"client_max_inflight_large":1,"request_body_target_updates":165,"error_log":"/Users/ivan/work/kortex-shield-next/out/step25/runs/s27-ftw-engine-worker/error.log","crs_test_setup":true,"head_timeout_ms":30000,"max_pending_heads":256,"xml_attr_inspect":false}
+== engine-worker engine binary sha256 a06189399ae4eeb5fa9510837576ce6cd26af2701ed56151b9dcd419b50fd1a7
+== engine-worker go-ftw: out/step25/bin210/go-ftw (v2.1.0, sha256 92f0db0de0665849866201fe9f337cf454105b35cb69c3fbe42d8535f7964652); overrides: none
+== engine-worker command: go-ftw run --config /Users/ivan/work/kortex-shield-next/out/step25/runs/s27-ftw-engine-worker/.ftw.yaml -d data/external/crs-v4.25.2/coreruleset-4.25.2/tests/regression/tests -o json --report-triggered-rules --read-timeout 10s
+== engine-worker attempt 1: go-ftw aborted (exit 1, 'Error: retry-once') at test 959100-1, which failed twice; counted as failed, excluded, run restarted
+== engine-worker attempt 2: go-ftw aborted (exit 1, 'Error: retry-once') at test 959100-3, which failed twice; counted as failed, excluded, run restarted
+== engine-worker go-ftw exit status 1 after 3 attempt(s), 28 s, exclude option: -e ^(959100-1|959100-3)$, stderr lines 1, load at end: load averages: 3.37 3.48 3.49
+== engine-worker error log: 38274 lines, 26257277 bytes, sha256 4c56c1de7b2123649ae534171cf12fa6e32d442cced6e58f517a1b85365e5599 (out/step25/runs/s27-ftw-engine-worker/error.log, not committed)
+== engine-worker: tests listed 4987, run 4987, passed 4862, failed 125, ignored 0, skipped 0, forced-pass 0, forced-fail 0; pass rate (denominator: every test go-ftw lists as run, the ones that stopped it included) 4862/4987 = 97.49%; 2 of the failed tests stopped go-ftw (retry_once, failed twice) and were excluded from the restart: 959100-1 959100-3
+== failed by rule file prefix: 901: 4, 920: 25, 922: 3, 932: 4, 942: 11, 950: 9, 951: 20, 952: 9, 953: 9, 954: 7, 955: 10, 956: 12, 959: 2
+== engine events by decision: framing 23, pass 14950, would_reject 30
+
+== done 2026-11-28T17:52:00Z, load: load averages: 3.37 3.48 3.49

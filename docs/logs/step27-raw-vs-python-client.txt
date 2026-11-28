@@ -1,5 +1,5 @@
 # step-27 T2: encoding-diff-v0, the Python client's runs (a, step-27 engine, docs/logs/runs/s27-own) against the raw-socket runner's runs (b, docs/logs/runs/s27-raw), per sample id
-# 2026-11-28T16:47:34Z git 366a086767db06ed8b3fc2747e41fabe9266e975
+# 2026-11-28T17:50:29Z git 70e6477dd29ef94e66d5909553d392e9d3394eea
 == encoding-diff-v0 PL1 inprocess (a=Python client b=raw runner):
 # .venv/bin/python tools/step21_engine_diff.py docs/logs/runs/s27-own/encoding-diff-v0-inprocess-pl1 docs/logs/runs/s27-raw/encoding-diff-v0-raw-inprocess-pl1
 samples compared: 192 (a=192 b=192 only-a=0 only-b=0)

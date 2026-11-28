@@ -1,0 +1,53 @@
+# step-27: attacks-v1 on the step-27 engine against the step-26 runs, per sample id (rule 32)
+# 2026-11-28T17:51:00Z git 70e6477dd29ef94e66d5909553d392e9d3394eea
+== attacks-v1-inprocess-pl1 (a=step-26 b=step-27):
+# .venv/bin/python tools/step21_engine_diff.py docs/logs/runs/s26-engine/attacks-v1-inprocess-pl1 docs/logs/runs/s27-attacks-v1/attacks-v1-inprocess-pl1
+samples compared: 2670 (a=2670 b=2670 only-a=0 only-b=0)
+status counts a: {200: 456, 403: 2214}
+status counts b: {200: 456, 403: 2214}
+status diffs: 0
+no status in a (counted as error): 0
+no status in b (counted as error): 0
+worst-case set a: 2214/2670 (error=0 blocked=2214 deny_status=0 inconsistent=0 fail_closed_413=0 fail_closed_415=0 fail_closed_400=0 fail_closed_503_timeout=0 fail_closed_503_overload=0)
+worst-case set b: 2214/2670 (error=0 blocked=2214 deny_status=0 inconsistent=0 fail_closed_413=0 fail_closed_415=0 fail_closed_400=0 fail_closed_503_timeout=0 fail_closed_503_overload=0)
+worst-case set diffs: 0 (only-a 0 only-b 0)
+== attacks-v1-worker-pl1 (a=step-26 b=step-27):
+# .venv/bin/python tools/step21_engine_diff.py docs/logs/runs/s26-engine/attacks-v1-worker-pl1 docs/logs/runs/s27-attacks-v1/attacks-v1-worker-pl1
+samples compared: 2670 (a=2670 b=2670 only-a=0 only-b=0)
+status counts a: {200: 456, 403: 2214}
+status counts b: {200: 456, 403: 2214}
+status diffs: 0
+no status in a (counted as error): 0
+no status in b (counted as error): 0
+worst-case set a: 2214/2670 (error=0 blocked=2214 deny_status=0 inconsistent=0 fail_closed_413=0 fail_closed_415=0 fail_closed_400=0 fail_closed_503_timeout=0 fail_closed_503_overload=0)
+worst-case set b: 2214/2670 (error=0 blocked=2214 deny_status=0 inconsistent=0 fail_closed_413=0 fail_closed_415=0 fail_closed_400=0 fail_closed_503_timeout=0 fail_closed_503_overload=0)
+worst-case set diffs: 0 (only-a 0 only-b 0)
+== attacks-v1-inprocess-pl2 (a=step-26 b=step-27):
+# .venv/bin/python tools/step21_engine_diff.py docs/logs/runs/s26-engine/attacks-v1-inprocess-pl2 docs/logs/runs/s27-attacks-v1/attacks-v1-inprocess-pl2
+samples compared: 2670 (a=2670 b=2670 only-a=0 only-b=0)
+status counts a: {200: 226, 403: 2444}
+status counts b: {200: 226, 403: 2444}
+status diffs: 0
+no status in a (counted as error): 0
+no status in b (counted as error): 0
+worst-case set a: 2444/2670 (error=0 blocked=2444 deny_status=0 inconsistent=0 fail_closed_413=0 fail_closed_415=0 fail_closed_400=0 fail_closed_503_timeout=0 fail_closed_503_overload=0)
+worst-case set b: 2444/2670 (error=0 blocked=2444 deny_status=0 inconsistent=0 fail_closed_413=0 fail_closed_415=0 fail_closed_400=0 fail_closed_503_timeout=0 fail_closed_503_overload=0)
+worst-case set diffs: 0 (only-a 0 only-b 0)
+== attacks-v1-worker-pl2 (a=step-26 b=step-27):
+# .venv/bin/python tools/step21_engine_diff.py docs/logs/runs/s26-engine/attacks-v1-worker-pl2 docs/logs/runs/s27-attacks-v1/attacks-v1-worker-pl2
+samples compared: 2670 (a=2670 b=2670 only-a=0 only-b=0)
+status counts a: {200: 226, 403: 2444}
+status counts b: {200: 226, 403: 2444}
+status diffs: 0
+no status in a (counted as error): 0
+no status in b (counted as error): 0
+worst-case set a: 2444/2670 (error=0 blocked=2444 deny_status=0 inconsistent=0 fail_closed_413=0 fail_closed_415=0 fail_closed_400=0 fail_closed_503_timeout=0 fail_closed_503_overload=0)
+worst-case set b: 2444/2670 (error=0 blocked=2444 deny_status=0 inconsistent=0 fail_closed_413=0 fail_closed_415=0 fail_closed_400=0 fail_closed_503_timeout=0 fail_closed_503_overload=0)
+worst-case set diffs: 0 (only-a 0 only-b 0)
+
+# rule-id sets per sample, step-26 runs (a) against step-27 runs (b)
+== attacks-v1-inprocess-pl1: samples with an audit entry a=2214 b=2214; rule-id set differs for 0; ids gained in b: none; ids lost in b: none
+== attacks-v1-worker-pl1: samples with an audit entry a=2214 b=2214; rule-id set differs for 0; ids gained in b: none; ids lost in b: none
+== attacks-v1-inprocess-pl2: samples with an audit entry a=2444 b=2444; rule-id set differs for 0; ids gained in b: none; ids lost in b: none
+== attacks-v1-worker-pl2: samples with an audit entry a=2444 b=2444; rule-id set differs for 0; ids gained in b: none; ids lost in b: none
+== total samples with a different rule-id set: 0

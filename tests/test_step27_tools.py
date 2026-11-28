@@ -108,3 +108,22 @@ def test_pl_effect_reads_rule_ids_from_the_audit_messages(tmp_path):
     lines = e.compare(e.rule_ids(str(a)), e.rule_ids(str(b)))
     assert "differs between PL1 and PL2 for 1 of 2" in lines[0]
     assert lines[1].endswith("1: 941320")
+
+
+def test_diff_classes_lists_rows_that_are_not_plain_refusals(tmp_path):
+    c = load("step27_diff_classes")
+    eng = {"status": 200, "answers": 1, "second_passed": False}
+    rows = [
+        {"id": "a", "family": "xml", "second_id": None, "engine": {"go": eng},
+         "disagreements": {"go": [{"class": "canary-reaches-parser", "detail": "x"}]}},
+        {"id": "b", "family": "conn-reuse", "second_id": "b-second", "engine": {"go": eng},
+         "disagreements": {"go": [{"class": "engine-refuses-backend-accepts", "detail": "y"}]}},
+    ]
+    f = tmp_path / "results.jsonl"
+    f.write_text("".join(json.dumps(r) + "\n" for r in rows))
+    out = "\n".join(c.report(str(f)))
+    assert "go: canary-reaches-parser 1, engine-refuses-backend-accepts 1" in out
+    assert "a [xml] go: canary-reaches-parser: x" in out
+    assert "b [conn-reuse] go" not in out
+    assert "b: go status 200, answers 1, second passed on False" in out
+    assert "second-request-served: 0 cases" in out

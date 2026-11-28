@@ -1,0 +1,60 @@
+# Step-27: attacks-v1 on the engine, blocking, PL1 and PL2, in-process and worker
+== 2026-11-28T17:50:37Z, macOS 27.0 Darwin 27.0.0 arm64, go version go1.27.4 darwin/arm64, Python 3.15.2, load at start: load averages: 3.34 3.43 3.47
+== git 70e6477dd29ef94e66d5909553d392e9d3394eea, tracked paths changed in the working tree: 15, under engine/: 0
+== manifest data/attacks-v1/manifest.jsonl sha256 7a82a51622e311f26f00fffff1f39b718f1528d907a20da89e30372cc6723066 (frozen: 7a82a51622e311f26f00fffff1f39b718f1528d907a20da89e30372cc6723066), 2670 requests
+== coraza module of engine/: github.com/corazawaf/coraza/v3 v3.8.1 => ./third_party/coraza-v3.8.1-kortex
+== engine binary sha256 a06189399ae4eeb5fa9510837576ce6cd26af2701ed56151b9dcd419b50fd1a7 built from 70e6477dd29ef94e66d5909553d392e9d3394eea with go version go1.27.4 darwin/arm64
+== attacks-v1-inprocess-pl1 rule29 2026-11-28T17:50:38Z load: load averages: 3.24 3.41 3.46: {"backend_url":"http://127.0.0.1:13004","rule_engine":"On","blocking_paranoia":1,"detection_paranoia":1,"max_body_bytes":13107200,"max_inspected_bytes":131072,"engine_time_budget_ms":2000,"rules_dir":"/Users/ivan/work/kortex-shield-next/engine/crs","listen_addr":"127.0.0.1:8097","events_file":"/Users/ivan/work/kortex-shield-next/out/s22-s26-attacks-v1-inprocess-pl1.events.jsonl","audit_log":"/Users/ivan/work/kortex-shield-next/out/s22-s26-attacks-v1-inprocess-pl1.audit.log","allowed_methods":"GET HEAD POST OPTIONS","max_inflight_body":8,"max_inflight_body_large":2,"body_lane_threshold":65536,"worker_mode":false,"client_max_inflight":0,"client_max_inflight_small":4,"client_max_inflight_large":1,"request_body_target_updates":165,"error_log":"","crs_test_setup":false,"head_timeout_ms":30000,"max_pending_heads":256,"xml_attr_inspect":false}
+== attacks-v1-inprocess-pl1 stats after run: {"inflight_small":0,"inflight_large":0,"abandoned_running":0,"kills":0,"overloads":0,"refused_before_inspection":0,"penalised_clients":0,"client_inflight_small":0,"client_inflight_large":0,"workers":{"pool":0,"busy":0,"spares":0,"recycled":0},"pending_heads":0}
+== attacks-v1-inprocess-pl1 kortex_eval.crs_audit and kortex_eval.outcome (blocking) output:
+crs_audit: 2214 audit entr(ies) -> out/s26-attacks-v1-inprocess-pl1/audit.jsonl
+waf_block: 2214
+waf_pass: 456
+docs/logs/runs/s27-attacks-v1/attacks-v1-inprocess-pl1/audit.index.jsonl: 2214 records, 1107 with a body, 108013 body bytes in the source
+== attacks-v1-inprocess-pl1 events: 2671 events {'block': 2214, 'pass': 457}; compressed-body events 0 {}; framing events 0 {}; kept 0
+== attacks-v1-worker-pl1 rule29 2026-11-28T17:50:43Z load: load averages: 3.24 3.41 3.46: {"backend_url":"http://127.0.0.1:13004","rule_engine":"On","blocking_paranoia":1,"detection_paranoia":1,"max_body_bytes":13107200,"max_inspected_bytes":131072,"engine_time_budget_ms":2000,"rules_dir":"/Users/ivan/work/kortex-shield-next/engine/crs","listen_addr":"127.0.0.1:8098","events_file":"/Users/ivan/work/kortex-shield-next/out/s22-s26-attacks-v1-worker-pl1.events.jsonl","audit_log":"/Users/ivan/work/kortex-shield-next/out/s22-s26-attacks-v1-worker-pl1.audit.log","allowed_methods":"GET HEAD POST OPTIONS","max_inflight_body":8,"max_inflight_body_large":2,"body_lane_threshold":65536,"worker_mode":true,"client_max_inflight":0,"client_max_inflight_small":4,"client_max_inflight_large":1,"request_body_target_updates":165,"error_log":"","crs_test_setup":false,"head_timeout_ms":30000,"max_pending_heads":256,"xml_attr_inspect":false}
+== attacks-v1-worker-pl1 stats after run: {"inflight_small":0,"inflight_large":0,"abandoned_running":0,"kills":0,"overloads":0,"refused_before_inspection":0,"penalised_clients":0,"client_inflight_small":0,"client_inflight_large":0,"workers":{"pool":4,"busy":0,"spares":4,"recycled":0},"pending_heads":0}
+== attacks-v1-worker-pl1 kortex_eval.crs_audit and kortex_eval.outcome (blocking) output:
+crs_audit: 2214 audit entr(ies) -> out/s26-attacks-v1-worker-pl1/audit.jsonl
+waf_block: 2214
+waf_pass: 456
+docs/logs/runs/s27-attacks-v1/attacks-v1-worker-pl1/audit.index.jsonl: 2214 records, 1107 with a body, 108013 body bytes in the source
+== attacks-v1-worker-pl1 events: 2671 events {'block': 2214, 'pass': 457}; compressed-body events 0 {}; framing events 0 {}; kept 0
+== diff attacks-v1 PL1 (a=inprocess b=worker):
+samples compared: 2670 (a=2670 b=2670 only-a=0 only-b=0)
+status counts a: {200: 456, 403: 2214}
+status counts b: {200: 456, 403: 2214}
+status diffs: 0
+no status in a (counted as error): 0
+no status in b (counted as error): 0
+worst-case set a: 2214/2670 (error=0 blocked=2214 deny_status=0 inconsistent=0 fail_closed_413=0 fail_closed_415=0 fail_closed_400=0 fail_closed_503_timeout=0 fail_closed_503_overload=0)
+worst-case set b: 2214/2670 (error=0 blocked=2214 deny_status=0 inconsistent=0 fail_closed_413=0 fail_closed_415=0 fail_closed_400=0 fail_closed_503_timeout=0 fail_closed_503_overload=0)
+worst-case set diffs: 0 (only-a 0 only-b 0)
+== attacks-v1-inprocess-pl2 rule29 2026-11-28T17:50:48Z load: load averages: 3.46 3.45 3.48: {"backend_url":"http://127.0.0.1:13004","rule_engine":"On","blocking_paranoia":2,"detection_paranoia":2,"max_body_bytes":13107200,"max_inspected_bytes":131072,"engine_time_budget_ms":2000,"rules_dir":"/Users/ivan/work/kortex-shield-next/engine/crs","listen_addr":"127.0.0.1:8097","events_file":"/Users/ivan/work/kortex-shield-next/out/s22-s26-attacks-v1-inprocess-pl2.events.jsonl","audit_log":"/Users/ivan/work/kortex-shield-next/out/s22-s26-attacks-v1-inprocess-pl2.audit.log","allowed_methods":"GET HEAD POST OPTIONS","max_inflight_body":8,"max_inflight_body_large":2,"body_lane_threshold":65536,"worker_mode":false,"client_max_inflight":0,"client_max_inflight_small":4,"client_max_inflight_large":1,"request_body_target_updates":165,"error_log":"","crs_test_setup":false,"head_timeout_ms":30000,"max_pending_heads":256,"xml_attr_inspect":false}
+== attacks-v1-inprocess-pl2 stats after run: {"inflight_small":0,"inflight_large":0,"abandoned_running":0,"kills":0,"overloads":0,"refused_before_inspection":0,"penalised_clients":0,"client_inflight_small":0,"client_inflight_large":0,"workers":{"pool":0,"busy":0,"spares":0,"recycled":0},"pending_heads":0}
+== attacks-v1-inprocess-pl2 kortex_eval.crs_audit and kortex_eval.outcome (blocking) output:
+crs_audit: 2444 audit entr(ies) -> out/s26-attacks-v1-inprocess-pl2/audit.jsonl
+waf_block: 2444
+waf_pass: 226
+docs/logs/runs/s27-attacks-v1/attacks-v1-inprocess-pl2/audit.index.jsonl: 2444 records, 1222 with a body, 115499 body bytes in the source
+== attacks-v1-inprocess-pl2 events: 2671 events {'block': 2444, 'pass': 227}; compressed-body events 0 {}; framing events 0 {}; kept 0
+== attacks-v1-worker-pl2 rule29 2026-11-28T17:50:54Z load: load averages: 4.18 3.61 3.54: {"backend_url":"http://127.0.0.1:13004","rule_engine":"On","blocking_paranoia":2,"detection_paranoia":2,"max_body_bytes":13107200,"max_inspected_bytes":131072,"engine_time_budget_ms":2000,"rules_dir":"/Users/ivan/work/kortex-shield-next/engine/crs","listen_addr":"127.0.0.1:8098","events_file":"/Users/ivan/work/kortex-shield-next/out/s22-s26-attacks-v1-worker-pl2.events.jsonl","audit_log":"/Users/ivan/work/kortex-shield-next/out/s22-s26-attacks-v1-worker-pl2.audit.log","allowed_methods":"GET HEAD POST OPTIONS","max_inflight_body":8,"max_inflight_body_large":2,"body_lane_threshold":65536,"worker_mode":true,"client_max_inflight":0,"client_max_inflight_small":4,"client_max_inflight_large":1,"request_body_target_updates":165,"error_log":"","crs_test_setup":false,"head_timeout_ms":30000,"max_pending_heads":256,"xml_attr_inspect":false}
+== attacks-v1-worker-pl2 stats after run: {"inflight_small":0,"inflight_large":0,"abandoned_running":0,"kills":0,"overloads":0,"refused_before_inspection":0,"penalised_clients":0,"client_inflight_small":0,"client_inflight_large":0,"workers":{"pool":4,"busy":0,"spares":4,"recycled":0},"pending_heads":0}
+== attacks-v1-worker-pl2 kortex_eval.crs_audit and kortex_eval.outcome (blocking) output:
+crs_audit: 2444 audit entr(ies) -> out/s26-attacks-v1-worker-pl2/audit.jsonl
+waf_block: 2444
+waf_pass: 226
+docs/logs/runs/s27-attacks-v1/attacks-v1-worker-pl2/audit.index.jsonl: 2444 records, 1222 with a body, 115499 body bytes in the source
+== attacks-v1-worker-pl2 events: 2671 events {'block': 2444, 'pass': 227}; compressed-body events 0 {}; framing events 0 {}; kept 0
+== diff attacks-v1 PL2 (a=inprocess b=worker):
+samples compared: 2670 (a=2670 b=2670 only-a=0 only-b=0)
+status counts a: {200: 226, 403: 2444}
+status counts b: {200: 226, 403: 2444}
+status diffs: 0
+no status in a (counted as error): 0
+no status in b (counted as error): 0
+worst-case set a: 2444/2670 (error=0 blocked=2444 deny_status=0 inconsistent=0 fail_closed_413=0 fail_closed_415=0 fail_closed_400=0 fail_closed_503_timeout=0 fail_closed_503_overload=0)
+worst-case set b: 2444/2670 (error=0 blocked=2444 deny_status=0 inconsistent=0 fail_closed_413=0 fail_closed_415=0 fail_closed_400=0 fail_closed_503_timeout=0 fail_closed_503_overload=0)
+worst-case set diffs: 0 (only-a 0 only-b 0)
+== load at end: load averages: 3.93 3.57 3.52
+S26-engine-DONE

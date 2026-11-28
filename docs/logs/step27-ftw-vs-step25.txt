@@ -1,0 +1,8 @@
+# step-27: the CRS v4.25.2 regression suite on the step-27 engine against the final step-25 runs, per test
+# 2026-11-28T17:52:01Z git 70e6477dd29ef94e66d5909553d392e9d3394eea
+$ .venv/bin/python tools/step25_ftw_summary.py diff docs/logs/runs/s25-ftw-fixed/engine-strict docs/logs/runs/s27-ftw/engine-strict
+== engine-strict against engine-strict: 4987 test ids in the union, 0 with a different result, 0 with the same result and a different logged rule-id set
+$ .venv/bin/python tools/step25_ftw_summary.py diff docs/logs/runs/s25-ftw-fixed/engine-worker docs/logs/runs/s27-ftw/engine-worker
+== engine-worker against engine-worker: 4987 test ids in the union, 0 with a different result, 0 with the same result and a different logged rule-id set
+$ .venv/bin/python tools/step25_ftw_summary.py diff docs/logs/runs/s27-ftw/engine-strict docs/logs/runs/s27-ftw/engine-worker
+== engine-strict against engine-worker: 4987 test ids in the union, 0 with a different result, 0 with the same result and a different logged rule-id set
