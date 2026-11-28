@@ -354,3 +354,51 @@ def test_recorded_content_length_smaller_is_overridden(tmp_path, fake_server):
         f"http://127.0.0.1:{fake_server.server_port}", tmp_path / "run",
     )
     assert FakeWaf.seen_headers[0]["content-length"] == "10"
+
+
+# ---------- engine decision marker (kortex-decision=...) ----------
+
+ENGINE_ROUTES = {
+    "/k-limit": (413, "413 kortex-decision=limit\n"),
+    "/k-encoding": (415, "415 kortex-decision=content-encoding\n"),
+    "/k-block": (403, "403 kortex-decision=block rules=942100,949110\n"),
+    "/app-413": (413, '{"error":"request entity too large"}'),
+    "/app-415": (415, '{"error":"unsupported media type"}'),
+    # a backend page that only quotes the marker, and one with another status
+    "/quoted": (200, "<p>the engine said: 413 kortex-decision=limit</p>"),
+    "/wrong-status": (200, "413 kortex-decision=limit\n"),
+}
+
+
+def run_engine_routes(tmp_path, fake_server):
+    FakeWaf.routes.update(ENGINE_ROUTES)
+    samples = [sample(id=path.strip("/"), path=path) for path in ENGINE_ROUTES]
+    samples.append(sample(id="clean", path="/clean"))
+    runner.run(samples, f"http://127.0.0.1:{fake_server.server_port}", tmp_path / "run",
+               block_marker="kortex-decision=block", workers=1)
+    return read_jsonl(tmp_path / "run" / "responses.jsonl")
+
+
+def test_engine_decision_recorded_for_engine_answers(tmp_path, fake_server):
+    rows = {r["id"]: r for r in run_engine_routes(tmp_path, fake_server)}
+    assert rows["k-limit"]["status"] == 413 and rows["k-limit"]["engine_decision"] == "limit"
+    assert rows["k-encoding"]["status"] == 415
+    assert rows["k-encoding"]["engine_decision"] == "content-encoding"
+    assert rows["k-block"]["engine_decision"] == "block" and rows["k-block"]["blocked"] is True
+    assert rows["k-limit"]["blocked"] is False and rows["k-encoding"]["blocked"] is False
+
+
+def test_engine_decision_is_null_for_answers_that_are_not_the_engines(tmp_path, fake_server):
+    rows = {r["id"]: r for r in run_engine_routes(tmp_path, fake_server)}
+    for sid in ("app-413", "app-415", "quoted", "wrong-status", "clean"):
+        assert rows[sid]["engine_decision"] is None, sid
+
+
+def test_runner_rows_classify_413_415_as_fail_closed(tmp_path, fake_server):
+    from kortex_eval import outcome
+    rows, _ = outcome.classify_all(run_engine_routes(tmp_path, fake_server), [], "blocking")
+    by_id = {r["id"]: r["outcome"] for r in rows}
+    assert by_id["k-limit"] == "waf_fail_closed_413"
+    assert by_id["k-encoding"] == "waf_fail_closed_415"
+    for sid in ("app-413", "app-415", "quoted", "wrong-status", "clean"):
+        assert by_id[sid] == "waf_pass", sid

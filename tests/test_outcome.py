@@ -198,3 +198,86 @@ def test_waf_deny_status_does_not_override_block():
     audit = {"inbound_score_from_949110": 10,
              "rules": [{"id": "200002", "message": "deny"}, {"id": "949110", "message": "t"}]}
     assert classify(resp, audit, "blocking") == "waf_block"
+
+
+# ---------- engine fail-closed answers: 413 limit, 415 content-encoding ----------
+
+def engine_resp(id, status, decision):
+    row = resp(id, status)
+    row["engine_decision"] = decision
+    return row
+
+
+@pytest.mark.parametrize("mode", ["blocking", "detection"])
+def test_engine_413_limit_is_fail_closed_not_waf_pass(mode):
+    assert outcome.classify(engine_resp("a", 413, "limit"), None, mode) == "waf_fail_closed_413"
+
+
+@pytest.mark.parametrize("mode", ["blocking", "detection"])
+def test_engine_415_content_encoding_is_fail_closed_not_waf_pass(mode):
+    assert outcome.classify(
+        engine_resp("a", 415, "content-encoding"), None, mode) == "waf_fail_closed_415"
+
+
+def test_fail_closed_outcomes_are_named_and_distinct_from_block():
+    assert outcome.FAIL_CLOSED_OUTCOMES == ("waf_fail_closed_413", "waf_fail_closed_415")
+    assert "waf_block" not in outcome.FAIL_CLOSED_OUTCOMES
+
+
+@pytest.mark.parametrize("mode", ["blocking", "detection"])
+def test_413_415_without_the_engine_marker_stay_waf_pass(mode):
+    # The backend's own 413/415 forwarded by the WAF is the target's status,
+    # not a WAF decision; so is a row written before the runner recorded
+    # engine_decision (key absent).
+    for status in (413, 415):
+        assert outcome.classify(resp("a", status), None, mode) == "waf_pass"
+        assert outcome.classify(engine_resp("b", status, None), None, mode) == "waf_pass"
+
+
+def test_engine_decision_must_match_its_status():
+    assert outcome.classify(engine_resp("a", 413, "content-encoding"), None, "blocking") == "waf_pass"
+    assert outcome.classify(engine_resp("b", 415, "limit"), None, "blocking") == "waf_pass"
+    assert outcome.classify(engine_resp("c", 200, "limit"), None, "blocking") == "waf_pass"
+
+
+def test_nginx_413_with_marker_stays_proxy_reject():
+    assert outcome.classify(resp("a", 413, body_marker=True), None, "blocking") == "proxy_reject"
+
+
+def test_engine_block_with_decision_field_is_still_waf_block():
+    row = engine_resp("a", 403, "block")
+    row["blocked"] = row["body_marker"] = True
+    assert outcome.classify(row, audit("a", 20), "blocking") == "waf_block"
+
+
+def test_cli_counts_413_and_415_separately_from_403(tmp_path):
+    blocked = engine_resp("blk", 403, "block")
+    blocked["blocked"] = blocked["body_marker"] = True
+    responses = [
+        blocked,
+        engine_resp("big-1", 413, "limit"),
+        engine_resp("big-2", 413, "limit"),
+        engine_resp("gzip-1", 415, "content-encoding"),
+        engine_resp("ok", 200, None),
+        resp("app-413", 413),
+    ]
+    rpath, apath, opath = tmp_path / "responses.jsonl", tmp_path / "audit.jsonl", tmp_path / "outcomes.jsonl"
+    rpath.write_text("".join(json.dumps(r) + "\n" for r in responses), encoding="utf-8")
+    apath.write_text(json.dumps(audit("blk", 20)) + "\n", encoding="utf-8")
+    proc = subprocess.run(
+        [sys.executable, "-m", "kortex_eval.outcome", "--responses", str(rpath),
+         "--audit", str(apath), "--out", str(opath), "--engine-mode", "blocking"],
+        capture_output=True, text=True, cwd=ROOT,
+    )
+    assert proc.returncode == 0, proc.stderr
+    assert proc.stdout.splitlines() == [
+        "waf_block: 1",
+        "waf_fail_closed_413: 2",
+        "waf_fail_closed_415: 1",
+        "waf_pass: 2",
+    ]
+    by_id = {json.loads(l)["id"]: json.loads(l)["outcome"]
+             for l in opath.read_text(encoding="utf-8").splitlines()}
+    assert by_id == {"blk": "waf_block", "big-1": "waf_fail_closed_413",
+                     "big-2": "waf_fail_closed_413", "gzip-1": "waf_fail_closed_415",
+                     "ok": "waf_pass", "app-413": "waf_pass"}

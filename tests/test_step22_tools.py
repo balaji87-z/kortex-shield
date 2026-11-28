@@ -139,3 +139,16 @@ def test_fp_decomposition_reads_a_gzipped_connector_audit(tmp_path, monkeypatch)
     out = io.StringIO()
     fp.connector_side("absent", "connector absent", out)
     assert "NOT MEASURED" in out.getvalue()
+
+
+def test_t3_summary_counts_fail_closed_apart_from_blocks_and_in_the_worst_case():
+    import collections
+    t3 = load("step22_t3_summary")
+    oc = collections.Counter({"waf_block": 10, "waf_deny_status": 2, "inconsistent": 1, "error": 1,
+                              "waf_fail_closed_413": 4, "waf_fail_closed_415": 3, "waf_pass": 79})
+    first, second = t3.rate_lines("benign-wcp-v0", 1, "inprocess", oc, 100)
+    assert "waf_block=10 " in first
+    assert "waf_fail_closed_413=4 waf_fail_closed_415=3 " in first
+    assert "waf_pass=79 other=0" in first
+    assert "10/100 = 10.00%" in second            # best case: 403 blocks only
+    assert "worst case (all flagged) 21/100 = 21.00%" in second

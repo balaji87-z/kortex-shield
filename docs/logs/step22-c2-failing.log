@@ -1,0 +1,87 @@
+# step-22 C2 tests before the implementation, at 6463b2ff469db67009bf8f4abaf17e4668072820 plus the new tests, 2026-11-28T02:47:43Z
+$ .venv/bin/python -m pytest -q tests/test_outcome.py tests/test_runner.py tests/test_step22_tools.py
+........ss..s....FFFFF.....F.......................FFF..........F        [100%]
+=================================== FAILURES ===================================
+_________ test_engine_413_limit_is_fail_closed_not_waf_pass[blocking] __________
+mode = 'blocking'
+>       assert outcome.classify(engine_resp("a", 413, "limit"), None, mode) == "waf_fail_closed_413"
+E       AssertionError: assert 'waf_pass' == 'waf_fail_closed_413'
+E         
+E         - waf_fail_closed_413
+E         + waf_pass
+tests/test_outcome.py:213: AssertionError
+_________ test_engine_413_limit_is_fail_closed_not_waf_pass[detection] _________
+mode = 'detection'
+>       assert outcome.classify(engine_resp("a", 413, "limit"), None, mode) == "waf_fail_closed_413"
+E       AssertionError: assert 'waf_pass' == 'waf_fail_closed_413'
+E         
+E         - waf_fail_closed_413
+E         + waf_pass
+tests/test_outcome.py:213: AssertionError
+____ test_engine_415_content_encoding_is_fail_closed_not_waf_pass[blocking] ____
+mode = 'blocking'
+>       assert outcome.classify(
+E       AssertionError: assert 'waf_pass' == 'waf_fail_closed_415'
+E         
+E         - waf_fail_closed_415
+E         + waf_pass
+tests/test_outcome.py:218: AssertionError
+___ test_engine_415_content_encoding_is_fail_closed_not_waf_pass[detection] ____
+mode = 'detection'
+>       assert outcome.classify(
+E       AssertionError: assert 'waf_pass' == 'waf_fail_closed_415'
+E         
+E         - waf_fail_closed_415
+E         + waf_pass
+tests/test_outcome.py:218: AssertionError
+_________ test_fail_closed_outcomes_are_named_and_distinct_from_block __________
+>       assert outcome.FAIL_CLOSED_OUTCOMES == ("waf_fail_closed_413", "waf_fail_closed_415")
+E       AttributeError: module 'kortex_eval.outcome' has no attribute 'FAIL_CLOSED_OUTCOMES'
+tests/test_outcome.py:223: AttributeError
+_______________ test_cli_counts_413_and_415_separately_from_403 ________________
+tmp_path = PosixPath('/private/var/folders/nq/sk_8btb16995njvp54fs72180000gs/T/pytest-of-ivan/pytest-27/test_cli_counts_413_and_415_se0')
+>       assert proc.stdout.splitlines() == [
+E       AssertionError: assert ['waf_block: ...'waf_pass: 5'] == ['waf_block: ...'waf_pass: 2']
+E         
+E         At index 1 diff: 'waf_pass: 5' != 'waf_fail_closed_413: 2'
+E         Right contains 2 more items, first extra item: 'waf_fail_closed_415: 1'
+E         Use -v to get more diff
+tests/test_outcome.py:273: AssertionError
+_______________ test_engine_decision_recorded_for_engine_answers _______________
+tmp_path = PosixPath('/private/var/folders/nq/sk_8btb16995njvp54fs72180000gs/T/pytest-of-ivan/pytest-27/test_engine_decision_recorded_0')
+fake_server = <http.server.ThreadingHTTPServer object at 0x10b32ccd0>
+>       assert rows["k-limit"]["status"] == 413 and rows["k-limit"]["engine_decision"] == "limit"
+E       KeyError: 'engine_decision'
+tests/test_runner.py:384: KeyError
+______ test_engine_decision_is_null_for_answers_that_are_not_the_engines _______
+tmp_path = PosixPath('/private/var/folders/nq/sk_8btb16995njvp54fs72180000gs/T/pytest-of-ivan/pytest-27/test_engine_decision_is_null_f0')
+fake_server = <http.server.ThreadingHTTPServer object at 0x10b5daba0>
+>           assert rows[sid]["engine_decision"] is None, sid
+E           KeyError: 'engine_decision'
+tests/test_runner.py:394: KeyError
+_______________ test_runner_rows_classify_413_415_as_fail_closed _______________
+tmp_path = PosixPath('/private/var/folders/nq/sk_8btb16995njvp54fs72180000gs/T/pytest-of-ivan/pytest-27/test_runner_rows_classify_413_0')
+fake_server = <http.server.ThreadingHTTPServer object at 0x10b5db890>
+>       assert by_id["k-limit"] == "waf_fail_closed_413"
+E       AssertionError: assert 'waf_pass' == 'waf_fail_closed_413'
+E         
+E         - waf_fail_closed_413
+E         + waf_pass
+tests/test_runner.py:401: AssertionError
+__ test_t3_summary_counts_fail_closed_apart_from_blocks_and_in_the_worst_case __
+>       first, second = t3.rate_lines("benign-wcp-v0", 1, "inprocess", oc, 100)
+E       AttributeError: module 'step22_t3_summary' has no attribute 'rate_lines'
+tests/test_step22_tools.py:149: AttributeError
+=========================== short test summary info ============================
+FAILED tests/test_outcome.py::test_engine_413_limit_is_fail_closed_not_waf_pass[blocking]
+FAILED tests/test_outcome.py::test_engine_413_limit_is_fail_closed_not_waf_pass[detection]
+FAILED tests/test_outcome.py::test_engine_415_content_encoding_is_fail_closed_not_waf_pass[blocking]
+FAILED tests/test_outcome.py::test_engine_415_content_encoding_is_fail_closed_not_waf_pass[detection]
+FAILED tests/test_outcome.py::test_fail_closed_outcomes_are_named_and_distinct_from_block
+FAILED tests/test_outcome.py::test_cli_counts_413_and_415_separately_from_403
+FAILED tests/test_runner.py::test_engine_decision_recorded_for_engine_answers
+FAILED tests/test_runner.py::test_engine_decision_is_null_for_answers_that_are_not_the_engines
+FAILED tests/test_runner.py::test_runner_rows_classify_413_415_as_fail_closed
+FAILED tests/test_step22_tools.py::test_t3_summary_counts_fail_closed_apart_from_blocks_and_in_the_worst_case
+10 failed, 52 passed, 3 skipped in 47.04s
+# exit status of pytest: 1
