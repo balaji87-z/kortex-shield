@@ -20,16 +20,21 @@
 # events.index.jsonl (sample id, decision, status, reason of every event
 # that is not a pass or a block). Raw audit logs stay under out/ (rule 51).
 #
-# Usage: [STUB_PORT=13004] [WCP_DATA_DIR=dir] run_step23_parity.sh
+# Usage: [STUB_PORT=13004] [WCP_DATA_DIR=dir] [PARITY_STEP=24] [PARITY_REF=dir] run_step23_parity.sh
 set -u
 cd "$(dirname "$0")/.."
 . tools/step22_lib.sh
 DATA=${WCP_DATA_DIR:-data}
-DUR=docs/logs/runs/s23-parity
-LOG=docs/logs/step23-parity.txt
+# PARITY_STEP names the step the runs belong to (log and run-file paths), so
+# a later step's re-run does not overwrite the step-23 recording. PARITY_REF
+# is the earlier set of in-process runs each run is compared with per sample.
+S=${PARITY_STEP:-23}
+REF=${PARITY_REF:-docs/logs/runs/s22-c2-outcomes}
+DUR=docs/logs/runs/s$S-parity
+LOG=docs/logs/step$S-parity.txt
 mkdir -p out $DUR
 : > $LOG
-echo "# Step-23: in-process and worker-mode runs of the wcp datasets, PL1 and PL2" | tee -a $LOG
+echo "# Step-$S: in-process and worker-mode runs of the wcp datasets, PL1 and PL2" | tee -a $LOG
 echo "== $(date -u +%FT%TZ), $(sw_vers -productName) $(sw_vers -productVersion) $(uname -srm), $(go version), $($PY --version), load at start: $(uptime | sed 's/.*load/load/')" | tee -a $LOG
 echo "== git $(git rev-parse HEAD), tracked paths changed in the working tree: $(git status --porcelain -uno | wc -l | tr -d ' ')" | tee -a $LOG
 echo "== coraza module of engine/: $(cd engine && go list -m github.com/corazawaf/coraza/v3)" | tee -a $LOG
@@ -51,17 +56,17 @@ for PL in 1 2; do
     for MODE in inprocess worker; do
       PORT=8097; [ "$MODE" = worker ] && PORT=8098
       NAME=$DS-$MODE-pl$PL
-      start_engine s23-$NAME $MODE $PORT $PL 2000 out/s23-$NAME.engine.log || { echo "engine did not start for $NAME" | tee -a $LOG; continue; }
+      start_engine s$S-$NAME $MODE $PORT $PL 2000 out/s$S-$NAME.engine.log || { echo "engine did not start for $NAME" | tee -a $LOG; continue; }
       config_proof "$NAME" $PORT $LOG
       $PY -m kortex_eval.runner --manifest "$DATA/$DS/manifest.jsonl" \
-        --base-url $BASE:$PORT --out out/s23-parity-$NAME --timeout 15 --workers 1 \
+        --base-url $BASE:$PORT --out out/s$S-parity-$NAME --timeout 15 --workers 1 \
         --block-status 403 --block-marker 'kortex-decision=block' \
         --default-user-agent "$UA" --label engine=kortex --label mode=$MODE --label paranoia=$PL --label coraza=v3.8.1-kortex \
-        > out/s23-parity-$NAME.runner.log 2>&1 || echo "runner nonzero for $NAME (sample errors); continuing" >> $LOG
+        > out/s$S-parity-$NAME.runner.log 2>&1 || echo "runner nonzero for $NAME (sample errors); continuing" >> $LOG
       echo "== $NAME stats after run: $(curl -s http://127.0.0.1:$PORT/__kortex/stats)" >> $LOG
       stop_engine
       echo "== $NAME kortex_eval.crs_audit and kortex_eval.outcome output:" >> $LOG
-      finish_run out/s23-parity-$NAME $DUR/$NAME $LOG
+      finish_run out/s$S-parity-$NAME $DUR/$NAME $LOG
       $PY tools/step23_events_index.py "$ENGINE_EVENTS" $DUR/$NAME/events.index.jsonl | sed "s|^|== $NAME events: |" | tee -a $LOG
     done
     echo "== diff $DS PL$PL (a=inprocess b=worker):" | tee -a $LOG
@@ -71,5 +76,10 @@ done
 stop_stub
 echo "== load at end: $(uptime | sed 's/.*load/load/')" | tee -a $LOG
 $PY tools/step22_t3_summary.py $DUR 2>&1 | tee -a $LOG
-$PY tools/step23_parity_vs_c2.py docs/logs/runs/s22-c2-outcomes $DUR 2>&1 | tee -a $LOG
-echo "S23-PARITY-DONE" | tee -a $LOG
+echo "== per sample against the in-process runs under $REF:" | tee -a $LOG
+if [ -n "${PARITY_REF:-}" ]; then
+  $PY tools/step23_parity_vs_c2.py $REF $DUR "${PARITY_REF_NAME:-earlier}" "step-$S" 2>&1 | tee -a $LOG
+else
+  $PY tools/step23_parity_vs_c2.py $REF $DUR 2>&1 | tee -a $LOG
+fi
+echo "S$S-PARITY-DONE" | tee -a $LOG

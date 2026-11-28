@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """Step-23 T2: what did the patched coraza change on the wcp datasets?
 
-Usage: step23_parity_vs_c2.py <c2-dir> <s23-dir>
+Usage: step23_parity_vs_c2.py <c2-dir> <s23-dir> [<name of first> <name of second>]
        (docs/logs/runs/s22-c2-outcomes  docs/logs/runs/s23-parity)
 
 Compares, per sample id, the in-process run of step-22 C2 (stock coraza
@@ -48,8 +48,13 @@ def compare(a, b):
 
 def main(argv=None):
     argv = sys.argv[1:] if argv is None else argv
-    c2, s23 = argv
-    print("\n== stock coraza (step-22 C2, in-process) against patched coraza (step 23, in-process), per sample")
+    c2, s23 = argv[:2]
+    # optional names of the two sides, for a comparison that is not stock against patched
+    la, lb = (argv[2], argv[3]) if len(argv) >= 4 else ("stock", "patched")
+    if len(argv) >= 4:
+        print(f"\n== {la} ({c2}, in-process) against {lb} ({s23}, in-process), per sample")
+    else:
+        print("\n== stock coraza (step-22 C2, in-process) against patched coraza (step 23, in-process), per sample")
     for ds in ("benign-wcp-v0", "benign-wcp-v1"):
         for pl in (1, 2):
             a = read(f"{c2}/{ds}-inprocess-pl{pl}/outcomes.jsonl")
@@ -61,14 +66,14 @@ def main(argv=None):
             print(f"{ds} PL{pl}: {len(ids)} ids; status diffs {len(status)}; outcome diffs {len(outcome)}; "
                   f"rule-id set diffs {len(rules)}")
             for i, sa, sb in status:
-                print(f"    status {i}: stock {sa} patched {sb}")
+                print(f"    status {i}: {la} {sa} {lb} {sb}")
             for i, oa, ob in outcome:
-                print(f"    outcome {i}: stock {oa} patched {ob}")
+                print(f"    outcome {i}: {la} {oa} {lb} {ob}")
             for i, gone, new in rules:
-                print(f"    rules {i}: only stock {gone} only patched {new}")
+                print(f"    rules {i}: only {la} {gone} only {lb} {new}")
             if only:
                 print("    rule-id set diffs by shape: " + "; ".join(
-                    f"only stock {list(g)} / only patched {list(n)} x{c}" for (g, n), c in only.most_common()))
+                    f"only {la} {list(g)} / only {lb} {list(n)} x{c}" for (g, n), c in only.most_common()))
     return 0
 
 
