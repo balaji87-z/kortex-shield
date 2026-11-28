@@ -4,6 +4,25 @@ Building a WAF to an independently checkable standard. The first deliverable is
 not the WAF; it is the measuring stick, so every later claim comes with counts,
 provenance and a baseline.
 
+This repository (`kortex-shield`) holds the `kortex-waf` project.
+
+## At a glance
+
+| Part | Where | What it is |
+|---|---|---|
+| Evaluation harness | [`kortex_eval/`](kortex_eval/) | Python, standard library only. Validates dataset manifests, splits them, replays requests exactly as written, reads the WAF audit log, and reports rates with counts and 95% intervals. |
+| Baseline testbed | [`deploy/compose.yml`](deploy/compose.yml) | OWASP Juice Shop behind ModSecurity with the OWASP Core Rule Set (CRS). Every comparison includes this baseline. |
+| Datasets | [`data/`](data/) | Attack and benign request corpora. A version is frozen when the SHA-256 of its manifest is written next to it; after that a change creates a new version. |
+| Engine | [`engine/`](engine/) | A Go proxy that wraps Coraza v3 and the same CRS version as the baseline, adding framing checks, body size limits and a per-request time budget. |
+| Evidence | [`reports/`](reports/), [`docs/`](docs/) | One report per step with the exact commands and their raw output, the measured baselines (`docs/baseline-v*.md`) and the run logs behind them (`docs/logs/`). |
+
+New here? Read [Rules this repo follows](#rules-this-repo-follows), then
+[Run the tests](#run-the-tests). The table under
+[What exists today](#what-exists-today) is the detailed, step-by-step status.
+
+Security and attack tooling in this repository may only be pointed at the local
+testbed containers, never at any other host.
+
 ## What exists today
 
 | Part | State |
