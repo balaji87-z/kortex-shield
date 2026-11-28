@@ -637,3 +637,43 @@ With the proxy layer aligned (client_max_body_size 0 on both engines):
   Checked after the change by replaying benign-wcp-v1 at PL1 and PL2 and
   comparing statuses per id with the step-22 parity run.
 - Reference: https://coraza.io/docs/seclang/directives/#secdefaultaction
+
+## Step-25: CRS regression-suite configuration (documented BEFORE the run, rule 17)
+
+- What: two engine switches, both off by default, used only by the runs of
+  the CRS regression suite (docs/plan-step25-crs-regression.md).
+  1. `KORTEX_ERROR_LOG=<path>`: one line per matched rule that has the
+     `log` action, in the ModSecurity error-log form produced by coraza's
+     `MatchedRule.ErrorLog()`. No rule and no decision changes.
+  2. `KORTEX_CRS_TEST_SETUP=on`: three directives before the rule Include:
+     - `SecAction "id:900005,phase:1,nolog,pass,setvar:tx.crs_validate_utf8_encoding=1,setvar:tx.arg_name_length=100,setvar:tx.arg_length=400,setvar:tx.total_arg_length=64000,setvar:tx.max_num_args=255,setvar:tx.max_file_size=64100,setvar:tx.combined_file_sizes=65535"`
+       (rule 900005 of the suite's README, without its three `ctl` /
+       paranoia actions: mode and paranoia come from `KORTEX_RULE_ENGINE`,
+       `KORTEX_BLOCKING_PARANOIA`, `KORTEX_DETECTION_PARANOIA`);
+     - `SecAction "id:900511,phase:1,pass,nolog,setvar:tx.crs_xml_attr_inspect=1"`
+       (the CRS `tests/docker-compose.yml` at v4.25.2);
+     - `SecRule REQUEST_HEADERS:X-CRS-Test "@rx ^.*$" "id:999999,phase:1,pass,t:none,log,msg:'X-CRS-Test %{MATCHED_VAR}',ctl:ruleRemoveById=1-999999"`
+       (the suite's log marker; text from coraza v3.8.1
+       `testing/coreruleset/coreruleset_test.go`).
+- Run settings of the suite, through the existing variables:
+  `KORTEX_RULE_ENGINE=DetectionOnly`, `KORTEX_BLOCKING_PARANOIA=4`,
+  `KORTEX_DETECTION_PARANOIA=4`. Limits, budget, lanes, allowed methods,
+  900220 and the REQUEST_BODY targets: as in baseline v1.9.
+- Why: the suite's runner (go-ftw) reads the WAF's log between two marker
+  requests to see which rules matched; the suite is written for
+  DetectionOnly at paranoia level 4 with these limits
+  (`tests/regression/README.md`). The engine had no log go-ftw can read for
+  a request that is forwarded.
+- Rule 17 and `ctl:ruleRemoveById`: rule 999999 removes every rule for a
+  request that carries the `X-CRS-Test` header. It is a harness rule of the
+  suite, rendered only with the switch on. No baseline, parity or dataset
+  run sets the switch, and the switch is printed on `/__kortex/config`
+  (`crs_test_setup`), so its absence is provable per run (rule 29). With the
+  switch on the engine must not face anything but the test runner: any
+  client can then switch the rules off with one header.
+- Expected effect: none on any run that does not set the two variables.
+- References: https://github.com/coreruleset/coreruleset/blob/v4.25.2/tests/regression/README.md ,
+  https://github.com/coreruleset/coreruleset/blob/v4.25.2/tests/docker-compose.yml ,
+  https://github.com/corazawaf/coraza/blob/v3.8.1/testing/coreruleset/coreruleset_test.go ,
+  https://github.com/coreruleset/go-ftw/pull/133 (marker rule),
+  https://coraza.io/docs/seclang/actions/#ctl
