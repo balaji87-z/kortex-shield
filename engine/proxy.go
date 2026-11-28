@@ -187,9 +187,6 @@ func (p *Proxy) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 	}()
 
 	viewOf(r).feed(tx)
-	if r.ContentLength > 0 {
-		tx.AddRequestHeader("Content-Length", strconv.FormatInt(r.ContentLength, 10))
-	}
 	if r.RemoteAddr != "" {
 		if host, portStr, err := net.SplitHostPort(r.RemoteAddr); err == nil {
 			port, _ := strconv.Atoi(portStr)
