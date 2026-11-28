@@ -1,0 +1,52 @@
+# step-23 T3: bodies behind the compressed-body events of the wcp runs (counts only, rule 51), 2026-11-28T04:07:56Z, at 4d56170e952e7b9e96d151c42d9067427a980ca7
+$ .venv/bin/python tools/step23_magic_analysis.py docs/logs/runs/s23-parity/benign-wcp-v0-inprocess-pl1/events.index.jsonl <local manifest of benign-wcp-v0>
+samples with a compressed-body event: 14 {'zlib': 14}
+   content types: {'text/plain': 14}; methods: {'POST': 14}
+   magic bytes matched (hex): {'7801': 14}
+   body size in bytes: min 132, median 1215, max 7425
+   handed to zlib: {'not a complete stream': 14}
+$ .venv/bin/python tools/step23_magic_analysis.py docs/logs/runs/s23-parity/benign-wcp-v0-worker-pl1/events.index.jsonl <local manifest of benign-wcp-v0>
+samples with a compressed-body event: 14 {'zlib': 14}
+   content types: {'text/plain': 14}; methods: {'POST': 14}
+   magic bytes matched (hex): {'7801': 14}
+   body size in bytes: min 132, median 1215, max 7425
+   handed to zlib: {'not a complete stream': 14}
+$ .venv/bin/python tools/step23_magic_analysis.py docs/logs/runs/s23-parity/benign-wcp-v0-inprocess-pl2/events.index.jsonl <local manifest of benign-wcp-v0>
+samples with a compressed-body event: 14 {'zlib': 14}
+   content types: {'text/plain': 14}; methods: {'POST': 14}
+   magic bytes matched (hex): {'7801': 14}
+   body size in bytes: min 132, median 1215, max 7425
+   handed to zlib: {'not a complete stream': 14}
+$ .venv/bin/python tools/step23_magic_analysis.py docs/logs/runs/s23-parity/benign-wcp-v0-worker-pl2/events.index.jsonl <local manifest of benign-wcp-v0>
+samples with a compressed-body event: 14 {'zlib': 14}
+   content types: {'text/plain': 14}; methods: {'POST': 14}
+   magic bytes matched (hex): {'7801': 14}
+   body size in bytes: min 132, median 1215, max 7425
+   handed to zlib: {'not a complete stream': 14}
+$ .venv/bin/python tools/step23_magic_analysis.py docs/logs/runs/s23-parity/benign-wcp-v1-inprocess-pl1/events.index.jsonl <local manifest of benign-wcp-v1>
+samples with a compressed-body event: 2 {'zlib': 2}
+   content types: {'text/plain': 2}; methods: {'POST': 2}
+   magic bytes matched (hex): {'7801': 2}
+   body size in bytes: min 294, median 742, max 1190
+   handed to zlib: {'not a complete stream': 2}
+$ .venv/bin/python tools/step23_magic_analysis.py docs/logs/runs/s23-parity/benign-wcp-v1-worker-pl1/events.index.jsonl <local manifest of benign-wcp-v1>
+samples with a compressed-body event: 2 {'zlib': 2}
+   content types: {'text/plain': 2}; methods: {'POST': 2}
+   magic bytes matched (hex): {'7801': 2}
+   body size in bytes: min 294, median 742, max 1190
+   handed to zlib: {'not a complete stream': 2}
+$ .venv/bin/python tools/step23_magic_analysis.py docs/logs/runs/s23-parity/benign-wcp-v1-inprocess-pl2/events.index.jsonl <local manifest of benign-wcp-v1>
+samples with a compressed-body event: 2 {'zlib': 2}
+   content types: {'text/plain': 2}; methods: {'POST': 2}
+   magic bytes matched (hex): {'7801': 2}
+   body size in bytes: min 294, median 742, max 1190
+   handed to zlib: {'not a complete stream': 2}
+$ .venv/bin/python tools/step23_magic_analysis.py docs/logs/runs/s23-parity/benign-wcp-v1-worker-pl2/events.index.jsonl <local manifest of benign-wcp-v1>
+samples with a compressed-body event: 2 {'zlib': 2}
+   content types: {'text/plain': 2}; methods: {'POST': 2}
+   magic bytes matched (hex): {'7801': 2}
+   body size in bytes: min 294, median 742, max 1190
+   handed to zlib: {'not a complete stream': 2}
+# the same sample ids in all four runs of a dataset?
+benign-wcp-v0: distinct id sets across the four runs: 1; ids: 14; outcomes of those ids: {'inprocess-pl1': {'waf_block': 14}, 'inprocess-pl2': {'waf_block': 14}}
+benign-wcp-v1: distinct id sets across the four runs: 1; ids: 2; outcomes of those ids: {'inprocess-pl1': {'waf_block': 2}, 'inprocess-pl2': {'waf_block': 2}}
