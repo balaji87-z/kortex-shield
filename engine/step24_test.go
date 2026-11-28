@@ -435,3 +435,158 @@ func TestE45ParserGateAgreesWithNetHTTPOnDamagedHeads(t *testing.T) {
 		t.Fatalf("E45: the sample is too thin to mean anything: compared %d, refused %d", compared, goRefused)
 	}
 }
+
+// ---- step-24 T2: every request is judged by the framing gate ----------------
+
+// E46: the framing checks see the header lines Go's parser sees. net/http
+// accepts a line ended by a bare LF, while the gate split the head on CRLF
+// only, so a Content-Length or Transfer-Encoding line that follows a bare LF
+// was invisible to it. Each case proves its premise first: the same request
+// with CRLF everywhere is refused by the gate, and bare net/http runs its
+// handler for the LF variant.
+func TestE46FramingChecksSeeLinesEndedByBareLF(t *testing.T) {
+	bare := newBareGoServer(t)
+	srv, events := newEnv(t, nil)
+	addr := strings.TrimPrefix(srv.URL, "http://")
+	cases := []struct {
+		id, crlf, lf, reason string
+	}{
+		{"e46-lf-te-cl",
+			"POST /form HTTP/1.1\r\nHost: localhost\r\nX-Kortex-Sample-Id: e46-lf-te-cl\r\nContent-Type: text/plain\r\n" +
+				"Transfer-Encoding: chunked\r\nContent-Length: 5\r\n\r\n" + s24Chunked,
+			"POST /form HTTP/1.1\nHost: localhost\nX-Kortex-Sample-Id: e46-lf-te-cl\nContent-Type: text/plain\n" +
+				"Transfer-Encoding: chunked\nContent-Length: 5\n\n" + s24Chunked,
+			"transfer-encoding-with-content-length"},
+		{"e46-one-lf-te-cl",
+			"POST /form HTTP/1.1\r\nHost: localhost\r\nX-Kortex-Sample-Id: e46-one-lf-te-cl\r\nContent-Type: text/plain\r\n" +
+				"Transfer-Encoding: chunked\r\nContent-Length: 5\r\n\r\n" + s24Chunked,
+			"POST /form HTTP/1.1\r\nHost: localhost\r\nX-Kortex-Sample-Id: e46-one-lf-te-cl\r\nContent-Type: text/plain\r\n" +
+				"Transfer-Encoding: chunked\nContent-Length: 5\r\n\r\n" + s24Chunked,
+			"transfer-encoding-with-content-length"},
+		{"e46-one-lf-cl-te",
+			"POST /form HTTP/1.1\r\nHost: localhost\r\nX-Kortex-Sample-Id: e46-one-lf-cl-te\r\nContent-Type: text/plain\r\n" +
+				"X-A: 1\r\nContent-Length: 5\r\nTransfer-Encoding: chunked\r\n\r\n" + s24Chunked,
+			"POST /form HTTP/1.1\r\nHost: localhost\r\nX-Kortex-Sample-Id: e46-one-lf-cl-te\r\nContent-Type: text/plain\r\n" +
+				"X-A: 1\nContent-Length: 5\r\nTransfer-Encoding: chunked\r\n\r\n" + s24Chunked,
+			"transfer-encoding-with-content-length"},
+		{"e46-one-lf-dup-cl",
+			"POST /form HTTP/1.1\r\nHost: localhost\r\nX-Kortex-Sample-Id: e46-one-lf-dup-cl\r\nContent-Type: text/plain\r\n" +
+				"X-A: 1\r\nContent-Length: 5\r\nContent-Length: 5\r\n\r\nhello",
+			"POST /form HTTP/1.1\r\nHost: localhost\r\nX-Kortex-Sample-Id: e46-one-lf-dup-cl\r\nContent-Type: text/plain\r\n" +
+				"X-A: 1\nContent-Length: 5\r\nContent-Length: 5\r\n\r\nhello",
+			"duplicate-content-length"},
+	}
+	for _, c := range cases {
+		t.Run(c.id, func(t *testing.T) {
+			status, body := rawExchange(t, addr, c.crlf)
+			if status != 400 || !strings.Contains(body, "kortex-decision=framing") {
+				t.Fatalf("E46 premise: the CRLF form must be refused by the gate, got %d %q", status, body)
+			}
+			if bareStatus, ran := bare.answer(t, c.lf); !ran {
+				t.Fatalf("E46 premise: bare net/http must run the handler for the LF form, got %d without it", bareStatus)
+			}
+			before := len(framingEventsFor(t, events, c.id))
+
+			backendHit = false
+			status, body = rawExchange(t, addr, c.lf)
+			if backendHit {
+				t.Fatalf("E46: the LF form reached the backend (engine answered %d %q)", status, body)
+			}
+			if status != 400 || strings.TrimSpace(body) != "400 kortex-decision=framing" {
+				t.Fatalf("E46: want 400 kortex-decision=framing for the LF form, got %d %q", status, body)
+			}
+			evs := framingEventsFor(t, events, c.id)
+			if len(evs) != before+1 {
+				t.Fatalf("E46: want 1 more framing event for the LF form, got %d more", len(evs)-before)
+			}
+			if got := evs[len(evs)-1]["reason"]; got != c.reason {
+				t.Fatalf("E46: event reason: want %q, got %v", c.reason, got)
+			}
+		})
+	}
+}
+
+// E47: the guard for E46. A request with bare-LF line endings and no framing
+// problem is treated as before: handed to the handler and forwarded.
+func TestE47BareLFWithoutFramingProblemIsStillForwarded(t *testing.T) {
+	bare := newBareGoServer(t)
+	srv, events := newEnv(t, nil)
+	addr := strings.TrimPrefix(srv.URL, "http://")
+	cases := []s24Case{
+		{"e47-lf-chunked", "POST /form HTTP/1.1\nHost: localhost\nX-Kortex-Sample-Id: e47-lf-chunked\nContent-Type: text/plain\n" +
+			"Transfer-Encoding: chunked\n\n" + s24Chunked, ""},
+		{"e47-one-lf-get", "GET /x HTTP/1.1\r\nHost: localhost\r\nX-Kortex-Sample-Id: e47-one-lf-get\r\nX-A: 1\nX-B: 2\r\n\r\n", ""},
+		{"e47-one-lf-cl", "POST /form HTTP/1.1\r\nHost: localhost\r\nX-Kortex-Sample-Id: e47-one-lf-cl\r\nContent-Type: text/plain\r\n" +
+			"X-A: 1\nContent-Length: 5\r\n\r\nhello", ""},
+	}
+	for _, c := range cases {
+		t.Run(c.id, func(t *testing.T) {
+			if bareStatus, ran := bare.answer(t, c.raw); !ran {
+				t.Fatalf("E47 premise: bare net/http must run the handler, got %d without it", bareStatus)
+			}
+			backendHit = false
+			status, body := rawExchange(t, addr, c.raw)
+			if status != 200 || !strings.Contains(body, "stub-ok") || !backendHit {
+				t.Fatalf("E47: want the request forwarded (200 from the stub), got %d %q, backend hit %v", status, body, backendHit)
+			}
+			if n := len(framingEventsFor(t, events, c.id)); n != 0 {
+				t.Fatalf("E47: want 0 framing events, got %d", n)
+			}
+		})
+	}
+}
+
+// E48: one connection carries one request. The gate judges the first request
+// of a connection, so the engine must never read a second one. Three answers
+// left the connection open: OPTIONS * (answered by net/http itself) and the
+// two /__kortex/ admin paths. A request the gate refuses when it is sent on
+// its own was forwarded when it followed one of them on the same connection.
+func TestE48SecondRequestOnAConnectionIsNeverServed(t *testing.T) {
+	srv, events := newEnv(t, nil)
+	addr := strings.TrimPrefix(srv.URL, "http://")
+	firsts := []struct{ id, raw string }{
+		{"options-asterisk", "OPTIONS * HTTP/1.1\r\nHost: localhost\r\n\r\n"},
+		{"admin-config", "GET /__kortex/config HTTP/1.1\r\nHost: localhost\r\n\r\n"},
+		{"admin-stats", "GET /__kortex/stats HTTP/1.1\r\nHost: localhost\r\n\r\n"},
+	}
+	seconds := []struct{ id, raw string }{
+		{"te-cl", "POST /form HTTP/1.1\r\nHost: localhost\r\nX-Kortex-Sample-Id: %s\r\nContent-Type: text/plain\r\n" +
+			"Transfer-Encoding: chunked\r\nContent-Length: 5\r\n\r\n" + s24Chunked},
+		{"plain-get", "GET /second HTTP/1.1\r\nHost: localhost\r\nX-Kortex-Sample-Id: %s\r\n\r\n"},
+	}
+	for _, f := range firsts {
+		for _, s := range seconds {
+			id := "e48-" + f.id + "-" + s.id
+			t.Run(id, func(t *testing.T) {
+				second := fmt.Sprintf(s.raw, id)
+				if s.id == "te-cl" {
+					status, body := rawExchange(t, addr, second)
+					if status != 400 || !strings.Contains(body, "kortex-decision=framing") {
+						t.Fatalf("E48 premise: sent on its own the request must be refused by the gate, got %d %q", status, body)
+					}
+				}
+				backendHit = false
+				conn, err := net.Dial("tcp", addr)
+				if err != nil {
+					t.Fatalf("dial: %v", err)
+				}
+				defer conn.Close()
+				conn.SetDeadline(time.Now().Add(3 * time.Second))
+				fmt.Fprint(conn, f.raw+second)
+				data, _ := io.ReadAll(conn)
+				responses := len(regexp.MustCompile(`(?m)^HTTP/1\.[01] \d{3}`).FindAll(data, -1))
+				if backendHit {
+					t.Fatalf("E48: the second request on the connection reached the backend (%d responses read)", responses)
+				}
+				if responses > 1 {
+					t.Fatalf("E48: want at most 1 response on the connection, got %d", responses)
+				}
+				for _, ev := range readEvents(t, events) {
+					if ev["sample_id"] == id && ev["decision"] == "pass" {
+						t.Fatalf("E48: the second request was passed: %v", ev)
+					}
+				}
+			})
+		}
+	}
+}

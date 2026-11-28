@@ -1,0 +1,49 @@
+# step-24 T2: E46 and E48 failing before the fix (E47 guard passes)
+# 2026-11-28T04:49:55Z git a9dad860122747670ab2de8bd46cd7389abebd4e + step24_test.go; go version go1.27.4 darwin/arm64
+# cd engine && go test -count=1 -run 'TestE46|TestE47|TestE48' -v .
+=== RUN   TestE46FramingChecksSeeLinesEndedByBareLF
+=== RUN   TestE46FramingChecksSeeLinesEndedByBareLF/e46-lf-te-cl
+    step24_test.go:493: E46: the LF form reached the backend (engine answered 200 "stub-ok")
+=== RUN   TestE46FramingChecksSeeLinesEndedByBareLF/e46-one-lf-te-cl
+    step24_test.go:493: E46: the LF form reached the backend (engine answered 200 "stub-ok")
+=== RUN   TestE46FramingChecksSeeLinesEndedByBareLF/e46-one-lf-cl-te
+    step24_test.go:493: E46: the LF form reached the backend (engine answered 200 "stub-ok")
+=== RUN   TestE46FramingChecksSeeLinesEndedByBareLF/e46-one-lf-dup-cl
+    step24_test.go:493: E46: the LF form reached the backend (engine answered 200 "stub-ok")
+--- FAIL: TestE46FramingChecksSeeLinesEndedByBareLF (0.06s)
+    --- FAIL: TestE46FramingChecksSeeLinesEndedByBareLF/e46-lf-te-cl (0.00s)
+    --- FAIL: TestE46FramingChecksSeeLinesEndedByBareLF/e46-one-lf-te-cl (0.00s)
+    --- FAIL: TestE46FramingChecksSeeLinesEndedByBareLF/e46-one-lf-cl-te (0.00s)
+    --- FAIL: TestE46FramingChecksSeeLinesEndedByBareLF/e46-one-lf-dup-cl (0.00s)
+=== RUN   TestE47BareLFWithoutFramingProblemIsStillForwarded
+=== RUN   TestE47BareLFWithoutFramingProblemIsStillForwarded/e47-lf-chunked
+=== RUN   TestE47BareLFWithoutFramingProblemIsStillForwarded/e47-one-lf-get
+=== RUN   TestE47BareLFWithoutFramingProblemIsStillForwarded/e47-one-lf-cl
+--- PASS: TestE47BareLFWithoutFramingProblemIsStillForwarded (0.01s)
+    --- PASS: TestE47BareLFWithoutFramingProblemIsStillForwarded/e47-lf-chunked (0.00s)
+    --- PASS: TestE47BareLFWithoutFramingProblemIsStillForwarded/e47-one-lf-get (0.00s)
+    --- PASS: TestE47BareLFWithoutFramingProblemIsStillForwarded/e47-one-lf-cl (0.00s)
+=== RUN   TestE48SecondRequestOnAConnectionIsNeverServed
+=== RUN   TestE48SecondRequestOnAConnectionIsNeverServed/e48-options-asterisk-te-cl
+    step24_test.go:579: E48: the second request on the connection reached the backend (2 responses read)
+=== RUN   TestE48SecondRequestOnAConnectionIsNeverServed/e48-options-asterisk-plain-get
+    step24_test.go:579: E48: the second request on the connection reached the backend (2 responses read)
+=== RUN   TestE48SecondRequestOnAConnectionIsNeverServed/e48-admin-config-te-cl
+    step24_test.go:579: E48: the second request on the connection reached the backend (2 responses read)
+=== RUN   TestE48SecondRequestOnAConnectionIsNeverServed/e48-admin-config-plain-get
+    step24_test.go:579: E48: the second request on the connection reached the backend (2 responses read)
+=== RUN   TestE48SecondRequestOnAConnectionIsNeverServed/e48-admin-stats-te-cl
+    step24_test.go:579: E48: the second request on the connection reached the backend (2 responses read)
+=== RUN   TestE48SecondRequestOnAConnectionIsNeverServed/e48-admin-stats-plain-get
+    step24_test.go:579: E48: the second request on the connection reached the backend (2 responses read)
+--- FAIL: TestE48SecondRequestOnAConnectionIsNeverServed (0.02s)
+    --- FAIL: TestE48SecondRequestOnAConnectionIsNeverServed/e48-options-asterisk-te-cl (0.00s)
+    --- FAIL: TestE48SecondRequestOnAConnectionIsNeverServed/e48-options-asterisk-plain-get (0.00s)
+    --- FAIL: TestE48SecondRequestOnAConnectionIsNeverServed/e48-admin-config-te-cl (0.00s)
+    --- FAIL: TestE48SecondRequestOnAConnectionIsNeverServed/e48-admin-config-plain-get (0.00s)
+    --- FAIL: TestE48SecondRequestOnAConnectionIsNeverServed/e48-admin-stats-te-cl (0.00s)
+    --- FAIL: TestE48SecondRequestOnAConnectionIsNeverServed/e48-admin-stats-plain-get (0.00s)
+FAIL
+FAIL	kortexshield/engine	0.388s
+FAIL
+exit=1

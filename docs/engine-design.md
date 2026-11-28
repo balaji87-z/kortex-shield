@@ -774,3 +774,39 @@ What this does not cover, and is left as it was:
   go1.27.4. Test E42 proves, case by case on a bare net/http server, that
   each listed shape is answered by Go without running a handler; a shape
   that is not in the test is UNVERIFIED.
+
+### Every request is judged by the framing gate (T2, documented BEFORE the code)
+
+Classification (rule 39): BUG, two of them, both found while building T1 and
+both PROVEN by failing tests (docs/logs/step24-e46-e48-failing.log).
+
+1. Bare LF. The framing checks split the head on CRLF. Go's parser also ends
+   a line at a bare LF. A `Content-Length` or `Transfer-Encoding` line that
+   follows a bare LF was therefore part of the previous line for the gate
+   and a header of its own for net/http. Test E46: four requests the gate
+   refuses when written with CRLF (Transfer-Encoding with Content-Length,
+   duplicate Content-Length) were forwarded to the backend when one line
+   ending, or all of them, was a bare LF.
+
+   Fix: the framing checks are made twice, on the raw CRLF lines as before
+   and on the header block as Go's MIME reader returns it (the reader
+   net/http itself uses). More than one Content-Length value, or
+   Transfer-Encoding together with Content-Length, in either view is refused
+   with the same reasons as before. A bare-LF request without a framing
+   problem is treated as before (guard E47); bare LF itself is not refused.
+
+2. Connection reuse. The gate judges the first request of a connection and
+   relies on every answer closing it. Three answers did not: `OPTIONS *`,
+   which net/http answers itself, and `/__kortex/config` and
+   `/__kortex/stats`. A second request on such a connection was read by
+   net/http directly. Test E48: the request the gate refuses on its own was
+   forwarded to the backend when it followed any of the three.
+
+   Fix: HTTP keep-alive is switched off on the engine's server
+   (`SetKeepAlivesEnabled(false)`), so the connection is closed after the
+   first answer whoever wrote it, and bytes after the first request are
+   never read. main() and the tests build the server through one function,
+   `newEngineServer`, so the tests run the setting production runs.
+
+Neither change touches what the engine does with the first request of a
+connection that has no framing problem.
