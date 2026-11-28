@@ -52,14 +52,21 @@ func main() {
 		cfg.MaxBodyBytes, cfg.MaxInspectedBytes, cfg.EngineTimeBudgetMS, cfg.RulesDir,
 		cfg.ListenAddr, cfg.EventsFile, cfg.AuditLog, len(cfg.RequestBodyTargetIDs))
 
-	srv := &http.Server{
-		Handler:     handler,
-		ReadTimeout: 60 * time.Second,
-	}
-	// the framing gate runs on the first request of every connection; the
-	// handler answers Connection: close so every request is gated
+	srv := newEngineServer(handler)
+	srv.ReadTimeout = 60 * time.Second
 	if err := srv.Serve(newGatedListener(ln, cfg)); err != nil {
 		fmt.Fprintf(os.Stderr, "kortex-engine: serve: %v\n", err)
 		os.Exit(2)
 	}
+}
+
+// newEngineServer is the one place main() and the tests build the HTTP
+// server. The gate judges the first request of a connection, so a connection
+// must never carry a second one: keep-alive is off, which closes the
+// connection after every answer, including the ones net/http writes itself
+// (OPTIONS *) and the admin paths.
+func newEngineServer(handler http.Handler) *http.Server {
+	srv := &http.Server{Handler: handler}
+	srv.SetKeepAlivesEnabled(false)
+	return srv
 }

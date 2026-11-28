@@ -41,6 +41,9 @@ func (l *gatedListener) Accept() (net.Conn, error) {
 		}
 		res := framingGate(head)
 		if res.pass {
+			res = framingGateGoView(head)
+		}
+		if res.pass {
 			res = parserGate(head)
 		}
 		if !res.pass {
@@ -57,14 +60,17 @@ func (l *gatedListener) Accept() (net.Conn, error) {
 
 // headSampleID returns the value of the first X-Kortex-Sample-Id header in a
 // raw request head, or "" when there is none. The gate refuses before any
-// HTTP parser runs, so the id has to be read from the raw bytes.
+// HTTP parser runs, so the id has to be read from the raw bytes. Lines end
+// at LF with an optional CR before it, as Go's parser reads them, and the
+// search stops at the first empty line.
 func headSampleID(head []byte) string {
-	if end := bytes.Index(head, []byte("\r\n\r\n")); end >= 0 {
-		head = head[:end]
-	}
-	for i, line := range strings.Split(string(head), "\r\n") {
+	for i, line := range strings.Split(string(head), "\n") {
+		line = strings.TrimSuffix(line, "\r")
 		if i == 0 {
 			continue // request line
+		}
+		if line == "" {
+			break
 		}
 		col := strings.Index(line, ":")
 		if col < 0 {

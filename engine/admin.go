@@ -58,9 +58,10 @@ type gateResult struct {
 //   - Transfer-Encoding together with Content-Length
 //   - a raw NUL byte in the request line (path or query)
 //
-// It runs on the FIRST request of every connection; the engine answers with
-// Connection: close so every request is the first on its connection and is
-// always gated.
+// It runs on the FIRST request of every connection; keep-alive is off on the
+// engine's server (newEngineServer), so every request is the first on its
+// connection and is always gated. framingGateGoView repeats the header
+// checks on the lines as Go's parser reads them.
 func framingGate(head []byte) gateResult {
 	// the head ends at the first blank line; anything after it is body
 	end := bytes.Index(head, []byte("\r\n\r\n"))

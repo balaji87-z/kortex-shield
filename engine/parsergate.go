@@ -78,6 +78,30 @@ func parserGate(head []byte) gateResult {
 	return gateResult{pass: true}
 }
 
+// framingGateGoView repeats the Content-Length and Transfer-Encoding checks
+// of framingGate on the header block as Go's parser reads it. framingGate
+// splits the head on CRLF; Go also ends a line at a bare LF, so a header
+// line after a bare LF exists for net/http and not for framingGate.
+func framingGateGoView(head []byte) gateResult {
+	hdr, err := goHeaderView(head)
+	if err != nil {
+		return gateResult{reason: "parser:header-line"}
+	}
+	cl := hdr["Content-Length"]
+	if len(cl) > 1 {
+		for _, v := range cl[1:] {
+			if v != cl[0] {
+				return gateResult{reason: "conflicting-content-length"}
+			}
+		}
+		return gateResult{reason: "duplicate-content-length"}
+	}
+	if len(hdr["Transfer-Encoding"]) > 0 && len(cl) > 0 {
+		return gateResult{reason: "transfer-encoding-with-content-length"}
+	}
+	return gateResult{pass: true}
+}
+
 // goHeaderView parses the header block of a raw request head with the MIME
 // header reader net/http uses, keeping every line (Host included).
 func goHeaderView(head []byte) (textproto.MIMEHeader, error) {

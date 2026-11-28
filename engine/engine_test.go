@@ -69,7 +69,7 @@ func newEnv(t *testing.T, overrides map[string]string) (*httptest.Server, string
 	cfg := loadConfig()
 	srv := &httptest.Server{
 		Listener: newGatedListener(ln, cfg),
-		Config:   &http.Server{Handler: buildHandler(cfg)},
+		Config:   newEngineServer(buildHandler(cfg)),
 	}
 	srv.Start()
 	t.Cleanup(srv.Close)
