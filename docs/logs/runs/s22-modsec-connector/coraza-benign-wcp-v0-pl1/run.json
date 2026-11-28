@@ -1,0 +1,32 @@
+{
+  "base_url": "http://localhost:8082",
+  "started_utc": "2026-11-27T18:55:12+00:00",
+  "ended_utc": "2026-11-27T19:12:02+00:00",
+  "load_avg_start": [
+    4.17,
+    7.55,
+    6.81
+  ],
+  "load_avg_end": [
+    8.19,
+    12.51,
+    10.4
+  ],
+  "git_commit": "5b47a00a5f85ad653ce4513ca2cf40440e9ac4b1",
+  "manifest_sha256": "c8ce11f26406df96d55e5a1cc6186bcbf648cb29bd628081dd834c6ccf1329d1",
+  "default_user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/158.0.0.0 Safari/537.36",
+  "labels": {
+    "engine": "coraza",
+    "backend": "stub",
+    "paranoia": "1",
+    "step": "22"
+  },
+  "total_samples": 20000,
+  "responses_ok": 19988,
+  "blocked": 3824,
+  "error_count": 12,
+  "block_rule": {
+    "block_status": 403,
+    "block_marker": "<center>nginx</center>"
+  }
+}

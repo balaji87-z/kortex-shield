@@ -1,0 +1,177 @@
+# Step-22: ModSecurity image vs Coraza connector image on benign-wcp-v0, PL1 and PL2 (default config, stub backend)
+== host: Darwin 27.0.0 arm64; docker client 29.10.1 server 29.5.2 linux/arm64 kernel 6.8.0-117-generic; load at start: load averages: 6.43 9.26 7.23
+== manifest data/benign-wcp-v0/manifest.jsonl sha256 c8ce11f26406df96d55e5a1cc6186bcbf648cb29bd628081dd834c6ccf1329d1 (20000 samples)
+== modsec-benign-wcp-v0-pl1 rule29/28 2026-11-27T18:53:18Z load: load averages: 6.43 9.26 7.23
+   image: owasp/modsecurity-crs:4.25.2-nginx-lts@sha256:6296ce685cb88ba4012998b935b25dabbd9e0ff326088c1149447102544de661 id sha256:6296ce685cb88ba4012998b935b25dabbd9e0ff326088c1149447102544de661 platform linux/arm64
+   env: E=On B=1 P=1 D=1 BACKEND=http://stub-backend:3000 CT=[] M=[]
+   conf: SecRuleEngine On SecRequestBodyLimit 13107200 SecRequestBodyNoFilesLimit 131072 
+   crs-setup: tx.blocking_paranoia_level=1 tx.detection_paranoia_level=1 tx.crs_setup_version=4252
+   ruleset: ver:'OWASP_CRS/4.25.2 in /etc/modsecurity.d/owasp-crs/rules (27 .conf files)
+2026/11/27 18:53:18 [warn] 633#633: "ssl_stapling" ignored, issuer certificate not found for certificate "/etc/nginx/conf/server.crt"
+nginx: [warn] "ssl_stapling" ignored, issuer certificate not found for certificate "/etc/nginx/conf/server.crt"
+2026/11/27 18:53:18 [notice] 633#633: ModSecurity-nginx v1.0.4 (rules loaded inline/local/remote: 0/853/0)
+2026/11/27 18:53:18 [notice] 633#633: libmodsecurity3 version 3.0.17
+2026/11/27 18:53:18 [notice] 633#633: signal process started
+   runner exited non-zero for modsec-benign-wcp-v0-pl1 (sample errors)
+crs_audit: 3928 audit entr(ies) -> out/s22-mc-modsec-benign-wcp-v0-pl1/audit.jsonl
+warning: 41 audit entr(ies) could not be attributed to a sample id
+error: 1
+proxy_reject: 5
+waf_block: 3823
+waf_deny_status: 64
+waf_pass: 16107
+docs/logs/runs/s22-modsec-connector/modsec-benign-wcp-v0-pl1/audit.index.jsonl: 3928 entries
+   rule36 modsec-benign-wcp-v0-pl1: control entries in the audit: pre 20/20, post 20/20; audit entries 3928 (3887 with a wcp sample id, 1 without a sample id)
+   result modsec-benign-wcp-v0-pl1: n=20000 outcomes={'error': 1, 'proxy_reject': 5, 'waf_block': 3823, 'waf_deny_status': 64, 'waf_pass': 16107}
+   result modsec-benign-wcp-v0-pl1: status counts={200: 16107, 400: 64, 403: 3823, 414: 5, None: 1}
+   result modsec-benign-wcp-v0-pl1: blocked-only 3823/20000 = 19.11%; worst case (every outcome except waf_pass, errors flagged) 3893/20000 = 19.46%
+== modsec-benign-wcp-v0-pl1 done 2026-11-27T18:54:59Z load: load averages: 4.19 7.68 6.84
+== coraza-benign-wcp-v0-pl1 rule29/28 2026-11-27T18:55:11Z load: load averages: 4.17 7.55 6.81
+   image: ghcr.io/coreruleset/coraza-crs:4.25.2-nginx-lts@sha256:bfbfe70b4445c1ef1dc389c2de12cfdb194c9616746c33dc8a7131461c28f4a6 id sha256:bfbfe70b4445c1ef1dc389c2de12cfdb194c9616746c33dc8a7131461c28f4a6 platform linux/arm64
+   env: E=On B=1 P=1 D=1 CT=[] body=[nofiles=131072 total=13107200]
+   crs-setup: tx.blocking_paranoia_level=1 tx.detection_paranoia_level=1 tx.crs_setup_version=4252
+   ruleset: ver:'OWASP_CRS/4.25.2 in /opt/coraza/owasp-crs/rules (27 .conf files)
+   runner exited non-zero for coraza-benign-wcp-v0-pl1 (sample errors)
+coraza_audit: 3925 audit entr(ies) -> out/s22-mc-coraza-benign-wcp-v0-pl1/audit.jsonl
+warning: 40 audit entr(ies) could not be attributed to a sample id
+error: 12
+proxy_reject: 5
+waf_block: 3824
+waf_deny_status: 61
+waf_pass: 16098
+docs/logs/runs/s22-modsec-connector/coraza-benign-wcp-v0-pl1/audit.index.jsonl: 3925 entries
+   rule36 coraza-benign-wcp-v0-pl1: control entries in the audit: pre 20/20, post 20/20; audit entries 3925 (3885 with a wcp sample id, 0 without a sample id)
+   result coraza-benign-wcp-v0-pl1: n=20000 outcomes={'error': 12, 'proxy_reject': 5, 'waf_block': 3824, 'waf_deny_status': 61, 'waf_pass': 16098}
+   result coraza-benign-wcp-v0-pl1: status counts={200: 16098, 400: 61, 403: 3824, 414: 5, None: 12}
+   result coraza-benign-wcp-v0-pl1: blocked-only 3824/20000 = 19.12%; worst case (every outcome except waf_pass, errors flagged) 3902/20000 = 19.51%
+== coraza-benign-wcp-v0-pl1 done 2026-11-27T19:12:07Z load: load averages: 7.93 12.39 10.37
+== per-sample diff benign-wcp-v0 PL1 (tools/coraza_parity_diff.py out/s22-mc-modsec-benign-wcp-v0-pl1 out/s22-mc-coraza-benign-wcp-v0-pl1)
+samples compared: 20000
+blocked modsec 3823  coraza 3824  both 3817  only-modsec 6  only-coraza 7
+  only-modsec wcp-2574cf69006b: coraza status=400 outcome=waf_deny_status
+  only-modsec wcp-4ff99580bb57: coraza status=400 outcome=waf_deny_status
+  only-modsec wcp-80a49c991b2d: coraza status=None outcome=error
+  only-modsec wcp-82f508a89f65: coraza status=400 outcome=waf_deny_status
+  only-modsec wcp-96b9ef51be10: coraza status=400 outcome=waf_deny_status
+  only-modsec wcp-de8021cfbd94: coraza status=400 outcome=waf_deny_status
+  only-coraza wcp-672911deadaa: modsec status=400 outcome=waf_deny_status
+  only-coraza wcp-71461e371348: modsec status=400 outcome=waf_deny_status
+  only-coraza wcp-8dc97426f4b3: modsec status=400 outcome=waf_deny_status
+  only-coraza wcp-93fd2b577bc9: modsec status=400 outcome=waf_deny_status
+  only-coraza wcp-96a594e2ae57: modsec status=400 outcome=waf_deny_status
+  only-coraza wcp-bf3ad3695dc3: modsec status=400 outcome=waf_deny_status
+  only-coraza wcp-c7970d727861: modsec status=400 outcome=waf_deny_status
+outcome classes modsec: error=1  proxy_reject=5  waf_block=3823  waf_deny_status=64  waf_pass=16107
+outcome classes coraza: error=12  proxy_reject=5  waf_block=3824  waf_deny_status=61  waf_pass=16098
+
+    rule   both  only-modsec  only-coraza
+  949110   3817            6            7
+  920420   2930            1            0
+  932370    121            0          303
+  921150      0            0          379
+  942550     67            0          295
+  920270      2            0          273
+  932130     49            0          225
+  942100     75            0          149
+  942190     23            0          154
+  942290    112            0           54
+  932235     96            0           70
+  943110    157            0            3
+  941100     13            0          130
+  942540      0            0          125
+  932125     22            0           79
+  933180      0            0          100
+  920340     99            0            0
+  920640     97            2            0
+  932250     21            0           65
+  932380     11            0           70
+== modsec-benign-wcp-v0-pl2 rule29/28 2026-11-27T19:12:19Z load: load averages: 7.57 12.16 10.31
+   image: owasp/modsecurity-crs:4.25.2-nginx-lts@sha256:6296ce685cb88ba4012998b935b25dabbd9e0ff326088c1149447102544de661 id sha256:6296ce685cb88ba4012998b935b25dabbd9e0ff326088c1149447102544de661 platform linux/arm64
+   env: E=On B=2 P=2 D=2 BACKEND=http://stub-backend:3000 CT=[] M=[]
+   conf: SecRuleEngine On SecRequestBodyLimit 13107200 SecRequestBodyNoFilesLimit 131072 
+   crs-setup: tx.blocking_paranoia_level=2 tx.detection_paranoia_level=2 tx.crs_setup_version=4252
+   ruleset: ver:'OWASP_CRS/4.25.2 in /etc/modsecurity.d/owasp-crs/rules (27 .conf files)
+2026/11/27 19:12:20 [warn] 633#633: "ssl_stapling" ignored, issuer certificate not found for certificate "/etc/nginx/conf/server.crt"
+nginx: [warn] "ssl_stapling" ignored, issuer certificate not found for certificate "/etc/nginx/conf/server.crt"
+2026/11/27 19:12:20 [notice] 633#633: ModSecurity-nginx v1.0.4 (rules loaded inline/local/remote: 0/853/0)
+2026/11/27 19:12:20 [notice] 633#633: libmodsecurity3 version 3.0.17
+2026/11/27 19:12:20 [notice] 633#633: signal process started
+   runner exited non-zero for modsec-benign-wcp-v0-pl2 (sample errors)
+crs_audit: 9322 audit entr(ies) -> out/s22-mc-modsec-benign-wcp-v0-pl2/audit.jsonl
+inconsistent samples: wcp-67cb71cd0c38
+warning: 41 audit entr(ies) could not be attributed to a sample id
+error: 1
+inconsistent: 1
+proxy_reject: 5
+waf_block: 8949
+waf_deny_status: 64
+waf_pass: 10980
+docs/logs/runs/s22-modsec-connector/modsec-benign-wcp-v0-pl2/audit.index.jsonl: 9322 entries
+   rule36 modsec-benign-wcp-v0-pl2: control entries in the audit: pre 20/20, post 20/20; audit entries 9322 (9281 with a wcp sample id, 1 without a sample id)
+   result modsec-benign-wcp-v0-pl2: n=20000 outcomes={'error': 1, 'inconsistent': 1, 'proxy_reject': 5, 'waf_block': 8949, 'waf_deny_status': 64, 'waf_pass': 10980}
+   result modsec-benign-wcp-v0-pl2: status counts={200: 10980, 400: 64, 403: 8950, 414: 5, None: 1}
+   result modsec-benign-wcp-v0-pl2: blocked-only 8949/20000 = 44.75%; worst case (every outcome except waf_pass, errors flagged) 9020/20000 = 45.10%
+== modsec-benign-wcp-v0-pl2 done 2026-11-27T19:14:56Z load: load averages: 5.25 9.64 9.61
+== coraza-benign-wcp-v0-pl2 rule29/28 2026-11-27T19:15:08Z load: load averages: 4.60 9.36 9.51
+   image: ghcr.io/coreruleset/coraza-crs:4.25.2-nginx-lts@sha256:bfbfe70b4445c1ef1dc389c2de12cfdb194c9616746c33dc8a7131461c28f4a6 id sha256:bfbfe70b4445c1ef1dc389c2de12cfdb194c9616746c33dc8a7131461c28f4a6 platform linux/arm64
+   env: E=On B=2 P=2 D=2 CT=[] body=[nofiles=131072 total=13107200]
+   crs-setup: tx.blocking_paranoia_level=2 tx.detection_paranoia_level=2 tx.crs_setup_version=4252
+   ruleset: ver:'OWASP_CRS/4.25.2 in /opt/coraza/owasp-crs/rules (27 .conf files)
+   runner exited non-zero for coraza-benign-wcp-v0-pl2 (sample errors)
+coraza_audit: 9053 audit entr(ies) -> out/s22-mc-coraza-benign-wcp-v0-pl2/audit.jsonl
+inconsistent samples: wcp-67cb71cd0c38
+warning: 40 audit entr(ies) could not be attributed to a sample id
+error: 7
+inconsistent: 1
+proxy_reject: 5
+waf_block: 8951
+waf_deny_status: 61
+waf_pass: 10975
+docs/logs/runs/s22-modsec-connector/coraza-benign-wcp-v0-pl2/audit.index.jsonl: 9053 entries
+   rule36 coraza-benign-wcp-v0-pl2: control entries in the audit: pre 20/20, post 20/20; audit entries 9053 (9013 with a wcp sample id, 0 without a sample id)
+   result coraza-benign-wcp-v0-pl2: n=20000 outcomes={'error': 7, 'inconsistent': 1, 'proxy_reject': 5, 'waf_block': 8951, 'waf_deny_status': 61, 'waf_pass': 10975}
+   result coraza-benign-wcp-v0-pl2: status counts={200: 10975, 400: 61, 403: 8952, 414: 5, None: 7}
+   result coraza-benign-wcp-v0-pl2: blocked-only 8951/20000 = 44.76%; worst case (every outcome except waf_pass, errors flagged) 9025/20000 = 45.12%
+== coraza-benign-wcp-v0-pl2 done 2026-11-27T19:27:37Z load: load averages: 6.28 6.25 7.56
+== per-sample diff benign-wcp-v0 PL2 (tools/coraza_parity_diff.py out/s22-mc-modsec-benign-wcp-v0-pl2 out/s22-mc-coraza-benign-wcp-v0-pl2)
+samples compared: 20000
+blocked modsec 8949  coraza 8951  both 8943  only-modsec 6  only-coraza 8
+  only-modsec wcp-2574cf69006b: coraza status=400 outcome=waf_deny_status
+  only-modsec wcp-4ff99580bb57: coraza status=400 outcome=waf_deny_status
+  only-modsec wcp-80a49c991b2d: coraza status=None outcome=error
+  only-modsec wcp-82f508a89f65: coraza status=400 outcome=waf_deny_status
+  only-modsec wcp-96b9ef51be10: coraza status=400 outcome=waf_deny_status
+  only-modsec wcp-de8021cfbd94: coraza status=400 outcome=waf_deny_status
+  only-coraza wcp-672911deadaa: modsec status=400 outcome=waf_deny_status
+  only-coraza wcp-71461e371348: modsec status=400 outcome=waf_deny_status
+  only-coraza wcp-8dc97426f4b3: modsec status=400 outcome=waf_deny_status
+  only-coraza wcp-93fd2b577bc9: modsec status=400 outcome=waf_deny_status
+  only-coraza wcp-96a594e2ae57: modsec status=400 outcome=waf_deny_status
+  only-coraza wcp-aa98de364e37: modsec status=400 outcome=waf_deny_status
+  only-coraza wcp-bf3ad3695dc3: modsec status=400 outcome=waf_deny_status
+  only-coraza wcp-c7970d727861: modsec status=400 outcome=waf_deny_status
+outcome classes modsec: error=1  inconsistent=1  proxy_reject=5  waf_block=8949  waf_deny_status=64  waf_pass=10980
+outcome classes coraza: error=7  inconsistent=1  proxy_reject=5  waf_block=8951  waf_deny_status=61  waf_pass=10975
+
+    rule   both  only-modsec  only-coraza
+  949110   8944            6            8
+  931130   4502            0          612
+  942430   2289          233         2539
+  942200   1856            3         2384
+  942370    908            0         2331
+  942340    981            0         2121
+  920420   2930            1            0
+  942330    347            0         1557
+  920230   1592           34           96
+  932200    493            0         1096
+  942520    179            0          900
+  942120    655            0          370
+  942440    219            0          654
+  932271    516            0          317
+  941340    163            0          616
+  932240    268            0          459
+  942300     86            0          621
+  932236    368            0          321
+  942131    123            0          533
+  920240      0            0          450
+== load at end: load averages: 5.92 6.17 7.52
