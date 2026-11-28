@@ -31,6 +31,67 @@ from urllib.parse import parse_qs, unquote
 LEFTOVER_WAIT_S = 0.15
 
 
+def _json_strings(doc, out):
+    if isinstance(doc, dict):
+        for k, v in doc.items():
+            out.append(k)
+            _json_strings(v, out)
+    elif isinstance(doc, list):
+        for v in doc:
+            _json_strings(v, out)
+    elif isinstance(doc, str):
+        out.append(doc)
+
+
+def parse_body(content_type, body: bytes) -> dict:
+    """Step-27: what this backend's standard parsers make of the body, chosen
+    by the media type of the Content-Type header as a handler would: every
+    key and string value the parser yields (`strings`), the content of file
+    parts apart (`file_strings`), or the parser's error."""
+    media = (content_type or "").split(";")[0].strip().lower()
+    out = {"kind": "none", "strings": [], "file_strings": [], "error": None}
+    try:
+        if media == "application/x-www-form-urlencoded":
+            out["kind"] = "urlencoded"
+            for k, values in parse_qs(body.decode("utf-8", "replace"), keep_blank_values=True).items():
+                out["strings"].append(k)
+                out["strings"].extend(values)
+        elif media == "multipart/form-data":
+            import email.parser
+            import email.policy
+            out["kind"] = "multipart"
+            msg = email.parser.BytesParser(policy=email.policy.HTTP).parsebytes(
+                b"Content-Type: " + content_type.encode("latin-1") + b"\r\n\r\n" + body)
+            if not msg.is_multipart():
+                raise ValueError("not multipart")
+            for part in msg.iter_parts():
+                name = part.get_param("name", header="content-disposition")
+                filename = part.get_filename()
+                text = (part.get_payload(decode=True) or b"").decode("utf-8", "replace")
+                if name is not None:
+                    out["strings"].append(str(name))
+                if filename is not None:
+                    out["strings"].append(str(filename))
+                    out["file_strings"].append(text)
+                else:
+                    out["strings"].append(text)
+        elif media == "application/json" or media.endswith("+json"):
+            import json as _json
+            out["kind"] = "json"
+            _json_strings(_json.loads(body), out["strings"])
+        elif media in ("application/xml", "text/xml") or media.endswith("+xml"):
+            import xml.etree.ElementTree as ET
+            out["kind"] = "xml"
+            for el in ET.fromstring(body).iter():
+                out["strings"].append(el.tag)
+                if el.text:
+                    out["strings"].append(el.text)
+                out["strings"].extend(el.attrib.values())
+    except Exception as exc:  # the parser refused the body: that is the result
+        out["error"] = exc.__class__.__name__
+    return out
+
+
 def describe(handler: BaseHTTPRequestHandler) -> dict:
     """What this backend sees of the request handler has just parsed."""
     target = handler.path
@@ -74,6 +135,7 @@ def describe(handler: BaseHTTPRequestHandler) -> dict:
         "body_len": len(body),
         "body_sha256": hashlib.sha256(body).hexdigest(),
         "leftover_len": len(leftover),
+        "body_parse": parse_body(handler.headers.get("Content-Type"), body),
     }
 
 
