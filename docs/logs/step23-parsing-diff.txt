@@ -1,0 +1,109 @@
+# Step-23 T5: strict-parsing differential, first slice
+== 2026-11-28T04:10:23Z, macOS 27.0 Darwin 27.0.0 arm64, go version go1.27.4 darwin/arm64, Python 3.15.2, system python3 for the backend: Python 3.15.2
+== git c2b069b973e11563b5502573554650d41809f722, tracked paths changed in the working tree: 0
+== coraza module of engine/: github.com/corazawaf/coraza/v3 v3.8.1 => ./third_party/coraza-v3.8.1-kortex
+== engine binary sha256 4bf1d57e805c872c660c3f61807e9d8d3d329069e4cd1a41c39b643474b42578 built from c2b069b973e11563b5502573554650d41809f722 with go version go1.27.4 darwin/arm64
+== go backend binary sha256 00a0d73fcaa31838886a0ee6cf6c519aedda2564169758d157702e3943cbd5aa
+== python backend answers: {"backend": "python-http.server", "method": "GET", "target": "/ping", "path_raw"
+== go backend answers:     {"backend":"go-net/http","method":"GET","target":"/ping","path_raw":"/ping","pat
+== engine-before-python rule29 2026-11-28T04:10:25Z load: load averages: 2.27 2.57 2.89: {"backend_url":"http://127.0.0.1:13011","rule_engine":"On","blocking_paranoia":1,"detection_paranoia":1,"max_body_bytes":13107200,"max_inspected_bytes":131072,"engine_time_budget_ms":2000,"rules_dir":"/Users/ivan/work/kortex-shield-work/engine/crs","listen_addr":"127.0.0.1:8101","events_file":"/Users/ivan/work/kortex-shield-work/out/s22-s23-parsing-py.events.jsonl","audit_log":"/Users/ivan/work/kortex-shield-work/out/s22-s23-parsing-py.audit.log","allowed_methods":"GET HEAD POST OPTIONS","max_inflight_body":8,"max_inflight_body_large":2,"body_lane_threshold":65536,"worker_mode":false,"client_max_inflight":0,"client_max_inflight_small":4,"client_max_inflight_large":1,"request_body_target_updates":166}
+== engine-before-go rule29 2026-11-28T04:10:26Z load: load averages: 2.27 2.57 2.89: {"backend_url":"http://127.0.0.1:13012","rule_engine":"On","blocking_paranoia":1,"detection_paranoia":1,"max_body_bytes":13107200,"max_inspected_bytes":131072,"engine_time_budget_ms":2000,"rules_dir":"/Users/ivan/work/kortex-shield-work/engine/crs","listen_addr":"127.0.0.1:8102","events_file":"/Users/ivan/work/kortex-shield-work/out/s22-s23-parsing-go.events.jsonl","audit_log":"/Users/ivan/work/kortex-shield-work/out/s22-s23-parsing-go.audit.log","allowed_methods":"GET HEAD POST OPTIONS","max_inflight_body":8,"max_inflight_body_large":2,"body_lane_threshold":65536,"worker_mode":false,"client_max_inflight":0,"client_max_inflight_small":4,"client_max_inflight_large":1,"request_body_target_updates":166}
+== cases: 61 hand-written requests; content-length 19, overlong 11, percent 14, transfer-encoding 17
+== engine decision per family (engine in front of the Python backend / in front of the Go backend)
+   content-length [python]: 400 (no marker) 9, 400 framing 5, forwarded 5
+   content-length [go]: 400 (no marker) 9, 400 framing 5, forwarded 5
+   overlong [python]: 403 block 9, forwarded 2
+   overlong [go]: 403 block 9, forwarded 2
+   percent [python]: 400 (no marker) 3, 403 block 7, forwarded 4
+   percent [go]: 400 (no marker) 3, 403 block 7, forwarded 4
+   transfer-encoding [python]: 400 framing 7, 501 (no marker) 5, 503 timeout 2, forwarded 3
+   transfer-encoding [go]: 400 framing 7, 501 (no marker) 5, 503 timeout 2, forwarded 3
+== the engine decided the same in front of both backends in 61 of 61 cases
+== who decided in the engine (python-backed run)
+   HTTP parser of the engine (400, no marker, no event) 12, HTTP parser of the engine (501, no marker, no event) 5, engine 503 timeout (event) 2, forwarded 14, framing gate (400, event) 12, rule block (403, event) 16
+   refused by the engine's HTTP parser without a kortex marker and without an event: 17: cl-list-same, cl-list-conflict, cl-plus, cl-hex, cl-negative, cl-empty, cl-non-numeric, cl-underscore, cl-space-before-colon, te-dup, te-dup-identity, te-list-identity, te-gzip-chunked, te-xchunked, pct-path-short, pct-path-nonhex, pct-path-bare
+== each backend given the same bytes directly
+   python: accepts 61 of 61; statuses {'200': 61}; accepted with bytes left on the connection 26
+   go: accepts 37 of 61; statuses {'200': 37, '400': 17, '501': 7}; accepted with bytes left on the connection 3
+== engine vs python backend: 50 of 61 cases disagree; agree 11; by class: engine-refuses-backend-accepts 47, view-differs 3
+   cl-dup-same [content-length] engine-refuses-backend-accepts: engine 400 framing; backend alone accepts: body 5 bytes (content-length-first), 0 bytes left on the connection
+   cl-dup-small-first [content-length] engine-refuses-backend-accepts: engine 400 framing; backend alone accepts: body 5 bytes (content-length-first), 6 bytes left on the connection
+   cl-dup-large-first [content-length] engine-refuses-backend-accepts: engine 400 framing; backend alone accepts: body 11 bytes (content-length-first), 0 bytes left on the connection
+   cl-dup-case [content-length] engine-refuses-backend-accepts: engine 400 framing; backend alone accepts: body 5 bytes (content-length-first), 6 bytes left on the connection
+   cl-list-same [content-length] engine-refuses-backend-accepts: engine 400 (no marker); backend alone accepts: body 0 bytes (content-length-unparsable), 5 bytes left on the connection
+   cl-list-conflict [content-length] engine-refuses-backend-accepts: engine 400 (no marker); backend alone accepts: body 0 bytes (content-length-unparsable), 11 bytes left on the connection
+   cl-plus [content-length] engine-refuses-backend-accepts: engine 400 (no marker); backend alone accepts: body 5 bytes (content-length-first), 0 bytes left on the connection
+   cl-hex [content-length] engine-refuses-backend-accepts: engine 400 (no marker); backend alone accepts: body 0 bytes (content-length-unparsable), 5 bytes left on the connection
+   cl-negative [content-length] engine-refuses-backend-accepts: engine 400 (no marker); backend alone accepts: body 0 bytes (content-length-negative), 5 bytes left on the connection
+   cl-empty [content-length] engine-refuses-backend-accepts: engine 400 (no marker); backend alone accepts: body 0 bytes (content-length-unparsable), 5 bytes left on the connection
+   cl-non-numeric [content-length] engine-refuses-backend-accepts: engine 400 (no marker); backend alone accepts: body 0 bytes (content-length-unparsable), 5 bytes left on the connection
+   cl-underscore [content-length] engine-refuses-backend-accepts: engine 400 (no marker); backend alone accepts: body 11 bytes (content-length-first), 0 bytes left on the connection
+   cl-space-before-colon [content-length] engine-refuses-backend-accepts: engine 400 (no marker); backend alone accepts: body 0 bytes (none), 5 bytes left on the connection
+   cl-space-before-colon-dup [content-length] engine-refuses-backend-accepts: engine 400 framing; backend alone accepts: body 5 bytes (content-length-first), 6 bytes left on the connection
+   te-control [transfer-encoding] view-differs: engine forwarded; body_len: through engine 5, direct 0; body_sha256
+   te-then-cl [transfer-encoding] engine-refuses-backend-accepts: engine 400 framing; backend alone accepts: body 5 bytes (content-length-first), 10 bytes left on the connection
+   cl-then-te [transfer-encoding] engine-refuses-backend-accepts: engine 400 framing; backend alone accepts: body 5 bytes (content-length-first), 10 bytes left on the connection
+   te-dup [transfer-encoding] engine-refuses-backend-accepts: engine 501 (no marker); backend alone accepts: body 0 bytes (none), 15 bytes left on the connection
+   te-dup-identity [transfer-encoding] engine-refuses-backend-accepts: engine 501 (no marker); backend alone accepts: body 0 bytes (none), 15 bytes left on the connection
+   te-list-identity [transfer-encoding] engine-refuses-backend-accepts: engine 501 (no marker); backend alone accepts: body 0 bytes (none), 15 bytes left on the connection
+   te-gzip-chunked [transfer-encoding] engine-refuses-backend-accepts: engine 501 (no marker); backend alone accepts: body 0 bytes (none), 15 bytes left on the connection
+   te-case [transfer-encoding] view-differs: engine forwarded; body_len: through engine 5, direct 0; body_sha256
+   te-xchunked [transfer-encoding] engine-refuses-backend-accepts: engine 501 (no marker); backend alone accepts: body 0 bytes (none), 15 bytes left on the connection
+   te-xchunked-cl [transfer-encoding] engine-refuses-backend-accepts: engine 400 framing; backend alone accepts: body 5 bytes (content-length-first), 0 bytes left on the connection
+   te-space-before-colon [transfer-encoding] engine-refuses-backend-accepts: engine 400 framing; backend alone accepts: body 0 bytes (none), 15 bytes left on the connection
+   te-tab [transfer-encoding] engine-refuses-backend-accepts: engine 400 framing; backend alone accepts: body 5 bytes (content-length-first), 10 bytes left on the connection
+   te-obs-fold [transfer-encoding] engine-refuses-backend-accepts: engine 400 framing; backend alone accepts: body 5 bytes (content-length-first), 10 bytes left on the connection
+   te-identity-cl [transfer-encoding] engine-refuses-backend-accepts: engine 400 framing; backend alone accepts: body 5 bytes (content-length-first), 0 bytes left on the connection
+   te-chunk-ext [transfer-encoding] view-differs: engine forwarded; body_len: through engine 5, direct 0; body_sha256
+   te-chunk-hex-prefix [transfer-encoding] engine-refuses-backend-accepts: engine 503 timeout; backend alone accepts: body 0 bytes (none), 17 bytes left on the connection
+   te-chunk-lf-only [transfer-encoding] engine-refuses-backend-accepts: engine 503 timeout; backend alone accepts: body 0 bytes (none), 11 bytes left on the connection
+   pct-path-short [percent] engine-refuses-backend-accepts: engine 400 (no marker); backend alone accepts: body 0 bytes (none), 0 bytes left on the connection
+   pct-path-nonhex [percent] engine-refuses-backend-accepts: engine 400 (no marker); backend alone accepts: body 0 bytes (none), 0 bytes left on the connection
+   pct-path-bare [percent] engine-refuses-backend-accepts: engine 400 (no marker); backend alone accepts: body 0 bytes (none), 0 bytes left on the connection
+   pct-path-nul [percent] engine-refuses-backend-accepts: engine 403 block; backend alone accepts: body 0 bytes (none), 0 bytes left on the connection
+   pct-query-nul [percent] engine-refuses-backend-accepts: engine 403 block; backend alone accepts: body 0 bytes (none), 0 bytes left on the connection
+   pct-query-u [percent] engine-refuses-backend-accepts: engine 403 block; backend alone accepts: body 0 bytes (none), 0 bytes left on the connection
+   pct-query-double [percent] engine-refuses-backend-accepts: engine 403 block; backend alone accepts: body 0 bytes (none), 0 bytes left on the connection
+   pct-canary-control [percent] engine-refuses-backend-accepts: engine 403 block; backend alone accepts: body 0 bytes (none), 0 bytes left on the connection
+   pct-canary-broken-tail [percent] engine-refuses-backend-accepts: engine 403 block; backend alone accepts: body 0 bytes (none), 0 bytes left on the connection
+   pct-canary-broken-inside [percent] engine-refuses-backend-accepts: engine 403 block; backend alone accepts: body 0 bytes (none), 0 bytes left on the connection
+   ovl-path-slash-pct [overlong] engine-refuses-backend-accepts: engine 403 block; backend alone accepts: body 0 bytes (none), 0 bytes left on the connection
+   ovl-path-dot-pct [overlong] engine-refuses-backend-accepts: engine 403 block; backend alone accepts: body 0 bytes (none), 0 bytes left on the connection
+   ovl-path-3byte-pct [overlong] engine-refuses-backend-accepts: engine 403 block; backend alone accepts: body 0 bytes (none), 0 bytes left on the connection
+   ovl-path-raw [overlong] engine-refuses-backend-accepts: engine 403 block; backend alone accepts: body 0 bytes (none), 0 bytes left on the connection
+   ovl-query-canary-pct [overlong] engine-refuses-backend-accepts: engine 403 block; backend alone accepts: body 0 bytes (none), 0 bytes left on the connection
+   ovl-query-canary-raw [overlong] engine-refuses-backend-accepts: engine 403 block; backend alone accepts: body 0 bytes (none), 0 bytes left on the connection
+   ovl-query-canary-3byte [overlong] engine-refuses-backend-accepts: engine 403 block; backend alone accepts: body 0 bytes (none), 0 bytes left on the connection
+   ovl-path-canary-pct [overlong] engine-refuses-backend-accepts: engine 403 block; backend alone accepts: body 0 bytes (none), 0 bytes left on the connection
+   ovl-path-canary-control [overlong] engine-refuses-backend-accepts: engine 403 block; backend alone accepts: body 0 bytes (none), 0 bytes left on the connection
+== engine vs go backend: 23 of 61 cases disagree; agree 38; by class: engine-refuses-backend-accepts 23
+   cl-dup-same [content-length] engine-refuses-backend-accepts: engine 400 framing; backend alone accepts: body 5 bytes (content-length), 0 bytes left on the connection
+   te-then-cl [transfer-encoding] engine-refuses-backend-accepts: engine 400 framing; backend alone accepts: body 5 bytes (transfer-encoding:chunked), 0 bytes left on the connection
+   cl-then-te [transfer-encoding] engine-refuses-backend-accepts: engine 400 framing; backend alone accepts: body 5 bytes (transfer-encoding:chunked), 0 bytes left on the connection
+   te-tab [transfer-encoding] engine-refuses-backend-accepts: engine 400 framing; backend alone accepts: body 5 bytes (transfer-encoding:chunked), 0 bytes left on the connection
+   te-obs-fold [transfer-encoding] engine-refuses-backend-accepts: engine 400 framing; backend alone accepts: body 5 bytes (transfer-encoding:chunked), 0 bytes left on the connection
+   te-chunk-hex-prefix [transfer-encoding] engine-refuses-backend-accepts: engine 503 timeout; backend alone accepts: body 0 bytes (transfer-encoding:chunked), 12 bytes left on the connection
+   te-chunk-lf-only [transfer-encoding] engine-refuses-backend-accepts: engine 503 timeout; backend alone accepts: body 0 bytes (transfer-encoding:chunked), 9 bytes left on the connection
+   pct-path-nul [percent] engine-refuses-backend-accepts: engine 403 block; backend alone accepts: body 0 bytes (none), 0 bytes left on the connection
+   pct-query-nul [percent] engine-refuses-backend-accepts: engine 403 block; backend alone accepts: body 0 bytes (none), 0 bytes left on the connection
+   pct-query-u [percent] engine-refuses-backend-accepts: engine 403 block; backend alone accepts: body 0 bytes (none), 0 bytes left on the connection
+   pct-query-double [percent] engine-refuses-backend-accepts: engine 403 block; backend alone accepts: body 0 bytes (none), 0 bytes left on the connection
+   pct-canary-control [percent] engine-refuses-backend-accepts: engine 403 block; backend alone accepts: body 0 bytes (none), 0 bytes left on the connection
+   pct-canary-broken-tail [percent] engine-refuses-backend-accepts: engine 403 block; backend alone accepts: body 0 bytes (none), 0 bytes left on the connection
+   pct-canary-broken-inside [percent] engine-refuses-backend-accepts: engine 403 block; backend alone accepts: body 0 bytes (none), 0 bytes left on the connection
+   ovl-path-slash-pct [overlong] engine-refuses-backend-accepts: engine 403 block; backend alone accepts: body 0 bytes (none), 0 bytes left on the connection
+   ovl-path-dot-pct [overlong] engine-refuses-backend-accepts: engine 403 block; backend alone accepts: body 0 bytes (none), 0 bytes left on the connection
+   ovl-path-3byte-pct [overlong] engine-refuses-backend-accepts: engine 403 block; backend alone accepts: body 0 bytes (none), 0 bytes left on the connection
+   ovl-path-raw [overlong] engine-refuses-backend-accepts: engine 403 block; backend alone accepts: body 0 bytes (none), 0 bytes left on the connection
+   ovl-query-canary-pct [overlong] engine-refuses-backend-accepts: engine 403 block; backend alone accepts: body 0 bytes (none), 0 bytes left on the connection
+   ovl-query-canary-raw [overlong] engine-refuses-backend-accepts: engine 403 block; backend alone accepts: body 0 bytes (none), 0 bytes left on the connection
+   ovl-query-canary-3byte [overlong] engine-refuses-backend-accepts: engine 403 block; backend alone accepts: body 0 bytes (none), 0 bytes left on the connection
+   ovl-path-canary-pct [overlong] engine-refuses-backend-accepts: engine 403 block; backend alone accepts: body 0 bytes (none), 0 bytes left on the connection
+   ovl-path-canary-control [overlong] engine-refuses-backend-accepts: engine 403 block; backend alone accepts: body 0 bytes (none), 0 bytes left on the connection
+== the two backends, given the same bytes directly, differ from EACH OTHER (one refuses, or they read a different body) in 31 of 61 cases; the engine refuses 28 of them and forwards 3 with its own framing: te-control, te-case, te-chunk-ext
+== canary cases: 9; forwarded by the engine: 0; blocked 403: 9
+== log-only events of the engine (python-backed run), by reason
+   invalid-percent-sequence-in-query 3
+== engine stats at end (python-backed): {"inflight_small":0,"inflight_large":0,"abandoned_running":0,"kills":0,"overloads":0,"refused_before_inspection":0,"penalised_clients":0,"client_inflight_small":0,"client_inflight_large":0,"workers":{"pool":0,"busy":0,"spares":0,"recycled":0}}
+== engine stats at end (go-backed):     {"inflight_small":0,"inflight_large":0,"abandoned_running":0,"kills":0,"overloads":0,"refused_before_inspection":0,"penalised_clients":0,"client_inflight_small":0,"client_inflight_large":0,"workers":{"pool":0,"busy":0,"spares":0,"recycled":0}}
+S23-PARSING-DIFF-DONE
