@@ -1,0 +1,27 @@
+# Step-23 T4 DIAGNOSTIC: 503 overload through the runner with concurrent workers
+== 2026-11-28T04:08:19Z, git 1313eea962ae3a44bd9e0a7141d2ae1bbad4698e, tracked paths changed: 0, go version go1.27.4 darwin/arm64, Python 3.15.2, load at start: load averages: 2.66 2.79 3.01
+== manifest (hand-written, not committed): 48 POST /form requests, content type ['application/x-www-form-urlencoded'], size in bytes [99992, 99993, 99994, 99995, 99996, 99997], ids ovl-00 to ovl-47
+== engine binary sha256 4bf1d57e805c872c660c3f61807e9d8d3d329069e4cd1a41c39b643474b42578 built from 1313eea962ae3a44bd9e0a7141d2ae1bbad4698e with go version go1.27.4 darwin/arm64
+== DIAGNOSTIC-overload-inprocess-pl1-workers8 rule29 2026-11-28T04:08:20Z load: load averages: 2.66 2.79 3.01: {"backend_url":"http://127.0.0.1:13004","rule_engine":"On","blocking_paranoia":1,"detection_paranoia":1,"max_body_bytes":13107200,"max_inspected_bytes":131072,"engine_time_budget_ms":2000,"rules_dir":"/Users/ivan/work/kortex-shield-work/engine/crs","listen_addr":"127.0.0.1:8097","events_file":"/Users/ivan/work/kortex-shield-work/out/s22-s23-DIAGNOSTIC-overload-inprocess-pl1-workers8.events.jsonl","audit_log":"/Users/ivan/work/kortex-shield-work/out/s22-s23-DIAGNOSTIC-overload-inprocess-pl1-workers8.audit.log","allowed_methods":"GET HEAD POST OPTIONS","max_inflight_body":8,"max_inflight_body_large":2,"body_lane_threshold":65536,"worker_mode":false,"client_max_inflight":0,"client_max_inflight_small":4,"client_max_inflight_large":1,"request_body_target_updates":166}
+== DIAGNOSTIC-overload-inprocess-pl1-workers8 stats after run: {"inflight_small":0,"inflight_large":0,"abandoned_running":0,"kills":0,"overloads":46,"refused_before_inspection":0,"penalised_clients":0,"client_inflight_small":0,"client_inflight_large":0,"workers":{"pool":0,"busy":0,"spares":0,"recycled":0}}
+== DIAGNOSTIC-overload-inprocess-pl1-workers8 kortex_eval.crs_audit and kortex_eval.outcome output:
+crs_audit: 0 audit entr(ies) -> out/s23-DIAGNOSTIC-overload-inprocess-pl1-workers8/audit.jsonl
+waf_fail_closed_503_overload: 46
+waf_pass: 2
+docs/logs/runs/s23-overload-DIAGNOSTIC/DIAGNOSTIC-overload-inprocess-pl1-workers8/audit.index.jsonl: 0 records, 0 with a body, 0 body bytes in the source
+== DIAGNOSTIC-overload-inprocess-pl1-workers8 events: 49 events {'overload': 46, 'pass': 3}; compressed-body events 0 {}; framing events 0 {}; kept 46
+   responses by (status, engine_decision): (200, None)=2, (503, 'overload')=46
+   overload events by reason: in-flight body-processing cap reached=46
+   run.json: {"load_avg_start": [2.66, 2.79, 3.01], "load_avg_end": [2.69, 2.79, 3.01], "total_samples": 48, "responses_ok": 48, "blocked": 0, "error_count": 0}
+== DIAGNOSTIC-overload-worker-pl1-workers8 rule29 2026-11-28T04:08:23Z load: load averages: 2.69 2.79 3.01: {"backend_url":"http://127.0.0.1:13004","rule_engine":"On","blocking_paranoia":1,"detection_paranoia":1,"max_body_bytes":13107200,"max_inspected_bytes":131072,"engine_time_budget_ms":2000,"rules_dir":"/Users/ivan/work/kortex-shield-work/engine/crs","listen_addr":"127.0.0.1:8098","events_file":"/Users/ivan/work/kortex-shield-work/out/s22-s23-DIAGNOSTIC-overload-worker-pl1-workers8.events.jsonl","audit_log":"/Users/ivan/work/kortex-shield-work/out/s22-s23-DIAGNOSTIC-overload-worker-pl1-workers8.audit.log","allowed_methods":"GET HEAD POST OPTIONS","max_inflight_body":8,"max_inflight_body_large":2,"body_lane_threshold":65536,"worker_mode":true,"client_max_inflight":0,"client_max_inflight_small":4,"client_max_inflight_large":1,"request_body_target_updates":166}
+== DIAGNOSTIC-overload-worker-pl1-workers8 stats after run: {"inflight_small":0,"inflight_large":0,"abandoned_running":0,"kills":0,"overloads":47,"refused_before_inspection":0,"penalised_clients":0,"client_inflight_small":0,"client_inflight_large":0,"workers":{"pool":4,"busy":0,"spares":4,"recycled":0}}
+== DIAGNOSTIC-overload-worker-pl1-workers8 kortex_eval.crs_audit and kortex_eval.outcome output:
+crs_audit: 0 audit entr(ies) -> out/s23-DIAGNOSTIC-overload-worker-pl1-workers8/audit.jsonl
+waf_fail_closed_503_overload: 47
+waf_pass: 1
+docs/logs/runs/s23-overload-DIAGNOSTIC/DIAGNOSTIC-overload-worker-pl1-workers8/audit.index.jsonl: 0 records, 0 with a body, 0 body bytes in the source
+== DIAGNOSTIC-overload-worker-pl1-workers8 events: 49 events {'overload': 47, 'pass': 2}; compressed-body events 0 {}; framing events 0 {}; kept 47
+   responses by (status, engine_decision): (200, None)=1, (503, 'overload')=47
+   overload events by reason: in-flight body-processing cap reached=23, per-client in-flight cap=24
+   run.json: {"load_avg_start": [2.69, 2.79, 3.01], "load_avg_end": [2.69, 2.79, 3.01], "total_samples": 48, "responses_ok": 48, "blocked": 0, "error_count": 0}
+S23-OVERLOAD-DONE
