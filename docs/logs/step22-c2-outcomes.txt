@@ -1,0 +1,77 @@
+== step-22 C2 outcome counts, 2026-11-28T02:54:56Z, macOS 27.0 Darwin 27.0.0 arm64, go version go1.27.4 darwin/arm64, Python 3.15.2
+== git 457de00facc46a15736f9cbcb62562fa9d3b9e8c, tracked paths changed in the working tree: 0
+== manifest /Users/ivan/work/kortex-shield-dev/data/benign-wcp-v0/manifest.jsonl sha256 c8ce11f26406df96d55e5a1cc6186bcbf648cb29bd628081dd834c6ccf1329d1 (frozen: c8ce11f26406df96d55e5a1cc6186bcbf648cb29bd628081dd834c6ccf1329d1)
+== manifest /Users/ivan/work/kortex-shield-dev/data/benign-wcp-v1/manifest.jsonl sha256 049b7dea33aac475c4ef7f05c8644da610ad311a84862ef3b88d33a37dc8b5c0 (frozen: 049b7dea33aac475c4ef7f05c8644da610ad311a84862ef3b88d33a37dc8b5c0)
+== engine binary sha256 be2217464eb640c97fb112b64aaf6992c8f93a183e2b92e69fd5b996ea717626 built from 457de00facc46a15736f9cbcb62562fa9d3b9e8c with go version go1.27.4 darwin/arm64
+== benign-wcp-v0-inprocess-pl1 rule29 2026-11-28T02:54:57Z load: load averages: 4.85 5.72 5.03: {"backend_url":"http://127.0.0.1:13004","rule_engine":"On","blocking_paranoia":1,"detection_paranoia":1,"max_body_bytes":13107200,"max_inspected_bytes":131072,"engine_time_budget_ms":2000,"rules_dir":"/Users/ivan/work/kortex-shield-work/engine/crs","listen_addr":"127.0.0.1:8097","events_file":"/Users/ivan/work/kortex-shield-work/out/s22-c2-benign-wcp-v0-inprocess-pl1.events.jsonl","audit_log":"/Users/ivan/work/kortex-shield-work/out/s22-c2-benign-wcp-v0-inprocess-pl1.audit.log","allowed_methods":"GET HEAD POST OPTIONS","max_inflight_body":8,"max_inflight_body_large":2,"body_lane_threshold":65536,"worker_mode":false,"client_max_inflight":0,"client_max_inflight_small":4,"client_max_inflight_large":1,"request_body_target_updates":166}
+runner nonzero for benign-wcp-v0-inprocess-pl1 (sample errors); continuing
+== benign-wcp-v0-inprocess-pl1 stats after run: {"inflight_small":0,"inflight_large":0,"abandoned_running":0,"kills":0,"overloads":0,"refused_before_inspection":0,"penalised_clients":0,"client_inflight_small":0,"client_inflight_large":0,"workers":{"pool":0,"busy":0,"spares":0,"recycled":0}}
+== benign-wcp-v0-inprocess-pl1 kortex_eval.crs_audit and kortex_eval.outcome output:
+crs_audit: 2236 audit entr(ies) -> out/s22-c2-benign-wcp-v0-inprocess-pl1/audit.jsonl
+error: 1
+waf_block: 2184
+waf_deny_status: 52
+waf_fail_closed_413: 28
+waf_fail_closed_415: 19
+waf_pass: 17716
+docs/logs/runs/s22-c2-outcomes/benign-wcp-v0-inprocess-pl1/audit.index.jsonl: 2236 records, 1813 with a body, 13420294 body bytes in the source
+== benign-wcp-v1-inprocess-pl1 rule29 2026-11-28T02:57:23Z load: load averages: 7.26 6.11 5.28: {"backend_url":"http://127.0.0.1:13004","rule_engine":"On","blocking_paranoia":1,"detection_paranoia":1,"max_body_bytes":13107200,"max_inspected_bytes":131072,"engine_time_budget_ms":2000,"rules_dir":"/Users/ivan/work/kortex-shield-work/engine/crs","listen_addr":"127.0.0.1:8097","events_file":"/Users/ivan/work/kortex-shield-work/out/s22-c2-benign-wcp-v1-inprocess-pl1.events.jsonl","audit_log":"/Users/ivan/work/kortex-shield-work/out/s22-c2-benign-wcp-v1-inprocess-pl1.audit.log","allowed_methods":"GET HEAD POST OPTIONS","max_inflight_body":8,"max_inflight_body_large":2,"body_lane_threshold":65536,"worker_mode":false,"client_max_inflight":0,"client_max_inflight_small":4,"client_max_inflight_large":1,"request_body_target_updates":166}
+== benign-wcp-v1-inprocess-pl1 stats after run: {"inflight_small":0,"inflight_large":0,"abandoned_running":0,"kills":0,"overloads":0,"refused_before_inspection":0,"penalised_clients":0,"client_inflight_small":0,"client_inflight_large":0,"workers":{"pool":0,"busy":0,"spares":0,"recycled":0}}
+== benign-wcp-v1-inprocess-pl1 kortex_eval.crs_audit and kortex_eval.outcome output:
+crs_audit: 1116 audit entr(ies) -> out/s22-c2-benign-wcp-v1-inprocess-pl1/audit.jsonl
+waf_block: 1091
+waf_deny_status: 25
+waf_fail_closed_413: 17
+waf_pass: 8867
+docs/logs/runs/s22-c2-outcomes/benign-wcp-v1-inprocess-pl1/audit.index.jsonl: 1116 records, 899 with a body, 6538056 body bytes in the source
+== benign-wcp-v0-inprocess-pl2 rule29 2026-11-28T02:58:33Z load: load averages: 6.42 6.07 5.33: {"backend_url":"http://127.0.0.1:13004","rule_engine":"On","blocking_paranoia":2,"detection_paranoia":2,"max_body_bytes":13107200,"max_inspected_bytes":131072,"engine_time_budget_ms":2000,"rules_dir":"/Users/ivan/work/kortex-shield-work/engine/crs","listen_addr":"127.0.0.1:8097","events_file":"/Users/ivan/work/kortex-shield-work/out/s22-c2-benign-wcp-v0-inprocess-pl2.events.jsonl","audit_log":"/Users/ivan/work/kortex-shield-work/out/s22-c2-benign-wcp-v0-inprocess-pl2.audit.log","allowed_methods":"GET HEAD POST OPTIONS","max_inflight_body":8,"max_inflight_body_large":2,"body_lane_threshold":65536,"worker_mode":false,"client_max_inflight":0,"client_max_inflight_small":4,"client_max_inflight_large":1,"request_body_target_updates":166}
+runner nonzero for benign-wcp-v0-inprocess-pl2 (sample errors); continuing
+== benign-wcp-v0-inprocess-pl2 stats after run: {"inflight_small":0,"inflight_large":0,"abandoned_running":0,"kills":0,"overloads":0,"refused_before_inspection":0,"penalised_clients":0,"client_inflight_small":0,"client_inflight_large":0,"workers":{"pool":0,"busy":0,"spares":0,"recycled":0}}
+== benign-wcp-v0-inprocess-pl2 kortex_eval.crs_audit and kortex_eval.outcome output:
+crs_audit: 8919 audit entr(ies) -> out/s22-c2-benign-wcp-v0-inprocess-pl2/audit.jsonl
+inconsistent samples: wcp-67cb71cd0c38
+error: 1
+inconsistent: 1
+waf_block: 8866
+waf_deny_status: 52
+waf_fail_closed_413: 28
+waf_fail_closed_415: 19
+waf_pass: 11033
+docs/logs/runs/s22-c2-outcomes/benign-wcp-v0-inprocess-pl2/audit.index.jsonl: 8919 records, 4690 with a body, 20079541 body bytes in the source
+== benign-wcp-v1-inprocess-pl2 rule29 2026-11-28T03:02:39Z load: load averages: 3.32 4.41 4.75: {"backend_url":"http://127.0.0.1:13004","rule_engine":"On","blocking_paranoia":2,"detection_paranoia":2,"max_body_bytes":13107200,"max_inspected_bytes":131072,"engine_time_budget_ms":2000,"rules_dir":"/Users/ivan/work/kortex-shield-work/engine/crs","listen_addr":"127.0.0.1:8097","events_file":"/Users/ivan/work/kortex-shield-work/out/s22-c2-benign-wcp-v1-inprocess-pl2.events.jsonl","audit_log":"/Users/ivan/work/kortex-shield-work/out/s22-c2-benign-wcp-v1-inprocess-pl2.audit.log","allowed_methods":"GET HEAD POST OPTIONS","max_inflight_body":8,"max_inflight_body_large":2,"body_lane_threshold":65536,"worker_mode":false,"client_max_inflight":0,"client_max_inflight_small":4,"client_max_inflight_large":1,"request_body_target_updates":166}
+== benign-wcp-v1-inprocess-pl2 stats after run: {"inflight_small":0,"inflight_large":0,"abandoned_running":0,"kills":0,"overloads":0,"refused_before_inspection":0,"penalised_clients":0,"client_inflight_small":0,"client_inflight_large":0,"workers":{"pool":0,"busy":0,"spares":0,"recycled":0}}
+== benign-wcp-v1-inprocess-pl2 kortex_eval.crs_audit and kortex_eval.outcome output:
+crs_audit: 4463 audit entr(ies) -> out/s22-c2-benign-wcp-v1-inprocess-pl2/audit.jsonl
+waf_block: 4438
+waf_deny_status: 25
+waf_fail_closed_413: 17
+waf_pass: 5520
+docs/logs/runs/s22-c2-outcomes/benign-wcp-v1-inprocess-pl2/audit.index.jsonl: 4463 records, 2285 with a body, 9857146 body bytes in the source
+== load at end: load averages: 1.94 3.54 4.36
+
+== outcome counts (benign-labelled external traffic; every block or refusal is a potential false positive)
+benign-wcp-v0 PL1 inprocess: n=20000 waf_block=2184 waf_deny_status=52 inconsistent=0 error=1 waf_fail_closed_413=28 waf_fail_closed_415=19 waf_pass=17716 other=0
+    FP rate best case (errors, deny_status, inconsistent, fail-closed 413/415 not flagged) 2184/20000 = 10.92%; worst case (all flagged) 2284/20000 = 11.42%
+    statuses: {200: 17716, 400: 52, 403: 2184, 413: 28, 415: 19, None: 1}
+    engine_decision: {None: 17717, 'block': 2236, 'content-encoding': 19, 'limit': 28}
+    outcome x status: error/None=1, waf_block/403=2184, waf_deny_status/400=52, waf_fail_closed_413/413=28, waf_fail_closed_415/415=19, waf_pass/200=17716
+    rule 18: 2236 audit entries; rule ids in >=20% of them: 949110=2184, 932370=466
+benign-wcp-v0 PL2 inprocess: n=20000 waf_block=8866 waf_deny_status=52 inconsistent=1 error=1 waf_fail_closed_413=28 waf_fail_closed_415=19 waf_pass=11033 other=0
+    FP rate best case (errors, deny_status, inconsistent, fail-closed 413/415 not flagged) 8866/20000 = 44.33%; worst case (all flagged) 8967/20000 = 44.84%
+    statuses: {200: 11033, 400: 52, 403: 8867, 413: 28, 415: 19, None: 1}
+    engine_decision: {None: 11035, 'block': 8918, 'content-encoding': 19, 'limit': 28}
+    outcome x status: error/None=1, inconsistent/403=1, waf_block/403=8866, waf_deny_status/400=52, waf_fail_closed_413/413=28, waf_fail_closed_415/415=19, waf_pass/200=11033
+    rule 18: 8919 audit entries; rule ids in >=20% of them: 949110=8867, 931130=5853, 942430=4987, 942200=4269, 942370=3239, 942340=3087, 942330=1913, 932200=1834
+benign-wcp-v1 PL1 inprocess: n=10000 waf_block=1091 waf_deny_status=25 inconsistent=0 error=0 waf_fail_closed_413=17 waf_fail_closed_415=0 waf_pass=8867 other=0
+    FP rate best case (errors, deny_status, inconsistent, fail-closed 413/415 not flagged) 1091/10000 = 10.91%; worst case (all flagged) 1133/10000 = 11.33%
+    statuses: {200: 8867, 400: 25, 403: 1091, 413: 17}
+    engine_decision: {None: 8867, 'block': 1116, 'limit': 17}
+    outcome x status: waf_block/403=1091, waf_deny_status/400=25, waf_fail_closed_413/413=17, waf_pass/200=8867
+    rule 18: 1116 audit entries; rule ids in >=20% of them: 949110=1091
+benign-wcp-v1 PL2 inprocess: n=10000 waf_block=4438 waf_deny_status=25 inconsistent=0 error=0 waf_fail_closed_413=17 waf_fail_closed_415=0 waf_pass=5520 other=0
+    FP rate best case (errors, deny_status, inconsistent, fail-closed 413/415 not flagged) 4438/10000 = 44.38%; worst case (all flagged) 4480/10000 = 44.80%
+    statuses: {200: 5520, 400: 25, 403: 4438, 413: 17}
+    engine_decision: {None: 5520, 'block': 4463, 'limit': 17}
+    outcome x status: waf_block/403=4438, waf_deny_status/400=25, waf_fail_closed_413/413=17, waf_pass/200=5520
+    rule 18: 4463 audit entries; rule ids in >=20% of them: 949110=4438, 931130=2931, 942430=2466, 942200=2073, 942370=1558, 942340=1456, 942330=930, 932200=905
+C2-OUTCOMES-DONE
