@@ -1,0 +1,70 @@
+== step-23 flip_repro DIAGNOSTIC positive control (coraza370), 2026-11-28T03:44:09Z, macOS 27.0 Darwin 27.0.0 arm64, go version go1.27.4 darwin/arm64, Python 3.15.2
+== git ed48b1eb9ee69355cc5c3c6dc0437320e4b7173d, engine/ paths changed in the working tree: 1
+== require github.com/corazawaf/coraza/v3 v3.8.1; github.com/corazawaf/libinjection-go v0.3.3 // indirect;replace github.com/corazawaf/coraza/v3 => ./third_party/coraza-v3.8.1-kortex;
+== coraza module of engine/: github.com/corazawaf/coraza/v3 v3.8.1 => ./third_party/coraza-v3.8.1-kortex
+== manifest /Users/ivan/work/kortex-shield-dev/data/benign-wcp-v0/manifest.jsonl sha256 c8ce11f26406df96d55e5a1cc6186bcbf648cb29bd628081dd834c6ccf1329d1 (frozen: c8ce11f26406df96d55e5a1cc6186bcbf648cb29bd628081dd834c6ccf1329d1)
+== DIAGNOSTIC scratch engine coraza module: github.com/corazawaf/coraza/v3 v3.7.0
+== DIAGNOSTIC scratch engine sha256 027d3f7d564c2bec6fb2cce1ee2c12328c06b08ec2d2ac3e5032f0143e0b342b; .go files that differ from engine/: 1; diff of go.mod against engine/go.mod:
+5c5
+< require github.com/corazawaf/coraza/v3 v3.8.1
+---
+> require github.com/corazawaf/coraza/v3 v3.7.0
+27,28d26
+< 
+< replace github.com/corazawaf/coraza/v3 => ./third_party/coraza-v3.8.1-kortex
+== stub backend tools/stub_backend.py on 127.0.0.1:13004; pl=2 rounds=500 reps=5 hosts=localhost 127.0.0.1
+== flip-pl2-DIAGNOSTIC-coraza370-localhost rule29 2026-11-28T03:44:10Z load: load averages: 8.96 4.68 3.22: {"backend_url":"http://127.0.0.1:13004","rule_engine":"On","blocking_paranoia":2,"detection_paranoia":2,"max_body_bytes":13107200,"max_inspected_bytes":131072,"engine_time_budget_ms":2000,"rules_dir":"/Users/ivan/work/kortex-shield-work/engine/crs","listen_addr":"127.0.0.1:8093","events_file":"/Users/ivan/work/kortex-shield-work/out/s22-flip-pl2-DIAGNOSTIC-coraza370-localhost.events.jsonl","audit_log":"/Users/ivan/work/kortex-shield-work/out/s22-flip-pl2-DIAGNOSTIC-coraza370-localhost.audit.log","allowed_methods":"GET HEAD POST OPTIONS","max_inflight_body":8,"max_inflight_body_large":2,"body_lane_threshold":65536,"worker_mode":false,"client_max_inflight":0,"client_max_inflight_small":4,"client_max_inflight_large":1,"request_body_target_updates":166}
+== host localhost: load at start: load averages: 8.96 4.68 3.22
+host=localhost rep=1 :: rounds=500 flip_rounds=147 flips/round=0.2940 per_sample={'wcp-62cd1bd36bf7': 72, 'wcp-b6f2246ef4b8': 82} wall_s=3.0
+host=localhost rep=2 :: rounds=500 flip_rounds=148 flips/round=0.2960 per_sample={'wcp-62cd1bd36bf7': 77, 'wcp-b6f2246ef4b8': 88} wall_s=2.9
+host=localhost rep=3 :: rounds=500 flip_rounds=146 flips/round=0.2920 per_sample={'wcp-62cd1bd36bf7': 79, 'wcp-b6f2246ef4b8': 76} wall_s=2.9
+host=localhost rep=4 :: rounds=500 flip_rounds=148 flips/round=0.2960 per_sample={'wcp-62cd1bd36bf7': 71, 'wcp-b6f2246ef4b8': 86} wall_s=2.9
+host=localhost rep=5 :: rounds=500 flip_rounds=152 flips/round=0.3040 per_sample={'wcp-62cd1bd36bf7': 81, 'wcp-b6f2246ef4b8': 83} wall_s=2.9
+== host localhost: load at end: load averages: 7.09 4.54 3.20
+== host localhost: engine stats at end: {"inflight_small":0,"inflight_large":0,"abandoned_running":0,"kills":0,"overloads":0,"refused_before_inspection":0,"penalised_clients":0,"client_inflight_small":0,"client_inflight_large":0,"workers":{"pool":0,"busy":0,"spares":0,"recycled":0}}
+== host localhost: audit entries 4205 in out/s22-flip-pl2-DIAGNOSTIC-coraza370-localhost.audit.log (not committed, rule 51)
+== flip-pl2-DIAGNOSTIC-coraza370-127.0.0.1 rule29 2026-11-28T03:44:28Z load: load averages: 7.09 4.54 3.20: {"backend_url":"http://127.0.0.1:13004","rule_engine":"On","blocking_paranoia":2,"detection_paranoia":2,"max_body_bytes":13107200,"max_inspected_bytes":131072,"engine_time_budget_ms":2000,"rules_dir":"/Users/ivan/work/kortex-shield-work/engine/crs","listen_addr":"127.0.0.1:8093","events_file":"/Users/ivan/work/kortex-shield-work/out/s22-flip-pl2-DIAGNOSTIC-coraza370-127.0.0.1.events.jsonl","audit_log":"/Users/ivan/work/kortex-shield-work/out/s22-flip-pl2-DIAGNOSTIC-coraza370-127.0.0.1.audit.log","allowed_methods":"GET HEAD POST OPTIONS","max_inflight_body":8,"max_inflight_body_large":2,"body_lane_threshold":65536,"worker_mode":false,"client_max_inflight":0,"client_max_inflight_small":4,"client_max_inflight_large":1,"request_body_target_updates":166}
+== host 127.0.0.1: load at start: load averages: 7.09 4.54 3.20
+host=127.0.0.1 rep=1 :: rounds=500 flip_rounds=113 flips/round=0.2260 per_sample={'wcp-62cd1bd36bf7': 29, 'wcp-b6f2246ef4b8': 86} wall_s=2.8
+host=127.0.0.1 rep=2 :: rounds=500 flip_rounds=119 flips/round=0.2380 per_sample={'wcp-62cd1bd36bf7': 31, 'wcp-b6f2246ef4b8': 94} wall_s=2.8
+host=127.0.0.1 rep=3 :: rounds=500 flip_rounds=105 flips/round=0.2100 per_sample={'wcp-62cd1bd36bf7': 29, 'wcp-b6f2246ef4b8': 81} wall_s=2.8
+host=127.0.0.1 rep=4 :: rounds=500 flip_rounds=119 flips/round=0.2380 per_sample={'wcp-62cd1bd36bf7': 36, 'wcp-b6f2246ef4b8': 90} wall_s=2.8
+host=127.0.0.1 rep=5 :: rounds=500 flip_rounds=117 flips/round=0.2340 per_sample={'wcp-62cd1bd36bf7': 28, 'wcp-b6f2246ef4b8': 95} wall_s=2.8
+== host 127.0.0.1: load at end: load averages: 5.89 4.39 3.17
+== host 127.0.0.1: engine stats at end: {"inflight_small":0,"inflight_large":0,"abandoned_running":0,"kills":0,"overloads":0,"refused_before_inspection":0,"penalised_clients":0,"client_inflight_small":0,"client_inflight_large":0,"workers":{"pool":0,"busy":0,"spares":0,"recycled":0}}
+== host 127.0.0.1: audit entries 4401 in out/s22-flip-pl2-DIAGNOSTIC-coraza370-127.0.0.1.audit.log (not committed, rule 51)
+
+== summary: answers by status, per repeat (a flip is a 200; rule 20: every request counted)
+host=localhost rep=1: rounds=500 rounds with a 200 (flip)=147 flips/round=0.2940 statuses={'200': 154, '403': 846}
+host=localhost rep=2: rounds=500 rounds with a 200 (flip)=148 flips/round=0.2960 statuses={'200': 165, '403': 835}
+host=localhost rep=3: rounds=500 rounds with a 200 (flip)=146 flips/round=0.2920 statuses={'200': 155, '403': 845}
+host=localhost rep=4: rounds=500 rounds with a 200 (flip)=148 flips/round=0.2960 statuses={'200': 157, '403': 843}
+host=localhost rep=5: rounds=500 rounds with a 200 (flip)=152 flips/round=0.3040 statuses={'200': 164, '403': 836}
+host=localhost all repeats: rounds=2500 rounds with a flip=741 flips/round=0.2964 statuses={'200': 795, '403': 4205}
+host=localhost engine events (no sample id): 1 distinct (decision, status, rule ids)
+    x1: pass 0 forwarding
+host=localhost engine events wcp-62cd1bd36bf7-fliprepro: 4 distinct (decision, status, rule ids)
+    x1753: block 403 rules=900000,900001,900110,900990,900200,901111,901115,901130,901140,901141,901142,901143,901162,901168,901163,901164,901165,901171,901510,901167,901169,901170,901180,901200,901340,901400,911015,913015,920015,921015,930015,931015,932015,933015,934015,941010,941015,942015,943015,944015,949052,949152,949053,949153,949015,980015,901181,911016,913016,920016,921016,930016,931016,932016,933016,934016,941016,942370,942430,942016,943016,944016,949059,949159,949060,949160,949061,949161,949110
+    x380: pass 0 forwarding
+    x307: block 403 rules=900000,900001,900110,900990,900200,901111,901115,901130,901140,901141,901142,901143,901162,901168,901163,901164,901165,901171,901510,901167,901169,901170,901180,901200,901340,901400,911015,913015,920015,921015,930015,931015,932015,933015,934015,941010,941015,942015,943015,944015,949052,949152,949053,949153,949015,980015,901181,911016,913016,920016,921016,930016,931016,932016,933016,934016,941016,942370,942016,943016,944016,949059,949159,949060,949160,949061,949161,949110
+    x60: block 403 rules=900000,900001,900110,900990,900200,901111,901115,901130,901140,901141,901142,901143,901162,901168,901163,901164,901165,901171,901510,901167,901169,901170,901180,901200,901340,901400,911015,913015,920015,921015,930015,931015,932015,933015,934015,941010,941015,942015,943015,944015,949052,949152,949053,949153,949015,980015,901181,911016,913016,920016,921016,930016,931016,932016,933016,934016,941016,942430,942016,943016,944016,949059,949159,949060,949160,949061,949161,949110
+host=localhost engine events wcp-b6f2246ef4b8-fliprepro: 2 distinct (decision, status, rule ids)
+    x2085: block 403 rules=900000,900001,900110,900990,900200,901111,901115,901130,901140,901141,901142,901143,901162,901168,901163,901164,901165,901171,901510,901167,901169,901170,901180,901200,901340,901400,911015,913015,920015,921015,930015,931015,932015,933015,934015,941010,941015,942015,943015,944015,949052,949152,949053,949153,949015,980015,901181,911016,913016,920016,921016,930016,931016,932016,933016,934016,941016,942370,942016,943016,944016,949059,949159,949060,949160,949061,949161,949110
+    x415: pass 0 forwarding
+host=127.0.0.1 rep=1: rounds=500 rounds with a 200 (flip)=113 flips/round=0.2260 statuses={'200': 115, '403': 885}
+host=127.0.0.1 rep=2: rounds=500 rounds with a 200 (flip)=119 flips/round=0.2380 statuses={'200': 125, '403': 875}
+host=127.0.0.1 rep=3: rounds=500 rounds with a 200 (flip)=105 flips/round=0.2100 statuses={'200': 110, '403': 890}
+host=127.0.0.1 rep=4: rounds=500 rounds with a 200 (flip)=119 flips/round=0.2380 statuses={'200': 126, '403': 874}
+host=127.0.0.1 rep=5: rounds=500 rounds with a 200 (flip)=117 flips/round=0.2340 statuses={'200': 123, '403': 877}
+host=127.0.0.1 all repeats: rounds=2500 rounds with a flip=573 flips/round=0.2292 statuses={'200': 599, '403': 4401}
+host=127.0.0.1 engine events (no sample id): 1 distinct (decision, status, rule ids)
+    x1: pass 0 forwarding
+host=127.0.0.1 engine events wcp-62cd1bd36bf7-fliprepro: 4 distinct (decision, status, rule ids)
+    x1740: block 403 rules=900000,900001,900110,900990,900200,901111,901115,901130,901140,901141,901142,901143,901162,901168,901163,901164,901165,901171,901510,901167,901169,901170,901180,901200,901340,901400,911015,913015,920350,920015,921015,930015,931015,932015,933015,934015,941010,941015,942015,943015,944015,949052,949152,949053,949153,949015,980015,901181,911016,913016,920016,921016,930016,931016,932016,933016,934016,941016,942370,942430,942016,943016,944016,949059,949159,949060,949160,949061,949161,949110
+    x304: block 403 rules=900000,900001,900110,900990,900200,901111,901115,901130,901140,901141,901142,901143,901162,901168,901163,901164,901165,901171,901510,901167,901169,901170,901180,901200,901340,901400,911015,913015,920350,920015,921015,930015,931015,932015,933015,934015,941010,941015,942015,943015,944015,949052,949152,949053,949153,949015,980015,901181,911016,913016,920016,921016,930016,931016,932016,933016,934016,941016,942370,942016,943016,944016,949059,949159,949060,949160,949061,949161,949110
+    x303: block 403 rules=900000,900001,900110,900990,900200,901111,901115,901130,901140,901141,901142,901143,901162,901168,901163,901164,901165,901171,901510,901167,901169,901170,901180,901200,901340,901400,911015,913015,920350,920015,921015,930015,931015,932015,933015,934015,941010,941015,942015,943015,944015,949052,949152,949053,949153,949015,980015,901181,911016,913016,920016,921016,930016,931016,932016,933016,934016,941016,942430,942016,943016,944016,949059,949159,949060,949160,949061,949161,949110
+    x153: pass 0 forwarding
+host=127.0.0.1 engine events wcp-b6f2246ef4b8-fliprepro: 2 distinct (decision, status, rule ids)
+    x2054: block 403 rules=900000,900001,900110,900990,900200,901111,901115,901130,901140,901141,901142,901143,901162,901168,901163,901164,901165,901171,901510,901167,901169,901170,901180,901200,901340,901400,911015,913015,920350,920015,921015,930015,931015,932015,933015,934015,941010,941015,942015,943015,944015,949052,949152,949053,949153,949015,980015,901181,911016,913016,920016,921016,930016,931016,932016,933016,934016,941016,942370,942016,943016,944016,949059,949159,949060,949160,949061,949161,949110
+    x446: pass 0 forwarding
+FLIP-DONE
