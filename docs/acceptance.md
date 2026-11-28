@@ -8,7 +8,7 @@ Status values: `not started`, `in progress`, `passing`, `failing`.
 
 | ID | Bar | Source | Test | Pass condition | Status |
 |---|---|---|---|---|---|
-| A1 | Rule-engine compatibility | CRS engine-options page: Coraza passes 100% of the CRS v4 test suite; ModSecurity v3 fails 2-4% | Run the CRS regression suite against our build | 100% of the suite | not started |
+| A1 | Rule-engine compatibility | CRS engine-options page: Coraza passes 100% of the CRS v4 test suite; ModSecurity v3 fails 2-4% | Run the CRS regression suite against our build | 100% of the suite | failing (measured in step 25): CRS v4.25.2 suite, go-ftw 2.1.0, DetectionOnly, PL4, 4,987 tests: 4,862 passed, 125 failed (97.49%; 4,863 / 124 with the CRS project's coraza-overrides); before the step-25 fixes 4,857 / 130. Reference, stock coraza v3.8.1 as Go middleware with response inspection: 4,970 / 17. All 125 classified DESIGN, 0 UNEXPLAINED: 78 need response inspection, which the engine does not have; 19 expect 920420 (no content-type allow-list, C4); 15 are matches of the REQUEST_BODY targets on requests the suite says must not match; 3 are refused by the gate before the rules; 10 are failed by the reference in the same way (Go net/http and coraza behaviour). docs/baseline-v2.0.md, reports/step-25.md |
 | A2 | Efficacy at independent-test scale | SecureIQLab 2026: 1,608 attack and 1,487 legitimate scenarios, covering OWASP Top 10, API Top 10, L7 DoS, bots | Build our own suite of at least that size, with recorded provenance and held-out attack families | At least 1,600 attack and 1,400 legitimate scenarios; recall and false positive rate reported per family with counts and 95% intervals; targets set after baseline | in progress — attack side: attacks-v0 frozen (1,054 attack samples, 527 distinct payloads × 2 injection points, 4 families, public payload lists with provenance) plus step-14 carrier/encoding expansions frozen (attacks-ct-v0: 320 samples = 40 payloads × 8 carriers; encoding-diff-v0: 192 samples = 16 payloads × 6 encodings × 2 carriers; both derived from attacks-v0 payloads, both derived from attacks-v0 payloads already inside the 527 distinct payloads, so the distinct-payload count is unchanged at 527) — **546 samples short of the 1,600 bar on distinct payloads**; benign side: benign-browse-v0 frozen (214 natural browsing requests), benign-hard-v0 frozen (180 hand-authored hard benign), benign-browse-v1 frozen (774 requests, 60 sessions) and benign-wcp-v0 frozen (20,000 external openappsec-WCP requests, out-of-sample) — the 1,400-legitimate bar is met in count by WCP (20,000), but those requests are third-party browsing replayed against a stub backend, not one app's traffic, and the set is vendor-labelled and audited only at 100 (rule 26), so it is reported separately, never merged (rule 14); benign rates reported separately (rule 14), never merged; no recall/FPR targets set yet |
 | A3 | Parser fidelity | WAFFLED (arXiv 2503.10846): 1,207 bypasses across 5 WAFs via multipart, JSON and XML parsing differences | Replay WAFFLED-style body mutations against our proxy in front of each target framework | Zero parsing-discrepancy bypasses on frameworks in scope; the list of frameworks is fixed before testing | not started |
 | A4 | PCI DSS 4.0.1 req. 6.4.2 | BDO PCI 4.0 summary | Check that the product sits in front of the app, generates audit logs, and either blocks or raises alerts that are investigated | Audit logs present for every decision; block mode and alert mode both work | not started |
@@ -167,6 +167,7 @@ T3a-T3g; implementations e4a2e76 and 5795c34):
 | E53 | (step-25 T3, CRS tests 920171-2 and -3) a Transfer-Encoding header is shown to the rules: a GET with `Transfer-Encoding: chunked` matches CRS 920171, a POST does not; in-process and worker mode | passing (failing in f47d4a6, docs/logs/step25-e52-e55-failing.log: no 920171 in either mode; passing log docs/logs/step25-e52-e55-passing.log) |
 | E54 | (step-25 T3, CRS test 920280-1) the rules see the Host header the request has: HTTP/1.0 without a Host line matches 920280 and not 920290, an empty Host line matches 920290 and not 920280, a normal Host matches neither; with and without a body, in-process and worker mode | passing (failing in f47d4a6, docs/logs/step25-e52-e55-failing.log: 5 of 10 cases; without a Host line the engine reported an empty one, and in worker mode a request with a body got both 920280 and 920290; passing log docs/logs/step25-e52-e55-passing.log) |
 | E55 | (step-25 T3, CRS test 942130-7) CRS 942130 gets no REQUEST_BODY target (165 target updates, 932240 still among them): the tautology `a=42 like 42` in a form body matches 942130 at PL2 as it does in the query string (canary). First written for all 12 chain-starting rules; that form broke E24 PL2, which needs the target on 932240, so it was narrowed to the rule with the shown defect before any fix was committed | passing (failing before the fix, docs/logs/step25-e55-revised-failing.log: no 942130 for the body, 166 updates; first form: docs/logs/step25-e52-e55-failing.log; passing log docs/logs/step25-e52-e55-passing.log) |
+| E56 | (step-25 T3) the rules see each header line once: a POST with a body has exactly one Content-Length value in its audit entry, in-process and in worker mode | failing (docs/logs/step25-e56-failing.log: in-process the entry has the value twice; worker mode passes) |
 | T3a | worker mode decides identically to in-process mode on a small benign body (200) and a small XSS body (403) | passing |
 | T3b | at the budget the worker is SIGKILLed, the kill is counted and the slot is released (next request served) | passing |
 | T3c | a pre-spawned spare serves the next request after a kill without paying the ~1.5-2 s rule-load in the hot path | passing |
@@ -321,3 +322,19 @@ with the fix because it calls the new function; reports/step-24.md):
   docs/logs/step24-final-go-test-with-fixture.log 67 PASS, 0 FAIL, 0 SKIP
   (`ok kortexshield/engine 341.920s`);
   docs/logs/step24-final-pytest.log 242 passed, 4 skipped.
+
+Step-25 run evidence (new ids E49 to E55; E49, E50, E52 to E55 failing
+first; E51 is a guard that passes before and after; reports/step-25.md):
+
+- E49/E50/E51: docs/logs/step25-e49-e50-failing.log ->
+  docs/logs/step25-e49-e50-passing.log.
+- E52 to E55: docs/logs/step25-e52-e55-failing.log (E55 in its first form),
+  docs/logs/step25-e55-revised-failing.log ->
+  docs/logs/step25-e52-e55-passing.log.
+- A1, the CRS v4.25.2 regression suite: docs/logs/s25-ftw.txt (first runs,
+  reference, DIAGNOSTIC runs), docs/logs/s25-ftw-fixed.txt (after E52 to
+  E55), per-test lists docs/logs/step25-failed-tests.txt and
+  docs/logs/step25-failed-probe.txt, run files under
+  docs/logs/runs/s25-ftw/ and docs/logs/runs/s25-ftw-fixed/.
+- Our own datasets on the step-25 engine against the step-24 runs:
+  docs/logs/step25-own-vs-step24.txt (0 status diffs in 5,040 pairs).

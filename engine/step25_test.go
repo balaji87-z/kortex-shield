@@ -476,3 +476,39 @@ func TestE55TautologyRuleKeepsItsOwnTargets(t *testing.T) {
 		}
 	})
 }
+
+// E56: the rules see each header line once. The in-process path added a
+// second Content-Length next to the one net/http keeps in the header map
+// (the worker did not), so the two modes showed the rules different heads.
+func TestE56ContentLengthIsSeenOnce(t *testing.T) {
+	for _, mode := range []struct {
+		name string
+		env  map[string]string
+	}{
+		{"in-process", nil},
+		{"worker", map[string]string{"KORTEX_WORKER_MODE": "on"}},
+	} {
+		t.Run(mode.name, func(t *testing.T) {
+			audit := filepath.Join(t.TempDir(), "audit.log")
+			env := map[string]string{"KORTEX_AUDIT_LOG": audit}
+			for k, v := range mode.env {
+				env[k] = v
+			}
+			srv, _ := newEnv(t, env)
+			body := "q=" + url.QueryEscape(s25XSS)
+			status, _ := s25Do(t, srv, "POST", "/p", map[string]string{"Content-Type": "application/x-www-form-urlencoded"}, body)
+			if status != 403 {
+				t.Fatalf("E56 [%s]: want 403, got %d", mode.name, status)
+			}
+			reqs := s25AuditRequests(t, audit)
+			if len(reqs) != 1 {
+				t.Fatalf("E56 [%s]: want 1 audit entry, got %d", mode.name, len(reqs))
+			}
+			headers, _ := reqs[0]["headers"].(map[string]any)
+			values, _ := headers["content-length"].([]any)
+			if len(values) != 1 || values[0] != fmt.Sprint(len(body)) {
+				t.Fatalf("E56 [%s]: want one Content-Length value %d in the audit entry, got %v", mode.name, len(body), values)
+			}
+		})
+	}
+}

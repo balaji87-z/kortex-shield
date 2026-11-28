@@ -1,0 +1,13 @@
+# step-25 T3: E56 failing before the fix
+# 2026-11-28T06:32:25Z git faec538b9c5fd9a73ab110090fe8e8c61549244c + step25_test.go; go version go1.27.4 darwin/arm64
+# cd engine && go test -count=1 -run 'TestE56' -v .
+=== RUN   TestE56ContentLengthIsSeenOnce
+=== RUN   TestE56ContentLengthIsSeenOnce/in-process
+    step25_test.go:510: E56 [in-process]: want one Content-Length value 41 in the audit entry, got [41 41]
+=== RUN   TestE56ContentLengthIsSeenOnce/worker
+--- FAIL: TestE56ContentLengthIsSeenOnce (0.21s)
+    --- FAIL: TestE56ContentLengthIsSeenOnce/in-process (0.04s)
+    --- PASS: TestE56ContentLengthIsSeenOnce/worker (0.16s)
+FAIL
+FAIL	kortexshield/engine	0.509s
+FAIL
